@@ -4,14 +4,11 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string armyInBlack = "wstl_armyInBlack";
         public const string armyInBlackSpell = "wstl_armyInBlackSpell";
-        private static void ArmyInBlack_D01106()
-        {
+        private static void ArmyInBlack_D01106() {
             string blackName = "Army in Black";
             string textureName = "armyInBlack";
             CardManager.New(LobotomyPlugin.pluginPrefix, armyInBlack, blackName,

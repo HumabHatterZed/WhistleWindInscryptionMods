@@ -13,24 +13,20 @@ using WhistleWindLobotomyMod.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod
-{
-    public class AbnormalCardChoiceSequencer : CardSingleChoicesSequencer, ICustomNodeSequencer, IInherit
-    {
+namespace WhistleWindLobotomyMod {
+    public class AbnormalCardChoiceSequencer : CardSingleChoicesSequencer, ICustomNodeSequencer, IInherit {
         // Pulled wholesale from Cardbase and CardChoiceSequencer
         private readonly Texture2D RewardBackRare = TextureLoader.LoadTextureFromFile("abnormalRewardBackRare.png");
         private readonly Texture2D RewardBack = TextureLoader.LoadTextureFromFile("abnormalRewardBack.png");
 
-        public IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
-        {
+        public IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData) {
             if (gamepadGrid != null)
                 gamepadGrid.enabled = true;
 
             Singleton<TableRuleBook>.Instance.SetOnBoard(onBoard: true);
             base.StartCoroutine(deckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
-            
-            if (!DialogueEventsData.EventIsPlayed("AbnormalChoiceNodeIntro"))
-            {
+
+            if (!DialogueEventsData.EventIsPlayed("AbnormalChoiceNodeIntro")) {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("AbnormalChoiceNodeIntro");
@@ -44,16 +40,12 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.75f);
             yield return deckPile.DestroyCards();
         }
-        public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData)
-        {
-            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && rerollInteractable != null)
-            {
-                if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover))
-                {
+        public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData) {
+            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && rerollInteractable != null) {
+                if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover)) {
                     rerollInteractable.gameObject.SetActive(value: true);
                     rerollInteractable.SetEnabled(enabled: false);
-                    CustomCoroutine.WaitThenExecute(1f, delegate
-                    {
+                    CustomCoroutine.WaitThenExecute(1f, delegate {
                         rerollInteractable.SetEnabled(enabled: true);
                     });
                 }
@@ -77,8 +69,7 @@ namespace WhistleWindLobotomyMod
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
 
             // card choice loop
-            while (base.chosenReward == null)
-            {
+            while (base.chosenReward == null) {
                 // generate card choices
                 List<CardChoice> choices = GenerateRiskChoices(randomSeed);
                 randomSeed *= 2;
@@ -86,8 +77,7 @@ namespace WhistleWindLobotomyMod
                 base.selectableCards = base.SpawnCards(choices.Count, base.transform, new Vector3(x, 5.01f, 0f));
 
                 // spawn selectable cards
-                for (int i = 0; i < choices.Count; i++)
-                {
+                for (int i = 0; i < choices.Count; i++) {
                     CardChoice cardChoice = choices[i];
                     SelectableCard card = base.selectableCards[i];
                     card.gameObject.SetActive(value: true);
@@ -98,8 +88,7 @@ namespace WhistleWindLobotomyMod
                         card.Initialize(cardChoice.CardInfo, OnRewardChosen, this.OnCardFlipped, startFlipped: true, base.OnCardInspected);
 
                     SpecialCardBehaviour[] components = card.GetComponents<SpecialCardBehaviour>();
-                    for (int j = 0; j < components.Length; j++)
-                    {
+                    for (int j = 0; j < components.Length; j++) {
                         components[j].OnShownForCardChoiceNode();
                     }
 
@@ -112,8 +101,7 @@ namespace WhistleWindLobotomyMod
                     Tween.Rotate(card.transform, new Vector3(0f, 0f, UnityEngine.Random.value * 1.5f), Space.Self, 0.4f, 0f, Tween.EaseOut);
                     yield return new WaitForSeconds(0.2f);
                     ParticleSystem componentInChildren = card.GetComponentInChildren<ParticleSystem>();
-                    if (componentInChildren != null)
-                    {
+                    if (componentInChildren != null) {
                         ParticleSystem.EmissionModule emission = componentInChildren.emission;
                         emission.rateOverTime = 0f;
                     }
@@ -128,12 +116,10 @@ namespace WhistleWindLobotomyMod
             }
             yield return this.AddCardToDeckAndCleanUp(base.chosenReward);
         }
-        private List<CardChoice> GenerateRiskChoices(int randomSeed)
-        {
+        private List<CardChoice> GenerateRiskChoices(int randomSeed) {
             List<CardChoice> listOfChoices = new();
             int regionTier = RunState.CurrentRegionTier;
-            while (listOfChoices.Count < 3)
-            {
+            while (listOfChoices.Count < 3) {
                 int riskLevel;
                 CardInfo card;
                 CardChoice cardChoice = new();
@@ -167,13 +153,11 @@ namespace WhistleWindLobotomyMod
                 return tiers[0];
 
             // when there are disabled Risk Levels, the other Risk Levels become more common
-            for (int i = 0; tiers.Count < 4; i++)
-            {
+            for (int i = 0; tiers.Count < 4; i++) {
                 tiers.Add(tiers[0]);
             }
 
-            int[] probabilities = regionTier switch
-            {
+            int[] probabilities = regionTier switch {
                 0 => new int[] { // 35 35 20 10
                         tiers[0], tiers[0], tiers[0], tiers[0], tiers[0], tiers[0], tiers[0],
                         tiers[1], tiers[1], tiers[1], tiers[1], tiers[1], tiers[1], tiers[1],
@@ -191,15 +175,13 @@ namespace WhistleWindLobotomyMod
 
             return probabilities[SeededRandom.Range(0, probabilities.Length, randomSeed)];
         }
-        private float RareChoiceChance(int regionTier)
-        {
+        private float RareChoiceChance(int regionTier) {
             int regionMultiplier = regionTier;
 
             if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.Id))
                 regionMultiplier++;
 
-            return regionMultiplier switch
-            {
+            return regionMultiplier switch {
                 0 => 0f,
                 1 => 0.02f,
                 2 => 0.05f,
@@ -208,8 +190,7 @@ namespace WhistleWindLobotomyMod
             };
         }
 
-        private new IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
-        {
+        private new IEnumerator AddCardToDeckAndCleanUp(SelectableCard card) {
             CleanUpRerollItem();
             Singleton<RuleBookController>.Instance.SetShown(shown: false);
             yield return this.RewardChosenSequence(card);
@@ -218,14 +199,12 @@ namespace WhistleWindLobotomyMod
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
         }
-        private new IEnumerator RewardChosenSequence(SelectableCard card)
-        {
+        private new IEnumerator RewardChosenSequence(SelectableCard card) {
             card.OnCardAddedToDeck();
             float num = !LobotomySaveManager.LearnedAbnormalChoice ? 0.5f : 0f;
             base.deckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
-            if (!LobotomySaveManager.LearnedAbnormalChoice)
-            {
+            if (!LobotomySaveManager.LearnedAbnormalChoice) {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return HelperMethods.ChangeCurrentView(View.Default);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The creature emerges from the water and joins your caravan.", 0f, 0.4f, Emotion.Neutral);
@@ -233,20 +212,17 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        private new void OnRewardChosen(SelectableCard card)
-        {
+        private new void OnRewardChosen(SelectableCard card) {
             if (!LobotomySaveManager.LearnedAbnormalChoice && !this.AllCardsFlippedUp())
                 HintsHandler.OnClickCardChoiceWhileOtherFlipped();
 
-            else if (base.chosenReward == null)
-            {
+            else if (base.chosenReward == null) {
                 base.SetCollidersEnabled(collidersEnabled: false);
                 base.chosenReward = card;
             }
         }
 
-        private new void OnCardFlipped(SelectableCard card)
-        {
+        private new void OnCardFlipped(SelectableCard card) {
             card.SetLocalPosition(Vector3.zero, 0f, immediate: true);
             if (Singleton<InteractionCursor>.Instance.CurrentInteractable == card)
                 base.OnCardInspected(card);
@@ -255,23 +231,19 @@ namespace WhistleWindLobotomyMod
                 base.StartCoroutine(this.RegularChoiceFlipped(card));
         }
 
-        private new IEnumerator RegularChoiceFlipped(SelectableCard card)
-        {
+        private new IEnumerator RegularChoiceFlipped(SelectableCard card) {
             Vector3 originalCardPos = card.transform.position;
             yield return TutorialTextSequence(card);
             if (base.DuplicateInDeck(card))
                 base.SpawnMushroom(originalCardPos);
         }
-        private new IEnumerator TutorialTextSequence(SelectableCard card)
-        {
-            if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info))
-            {
+        private new IEnumerator TutorialTextSequence(SelectableCard card) {
+            if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info)) {
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
                 Singleton<RuleBookController>.Instance.SetShown(shown: false);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(card.Info.description);
                 ProgressionData.SetCardIntroduced(card.Info);
-                if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp())
-                {
+                if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp()) {
                     yield return new WaitForSeconds(0.25f);
                     Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to draw from the well.");
                 }
@@ -279,27 +251,23 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public void Inherit(CustomSpecialNodeData nodeData)
-        {
+        public void Inherit(CustomSpecialNodeData nodeData) {
             CardSingleChoicesSequencer inheritTarget = SpecialNodeHandler.Instance.cardChoiceSequencer;
             base.transform.position = inheritTarget.transform.position;
             base.transform.rotation = Quaternion.Euler(inheritTarget.transform.rotation.eulerAngles);
 
-            if (inheritTarget.deckPile != null)
-            {
+            if (inheritTarget.deckPile != null) {
                 deckPile = Instantiate(inheritTarget.deckPile, inheritTarget.deckPile.transform.position, inheritTarget.deckPile.transform.rotation);
                 deckPile.transform.parent = base.transform;
             }
 
             selectableCardPrefab = inheritTarget.selectableCardPrefab;
-            if (inheritTarget.gamepadGrid != null)
-            {
+            if (inheritTarget.gamepadGrid != null) {
                 gamepadGrid = Instantiate(inheritTarget.gamepadGrid, inheritTarget.gamepadGrid.transform.position, inheritTarget.gamepadGrid.transform.rotation);
                 gamepadGrid.transform.parent = base.transform;
             }
 
-            if (inheritTarget.rerollInteractable != null)
-            {
+            if (inheritTarget.rerollInteractable != null) {
                 rerollInteractable = Instantiate(inheritTarget.rerollInteractable, inheritTarget.rerollInteractable.transform.position, inheritTarget.rerollInteractable.transform.rotation);
                 rerollInteractable.transform.parent = base.transform;
 
@@ -308,10 +276,8 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public partial class Nodes
-    {
-        private static void ModCardChoice()
-        {
+    public partial class Nodes {
+        private static void ModCardChoice() {
             List<string> animationFrames = new()
             {
                 "nodeAbnormalityCardChoice1",
@@ -324,8 +290,7 @@ namespace WhistleWindLobotomyMod
             GenerationType extra = LobotomyConfigManager.BoxStart ? GenerationType.RegionStart : GenerationType.None;
 
             // don't generate node if it's disabled or no cards to spawn
-            if (LobotomyConfigManager.NoBox || AllCardsDisabled)
-            {
+            if (LobotomyConfigManager.NoBox || AllCardsDisabled) {
                 main = GenerationType.None;
                 extra = GenerationType.None;
             }

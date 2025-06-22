@@ -5,14 +5,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string apostleGuardian = "wstl_apostleGuardian";
         public const string apostleGuardianDown = "wstl_apostleGuardianDown";
-        private static void ApostleGuardian_T0346()
-        {
+        private static void ApostleGuardian_T0346() {
             string guardianName = "Guardian Apostle";
             string textureName = "apostleGuardian";
             string textureName2 = "apostleGuardianDown";

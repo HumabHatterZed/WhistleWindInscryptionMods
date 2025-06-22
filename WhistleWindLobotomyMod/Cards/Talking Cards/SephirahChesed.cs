@@ -12,10 +12,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardChesed : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardChesed : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahChesed;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -23,10 +21,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingChesedBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingChesedEmission.png");
 
@@ -87,11 +83,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahChesed = "wstl_sephirahChesed";
-        private static void Chesed()
-        {
+        private static void Chesed() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahChesed, "Chesed",
                 attack: 1, health: 4, "Nothing like a fresh cup of coffee to start your day.")
                 .SetEnergyCost(4)
@@ -101,10 +95,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Chesed()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Chesed() {
             TalkingCardChesed.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardChesed>("Chesed").Id;
         }
     }

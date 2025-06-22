@@ -8,16 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WhistleWind.AbnormalSigils.Patches
-{
+namespace WhistleWind.AbnormalSigils.Patches {
     [HarmonyPatch]
-    public static class SpeedPatch
-    {
+    public static class SpeedPatch {
         private static bool ModifyBySpeed = true;
         private static readonly List<CardSlot> AttackedThisRound = new();
 
-        public static List<CardSlot> HandleSpeedModifications(List<CardSlot> result, bool playerIsAttacker)
-        {
+        public static List<CardSlot> HandleSpeedModifications(List<CardSlot> result, bool playerIsAttacker) {
             if (!ModifyBySpeed || result.Count == 0) // prevent recursion
                 return result;
 
@@ -31,8 +28,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             allCardsResult.RemoveAll(x => x.Card == null || x.Card.Attack == 0 || AttackedThisRound.Contains(x));
 
             //AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Results: {allCardsResult.Count} AttackedThisRound: {AttackedThisRound.Count}");
-            if (allCardsResult.Count == 0 || allCardsResult.Count(x => x.IsPlayerSlot == playerIsAttacker) == 0)
-            {
+            if (allCardsResult.Count == 0 || allCardsResult.Count(x => x.IsPlayerSlot == playerIsAttacker) == 0) {
                 //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers total/on owner's side: " + playerIsAttacker);
                 return cardsAttackingThisTurn;
             }
@@ -51,8 +47,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             }
 
             // cards already played have been filtered out, so return the remainder for the opponent's turn
-            if (!playerIsAttacker)
-            {
+            if (!playerIsAttacker) {
                 //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent's turn.");
                 return allCardsResult;
             }
@@ -61,8 +56,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             int lowestOpponentSpeed = CardSpeed(distinctResults.LastOrDefault(x => !x.IsPlayerSlot));
 
             // if all opponents are faster than the player, reverse the attacker order
-            if (lowestOpponentSpeed > highestPlayerSpeed)
-            {
+            if (lowestOpponentSpeed > highestPlayerSpeed) {
                 //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent outspeeds player");
                 return allCardsResult;
             }
@@ -79,8 +73,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             cardsAttackingThisTurn.AddRange(opponentsOutspeedFastest);
             cardsAttackingThisTurn.AddRange(fastestPlayers);
 
-            if (cardsOutspeedSlowest.Count > 0)
-            {
+            if (cardsOutspeedSlowest.Count > 0) {
                 List<CardSlot> positiveOutspeed = lowestPlayerSpeed < 1 ? cardsOutspeedSlowest.FindAll(x => CardSpeed(x) > 0) : cardsOutspeedSlowest.FindAll(x => CardSpeed(x) >= 0);
                 cardsOutspeedSlowest.RemoveAll(positiveOutspeed.Contains);
 
@@ -96,8 +89,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                 bool outspeedsAreNegative = cardsOutspeedSlowest.All(x => CardSpeed(x) < 1);
 
                 // if slowest player is neutral or all cards outspeeding it are at most neutral, add slowest speed
-                if (lowestPlayerSpeed > -1)
-                {
+                if (lowestPlayerSpeed > -1) {
                     //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Add slowest player slots");
 
                     List<CardSlot> playerNeutralSpeed = allCardsResult.FindAll(x => CardSpeed(x) == lowestPlayerSpeed);
@@ -112,28 +104,23 @@ namespace WhistleWind.AbnormalSigils.Patches
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
-        private static bool ResetAttackedThisRound()
-        {
+        private static bool ResetAttackedThisRound() {
             AttackedThisRound.Clear();
             return true;
         }
-        
+
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
-        private static void CleanUpSlotsQueuedForTurn()
-        {
+        private static void CleanUpSlotsQueuedForTurn() {
             ModifyBySpeed = true;
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(DoCombatPhasePatches), nameof(DoCombatPhasePatches.ModifyAttackingSlots))]
-        private static void SortByCardSpeed(ref List<CardSlot> __result, bool playerIsAttacker)
-        {
-            if (ModifyBySpeed)
-            {
+        private static void SortByCardSpeed(ref List<CardSlot> __result, bool playerIsAttacker) {
+            if (ModifyBySpeed) {
                 int or = __result.Count;
                 //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Start: " + playerIsAttacker);
                 __result = HandleSpeedModifications(__result, playerIsAttacker);
-                if (playerIsAttacker)
-                {
+                if (playerIsAttacker) {
                     AttackedThisRound.AddRange(__result);
                 }
 
@@ -145,8 +132,7 @@ namespace WhistleWind.AbnormalSigils.Patches
         /// <summary>
         /// Gets a Card's speed value, used to determine attack order
         /// </summary>
-        public static int CardSpeed(CardSlot slot)
-        {
+        public static int CardSpeed(CardSlot slot) {
             if (slot?.Card == null)
                 return -9000;
 

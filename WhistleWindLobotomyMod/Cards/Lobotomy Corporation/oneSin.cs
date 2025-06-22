@@ -5,14 +5,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string oneSinName = "One Sin and Hundreds of Good Deeds";
         public const string oneSin = "wstl_oneSin";
-        private static void OneSin_O0303()
-        {
+        private static void OneSin_O0303() {
             string desc = "A floating skull. Its hollow sockets see through you.";
             string textureName = "oneSin";
             CardManager.New(LobotomyPlugin.pluginPrefix, oneSin, oneSinName,

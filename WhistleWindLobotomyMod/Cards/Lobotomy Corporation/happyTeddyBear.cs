@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string happyTeddyBear = "wstl_happyTeddyBear";
-        private static void HappyTeddyBear_T0406()
-        {
+        private static void HappyTeddyBear_T0406() {
             string name = "Happy Teddy Bear";
             string name2 = "Big Happy Teddy Bear";
             string desc = "A discarded stuffed bear. Its memories began with a warm hug.";

@@ -9,17 +9,13 @@ using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
-    internal class OpponentPatches
-    {
+    internal class OpponentPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueueCard))]
-        private static IEnumerator TransformCowardlyCat(IEnumerator result, Opponent __instance, CardInfo cardInfo, CardSlot slot)
-        {
+        private static IEnumerator TransformCowardlyCat(IEnumerator result, Opponent __instance, CardInfo cardInfo, CardSlot slot) {
             yield return result;
-            if (cardInfo.HasSpecialAbility(Cowardly.specialAbility))
-            {
+            if (cardInfo.HasSpecialAbility(Cowardly.specialAbility)) {
                 PlayableCard card = __instance.Queue.Find(x => x.QueuedSlot == slot);
                 yield return Cowardly.CheckTransform(card);
             }
@@ -36,8 +32,7 @@ namespace WhistleWindLobotomyMod.Patches
 
         // fixes Trapper-Trader boss fight not using all lobotomy cards
         [HarmonyPrefix, HarmonyPatch(typeof(TradeCardsForPelts), nameof(TradeCardsForPelts.GenerateTradeCardsWithCostTier))]
-        private static bool FixTrapperTrapperBoss(int numCards, int tier, int randomSeed, ref List<CardInfo> __result)
-        {
+        private static bool FixTrapperTrapperBoss(int numCards, int tier, int randomSeed, ref List<CardInfo> __result) {
             bool flag = tier > 0;
             int tier2 = Mathf.Max(1, tier);
             List<CardInfo> learnedCards = CardLoader.LearnedCards;
@@ -46,22 +41,18 @@ namespace WhistleWindLobotomyMod.Patches
                 learnedCards.RemoveAll((CardInfo x) => x.BonesCost > 0);
 
             List<CardInfo> distinctCardsFromPool = CardLoader.GetDistinctCardsFromPool(randomSeed, numCards, learnedCards, flag ? 1 : 0, true);
-            while (distinctCardsFromPool.Count < numCards)
-            {
+            while (distinctCardsFromPool.Count < numCards) {
                 CardInfo cardByName;
                 CardModificationInfo cardModificationInfo;
-                if (tier2 == 2)
-                {
+                if (tier2 == 2) {
                     cardByName = CardLoader.GetCardByName("Snapper");
                     cardModificationInfo = new CardModificationInfo(Ability.Sharp);
                 }
-                else
-                {
+                else {
                     cardByName = CardLoader.GetCardByName("Grizzly");
                     cardModificationInfo = new CardModificationInfo(Ability.Reach);
                 }
-                if (flag)
-                {
+                if (flag) {
                     cardModificationInfo.fromCardMerge = true;
                     cardByName.Mods.Add(cardModificationInfo);
                 }
@@ -72,15 +63,13 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]
-        private static void UpdatePlagueDoctorAppearance(PlayableCard __result)
-        {
+        private static void UpdatePlagueDoctorAppearance(PlayableCard __result) {
             if (__result != null && __result.HasSpecialAbility(Bless.specialAbility))
                 __result.UpdateAppearanceBehaviours();
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.Load))]
-        private static void ResetTriggersOnSceneLoad()
-        {
+        private static void ResetTriggersOnSceneLoad() {
             if (LobotomySaveManager.OpponentBlessings > 11)
                 LobotomySaveManager.OpponentBlessings = 11;
 
@@ -90,10 +79,8 @@ namespace WhistleWindLobotomyMod.Patches
 
         // Reset board effects for event cards and the Clock for WhiteNight
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
-        private static IEnumerator ResetEffectsOnCleanup(IEnumerator enumerator, TurnManager __instance)
-        {
-            if (LobotomySaveManager.TriggeredWhiteNightThisBattle)
-            {
+        private static IEnumerator ResetEffectsOnCleanup(IEnumerator enumerator, TurnManager __instance) {
+            if (LobotomySaveManager.TriggeredWhiteNightThisBattle) {
                 LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
 
                 if (SaveManager.SaveFile.IsPart1)

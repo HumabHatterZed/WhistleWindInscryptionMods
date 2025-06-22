@@ -3,17 +3,14 @@ using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod.Challenges
-{
-    public static class NoRares
-    {
+namespace WhistleWindLobotomyMod.Challenges {
+    public static class NoRares {
         internal const string title = "No Abnormal Rares";
         internal const string description = "Abnormal card choices cannot offer rare cards.";
 
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register()
-        {
+        public static void Register() {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,

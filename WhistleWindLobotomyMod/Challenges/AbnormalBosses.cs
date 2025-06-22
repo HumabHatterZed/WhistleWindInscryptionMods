@@ -14,8 +14,7 @@ using WhistleWindLobotomyMod.Opponents.PirateSkull;
 using WhistleWindLobotomyMod.Opponents.Prospector;
 using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
+namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalBosses // taken from infiniscryption
     {
         internal const string title = "Abnormal Bosses";
@@ -23,8 +22,7 @@ namespace WhistleWindLobotomyMod.Challenges
 
         public static AscensionChallenge Id { get; private set; }
 
-        internal static void Register(Harmony harmony)
-        {
+        internal static void Register(Harmony harmony) {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
@@ -56,20 +54,17 @@ namespace WhistleWindLobotomyMod.Challenges
         // Replaces boss encounters with custom ones
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPrefix]
-        private static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
-        {
+        private static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result) {
             // breaks if challenge is not active or if opponent is not supported
             if (!LobotomyConfigManager.ChallengeIsActive(Id) || !SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
                 return true;
 
-            GameObject gameObject = new()
-            {
+            GameObject gameObject = new() {
                 name = "Opponent"
             };
             Opponent.Type opponentType = encounterData.opponentType;
             LobotomyPlugin.Log.LogDebug($"Replacing opponent: {opponentType}");
-            Opponent opponent = opponentType switch
-            {
+            Opponent opponent = opponentType switch {
                 Opponent.Type.ProspectorBoss => gameObject.AddComponent<ProspectorAbnormalBossOpponent>(),
                 Opponent.Type.AnglerBoss => gameObject.AddComponent<AnglerAbnormalBossOpponent>(),
                 Opponent.Type.TrapperTraderBoss => gameObject.AddComponent<TrapperTraderAbnormalBossOpponent>(),
@@ -81,8 +76,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 return true;
 
             string text = encounterData.aiId;
-            if (string.IsNullOrEmpty(text))
-            {
+            if (string.IsNullOrEmpty(text)) {
                 text = "AI";
             }
             opponent.AI = Activator.CreateInstance(CustomType.GetType("DiskCardGame", text)) as AI;
@@ -96,8 +90,7 @@ namespace WhistleWindLobotomyMod.Challenges
             return false;
         }
 
-        private static void AddBossSequencer<T>(TurnManager manager) where T : SpecialBattleSequencer
-        {
+        private static void AddBossSequencer<T>(TurnManager manager) where T : SpecialBattleSequencer {
             UnityEngine.Object.Destroy(manager.SpecialSequencer);
             SpecialBattleSequencer sequencer = manager.gameObject.AddComponent<T>();
             Traverse trav = Traverse.Create(manager);
@@ -107,38 +100,32 @@ namespace WhistleWindLobotomyMod.Challenges
         // Replaces special sequencers with custom ones
         [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.UpdateSpecialSequencer))]
         [HarmonyPrefix]
-        private static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
-        {
+        private static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance) {
             if (!LobotomyConfigManager.ChallengeIsActive(Id) || !OPPONENT_IDS.Contains(specialBattleId))
                 return true;
 
             LobotomyPlugin.Log.LogDebug($"Replacing special ID: {specialBattleId}");
-            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.ProspectorBoss))
-            {
+            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.ProspectorBoss)) {
                 ChallengeActivationUI.TryShowActivation(Id);
                 AddBossSequencer<ProspectorAbnormalBattleSequencer>(__instance);
                 return false;
             }
-            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.AnglerBoss))
-            {
+            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.AnglerBoss)) {
                 ChallengeActivationUI.TryShowActivation(Id);
                 AddBossSequencer<AnglerAbnormalBattleSequencer>(__instance);
                 return false;
             }
-            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.TrapperTraderBoss))
-            {
+            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.TrapperTraderBoss)) {
                 ChallengeActivationUI.TryShowActivation(Id);
                 AddBossSequencer<TrapperTraderAbnormalBattleSequencer>(__instance);
                 return false;
             }
-            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.LeshyBoss))
-            {
+            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.LeshyBoss)) {
                 ChallengeActivationUI.TryShowActivation(Id);
                 AddBossSequencer<LeshyAbnormalBattleSequencer>(__instance);
                 return false;
             }
-            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.PirateSkullBoss))
-            {
+            if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.PirateSkullBoss)) {
                 ChallengeActivationUI.TryShowActivation(Id);
                 AddBossSequencer<PirateSkullAbnormalBattleSequencer>(__instance);
                 return false;
@@ -148,18 +135,14 @@ namespace WhistleWindLobotomyMod.Challenges
         // Replaces special sequencers with custom ones
         [HarmonyPatch(typeof(GiantShip), nameof(GiantShip.MutinySequence))]
         [HarmonyPostfix]
-        private static IEnumerator ReplaceSequencers(IEnumerator enumerator, GiantShip __instance)
-        {
+        private static IEnumerator ReplaceSequencers(IEnumerator enumerator, GiantShip __instance) {
             // if this challenge and Final Boss are active at once
-            if (AscensionSaveData.Data.ChallengeIsActive(Id) && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.FinalBoss))
-            {
+            if (AscensionSaveData.Data.ChallengeIsActive(Id) && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.FinalBoss)) {
                 int numSkeles = (__instance.nextHealthThreshold - __instance.PlayableCard.Health) / 5 + 1;
-                for (int i = 0; i < numSkeles; i++)
-                {
+                for (int i = 0; i < numSkeles; i++) {
                     List<CardSlot> validSlots = Singleton<BoardManager>.Instance.PlayerSlotsCopy;
                     validSlots.RemoveAll((x) => x.Card != null);
-                    if (validSlots.Count > 0)
-                    {
+                    if (validSlots.Count > 0) {
                         Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue, immediate: false, lockAfter: true);
                         yield return new WaitForSeconds(0.5f);
                         Singleton<CardRenderCamera>.Instance.GetLiveRenderCamera(__instance.Card.StatsLayer as RenderLiveStatsLayer).GetComponentInChildren<PirateShipAnimatedPortrait>().NextSkeletonJumpOverboard();
@@ -171,8 +154,7 @@ namespace WhistleWindLobotomyMod.Challenges
                         __instance.skelesSpawned++;
                     }
                 }
-                if (__instance.mutineesSinceDialogue > 1)
-                {
+                if (__instance.mutineesSinceDialogue > 1) {
                     yield return new WaitForSeconds(0.3f);
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("PirateSkullShipMutinee", TextDisplayer.MessageAdvanceMode.Input);
                     __instance.mutineesSinceDialogue = 0;

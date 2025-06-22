@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// The weakest Green Ordeal.
     /// Green Ordeals should have simple blueprints, with cards appearing quickly.
@@ -13,10 +12,8 @@ namespace WhistleWindLobotomyMod.Opponents
     /// Cards required: 3, 4, 4
     /// Valid regions: 0
     /// </summary>
-    public class OrdealGreenDawn : OrdealBattleSequencer
-    {
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty)
-        {
+    public class OrdealGreenDawn : OrdealBattleSequencer {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int minCards = 4;
             int oneAboveBase = baseDifficulty + 2, twoAboveBase = baseDifficulty + 3; // account for innate modifier
             List<CardInfo> startingCard = new() { null, null, null };
@@ -48,7 +45,7 @@ namespace WhistleWindLobotomyMod.Opponents
             startingCard.Randomize();
             cond.cardsInOpponentSlots = startingCard.ToArray();
             encounterData.startConditions.Add(cond);
-            
+
             if (encounterData.Difficulty > oneAboveBase) {
                 encounterData.Blueprint.AddTurn(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 3));
                 minCards++;

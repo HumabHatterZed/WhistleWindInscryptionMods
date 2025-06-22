@@ -5,12 +5,9 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void StatusEffect_Enchanted()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void StatusEffect_Enchanted() {
             const string rName = "Enchanted";
             const string rDesc = "This card will only target Dazzling cards, and will perish when striking one. At the start of the owner's turn, lose 1 Potency.";
 
@@ -26,8 +23,7 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class Enchanted : ModifyOnUpkeepStatusEffectBehaviour, IModifyDamageTaken, ISetupAttackSequence
-    {
+    public class Enchanted : ModifyOnUpkeepStatusEffectBehaviour, IModifyDamageTaken, ISetupAttackSequence {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility StatusEffect => specialAbility;
@@ -38,21 +34,18 @@ namespace WhistleWindLobotomyMod
 
         public override List<string> EffectDecalIds() => new();
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
             return IsEnchanted && attacker == base.Card && target != null && target.HasAbility(Dazzling.ability);
         }
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => 0;
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
 
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return IsEnchanted && card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
             List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ability));
 
             if (slots.Count <= 1)
@@ -63,8 +56,7 @@ namespace WhistleWindLobotomyMod
             return slots;
         }
 
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return int.MinValue;
         }
     }

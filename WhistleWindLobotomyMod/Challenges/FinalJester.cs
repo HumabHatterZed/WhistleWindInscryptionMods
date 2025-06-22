@@ -3,18 +3,15 @@ using InscryptionAPI.Ascension;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
-    public static class FinalJester
-    {
+namespace WhistleWindLobotomyMod.Challenges {
+    public static class FinalJester {
         internal const string title = "Final Laugh";
         internal const string description = "Leshy is replaced as the final boss of the run with the Fool.";
 
         public static AscensionChallenge Id { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
-        internal static void Register()
-        {
+        internal static void Register() {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,

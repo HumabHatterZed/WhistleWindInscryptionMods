@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string heartOfAspiration = "wstl_heartOfAspiration";
-        private static void HeartOfAspiration_O0977()
-        {
+        private static void HeartOfAspiration_O0977() {
             string textureName = "heartOfAspiration";
             CardManager.New(LobotomyPlugin.pluginPrefix, heartOfAspiration, "The Heart of Aspiration",
                 attack: 1, health: 2, "A heart without an owner. It emboldens those nearby.")

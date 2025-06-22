@@ -10,10 +10,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardYesod : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardYesod : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahYesod;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.2f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -21,10 +19,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingYesodBody.png", new(0.5f, 0f));
                 FaceAnim emission = MakeFaceAnim("talkingYesodEyesEmission.png");
 
@@ -75,11 +71,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahYesod = "wstl_sephirahYesod";
-        private static void Yesod()
-        {
+        private static void Yesod() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahYesod, "Yesod",
                 attack: 2, health: 3, "A stickler for rules, he'll ensure your beasts' compliance.")
                 .SetBloodCost(2)
@@ -89,8 +83,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void AddSpecial_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
     }
 }

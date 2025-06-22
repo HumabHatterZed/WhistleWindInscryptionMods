@@ -5,12 +5,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_GreedyHealing()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_GreedyHealing() {
             const string rulebookName = "Greedy Healing";
             const string rulebookDescription = "At the end of the owner's turn, [creature] gains 2 Health. This card will perish if 2 turns pass without it taking damage.";
             const string dialogue = "Your beast has Health in excess.";
@@ -24,15 +21,13 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class GreedyHealing : AbilityBehaviour
-    {
+    public class GreedyHealing : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         private int turnCount = 0;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             turnCount++;
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
@@ -40,8 +35,7 @@ namespace WhistleWind.AbnormalSigils
             bool faceDown = base.Card.FaceDown;
             yield return base.Card.FlipFaceUp(faceDown);
 
-            if (turnCount < 3)
-            {
+            if (turnCount < 3) {
                 base.Card.Anim.LightNegationEffect();
                 base.Card.HealDamage(2);
                 yield return new WaitForSeconds(0.3f);
@@ -53,8 +47,7 @@ namespace WhistleWind.AbnormalSigils
 
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            for (int i = 0; i < 3; i++)
-            {
+            for (int i = 0; i < 3; i++) {
                 base.Card.Status.damageTaken -= Mathf.Max(1, base.Card.Health) * (i + 1);
                 base.Card.UpdateStatsText();
                 base.Card.Anim.PlayHitAnimation();
@@ -66,8 +59,7 @@ namespace WhistleWind.AbnormalSigils
         }
 
         public override bool RespondsToTakeDamage(PlayableCard source) => true;
-        public override IEnumerator OnTakeDamage(PlayableCard source)
-        {
+        public override IEnumerator OnTakeDamage(PlayableCard source) {
             // set to -1 to keep things consistent
             turnCount = -1;
             yield break;

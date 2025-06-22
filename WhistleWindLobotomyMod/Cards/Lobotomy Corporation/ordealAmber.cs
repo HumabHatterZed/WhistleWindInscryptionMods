@@ -6,15 +6,12 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string perfectFood = "wstl_foodPerfect";
         public const string foodChain = "wstl_foodChain";
         public const string eternalMeal = "wstl_foodEternal";
-        private static void Cards_AmberOrdeal()
-        {
+        private static void Cards_AmberOrdeal() {
             string textureName = "perfectFood";
             string textureName2 = "foodChain";
             string textureName3 = "eternalMeal";

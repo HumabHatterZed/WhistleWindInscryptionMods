@@ -4,20 +4,17 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Appears in R1
     /// Difficulty range: (5 - 9) +[0,2]
     /// 
     /// Begin with short version of Dawn encounter then do Noon proper
     /// </summary>
-    public class OrdealVioletNoon : OrdealVioletDawn
-    {
+    public class OrdealVioletNoon : OrdealVioletDawn {
         private CardSlot[] loveSlots = null;
 
-        public override IEnumerator OpponentUpkeep()
-        {
+        public override IEnumerator OpponentUpkeep() {
             if (loveSlots == null || Opponent.NumTurnsTaken < Opponent.TurnPlan.Count + 1)
                 yield break;
 
@@ -39,23 +36,19 @@ namespace WhistleWindLobotomyMod.Opponents
         }
         public override bool PlayerHasDefeatedOrdeal() => loveSlots == null && base.PlayerHasDefeatedOrdeal();
 
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             // if the next turn is the final turn in the turn plan, set up Grant Us Love
-            if (loveSlots == null && Opponent.NumTurnsTaken == Opponent.TurnPlan.Count)
-            {
+            if (loveSlots == null && Opponent.NumTurnsTaken == Opponent.TurnPlan.Count) {
                 int slotIndex = UnityEngine.Random.Range(0, BoardManager.Instance.OpponentSlotsCopy.Count - 1);
                 loveSlots = new CardSlot[] { BoardManager.Instance.OpponentSlotsCopy[slotIndex], BoardManager.Instance.OpponentSlotsCopy[slotIndex + 1] };
                 CreateTargetIcon(loveSlots[0], GameColors.Instance.darkPurple);
                 CreateTargetIcon(loveSlots[1], GameColors.Instance.darkPurple);
             }
-            else
-            {
+            else {
                 yield return base.OnTurnEnd(playerTurnEnd);
             }
         }
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             // noon of violet only ends when Grant Us Love dies
             if (card.Info.name != Cards.grantUsLove)
                 yield break;
@@ -63,8 +56,7 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
 
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty)
-        {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             targetIconPrefab = AssetManager.warningTargetPrefab;
             return 1 + base.ConstructOrdealBlueprint(encounterData, baseDifficulty);
         }

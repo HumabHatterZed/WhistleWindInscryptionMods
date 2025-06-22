@@ -84,6 +84,7 @@
 - Healer - reduced health gained from 2 -> 1
 - Nettle Clothes - reduced powerlevel from 5 -> 4
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
+- Nettle Clothes - changed singleton id used for tracking added sigils
 - Opportunistic - reworked to trigger against injured cards
 - Persecutor - summoned cards are now considered Terrain, have 1 Health
 - Punisher - now activates on card death instead of on taking damage
@@ -113,7 +114,7 @@
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
 - Added custom rulebook pages 'Mechanics'
-- Added custom trigger interfaces IOnStatusEffectAdded, IOnRoundEnd
+- Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Added 15 sigils:
     - Damsel

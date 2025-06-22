@@ -3,16 +3,14 @@ using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// The second-strongest Green Ordeal.
     /// Start with a Dusk Ordeal on the board. Once it has been killed, create the next one after the player's turn ends or immediately depending on the context.
     /// Cards required: 2
     /// Valid regions: 2
     /// </summary>
-    public class OrdealGreenDusk : OrdealBattleSequencer
-    {
+    public class OrdealGreenDusk : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             List<CardInfo> info = new() { null, null, null, CardLoader.GetCardByName(Cards.whereWeReach) };
 
@@ -21,7 +19,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 encounterData.Blueprint.AddTurn();
             }
             encounterData.Blueprint.AddTurn(EncounterManager.NewCardBlueprint(Cards.whereWeReach));
-            
+
             if (encounterData.Difficulty > 13) {
                 int extraHealth = encounterData.Difficulty - 13;
                 info[3].Mods.Add(new(0, extraHealth));

@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string luminousBracelet = "wstl_luminousBracelet";
-        private static void LuminousBracelet_O0995()
-        {
+        private static void LuminousBracelet_O0995() {
             string name = "Luminous Bracelet";
             string desc = "A bracelet that will heal its bearer. It does not forgive the greedy.";
             string textureName = "luminousBracelet";

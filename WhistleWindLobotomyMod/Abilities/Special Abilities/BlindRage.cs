@@ -8,10 +8,8 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class BlindRage : SpecialCardBehaviour, ISetupAttackSequence
-    {
+namespace WhistleWindLobotomyMod {
+    public class BlindRage : SpecialCardBehaviour, ISetupAttackSequence {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -19,8 +17,7 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Blind Rage";
         public const string rDesc = "Servant of Wrath will target a random space on the board when attacking, prioritising occupied spaces.";
 
-        private List<CardSlot> GetRandomOccupiedSlot()
-        {
+        private List<CardSlot> GetRandomOccupiedSlot() {
             List<CardSlot> retval = new();
             List<CardSlot> allSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
             allSlots.Remove(base.PlayableCard.Slot);
@@ -32,13 +29,11 @@ namespace WhistleWindLobotomyMod
             CardSlot slotToAttack = allSlots[SeededRandom.Range(0, allSlots.Count, randomSeed++)];
 
             retval.Add(slotToAttack);
-            if (base.PlayableCard.HasAbility(Ability.SplitStrike))
-            {
+            if (base.PlayableCard.HasAbility(Ability.SplitStrike)) {
                 retval.AddRange(Singleton<BoardManager>.Instance.GetAdjacentSlots(slotToAttack));
                 retval.Remove(slotToAttack);
             }
-            if (base.PlayableCard.HasTriStrike())
-            {
+            if (base.PlayableCard.HasTriStrike()) {
                 retval.AddRange(Singleton<BoardManager>.Instance.GetAdjacentSlots(slotToAttack));
                 if (!retval.Contains(slotToAttack))
                     retval.Add(slotToAttack);
@@ -49,28 +44,23 @@ namespace WhistleWindLobotomyMod
             return retval;
         }
 
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
             return GetRandomOccupiedSlot();
         }
 
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return 0;
         }
     }
-    public class RulebookEntryBlindRage : AbilityBehaviour
-    {
+    public class RulebookEntryBlindRage : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_BlindRage()
             => RulebookEntryBlindRage.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBlindRage>(BlindRage.rName, BlindRage.rDesc).Id;
         private static void AddSpecial_BlindRage()
@@ -78,13 +68,10 @@ namespace WhistleWindLobotomyMod
     }
 
     [HarmonyPatch]
-    internal class BlindRagePatch
-    {
+    internal class BlindRagePatch {
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
-        private static IEnumerator ForceAttack(IEnumerator enumerator, CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot)
-        {
-            if (attackingSlot.Card != null && attackingSlot.Card.HasSpecialAbility(BlindRage.specialAbility))
-            {
+        private static IEnumerator ForceAttack(IEnumerator enumerator, CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot) {
+            if (attackingSlot.Card != null && attackingSlot.Card.HasSpecialAbility(BlindRage.specialAbility)) {
                 Part1SniperVisualizer component = __instance.GetComponent<Part1SniperVisualizer>() ?? __instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
                 __instance.VisualizeConfirmSniperAbility(opposingSlot);
@@ -93,8 +80,7 @@ namespace WhistleWindLobotomyMod
 
             yield return enumerator;
 
-            if (attackingSlot.Card != null && attackingSlot.Card.HasSpecialAbility(BlindRage.specialAbility))
-            {
+            if (attackingSlot.Card != null && attackingSlot.Card.HasSpecialAbility(BlindRage.specialAbility)) {
                 Part1SniperVisualizer component = __instance.GetComponent<Part1SniperVisualizer>() ?? __instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
                 ; __instance.VisualizeClearSniperAbility();

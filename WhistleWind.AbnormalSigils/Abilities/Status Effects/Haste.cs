@@ -5,10 +5,8 @@ using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class Haste : ModifyOnTurnEndStatusEffectBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class Haste : ModifyOnTurnEndStatusEffectBehaviour {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
@@ -16,10 +14,8 @@ namespace WhistleWind.AbnormalSigils
         public override int PotencyModification => -EffectPotency;
 
     }
-    public partial class AbnormalPlugin
-    {
-        private void StatusEffect_Haste()
-        {
+    public partial class AbnormalPlugin {
+        private void StatusEffect_Haste() {
             const string rName = "Haste";
             const string rDesc = "A card bearing this effect gains Speed equal to its Haste. At the end of the owner's turn, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Haste>(

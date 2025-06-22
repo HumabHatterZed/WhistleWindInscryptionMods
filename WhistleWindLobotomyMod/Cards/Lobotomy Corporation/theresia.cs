@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string theresia = "wstl_theresia";
-        private static void Theresia_T0909()
-        {
+        private static void Theresia_T0909() {
             string name = "Theresia";
             string desc = "An old music box. It plays a familiar melody.";
             string textureName = "theresia";

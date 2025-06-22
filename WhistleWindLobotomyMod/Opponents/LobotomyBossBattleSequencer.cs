@@ -11,49 +11,101 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IModifyDamageTaken
-    {
-        public PlayableCard BossCard = null;
-
+namespace WhistleWindLobotomyMod.Opponents {
+    public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IPlayerTurnEnd, IModifyDamageTaken/*, IItemCanBeUsed, IOnItemPreventedFromUse, IOnPostItemUsed*/ {
+        public bool finalPhase = false;
+        public bool changeToNextPhase = false;
+        public int turnsToNextPhase = 3;
         public int timesHitThisTurn = 0;
         public int damageTakenThisTurn = 0;
         protected int reactiveDifficulty = 0;
 
         public int ReactiveDifficulty => reactiveDifficulty + RunState.Run.DifficultyModifier;
         public int PhaseDifficulty => TurnManager.Instance.Opponent.StartingLives - TurnManager.Instance.Opponent.NumLives;
-
-        public bool finalPhase = false;
-        public bool changeToNextPhase = false;
+        public PlayableCard BossCard { get; protected set; } = null;
 
         public virtual int BossHealthThreshold(int remainingLives) => -1;
 
-        public void IncrementStatsThisTurn(int timesHit, int damageTaken)
-        {
+        #region Triggers
+        public bool RespondsToPlayerTurnEnd() => true;
+        public int PlayerTurnEndPriority() => 0;
+        public virtual IEnumerator OnPlayerTurnEnd() {
+            yield return HelperMethods.ChangeCurrentView(View.Board);
+            AddNextTurnToPlan();
+        }
+
+        /// <summary>
+        /// Prevents damage taken by the boss from exceeding set health thresholds.
+        /// </summary>
+        public virtual int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
+            if (target == BossCard) {
+                int threshold = BossHealthThreshold(TurnManager.Instance.Opponent.NumLives);
+                if (target.Health - damage < threshold) {
+                    return target.Health - threshold;
+                }
+            }
+            return damage;
+        }
+        public virtual bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
+        public virtual int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
+        #endregion
+
+        #region Turn-Based Variables
+        public void IncrementStatsThisTurn(int timesHit, int damageTaken) {
             timesHitThisTurn += timesHit;
             damageTakenThisTurn += damageTaken;
         }
-        public IEnumerator IncreaseReactiveDifficulty(int amount)
-        {
+        public void ResetVariablesTurnEnd() {
+            timesHitThisTurn = damageTakenThisTurn = currentExcessBones = 0;
+        }
+
+        public override IEnumerator OpponentCombatEnd() {
+            ResetVariablesTurnEnd();
+            yield return base.OpponentCombatEnd();
+        }
+
+        /// <summary>
+        /// Reset certain variables and make sure combat end logic is executed even when the turn is skipped.
+        /// </summary>
+        public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
+            if (opponentTurnSkipped) {
+                yield return OpponentCombatEnd();
+            }
+            else {
+                ResetVariablesTurnEnd();
+            }
+        }
+        #endregion
+
+
+        #region Reactive Difficulty
+        public IEnumerator IncreaseReactiveDifficulty(int amount) {
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBoss] Increase reactive: {reactiveDifficulty} (+{amount})");
             reactiveDifficulty += amount;
             yield return OnReactiveDifficultyIncreased(amount);
         }
-        public virtual IEnumerator OnReactiveDifficultyIncreased(int amount)
-        {
+
+        public virtual IEnumerator OnReactiveDifficultyIncreased(int amount) {
             yield break;
         }
 
-        #region Card movement
-        public override IEnumerator MoveOpponentCards()
-        {
+        #endregion
+
+        #region Turn Plan
+        public abstract List<CardInfo> CreateNextTurnPlan(int randomSeed, bool opponentWinning);
+        public void AddNextTurnToPlan() {
+            List<CardInfo> nextTurn = CreateNextTurnPlan(base.GetRandomSeed() + TurnManager.Instance.TurnNumber, LifeManager.Instance.Balance < 0);
+            TurnManager.Instance.Opponent.TurnPlan.Add(nextTurn);
+        }
+
+        #endregion
+
+        public override IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
 
-            for (int i = 0; i < slots.Count; i++)
-            {
-                if (SeededRandom.Bool(rand++))
-                {
+            for (int i = 0; i < slots.Count; i++) {
+                if (SeededRandom.Bool(rand++)) {
                     slots.Remove(slots[i]);
                 }
             }
@@ -65,40 +117,12 @@ namespace WhistleWindLobotomyMod.Opponents
             }
 
             yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
-            yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s)
-            {
+            yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
                 if (s == BossCard.Slot)
                     return 1000;
 
                 return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
             });
         }
-
-        #endregion
-
-        #region Triggers
-        public virtual bool RespondsToModifyDamage(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
-        public virtual int OnModifyDamage(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            if (target == BossCard)
-            {
-                // modify damage so it does not reduce health below the current threshold
-                int threshold = BossHealthThreshold(TurnManager.Instance.Opponent.NumLives);
-
-                if (target.Health - damage >= threshold)
-                    return damage;
-
-                return target.Health - threshold;
-            }
-
-            return damage;
-        }
-        public virtual int ModifyDamagePriority(PlayableCard target, int damage, PlayableCard attacker) => (finalPhase && attacker == BossCard) ? int.MaxValue : int.MinValue;
-
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => RespondsToModifyDamage(target, damage, attacker, originalDamage);
-
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => OnModifyDamage(target, damage, attacker, originalDamage);
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => ModifyDamagePriority(target, damage, attacker);
-        #endregion
     }
 }

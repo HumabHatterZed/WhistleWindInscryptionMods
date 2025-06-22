@@ -5,14 +5,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string honouredMonk = "wstl_honouredMonk";
         public const string cloudedMonk = "wstl_cloudedMonk";
-        private static void HonouredMonk_D01110()
-        {
+        private static void HonouredMonk_D01110() {
             string name = "Clouded Monk";
             string name2 = "Honoured Monk";
             string desc = "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...";

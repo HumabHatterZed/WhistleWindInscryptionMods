@@ -7,12 +7,9 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Infiniscryption.Core.Helpers
-{
-    public static class AssetHelper
-    {
-        public static string FindResourceName(string key, string type, Assembly target)
-        {
+namespace Infiniscryption.Core.Helpers {
+    public static class AssetHelper {
+        public static string FindResourceName(string key, string type, Assembly target) {
             string lowerKey = $".{key.ToLowerInvariant()}.{type.ToLowerInvariant()}";
             foreach (string resourceName in target.GetManifestResourceNames())
                 if (resourceName.ToLowerInvariant().EndsWith(lowerKey))
@@ -21,52 +18,43 @@ namespace Infiniscryption.Core.Helpers
             return default(string);
         }
 
-        private static byte[] GetResourceBytes(string key, string type, Assembly target)
-        {
+        private static byte[] GetResourceBytes(string key, string type, Assembly target) {
             string resourceName = FindResourceName(key, type, target);
 
-            if (string.IsNullOrEmpty(resourceName))
-            {
+            if (string.IsNullOrEmpty(resourceName)) {
                 string errorHelp = "";
                 foreach (string testName in target.GetManifestResourceNames())
                     errorHelp += "," + testName;
                 throw new InvalidDataException($"Could not find resource matching {key}. This is what I have: {errorHelp}");
             }
 
-            using (Stream resourceStream = target.GetManifestResourceStream(resourceName))
-            {
-                using (MemoryStream memStream = new MemoryStream())
-                {
+            using (Stream resourceStream = target.GetManifestResourceStream(resourceName)) {
+                using (MemoryStream memStream = new MemoryStream()) {
                     resourceStream.CopyTo(memStream);
                     return memStream.ToArray();
                 }
             }
         }
 
-        public static string GetResourceString(string key, string type)
-        {
+        public static string GetResourceString(string key, string type) {
             Assembly target = Assembly.GetExecutingAssembly();
             string resourceName = FindResourceName(key, type, target);
 
-            if (string.IsNullOrEmpty(resourceName))
-            {
+            if (string.IsNullOrEmpty(resourceName)) {
                 string errorHelp = "";
                 foreach (string testName in target.GetManifestResourceNames())
                     errorHelp += "," + testName;
                 throw new InvalidDataException($"Could not find resource matching {key}. This is what I have: {errorHelp}");
             }
 
-            using (Stream resourceStream = target.GetManifestResourceStream(resourceName))
-            {
-                using (StreamReader reader = new StreamReader(resourceStream))
-                {
+            using (Stream resourceStream = target.GetManifestResourceStream(resourceName)) {
+                using (StreamReader reader = new StreamReader(resourceStream)) {
                     return reader.ReadToEnd();
                 }
             }
         }
 
-        public static Texture2D LoadTexture(string texture, FilterMode filterMode = FilterMode.Point)
-        {
+        public static Texture2D LoadTexture(string texture, FilterMode filterMode = FilterMode.Point) {
             Texture2D retval = new(2, 2);
             byte[] imgBytes = GetResourceBytes(texture, "png", Assembly.GetExecutingAssembly());
             retval.LoadImage(imgBytes);
@@ -75,16 +63,14 @@ namespace Infiniscryption.Core.Helpers
             return retval;
         }
 
-        private static string WriteWavToFile(string wavname)
-        {
+        private static string WriteWavToFile(string wavname) {
             byte[] wavBytes = GetResourceBytes(wavname, "wav", Assembly.GetExecutingAssembly());
             string tempPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"{wavname}.wav");
             File.WriteAllBytes(tempPath, wavBytes);
             return tempPath;
         }
 
-        public static void LoadAudioClip(string clipname, ManualLogSource log = null, string group = "Loops")
-        {
+        public static void LoadAudioClip(string clipname, ManualLogSource log = null, string group = "Loops") {
             // Is this a hack?
             // Hell yes, this is a hack.
 
@@ -96,22 +82,18 @@ namespace Infiniscryption.Core.Helpers
 
             string manualPath = WriteWavToFile(clipname);
 
-            try
-            {
+            try {
                 if (log != null)
                     log.LogInfo($"About to get audio clip at file://{manualPath}");
 
-                using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip($"file://{manualPath}", AudioType.WAV))
-                {
+                using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip($"file://{manualPath}", AudioType.WAV)) {
                     request.SendWebRequest();
                     while (request.IsExecuting()) ; // Wait for this thing to finish
 
-                    if (request.isHttpError)
-                    {
+                    if (request.isHttpError) {
                         throw new InvalidOperationException($"Bad request getting audio clip {request.error}");
                     }
-                    else
-                    {
+                    else {
                         AudioClip clip = DownloadHandlerAudioClip.GetContent(request);
                         clip.name = clipname;
 
@@ -119,8 +101,7 @@ namespace Infiniscryption.Core.Helpers
                     }
                 }
             }
-            finally
-            {
+            finally {
                 if (File.Exists(manualPath))
                     File.Delete(manualPath);
             }

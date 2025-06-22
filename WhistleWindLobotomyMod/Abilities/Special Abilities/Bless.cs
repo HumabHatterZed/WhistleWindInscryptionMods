@@ -10,10 +10,8 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Bless : PlagueDoctorClass
-    {
+namespace WhistleWindLobotomyMod {
+    public class Bless : PlagueDoctorClass {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -23,14 +21,12 @@ namespace WhistleWindLobotomyMod
         private const string eventIntro3 = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
         private const string eventIntroRepeat = "[c:bR]The time has come again. I will be thy guide.[c:]";
 
-        private IEnumerator CheckTheClock()
-        {
+        private IEnumerator CheckTheClock() {
             int blessings = SaviourBossUtils.Blessings(base.PlayableCard);
             if (LobotomyConfigManager.NoEvents || (blessings >= 0 && blessings < 12)) // [0, 12)
                 yield break;
 
-            if (LobotomySaveManager.TriggeredWhiteNightThisBattle || BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(TrueSaviour.ability)))
-            {
+            if (LobotomySaveManager.TriggeredWhiteNightThisBattle || BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(TrueSaviour.ability))) {
                 yield return base.PlayableCard.DieTriggerless();
                 yield return new WaitForSeconds(0.5f);
                 yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou shalt have no other gods before me.[c:]");
@@ -57,16 +53,14 @@ namespace WhistleWindLobotomyMod
             // Transform the Doctor into Him
             yield return base.PlayableCard.TransformIntoCard(CardLoader.GetCardByName(Cards.whiteNight), () => base.PlayableCard.Status.damageTaken = 0);
             MiracleWorkerAppearance app = base.PlayableCard.GetComponent<MiracleWorkerAppearance>();
-            if (app != null)
-            {
+            if (app != null) {
                 app.ResetAppearance();
                 DestroyImmediate(app);
             }
             yield return new WaitForSeconds(0.5f);
 
             // Play dialogue depending on whether this is the first time this has happened this run
-            if (!LobotomySaveManager.TriggeredWhiteNightThisRun)
-            {
+            if (!LobotomySaveManager.TriggeredWhiteNightThisRun) {
                 LobotomySaveManager.TriggeredWhiteNightThisRun = true;
                 yield return DialogueHelper.PlayDialogueEvent("WhiteNightEventIntro");
             }
@@ -86,19 +80,16 @@ namespace WhistleWindLobotomyMod
             LobotomyPlugin.Log.LogDebug("Creating Apostles");
             yield return SaviourBossUtils.ConvertCardsOnBoard(!isOpponent, baseSlot.Card, base.GetRandomSeed());
 
-            if (!SaviourBossUtils.PlayerHasHeretic && playerHasOneSin)
-            {
+            if (!SaviourBossUtils.PlayerHasHeretic && playerHasOneSin) {
                 LobotomyPlugin.Log.LogDebug("Player has One Sin");
                 yield return new WaitForSeconds(0.5f);
 
                 List<PlayableCard> opposingCards = BoardManager.Instance.GetPlayerCards(x => x.Info.name == SaviourBossUtils.ONESIN_NAME);
-                if (opposingCards.Count > 0)
-                {
+                if (opposingCards.Count > 0) {
                     LobotomyPlugin.Log.LogDebug("One Sin is on the board");
                     yield return opposingCards[0].TransformIntoCard(CardLoader.GetCardByName(Cards.apostleHeretic));
                 }
-                else if (CardDrawPiles3D.Instance.Deck.cards.Exists(x => x.name == SaviourBossUtils.ONESIN_NAME))
-                {
+                else if (CardDrawPiles3D.Instance.Deck.cards.Exists(x => x.name == SaviourBossUtils.ONESIN_NAME)) {
                     LobotomyPlugin.Log.LogDebug("One Sin is in the deck");
                     CardInfo oneSin = CardDrawPiles3D.Instance.Deck.cards.Find(x => x.name == SaviourBossUtils.ONESIN_NAME);
                     yield return HelperMethods.ChangeCurrentView(View.Hand, 0f);
@@ -107,15 +98,12 @@ namespace WhistleWindLobotomyMod
                 }
 
                 // if player still doesn't have the Heretic
-                if (!SaviourBossUtils.PlayerHasHeretic)
-                {
-                    if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == SaviourBossUtils.ONESIN_NAME))
-                    {
+                if (!SaviourBossUtils.PlayerHasHeretic) {
+                    if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == SaviourBossUtils.ONESIN_NAME)) {
                         LobotomyPlugin.Log.LogDebug("One Sin is in the player's hand");
                         yield return PlayerHand.Instance.CardsInHand.Find(x => x.name == SaviourBossUtils.ONESIN_NAME).TransformIntoCardAboveHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
                     }
-                    else
-                    {
+                    else {
                         LobotomyPlugin.Log.LogDebug("Forcing Heretic into the hand");
                         yield return HelperMethods.ChangeCurrentView(View.Hand, 0f);
                         yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName(Cards.apostleHeretic));
@@ -133,8 +121,7 @@ namespace WhistleWindLobotomyMod
         }
 
         public override IEnumerator TriggerClock() => CheckTheClock();
-        public override IEnumerator TriggerBlessing()
-        {
+        public override IEnumerator TriggerBlessing() {
             if (LobotomyConfigManager.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
 
@@ -164,13 +151,11 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueHelper.PlayAlternateDialogue("[c:bR]I will save your life from destruction and raise you from the end of the world.[c:]");
         }
     }
-    public class RulebookEntryBless : AbilityBehaviour
-    {
+    public class RulebookEntryBless : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Bless()
             => RulebookEntryBless.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
         private static void AddSpecial_Bless()

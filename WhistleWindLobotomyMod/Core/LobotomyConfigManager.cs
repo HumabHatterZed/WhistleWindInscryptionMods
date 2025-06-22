@@ -5,8 +5,7 @@ using System.IO;
 using WhistleWindLobotomyMod.Challenges;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core
-{
+namespace WhistleWindLobotomyMod.Core {
     public static class LobotomyConfigManager // Taken from GrimoraMod
     {
         private static readonly ConfigFile WstlConfigFile = new(Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomycorp.cfg"), true);
@@ -134,8 +133,7 @@ namespace WhistleWindLobotomyMod.Core
 
         #endregion
 
-        internal static void BindConfig()
-        {
+        internal static void BindConfig() {
             Config_ModEnabled = WstlConfigFile.Bind(
                 "Config", "Enable", true,
                 new ConfigDescription("Enables this mod's content. If false, content will still load but be unavailable through normal means."));
@@ -243,18 +241,15 @@ namespace WhistleWindLobotomyMod.Core
             Config_Blessings = WstlConfigFile.Bind("Gameplay.Other", "Blessings", 0);
             Config_HasSeenHim = WstlConfigFile.Bind("Gameplay.Other", "Blessed", false);
         }
-        public static void UpdateBlessings(int value)
-        {
+        public static void UpdateBlessings(int value) {
             Config_Blessings.Value += value;
             Log.LogDebug($"The Clock is now at [{NumOfBlessings}]");
         }
-        public static void SetBlessings(int value)
-        {
+        public static void SetBlessings(int value) {
             Config_Blessings.Value = value;
             Log.LogDebug($"The Clock is now at [{NumOfBlessings}]");
         }
-        public static void SetHasSeenHim()
-        {
+        public static void SetHasSeenHim() {
             Config_HasSeenHim.Value = true;
         }
 

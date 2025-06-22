@@ -14,12 +14,9 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddTimeMachine()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddTimeMachine() {
             const string rulebookName = "Time Machine";
             const string rulebookDescription = "Choose a card from your deck, then remove it and this card from your deck. End the current battle; some opponents have alternate effects.";
             const string dialogue = "Close your eyes and count to ten.";
@@ -28,8 +25,7 @@ namespace WhistleWindLobotomyMod
                 "sigilTimeMachine", rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
-    public class TimeMachine : ActivatedAbilityBehaviour
-    {
+    public class TimeMachine : ActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -39,19 +35,15 @@ namespace WhistleWindLobotomyMod
         /// <summary>
         /// Prevent Backward Clock from being activated if it has already been activated this run.
         /// </summary>
-        public override bool CanActivate()
-        {
-            if (SaveManager.SaveFile.CurrentDeck.Cards.Count > 1)
-            {
+        public override bool CanActivate() {
+            if (SaveManager.SaveFile.CurrentDeck.Cards.Count > 1) {
                 return !(SaveManager.SaveFile.IsPart2 ? LobotomySaveManager.UsedBackwardClockGBC : LobotomySaveManager.UsedBackwardClock);
             }
             return false;
         }
 
-        public override IEnumerator Activate()
-        {
-            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp && opp.PreventInstantWin(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine))
-            {
+        public override IEnumerator Activate() {
+            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp && opp.PreventInstantWin(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine)) {
                 base.Card.Anim.StrongNegationEffect();
                 yield return opp.OnInstantWinPrevented(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine);
                 yield break;
@@ -60,8 +52,7 @@ namespace WhistleWindLobotomyMod
             // prevent bell-ringing
             TurnManager.Instance.PlayerCanInitiateCombat = false;
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-            if (SaveManager.SaveFile.IsPart2)
-            {
+            if (SaveManager.SaveFile.IsPart2) {
                 PixelCombatBell bell = (PixelCombatBell)Resources.FindObjectsOfTypeAll(typeof(PixelCombatBell)).FirstOrDefault();
                 bell?.SetEnabled(false);
             }
@@ -85,8 +76,7 @@ namespace WhistleWindLobotomyMod
             yield return EndBattle();
         }
 
-        private List<CardInfo> GetCardChoices()
-        {
+        private List<CardInfo> GetCardChoices() {
             List<CardInfo> choices = new();
             List<CardInfo> cardsInDeck = new(SaveManager.SaveFile.CurrentDeck.Cards);
             cardsInDeck.RemoveAll(x => x.HasAbility(this.Ability));
@@ -94,16 +84,13 @@ namespace WhistleWindLobotomyMod
 
             int randomSeed = base.GetRandomSeed();
             List<CardInfo> strongestCards = cardsInDeck.GetRange(0, (cardsInDeck.Count + 1) / 3);
-            while (cardsInDeck.Count > 0)
-            {
+            while (cardsInDeck.Count > 0) {
                 CardInfo choice;
-                if (strongestCards.Count > 0 && SeededRandom.Bool(randomSeed++))
-                {
+                if (strongestCards.Count > 0 && SeededRandom.Bool(randomSeed++)) {
                     choice = strongestCards.GetSeededRandom(randomSeed++);
                     strongestCards.Remove(choice);
                 }
-                else
-                {
+                else {
                     choice = cardsInDeck.GetSeededRandom(randomSeed++);
                 }
                 choices.Add(choice);
@@ -116,14 +103,11 @@ namespace WhistleWindLobotomyMod
             return choices;
         }
 
-        private IEnumerator ChooseCardForClock()
-        {
+        private IEnumerator ChooseCardForClock() {
             List<CardInfo> choices = GetCardChoices();
-            if (SaveManager.SaveFile.IsPart2)
-            {
+            if (SaveManager.SaveFile.IsPart2) {
                 PixelPlayableCard selectedCard = null;
-                yield return PixelBoardManager.Instance.GetComponent<PixelPlayableCardArray>().SelectPixelCardFrom(choices, delegate (PixelPlayableCard x)
-                {
+                yield return PixelBoardManager.Instance.GetComponent<PixelPlayableCardArray>().SelectPixelCardFrom(choices, delegate (PixelPlayableCard x) {
                     selectedCard = x;
                 });
 
@@ -131,12 +115,10 @@ namespace WhistleWindLobotomyMod
                 Destroy(selectedCard.gameObject, 0.1f);
                 chosenCardInfo = selectedCard.Info;
             }
-            else
-            {
+            else {
                 SelectableCard selectedCard = null;
                 Singleton<ViewManager>.Instance.SwitchToView(View.DeckSelection, immediate: false, lockAfter: true);
-                yield return BoardManager.Instance.CardSelector.SelectCardFrom(choices, (CardDrawPiles.Instance as CardDrawPiles3D).Pile, delegate (SelectableCard x)
-                {
+                yield return BoardManager.Instance.CardSelector.SelectCardFrom(choices, (CardDrawPiles.Instance as CardDrawPiles3D).Pile, delegate (SelectableCard x) {
                     selectedCard = x;
                 });
 
@@ -146,17 +128,13 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             }
         }
-        private IEnumerator GetChosenCardToRemove(CardInfo deckCardToRemove)
-        {
+        private IEnumerator GetChosenCardToRemove(CardInfo deckCardToRemove) {
             PlayableCard backwardClock = BoardManager.Instance.CardsOnBoard.Find(x => HelperMethods.IsCardInfoOrCopy(x.Info, deckCardToRemove));
-            if (backwardClock == null)
-            {
+            if (backwardClock == null) {
                 backwardClock = PlayerHand.Instance.CardsInHand.Find(x => HelperMethods.IsCardInfoOrCopy(x.Info, deckCardToRemove));
-                if (backwardClock == null)
-                {
+                if (backwardClock == null) {
                     CardInfo cardToDraw = CardDrawPiles.Instance.Deck.Cards.Find(x => HelperMethods.IsCardInfoOrCopy(x, deckCardToRemove));
-                    if (cardToDraw != null)
-                    {
+                    if (cardToDraw != null) {
                         if (!SaveManager.SaveFile.IsPart2)
                             (CardDrawPiles.Instance as CardDrawPiles3D).pile.Draw();
 
@@ -167,15 +145,13 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.5f);
                 }
             }
-            else
-            {
+            else {
                 backwardClock.UnassignFromSlot();
             }
             chosenCard = backwardClock;
         }
 
-        private IEnumerator BackwardSequence()
-        {
+        private IEnumerator BackwardSequence() {
             yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", TextDisplayer.MessageAdvanceMode.Input, speaker: DialogueHelper.GBCScrybe());
             yield return ChooseCardForClock();
             yield return new WaitForSeconds(0.4f);
@@ -191,14 +167,11 @@ namespace WhistleWindLobotomyMod
             yield return DialogueHelper.ShowUntilInput("The machine and your [c:bR]" + chosenCardInfo.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
         }
 
-        private IEnumerator EndBattle()
-        {
-            if (TurnManager.Instance.Opponent is LobotomyOpponent opp)
-            {
+        private IEnumerator EndBattle() {
+            if (TurnManager.Instance.Opponent is LobotomyOpponent opp) {
                 yield return opp.OnInstantWinTriggered(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine);
             }
-            else
-            {
+            else {
                 int damage = Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
             }
@@ -208,23 +181,20 @@ namespace WhistleWindLobotomyMod
             else
                 LobotomySaveManager.UsedBackwardClock = true;
 
-            if (!TurnManager.Instance.GameEnding && !TurnManager.Instance.GameEnded)
-            {
+            if (!TurnManager.Instance.GameEnding && !TurnManager.Instance.GameEnded) {
                 yield return new WaitForSeconds(0.4f);
                 TurnManager.Instance.PlayerCanInitiateCombat = true;
             }
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
 
-        private void ChangeToActivePortrait()
-        {
+        private void ChangeToActivePortrait() {
             int rand = new System.Random().Next(4);
             CardInfo clone = base.Card.Info.Clone() as CardInfo;
 
             if (SaveManager.SaveFile.IsPart2)
                 clone.SetPixelPortrait(TextureLoader.LoadSpriteFromFile($"backwardClock_pixel_{rand}.png"));
-            else
-            {
+            else {
                 clone.SetEmissivePortrait(TextureLoader.LoadTextureFromFile($"backwardClock_emission_{rand}.png"));
                 base.Card.RenderInfo.forceEmissivePortrait = true;
             }

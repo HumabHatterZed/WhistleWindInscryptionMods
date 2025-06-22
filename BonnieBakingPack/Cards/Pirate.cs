@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreatePirates()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreatePirates() {
             // Pirate
             CardInfo pirate = CardManager.New(pluginPrefix, "pirate", "Pirate", 0, 1, "A scallywag with a great treasure. He reminds me of a certain someone...")
                 .SetDefaultPart1Card().AddAct1()
@@ -32,14 +29,12 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("wizardPirate.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Mox Strafe", Ability.SkeletonStrafe), ScrybeCompat.GetMagnificusAbility("Made of Gold", Ability.QuadrupleBones));
 
-            if (ScrybeCompat.GrimoraEnabled)
-            {
+            if (ScrybeCompat.GrimoraEnabled) {
                 Ability ability = ScrybeCompat.GetGrimoraAbility("Anchored", Ability.None);
                 plunderer.AddAbilities(ability);
             }
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 pirate.AddMetaCategories(ScrybeCompat.NatureRegion);
                 plunderer.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
@@ -49,8 +44,7 @@ namespace BonniesBakingPack
                 Ability ability2 = ScrybeCompat.GetP03Ability("Shield Absorption", Ability.None);
                 bot.AddAbilities(ability, ability2);
             }
-            else
-            {
+            else {
                 bot.AddAbilities(Ability.LatchBrittle);
             }
         }

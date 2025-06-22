@@ -6,15 +6,12 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string RETURNONE = "wstl_RETURN_CARD";
         public const string RETURNALL = "wstl_RETURN_CARD_ALL";
         public const string REFRESHDECKS = "wstl_REFRESH_DECKS";
-        private static void UtilityCards()
-        {
+        private static void UtilityCards() {
             string textureName = "RETURN_CARD";
             string textureName2 = "RETURN_CARD_ALL";
             string textureName3 = "REFRESH_DECKS";

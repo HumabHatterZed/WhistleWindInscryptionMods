@@ -6,10 +6,8 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Adoration : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class Adoration : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -18,8 +16,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             if (base.PlayableCard.Health >= base.PlayableCard.MaxHealth || base.PlayableCard.Health > 1)
                 yield break;
 
@@ -39,8 +36,7 @@ namespace WhistleWindLobotomyMod
 
             // find out how much Health we can heal back
             int missingHealth = base.PlayableCard.MaxHealth - base.PlayableCard.Health;
-            if (leftValid && missingHealth > 0)
-            {
+            if (leftValid && missingHealth > 0) {
                 // if we need to absorb more health than the left card has, only heal by the left card's current Health
                 int healAmount = (leftSlot.Card.Health - missingHealth) > 0 ? missingHealth : leftSlot.Card.Health;
                 missingHealth -= healAmount; // update our remaining health we need to heal back
@@ -60,8 +56,7 @@ namespace WhistleWindLobotomyMod
 
             }
             // if rightValid and we still have missing health, absorb from the right card as well
-            if (rightValid && missingHealth > 0)
-            {
+            if (rightValid && missingHealth > 0) {
                 int healAmount = (rightSlot.Card.Health - missingHealth) > 0 ? missingHealth : rightSlot.Card.Health;
 
                 rightSlot.Card.Anim.StrongNegationEffect();
@@ -81,13 +76,11 @@ namespace WhistleWindLobotomyMod
             yield return DialogueHelper.PlayDialogueEvent("MeltingLoveAbsorb");
         }
     }
-    public class RulebookEntryAdoration : AbilityBehaviour
-    {
+    public class RulebookEntryAdoration : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Adoration()
             => RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
         private static void AddSpecial_Adoration()

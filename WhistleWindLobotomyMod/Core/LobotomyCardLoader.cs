@@ -2,12 +2,10 @@
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Core
-{
+namespace WhistleWindLobotomyMod.Core {
     public static class LobotomyCardLoader // Methods specific to getting modded cards
     {
-        public static CardInfo GetRandomRareModCard(int randomSeed)
-        {
+        public static CardInfo GetRandomRareModCard(int randomSeed) {
             List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.Rare);
             if (LobotomySaveManager.UsedBackwardClock)
                 unlockedCards.RemoveAll((x) => x.name == Cards.backwardClock);
@@ -17,8 +15,7 @@ namespace WhistleWindLobotomyMod.Core
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
-        public static CardInfo GetRandomChoosableModCard(int randomSeed, int riskLevel)
-        {
+        public static CardInfo GetRandomChoosableModCard(int randomSeed, int riskLevel) {
             List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode).FindAll(x => x.GetRiskLevel() == (LobotomyCardManager.RiskLevel)riskLevel);
 
             if (LobotomySaveManager.OwnsApocalypseBird)
@@ -35,17 +32,14 @@ namespace WhistleWindLobotomyMod.Core
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
-        public static CardInfo GetRandomModDeathCard(int randomSeed)
-        {
+        public static CardInfo GetRandomModDeathCard(int randomSeed) {
             List<CardInfo> deathCards = CreateUniqueModDeathcards();
             return deathCards[SeededRandom.Range(0, deathCards.Count, randomSeed)];
         }
-        private static List<CardInfo> CreateUniqueModDeathcards()
-        {
+        private static List<CardInfo> CreateUniqueModDeathcards() {
             List<CardInfo> allDeathCards = new();
 
-            foreach (CardModificationInfo mod in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
-            {
+            foreach (CardModificationInfo mod in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods) {
                 if (mod.singletonId != null && mod.singletonId.StartsWith(LobotomyPlugin.pluginPrefix))
                     allDeathCards.Add(CardLoader.CreateDeathCard(mod));
             }
@@ -53,8 +47,7 @@ namespace WhistleWindLobotomyMod.Core
 
             return uniqueDeathCard.Count > 0 ? uniqueDeathCard : allDeathCards;
         }
-        public static List<CardInfo> GetSephirahCards()
-        {
+        public static List<CardInfo> GetSephirahCards() {
             List<CardInfo> obtainableCards = new(LobotomyCardManager.AllLobotomyCards);
             obtainableCards.RemoveAll(x => x.LacksTrait(LobotomyCardManager.Sephirah));
 
@@ -64,8 +57,7 @@ namespace WhistleWindLobotomyMod.Core
             return CardLoader.RemoveDeckSingletonsIfInDeck(obtainableCards);
         }
 
-        public static List<CardInfo> GetUnlockedModCards(CardMetaCategory category)
-        {
+        public static List<CardInfo> GetUnlockedModCards(CardMetaCategory category) {
             List<CardInfo> obtainableCards = new(LobotomyCardManager.ObtainableLobotomyCards);
             obtainableCards.RemoveAll(x => x.LacksCardMetaCategory(category) || !ConceptProgressionTree.Tree.CardUnlocked(x));
 

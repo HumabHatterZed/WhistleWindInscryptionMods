@@ -7,16 +7,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
-namespace WhistleWind.AbnormalSigils.Core
-{
+namespace WhistleWind.AbnormalSigils.Core {
     [HarmonyPatch]
     internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookController), nameof(RuleBookController.OpenToAbilityPage))]
-        private static bool FixOpenToStatusEffectsPage(ref string abilityName)
-        {
-            if (int.TryParse(abilityName, out int ability) && StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)ability) != null)
-            {
+        private static bool FixOpenToStatusEffectsPage(ref string abilityName) {
+            if (int.TryParse(abilityName, out int ability) && StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)ability) != null) {
                 abilityName = "[API_Status Effects]" + abilityName;
             }
             return true;
@@ -24,27 +21,23 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.GetDistinctShownAbilities))]
         [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
-        private static void StatusEffectsDontRenderNormally(List<Ability> __result)
-        {
+        private static void StatusEffectsDontRenderNormally(List<Ability> __result) {
             __result.RemoveAll(x => AbilitiesUtil.GetInfo(x).IsStatusEffect());
             __result.Remove(SeeMore.ability);
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.SpecialAbilities), MethodType.Getter)]
-        private static void StatusEffectsArentNormalSpecialAbilities(List<SpecialTriggeredAbility> __result)
-        {
+        private static void StatusEffectsArentNormalSpecialAbilities(List<SpecialTriggeredAbility> __result) {
             __result.RemoveAll(x => StatusEffectManager.AllStatusEffects.EffectByID(x) != null);
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
-        public static void UpdateStatusEffects(CardAbilityIcons __instance, PlayableCard playableCard)
-        {
+        public static void UpdateStatusEffects(CardAbilityIcons __instance, PlayableCard playableCard) {
             if (__instance == null)
                 return;
 
             StatusEffectIconsManager controller = __instance.GetComponent<StatusEffectIconsManager>();
-            if (controller == null)
-            {
+            if (controller == null) {
                 controller = __instance.gameObject.AddComponent<StatusEffectIconsManager>();
                 controller.statusEffectMat = __instance.emissiveIconMat ?? __instance.defaultIconMat;
 
@@ -65,12 +58,10 @@ namespace WhistleWind.AbnormalSigils.Core
             AbilityIconInteractable[] componentsInChildren = group.GetComponentsInChildren<AbilityIconInteractable>();
             group.SetActive(true);
 
-            for (int i = 0; i < componentsInChildren.Length; i++)
-            {
+            for (int i = 0; i < componentsInChildren.Length; i++) {
                 AbilityIconInteractable icon = componentsInChildren[i];
                 icon.gameObject.SetActive(true);
-                icon.SetMaterial(new(__instance.defaultIconMat)
-                {
+                icon.SetMaterial(new(__instance.defaultIconMat) {
                     color = !SaveManager.SaveFile.IsGrimora ? AbilitiesUtil.GetInfo(distinct[i]).colorOverride : Color.grey, // SetColour doesn't work for some reason???
                 });
 
@@ -81,26 +72,22 @@ namespace WhistleWind.AbnormalSigils.Core
             }
         }
 
-        public static List<Ability> GetDistinctStatusEffects(PlayableCard card)
-        {
+        public static List<Ability> GetDistinctStatusEffects(PlayableCard card) {
             if (card == null)
                 return null;
 
             List<Ability> abilities = card.GetDisplayedStatusEffects(false);
             card.TemporaryMods.RemoveAll(x => x.abilities.Contains(SeeMore.ability));
 
-            if (abilities.Count < 6)
-            {
+            if (abilities.Count < 6) {
                 card.TriggerHandler.RemoveAbility(SeeMore.ability);
                 if (abilities.Count == 0)
                     return null;
             }
 
             abilities.Sort((a, b) => Mathf.Abs(AbilitiesUtil.GetInfo(b).powerLevel) - Mathf.Abs(AbilitiesUtil.GetInfo(a).powerLevel));
-            if (abilities.Count > 5)
-            {
-                if (!card.TriggerHandler.triggeredAbilities.Exists(x => x.Item1 == SeeMore.ability))
-                {
+            if (abilities.Count > 5) {
+                if (!card.TriggerHandler.triggeredAbilities.Exists(x => x.Item1 == SeeMore.ability)) {
                     card.TriggerHandler.AddAbility(SeeMore.ability);
                 }
                 SeeMore behav = card.transform.GetComponent<SeeMore>();
@@ -109,16 +96,13 @@ namespace WhistleWind.AbnormalSigils.Core
                 {
                     int newPage = 0;
                     behav.AllPages.Clear();
-                    for (int i = 0; i < abilities.Count; i++)
-                    {
-                        if (!behav.AllPages.ContainsKey(newPage))
-                        {
+                    for (int i = 0; i < abilities.Count; i++) {
+                        if (!behav.AllPages.ContainsKey(newPage)) {
                             behav.AllPages.Add(newPage, new());
                         }
 
                         behav.AllPages[newPage].Add(abilities[i]);
-                        if (behav.AllPages[newPage].Count == 4)
-                        {
+                        if (behav.AllPages[newPage].Count == 4) {
                             newPage++;
                         }
                     }
@@ -142,19 +126,15 @@ namespace WhistleWind.AbnormalSigils.Core
 
         private const string SEEMORE = "SeeMore";
 
-        private static void AddStatusIconsToCard(StatusEffectIconsManager controller, Transform abilityIconParent, int defaultIconCount, PlayableCard card)
-        {
-            for (int i = 0; i < Mathf.Min(5, defaultIconCount); i++)
-            {
+        private static void AddStatusIconsToCard(StatusEffectIconsManager controller, Transform abilityIconParent, int defaultIconCount, PlayableCard card) {
+            for (int i = 0; i < Mathf.Min(5, defaultIconCount); i++) {
                 GameObject iconGroup = NewIconGroup(controller, abilityIconParent, i + 1);
                 List<Transform> icons = NewIcons(iconGroup, i + 1);
-                for (int j = 0; j < icons.Count; j++)
-                {
+                for (int j = 0; j < icons.Count; j++) {
                     Renderer iconRenderer = icons[j].GetComponent<Renderer>();
                     AbilityIconInteractable interactable = icons[j].GetComponent<AbilityIconInteractable>();
 
-                    if (SaveManager.SaveFile.IsPart1)
-                    {
+                    if (SaveManager.SaveFile.IsPart1) {
                         icons[j].localPosition = new(-0.375f + 0.1875f * j, 0.2f, 0f);
                         icons[j].transform.localScale = new(0.15f, 0.10f, 1f);
 
@@ -171,8 +151,7 @@ namespace WhistleWind.AbnormalSigils.Core
                         GameObject.Destroy(back.GetComponent<AbilityIconInteractable>());
                         GameObject.Destroy(back.GetComponent<BoxCollider>());
                     }
-                    else if (SaveManager.SaveFile.IsGrimora)
-                    {
+                    else if (SaveManager.SaveFile.IsGrimora) {
                         icons[j].localPosition = new(-0.475f + 0.1875f * j, 0.3f, -0.1f);
                         icons[j].transform.localScale = LocalScaleBase3D;
 
@@ -185,8 +164,7 @@ namespace WhistleWind.AbnormalSigils.Core
                         backRenderer.sortingGroupID = iconRenderer.sortingGroupID;
                         backRenderer.sortingOrder = iconRenderer.sortingOrder;*/
                     }
-                    else
-                    {
+                    else {
                         icons[j].localPosition = new(-0.5f, 1f - 0.15f * j, 0f);
                         icons[j].transform.localScale = LocalScaleBase3D;
                     }
@@ -195,26 +173,21 @@ namespace WhistleWind.AbnormalSigils.Core
                 }
             }
         }
-        private static GameObject NewIconGroup(StatusEffectIconsManager controller, Transform parent, int newSlotNum)
-        {
+        private static GameObject NewIconGroup(StatusEffectIconsManager controller, Transform parent, int newSlotNum) {
             GameObject prevIconGroup = parent.Find($"DefaultIcons_{newSlotNum}Abilit{(newSlotNum == 1 ? "y" : "ies")}").gameObject;
             GameObject newIconGroup = UnityEngine.Object.Instantiate(prevIconGroup, parent);
             newIconGroup.name = $"StatusEffectIcons_{newSlotNum}";
             controller.statusEffectIconGroups.Add(newIconGroup);
             return newIconGroup;
         }
-        private static List<Transform> NewIcons(GameObject newIconGroup, int slotNum)
-        {
+        private static List<Transform> NewIcons(GameObject newIconGroup, int slotNum) {
             List<Transform> icons = new();
 
-            if (slotNum == 1)
-            {
+            if (slotNum == 1) {
                 icons.Add(newIconGroup.transform);
             }
-            else
-            {
-                foreach (Transform icon in newIconGroup.transform)
-                {
+            else {
+                foreach (Transform icon in newIconGroup.transform) {
                     icon.name = "StatusEffectIcon";
                     icons.Add(icon);
                 }
@@ -227,17 +200,14 @@ namespace WhistleWind.AbnormalSigils.Core
         private static readonly Vector3 LocalScaleBase3D = new(0.2f, 0.2f, 1f);
 
         [HarmonyPrefix, HarmonyPatch(typeof(CreateCardsAdjacent), nameof(CreateCardsAdjacent.ModifySpawnedCard))]
-        private static bool ModifyInheritedEffects(CreateCardsAdjacent __instance, CardInfo card)
-        {
+        private static bool ModifyInheritedEffects(CreateCardsAdjacent __instance, CardInfo card) {
             List<Ability> abilities = __instance.Card.AllAbilities();
             abilities.RemoveAll(x => x == __instance.Ability);
             abilities.RemoveAll(x => __instance.Card.HasStatusEffect(x) && !__instance.Card.GetStatusEffect(x).EffectCanBeInherited);
-            if (abilities.Count > 4)
-            {
+            if (abilities.Count > 4) {
                 abilities.RemoveRange(3, abilities.Count - 4);
             }
-            CardModificationInfo cardModificationInfo = new()
-            {
+            CardModificationInfo cardModificationInfo = new() {
                 fromCardMerge = true,
                 abilities = abilities
             };
@@ -247,39 +217,32 @@ namespace WhistleWind.AbnormalSigils.Core
     }
 
     [HarmonyPatch]
-    internal class PixelStatusEffectPatches
-    {
-        private static void AddPixelStatusIcons(PixelStatusEffectAbilityIcons controller, Transform pixelParent)
-        {
-            for (int i = 0; i < 5; i++)
-            {
+    internal class PixelStatusEffectPatches {
+        private static void AddPixelStatusIcons(PixelStatusEffectAbilityIcons controller, Transform pixelParent) {
+            for (int i = 0; i < 5; i++) {
                 GameObject pixelIconGroup = NewPixelIconGroup(controller, pixelParent, i + 1);
                 List<Transform> icons = NewPixelIcons(pixelIconGroup, 0.5294f); // ~9 pixels
 
-                for (int j = 0; j < icons.Count; j++)
-                {
+                for (int j = 0; j < icons.Count; j++) {
                     icons[j].localPosition = new(-0.2f + 0.1f * j, yPositionPixel, 0f);
                 }
             }
         }
 
-        private static GameObject NewPixelIconGroup(PixelStatusEffectAbilityIcons controller, Transform parent, int newSlotNum)
-        {
+        private static GameObject NewPixelIconGroup(PixelStatusEffectAbilityIcons controller, Transform parent, int newSlotNum) {
             GameObject prevIconGroup = parent.Find($"AbilityIcons_{newSlotNum}").gameObject;
             GameObject newIconGroup = UnityEngine.Object.Instantiate(prevIconGroup, parent);
             newIconGroup.name = $"StatusIcons_{newSlotNum}";
             controller.statusEffectIcons.Add(newIconGroup);
             return newIconGroup;
         }
-        private static List<Transform> NewPixelIcons(GameObject newIconGroup, float scaleMult = 1f)
-        {
+        private static List<Transform> NewPixelIcons(GameObject newIconGroup, float scaleMult = 1f) {
             List<Transform> icons = new();
             foreach (Transform icon in newIconGroup.transform)
                 icons.Add(icon);
 
             Vector3 newScale = Vector3.one * scaleMult;
-            foreach (Transform icon in icons)
-            {
+            foreach (Transform icon in icons) {
                 icon.localScale = newScale;
                 foreach (Transform subIcon in icon)
                     subIcon.localScale = Vector3.one * 0.5f;
@@ -290,14 +253,12 @@ namespace WhistleWind.AbnormalSigils.Core
 
         [HarmonyPrefix, HarmonyPatch(typeof(PixelCardAbilityIcons), nameof(PixelCardAbilityIcons.DisplayAbilities),
             new Type[] { typeof(CardRenderInfo), typeof(PlayableCard) })]
-        private static void AddPixelIconsToCard(PixelCardAbilityIcons __instance)
-        {
+        private static void AddPixelIconsToCard(PixelCardAbilityIcons __instance) {
             if (__instance == null)
                 return;
 
             PixelStatusEffectAbilityIcons controller = __instance.GetComponent<PixelStatusEffectAbilityIcons>();
-            if (controller == null)
-            {
+            if (controller == null) {
                 controller = __instance.gameObject.AddComponent<PixelStatusEffectAbilityIcons>();
                 // create the ability icon groups if they don't exist
                 if (__instance.transform.Find("StatusIcons_1") == null)
@@ -307,24 +268,21 @@ namespace WhistleWind.AbnormalSigils.Core
 
         [HarmonyPostfix, HarmonyPatch(typeof(PixelCardAbilityIcons), nameof(PixelCardAbilityIcons.DisplayAbilities),
             new Type[] { typeof(CardRenderInfo), typeof(PlayableCard) })]
-        private static void FlipStatusEffects(PixelCardAbilityIcons __instance, CardRenderInfo renderInfo, PlayableCard card)
-        {
+        private static void FlipStatusEffects(PixelCardAbilityIcons __instance, CardRenderInfo renderInfo, PlayableCard card) {
             List<Ability> distinct = StatusEffectPatches.GetDistinctStatusEffects(card);
             if (distinct == null)
                 return;
 
             PixelStatusEffectAbilityIcons controller = __instance.GetComponent<PixelStatusEffectAbilityIcons>();
             SpriteRenderer[] componentsInChildren = controller.statusEffectIcons[distinct.Count - 1].GetComponentsInChildren<SpriteRenderer>();
-            for (int i = 0; i < componentsInChildren.Length; i++)
-            {
+            for (int i = 0; i < componentsInChildren.Length; i++) {
                 componentsInChildren[i].flipX = renderInfo.flippedAbilityIcons.Contains(distinct[i]);
             }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(PixelCardAbilityIcons), nameof(PixelCardAbilityIcons.DisplayAbilities),
             new Type[] { typeof(List<Ability>), typeof(PlayableCard) })]
-        private static void RenderPixelStatusEffects(PixelCardAbilityIcons __instance, PlayableCard card)
-        {
+        private static void RenderPixelStatusEffects(PixelCardAbilityIcons __instance, PlayableCard card) {
             if (__instance == null || card == null)
                 return;
 
@@ -340,19 +298,16 @@ namespace WhistleWind.AbnormalSigils.Core
             GameObject group = controller.statusEffectIcons[distinct.Count - 1];
             group.gameObject.SetActive(true);
             SpriteRenderer[] componentsInChildren = group.GetComponentsInChildren<SpriteRenderer>();
-            for (int i = 0; i < componentsInChildren.Length; i++)
-            {
+            for (int i = 0; i < componentsInChildren.Length; i++) {
                 AbilityInfo info = AbilitiesUtil.GetInfo(distinct[i]);
                 componentsInChildren[i].sprite = info.pixelIcon;
-                if (info.flipYIfOpponent && card != null && card.OpponentCard)
-                {
+                if (info.flipYIfOpponent && card != null && card.OpponentCard) {
                     if (info.customFlippedPixelIcon)
                         componentsInChildren[i].sprite = info.customFlippedPixelIcon;
                     else
                         componentsInChildren[i].flipY = true;
                 }
-                else
-                {
+                else {
                     componentsInChildren[i].flipY = false;
                 }
             }

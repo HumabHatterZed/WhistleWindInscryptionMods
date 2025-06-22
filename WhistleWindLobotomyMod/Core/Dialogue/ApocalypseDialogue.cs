@@ -1,11 +1,8 @@
 ﻿using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class LobotomyDialogue
-    {
-        private void Dialogue_ApocalypseBird()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class LobotomyDialogue {
+        private void Dialogue_ApocalypseBird() {
             CreateDialogueEvents("ApocalypseBirdIntro", new() {
                 "Let me tell you a story. The story of the [c:bR]Black Forest[c:]."
                 });
@@ -97,9 +94,6 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("ApocalypseBossCardsExhausted",
                 new() { "The Beast senses your hunger, and grows more daring." });
 
-            CreateDialogueEvents("ApocalypseBossFinalPhase",
-                new() { "The Beast begins to grow desperate." });
-
             CreateDialogueEvents("ApocalypseBossReactive1",
                 new() { "Your power angers the Beast." });
             CreateDialogueEvents("ApocalypseBossReactive2",
@@ -111,10 +105,11 @@ namespace WhistleWindLobotomyMod
                 new() { "The Beast's hide hardens under your creatures' claws." });
 
             CreateDialogueEvents("ApocalypseBossRecall",
-                new() { "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures."});
-            
+                new() { "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures." });
+
             CreateDialogueEvents("ApocalypseBossExhausted",
                 new() { "Why don't we continue a little longer?" });
+
             CreateDialogueEvents("ApocalypseBossBoneGain",
                 new() {
                     "You cannot harm the beast directly.",
@@ -125,7 +120,11 @@ namespace WhistleWindLobotomyMod
                 {
                     new() { "The ground is full of bones." }
                 });
-            CreateDialogueEvents("ApocalypseBossFinal",
+
+            CreateDialogueEvents("ApocalypseBossFinalPhase1",
+                new() { "The Beast begins to grow desperate." });
+
+            CreateDialogueEvents("ApocalypseBossFinalPhase2",
                 new() {
                     "Backed into a corner, the Beast releases one final burst of strength."
                 });

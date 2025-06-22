@@ -3,12 +3,9 @@ using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
-        internal static void AddCustomDeathCards()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
+        internal static void AddCustomDeathCards() {
             List<CardModificationInfo> defaultMods = new()
             {
                 new CardModificationInfo(3, 3)

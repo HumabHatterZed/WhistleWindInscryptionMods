@@ -3,13 +3,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string youMustBeHappy = "wstl_youMustBeHappy";
-        private static void YouMustBeHappy_T0994()
-        {
+        private static void YouMustBeHappy_T0994() {
             string name = "You Must Be Happy";
             string name2 = "You Must Be Happier";
             string desc = "Those that undergo the procedure find themselves rested and healthy again.";

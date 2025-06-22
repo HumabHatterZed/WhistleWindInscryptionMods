@@ -10,22 +10,18 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class Fervent : StatusEffectBehaviour, ISetupAttackSequence, IOnOtherCardDieInHand
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class Fervent : StatusEffectBehaviour, ISetupAttackSequence, IOnOtherCardDieInHand {
         internal static StatusEffectManager.FullStatusEffect data;
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
         public override SpecialTriggeredAbility StatusEffect => specialAbility;
 
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
             List<CardSlot> allSlots = BoardManager.Instance.AllSlotsCopy;
             allSlots.Remove(base.PlayableCard.Slot);
             allSlots.RemoveAll(x => x.Card != null && x.Card.IsConductor());
@@ -38,23 +34,18 @@ namespace WhistleWind.AbnormalSigils
             allSlots.RemoveRange(0, allSlots.Count - amtToKeep);
             return allSlots;
         }
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return -1000;
         }
 
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             return card != null && card.OpponentCard == base.PlayableCard.OpponentCard && card.IsConductor();
         }
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            List<PlayableCard> cards = BoardManager.Instance.GetCards(!base.PlayableCard.OpponentCard, delegate (PlayableCard c)
-            {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
+            List<PlayableCard> cards = BoardManager.Instance.GetCards(!base.PlayableCard.OpponentCard, delegate (PlayableCard c) {
                 return c != base.PlayableCard && c != card;
             });
-            if (!cards.Exists(x => x.IsConductor()))
-            {
+            if (!cards.Exists(x => x.IsConductor())) {
                 bool faceDown = base.PlayableCard.FaceDown;
                 yield return base.PlayableCard.FlipFaceUp(faceDown);
                 base.PlayableCard.Anim.StrongNegationEffect();
@@ -65,20 +56,16 @@ namespace WhistleWind.AbnormalSigils
             }
         }
 
-        public bool RespondsToOtherCardDieInHand(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public bool RespondsToOtherCardDieInHand(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             return RespondsToOtherCardDie(card, deathSlot, fromCombat, killer);
         }
 
-        public IEnumerator OnOtherCardDieInHand(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public IEnumerator OnOtherCardDieInHand(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             yield return OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
     }
-    public partial class AbnormalPlugin
-    {
-        private void StatusEffect_Fervent()
-        {
+    public partial class AbnormalPlugin {
+        private void StatusEffect_Fervent() {
             const string rName = "Fervent Adoration";
             const string rDesc = "While there is a Movement, a card bearing this effect will strike at random, with priority to other Fervent cards. If there is no Movement, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Fervent>(

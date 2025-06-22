@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string jesterOfNihil = "wstl_jesterOfNihil";
-        private static void JesterOfNihil_O01118()
-        {
+        private static void JesterOfNihil_O01118() {
             string textureName = "jesterOfNihil";
             CardManager.New(LobotomyPlugin.pluginPrefix, jesterOfNihil, "The Jester of Nihil",
                 attack: 0, health: 7)

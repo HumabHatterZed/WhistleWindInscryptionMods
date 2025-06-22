@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateMice()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateMice() {
             // Mouse
             CardInfo mouse = CardManager.New(pluginPrefix, "mouse", "Mouse", 2, 4, "Just a regular, law-abiding mouse.")
                 .SetDefaultPart1Card().AddAct1()
@@ -42,8 +39,7 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("mouseWizard_blue.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Multiplication", Ability.DrawCopy));
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 mouse.AddMetaCategories(ScrybeCompat.NatureRegion);
                 skele.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);

@@ -8,12 +8,10 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using UnityEngine;
 
-namespace WhistleWind.AbnormalSigils
-{
+namespace WhistleWind.AbnormalSigils {
     // for triggering special card behaviour in Healer
     [HarmonyPatch]
-    public class MiniGiantCard : SpecialCardBehaviour
-    {
+    public class MiniGiantCard : SpecialCardBehaviour {
         public static SpecialTriggeredAbility Id;
         public SpecialTriggeredAbility SpecialAbility => Id;
 
@@ -21,18 +19,15 @@ namespace WhistleWind.AbnormalSigils
 
         private CardSlot secondSlot = null;
         public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             secondSlot = base.PlayableCard.Slot.GetAdjacent(false) ?? base.PlayableCard.Slot.GetAdjacent(true);
-            if (secondSlot != null)
-            {
+            if (secondSlot != null) {
                 secondSlot.Card = base.PlayableCard;
             }
             yield break;
         }
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             secondSlot.Card = null;
             yield break;
         }
@@ -40,11 +35,9 @@ namespace WhistleWind.AbnormalSigils
     }
 
     [HarmonyPatch]
-    internal class MiniGiantPatches
-    {
+    internal class MiniGiantPatches {
         [HarmonyPrefix, HarmonyPatch(typeof(CardSpawner), nameof(CardSpawner.SpawnPlayableCard))]
-        private static bool ResizeMiniGiantCard(CardInfo info, ref PlayableCard __result)
-        {
+        private static bool ResizeMiniGiantCard(CardInfo info, ref PlayableCard __result) {
             if (!info.HasSpecialAbility(MiniGiantCard.Id))
                 return true;
 
@@ -66,13 +59,11 @@ namespace WhistleWind.AbnormalSigils
         }
 
         [HarmonyTranspiler, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.AssignCardToSlot), MethodType.Enumerator)]
-        private static IEnumerable<CodeInstruction> ChangeFinalLocalPosition(IEnumerable<CodeInstruction> instructions)
-        {
+        private static IEnumerable<CodeInstruction> ChangeFinalLocalPosition(IEnumerable<CodeInstruction> instructions) {
             List<CodeInstruction> codes = new(instructions);
 
             int addCode = codes.FindIndex(x => x.opcode == OpCodes.Add);
-            if (addCode != -1)
-            {
+            if (addCode != -1) {
                 int start = addCode - 6, end = addCode + 2;
                 codes.RemoveRange(start, end - start);
                 codes.Insert(start++, new(OpCodes.Ldloc_1));
@@ -87,8 +78,7 @@ namespace WhistleWind.AbnormalSigils
             return codes;
         }
 
-        private static Vector3 ModifyFinalLocalPosition(BoardManager instance, PlayableCard card)
-        {
+        private static Vector3 ModifyFinalLocalPosition(BoardManager instance, PlayableCard card) {
             if (!card.Info.HasSpecialAbility(MiniGiantCard.Id))
                 return Vector3.up * (instance.SlotHeightOffset + card.SlotHeightOffset);
 
@@ -99,10 +89,8 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public partial class AbnormalPlugin
-    {
-        private void SpecialAbility_MiniGiant()
-        {
+    public partial class AbnormalPlugin {
+        private void SpecialAbility_MiniGiant() {
             MiniGiantCard.Id = SpecialTriggeredAbilityManager.Add(pluginGuid, "MiniGiantCard", typeof(MiniGiantCard)).Id;
         }
     }

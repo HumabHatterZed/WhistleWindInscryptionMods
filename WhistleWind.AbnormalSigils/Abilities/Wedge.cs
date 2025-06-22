@@ -6,12 +6,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Wedge()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Wedge() {
             const string rulebookName = "Shove Aside";
             const string rulebookDescription = "Creatures struck by [creature] are pushed to an adjacent space.";
             const string dialogue = "How rude.";
@@ -25,21 +22,18 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class Wedge : AbilityBehaviour
-    {
+    public class Wedge : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead && target.LacksAbility(Unyielding.ability) && !target.HasTrait(Trait.Giant);
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
-        {
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             CardSlot left = target.Slot.GetAdjacent(true);
             CardSlot right = target.Slot.GetAdjacent(false);
             bool leftOpen = left != null && left.Card == null;
             bool rightOpen = right != null && right.Card == null;
 
-            if (!leftOpen && !rightOpen)
-            {
+            if (!leftOpen && !rightOpen) {
                 yield break;
             }
 

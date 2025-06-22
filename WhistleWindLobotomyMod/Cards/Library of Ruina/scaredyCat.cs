@@ -5,14 +5,11 @@ using WhistleWindLobotomyMod.Core;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string scaredyCat = "wstl_scaredyCat";
         public const string scaredyCatStrong = "wstl_scaredyCatStrong";
-        private static void ScaredyCat_F02115()
-        {
+        private static void ScaredyCat_F02115() {
             string textureName = "scaredyCatStrong";
             string textureName2 = "scaredyCat";
             Trait[] traits = new[] { EmeraldCity };

@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string singingMachine = "wstl_singingMachine";
-        private static void SingingMachine_O0530()
-        {
+        private static void SingingMachine_O0530() {
             string name = "Singing Machine";
             string desc = "A wind-up music machine. The song it plays is to die for.";
             string textureName = "singingMachine";

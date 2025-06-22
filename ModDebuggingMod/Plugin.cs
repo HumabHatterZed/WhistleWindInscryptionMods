@@ -12,14 +12,12 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod;
 using static InscryptionAPI.Encounters.EncounterManager;
 
-namespace ModDebuggingMod
-{
+namespace ModDebuggingMod {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
 
     [BepInDependency(LobotomyPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
 
-    public partial class Plugin : BaseUnityPlugin
-    {
+    public partial class Plugin : BaseUnityPlugin {
         public const string pluginGuid = "whistlewind.inscryption.moddebuggingmod";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "Mod Debugging Mod";
@@ -35,8 +33,7 @@ namespace ModDebuggingMod
                     CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
                     );
 
-        private void Awake()
-        {
+        private void Awake() {
             Log = base.Logger;
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             //AddChallenges();
@@ -59,14 +56,10 @@ namespace ModDebuggingMod
             Logger.LogInfo($"{pluginName} loaded.");
         }
 
-        private void ModifyCardList()
-        {
-            CardManager.ModifyCardList += delegate (List<CardInfo> cards)
-            {
-                foreach (CardInfo card in cards)
-                {
-                    if (card.name == "Squirrel")
-                    {
+        private void ModifyCardList() {
+            CardManager.ModifyCardList += delegate (List<CardInfo> cards) {
+                foreach (CardInfo card in cards) {
+                    if (card.name == "Squirrel") {
                         card.AddTraits(Trait.Gem);
                         //card.SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("allAroundHelper_emission"));
                         //card.abilities = new() { Reflector.ability };
@@ -83,10 +76,8 @@ namespace ModDebuggingMod
             };
         }
 
-        private void DebugEncounters()
-        {
-            for (int i = 0; i < 3; i++)
-            {
+        private void DebugEncounters() {
+            for (int i = 0; i < 3; i++) {
                 RegionProgression.Instance.regions[i].encounters.Clear();
                 RegionProgression.Instance.regions[i].encounters = new() { ModdingEncounter() };
             }
@@ -162,20 +153,16 @@ namespace ModDebuggingMod
                         }*/
         }
 
-        private void PrintCardsToConsole(string pluginPrefix)
-        {
-            foreach (CardInfo info in CardManager.AllCardsCopy.Where(x => x.ModPrefixIs(pluginPrefix)))
-            {
+        private void PrintCardsToConsole(string pluginPrefix) {
+            foreach (CardInfo info in CardManager.AllCardsCopy.Where(x => x.ModPrefixIs(pluginPrefix))) {
                 string gems = "";
-                foreach (GemType type in info.gemsCost)
-                {
+                foreach (GemType type in info.gemsCost) {
                     gems += type.ToString() + " ";
                 }
 
                 Log.LogInfo($"Card: {info.name} ({info.displayedName}) Rare: {info.HasCardMetaCategory(CardMetaCategory.Rare)}");
                 Log.LogInfo($"- Stats: {info.Attack}/{info.Health}");
-                if (info.SpecialStatIcon != SpecialStatIcon.None)
-                {
+                if (info.SpecialStatIcon != SpecialStatIcon.None) {
                     StatIconInfo stat = StatIconInfo.GetIconInfo(info.SpecialStatIcon);
                     Log.LogInfo($"- Stat Icon: {stat.rulebookName} ({stat.iconType}) {stat.appliesToAttack}/{stat.appliesToHealth}");
                 }
@@ -183,11 +170,9 @@ namespace ModDebuggingMod
                 Log.LogInfo($"- Bones: {info.bonesCost}");
                 Log.LogInfo($"- Energy: {info.energyCost}");
                 Log.LogInfo($"- Gems: {gems}");
-                if (info.Abilities.Count > 0)
-                {
+                if (info.Abilities.Count > 0) {
                     Log.LogInfo("Abilities:");
-                    foreach (Ability ability in info.Abilities)
-                    {
+                    foreach (Ability ability in info.Abilities) {
                         Log.LogInfo($"- {AbilitiesUtil.GetInfo(ability).rulebookName} ({ability})");
                     }
                 }

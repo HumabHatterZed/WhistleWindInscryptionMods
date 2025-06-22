@@ -7,20 +7,16 @@ using System.Linq;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
-{
-    public class TradeAbnormalCardsForPelts : TradeCardsForPelts
-    {
-        private List<CardInfo> GenerateAbnormalTradeCards(int numQueueCards, int numOpponentSlotCards, int queueCostTier, int opponentSlotCostTier, int randomSeed)
-        {
+namespace WhistleWindLobotomyMod.Opponents.TrapperTrader {
+    public class TradeAbnormalCardsForPelts : TradeCardsForPelts {
+        private List<CardInfo> GenerateAbnormalTradeCards(int numQueueCards, int numOpponentSlotCards, int queueCostTier, int opponentSlotCostTier, int randomSeed) {
             List<CardInfo> list = new();
             list.AddRange(GenerateAbnormalTradeCardsWithCostTier(numOpponentSlotCards, opponentSlotCostTier, randomSeed));
             randomSeed *= 2;
             list.AddRange(GenerateAbnormalTradeCardsWithCostTier(numQueueCards, queueCostTier, randomSeed));
             return list;
         }
-        private List<CardInfo> GenerateAbnormalTradeCardsWithCostTier(int numCards, int tier, int randomSeed)
-        {
+        private List<CardInfo> GenerateAbnormalTradeCardsWithCostTier(int numCards, int tier, int randomSeed) {
             bool flag = tier > 0;
             tier = Mathf.Max(1, tier);
             List<CardInfo> learnedCards = LobotomyCardManager.ObtainableLobotomyCards.FindAll(CardLoader.LearnedCards.Contains);
@@ -29,22 +25,18 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
                 learnedCards.RemoveAll((CardInfo x) => x.BonesCost > 0);
 
             List<CardInfo> distinctCardsFromPool = CardLoader.GetDistinctCardsFromPool(randomSeed, numCards, learnedCards, flag ? 1 : 0, opponentUsableAbility: true);
-            while (distinctCardsFromPool.Count < numCards)
-            {
+            while (distinctCardsFromPool.Count < numCards) {
                 CardInfo cardByName;
                 CardModificationInfo cardModificationInfo;
-                if (tier == 2)
-                {
+                if (tier == 2) {
                     cardByName = CardLoader.GetCardByName("wstl_magicalGirlSpade");
                     cardModificationInfo = new CardModificationInfo(Ability.Sharp);
                 }
-                else
-                {
+                else {
                     cardByName = CardLoader.GetCardByName("wstl_dellaLuna");
                     cardModificationInfo = new CardModificationInfo(Ability.Reach);
                 }
-                if (flag)
-                {
+                if (flag) {
                     cardModificationInfo.fromCardMerge = true;
                     cardByName.Mods.Add(cardModificationInfo);
                 }
@@ -52,23 +44,19 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             }
             return distinctCardsFromPool;
         }
-        public new IEnumerator TradePhase(int numQueueCards = 4, int numOpponentSlotCards = 4, int queueCostTier = 3, int opponentSlotCostTier = 2, string preTradeDialogueId = "TrapperTraderPreTrade", string postTradeDialogueId = "TrapperTraderPostTrade")
-        {
+        public new IEnumerator TradePhase(int numQueueCards = 4, int numOpponentSlotCards = 4, int queueCostTier = 3, int opponentSlotCostTier = 2, string preTradeDialogueId = "TrapperTraderPreTrade", string postTradeDialogueId = "TrapperTraderPostTrade") {
             (Singleton<BoardManager>.Instance as BoardManager3D).Bell.enabled = false;
             (Singleton<BoardManager>.Instance as BoardManager3D).Bell.SetEnabled(enabled: false);
             Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("PeltWolf"));
             yield return new WaitForSeconds(0.75f);
-            foreach (CardSlot item in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-            {
-                if (item.Card != null)
-                {
+            foreach (CardSlot item in Singleton<BoardManager>.Instance.OpponentSlotsCopy) {
+                if (item.Card != null) {
                     item.Card.RenderInfo.hiddenCost = false;
                     item.Card.RenderCard();
                 }
             }
-            foreach (PlayableCard item2 in Singleton<TurnManager>.Instance.Opponent.Queue)
-            {
+            foreach (PlayableCard item2 in Singleton<TurnManager>.Instance.Opponent.Queue) {
                 item2.RenderInfo.hiddenCost = false;
                 item2.RenderCard();
             }
@@ -78,16 +66,13 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             yield return new WaitForSeconds(0.25f);
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber * 100;
             List<CardInfo> cardInfos = GenerateAbnormalTradeCards(numQueueCards, numOpponentSlotCards, queueCostTier, opponentSlotCostTier, randomSeed);
-            for (int j = 0; j < numOpponentSlotCards; j++)
-            {
+            for (int j = 0; j < numOpponentSlotCards; j++) {
                 List<CardSlot> list = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((x) => x.Card == null);
-                if (list.Count <= 0)
-                {
+                if (list.Count <= 0) {
                     continue;
                 }
                 CardSlot slot4 = list[SeededRandom.Range(0, list.Count, randomSeed++)];
-                if (slot4.Card == null && j < cardInfos.Count)
-                {
+                if (slot4.Card == null && j < cardInfos.Count) {
                     StartCoroutine(Singleton<BoardManager>.Instance.CreateCardInSlot(cardInfos[j], slot4, 0.1f, resolveTriggers: false));
                     yield return new WaitUntil(() => slot4.Card != null);
                     slot4.Card.RenderInfo.hiddenCost = false;
@@ -95,12 +80,10 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
                     yield return new WaitForSeconds(0.1f);
                 }
             }
-            for (int j = 0; j < numQueueCards; j++)
-            {
+            for (int j = 0; j < numQueueCards; j++) {
                 List<CardSlot> list2 = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((x) => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(x));
                 int num = j + numOpponentSlotCards;
-                if (list2.Count > 0 && num < cardInfos.Count)
-                {
+                if (list2.Count > 0 && num < cardInfos.Count) {
                     CardSlot slot3 = list2[SeededRandom.Range(0, list2.Count, randomSeed++)];
                     yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardInfos[num], slot3, doTween: true, changeView: false);
                     PlayableCard playableCard = Singleton<TurnManager>.Instance.Opponent.Queue.Find((x) => x.QueuedSlot == slot3);
@@ -111,29 +94,23 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             }
             yield return new WaitForSeconds(0.15f);
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(ViewController.ControlMode.TraderCardsForPeltsPhase);
-            if (!string.IsNullOrEmpty(preTradeDialogueId))
-            {
+            if (!string.IsNullOrEmpty(preTradeDialogueId)) {
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent(preTradeDialogueId, TextDisplayer.MessageAdvanceMode.Input);
             }
             yield return new WaitForSeconds(0.05f);
-            foreach (CardSlot slot2 in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-            {
-                if (slot2.Card != null)
-                {
+            foreach (CardSlot slot2 in Singleton<BoardManager>.Instance.OpponentSlotsCopy) {
+                if (slot2.Card != null) {
                     CardSlot cardSlot = slot2;
-                    cardSlot.CursorSelectStarted = (Action<MainInputInteractable>)Delegate.Combine(cardSlot.CursorSelectStarted, (Action<MainInputInteractable>)delegate
-                    {
+                    cardSlot.CursorSelectStarted = (Action<MainInputInteractable>)Delegate.Combine(cardSlot.CursorSelectStarted, (Action<MainInputInteractable>)delegate {
                         OnTradableSelected(slot2, slot2.Card);
                     });
                     slot2.HighlightCursorType = CursorType.Pickup;
                 }
             }
-            foreach (PlayableCard card in Singleton<TurnManager>.Instance.Opponent.Queue)
-            {
+            foreach (PlayableCard card in Singleton<TurnManager>.Instance.Opponent.Queue) {
                 HighlightedInteractable slot = Singleton<BoardManager>.Instance.OpponentQueueSlots[Singleton<BoardManager>.Instance.OpponentSlotsCopy.IndexOf(card.QueuedSlot)];
                 HighlightedInteractable highlightedInteractable = slot;
-                highlightedInteractable.CursorSelectStarted = (Action<MainInputInteractable>)Delegate.Combine(highlightedInteractable.CursorSelectStarted, (Action<MainInputInteractable>)delegate
-                {
+                highlightedInteractable.CursorSelectStarted = (Action<MainInputInteractable>)Delegate.Combine(highlightedInteractable.CursorSelectStarted, (Action<MainInputInteractable>)delegate {
                     OnTradableSelected(slot, card);
                 });
                 slot.HighlightCursorType = CursorType.Pickup;
@@ -143,19 +120,16 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             yield return new WaitWhile(() => PeltInHand() && (Singleton<BoardManager>.Instance.OpponentSlotsCopy.Exists((x) => x.Card != null) || Singleton<TurnManager>.Instance.Opponent.Queue.Count > 0));
             Singleton<TextDisplayer>.Instance.Clear();
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-            foreach (CardSlot item3 in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-            {
+            foreach (CardSlot item3 in Singleton<BoardManager>.Instance.OpponentSlotsCopy) {
                 item3.ClearDelegates();
                 item3.HighlightCursorType = CursorType.Default;
             }
-            foreach (HighlightedInteractable opponentQueueSlot in Singleton<BoardManager>.Instance.OpponentQueueSlots)
-            {
+            foreach (HighlightedInteractable opponentQueueSlot in Singleton<BoardManager>.Instance.OpponentQueueSlots) {
                 opponentQueueSlot.ClearDelegates();
                 opponentQueueSlot.HighlightCursorType = CursorType.Default;
             }
             yield return new WaitForSeconds(0.75f);
-            if (!string.IsNullOrEmpty(postTradeDialogueId))
-            {
+            if (!string.IsNullOrEmpty(postTradeDialogueId)) {
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent(postTradeDialogueId, TextDisplayer.MessageAdvanceMode.Input);
             }
             Tween.Rotation(Singleton<PlayerHand>.Instance.transform, (Singleton<PlayerHand>.Instance as PlayerHand3D).startingEulers, 0.25f, 0f, Tween.EaseInOut);
@@ -167,25 +141,20 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             (Singleton<BoardManager>.Instance as BoardManager3D).Bell.enabled = true;
             (Singleton<BoardManager>.Instance as BoardManager3D).Bell.SetEnabled(enabled: true);
             yield return new WaitForSeconds(0.5f);
-            foreach (CardSlot item4 in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-            {
-                if (item4.Card != null)
-                {
+            foreach (CardSlot item4 in Singleton<BoardManager>.Instance.OpponentSlotsCopy) {
+                if (item4.Card != null) {
                     item4.Card.RenderInfo.hiddenCost = true;
                     item4.Card.RenderCard();
                 }
             }
-            foreach (PlayableCard item5 in Singleton<TurnManager>.Instance.Opponent.Queue)
-            {
-                if (item5 != null)
-                {
+            foreach (PlayableCard item5 in Singleton<TurnManager>.Instance.Opponent.Queue) {
+                if (item5 != null) {
                     item5.RenderInfo.hiddenCost = true;
                     item5.RenderCard();
                 }
             }
         }
-        private new List<CardInfo> GenerateTradeCards(int numQueueCards, int numOpponentSlotCards, int queueCostTier, int opponentSlotCostTier, int randomSeed)
-        {
+        private new List<CardInfo> GenerateTradeCards(int numQueueCards, int numOpponentSlotCards, int queueCostTier, int opponentSlotCostTier, int randomSeed) {
             List<CardInfo> list = new();
             list.AddRange(GenerateTradeCardsWithCostTier(numOpponentSlotCards, opponentSlotCostTier, randomSeed));
             randomSeed *= 2;
@@ -193,33 +162,27 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             return list;
         }
 
-        private new List<CardInfo> GenerateTradeCardsWithCostTier(int numCards, int tier, int randomSeed)
-        {
+        private new List<CardInfo> GenerateTradeCardsWithCostTier(int numCards, int tier, int randomSeed) {
             bool flag = tier > 0;
             tier = Mathf.Max(1, tier);
             List<CardInfo> learnedCards = CardLoader.LearnedCards.Where(x => x.name.StartsWith("wstl")).ToList();
             learnedCards.RemoveAll((x) => x.temple != 0 || x.CostTier != tier || x.Abilities.Exists((a) => !AbilitiesUtil.GetInfo(a).opponentUsable));
-            if (!ProgressionData.LearnedMechanic(MechanicsConcept.Bones))
-            {
+            if (!ProgressionData.LearnedMechanic(MechanicsConcept.Bones)) {
                 learnedCards.RemoveAll((x) => x.BonesCost > 0);
             }
             List<CardInfo> distinctCardsFromPool = CardLoader.GetDistinctCardsFromPool(randomSeed, numCards, learnedCards, flag ? 1 : 0, opponentUsableAbility: true);
-            while (distinctCardsFromPool.Count < numCards)
-            {
+            while (distinctCardsFromPool.Count < numCards) {
                 CardInfo cardByName;
                 CardModificationInfo cardModificationInfo;
-                if (tier == 2)
-                {
+                if (tier == 2) {
                     cardByName = CardLoader.GetCardByName("wstl_singingMachine");
                     cardModificationInfo = new CardModificationInfo(Ability.Sharp);
                 }
-                else
-                {
+                else {
                     cardByName = CardLoader.GetCardByName("wstl_alriune");
                     cardModificationInfo = new CardModificationInfo(Ability.Reach);
                 }
-                if (flag)
-                {
+                if (flag) {
                     cardModificationInfo.fromCardMerge = true;
                     cardByName.Mods.Add(cardModificationInfo);
                 }

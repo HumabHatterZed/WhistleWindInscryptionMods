@@ -11,10 +11,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardGebura : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardGebura : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahGebura;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.2f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingGeburaBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingGeburaEmission.png");
 
@@ -76,11 +72,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahGebura = "wstl_sephirahGebura";
-        private static void Gebura()
-        {
+        private static void Gebura() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahGebura, "Gebura",
                 attack: 3, health: 5, "Though not as strong as she once was, she will still make for a powerful ally.")
                 .SetBloodCost(3)
@@ -90,10 +84,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Gebura()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Gebura() {
             TalkingCardGebura.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardGebura>("Gebura").Id;
         }
     }

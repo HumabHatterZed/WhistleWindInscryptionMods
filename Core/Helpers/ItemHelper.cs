@@ -5,16 +5,13 @@ using InscryptionAPI.Items.Extensions;
 using UnityEngine;
 using static InscryptionAPI.Items.ConsumableItemManager;
 
-namespace WhistleWind.Core.Helpers
-{
-    public static class ItemHelper
-    {
+namespace WhistleWind.Core.Helpers {
+    public static class ItemHelper {
         public static void CreateItem<T>(
             string pluginGuid, string internalName, string rulebookName, string rulebookDescription,
             string rulebookIcon, string nodeDialogue,
             ModelType modelType = ModelType.BasicRune,
-            int powerLevel = 1, bool regionSpecific = false, bool notRandom = false, bool outsideBattle = false)
-        {
+            int powerLevel = 1, bool regionSpecific = false, bool notRandom = false, bool outsideBattle = false) {
             Texture2D texture2D = TextureLoader.LoadTextureFromFile(rulebookIcon);
             ConsumableItemData itemData = ScriptableObject.CreateInstance<ConsumableItemData>();
 
@@ -43,8 +40,7 @@ namespace WhistleWind.Core.Helpers
             string pluginGuid, string internalName, string rulebookName, string rulebookDescription,
             string rulebookIcon, string nodeDialogue,
             GameObject prefab,
-            int powerLevel = 1, bool regionSpecific = false, bool notRandom = false, bool outsideBattle = false)
-        {
+            int powerLevel = 1, bool regionSpecific = false, bool notRandom = false, bool outsideBattle = false) {
             ConsumableItemResource consumableItemResource = new ConsumableItemResource();
             consumableItemResource.FromPrefab(prefab);
             ModelType modelType = RegisterPrefab(pluginGuid, rulebookName, consumableItemResource);
@@ -60,8 +56,7 @@ namespace WhistleWind.Core.Helpers
         }
         public static ConsumableItemData CreateBottleItem(
             string pluginGuid, string internalName, string cardByName, string rulebookIcon,
-            string nodeDialogue = "", int powerLevel = 1, string rulebookName = null, bool outsideBattle = false)
-        {
+            string nodeDialogue = "", int powerLevel = 1, string rulebookName = null, bool outsideBattle = false) {
             CardInfo cardInfo = CardLoader.GetCardByName(cardByName);
             Texture2D texture2D = TextureLoader.LoadTextureFromFile(rulebookIcon);
 
@@ -76,15 +71,13 @@ namespace WhistleWind.Core.Helpers
             string definition = $"[define:{cardByName}]";
 
             // if the displayed name starts with a vowel we'll need to construct the card definition ourself
-            if (NameStartsWithVowel(cardInfo.displayedName))
-            {
+            if (NameStartsWithVowel(cardInfo.displayedName)) {
                 // proper grammar :)
                 startingPreposition = "An";
 
                 // create a string list of abilities
                 string abilities = "";
-                foreach (Ability ability in cardInfo.Abilities)
-                {
+                foreach (Ability ability in cardInfo.Abilities) {
                     abilities += ", " + AbilitiesUtil.GetInfo(ability).rulebookName;
                 }
                 // end the abilities string with a full stop; if there are no abilities, abilities will just be a full stop
@@ -115,8 +108,7 @@ namespace WhistleWind.Core.Helpers
             return itemData;
         }
 
-        private static bool NameStartsWithVowel(string name)
-        {
+        private static bool NameStartsWithVowel(string name) {
             if (name.Length == 0)
                 return false;
 

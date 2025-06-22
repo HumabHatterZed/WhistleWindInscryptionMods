@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string willBeBadWolf = "wstl_willBeBadWolf";
-        private static void WillBeBadWolf_F0258()
-        {
+        private static void WillBeBadWolf_F0258() {
             string textureName = "willBeBadWolf";
             CardManager.New(LobotomyPlugin.pluginPrefix, willBeBadWolf, "Big and Will Be Bad Wolf",
                 attack: 1, health: 3, "It's the fate of all wolves to be the villains of fairy tales.")

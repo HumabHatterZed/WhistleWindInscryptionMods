@@ -2,10 +2,8 @@
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod
-{
-    public class StarterDecks
-    {
+namespace WhistleWindLobotomyMod {
+    public class StarterDecks {
         public const int NUM_DECKS = 13;
         public static readonly List<string> firstDay = new() {
             Cards.oneSin,
@@ -22,7 +20,7 @@ namespace WhistleWindLobotomyMod
             Cards.singingMachine,
             Cards.allAroundHelper
         };
-        public static readonly List<string> peoplePleasers = new () {
+        public static readonly List<string> peoplePleasers = new() {
             Cards.todaysShyLook,
             LobotomyConfigManager.NoRuina? Cards.mirrorOfAdjustment : Cards.pinocchio,
             Cards.behaviourAdjustment
@@ -64,11 +62,9 @@ namespace WhistleWindLobotomyMod
             Cards.bigBird,
             Cards.judgementBird
         };
-        internal static void AddStarterDecks()
-        {
+        internal static void AddStarterDecks() {
             List<string> randomCards = new() { Cards.randomPlaceholder, Cards.randomPlaceholder, Cards.randomPlaceholder };
-            if (LobotomyConfigManager.StarterDeckSize > 0)
-            {
+            if (LobotomyConfigManager.StarterDeckSize > 0) {
                 for (int i = 0; i < LobotomyConfigManager.StarterDeckSize; i++)
                     randomCards.Add(Cards.randomPlaceholder);
             }

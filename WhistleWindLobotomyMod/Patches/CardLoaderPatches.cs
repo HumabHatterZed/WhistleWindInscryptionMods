@@ -5,15 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch(typeof(CardLoader))]
-    internal class CardLoaderPatch
-    {
+    internal class CardLoaderPatch {
         // Corrects the possible chooseable cards to exclude certain cards and to include non-Nature Temple cards
         [HarmonyPostfix, HarmonyPatch(nameof(CardLoader.GetUnlockedCards))]
-        private static void RemoveUniqueCards(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple)
-        {
+        private static void RemoveUniqueCards(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple) {
             if (LobotomySaveManager.UsedBackwardClock)
                 __result.RemoveAll(x => x.name == Cards.backwardClock);
 

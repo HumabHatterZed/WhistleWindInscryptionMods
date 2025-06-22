@@ -2,13 +2,10 @@
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string reddenedBuddy = "wstl_reddenedBuddy";
-        private static void ReddenedBuddy()
-        {
+        private static void ReddenedBuddy() {
             return;
             string textureName = "reddenedBuddy";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, reddenedBuddy, "Reddened Buddy",

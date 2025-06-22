@@ -2,15 +2,12 @@
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class Time : VariableStatBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class Time : VariableStatBehaviour {
         public static SpecialStatIcon icon;
         public static SpecialStatIcon Icon => icon;
         public override SpecialStatIcon IconType => icon;
-        public override int[] GetStatValues()
-        {
+        public override int[] GetStatValues() {
             if (base.PlayableCard.TurnPlayed == 0)
                 return new int[2] { 0, 0 };
 
@@ -18,10 +15,8 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public partial class AbnormalPlugin
-    {
-        private void StatIcon_Time()
-        {
+    public partial class AbnormalPlugin {
+        private void StatIcon_Time() {
             const string rulebookName = "Passing Time";
             const string rulebookDescription = "The value represented with this sigil will be equal to the number of turns that have passed since this card was placed on the board.";
             Time.icon = AbilityHelper.CreateStatIcon<Time>(pluginGuid,

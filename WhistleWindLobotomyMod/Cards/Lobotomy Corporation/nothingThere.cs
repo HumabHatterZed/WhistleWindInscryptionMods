@@ -4,16 +4,13 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string nothingThere = "wstl_nothingThere";
         public const string nothingThereTrue = "wstl_nothingThereTrue";
         public const string nothingThereEgg = "wstl_nothingThereEgg";
         public const string nothingThereFinal = "wstl_nothingThereFinal";
-        private static void NothingThere_O0620()
-        {
+        private static void NothingThere_O0620() {
             string nothingName = "Nothing There";
             string textureName = "nothingThereFinal";
             string textureName2 = "nothingThereEgg";

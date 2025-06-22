@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string snowQueen = "wstl_snowQueen";
-        private static void SnowQueen_F0137()
-        {
+        private static void SnowQueen_F0137() {
             string name = "The Snow Queen";
             string name2 = "The Snow Empress";
             string desc = "A queen from far away. Those who enter her palace never leave.";

@@ -1,11 +1,8 @@
 ﻿using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class LobotomyDialogue
-    {
-        private void Dialogue_MapNodes()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class LobotomyDialogue {
+        private void Dialogue_MapNodes() {
             CreateDialogueEvents("AbnormalChoiceNodeIntro", new() {
                 "You enter a clearing surrounded by dark, twisting trees.",
                 "What looks like a well rises up from its centre, but you wisely choose not to look inside.",
@@ -19,8 +16,7 @@ namespace WhistleWindLobotomyMod
                 "They appear quite capable. Perhaps you can convince them to aid you on your travels."
                 });
         }
-        private void Dialogue_BackwardClock()
-        {
+        private void Dialogue_BackwardClock() {
             CreateDialogueEvents("BackwardClockStart", new() {
                 "Close your eyes and count to ten.",
                 "When you open them, you will be standing at the exact moment you wish to be in." },
@@ -34,8 +30,7 @@ namespace WhistleWindLobotomyMod
                     new() { "[c:bR]1[c:] of your creatures must stay behind to operate the machine." }
                 });
         }
-        private void Dialogue_Abnormalities()
-        {
+        private void Dialogue_Abnormalities() {
             CreateDialogueEvents("ArmyInBlackTransform", new() {
                 "The human heart is black, and must be cleaned."
                 });
@@ -112,8 +107,7 @@ namespace WhistleWindLobotomyMod
                 "Now you become the sky, and I the land."
                 });
         }
-        private void Dialogue_JesterOfNihil()
-        {
+        private void Dialogue_JesterOfNihil() {
             CreateDialogueEvents("JesterOfNihilIntro", new() {
                 "Watch them carefully.",
                 "They're calling - no, praying for something."
@@ -127,8 +121,7 @@ namespace WhistleWindLobotomyMod
                 "No matter what it did, the Jester always found itself at the end of that road."
                 });
         }
-        private void Dialogue_LyingAdult()
-        {
+        private void Dialogue_LyingAdult() {
             CreateDialogueEvents("LyingAdultIntro", new() {
                 "Long ago, there was a city made of shining emerald.",
                 "Ruled by the princess [c:bR]Ozma[c:], it was home to many otherworldly splendors."
@@ -177,8 +170,7 @@ namespace WhistleWindLobotomyMod
                 "[c:g1]Who do you possibly expect to understand with that ice-cold heart of yours?[c:]"
                 });
         }
-        private void Dialogue_WhiteNight()
-        {
+        private void Dialogue_WhiteNight() {
             CreateDialogueEvents("WhiteNightEventIntro", new() {
                 "[c:bR]The time has come. A new world will come.[c:]",
                 "[c:bR]I am death and life. Darkness and light.[c:]" });

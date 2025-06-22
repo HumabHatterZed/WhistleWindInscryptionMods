@@ -6,12 +6,9 @@ using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Persistent()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Persistent() {
             const string rulebookName = "Persistent";
             const string rulebookDescription = "Opposing creatures cannot avoid or redirect attacks from this card.";
             const string dialogue = "Prey cannot hide so easily.";
@@ -25,8 +22,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Persistent : AbilityBehaviour, IOnPreSlotAttackSequence, IOnPostSlotAttackSequence
-    {
+    public class Persistent : AbilityBehaviour, IOnPreSlotAttackSequence, IOnPostSlotAttackSequence {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -35,14 +31,12 @@ namespace WhistleWind.AbnormalSigils
         public bool RespondsToPreSlotAttackSequence(CardSlot attackingSlot) => attackingSlot == base.Card.Slot;
         public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot == base.Card.Slot;
 
-        public IEnumerator OnPreSlotAttackSequence(CardSlot attackingSlot)
-        {
+        public IEnumerator OnPreSlotAttackSequence(CardSlot attackingSlot) {
             currentTargets = base.Card.GetOpposingSlots().FindAll(x => x.Card).Select(x => x.Card).ToList();
             yield break;
         }
 
-        public IEnumerator OnPostSlotAttackSequence(CardSlot attackingSlot)
-        {
+        public IEnumerator OnPostSlotAttackSequence(CardSlot attackingSlot) {
             previousTargets = new(currentTargets);
             currentTargets.Clear();
             yield break;

@@ -8,12 +8,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_MindStrike()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_MindStrike() {
             const string rulebookName = "Mind Strike";
             const string rulebookDescription = "When [creature] strikes another creature, deal no damage and instead inflict Sinking equal to half this card's Health, rounded up.";
             const string dialogue = "Why destroy the flesh when you can destroy the mind?";
@@ -25,13 +22,11 @@ namespace WhistleWind.AbnormalSigils
                 .AddMetaCategories(AbilityMetaCategory.GrimoraRulebook, AbilityMetaCategory.MagnificusRulebook, AbilityMetaCategory.Part3Rulebook).ability;
         }
     }
-    public class MindStrike : ModifyDamageDealtAbilityBehaviour
-    {
+    public class MindStrike : ModifyDamageDealtAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && target.LacksTrait(AbnormalPlugin.ImmuneToAilments);
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
-        {
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return target.AddStatusEffect<Sinking>((base.Card.Health + 1) / 2);
             yield return base.LearnAbility(0.3f);
         }

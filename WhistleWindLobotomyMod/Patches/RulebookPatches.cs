@@ -2,17 +2,14 @@
 using HarmonyLib;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
-    internal class RulebookPatches
-    {
+    internal class RulebookPatches {
         /// <summary>
         /// Adds certain sigils to the Act 1 rulebook.
         /// </summary>
         [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
-        private static void AddKayceeAbilities(ref int abilityIndex, ref bool __result)
-        {
+        private static void AddKayceeAbilities(ref int abilityIndex, ref bool __result) {
             if (__result || !SaveManager.SaveFile.IsPart1)
                 return;
 

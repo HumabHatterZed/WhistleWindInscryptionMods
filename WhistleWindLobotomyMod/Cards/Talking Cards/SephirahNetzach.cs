@@ -12,10 +12,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardNetzach : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardNetzach : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahNetzach;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.8f, voiceSoundPitch: 0.6f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -23,10 +21,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingNetzachBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingNetzachEmission.png");
 
@@ -82,11 +78,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahNetzach = "wstl_sephirahNetzach";
-        private static void Netzach()
-        {
+        private static void Netzach() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahNetzach, "Netzach",
                 attack: 0, health: 3, "Unmotivated and unwilling. Surely there are others you can choose?")
                 .SetBloodCost(1)
@@ -96,10 +90,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Netzach()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Netzach() {
             TalkingCardNetzach.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardNetzach>("Netzach").Id;
         }
     }

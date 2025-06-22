@@ -6,12 +6,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Cursed()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Cursed() {
             const string rulebookName = "Cursed";
             const string rulebookDescription = "When [creature] dies, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
@@ -25,23 +22,19 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Cursed : AbilityBehaviour
-    {
+    public class Cursed : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
             if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)
                 return killer.LacksAbility(Ability.MadeOfStone);
 
             return false;
         }
 
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            if (killer.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable))
-            {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
+            if (killer.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable)) {
                 killer.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("CursedFail");

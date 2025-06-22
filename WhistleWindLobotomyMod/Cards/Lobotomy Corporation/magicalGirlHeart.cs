@@ -6,18 +6,15 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string magicalGirlHeart = "wstl_magicalGirlHeart";
         public const string queenOfHatred = "wstl_queenOfHatred";
         public const string queenOfHatredTired = "wstl_queenOfHatredTired";
         public const string magicalGirlHeartPixel = "wstlGBC_magicalGirlHeart";
         public const string queenOfHatredPixel = "wstlGBC_queenOfHatred";
         public const string queenOfHatredTiredPixel = "wstlGBC_queenOfHatredTired";
-        private static void MagicalGirlHeart_O0104()
-        {
+        private static void MagicalGirlHeart_O0104() {
             string name = "Magical Girl";
             string queenName = "The Queen of Hatred";
             string desc = "A hero of love and justice. She will aid you on your journey.";

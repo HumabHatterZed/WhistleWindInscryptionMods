@@ -7,12 +7,9 @@ using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateBingus()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateBingus() {
             Sprite face = TextureHelper.GetImageAsTexture("bingus.png", Assembly).ConvertTexture(new(0.5f, 0f));
             List<EmotionData> emotionData = new()
             {

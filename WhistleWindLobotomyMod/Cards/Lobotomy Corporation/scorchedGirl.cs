@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string scorchedGirl = "wstl_scorchedGirl";
-        private static void ScorchedGirl_F0102()
-        {
+        private static void ScorchedGirl_F0102() {
             string name = "Scorched Girl";
             string desc = "Though there's nothing left to burn, the fire won't go out.";
             string textureName = "scorchedGirl";

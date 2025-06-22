@@ -3,17 +3,13 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections;
 
-namespace WhistleWind.AbnormalSigils.Patches
-{
+namespace WhistleWind.AbnormalSigils.Patches {
     [HarmonyPatch(typeof(ResourcesManager))]
-    public static class ResourcesManagerPatch
-    {
+    public static class ResourcesManagerPatch {
         // Prevents bones from dropping under certain conditions
         [HarmonyPostfix, HarmonyPatch(nameof(ResourcesManager.AddBones))]
-        public static IEnumerator AddBones(IEnumerator enumerator, CardSlot slot)
-        {
-            if (slot?.Card != null)
-            {
+        public static IEnumerator AddBones(IEnumerator enumerator, CardSlot slot) {
+            if (slot?.Card != null) {
                 if (slot.Card.HasTrait(AbnormalPlugin.Boneless))
                     yield break;
 

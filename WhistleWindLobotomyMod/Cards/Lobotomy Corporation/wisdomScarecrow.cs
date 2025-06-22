@@ -6,14 +6,11 @@ using WhistleWindLobotomyMod.Core;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string wisdomScarecrow = "wstl_wisdomScarecrow";
         public const string wisdomScarecrowPixel = "wstlGBC_wisdomScarecrow";
-        private static void WisdomScarecrow_F0187()
-        {
+        private static void WisdomScarecrow_F0187() {
             string name = "Scarecrow Searching for Wisdom";
             string desc = "A hollow-headed scarecrow. Blood soaks its straw limbs.";
             string textureName = "wisdomScarecrow";

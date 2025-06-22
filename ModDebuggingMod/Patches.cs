@@ -5,15 +5,12 @@ using UnityEngine;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace ModDebuggingMod
-{
+namespace ModDebuggingMod {
     // Adds predefined nodes for testing
     [HarmonyPatch]
-    internal static class DebugPatches
-    {
+    internal static class DebugPatches {
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
-        private static void Prefix(ref PaperGameMap __instance)
-        {
+        private static void Prefix(ref PaperGameMap __instance) {
             if (true || RunState.Run.map != null)
                 return;
 
@@ -30,8 +27,7 @@ namespace ModDebuggingMod
         }
 
         //[HarmonyPatch(typeof(Part3SaveData), nameof(Part3SaveData.Initialize))]
-        private static void ModifyPart3Deck(ref Part3SaveData __instance)
-        {
+        private static void ModifyPart3Deck(ref Part3SaveData __instance) {
             __instance.deck.Cards.Clear();
             __instance.deck.AddCard(CardLoader.GetCardByName("Squirrel"));
             __instance.deck.AddCard(CardLoader.GetCardByName("Squirrel"));
@@ -61,34 +57,29 @@ namespace ModDebuggingMod
         private static CardChoicesNodeData TribeChoice => new() { choicesType = CardChoicesType.Tribe };
         private static DuplicateMergeNodeData DupeNode => new();
         private static GainConsumablesNodeData ItemNode => new();
-        private static BossBattleNodeData ApocalypseNode => new()
-        {
+        private static BossBattleNodeData ApocalypseNode => new() {
             bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
-        private static BossBattleNodeData JesterNode => new()
-        {
+        private static BossBattleNodeData JesterNode => new() {
             bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
-        private static BossBattleNodeData EmeraldNode => new()
-        {
+        private static BossBattleNodeData EmeraldNode => new() {
             bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
-        private static BossBattleNodeData RaptureNode => new()
-        {
+        private static BossBattleNodeData RaptureNode => new() {
             bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
 
         private static readonly string LobGuid = WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
-        private static readonly List<string> customItems = new()
-        {
+        private static readonly List<string> customItems = new() {
             //LobGuid + "_" + "BottledTrain",
             //LobGuid + "_" + "BottledTrain",
             //LobGuid + "_" + "BottledTrain"

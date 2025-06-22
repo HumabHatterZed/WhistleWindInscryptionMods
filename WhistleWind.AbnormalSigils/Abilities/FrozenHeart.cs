@@ -5,12 +5,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_FrozenHeart()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_FrozenHeart() {
             const string rulebookName = "Frozen Heart";
             const string rulebookDescription = "When [creature] perishes, the killer gains 1 Power and 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
@@ -24,32 +21,26 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class FrozenHeart : AbilityBehaviour
-    {
+    public class FrozenHeart : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         private readonly string altDialogue = "The Woodcutter stuffs the melted heart into its chest.";
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
             return !wasSacrifice && killer != null;
         }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
             killer.Anim.LightNegationEffect();
-            if (killer.HasAbility(Woodcutter.ability))
-            {
+            if (killer.HasAbility(Woodcutter.ability)) {
                 killer.AddTemporaryMod(new(2, 2));
-                if (!base.HasLearned)
-                {
+                if (!base.HasLearned) {
                     base.SetLearned();
                     yield return DialogueHelper.PlayAlternateDialogue(dialogue: altDialogue);
                 }
             }
-            else
-            {
+            else {
                 killer.AddTemporaryMod(new(1, 1));
                 yield return base.LearnAbility(0.4f);
             }

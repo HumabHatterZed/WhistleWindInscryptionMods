@@ -3,12 +3,9 @@ using InscryptionAPI.Card;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Card_Spiderling_O0243()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Card_Spiderling_O0243() {
             const string spiderling = "spiderling";
             const string spiderBrood = "spiderBrood";
             Tribe[] tribes = new[] { Tribe.Insect };

@@ -2,14 +2,12 @@
 using HarmonyLib;
 using System.Collections;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch(typeof(Strafe), nameof(Strafe.PostSuccessfulMoveSequence))]
     internal static class StrafePatch // Adds a check for whether the card instance is null or not
     {
         [HarmonyPostfix]
-        private static IEnumerator PostSuccessfulMoveSequenceNullCheck(IEnumerator enumerator, PlayableCard __instance)
-        {
+        private static IEnumerator PostSuccessfulMoveSequenceNullCheck(IEnumerator enumerator, PlayableCard __instance) {
             if (!__instance)
                 yield break;
 
@@ -22,8 +20,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix]
         [HarmonyPatch(nameof(AbilityBehaviour.LearnAbility))]
         [HarmonyPatch(nameof(AbilityBehaviour.PreSuccessfulTriggerSequence))]
-        private static IEnumerator LearnAbilityNullCheck(IEnumerator enumerator, AbilityBehaviour __instance)
-        {
+        private static IEnumerator LearnAbilityNullCheck(IEnumerator enumerator, AbilityBehaviour __instance) {
             if (!__instance)
                 yield break;
 

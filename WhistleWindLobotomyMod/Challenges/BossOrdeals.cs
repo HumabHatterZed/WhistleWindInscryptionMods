@@ -2,8 +2,7 @@
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
+namespace WhistleWindLobotomyMod.Challenges {
     public static class BossOrdeals // taken from infiniscryption
     {
         internal const string title = "Ordeal Bosses";
@@ -12,8 +11,7 @@ namespace WhistleWindLobotomyMod.Challenges
         public static AscensionChallenge Id { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
-        internal static void Register()
-        {
+        internal static void Register() {
             Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,

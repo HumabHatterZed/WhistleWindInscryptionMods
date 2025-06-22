@@ -2,15 +2,12 @@
 using InscryptionAPI.Card;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string yinYangHead = "wstl_yinYangHead";
         public const string yinYangHorns = "wstl_yinYangHorns";
         public const string yinYangBody = "wstl_yinYangBody";
-        private static void YinYangDragon_O07103()
-        {
+        private static void YinYangDragon_O07103() {
             SpecialTriggeredAbility[] specialAbilities = new[] { DragonHead.specialAbility };
 
             CardManager.New(LobotomyPlugin.pluginPrefix, yinYangHead, string.Empty,

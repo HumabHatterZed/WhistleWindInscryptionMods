@@ -2,17 +2,14 @@
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
-    public static class ApostleGrizzlies
-    {
+namespace WhistleWindLobotomyMod.Challenges {
+    public static class ApostleGrizzlies {
         internal const string title = "Apostle Grizzlies";
         internal const string description = "Apostles appear during the first 3 boss battles instead.";
 
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register()
-        {
+        public static void Register() {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,

@@ -2,13 +2,10 @@
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string nobodyIs = "wstl_nobodyIs";
-        private static void Nobodyis()
-        {
+        private static void Nobodyis() {
             return;
             string textureName = "nobodyIs";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, nobodyIs, "Nobody Is",

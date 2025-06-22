@@ -2,12 +2,9 @@
 using WhistleWind.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddSmallBeak()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddSmallBeak() {
             const string rulebookName = "Small Beak";
             SmallBeak.ability = AbilityHelper.New<SmallBeak>(LobotomyPlugin.pluginGuid, "sigilSmallBeak", rulebookName,
                 "At the start of the player's turn, target a random lane on the board.  At the start of the player's next turn, kill all cards in the targeted lane, excluding this card.",
@@ -15,8 +12,7 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class SmallBeak : AbilityBehaviour
-    {
+    public class SmallBeak : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }

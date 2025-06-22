@@ -6,14 +6,11 @@ using WhistleWindLobotomyMod.Core;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string ozma = "wstl_ozma";
         public const string ozmaPixel = "wstlGBC_ozma";
-        private static void Ozma_F04116()
-        {
+        private static void Ozma_F04116() {
             string name = "Ozma";
             string desc = "The former ruler of a far away land, now reduced to a shambling husk.";
             string textureName = "ozma";

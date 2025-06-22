@@ -5,22 +5,17 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public static class LobOpponentUtils
-    {
+namespace WhistleWindLobotomyMod.Opponents {
+    public static class LobOpponentUtils {
         public static bool FightingCustomBoss() {
             return TurnManager.Instance?.Opponent is LobotomyBossOpponent;
         }
-        public static bool FightingCustomOpponent()
-        {
+        public static bool FightingCustomOpponent() {
             return TurnManager.Instance.Opponent is LobotomyOpponent;
         }
 
-        public static bool IsCustomBoss<T>(out T opponent) where T : LobotomyBossOpponent
-        {
-            if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is T opp)
-            {
+        public static bool IsCustomBoss<T>(out T opponent) where T : LobotomyBossOpponent {
+            if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is T opp) {
                 opponent = opp;
                 return true;
             }
@@ -34,17 +29,14 @@ namespace WhistleWindLobotomyMod.Opponents
         /// Recursively goes through each Transform in a given GameObjct and sets its layer to CardOffscreenLayer.
         /// </summary>
         /// <param name="obj"></param>
-        private static void FixAnimatedPortraitLayers(GameObject obj)
-        {
+        private static void FixAnimatedPortraitLayers(GameObject obj) {
             obj.layer = CardOffscreenLayer;
-            foreach (Transform child in obj.transform)
-            {
+            foreach (Transform child in obj.transform) {
                 FixAnimatedPortraitLayers(child.gameObject);
             }
         }
 
-        internal static void InitBossObjects()
-        {
+        internal static void InitBossObjects() {
             CardOffscreenLayer = CardLoader.GetCardByName("!GIANTCARD_MOON").AnimatedPortrait.transform.GetChild(0).gameObject.layer;
 
             apocalypseBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseBoss");
@@ -101,8 +93,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public static AudioClip[] bossSFX;
         public static AudioClip[] bossLoop;
 
-        public enum LobotomyBoss
-        {
+        public enum LobotomyBoss {
             Apocalypse,
             Saviour,
             Adult,

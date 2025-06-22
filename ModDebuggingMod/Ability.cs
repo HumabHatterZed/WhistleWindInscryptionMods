@@ -6,12 +6,9 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace ModDebuggingMod
-{
-    public partial class Plugin
-    {
-        private void Ability_Test()
-        {
+namespace ModDebuggingMod {
+    public partial class Plugin {
+        private void Ability_Test() {
             const string rulebookName = "Test";
             const string rulebookDescription = "When [creature] dies, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
@@ -22,8 +19,7 @@ namespace ModDebuggingMod
                 modular: true, opponent: false, canStack: true).Id;
         }
     }
-    public class Test : AbilityBehaviour
-    {
+    public class Test : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }

@@ -13,22 +13,17 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
 
-namespace WhistleWindLobotomyMod
-{
+namespace WhistleWindLobotomyMod {
     /// <summary>
     /// Utility class that contains all ability classes.
     /// </summary>
-    public partial class Abilities
-    {
+    public partial class Abilities {
         /// <summary>
         /// Register this mod's abilities with the API.
         /// </summary>
-        internal static void AddAbilities(LobotomyPlugin plugin)
-        {
-            if (LobotomyConfigManager.ReskinSigils)
-            {
-                AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
-                {
+        internal static void AddAbilities(LobotomyPlugin plugin) {
+            if (LobotomyConfigManager.ReskinSigils) {
+                AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
                     abilities.AbilityByID(Ability.Sniper).Info
                         .SetRulebookName("Marksman")
                         .SetAbilityLearnedDialogue("Your beast strikes with precision.")
@@ -98,8 +93,7 @@ namespace WhistleWindLobotomyMod
             StatusEffect_Sin();
             AddUnjustScale();
 
-            if (LobotomyConfigManager.RevealSpecials)
-            {
+            if (LobotomyConfigManager.RevealSpecials) {
                 LobotomyPlugin.Log.LogDebug("Adding rulebook entries for special abilities.");
                 AccessTools.GetDeclaredMethods(typeof(Abilities)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(plugin, null));
             }

@@ -6,12 +6,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_NimbleFoot()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_NimbleFoot() {
             const string rulebookName = "Nimble-Footed";
             const string rulebookDescription = "At the start of the owner's turn, [creature] gains Haste equal to 1 plus the number of times it has moved on the board.";
             NimbleFoot.ability = AbnormalAbilityHelper.CreateAbility<NimbleFoot>(
@@ -24,19 +21,16 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class NimbleFoot : AbilityBehaviour
-    {
+    public class NimbleFoot : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         int extraHaste = 0;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.LightNegationEffect();
-            yield return base.Card.AddStatusEffect<Haste>(extraHaste, modifyTurnGained: delegate (int i)
-            {
+            yield return base.Card.AddStatusEffect<Haste>(extraHaste, modifyTurnGained: delegate (int i) {
                 if (base.Card.HasStatusEffect<Haste>())
                     return i;
 
@@ -46,12 +40,10 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility(0.4f);
         }
 
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
             return otherCard == base.Card;
         }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
             extraHaste++;
             yield break;
         }

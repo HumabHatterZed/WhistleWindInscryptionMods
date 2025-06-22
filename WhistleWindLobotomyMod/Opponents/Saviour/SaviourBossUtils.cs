@@ -10,33 +10,27 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Methods and fields related to the Saviour boss and WhiteNight event
     /// </summary>
-    public class SaviourBossUtils
-    {
+    public class SaviourBossUtils {
         public const string ONESIN_NAME = "wstl_oneSin";
         #region WhiteNight event
-        public static IEnumerator ConvertCardsOnBoard(bool getPlayerCards, PlayableCard thisCard, int randomSeed)
-        {
-            foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(getPlayerCards, x => x != thisCard))
-            {
+        public static IEnumerator ConvertCardsOnBoard(bool getPlayerCards, PlayableCard thisCard, int randomSeed) {
+            foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(getPlayerCards, x => x != thisCard)) {
                 if (card.Info.name != ONESIN_NAME && card.LacksAllAbilities(ApostleSigil.ability, Confession.ability))
                     yield return ConvertCardToApostle(card, randomSeed++);
             }
         }
-        public static IEnumerator ConvertCardToApostle(PlayableCard cardToConvert, int randomSeed)
-        {
+        public static IEnumerator ConvertCardToApostle(PlayableCard cardToConvert, int randomSeed) {
             if (cardToConvert.HasTrait(Trait.Giant)) // do not convert Giants
                 yield break;
 
             ViewManager.Instance.SwitchToView(View.Board);
 
             // convert Mules, but not other Uncuttable cards
-            if (cardToConvert.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
-            {
+            if (cardToConvert.HasSpecialAbility(SpecialTriggeredAbility.PackMule)) {
                 Tween.LocalPosition(cardToConvert.transform, Vector3.up * Singleton<BoardManager>.Instance.SlotHeightOffset, 0.1f, 0.05f, Tween.EaseOut, Tween.LoopType.None);
                 Tween.Rotation(cardToConvert.transform, cardToConvert.Slot.transform.GetChild(0).rotation, 0.1f, 0f, Tween.EaseOut);
 
@@ -55,8 +49,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 yield break;
             }
 
-            if (!PlayerHasHeretic && SeededRandom.Range(0, 12, randomSeed++) == 0)
-            {
+            if (!PlayerHasHeretic && SeededRandom.Range(0, 12, randomSeed++) == 0) {
                 cardToConvert.RemoveFromBoard();
                 yield return new WaitForSeconds(0.5f);
                 yield return HelperMethods.ChangeCurrentView(View.Hand, 0f);
@@ -64,10 +57,8 @@ namespace WhistleWindLobotomyMod.Opponents
                 yield return new WaitForSeconds(0.45f);
             }
 
-            if (cardToConvert != null)
-            {
-                CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
-                {
+            if (cardToConvert != null) {
+                CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch {
                     0 => CardLoader.GetCardByName(Cards.apostleScythe),
                     1 => CardLoader.GetCardByName(Cards.apostleSpear),
                     _ => CardLoader.GetCardByName(Cards.apostleStaff)
@@ -83,10 +74,8 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return new WaitForSeconds(0.2f);
         }
 
-        public static bool PlayerHasHeretic
-        {
-            get
-            {
+        public static bool PlayerHasHeretic {
+            get {
                 if (PlayerHand.m_Instance == null || BoardManager.m_Instance == null)
                     return false;
 
@@ -94,20 +83,17 @@ namespace WhistleWindLobotomyMod.Opponents
             }
         }
 
-        private static bool OpponentPlagueDoctor(Card card)
-        {
+        private static bool OpponentPlagueDoctor(Card card) {
             if (card is PlayableCard playable && (playable.OpponentCard || playable.QueuedSlot != null))
                 return true;
 
             return false;
         }
-        public static int Blessings(Card card)
-        {
+        public static int Blessings(Card card) {
             return OpponentPlagueDoctor(card) ? LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.NumOfBlessings;
         }
 
-        public static void UpdateBlessings(Card card, int num)
-        {
+        public static void UpdateBlessings(Card card, int num) {
             if (OpponentPlagueDoctor(card))
                 LobotomySaveManager.OpponentBlessings += num;
             else
@@ -116,8 +102,7 @@ namespace WhistleWindLobotomyMod.Opponents
         #endregion
 
         #region Saviour
-        public static void ChangeTableColours()
-        {
+        public static void ChangeTableColours() {
             Color slotColour = GameColors.Instance.nearWhite;
             slotColour.a = 0.5f;
 
@@ -133,15 +118,13 @@ namespace WhistleWindLobotomyMod.Opponents
                 GameColors.Instance.brightGold);
         }
 
-        internal static EncounterBlueprintData CreateStartingBlueprint()
-        {
+        internal static EncounterBlueprintData CreateStartingBlueprint() {
             EncounterBlueprintData encounter = EncounterManager.New("SaviourBossPlan", false)
                 .AddDominantTribes(AbnormalPlugin.TribeDivine);
 
             return encounter;
         }
-        internal static RegionData CreateRegion()
-        {
+        internal static RegionData CreateRegion() {
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
 
             RegionData saviourRegion = ScriptableObject.CreateInstance<RegionData>();

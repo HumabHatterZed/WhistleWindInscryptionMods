@@ -6,14 +6,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string silentOrchestra = "wstl_silentOrchestra";
         public const string silentEnsemble = "wstl_silentEnsemble";
-        private static void SilentOrchestra_T0131()
-        {
+        private static void SilentOrchestra_T0131() {
             string textureName = "silentEnsemble";
             string textureName2 = "silentOrchestra";
             CardManager.New(LobotomyPlugin.pluginPrefix, silentEnsemble, "Chairs",

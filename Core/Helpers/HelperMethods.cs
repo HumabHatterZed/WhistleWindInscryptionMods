@@ -6,39 +6,29 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace WhistleWind.Core.Helpers
-{
-    public static class HelperMethods
-    {
-        public static bool CompareSingleton(string id, string comparer)
-        {
+namespace WhistleWind.Core.Helpers {
+    public static class HelperMethods {
+        public static bool CompareSingleton(string id, string comparer) {
             return !String.IsNullOrEmpty(id) && id == comparer;
         }
-        public static bool StartsWithSingleton(string id, string comparer)
-        {
+        public static bool StartsWithSingleton(string id, string comparer) {
             return !String.IsNullOrEmpty(id) && id.StartsWith(comparer);
         }
-        public static bool EndsWithSingleton(string id, string comparer)
-        {
+        public static bool EndsWithSingleton(string id, string comparer) {
             return !String.IsNullOrEmpty(id) && id.EndsWith(comparer);
         }
 
-        public static bool CardEquals(CardInfo baseInfo, CardInfo comparer)
-        {
-            if (baseInfo.name == comparer.name)
-            {
-                if (baseInfo.Attack == comparer.Attack && baseInfo.Health == comparer.Health)
-                {
+        public static bool CardEquals(CardInfo baseInfo, CardInfo comparer) {
+            if (baseInfo.name == comparer.name) {
+                if (baseInfo.Attack == comparer.Attack && baseInfo.Health == comparer.Health) {
                     return baseInfo.Abilities.SequenceEqual(comparer.Abilities);
                 }
             }
             return false;
         }
 
-        public static bool CardModEquals(CardModificationInfo baseMod, CardModificationInfo comparer)
-        {
-            if (baseMod.singletonId.Equals(comparer.singletonId))
-            {
+        public static bool CardModEquals(CardModificationInfo baseMod, CardModificationInfo comparer) {
+            if (baseMod.singletonId.Equals(comparer.singletonId)) {
                 return baseMod.attackAdjustment == comparer.attackAdjustment &&
                     baseMod.healthAdjustment == comparer.healthAdjustment &&
                     baseMod.bloodCostAdjustment == comparer.bloodCostAdjustment &&
@@ -64,32 +54,27 @@ namespace WhistleWind.Core.Helpers
             return false;
         }
 
-        public static IEnumerator PlayTruncated3DSound(string soundId, float skipToTime, CardSlot slot)
-        {
+        public static IEnumerator PlayTruncated3DSound(string soundId, float skipToTime, CardSlot slot) {
             AudioSource ocean = AudioController.Instance.PlaySound3D(soundId, MixerGroup.TableObjectsSFX, slot.transform.position, skipToTime: skipToTime);
             yield return new WaitUntil(() => ocean.time >= (ocean.clip.length * 0.15f));
             ocean.Stop();
         }
 
-        public static EncounterBlueprintData.CardBlueprint NewDifficultyCard(string card, string replacement, int difficultyReq)
-        {
+        public static EncounterBlueprintData.CardBlueprint NewDifficultyCard(string card, string replacement, int difficultyReq) {
             return EncounterManager.NewCardBlueprint(card, difficultyReplace: true, difficultyReplaceReq: difficultyReq, replacement: replacement);
         }
 
-        public static bool IsCardInfoOrCopy(CardInfo parentInfo, CardInfo compareInfo)
-        {
-            if (parentInfo != null && compareInfo != null && parentInfo.name == compareInfo.name)
-            {
+        public static bool IsCardInfoOrCopy(CardInfo parentInfo, CardInfo compareInfo) {
+            if (parentInfo != null && compareInfo != null && parentInfo.name == compareInfo.name) {
                 return (parentInfo.Mods.Count == 0 && compareInfo.Mods.Count == 0) || parentInfo.Mods.Intersect(compareInfo.Mods).Any();
             }
             return false;
         }
-        
+
         /// <summary>
         /// Variant of OnDie that doesn't destroy the PlayableCard object.
         /// </summary>
-        public static IEnumerator DieDontDestroy(PlayableCard card, bool wasSacrifice, PlayableCard killer)
-        {
+        public static IEnumerator DieDontDestroy(PlayableCard card, bool wasSacrifice, PlayableCard killer) {
             card.Anim.PlayHitAnimation();
             card.Anim.SetShielded(shielded: false);
             yield return card.Anim.ClearLatchAbility();
@@ -97,32 +82,27 @@ namespace WhistleWind.Core.Helpers
                 yield return card.TriggerHandler.OnTrigger(Trigger.Die, wasSacrifice, killer);
         }
 
-        public static T CopyAbilityBehaviour<T>(T original, GameObject gameObject) where T : AbilityBehaviour
-        {
+        public static T CopyAbilityBehaviour<T>(T original, GameObject gameObject) where T : AbilityBehaviour {
             System.Type type = original.GetType();
             Component component = gameObject.AddComponent(type);
             System.Reflection.FieldInfo[] fields = type.GetFields();
-            foreach (System.Reflection.FieldInfo field in fields)
-            {
+            foreach (System.Reflection.FieldInfo field in fields) {
                 if (!field.IsLiteral)// && !field.IsInitOnly) // don't mess with constants
                     field.SetValue(component, field.GetValue(original));
             }
             return component as T;
         }
-        public static T CopySpecialCardBehaviour<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour
-        {
+        public static T CopySpecialCardBehaviour<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour {
             System.Type type = original.GetType();
             Component component = gameObject.AddComponent(type);
             System.Reflection.FieldInfo[] fields = type.GetFields();
-            foreach (System.Reflection.FieldInfo field in fields)
-            {
+            foreach (System.Reflection.FieldInfo field in fields) {
                 if (!field.IsLiteral)// && !field.IsInitOnly) // don't mess with constants
                     field.SetValue(component, field.GetValue(original));
             }
             return component as T;
         }
-        public static IEnumerator HealCard(int amount, PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null)
-        {
+        public static IEnumerator HealCard(int amount, PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null) {
             bool faceDown = card.FaceDown;
             yield return card.FlipFaceUp(faceDown);
             card.Anim.LightNegationEffect();
@@ -133,23 +113,19 @@ namespace WhistleWind.Core.Helpers
             if (faceDown)
                 yield return new WaitForSeconds(0.4f);
         }
-        public static void RemoveCardFromDeck(CardInfo info)
-        {
-            if (SaveManager.SaveFile.IsPart2)
-            {
+        public static void RemoveCardFromDeck(CardInfo info) {
+            if (SaveManager.SaveFile.IsPart2) {
                 SaveManager.SaveFile.CurrentDeck.RemoveCard(info);
                 SaveManager.SaveFile.gbcData.collection.RemoveCardByName(info.name);
             }
-            else
-            {
+            else {
                 if (SaveManager.SaveFile.CurrentDeck.Cards.Contains(info))
                     SaveManager.SaveFile.CurrentDeck.RemoveCard(info);
                 else
                     SaveManager.SaveFile.CurrentDeck.RemoveCardByName(info.name);
             }
         }
-        public static IEnumerator FlipFaceUp(this PlayableCard card, bool alreadyFaceDown, float wait = 0.3f)
-        {
+        public static IEnumerator FlipFaceUp(this PlayableCard card, bool alreadyFaceDown, float wait = 0.3f) {
             if (!alreadyFaceDown)
                 yield break;
 
@@ -157,8 +133,7 @@ namespace WhistleWind.Core.Helpers
             card.UpdateFaceUpOnBoardEffects();
             yield return new WaitForSeconds(wait);
         }
-        public static IEnumerator FlipFaceDown(this PlayableCard card, bool setFaceDown, float wait = 0.3f)
-        {
+        public static IEnumerator FlipFaceDown(this PlayableCard card, bool setFaceDown, float wait = 0.3f) {
             // if set down and we're down OR set up and we're up
             if ((setFaceDown && card.FaceDown) || (!setFaceDown && !card.FaceDown))
                 yield break;
@@ -174,20 +149,16 @@ namespace WhistleWind.Core.Helpers
             yield return new WaitForSeconds(wait);
         }
 
-        public static CardInfo GetInfoWithMods(PlayableCard card, string name)
-        {
+        public static CardInfo GetInfoWithMods(PlayableCard card, string name) {
             CardInfo cardByName = CardLoader.GetCardByName(name);
-            foreach (CardModificationInfo item in card.Info.Mods.FindAll((x) => !x.nonCopyable))
-            {
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((x) => !x.nonCopyable)) {
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 cardByName.Mods.Add(cardModificationInfo);
             }
             return cardByName;
         }
-        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f, bool immediate = false, bool lockAfter = false)
-        {
-            if (Singleton<ViewManager>.Instance.CurrentView != view)
-            {
+        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f, bool immediate = false, bool lockAfter = false) {
+            if (Singleton<ViewManager>.Instance.CurrentView != view) {
                 yield return new WaitForSeconds(startDelay);
                 Singleton<ViewManager>.Instance.SwitchToView(view, immediate, lockAfter);
                 yield return new WaitForSeconds(endDelay);

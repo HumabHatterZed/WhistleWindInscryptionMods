@@ -4,13 +4,11 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils.StatusEffects
-{
+namespace WhistleWind.AbnormalSigils.StatusEffects {
     /// <summary>
     /// Subclass of StatusEffectBehaviour that modifies the effect's Potency on upkeep. Affects cards in the player's hand.
     /// </summary>
-    public abstract class ModifyOnUpkeepStatusEffectBehaviour : StatusEffectBehaviour, IOnUpkeepInHand
-    {
+    public abstract class ModifyOnUpkeepStatusEffectBehaviour : StatusEffectBehaviour, IOnUpkeepInHand {
         public abstract int PotencyModification { get; }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => CanModifyOnUpkeep(playerUpkeep);
@@ -19,12 +17,10 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public override IEnumerator OnUpkeep(bool playerUpkeep) => OnModifyOnUpkeep();
         public IEnumerator OnUpkeepInHand(bool playerUpkeep) => OnModifyOnUpkeep();
 
-        public virtual bool CanModifyOnUpkeep(bool playerUpkeep)
-        {
+        public virtual bool CanModifyOnUpkeep(bool playerUpkeep) {
             return base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained;
         }
-        public virtual IEnumerator OnModifyOnUpkeep()
-        {
+        public virtual IEnumerator OnModifyOnUpkeep() {
             //Debug.Log($"Modify: {EffectPotency} | {EffectPotency + PotencyModification}");
             yield return HelperMethods.ChangeCurrentView(base.PlayableCard.InHand ? View.Hand : View.Board);
 

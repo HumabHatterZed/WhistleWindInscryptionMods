@@ -6,15 +6,12 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string blueStar = "wstl_blueStar";
         public const string blueStar2 = "wstl_blueStar2";
         public const string blueStar3 = "wstl_blueStar3";
-        private static void BlueStar_O0393()
-        {
+        private static void BlueStar_O0393() {
             string starName = "Blue Star";
             string textureName = "blueStar";
             Tribe[] tribes = new[] { TribeDivine };

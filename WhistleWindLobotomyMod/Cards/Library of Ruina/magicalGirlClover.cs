@@ -6,16 +6,13 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string magicalGirlClover = "wstl_magicalGirlClover";
         public const string servantOfWrath = "wstl_servantOfWrath";
         public const string magicalGirlCloverPixel = "wstlGBC_magicalGirlClover";
         public const string servantOfWrathPixel = "wstlGBC_servantOfWrath";
-        private static void MagicalGirlClover_O01111()
-        {
+        private static void MagicalGirlClover_O01111() {
             string name = "The Servant of Wrath";
             string desc = "Blind protector of another world, betrayed by their closest friend.";
             string textureName = "servantOfWrath";

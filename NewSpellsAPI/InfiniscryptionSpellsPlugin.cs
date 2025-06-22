@@ -10,12 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Infiniscryption.Spells
-{
+namespace Infiniscryption.Spells {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
-    public class InfiniscryptionSpellsPlugin : BaseUnityPlugin
-    {
+    public class InfiniscryptionSpellsPlugin : BaseUnityPlugin {
 
         internal const string OriginalPluginGuid = "zorro.infiniscryption.sigils"; // This was the ID in previous versions
 
@@ -41,8 +39,7 @@ namespace Infiniscryption.Spells
                 new ConfigDescription("If true, this will allow spell cards to gain and transfer their sigils.")).Value;
 
         internal static bool SpellMerge { get; private set; }
-        private void Awake()
-        {
+        private void Awake() {
             Log = base.Logger;
 
             Harmony harmony = new(PluginGuid);
@@ -51,8 +48,7 @@ namespace Infiniscryption.Spells
             harmony.PatchAll(typeof(SpellBehavior));
 
             // patch only if true
-            if (AllowStatBoost)
-            {
+            if (AllowStatBoost) {
                 var baseMethod = typeof(CardStatBoostSequencer).GetMethod(nameof(CardStatBoostSequencer.GetValidCards), BindingFlags.NonPublic | BindingFlags.Instance);
                 var patchMethod = typeof(SpellBehavior).GetMethod(nameof(SpellBehavior.AllowStatBoostForSpells));
                 harmony.Patch(baseMethod, postfix: new(patchMethod));
@@ -79,10 +75,8 @@ namespace Infiniscryption.Spells
                 SpellCards.RegisterCustomCards();
 
             // This makes sure that all cards with the spell special ability are properly given all of the various components of a spell
-            CardManager.ModifyCardList += delegate (List<CardInfo> cards)
-            {
-                foreach (CardInfo card in cards.Where(x => x.IsSpell()))
-                {
+            CardManager.ModifyCardList += delegate (List<CardInfo> cards) {
+                foreach (CardInfo card in cards.Where(x => x.IsSpell())) {
                     if (card.IsTargetedSpell() && card.SpecialStatIcon != TargetedSpellAbility.Icon)
                         card.SetTargetedSpell();
 
@@ -92,8 +86,7 @@ namespace Infiniscryption.Spells
                     else if (card.IsGlobalSpell() && card.specialStatIcon == GlobalSpellAbility.Icon)
                         card.SetGlobalSpell();
 
-                    if (!card.hideAttackAndHealth && (card.baseHealth != 0 || card.baseAttack != 0))
-                    {
+                    if (!card.hideAttackAndHealth && (card.baseHealth != 0 || card.baseAttack != 0)) {
                         if (card.GetExtendedPropertyAsBool("Spells:NegativeStats") == null && (card.baseHealth < 0 || card.baseAttack < 0))
                             card.SetNegativeStats();
 

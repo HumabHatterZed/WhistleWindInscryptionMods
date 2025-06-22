@@ -5,10 +5,8 @@ using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class FizzyLifterEffect : SodaEffectBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class FizzyLifterEffect : SodaEffectBehaviour {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
@@ -16,10 +14,8 @@ namespace WhistleWind.AbnormalSigils
         public override string SingletonId => FizzyLifter.id;
         public override Ability AbilityToAdd => FizzyLifter.abilityToAdd;
     }
-    public partial class AbnormalPlugin
-    {
-        private void StatusEffect_FizzyLifterEffect()
-        {
+    public partial class AbnormalPlugin {
+        private void StatusEffect_FizzyLifterEffect() {
             const string rName = "Fizzy Lifted";
             const string rDesc = "A card bearing this effect is Airborne. At the end of the owner's turn, reduce this effect's Potency by 1.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<FizzyLifterEffect>(

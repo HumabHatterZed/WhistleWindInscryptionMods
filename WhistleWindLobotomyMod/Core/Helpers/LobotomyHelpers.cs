@@ -5,27 +5,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
-{
-    public static class LobotomyHelpers
-    {
-        public static bool CardIsMimicking(PlayableCard card)
-        {
-            if (card != null)
-            {
+namespace WhistleWindLobotomyMod.Core.Helpers {
+    public static class LobotomyHelpers {
+        public static bool CardIsMimicking(PlayableCard card) {
+            if (card != null) {
                 if (card.HasAnyOfSpecialAbilities(Mimicry.specialAbility, SpecialTriggeredAbility.Shapeshifter))
                     return true;
 
                 if (card.Info.Mods.Exists(x => HelperMethods.CompareSingleton(x.singletonId, "wstl:Copycat") || HelperMethods.StartsWithSingleton(x.singletonId, "NothingThere")))
 
-                if (card.TriggerHandler.permanentlyAttachedBehaviours.Exists(x => x.GetType() == typeof(Mimicry) || x.GetType() == typeof(Shapeshifter)))
-                    return true;
+                    if (card.TriggerHandler.permanentlyAttachedBehaviours.Exists(x => x.GetType() == typeof(Mimicry) || x.GetType() == typeof(Shapeshifter)))
+                        return true;
             }
             return false;
         }
 
-        public static bool AllowInitiateCombat(bool initiate)
-        {
+        public static bool AllowInitiateCombat(bool initiate) {
             bool canInitiateCombat = TurnManager.Instance.PlayerCanInitiateCombat;
             TurnManager.Instance.PlayerCanInitiateCombat = initiate;
             return canInitiateCombat;
@@ -35,8 +30,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         /// </summary>
         /// <param name="encounter">Blueprint to add.</param>
         /// <param name="removeLockedCards">Removes locks cards.</param>
-        public static IEnumerator ReplaceWithCustomBlueprint(this Opponent opponent, EncounterBlueprintData encounter, bool removeLockedCards = false)
-        {
+        public static IEnumerator ReplaceWithCustomBlueprint(this Opponent opponent, EncounterBlueprintData encounter, bool removeLockedCards = false) {
             opponent.Blueprint = encounter;
             int difficulty = 0;
             if (Singleton<TurnManager>.Instance.BattleNodeData != null)

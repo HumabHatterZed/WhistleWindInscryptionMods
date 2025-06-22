@@ -4,16 +4,13 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string bloodBath = "wstl_bloodBath";
         public const string bloodBath1 = "wstl_bloodBath1";
         public const string bloodBath2 = "wstl_bloodBath2";
         public const string bloodBath3 = "wstl_bloodBath3";
-        private static void Bloodbath_T0551()
-        {
+        private static void Bloodbath_T0551() {
             string bathName = "Bloodbath";
             string textureName = "bloodBath";
             string textureName2 = "bloodBath1";

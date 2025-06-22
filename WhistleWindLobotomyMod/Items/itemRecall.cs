@@ -3,12 +3,9 @@ using InscryptionAPI.Items;
 using InscryptionAPI.Items.Extensions;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Items
-    {
-        private static void RecallBottle()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Items {
+        private static void RecallBottle() {
             ConsumableItemManager.NewCardInABottle(LobotomyPlugin.pluginGuid, "wstl_RETURN_CARD_WEAK")
                 .SetPowerLevel(1)
                 .SetRulebookName("Single Recall Bottle")

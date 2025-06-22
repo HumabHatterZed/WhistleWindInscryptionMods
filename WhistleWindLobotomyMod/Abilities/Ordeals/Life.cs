@@ -6,12 +6,9 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddLife()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddLife() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Life";
             info.rulebookDescription = "When this card is played, create 2 Dawns/Noons of Green on the board. After two turns, return to the queue.";
@@ -20,8 +17,7 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class Life : AbilityBehaviour
-    {
+    public class Life : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -57,8 +53,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
         }
 
-        private string GetRandomCardId(int randomSeed)
-        {
+        private string GetRandomCardId(int randomSeed) {
             //  A   B   Y   O  P
             // .17 .41 .69 .92 1
             // .10 .32 .64 .89 1

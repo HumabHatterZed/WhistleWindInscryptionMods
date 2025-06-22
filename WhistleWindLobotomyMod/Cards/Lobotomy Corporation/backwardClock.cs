@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string backwardClock = "wstl_backwardClock";
-        private static void BackwardClock_D09104()
-        {
+        private static void BackwardClock_D09104() {
             string name = "Backward Clock";
             string desc = "A clock to rewind your wasted time, in exchange for anothers.";
             string textureName = "backwardClock";

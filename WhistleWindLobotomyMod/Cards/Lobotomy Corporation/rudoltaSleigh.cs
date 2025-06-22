@@ -5,14 +5,11 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string rudoltaSleigh = "wstl_rudoltaSleigh";
         public const string rudoltaSleigh_mule = "wstl_RUDOLTA_MULE";
-        private static void Rudolta_F0249()
-        {
+        private static void Rudolta_F0249() {
             string sleighName = "Rudolta of the Sleigh";
             string textureName = "rudoltaSleigh";
             Ability[] abilities = new[] { Ability.Strafe, GiftGiver.ability };

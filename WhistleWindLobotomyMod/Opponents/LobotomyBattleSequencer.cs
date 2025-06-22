@@ -10,10 +10,11 @@ using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IOnRoundEnd
-    {
+namespace WhistleWindLobotomyMod.Opponents {
+    /// <summary>
+    /// Abstract class containing logic shared by all custom opponents.
+    /// </summary>
+    public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly {
         public int currentExcessBones = 0;
         public bool drewInitialHand = false;
 
@@ -28,12 +29,12 @@ namespace WhistleWindLobotomyMod.Opponents
         public virtual bool DirectDamageGivesBones { get; set; } = true;
         public virtual int MaxExcessBones { get; } = 2;
 
-        public bool RespondsToRoundEnd(bool opponentTurnSkipped) => true;
-        public virtual IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => true;
+        public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
+        public virtual IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             currentExcessBones = 0;
             yield break;
         }
-        public int RoundEndPriority(bool opponentTurnSkipped) => 0;
 
         public virtual IEnumerator MoveOpponentCards() {
             LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer.MoveOpponentCards] Start");
@@ -52,17 +53,14 @@ namespace WhistleWindLobotomyMod.Opponents
             });
         }
 
-        public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer)
-        {
+        public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) {
             return !toPlayer && !PlayerCanWinThroughScaleDamage;
         }
-        public virtual int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer)
-        {
+        public virtual int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer) {
             if (LifeManager.Instance.DamageUntilPlayerWin == 1)
                 return numWeights = 0;
 
-            if (damage >= LifeManager.Instance.DamageUntilPlayerWin)
-            {
+            if (damage >= LifeManager.Instance.DamageUntilPlayerWin) {
                 numWeights = Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights);
                 return LifeManager.Instance.DamageUntilPlayerWin - 1;
             }
@@ -70,63 +68,48 @@ namespace WhistleWindLobotomyMod.Opponents
             return damage;
         }
 
-        public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default)
-        {
+        public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default) {
             GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, materialColour);
             targetIcons.Add(gameObject);
         }
-        public void CleanUpTargetIcon(GameObject icon)
-        {
+        public void CleanUpTargetIcon(GameObject icon) {
             TargetIconHelper.CleanUpTargetIcon(icon);
         }
-        public void CleanupTargetIcons()
-        {
-            targetIcons.ForEach(delegate (GameObject x)
-            {
+        public void CleanupTargetIcons() {
+            targetIcons.ForEach(delegate (GameObject x) {
                 if (x != null) CleanUpTargetIcon(x);
             });
             targetIcons.Clear();
         }
 
-        public override IEnumerator PlayerCombatEnd()
-        {
-            yield return base.PlayerCombatEnd();
-            currentExcessBones = 0;
-        }
-
-        public virtual bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
-        {
+        public virtual bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
             if (!opposingSlot.IsPlayerSlot) {
                 return attacker.OpponentCard ? damage < 0 : damage > 0;
             }
             return false;
         }
 
-        public virtual IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
-        {
+        public virtual IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
             if (!DirectDamageGivesBones || PlayerCanWinThroughScaleDamage || currentExcessBones >= MaxExcessBones) {
                 yield break;
             }
 
             int bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, damage) - (HighestPositiveScaleBalance - LifeManager.Instance.Balance);
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer] Direct: {damage} BonesToGive: {bonesToGive} Balance: {LifeManager.Instance.Balance}");
-
-            if (bonesToGive < 1)
-                yield break;
-
-            yield return new WaitForSeconds(0.01f);
-            DigUpBones(damage, bonesToGive, opposingSlot);
-            currentExcessBones += bonesToGive;
-            Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase -= bonesToGive;
+            
+            if (bonesToGive > 0) {
+                yield return new WaitForSeconds(0.01f);
+                DigUpBones(damage, bonesToGive, opposingSlot);
+                currentExcessBones += bonesToGive;
+                Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase -= bonesToGive;
+            }
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer] Dmg: {damage} currentBones/toGive: {currentExcessBones}/{bonesToGive} Balance: {LifeManager.Instance.Balance}");
         }
 
-        public virtual void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot)
-        {
+        public virtual void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
             ResourcesManager.Instance.PlayerBones += bonesToGive;
             Singleton<TableVisualEffectsManager>.Instance?.ThumpTable(0.075f * (float)Mathf.Min(10, bonesToGive));
 
-            for (int i = 0; i < bonesToGive; i++)
-            {
+            for (int i = 0; i < bonesToGive; i++) {
                 Part1ResourcesManager manager = ResourcesManager.Instance as Part1ResourcesManager;
                 GameObject gameObject = GameObject.Instantiate(manager.boneTokenPrefab);
                 BoneTokenInteractable component = gameObject.GetComponent<BoneTokenInteractable>();
@@ -138,8 +121,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 gameObject.transform.eulerAngles = UnityEngine.Random.insideUnitSphere;
 
                 Vector3 endValue = manager.GetRandomLandingPosition() + Vector3.up;
-                Tween.Position(component.transform, endValue, 0.25f, 0.5f, Tween.EaseInOut, Tween.LoopType.None, null, delegate
-                {
+                Tween.Position(component.transform, endValue, 0.25f, 0.5f, Tween.EaseInOut, Tween.LoopType.None, null, delegate {
                     tokenRB.WakeUp();
                     manager.PushTokenDown(tokenRB);
                 });

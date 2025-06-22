@@ -7,10 +7,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class LoveAndHate : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class LoveAndHate : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -24,14 +22,12 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep && Mathf.Abs(cardDeathBalance) > 2;
 
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             cardDeathBalance += card.OpponentCard == base.PlayableCard.OpponentCard ? -1 : 1;
             yield break;
         }
 
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             CardInfo evolution = GetEvolve(base.PlayableCard);
             CardSlot opposingSlot = base.PlayableCard.Slot.opposingSlot;
             yield return PerformTransformation(evolution);
@@ -61,48 +57,40 @@ namespace WhistleWindLobotomyMod
             yield return PlayDialogue();
         }
 
-        private CardInfo GetEvolve(PlayableCard card)
-        {
+        private CardInfo GetEvolve(PlayableCard card) {
             CardInfo evolution = CardLoader.GetCardByName(SaveManager.SaveFile.IsPart1 ? Cards.queenOfHatred : Cards.queenOfHatredPixel);
-            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-            {
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable)) {
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 evolution.Mods.Add(cardModificationInfo);
             }
             return evolution;
         }
-        private IEnumerator PlayDialogue()
-        {
+        private IEnumerator PlayDialogue() {
             if (!DialogueEventsData.EventIsPlayed("MagicalGirlHeartTransform"))
                 yield return DialogueHelper.PlayDialogueEvent("MagicalGirlHeartTransform");
-            else
-            {
+            else {
                 yield return DialogueHelper.ShowUntilInput("Good cannot exist without evil.");
                 yield return new WaitForSeconds(0.2f);
             }
         }
-        private IEnumerator PerformTransformation(CardInfo evolution)
-        {
+        private IEnumerator PerformTransformation(CardInfo evolution) {
             yield return new WaitForSeconds(0.15f);
             base.PlayableCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             yield return base.PlayableCard.TransformIntoCard(evolution);
             yield return new WaitForSeconds(0.5f);
         }
-        private IEnumerator MoveToSlot(bool setOpponent, CardSlot slot)
-        {
+        private IEnumerator MoveToSlot(bool setOpponent, CardSlot slot) {
             base.PlayableCard.SetIsOpponentCard(setOpponent);
             base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
             yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, slot, 0.25f);
         }
     }
-    public class RulebookEntryLoveAndHate : AbilityBehaviour
-    {
+    public class RulebookEntryLoveAndHate : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_LoveAndHate()
             => RulebookEntryLoveAndHate.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
         private static void AddSpecial_LoveAndHate()

@@ -6,17 +6,14 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class Spores : StatusEffectBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class Spores : StatusEffectBehaviour {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
         public override SpecialTriggeredAbility StatusEffect => specialAbility;
 
-        public override List<string> EffectDecalIds()
-        {
+        public override List<string> EffectDecalIds() {
             return new()
             {
                 "decalSpore_" + Mathf.Min(2, EffectPotency - 1)
@@ -27,8 +24,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard && base.PlayableCard.OpponentCard != playerTurnEnd;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && EffectPotency > 0;
 
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.StrongNegationEffect();
             base.PlayableCard.HealDamage(-EffectPotency);
@@ -36,8 +32,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return base.PlayableCard.Die(false, null);
             yield return new WaitForSeconds(0.4f);
         }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             if (TurnGained == Singleton<TurnManager>.Instance.TurnNumber)
                 yield break;
 
@@ -56,14 +51,12 @@ namespace WhistleWind.AbnormalSigils
 
             yield return new WaitForSeconds(0.2f);
         }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             if (base.PlayableCard.Slot == null)
                 yield break;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
-            CardModificationInfo stats = new(EffectPotency, EffectPotency)
-            {
+            CardModificationInfo stats = new(EffectPotency, EffectPotency) {
                 nameReplacement = base.PlayableCard.Info.DisplayedNameLocalized,
                 bloodCostAdjustment = base.PlayableCard.Info.BloodCost,
                 bonesCostAdjustment = base.PlayableCard.Info.BonesCost,
@@ -73,13 +66,11 @@ namespace WhistleWind.AbnormalSigils
 
             minion.Mods.Add(stats);
 
-            foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-            {
+            foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable)) {
                 if (item.abilities.Count == 0) // Add merged sigils
                     continue;
 
-                CardModificationInfo cardModificationInfo = new()
-                {
+                CardModificationInfo cardModificationInfo = new() {
                     abilities = item.abilities,
                     fromCardMerge = item.fromCardMerge,
                     fromDuplicateMerge = item.fromDuplicateMerge
@@ -94,10 +85,8 @@ namespace WhistleWind.AbnormalSigils
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, base.PlayableCard.Slot, 0.15f);
         }
     }
-    public partial class AbnormalPlugin
-    {
-        private void StatusEffect_Spores()
-        {
+    public partial class AbnormalPlugin {
+        private void StatusEffect_Spores() {
             const string rName = "Spores";
             const string rDesc = "At the end of the owner's turn, a card bearing this effect takes damage equal to its Spores. When this card perishes, create a Spore Mold Beast in its place with stats equal to its Spores.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Spores>(

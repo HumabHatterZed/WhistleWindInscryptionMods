@@ -5,8 +5,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
+namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalEncounters // taken from infiniscryption
     {
         internal const string title = "Abnormal Encounters";
@@ -15,8 +14,7 @@ namespace WhistleWindLobotomyMod.Challenges
         public static AscensionChallenge Id { get; private set; }
 
         // Creates the challenge then calls the relevant patches
-        public static void Register(Harmony harmony)
-        {
+        public static void Register(Harmony harmony) {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
@@ -32,14 +30,10 @@ namespace WhistleWindLobotomyMod.Challenges
 
         [HarmonyPatch(typeof(GameFlowManager), nameof(GameFlowManager.Start))]
         [HarmonyPostfix]
-        private static void ClearVanillaEncounters(GameFlowManager __instance)
-        {
-            if (__instance != null)
-            {
-                if (LobotomyConfigManager.ChallengeIsActive(Id))
-                {
-                    if (!LobotomySaveManager.ShownAbnormalEncounters)
-                    {
+        private static void ClearVanillaEncounters(GameFlowManager __instance) {
+            if (__instance != null) {
+                if (LobotomyConfigManager.ChallengeIsActive(Id)) {
+                    if (!LobotomySaveManager.ShownAbnormalEncounters) {
                         LobotomySaveManager.ShownAbnormalEncounters = true;
                         ChallengeActivationUI.TryShowActivation(Id);
                     }

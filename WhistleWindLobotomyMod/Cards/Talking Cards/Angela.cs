@@ -12,10 +12,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardAngela : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardAngela : CustomPaperTalkingCard {
         public override string CardName => Cards.angela;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.4f, voiceSoundPitch: 1f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -23,10 +21,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingAngelaBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingAngelaEmission.png");
 
@@ -82,11 +78,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string angela = "wstl_angela";
-        private static void Angela()
-        {
+        private static void Angela() {
             CardManager.New(LobotomyPlugin.pluginPrefix, angela, "Angela",
                 attack: 2, health: 3)
                 .SetEnergyCost(6)
@@ -96,10 +90,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Angela()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Angela() {
             TalkingCardAngela.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardAngela>("Angela").Id;
         }
     }

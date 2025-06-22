@@ -3,8 +3,7 @@ using BepInEx.Configuration;
 using System.IO;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils.Core
-{
+namespace WhistleWind.AbnormalSigils.Core {
     public class AbnormalConfigManager // Taken from GrimoraMod
     {
         private static AbnormalConfigManager wstl_Instance;
@@ -22,8 +21,7 @@ namespace WhistleWind.AbnormalSigils.Core
         private ConfigEntry<AbnormalAbilityHelper.AbilityGroup> Config_MakeModular;
         public AbnormalAbilityHelper.AbilityGroup MakeModular => Config_MakeModular.Value;
 
-        internal void BindConfig()
-        {
+        internal void BindConfig() {
             Config_EnableMod = WstlConfigFile.Bind(
                     "Settings", "Enable Mod", true,
                     new ConfigDescription("Enables the mod's content."));

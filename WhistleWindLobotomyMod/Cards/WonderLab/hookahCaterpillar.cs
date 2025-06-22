@@ -4,14 +4,11 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string hookahCaterpillar = "wstl_hookahCaterpillar";
         public const string hookahButterfly = "wstl_hookahButterfly";
-        private static void HookahCaterpillar()
-        {
+        private static void HookahCaterpillar() {
             return;
             string textureName = "hookahButterfly";
             string textureName2 = "hookahCaterpillar";

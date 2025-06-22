@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BonniesBakingPack
-{
-    public class LoolooAbility : BingusAbility
-    {
+namespace BonniesBakingPack {
+    public class LoolooAbility : BingusAbility {
         public static SpecialTriggeredAbility SpecialAbility2;
     }
 }

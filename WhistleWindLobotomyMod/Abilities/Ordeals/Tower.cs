@@ -7,12 +7,9 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddTower()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddTower() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The Tower";
             info.rulebookDescription = "This card changes state when this sigil's count reaches 0. In an active state, create two Lights on the opposing side of the board.";
@@ -21,20 +18,17 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class Tower : AbilityBehaviour, ISetupAttackSequence, IModifyDirectDamage
-    {
+    public class Tower : AbilityBehaviour, ISetupAttackSequence, IModifyDirectDamage {
         public static Ability ability;
         public override Ability Ability => ability;
 
         private bool doubleDirectDamage = false;
 
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return card == base.Card && modType == OpposingSlotTriggerPriority.Normal;
         }
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
             OrdealGreenMidnight sequencer = TurnManager.Instance.SpecialSequencer as OrdealGreenMidnight;
             List<CardSlot> slots = new()
             {
@@ -48,8 +42,7 @@ namespace WhistleWindLobotomyMod
             return slots;
         }
 
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return 0;
         }
 

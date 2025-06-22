@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string oldLady = "wstl_oldLady";
-        private static void OldLady_O0112()
-        {
+        private static void OldLady_O0112() {
             string textureName = "oldLady";
             CardManager.New(LobotomyPlugin.pluginPrefix, oldLady, "Old Lady",
                 attack: 1, health: 2, "An aged storyteller. She can tell you any tale, even those that can't exist.")

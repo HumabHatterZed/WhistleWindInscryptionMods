@@ -4,10 +4,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Syrinx : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class Syrinx : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -18,12 +16,10 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToSacrifice() => true;
 
-        public override IEnumerator OnSacrifice()
-        {
+        public override IEnumerator OnSacrifice() {
             this.sacrificeCount++;
 
-            if (this.sacrificeCount >= 6)
-            {
+            if (this.sacrificeCount >= 6) {
                 yield return new WaitForSeconds(0.25f);
                 CardInfo cardByName = CardLoader.GetCardByName(Cards.namelessFetusAwake);
                 yield return DialogueHelper.PlayDialogueEvent("NamelessFetusAwake", 0f);
@@ -32,13 +28,11 @@ namespace WhistleWindLobotomyMod
             }
         }
     }
-    public class RulebookEntrySyrinx : AbilityBehaviour
-    {
+    public class RulebookEntrySyrinx : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Syrinx()
             => RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
         private static void AddSpecial_Syrinx()

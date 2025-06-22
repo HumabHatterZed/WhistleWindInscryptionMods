@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string fairyFestival = "wstl_fairyFestival";
-        private static void FairyFestival_F0483()
-        {
+        private static void FairyFestival_F0483() {
             string textureName = "fairyFestival";
             CardManager.New(LobotomyPlugin.pluginPrefix, fairyFestival, "Fairy Festival",
                 attack: 1, health: 1, "Everything will be peaceful while you're under the fairies' care.")

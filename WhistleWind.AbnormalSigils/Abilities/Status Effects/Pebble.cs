@@ -5,20 +5,16 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class Pebble : StatusEffectBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class Pebble : StatusEffectBehaviour {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
         public override SpecialTriggeredAbility StatusEffect => specialAbility;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard.OpponentCard != playerTurnEnd;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            if (base.PlayableCard.Health < base.PlayableCard.MaxHealth)
-            {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            if (base.PlayableCard.Health < base.PlayableCard.MaxHealth) {
                 base.PlayableCard.Anim.LightNegationEffect();
                 base.PlayableCard.HealDamage(1);
                 yield return new WaitForSeconds(0.2f);
@@ -29,12 +25,9 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
 
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.PlayableCard.OpponentCard))
-            {
-                yield return card.AddStatusEffectToFaceDown<Grief>(1, modifyTurnGained: delegate (int x)
-                {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
+            foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.PlayableCard.OpponentCard)) {
+                yield return card.AddStatusEffectToFaceDown<Grief>(1, modifyTurnGained: delegate (int x) {
                     return x + 1;
                 });
             }
@@ -43,10 +36,8 @@ namespace WhistleWind.AbnormalSigils
         }
         internal static StatusEffectManager.FullStatusEffect data;
     }
-    public partial class AbnormalPlugin
-    {
-        private void StatusEffect_Pebble()
-        {
+    public partial class AbnormalPlugin {
+        private void StatusEffect_Pebble() {
             const string rName = "Pebble";
             const string rDesc = "At the start and end of the owner's turn, a card bearing this effect regains 1 Health. When this card perishes, inflict Grief on all allied creatures.";
             Pebble.data = StatusEffectManager.New<Pebble>(

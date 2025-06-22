@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateProtagonists()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateProtagonists() {
             CardInfo protag = CardManager.New(pluginPrefix, "protagonist", "???", 1, 2, "A mysterious person with a bad habit of sticking their nose where it shouldn't be.")
                 .SetDefaultPart1Card().AddAct1()
                 .SetBloodCost(2)
@@ -32,18 +29,15 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("protagonist_magnificus.png"))
                 .AddAbilities(Ability.DoubleStrike, ScrybeCompat.GetMagnificusAbility("Fading", Ability.Brittle));
 
-            if (ScrybeCompat.GrimoraEnabled)
-            {
+            if (ScrybeCompat.GrimoraEnabled) {
                 Ability ability = ScrybeCompat.GetGrimoraAbility("Malnourishment", Ability.None);
                 warrior.AddAbilities(Ability.ActivatedStatsUp, ability);
             }
-            else
-            {
+            else {
                 warrior.AddAbilities(Ability.DeathShield);
             }
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 protag.AddMetaCategories(ScrybeCompat.NatureRegion);
                 warrior.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);

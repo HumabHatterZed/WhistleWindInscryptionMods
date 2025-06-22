@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string shelterFrom27March = "wstl_shelterFrom27March";
-        private static void ShelterFrom27March_T0982()
-        {
+        private static void ShelterFrom27March_T0982() {
             string name = "Shelter From the 27th of March";
             string desc = "It makes itself the safest place in the world by altering the reality around it.";
             string textureName = "shelterFrom27March";

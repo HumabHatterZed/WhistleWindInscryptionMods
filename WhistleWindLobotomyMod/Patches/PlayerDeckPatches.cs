@@ -8,8 +8,7 @@ using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
     internal class PlayerDeckPatches {
         /// <summary>
@@ -89,7 +88,7 @@ namespace WhistleWindLobotomyMod.Patches
         /// </summary>
         [HarmonyPatch(typeof(DeckInfo))]
         private class DeckInfoPatch {
-            
+
             [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.AddCard))]
             private static void AddNothingThereToPlayerDeck(ref CardInfo card) {
                 CardModificationInfo mod = card.Mods.Find(x => HelperMethods.CompareSingleton(x.singletonId, "NothingThere"));

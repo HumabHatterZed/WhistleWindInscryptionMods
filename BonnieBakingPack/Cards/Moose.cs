@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateMoose()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateMoose() {
             // Moose
             CardInfo moose = CardManager.New(pluginPrefix, "moose", "Moose", 2, 8, "A mooseterious being with a knack for telling tales.")
                 .SetDefaultPart1Card().AddAct1()
@@ -34,8 +31,7 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("mooseAlchemist.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Gem Absorber", Ability.BuffGems), ScrybeCompat.GetMagnificusAbility("Brewery", Ability.ExplodeGems));
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 moose.AddMetaCategories(ScrybeCompat.NatureRegion);
                 moosetro.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.UndeadRegion);

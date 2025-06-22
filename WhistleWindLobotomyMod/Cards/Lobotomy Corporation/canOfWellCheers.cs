@@ -6,15 +6,12 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string canOfWellCheers = "wstl_canOfWellCheers";
         public const string skeletonShrimp = "wstl_SKELETON_SHRIMP";
         public const string crumpledCan = "wstl_CRUMPLED_CAN";
-        private static void CanOfWellCheers_F0552()
-        {
+        private static void CanOfWellCheers_F0552() {
             string textureName = "skeleton_can";
             string textureName2 = "skeleton_shrimp";
             string textureName3 = "canOfWellCheers";

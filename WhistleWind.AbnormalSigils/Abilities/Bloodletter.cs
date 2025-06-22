@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 using static UnityEngine.GraphicsBuffer;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Bloodletter()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Bloodletter() {
             const string rulebookName = "Bloodletter";
             const string rulebookDescription = "When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker, up to 2 above this card's maximum Health.";
             const string dialogue = "The blood runs warm with sweet vitality.";
@@ -26,21 +23,18 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Bloodletter : AbilityBehaviour
-    {
+    public class Bloodletter : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTakeDamage(PlayableCard source)
-        {
+        public override bool RespondsToTakeDamage(PlayableCard source) {
             if (source != null)
                 return source.Health > 0 && !base.Card.Dead && base.Card.Health > 0;
 
             return false;
         }
 
-        public override IEnumerator OnTakeDamage(PlayableCard source)
-        {
+        public override IEnumerator OnTakeDamage(PlayableCard source) {
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);

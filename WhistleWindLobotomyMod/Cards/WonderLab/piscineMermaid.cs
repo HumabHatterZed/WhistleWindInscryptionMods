@@ -4,13 +4,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string piscineMermaid = "wstl_piscineMermaid";
-        private static void PiscineMermaid()
-        {
+        private static void PiscineMermaid() {
             return;
             string textureName = "piscineMermaid";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, piscineMermaid, "Piscine Mermaid",

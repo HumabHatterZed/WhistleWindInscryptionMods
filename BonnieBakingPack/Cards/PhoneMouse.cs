@@ -2,12 +2,9 @@
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreatePhoneMice()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreatePhoneMice() {
             // Phone Mouse
             CardInfo phone = CardManager.New(pluginPrefix, "mousePhone", "Phone Mouse", 0, 2, "A chatty little rodent. When it dies, backup follows swiftly.")
                 .SetDefaultPart1Card().AddAct1()
@@ -38,19 +35,16 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("witness_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Dead Draw", Ability.DrawRandomCardOnDeath));
 
-            if (ScrybeCompat.GrimoraEnabled)
-            {
+            if (ScrybeCompat.GrimoraEnabled) {
                 Ability ability = ScrybeCompat.GetGrimoraAbility("Slasher", Ability.None);
                 Ability ability2 = ScrybeCompat.GetGrimoraAbility("Haunting Call", Ability.None);
                 killer.AddAbilities(ability, ability2);
             }
-            else
-            {
+            else {
                 killer.AddAbilities(Ability.DoubleStrike);
             }
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 phone.AddMetaCategories(ScrybeCompat.NatureRegion);
                 killer.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);

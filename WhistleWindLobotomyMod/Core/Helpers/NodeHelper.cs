@@ -8,44 +8,35 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
-{
+namespace WhistleWindLobotomyMod.Core.Helpers {
     public static class NodeHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        public static List<Texture2D> GetNodeTextureList(params string[] animationName)
-        {
+        public static List<Texture2D> GetNodeTextureList(params string[] animationName) {
             List<Texture2D> retval = new();
             Assembly asm = Assembly.GetCallingAssembly();
-            for (int i = 0; i < 4; i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 retval.Add(TextureLoader.LoadTextureFromFile(animationName[i] + ".png", asm));
             }
             return retval;
         }
         public static NewNodeManager.FullNode CreateNode(
             string name, Type T, List<string> animationFrames,
-            GenerationType generationType, GenerationType extraGenType = GenerationType.None)
-        {
+            GenerationType generationType, GenerationType extraGenType = GenerationType.None) {
             List<Texture2D> nodeAnimation = new();
-            if (animationFrames.Count != 4)
-            {
+            if (animationFrames.Count != 4) {
                 Texture2D defaultTexture = TextureLoader.LoadTextureFromFile("sigilAbnormality.png");
-                for (int i = 0; i < 4; i++)
-                {
+                for (int i = 0; i < 4; i++) {
                     nodeAnimation.Add(defaultTexture);
                 }
                 Log.LogWarning("Node animation doesn't have the correct number of frames, using placeholder texture instead.");
             }
-            else
-            {
+            else {
                 nodeAnimation = GetNodeTextureList(animationFrames.ToArray());
             }
-            if (extraGenType == GenerationType.None)
-            {
+            if (extraGenType == GenerationType.None) {
                 return NewNodeManager.New(LobotomyPlugin.pluginGuid, name, generationType, T, nodeAnimation);
             }
-            else
-            {
+            else {
                 // battle node can only appear in the first three regions
                 List<NodeData.SelectionCondition> data = new()
                 {

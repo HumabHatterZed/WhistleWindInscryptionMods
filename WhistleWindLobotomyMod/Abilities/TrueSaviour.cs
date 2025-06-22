@@ -9,12 +9,9 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddTrueSaviour()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddTrueSaviour() {
             const string rulebookName = "True Saviour";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
@@ -22,8 +19,7 @@ namespace WhistleWindLobotomyMod
                 "sigilTrueSaviour", rulebookName, "While this card is on the board, transform allies into Apostles, and downed cards become invulnerable.", powerLevel: -3, true, dialogue).Id;
         }
     }
-    public class TrueSaviour : AbilityBehaviour
-    {
+    public class TrueSaviour : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -35,47 +31,39 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnUpkeep(bool playerUpkeep) => MakeRoomForOneSin();
 
         public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             yield return base.PreSuccessfulTriggerSequence();
             yield return SaviourBossUtils.ConvertCardsOnBoard(base.Card.IsPlayerCard(), base.Card, base.GetRandomSeed());
         }
 
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            if (otherCard != null && otherCard != base.Card)
-            {
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) {
+            if (otherCard != null && otherCard != base.Card) {
                 if (otherCard.Info.name != SaviourBossUtils.ONESIN_NAME && otherCard.LacksAllAbilities(ApostleSigil.ability, Confession.ability))
                     return base.Card.OnBoard && base.Card.OpponentCard == otherCard.OpponentCard;
             }
             return false;
         }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) {
             yield return base.PreSuccessfulTriggerSequence();
             yield return SaviourBossUtils.ConvertCardToApostle(otherCard, base.GetRandomSeed());
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             if (killer != null)
                 yield return KilledByNonNull(killer);
             else
                 yield return KilledByNull();
         }
 
-        private IEnumerator KilledByNonNull(PlayableCard killer)
-        {
+        private IEnumerator KilledByNonNull(PlayableCard killer) {
             AudioController.Instance.PlaySound2D("mycologist_scream");
             Singleton<UIManager>.Instance?.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
 
             // if not killed by Hundreds of Good Deeds
-            if (killer.LacksAbility(Confession.ability))
-            {
+            if (killer.LacksAbility(Confession.ability)) {
                 // kill all Apostles
-                foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard, x => x.HasAbility(ApostleSigil.ability)))
-                {
+                foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard, x => x.HasAbility(ApostleSigil.ability))) {
                     yield return card.Die(false, base.Card);
                 }
             }
@@ -84,15 +72,13 @@ namespace WhistleWindLobotomyMod
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 
-            if (TurnManager.Instance.Opponent is LobotomyOpponent opp)
-            {
+            if (TurnManager.Instance.Opponent is LobotomyOpponent opp) {
                 if (opp.PreventInstantWin(base.Card.Slot, IPreventInstantWin.InstantWinType.Confession))
                     yield return opp.OnInstantWinPrevented(base.Card.Slot, IPreventInstantWin.InstantWinType.Confession);
                 else
                     yield return opp.OnInstantWinTriggered(base.Card.Slot, IPreventInstantWin.InstantWinType.Confession);
             }
-            else
-            {
+            else {
                 CombatPhaseManager combatManager = Singleton<CombatPhaseManager>.Instance;
                 yield return combatManager.DamageDealtThisPhase += 33;
 
@@ -108,10 +94,8 @@ namespace WhistleWindLobotomyMod
                     RunState.Run.currency += excessDamage;
             }
 
-            if (killer.LacksAbility(Confession.ability))
-            {
-                foreach (CardInfo card in RunState.Run.playerDeck.CardInfos)
-                {
+            if (killer.LacksAbility(Confession.ability)) {
+                foreach (CardInfo card in RunState.Run.playerDeck.CardInfos) {
                     RunState.Run.playerDeck.ModifyCard(card, new(1, 2));
                 }
                 foreach (PlayableCard card in BoardManager.Instance.GetPlayerCards())
@@ -126,8 +110,7 @@ namespace WhistleWindLobotomyMod
             LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
             LobotomyConfigManager.SetBlessings(0);
         }
-        private IEnumerator KilledByNull()
-        {
+        private IEnumerator KilledByNull() {
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f, false);
             yield return DialogueHelper.PlayDialogueEvent("WhiteNightKilledByNull");
 
@@ -136,8 +119,7 @@ namespace WhistleWindLobotomyMod
 
             yield return DialogueHelper.ShowUntilInput(sternDialogue, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord, -0.65f, 0.4f);
         }
-        private IEnumerator MakeRoomForOneSin()
-        {
+        private IEnumerator MakeRoomForOneSin() {
             if (Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard).Count < 4)
                 yield break;
 

@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string funeralOfButterflies = "wstl_funeralOfButterflies";
-        private static void FuneralOfButterflies_T0168()
-        {
+        private static void FuneralOfButterflies_T0168() {
             string name = "Funeral of the Dead Butterflies";
             string name2 = "2nd Funeral of the Dead Butterflies";
             string desc = "The coffin is a tribute to the fallen. A memorial to those who can't return home.";

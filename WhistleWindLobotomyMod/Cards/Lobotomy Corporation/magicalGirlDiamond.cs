@@ -6,16 +6,13 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string magicalGirlDiamond = "wstl_magicalGirlDiamond";
         public const string kingOfGreed = "wstl_kingOfGreed";
         public const string magicalGirlDiamondPixel = "wstlGBC_magicalGirlDiamond";
         public const string kingOfGreedPixel = "wstlGBC_kingOfGreed";
-        private static void MagicalGirlDiamond_O0164()
-        {
+        private static void MagicalGirlDiamond_O0164() {
             string kingName = "The King of Greed";
             string desc = "A girl encased in hardened amber. Happiness trapped by greed.";
             string textureName = "kingOfGreed";

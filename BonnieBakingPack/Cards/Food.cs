@@ -2,12 +2,9 @@
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateFood()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateFood() {
             // Act 1
             CardManager.New(pluginPrefix, "redVelvet", "Red Velvet", 1, 0, "")
                 .SetBonesCost(2)
@@ -77,8 +74,7 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.GainGemTriple, ScrybeCompat.GetP03Ability("Magic Dust", Ability.DrawRandomCardOnDeath))
                 .SetGlobalSpell();
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 ScrybeCompat.AddPart3Decal(red, red.GetEmissivePortrait().texture);
                 ScrybeCompat.AddPart3Decal(green, green.GetEmissivePortrait().texture);
                 ScrybeCompat.AddPart3Decal(blue, blue.GetEmissivePortrait().texture);
@@ -174,7 +170,7 @@ namespace BonniesBakingPack
             CardManager.New(pluginPrefix3, "scones", "Safety Cones", 0, 3, "")
                 .SetBonesCost(3).SetCardTemple(CardTemple.Tech)
                 .SetPortrait(GetTexture("scones_act3.png"));
-            
+
             // Grimora
             CardManager.New(pluginPrefixG, "scones", "Scones", 0, 1, "")
                 .SetBonesCost(2).SetCardTemple(CardTemple.Undead)

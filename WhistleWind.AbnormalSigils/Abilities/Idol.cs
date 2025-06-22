@@ -6,12 +6,9 @@ using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Idol()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Idol() {
             const string rulebookName = "Idol";
             const string rulebookDescription = "While this card is on the board, all opposing creatures lose 1 Power.";
             const string dialogue = "My beasts defer to you.";
@@ -25,8 +22,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Idol : AbilityBehaviour, IPassiveAttackBuff
-    {
+    public class Idol : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToResolveOnBoard() => ActivateOnPlay();
@@ -34,15 +30,13 @@ namespace WhistleWind.AbnormalSigils
 
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.5f);
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.5f);
-        public int GetPassiveAttackBuff(PlayableCard target)
-        {
+        public int GetPassiveAttackBuff(PlayableCard target) {
             if (this.Card.OnBoard && target.OpponentCard != base.Card.OpponentCard)
                 return target.LacksAbility(Ability.MadeOfStone) ? -base.Card.GetAbilityStacks(Ability) : 0;
 
             return 0;
         }
-        public bool ActivateOnPlay()
-        {
+        public bool ActivateOnPlay() {
             if (base.Card.OnBoard)
                 return Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard)
                     .Where(s => s.Card != null && s.Card.Info.Attack > 0).Count() > 0;

@@ -4,20 +4,15 @@ using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents.Angler
-{
-    public class AnglerAbnormalBossOpponent : AnglerBossOpponent
-    {
-        public override IEnumerator StartNewPhaseSequence()
-        {
-            if (HasGrizzlyGlitchPhase(0))
-            {
+namespace WhistleWindLobotomyMod.Opponents.Angler {
+    public class AnglerAbnormalBossOpponent : AnglerBossOpponent {
+        public override IEnumerator StartNewPhaseSequence() {
+            if (HasGrizzlyGlitchPhase(0)) {
                 yield return GrizzlyGlitchSequence();
                 yield break;
             }
             TurnPlan.Clear();
-            if (StoryEventsData.EventCompleted(StoryEvent.LeshyDefeated) && !StoryEventsData.EventCompleted(StoryEvent.LukeVODieAlready))
-            {
+            if (StoryEventsData.EventCompleted(StoryEvent.LeshyDefeated) && !StoryEventsData.EventCompleted(StoryEvent.LukeVODieAlready)) {
                 VoiceOverPlayer.Instance.PlayVoiceOver("Die already!", "VO_diealready", VoiceOverPlayer.VOCameraAnim.MediumRefocus, StoryEvent.LukeVODieAlready);
                 yield return new WaitForSeconds(0.5f);
             }

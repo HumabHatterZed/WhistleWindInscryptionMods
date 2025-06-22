@@ -6,12 +6,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Corrector()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Corrector() {
             const string rulebookName = "Corrector";
             const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its total play cost.";
             const string dialogue = "How balanced.";
@@ -25,16 +22,14 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Corrector : AbilityBehaviour
-    {
+    public class Corrector : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToResolveOnBoard() => base.Card.OpponentCard;
         public override bool RespondsToDrawn() => true;
 
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.PlayTransformAnimation();
             yield return new WaitForSeconds(0.15f);
@@ -42,8 +37,7 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }
-        public override IEnumerator OnDrawn()
-        {
+        public override IEnumerator OnDrawn() {
             (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.Card);
             yield return new WaitForSeconds(0.15f);
             yield return base.Card.Anim.FlipInAir();
@@ -53,19 +47,16 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility();
         }
 
-        private int GetCostPowerLevel()
-        {
+        private int GetCostPowerLevel() {
             int powerLevel = base.Card.Info.BonesCost;
-            powerLevel += base.Card.Info.BloodCost switch
-            {
+            powerLevel += base.Card.Info.BloodCost switch {
                 0 => 0,
                 1 => 4,
                 2 => 8,
                 3 => 13,
                 _ => 24 + (base.Card.Info.BloodCost - 4) * 7
             };
-            powerLevel += base.Card.Info.EnergyCost switch
-            {
+            powerLevel += base.Card.Info.EnergyCost switch {
                 0 => 0,
                 1 => 1,
                 2 => 2,
@@ -84,22 +75,18 @@ namespace WhistleWind.AbnormalSigils
 
             return powerLevel;
         }
-        private void GetNewStats()
-        {
+        private void GetNewStats() {
             int[] stats = new[] { 0, 0 };
             int powerLevel = GetCostPowerLevel();
             int randomSeed = base.GetRandomSeed();
 
-            while (powerLevel > 0)
-            {
+            while (powerLevel > 0) {
                 // 40% chance of giving Power
-                if (powerLevel > 1 && SeededRandom.Value(randomSeed *= 2) <= 0.4f)
-                {
+                if (powerLevel > 1 && SeededRandom.Value(randomSeed *= 2) <= 0.4f) {
                     stats[0]++;
                     powerLevel -= 2;
                 }
-                else
-                {
+                else {
                     stats[1]++;
                     powerLevel--;
                 }

@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_GiftGiver()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_GiftGiver() {
             const string rulebookName = "Gift Giver";
             const string rulebookDescription = "When [creature] is first played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
@@ -26,18 +23,14 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class GiftGiver : OpponentDrawCreatedCard
-    {
+    public class GiftGiver : OpponentDrawCreatedCard {
         public static Ability ability;
         public override Ability Ability => ability;
         private bool IsLaetitia => base.Card.Info.name.ToLowerInvariant().Contains("laetitia");
         private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:GiftGiver");
-        public override CardInfo CardToDraw
-        {
-            get
-            {
-                if (IsLaetitia || CustomCardToDraw != null)
-                {
+        public override CardInfo CardToDraw {
+            get {
+                if (IsLaetitia || CustomCardToDraw != null) {
                     CardInfo cardByName = CardLoader.GetCardByName(CustomCardToDraw ?? "wstl_laetitiaFriend");
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
                     return cardByName;
@@ -55,8 +48,7 @@ namespace WhistleWind.AbnormalSigils
         }
 
         public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             yield return base.PreSuccessfulTriggerSequence();
             yield return QueueOrCreateDrawnCard();
             base.Card.AddTemporaryMod(new() { negateAbilities = new() { GiftGiver.ability }, nonCopyable = true });

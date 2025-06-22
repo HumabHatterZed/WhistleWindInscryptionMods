@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateDogs()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateDogs() {
             // Dog
             CardInfo dog = CardManager.New(pluginPrefix, "dog", "Dog", 0, 2, "A diligent, if unappreciated, worker.")
                 .SetDefaultPart1Card().AddAct1()
@@ -36,8 +33,7 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("dogWizard.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Sapphire Heart", Ability.DropRubyOnDeath), Ability.GuardDog);
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 dog.AddMetaCategories(ScrybeCompat.NatureRegion);
                 doggone.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);

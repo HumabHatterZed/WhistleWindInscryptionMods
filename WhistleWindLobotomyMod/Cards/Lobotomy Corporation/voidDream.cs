@@ -4,14 +4,11 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string voidDream = "wstl_voidDream";
         public const string voidDreamRooster = "wstl_voidDreamRooster";
-        private static void VoidDream_T0299()
-        {
+        private static void VoidDream_T0299() {
             string textureName = "voidDreamRooster";
             string textureName2 = "voidDream";
             CardInfo voidDreamRoosterCard = CardManager.New(LobotomyPlugin.pluginPrefix, voidDreamRooster, "Void Dream",

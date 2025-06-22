@@ -4,24 +4,19 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch(typeof(Evolve), nameof(Evolve.OnUpkeep))]
-    internal static class SpecialEvolutionDialoguePatch
-    {
+    internal static class SpecialEvolutionDialoguePatch {
         [HarmonyPostfix]
-        private static IEnumerator PlaySpecialEvolveDialogue(IEnumerator enumerator, Evolve __instance)
-        {
-            if (__instance.Card == null)
-            {
+        private static IEnumerator PlaySpecialEvolveDialogue(IEnumerator enumerator, Evolve __instance) {
+            if (__instance.Card == null) {
                 yield return enumerator;
                 yield break;
             }
 
             // only show dialogue if we're actually evolving
             int turnsToEvolve = __instance.Card.Info.evolveParams?.turnsToEvolve ?? 1;
-            if (Mathf.Max(1, turnsToEvolve - (__instance.numTurnsInPlay + 1)) < turnsToEvolve)
-            {
+            if (Mathf.Max(1, turnsToEvolve - (__instance.numTurnsInPlay + 1)) < turnsToEvolve) {
                 yield return enumerator;
                 yield break;
             }
@@ -31,8 +26,7 @@ namespace WhistleWindLobotomyMod.Patches
             string preEvolutionName = __instance.Card.Info.name;
 
             // pre-evolution dialogue
-            if (preEvolutionName == Cards.nothingThereTrue)
-            {
+            if (preEvolutionName == Cards.nothingThereTrue) {
                 ViewManager.Instance.SwitchToView(View.Board);
                 yield return new WaitForSeconds(0.15f);
                 __instance.Card.Anim.StrongNegationEffect();
@@ -44,8 +38,7 @@ namespace WhistleWindLobotomyMod.Patches
             yield return enumerator;
 
             // dialogue plays after evolution
-            switch (preEvolutionName)
-            {
+            switch (preEvolutionName) {
                 case Cards.magicalGirlDiamondPixel:
                     goto case Cards.magicalGirlDiamond;
                 case Cards.magicalGirlDiamond:

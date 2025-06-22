@@ -11,12 +11,9 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Nodes
-    {
-        private static void SefirotCardChoice()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Nodes {
+        private static void SefirotCardChoice() {
             List<string> animationFrames = new()
             {
                 "nodeSefirotCardChoice1",
@@ -29,8 +26,7 @@ namespace WhistleWindLobotomyMod
             GenerationType extra = LobotomyConfigManager.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
 
             // don't generate node if it's disabled
-            if (LobotomyConfigManager.NoSefirot)
-            {
+            if (LobotomyConfigManager.NoSefirot) {
                 main = GenerationType.None;
                 extra = GenerationType.None;
             }
@@ -39,10 +35,8 @@ namespace WhistleWindLobotomyMod
         }
     }
     // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
-    public class SefirotCardChoiceSequencer : CardSingleChoicesSequencer, ICustomNodeSequencer, IInherit
-    {
-        public IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
-        {
+    public class SefirotCardChoiceSequencer : CardSingleChoicesSequencer, ICustomNodeSequencer, IInherit {
+        public IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData) {
             // Spawns the rulebook and deck before the dialogue starts
             if (gamepadGrid != null)
                 gamepadGrid.enabled = true;
@@ -51,8 +45,7 @@ namespace WhistleWindLobotomyMod
             base.StartCoroutine(deckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
             // First-time dialogue for the node
-            if (!DialogueEventsData.EventIsPlayed("SefirotChoiceNodeIntro"))
-            {
+            if (!DialogueEventsData.EventIsPlayed("SefirotChoiceNodeIntro")) {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("SefirotChoiceNodeIntro");
@@ -66,22 +59,17 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.75f);
             yield return deckPile.DestroyCards();
         }
-        public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData)
-        {
-            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && rerollInteractable != null)
-            {
-                if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover))
-                {
+        public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData) {
+            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && rerollInteractable != null) {
+                if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover)) {
                     rerollInteractable.gameObject.SetActive(value: true);
                     rerollInteractable.SetEnabled(enabled: false);
-                    CustomCoroutine.WaitThenExecute(1f, delegate
-                    {
+                    CustomCoroutine.WaitThenExecute(1f, delegate {
                         rerollInteractable.SetEnabled(enabled: true);
                     });
                 }
                 ChallengeActivationUI.TryShowActivation(AscensionChallenge.NoClover);
-                if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover) && !DialogueEventsData.EventIsPlayed("ChallengeNoClover"))
-                {
+                if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover) && !DialogueEventsData.EventIsPlayed("ChallengeNoClover")) {
                     yield return new WaitForSeconds(1f);
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ChallengeNoClover", TextDisplayer.MessageAdvanceMode.Input);
                 }
@@ -91,14 +79,12 @@ namespace WhistleWindLobotomyMod
 
             chosenReward = null;
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-            while (chosenReward == null)
-            {
+            while (chosenReward == null) {
                 List<CardChoice> choices = GenerateSephirahChoices(randomSeed);
                 randomSeed *= 2;
                 float x = (float)(choices.Count - 1) * 0.5f * -1.5f;
                 base.selectableCards = base.SpawnCards(choices.Count, base.transform, new Vector3(x, 5.01f, 0f));
-                for (int i = 0; i < choices.Count; i++)
-                {
+                for (int i = 0; i < choices.Count; i++) {
                     CardChoice cardChoice = choices[i];
                     SelectableCard card = base.selectableCards[i];
                     card.gameObject.SetActive(value: true);
@@ -109,8 +95,7 @@ namespace WhistleWindLobotomyMod
                         card.Initialize(cardChoice.CardInfo, this.OnRewardChosen, this.OnCardFlipped, startFlipped: true, base.OnCardInspected);
 
                     SpecialCardBehaviour[] components = card.GetComponents<SpecialCardBehaviour>();
-                    for (int j = 0; j < components.Length; j++)
-                    {
+                    for (int j = 0; j < components.Length; j++) {
                         components[j].OnShownForCardChoiceNode();
                     }
 
@@ -123,8 +108,7 @@ namespace WhistleWindLobotomyMod
                     Tween.Rotate(card.transform, new Vector3(0f, 0f, UnityEngine.Random.value * 1.5f), Space.Self, 0.4f, 0f, Tween.EaseOut);
                     yield return new WaitForSeconds(0.2f);
                     ParticleSystem componentInChildren = card.GetComponentInChildren<ParticleSystem>();
-                    if (componentInChildren != null)
-                    {
+                    if (componentInChildren != null) {
                         ParticleSystem.EmissionModule emission = componentInChildren.emission;
                         emission.rateOverTime = 0f;
                     }
@@ -140,8 +124,7 @@ namespace WhistleWindLobotomyMod
             yield return this.AddCardToDeckAndCleanUp(chosenReward);
         }
 
-        private List<CardChoice> GenerateSephirahChoices(int randomSeed)
-        {
+        private List<CardChoice> GenerateSephirahChoices(int randomSeed) {
             List<CardChoice> listOfChoices = new();
             List<CardInfo> sephirahCards = LobotomyCardLoader.GetSephirahCards();
 
@@ -149,14 +132,12 @@ namespace WhistleWindLobotomyMod
             if (sephirahCards.Count < 8 && !LobotomySaveManager.UnlockedAngela)
                 listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName(Cards.angela) });
 
-            while (listOfChoices.Count < 3)
-            {
+            while (listOfChoices.Count < 3) {
                 CardInfo card;
-                if (sephirahCards.Count > 0)
-                {
+                if (sephirahCards.Count > 0) {
                     CardInfo card2 = sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed++)];
                     card = CardLoader.Clone(card2);
-                    
+
                     sephirahCards.Remove(card2);
                 }
                 else
@@ -169,8 +150,7 @@ namespace WhistleWindLobotomyMod
             return listOfChoices;
         }
 
-        private new IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
-        {
+        private new IEnumerator AddCardToDeckAndCleanUp(SelectableCard card) {
             CleanUpRerollItem();
             Singleton<RuleBookController>.Instance.SetShown(shown: false);
             yield return this.RewardChosenSequence(card);
@@ -179,35 +159,30 @@ namespace WhistleWindLobotomyMod
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
         }
-        private new IEnumerator RewardChosenSequence(SelectableCard card)
-        {
+        private new IEnumerator RewardChosenSequence(SelectableCard card) {
             float num = !LobotomySaveManager.LearnedSefirotChoice ? 0.5f : 0f;
 
             card.OnCardAddedToDeck();
             ViewManager.Instance.SwitchToView(View.Default);
             deckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
-            if (!LobotomySaveManager.LearnedSefirotChoice)
-            {
+            if (!LobotomySaveManager.LearnedSefirotChoice) {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return new WaitForSeconds(0.15f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("As soon as you make your choice, a thick fog envelops the others.", 0f, 0.4f, Emotion.Neutral);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("When it clears, they have vanished without a trace.", 0f, 0.4f, Emotion.Neutral);
             }
         }
-        private new void OnRewardChosen(SelectableCard card)
-        {
+        private new void OnRewardChosen(SelectableCard card) {
             if (!LobotomySaveManager.LearnedAbnormalChoice && !AllCardsFlippedUp())
                 HintsHandler.OnClickCardChoiceWhileOtherFlipped();
 
-            else if (chosenReward == null)
-            {
+            else if (chosenReward == null) {
                 base.SetCollidersEnabled(collidersEnabled: false);
                 chosenReward = card;
             }
         }
-        private new void OnCardFlipped(SelectableCard card)
-        {
+        private new void OnCardFlipped(SelectableCard card) {
             card.SetLocalPosition(Vector3.zero, 0f, immediate: true);
             if (Singleton<InteractionCursor>.Instance.CurrentInteractable == card)
                 base.OnCardInspected(card);
@@ -216,42 +191,36 @@ namespace WhistleWindLobotomyMod
                 base.StartCoroutine(this.RegularChoiceFlipped(card));
 
         }
-        private new IEnumerator RegularChoiceFlipped(SelectableCard card)
-        {
+        private new IEnumerator RegularChoiceFlipped(SelectableCard card) {
             Vector3 originalCardPos = card.transform.position;
             yield return this.TutorialTextSequence(card);
             if (DuplicateInDeck(card))
                 SpawnMushroom(originalCardPos);
 
             // unlock achievement upon flipping the card
-            if (card.Info.name == Cards.angela && !LobotomySaveManager.UnlockedAngela)
-            {
+            if (card.Info.name == Cards.angela && !LobotomySaveManager.UnlockedAngela) {
                 yield return new WaitForSeconds(0.25f);
                 LobotomySaveManager.UnlockedAngela = true;
                 AchievementAPI.Unlock(true, AchievementAPI.Impuritas);
             }
         }
-        private new IEnumerator TutorialTextSequence(SelectableCard card)
-        {
+        private new IEnumerator TutorialTextSequence(SelectableCard card) {
             CustomPaperTalkingCard component = card.GetComponent<CustomPaperTalkingCard>();
             if (component != null)
                 component.CurrentDialogueSequence = base.StartCoroutine(Singleton<TalkingCardDialogueHandler>.Instance.DialogueSequence($"{card.Info.name.Split('_')[1]}Choice", component));
 
-            if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info))
-            {
+            if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info)) {
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
                 Singleton<RuleBookController>.Instance.SetShown(shown: false);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(card.Info.description);
                 ProgressionData.SetCardIntroduced(card.Info);
-                if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp())
-                {
+                if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp()) {
                     yield return new WaitForSeconds(0.25f);
                     Singleton<TextDisplayer>.Instance.ShowMessage("Only [c:bR]1[c:] may join you at this time.");
                 }
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             }
-            if (component != null)
-            {
+            if (component != null) {
                 yield return new WaitUntil(() => !component.PlayingDialogue);
                 component.CurrentDialogueSequence = null;
             }
@@ -260,27 +229,23 @@ namespace WhistleWindLobotomyMod
         /// <summary>
         /// Grabs shared GameObjects and variables
         /// </summary>
-        public void Inherit(CustomSpecialNodeData nodeData)
-        {
+        public void Inherit(CustomSpecialNodeData nodeData) {
             CardSingleChoicesSequencer inheritTarget = SpecialNodeHandler.Instance.cardChoiceSequencer;
             base.transform.position = inheritTarget.transform.position;
             base.transform.rotation = Quaternion.Euler(inheritTarget.transform.rotation.eulerAngles);
 
-            if (inheritTarget.deckPile != null)
-            {
+            if (inheritTarget.deckPile != null) {
                 deckPile = Instantiate(inheritTarget.deckPile, inheritTarget.deckPile.transform.position, inheritTarget.deckPile.transform.rotation);
                 deckPile.transform.parent = base.transform;
             }
 
             selectableCardPrefab = inheritTarget.selectableCardPrefab;
-            if (inheritTarget.gamepadGrid != null)
-            {
+            if (inheritTarget.gamepadGrid != null) {
                 gamepadGrid = Instantiate(inheritTarget.gamepadGrid, inheritTarget.gamepadGrid.transform.position, inheritTarget.gamepadGrid.transform.rotation);
                 gamepadGrid.transform.parent = base.transform;
             }
 
-            if (inheritTarget.rerollInteractable != null)
-            {
+            if (inheritTarget.rerollInteractable != null) {
                 rerollInteractable = Instantiate(inheritTarget.rerollInteractable, inheritTarget.rerollInteractable.transform.position, inheritTarget.rerollInteractable.transform.rotation);
                 rerollInteractable.transform.parent = base.transform;
 

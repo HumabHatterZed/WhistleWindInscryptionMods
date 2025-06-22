@@ -8,19 +8,15 @@ using WhistleWindLobotomyMod.Patches;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public static class Scrybes
-    {
+namespace WhistleWindLobotomyMod {
+    public static class Scrybes {
         internal static bool GrimoraEnabled => Chainloader.PluginInfos.ContainsKey("arackulele.inscryption.grimoramod");
         internal static bool P03Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.p03kayceerun");
     }
 
-    public static class PackAPI
-    {
+    public static class PackAPI {
         internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
-        internal static void CreateCardPack()
-        {
+        internal static void CreateCardPack() {
             PackManager.AddProtectedMetacategory(EventCard);
             PackManager.AddProtectedMetacategory(RuinaCard);
             PackManager.AddProtectedMetacategory(DonatorCard);

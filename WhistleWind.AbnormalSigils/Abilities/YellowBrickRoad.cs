@@ -9,12 +9,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_YellowBrickRoad()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_YellowBrickRoad() {
             const string rulebookName = "Follow the Leader";
             const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.";
             const string dialogue = "Let's go, together.";
@@ -27,12 +24,10 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class YellowBrickRoad : Strafe
-    {
+    public class YellowBrickRoad : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight)
-        {
+        public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight) {
             if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
                 yield break;
 
@@ -53,15 +48,13 @@ namespace WhistleWind.AbnormalSigils
                 base.Card.Slot, allySlots.First(), allySlots.Last());
 
             // switch direction if we can't move
-            if (base.movingLeft && !canMoveLeftNormally && !canLoopAround)
-            {
+            if (base.movingLeft && !canMoveLeftNormally && !canLoopAround) {
                 base.movingLeft = false;
                 // update to see if can loop
                 canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
                     base.Card.Slot, allySlots.First(), allySlots.Last());
             }
-            if (!base.movingLeft && !canMoveRightNormally && !canLoopAround)
-            {
+            if (!base.movingLeft && !canMoveRightNormally && !canLoopAround) {
                 base.movingLeft = true;
                 canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
                     base.Card.Slot, allySlots.First(), allySlots.Last());
@@ -73,59 +66,49 @@ namespace WhistleWind.AbnormalSigils
             base.Card.RenderCard();
 
             // different destination and validation if we're looping or moving normally
-            if (canLoopAround)
-            {
+            if (canLoopAround) {
                 destination = base.movingLeft ? allySlots.Last() : allySlots.First();
                 destinationValid = destination.Card == null;
             }
-            else
-            {
+            else {
                 destination = base.movingLeft ? toLeft : toRight;
                 destinationValid = base.movingLeft ? canMoveLeftNormally : canMoveRightNormally;
             }
 
-            if (destination != null && destinationValid)
-            {
+            if (destination != null && destinationValid) {
                 if (canLoopAround) // if this card is at the end of the board, cycle to the other side
                     yield return MoveToEndOfBoard(base.Card, destination, oldSlot, destinationValid);
                 else // standard movement behaviour
                     yield return MoveToAdjacentSlot(base.Card, destination, destinationValid);
                 yield return base.PostSuccessfulMoveSequence(oldSlot);
             }
-            else
-            {
+            else {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.15f);
             }
 
             // if there are other cards to move
-            if (allySlots.FindAll(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ability)).Count > 0)
-            {
+            if (allySlots.FindAll(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ability)).Count > 0) {
                 yield return base.PreSuccessfulTriggerSequence();
                 yield return base.LearnAbility();
                 yield return MoveFollowingCards(oldSlot, allySlots);
             }
         }
-        private IEnumerator MoveToAdjacentSlot(PlayableCard target, CardSlot destination, bool destinationValid)
-        {
-            if (destination != null && destinationValid)
-            {
+        private IEnumerator MoveToAdjacentSlot(PlayableCard target, CardSlot destination, bool destinationValid) {
+            if (destination != null && destinationValid) {
                 yield return Singleton<BoardManager>.Instance.AssignCardToSlot(target, destination);
                 yield return new WaitForSeconds(0.25f);
             }
-            else
-            {
+            else {
                 target.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.15f);
             }
         }
-        private IEnumerator MoveToEndOfBoard(PlayableCard target, CardSlot destination, CardSlot oldSlot, bool destinationValid)
-        {
+        private IEnumerator MoveToEndOfBoard(PlayableCard target, CardSlot destination, CardSlot oldSlot, bool destinationValid) {
             yield return new WaitForSeconds(0.05f);
             yield return base.PreSuccessfulTriggerSequence();
 
-            if (destination != null && destinationValid)
-            {
+            if (destination != null && destinationValid) {
                 // Move out of slot
                 Vector3 vector = target.Slot.IsPlayerSlot ? Vector3.back : Vector3.forward;
                 Tween.Position(target.transform, target.transform.position + vector * 2f + Vector3.up * 0.25f, 0.15f, 0f, Tween.EaseOut);
@@ -135,14 +118,12 @@ namespace WhistleWind.AbnormalSigils
                 yield return Singleton<BoardManager>.Instance.AssignCardToSlot(target, destination);
                 yield return new WaitForSeconds(0.25f);
             }
-            else
-            {
+            else {
                 target.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.15f);
             }
         }
-        private IEnumerator MoveFollowingCards(CardSlot oldSlot, List<CardSlot> boardSlots)
-        {
+        private IEnumerator MoveFollowingCards(CardSlot oldSlot, List<CardSlot> boardSlots) {
             // create a copy of Paved Slots to use for iteration
             List<CardSlot> boardSlotsCopy = new(boardSlots);
 
@@ -160,13 +141,11 @@ namespace WhistleWind.AbnormalSigils
 
             // we want following cards to cling as close as possible to the base card
             bool multipleMovements = true;
-            while (multipleMovements)
-            {
+            while (multipleMovements) {
                 // break loop if oldSlot is occupied or there aren't any cards to loop
                 multipleMovements = oldSlot.Card == null;
                 CardSlot destination = oldSlot;
-                foreach (CardSlot slot in orderedSlots)
-                {
+                foreach (CardSlot slot in orderedSlots) {
                     CardSlot slotToCheck = Singleton<BoardManager>.Instance.GetAdjacent(destination, adjacentOnLeft: !base.movingLeft);
                     // if the slot is null, check for loop
                     slotToCheck ??= base.movingLeft ? boardSlots.First() : boardSlots.Last();
@@ -175,8 +154,7 @@ namespace WhistleWind.AbnormalSigils
                     bool atEndOfBoardSlotToCheck = slotToCheck == boardSlots.First() || slotToCheck == boardSlots.Last();
 
                     if (slotToCheck.Card != null && destination.Card == null &&
-                        slotToCheck != base.Card.Slot && destination != base.Card.Slot)
-                    {
+                        slotToCheck != base.Card.Slot && destination != base.Card.Slot) {
                         if (atEndOfBoardSlot && atEndOfBoardSlotToCheck)
                             yield return MoveToEndOfBoard(slotToCheck.Card, destination, slotToCheck.Card.Slot, destination != null && destination.Card == null);
                         else
@@ -187,10 +165,8 @@ namespace WhistleWind.AbnormalSigils
             }
         }
 
-        private static bool CheckIfCanLoop(bool atEndOfBoard, bool movingLeft, bool canMoveLeft, bool canMoveRight, CardSlot originalSlot, CardSlot firstSlot, CardSlot lastSlot)
-        {
-            if (atEndOfBoard)
-            {
+        private static bool CheckIfCanLoop(bool atEndOfBoard, bool movingLeft, bool canMoveLeft, bool canMoveRight, CardSlot originalSlot, CardSlot firstSlot, CardSlot lastSlot) {
+            if (atEndOfBoard) {
                 if (movingLeft && !canMoveLeft && originalSlot == firstSlot)
                     return lastSlot.Card == null;
                 if (!movingLeft && !canMoveRight && originalSlot == lastSlot)

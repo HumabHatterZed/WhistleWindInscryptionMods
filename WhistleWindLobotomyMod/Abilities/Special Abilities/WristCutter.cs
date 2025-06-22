@@ -4,25 +4,20 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class WristCutter : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class WristCutter : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Wrist Cutter";
         public const string rDesc = "Bloodbath transforms whenever a card is sacrificed.";
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             return card != base.Card && !fromCombat;
         }
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             View view = Singleton<ViewManager>.Instance.CurrentView;
             string nameOfEvo = Cards.bloodBath;
-            switch (base.PlayableCard.Info.name)
-            {
+            switch (base.PlayableCard.Info.name) {
                 case Cards.bloodBath:
                     nameOfEvo = Cards.bloodBath1;
                     break;
@@ -35,8 +30,7 @@ namespace WhistleWindLobotomyMod
             }
             CardInfo evolution = HelperMethods.GetInfoWithMods(base.PlayableCard, nameOfEvo);
 
-            if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard != base.PlayableCard)
-            {
+            if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard != base.PlayableCard) {
                 base.PlayableCard.ClearAppearanceBehaviours();
                 base.PlayableCard.SetInfo(evolution);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
@@ -44,14 +38,12 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.Anim.LightNegationEffect();
                 yield return new WaitForSeconds(0.1f);
             }
-            else
-            {
+            else {
                 yield return base.PlayableCard.TransformIntoCard(evolution);
                 yield return new WaitForSeconds(0.5f);
             }
 
-            switch (base.PlayableCard.Info.name)
-            {
+            switch (base.PlayableCard.Info.name) {
                 case Cards.bloodBath1:
                     yield return DialogueHelper.PlayDialogueEvent("Bloodbath1");
                     break;
@@ -68,13 +60,11 @@ namespace WhistleWindLobotomyMod
             yield return HelperMethods.ChangeCurrentView(View.Default);
         }
     }
-    public class RulebookEntryWristCutter : AbilityBehaviour
-    {
+    public class RulebookEntryWristCutter : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_WristCutter()
             => RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
         private static void AddSpecial_WristCutter()

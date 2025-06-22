@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string theNakedNest = "wstl_theNakedNest";
-        private static void TheNakedNest_O0274()
-        {
+        private static void TheNakedNest_O0274() {
             string textureName = "theNakedNest";
             CardManager.New(LobotomyPlugin.pluginPrefix, theNakedNest, "The Naked Nest",
                 attack: 0, health: 3, "They can enter your body through any aperture.")

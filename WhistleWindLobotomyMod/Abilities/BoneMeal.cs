@@ -4,12 +4,9 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddBoneMeal()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddBoneMeal() {
             StatIconInfo icon = StatIconManager.AllStatIconInfos.Find(x => x.iconType == SpecialStatIcon.Bones);
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Bone Meal";
@@ -20,14 +17,12 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class BoneMeal : AbilityBehaviour
-    {
+    public class BoneMeal : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToResolveOnBoard() => true;
 
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             int bones = Mathf.FloorToInt(ResourcesManager.Instance.PlayerBones / 2f);
             yield return ResourcesManager.Instance.SpendBones(bones);
         }

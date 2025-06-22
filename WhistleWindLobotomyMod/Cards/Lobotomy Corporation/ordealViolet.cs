@@ -7,14 +7,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string fruitUnderstanding = "wstl_fruitUnderstanding";
         public const string grantUsLove = "wstl_fruitGrantLove";
-        private static void Cards_VioletOrdeal()
-        {
+        private static void Cards_VioletOrdeal() {
             string textureName = "fruitUnderstanding";
             string textureName2 = "grantUsLove";
             //string textureName3 = ""

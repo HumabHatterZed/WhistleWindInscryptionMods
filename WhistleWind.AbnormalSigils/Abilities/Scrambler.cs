@@ -8,12 +8,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Scrambler()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Scrambler() {
             string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then randomise the resulting stats.";
             if (SpellAPI.Enabled)
                 rulebookDescription += " Works for Spells.";
@@ -30,23 +27,20 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Scrambler : AbilityBehaviour
-    {
+    public class Scrambler : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToSacrifice() => true;
         public override bool RespondsToResolveOnBoard() => AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsGlobalSpell();
-        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
             if (AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsTargetedSpell() && slot.Card != null)
                 return base.Card.OpponentCard == slot.Card.OpponentCard;
 
             return false;
         }
 
-        public override IEnumerator OnSacrifice()
-        {
+        public override IEnumerator OnSacrifice() {
             PlayableCard card = Singleton<BoardManager>.Instance.currentSacrificeDemandingCard;
             CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
 
@@ -62,8 +56,7 @@ namespace WhistleWind.AbnormalSigils
 
             yield return base.LearnAbility();
         }
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
             List<PlayableCard> cards = BoardManager.Instance.GetCards(!base.Card.OpponentCard);
             cards.Remove(base.Card);
@@ -88,8 +81,7 @@ namespace WhistleWind.AbnormalSigils
 
             yield return base.LearnAbility();
         }
-        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
             CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
 
             yield return base.PreSuccessfulTriggerSequence();
@@ -106,22 +98,18 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility();
         }
 
-        private void GetNewStats(PlayableCard card)
-        {
+        private void GetNewStats(PlayableCard card) {
             int[] stats = new[] { 0, 1 };
             int oldTotal = card.Attack + card.Health;
             int randomSeed = base.GetRandomSeed();
 
-            while (oldTotal > 0)
-            {
+            while (oldTotal > 0) {
                 // 33% of giving Power
-                if (oldTotal > 1 && SeededRandom.Value(randomSeed *= 2) <= 0.4f)
-                {
+                if (oldTotal > 1 && SeededRandom.Value(randomSeed *= 2) <= 0.4f) {
                     stats[0]++;
                     oldTotal -= 2;
                 }
-                else
-                {
+                else {
                     stats[1]++;
                     oldTotal--;
                 }

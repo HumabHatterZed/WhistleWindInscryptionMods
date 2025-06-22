@@ -4,15 +4,11 @@ using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents.Prospector
-{
-    public class ProspectorAbnormalBossOpponent : ProspectorBossOpponent
-    {
-        public override IEnumerator StartNewPhaseSequence()
-        {
+namespace WhistleWindLobotomyMod.Opponents.Prospector {
+    public class ProspectorAbnormalBossOpponent : ProspectorBossOpponent {
+        public override IEnumerator StartNewPhaseSequence() {
             // Update blueprint for phase 2
-            if (HasGrizzlyGlitchPhase(int.MinValue))
-            {
+            if (HasGrizzlyGlitchPhase(int.MinValue)) {
                 yield return GrizzlyGlitchSequence();
                 yield break;
             }
@@ -22,12 +18,10 @@ namespace WhistleWindLobotomyMod.Opponents.Prospector
             yield return this.ReplaceWithCustomBlueprint(LobotomyEncounterManager.ProspectorAbnormalBossP2, removeLockedCards: true);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
-        public override void ModifyQueuedCard(PlayableCard card)
-        {
+        public override void ModifyQueuedCard(PlayableCard card) {
             // modify Bad Wolf the same way Bloodhound is modified in vanilla
             base.ModifyQueuedCard(card);
-            if (card.Info.name == "wstl_willBeBadWolf" && Singleton<TurnManager>.Instance.BattleNodeData.difficulty >= 10)
-            {
+            if (card.Info.name == "wstl_willBeBadWolf" && Singleton<TurnManager>.Instance.BattleNodeData.difficulty >= 10) {
                 Ability[] collection = Singleton<TurnManager>.Instance.BattleNodeData.difficulty < 15 ? T2_HOUND_ABILITIES : T3_HOUND_ABILITIES;
                 List<Ability> list = new(collection);
                 list.RemoveAll((x) => card.HasAbility(x));

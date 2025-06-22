@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateBonnieMagnificus()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateBonnieMagnificus() {
             CardInfo bon = CardManager.New(pluginPrefixM, "bonnie", "Cake Witch", 1, 1, "A young witch that conjures bejeweled confections.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetPortrait(GetTexture("bonnie_magnificus.png"))
@@ -21,8 +18,7 @@ namespace BonniesBakingPack
                 .AddSpecialAbilities(BunnieAttackAbility.SpecialAbility)
                 .SetOnePerDeck();
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 bon.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
 

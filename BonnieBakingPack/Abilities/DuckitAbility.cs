@@ -1,19 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections;
-namespace BonniesBakingPack
-{
-    public class DuckRabbitAbility : SpecialCardBehaviour
-    {
+namespace BonniesBakingPack {
+    public class DuckRabbitAbility : SpecialCardBehaviour {
         public static SpecialTriggeredAbility SpecialAbility;
 
         public override bool RespondsToDrawn() => true;
-        public override IEnumerator OnDrawn()
-        {
+        public override IEnumerator OnDrawn() {
             DisguiseOutOfBattle();
             yield break;
         }
-        public override IEnumerator OnSelectedForDeckTrial()
-        {
+        public override IEnumerator OnSelectedForDeckTrial() {
             DisguiseOutOfBattle();
             yield break;
         }
@@ -23,20 +19,16 @@ namespace BonniesBakingPack
 
         public override void OnShownInDeckReview() => DisguiseOutOfBattle();
 
-        private void DisguiseOutOfBattle()
-        {
+        private void DisguiseOutOfBattle() {
             base.Card.Info.Mods.Add(NameMod());
             base.Card.ClearAppearanceBehaviours();
             base.Card.RenderCard();
         }
 
-        private CardModificationInfo NameMod()
-        {
-            return new()
-            {
+        private CardModificationInfo NameMod() {
+            return new() {
                 singletonId = "DuckitName",
-                nameReplacement = UnityEngine.Random.RandomRangeInt(0, 6) switch
-                {
+                nameReplacement = UnityEngine.Random.RandomRangeInt(0, 6) switch {
                     0 => "Duck",
                     1 => "Rabbit",
                     2 => "Rabuck",

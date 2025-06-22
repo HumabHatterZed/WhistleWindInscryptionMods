@@ -10,12 +10,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static BonniesBakingPack.BakingPlugin;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateBunnieDisk()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateBunnieDisk() {
             CardManager.New(pluginPrefix3, "bunnie", "Bunnie", 2, 2, "")
                 .SetBloodCost(1).SetRare().AddP03()
                 .AddAbilities(FreshIngredients.ability)

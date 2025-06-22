@@ -7,14 +7,11 @@ using WhistleWindLobotomyMod.Core;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string theRoadHome = "wstl_theRoadHome";
         public const string theRoadHomePixel = "wstlGBC_theRoadHome";
-        private static void TheRoadHome_F01114()
-        {
+        private static void TheRoadHome_F01114() {
             string name = "The Road Home";
             string desc = "A young girl on a quest to return home with her friends.";
             string textureName = "theRoadHome";

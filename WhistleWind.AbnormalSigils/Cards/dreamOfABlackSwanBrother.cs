@@ -2,12 +2,9 @@
 using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Card_SwanBrothers_F0270()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Card_SwanBrothers_F0270() {
             const string brother1 = "dreamOfABlackSwanBrother1";
             const string brother2 = "dreamOfABlackSwanBrother2";
             const string brother3 = "dreamOfABlackSwanBrother3";

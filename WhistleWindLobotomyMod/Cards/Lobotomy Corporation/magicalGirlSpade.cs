@@ -6,16 +6,13 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string knightOfDespair = "wstl_knightOfDespair";
         public const string magicalGirlSpade = "wstl_magicalGirlSpade";
         public const string knightOfDespairPixel = "wstlGBC_knightOfDespairPixel";
         public const string magicalGirlSpadePixel = "wstlGBC_magicalGirlSpadePixel";
-        private static void MagicalGirlSpade_O0173()
-        {
+        private static void MagicalGirlSpade_O0173() {
             string knightName = "The Knight of Despair";
             string desc = "A loyal knight fighting to protect those close to her.";
             string textureName = "knightOfDespair";

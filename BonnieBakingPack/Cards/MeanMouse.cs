@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateMeanMice()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateMeanMice() {
             // Mean Mouse
             CardInfo mean = CardManager.New(pluginPrefix, "mouseMean", "Mean Mouse", 1, 1, "Don't get too close to this mouse and its pepper spray.")
                 .SetDefaultPart1Card().AddAct1()
@@ -37,8 +34,7 @@ namespace BonniesBakingPack
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Bone Marrow", Ability.GainAttackOnKill));
 
             ScrybeCompat.SetManaCost(mage, 1);
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 mean.AddMetaCategories(ScrybeCompat.NatureRegion);
                 napper.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);

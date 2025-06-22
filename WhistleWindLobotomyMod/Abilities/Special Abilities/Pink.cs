@@ -4,10 +4,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Pink : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class Pink : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -15,15 +13,13 @@ namespace WhistleWindLobotomyMod
         public const string rDesc = "Army in Pink will transform when 3 ally cards die.";
         private int deaths = 0;
 
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             if (base.PlayableCard.OnBoard && fromCombat)
                 return card.OpponentCard == base.PlayableCard.OpponentCard;
 
             return false;
         }
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             deaths++;
             if (deaths < 3)
                 yield break;
@@ -39,8 +35,7 @@ namespace WhistleWindLobotomyMod
             yield return CreateArmyInHand();
             yield return DialogueHelper.PlayDialogueEvent("ArmyInBlackTransform");
         }
-        private IEnumerator CreateArmyInHand()
-        {
+        private IEnumerator CreateArmyInHand() {
             CardInfo cardByName = CardLoader.GetCardByName(Cards.armyInBlackSpell);
 
             yield return HelperMethods.ChangeCurrentView(View.Hand);
@@ -51,13 +46,11 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.45f);
         }
     }
-    public class RulebookEntryPink : AbilityBehaviour
-    {
+    public class RulebookEntryPink : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Pink()
             => RulebookEntryPink.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryPink>(Pink.rName, Pink.rDesc).Id;
         private static void AddSpecial_Pink()

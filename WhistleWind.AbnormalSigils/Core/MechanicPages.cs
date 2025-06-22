@@ -11,14 +11,11 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Patches;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils.Core
-{
-    public static class MechanicPages
-    {
+namespace WhistleWind.AbnormalSigils.Core {
+    public static class MechanicPages {
         public const string VENDETTA_FORMAT = "This card deals 1 additional damage when striking cards similar to {0}{1}";
 
-        internal static void AddMechanicEntries()
-        {
+        internal static void AddMechanicEntries() {
             CreateNewMechanicPage(
                 "Speed",
                 "Determines the order that cards attack in during combat. All cards have a base Speed of 0, with movement priority to player-owned cards.",
@@ -40,18 +37,15 @@ namespace WhistleWind.AbnormalSigils.Core
                 fillPageAction: FillPage);
         }
 
-        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages)
-        {
+        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages) {
             PageRangeInfo pagePrefabRef = RuleBookController.Instance.bookInfo.pageRanges.Find(x => x.type == PageRangeType.Items);
             pagePrefabRef ??= RuleBookController.Instance.bookInfo.pageRanges.Find(x => x.type == PageRangeType.Abilities);
             return pages.FindLastIndex(rbi => rbi.pagePrefab == pagePrefabRef.rangePrefab) + 1;
         }
         private static List<RuleBookPageInfo> CreatePages(RuleBookInfo instance, PageRangeInfo currentRange, AbilityMetaCategory metaCategory) => NewMechanicPages.Select(x => x.Item1).ToList();
 
-        private static void FillPage(RuleBookPage page, string pageId, object[] otherArgs)
-        {
-            if (page is AbilityPage abilityPage)
-            {
+        private static void FillPage(RuleBookPage page, string pageId, object[] otherArgs) {
+            if (page is AbilityPage abilityPage) {
                 string name = pageId.Replace("wstl:Mechanic_", "");
                 Tuple<RuleBookPageInfo, string, string, Texture> mechanic = NewMechanicPages.FirstOrDefault(x => x.Item2 == name);
                 abilityPage.mainAbilityGroup.nameTextMesh.text = mechanic.Item2;
@@ -60,41 +54,31 @@ namespace WhistleWind.AbnormalSigils.Core
             }
         }
 
-        public static string ModifyMechanicDescription(string pageName, string originalDesc)
-        {
-            if (RuleBookPatches.CardForRuleBook != null)
-            {
-                if (RuleBookPatches.CardForRuleBook.HasAbility(BitterEnemies.ability) && pageName == "Bitter Vendetta")
-                {
+        public static string ModifyMechanicDescription(string pageName, string originalDesc) {
+            if (RuleBookPatches.CardForRuleBook != null) {
+                if (RuleBookPatches.CardForRuleBook.HasAbility(BitterEnemies.ability) && pageName == "Bitter Vendetta") {
                     BitterEnemies com = RuleBookPatches.CardForRuleBook.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == BitterEnemies.ability)?.Item2 as BitterEnemies;
-                    if (com != null && !string.IsNullOrEmpty(com.TargetName))
-                    {
+                    if (com != null && !string.IsNullOrEmpty(com.TargetName)) {
                         string displayName = com.TargetDisplayedName ?? "[nameless]";
                         string ending;
-                        if (com.TargetTribes != null && com.TargetTribes.Count > 0)
-                        {
+                        if (com.TargetTribes != null && com.TargetTribes.Count > 0) {
                             StringBuilder builder = new();
-                            foreach (Tribe tribe in com.TargetTribes)
-                            {
-                                if (builder.Length > 0)
-                                {
+                            foreach (Tribe tribe in com.TargetTribes) {
+                                if (builder.Length > 0) {
                                     builder.Append(", ");
                                 }
-                                if (TribeManager.IsCustomTribe(tribe))
-                                {
+                                if (TribeManager.IsCustomTribe(tribe)) {
                                     TribeManager.TribeInfo info = TribeManager.NewTribes.First(x => x.tribe == tribe);
                                     builder.Append(info?.name ?? info.tribe.ToString());
                                 }
-                                else
-                                {
+                                else {
                                     builder.Append(tribe.ToString());
                                 }
                             }
-                            
+
                             ending = string.Format(",or belonging to the {0} Tribe(s).", builder.ToString());
                         }
-                        else
-                        {
+                        else {
                             ending = ".";
                         }
                         return string.Format(VENDETTA_FORMAT, displayName, ending);
@@ -105,10 +89,8 @@ namespace WhistleWind.AbnormalSigils.Core
             return originalDesc;
         }
 
-        public static void CreateNewMechanicPage(string name, string description, Texture texture)
-        {
-            RuleBookPageInfo pageInfo = new()
-            {
+        public static void CreateNewMechanicPage(string name, string description, Texture texture) {
+            RuleBookPageInfo pageInfo = new() {
                 pageId = "wstl:Mechanic_" + name
             };
             NewMechanicPages.Add(new(pageInfo, name, description, texture));
@@ -116,12 +98,10 @@ namespace WhistleWind.AbnormalSigils.Core
 
         internal static ObservableCollection<Tuple<RuleBookPageInfo, string, string, Texture>> NewMechanicPages = new();
 
-        public static AbilityManager.FullAbility SetMechanicRedirect(this AbilityManager.FullAbility ability, string redirect, string pageName, Color redirectColour)
-        {
+        public static AbilityManager.FullAbility SetMechanicRedirect(this AbilityManager.FullAbility ability, string redirect, string pageName, Color redirectColour) {
             return ability.SetUniqueRedirect(redirect, "wstl:Mechanic_" + pageName, redirectColour);
         }
-        public static AbilityInfo SetMechanicRedirect(this AbilityInfo ability, string redirect, string pageName, Color redirectColour)
-        {
+        public static AbilityInfo SetMechanicRedirect(this AbilityInfo ability, string redirect, string pageName, Color redirectColour) {
             return ability.SetUniqueRedirect(redirect, "wstl:Mechanic_" + pageName, redirectColour);
         }
     }

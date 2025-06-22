@@ -5,12 +5,9 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddSurvival()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddSurvival() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Survival";
             info.rulebookDescription = "At the start of every other turn for the owner, this card creates a Food Chain in empty adjacent spaces. [define:wstl_foodChain]";
@@ -19,8 +16,7 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class Survival : CreateCardsAdjacent
-    {
+    public class Survival : CreateCardsAdjacent {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -31,11 +27,9 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToResolveOnBoard() => false;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             turnsTillActivation--;
-            if (turnsTillActivation == 0)
-            {
+            if (turnsTillActivation == 0) {
                 yield return base.OnResolveOnBoard();
                 turnsTillActivation = 2;
             }

@@ -4,12 +4,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_DeathPenalty()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_DeathPenalty() {
             const string rulebookName = "Death Penalty";
             const string rulebookDescription = "When [creature] is killed, its owner takes 1 damage.";
             const string dialogue = "Pay better care to your beasts.";
@@ -22,8 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class DeathPenalty : AbilityBehaviour
-    {
+    public class DeathPenalty : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 

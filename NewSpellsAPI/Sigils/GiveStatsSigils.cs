@@ -6,33 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Infiniscryption.Spells.Sigils
-{
-    public class GiveStatsSigils : GiveAbility
-    {
+namespace Infiniscryption.Spells.Sigils {
+    public class GiveStatsSigils : GiveAbility {
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
-        public override IEnumerator OnValidTarget(PlayableCard card)
-        {
+        public override IEnumerator OnValidTarget(PlayableCard card) {
             CardModificationInfo baseMod = new(base.Card.Attack, 0);
-            if (base.Card.LacksAbility(GiveStats.AbilityID))
-            {
-                if (base.Card.Health < 0)
-                {
+            if (base.Card.LacksAbility(GiveStats.AbilityID)) {
+                if (base.Card.Health < 0) {
                     baseMod = new(base.Card.Attack, 0);
                     yield return card.TakeDamage(-base.Card.Health, null);
                     if (card == null || card.Dead)
                         yield break;
                 }
-                else
-                {
+                else {
                     baseMod.healthAdjustment = base.Card.Health;
                 }
             }
 
-            if (base.Card.LacksAbility(GiveSigils.AbilityID))
-            {
+            if (base.Card.LacksAbility(GiveSigils.AbilityID)) {
                 List<Ability> shownAbilitiesOnTarget = CardHelpers.GetDistinctShownAbilities(card.Info, card.TemporaryMods, card.Status.hiddenAbilities);
                 if (shownAbilitiesOnTarget.Count > 4)
                     yield break;
@@ -47,22 +40,18 @@ namespace Infiniscryption.Spells.Sigils
                 // so we add stackable abilities that already exist
                 // otherwise, check if we can add unique abilities to the base/merged sections
 
-                foreach (Ability abilityToCheck in abilitiesToAdd)
-                {
+                foreach (Ability abilityToCheck in abilitiesToAdd) {
                     if (shownAbilitiesOnTarget.Count + baseMod.abilities.Count + mergedAbilities.abilities.Count >= 4)
                         break;
 
                     // ignore duplicate abilities that can't stack, add stacks that already exist on the card
-                    if (AbilityManager.AllAbilityInfos.AbilityByID(abilityToCheck).canStack)
-                    {
+                    if (AbilityManager.AllAbilityInfos.AbilityByID(abilityToCheck).canStack) {
                         stackedAbilities.Add(abilityToCheck);
                     }
-                    else if (card.Info.Abilities.Count + baseMod.abilities.Count < 4)
-                    {
+                    else if (card.Info.Abilities.Count + baseMod.abilities.Count < 4) {
                         baseMod.AddAbilities(abilityToCheck);
                     }
-                    else if (card.Info.ModAbilities.Count + card.TemporaryMods.Count(tm => tm.fromCardMerge) + mergedAbilities.abilities.Count < 4)
-                    {
+                    else if (card.Info.ModAbilities.Count + card.TemporaryMods.Count(tm => tm.fromCardMerge) + mergedAbilities.abilities.Count < 4) {
                         mergedAbilities.abilities.Add(abilityToCheck);
                     }
                 }
@@ -70,26 +59,22 @@ namespace Infiniscryption.Spells.Sigils
                 baseMod.abilities.AddRange(stackedAbilities);
 
                 card.Anim.PlayTransformAnimation();
-                if (card.Info.name == "!DEATHCARD_BASE")
-                {
+                if (card.Info.name == "!DEATHCARD_BASE") {
                     card.AddTemporaryMods(baseMod, mergedAbilities);
                 }
-                else
-                {
+                else {
                     CardInfo info = card.Info.Clone() as CardInfo;
                     info.Mods.Add(baseMod);
                     info.Mods.Add(mergedAbilities);
                     card.SetInfo(info);
                 }
             }
-            else
-            {
+            else {
                 card.AddTemporaryMod(baseMod);
             }
         }
 
-        public static void Register()
-        {
+        public static void Register() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Give Stats and Sigils";
             info.rulebookDescription = "Gives this card's stats and sigils to the target.";

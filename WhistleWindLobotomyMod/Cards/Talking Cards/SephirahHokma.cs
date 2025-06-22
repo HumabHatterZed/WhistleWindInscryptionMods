@@ -11,10 +11,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardHokma : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardHokma : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahHokma;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.2f, voiceSoundPitch: 0.5f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingHokmaBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingHokmaEmission.png");
 
@@ -71,11 +67,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahHokma = "wstl_sephirahHokma";
-        private static void Hokma()
-        {
+        private static void Hokma() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahHokma, "Hokma",
                 attack: 1, health: 4, "All things will happen in time. Just have faith.")
                 .SetBloodCost(2)
@@ -85,10 +79,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Hokma()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Hokma() {
             TalkingCardHokma.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardHokma>("Hokma").Id;
         }
     }

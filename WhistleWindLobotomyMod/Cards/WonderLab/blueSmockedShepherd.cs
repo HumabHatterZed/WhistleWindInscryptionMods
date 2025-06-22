@@ -3,13 +3,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string blueSmockedShepherd = "wstl_blueSmockedShepherd";
-        private static void BlueSmockedShepherd()
-        {
+        private static void BlueSmockedShepherd() {
             return;
             string textureName = "blueSmockedShepherd";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, blueSmockedShepherd, "Blue-Smocked Shepherd",

@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string skinProphecy = "wstl_skinProphecy";
-        private static void SkinProphecy_T0990()
-        {
+        private static void SkinProphecy_T0990() {
             string name = "Skin Prophecy";
             string desc = "A holy book, wrapped in skin to preserve its sanctity.";
             string textureName = "skinProphecy";

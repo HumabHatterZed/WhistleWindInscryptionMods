@@ -6,10 +6,8 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string fixerRed = "wstl_fixerRed";
         public const string fixerWhite = "wstl_fixerWhite";
         public const string fixerBlack = "wstl_fixerBlack";
@@ -19,8 +17,7 @@ namespace WhistleWindLobotomyMod
         public const string fixerBlack2 = "wstl_fixerBlack2";
         public const string fixerPale2 = "wstl_fixerPale2";
         public const string claw = "wstl_claw";
-        private static void Cards_WhiteOrdeal()
-        {
+        private static void Cards_WhiteOrdeal() {
             string textureName = "fixerRed";
             string textureName2 = "fixerWhite2";
             string textureName3 = "fixerWhite";

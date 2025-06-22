@@ -6,14 +6,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string fleshIdol = "wstl_fleshIdol";
         public const string fleshIdolGood = "wstl_fleshIdolGood";
-        private static void FleshIdol_T0979()
-        {
+        private static void FleshIdol_T0979() {
             string idolName = "Flesh Idol";
             string desc = "Prayer inevitably ends with the worshipper's despair.";
             string textureName = "fleshIdol";

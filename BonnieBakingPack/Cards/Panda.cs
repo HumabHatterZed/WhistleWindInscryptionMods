@@ -2,12 +2,9 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreatePandas()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreatePandas() {
             CardInfo panda = CardManager.New(pluginPrefix, "panda", "Panda", 1, 2, "A detective on the hunt for a killer. Armed and dangerous.")
                 .SetDefaultPart1Card().AddAct1()
                 .SetCost(1, 3)
@@ -42,8 +39,7 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.Deathtouch);
 
             ScrybeCompat.SetManaCost(mage, 1);
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 panda.AddMetaCategories(ScrybeCompat.NatureRegion);
                 dead.AddMetaCategories(ScrybeCompat.UndeadRegion);
 
@@ -51,8 +47,7 @@ namespace BonniesBakingPack
                 CardAppearanceBehaviour.Appearance app = GuidManager.GetEnumValue<CardAppearanceBehaviour.Appearance>(ScrybeCompat.P03Guid, "ForceRevolverAppearance");
                 bot.AddAbilities(Ability.Deathtouch, ability2).AddMetaCategories(ScrybeCompat.TechRegion).AddAppearances(app);
             }
-            else
-            {
+            else {
                 bot.AddAbilities(Ability.Sniper, Ability.BuffEnemy);
             }
         }

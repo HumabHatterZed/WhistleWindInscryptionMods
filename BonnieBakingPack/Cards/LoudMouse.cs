@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateLoudMice()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateLoudMice() {
             // Loud Mouse
             CardInfo loud = CardManager.New(pluginPrefix, "mouseLoud", "Loud Mouse", 2, 1, "Some people don't know when to shut up.")
                 .SetDefaultPart1Card().AddAct1()
@@ -36,8 +33,7 @@ namespace BonniesBakingPack
 
             ScrybeCompat.SetFuel(bot, 3);
             //ScrybeCompat.SetManaCost(mage, 1);
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 loud.AddMetaCategories(ScrybeCompat.NatureRegion);
                 aka.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);

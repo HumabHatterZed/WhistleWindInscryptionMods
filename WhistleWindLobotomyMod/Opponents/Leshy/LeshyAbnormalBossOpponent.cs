@@ -3,16 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Opponents.Leshy
-{
-    public class LeshyAbnormalBossOpponent : LeshyBossOpponent
-    {
-        public override IEnumerator StartNewPhaseSequence()
-        {
+namespace WhistleWindLobotomyMod.Opponents.Leshy {
+    public class LeshyAbnormalBossOpponent : LeshyBossOpponent {
+        public override IEnumerator StartNewPhaseSequence() {
             // override this IEnum so it'll use the new Start...Phase IEnums
             TurnPlan.Clear();
-            switch (NumLives)
-            {
+            switch (NumLives) {
                 case 2:
                     yield return this.StartDeathcardPhase();
                     break;
@@ -21,16 +17,13 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
                     break;
             }
         }
-        private new IEnumerator StartDeathcardPhase()
-        {
+        private new IEnumerator StartDeathcardPhase() {
             Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
             yield return new WaitForSeconds(0.1f);
             yield return ClearQueue();
             yield return new WaitForSeconds(0.1f);
-            foreach (CardSlot item in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-            {
-                if (item.Card == null && item.opposingSlot.Card != null && item.opposingSlot.Card.Attack > 0 && !item.opposingSlot.Card.HasAbility(Ability.SplitStrike))
-                {
+            foreach (CardSlot item in Singleton<BoardManager>.Instance.OpponentSlotsCopy) {
+                if (item.Card == null && item.opposingSlot.Card != null && item.opposingSlot.Card.Attack > 0 && !item.opposingSlot.Card.HasAbility(Ability.SplitStrike)) {
                     string text = item.opposingSlot.Card.HasAbility(Ability.Flying) ? "Tree" : "Stump";
                     yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName(text), item, 0.1f, resolveTriggers: false);
                 }
@@ -61,15 +54,11 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
             yield return new WaitForSeconds(0.1f);
             yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("LeshyBossDeathcards2", TextDisplayer.MessageAdvanceMode.Input);
         }
-        private new List<CardInfo> CreateUsableDeathcards()
-        {
+        private new List<CardInfo> CreateUsableDeathcards() {
             List<CardInfo> list = new();
-            foreach (CardModificationInfo item2 in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
-            {
-                if (!item2.abilities.Exists((x) => !AbilitiesUtil.GetInfo(x).opponentUsable) && item2.singletonId != null)
-                {
-                    if (item2.singletonId.StartsWith("wstl"))
-                    {
+            foreach (CardModificationInfo item2 in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods) {
+                if (!item2.abilities.Exists((x) => !AbilitiesUtil.GetInfo(x).opponentUsable) && item2.singletonId != null) {
+                    if (item2.singletonId.StartsWith("wstl")) {
                         CardInfo item = CardLoader.CreateDeathCard(item2);
                         list.Add(item);
                     }
@@ -78,10 +67,8 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
             return list;
         }
 
-        public override void ModifyQueuedCard(PlayableCard card)
-        {
-            if (card.Info.name == Cards.nothingThere)
-            {
+        public override void ModifyQueuedCard(PlayableCard card) {
+            if (card.Info.name == Cards.nothingThere) {
                 card.GetComponent<Mimicry>().DisguiseInBattle();
             }
         }

@@ -9,10 +9,8 @@ using WhistleWindLobotomyMod.Patches;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public static class AchievementAPI
-    {
+namespace WhistleWindLobotomyMod {
+    public static class AchievementAPI {
         // bosses
         public static Achievement ThroughTheTwilight;
         public static Achievement WhereAllPathsLead;
@@ -33,10 +31,9 @@ namespace WhistleWindLobotomyMod
         public static Achievement Impuritas;
         public static Achievement Dummies;
 
-        public static void CreateAchievements()
-        {
+        public static void CreateAchievements() {
             ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(LobotomyPlugin.pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
-            
+
             ThroughTheTwilight = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
 
@@ -76,17 +73,14 @@ namespace WhistleWindLobotomyMod
             LobotomyPlugin.HarmonyInstance.PatchAll(typeof(AchievementPatches));
         }
 
-        public static bool UnlockDummies()
-        {
-            if (RunState.Run?.playerDeck != null)
-            {
+        public static bool UnlockDummies() {
+            if (RunState.Run?.playerDeck != null) {
                 return RunState.Run.playerDeck.Cards.Exists(x => x != null && x.name == Cards.trainingDummy && x.HasAbility(Ability.DrawRabbits));
             }
             return false;
         }
 
-        internal static void Unlock(bool prerequisite, Achievement achievement)
-        {
+        internal static void Unlock(bool prerequisite, Achievement achievement) {
             if (prerequisite)
                 AchievementManager.Unlock(achievement);
         }

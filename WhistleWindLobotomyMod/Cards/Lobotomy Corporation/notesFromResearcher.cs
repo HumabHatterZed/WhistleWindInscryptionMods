@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string notesFromResearcher = "wstl_notesFromResearcher";
-        private static void NotesFromResearcher_T0978()
-        {
+        private static void NotesFromResearcher_T0978() {
             string name = "Notes from a Crazed Researcher";
             string name2 = "Frantic Notes from a Crazed Researcher";
             string desc = "An insane garble of guilty confessions and incoherent gibberish.";

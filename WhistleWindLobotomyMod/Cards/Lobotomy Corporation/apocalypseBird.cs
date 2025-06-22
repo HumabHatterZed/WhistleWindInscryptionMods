@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string apocalypseBird = "wstl_apocalypseBird";
-        private static void ApocalypseBird_O0263()
-        {
+        private static void ApocalypseBird_O0263() {
             string textureName = "apocalypseBird";
             CardManager.New(LobotomyPlugin.pluginPrefix, apocalypseBird, "Apocalypse Bird",
                 attack: 3, health: 9)

@@ -6,28 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BonniesBakingPack
-{
-    public class BingusAbility : SpecialCardBehaviour, IGetOpposingSlots
-    {
+namespace BonniesBakingPack {
+    public class BingusAbility : SpecialCardBehaviour, IGetOpposingSlots {
         public static SpecialTriggeredAbility SpecialAbility;
         private bool finishedCoroutine = false;
         public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             SpewOutWeights(base.PlayableCard.Slot, Random.RandomRangeInt(0, 7));
             Tween.LocalScale(base.PlayableCard.transform, new(Random.Range(0.3f, 1.7f), Random.Range(0.3f, 1.7f), Random.Range(0.3f, 1.7f)), Random.Range(0f, 1f), 0f, loop: Tween.LoopType.PingPong);
             Tween.LocalRotation(base.PlayableCard.transform, Random.rotation, Random.Range(0f, 1f), 0f, loop: Tween.LoopType.Loop);
             yield break;
         }
-        private void SpewOutWeights(CardSlot slot, int numWeights)
-        {
+        private void SpewOutWeights(CardSlot slot, int numWeights) {
             if (numWeights == 0)
                 return;
 
             List<Transform> newWeights = new();
-            for (int i = 0; i < Mathf.Min(20, numWeights); i++)
-            {
+            for (int i = 0; i < Mathf.Min(20, numWeights); i++) {
                 GameObject gameObject = Object.Instantiate(Singleton<CombatPhaseManager3D>.Instance.weightPrefab);
                 Vector3 vector = new(0f, 0f, slot.IsPlayerSlot ? 0.75f : (-0.75f));
                 gameObject.transform.position = slot.transform.position + vector + new Vector3((float)i * 0.1f, 0f, (float)i * 0.1f);
@@ -36,10 +31,8 @@ namespace BonniesBakingPack
             }
             Singleton<CombatPhaseManager3D>.Instance.damageWeights.AddRange(newWeights);
             Singleton<TableVisualEffectsManager>.Instance?.ThumpTable(0.075f * (float)Mathf.Min(10, numWeights));
-            foreach (Transform item in newWeights)
-            {
-                if (item != null)
-                {
+            foreach (Transform item in newWeights) {
+                if (item != null) {
                     item.gameObject.SetActive(value: true);
                     item.GetComponent<Rigidbody>().AddForce(Vector3.up * 4f, ForceMode.VelocityChange);
                 }
@@ -47,11 +40,9 @@ namespace BonniesBakingPack
         }
 
         public override bool RespondsToPlayFromHand() => true;
-        public override IEnumerator OnPlayFromHand()
-        {
+        public override IEnumerator OnPlayFromHand() {
             SaveManager.SaveFile.CurrentDeck.RemoveCardByName(base.Card.Info.name);
-            if (!BakingPlugin.BingusCrash.Value)
-            {
+            if (!BakingPlugin.BingusCrash.Value) {
                 base.StartCoroutine(BingusAllOverThePlace(true));
                 float lastSave = SaveManager.lastSaveTime;
                 ProgressionData.Data.introducedCards.Remove(base.PlayableCard.Info.name);
@@ -65,18 +56,15 @@ namespace BonniesBakingPack
             yield return TextDisplayer.Instance.ShowUntilInput("You can't escape Bingus.");
         }
 
-        private IEnumerator CrashGame(float lastSave)
-        {
+        private IEnumerator CrashGame(float lastSave) {
             BakingPlugin.BingusCrash.Value = true;
             BakingPlugin.Configs.Save();
             yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => lastSave != SaveManager.lastSaveTime);
-            if (base.PlayableCard.Info.name == "bbp_grimora_bingus")
-            {
+            if (base.PlayableCard.Info.name == "bbp_grimora_bingus") {
                 BakingPlugin.Log.LogError(CardLoader.GetCardByName("bbp_grimora_bunnie").description);
             }
-            else
-            {
+            else {
                 BakingPlugin.Log.LogError("BingusReferenceException: Object reference not set to an instance of a non-bingus object\nStack trace:\nBonniesBakingPack.bingus+<IAmAHacker>d__5.MoveNext :3 (at <7ec68bbingus44is17coming4to31yourhouse322e>:0)\nUnityEngine.DoxPlayerReal.InvokeMoveOut (System.Collections.IEnumerator enumerator, System.IntPtr playersHomeAddress) (at <3f8c3579heres23bingus9afcaaf82e>:0)");
             }
             FrameLoopManager.Instance.SetIterationDisabled(disabled: false);
@@ -84,14 +72,12 @@ namespace BonniesBakingPack
             MenuController.LoadGameFromMenu(newGameGBC: false);
         }
 
-        private IEnumerator BingusAllOverThePlace(bool crashingTheGame)
-        {
+        private IEnumerator BingusAllOverThePlace(bool crashingTheGame) {
             AudioController.Instance.PlaySound2D("broken_hum");
             Singleton<CameraEffects>.Instance.Shake(0.1f, 1f);
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 1f);
 
-            if (crashingTheGame)
-            {
+            if (crashingTheGame) {
                 yield return BingusTheBoard(true);
                 yield break;
             }
@@ -105,31 +91,24 @@ namespace BonniesBakingPack
             };
             list.Randomize();
 
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (Random.RandomRangeInt(0, maxProbability) == 0)
-                {
+            for (int i = 0; i < list.Count; i++) {
+                if (Random.RandomRangeInt(0, maxProbability) == 0) {
                     yield return list[i];
                 }
-                else
-                {
+                else {
                     maxProbability += 2;
                 }
             }
             finishedCoroutine = true;
         }
 
-        private IEnumerator BingusTheBoard(bool crashing = false)
-        {
+        private IEnumerator BingusTheBoard(bool crashing = false) {
             ViewManager.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
 
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy.Where(x => x != base.PlayableCard.Slot))
-            {
-                if (crashing || Random.RandomRangeInt(0, 3) == 0)
-                {
-                    if (slot.Card != null)
-                    {
+            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy.Where(x => x != base.PlayableCard.Slot)) {
+                if (crashing || Random.RandomRangeInt(0, 3) == 0) {
+                    if (slot.Card != null) {
                         PlayableCard card = slot.Card;
                         card.Anim.PlayDeathAnimation(false);
                         card.UnassignFromSlot();
@@ -139,30 +118,24 @@ namespace BonniesBakingPack
                 }
             }
         }
-        private IEnumerator BingusTheHand()
-        {
+        private IEnumerator BingusTheHand() {
             List<CardInfo> removedInfos = new();
             int cardsInHand = PlayerHand.Instance.CardsInHand.Count;
             List<PlayableCard> cards = new(PlayerHand.Instance.CardsInHand);
-            foreach (PlayableCard card in cards)
-            {
-                if (Random.RandomRangeInt(0, 3) == 0)
-                {
+            foreach (PlayableCard card in cards) {
+                if (Random.RandomRangeInt(0, 3) == 0) {
                     removedInfos.Add(card.Info.Clone() as CardInfo);
                     PlayerHand.Instance.RemoveCardFromHand(card);
                     yield return new WaitForSeconds(0.04f);
                 }
 
-                for (int i = 0; i < cardsInHand; i++)
-                {
-                    if (Random.RandomRangeInt(0, cardsInHand / 2 - i) == 0)
-                    {
+                for (int i = 0; i < cardsInHand; i++) {
+                    if (Random.RandomRangeInt(0, cardsInHand / 2 - i) == 0) {
                         break;
                     }
 
                     CardInfo info = CardLoader.GetCardByName(base.Card.Info.name);
-                    if (removedInfos.Count > 0)
-                    {
+                    if (removedInfos.Count > 0) {
                         info.Mods = removedInfos[0].Mods;
                         info.Mods.Add(new() { nameReplacement = removedInfos[0].DisplayedNameLocalized + " " + base.Card.Info.displayedName });
                         removedInfos.RemoveAt(0);
@@ -172,12 +145,9 @@ namespace BonniesBakingPack
                 }
             }
         }
-        private IEnumerator BingusTheDeck()
-        {
-            for (int i = 0; i < CardDrawPiles3D.Instance.Deck.CardsInDeck; i++)
-            {
-                if (Random.RandomRangeInt(0, 3) == 0)
-                {
+        private IEnumerator BingusTheDeck() {
+            for (int i = 0; i < CardDrawPiles3D.Instance.Deck.CardsInDeck; i++) {
+                if (Random.RandomRangeInt(0, 3) == 0) {
                     CardInfo newInfo = CardLoader.GetCardByName(base.Card.Info.name);
                     newInfo.Mods = new(CardDrawPiles3D.Instance.Deck.cards[i].Mods)
                     {
@@ -186,10 +156,8 @@ namespace BonniesBakingPack
                     CardDrawPiles3D.Instance.Deck.cards[i] = newInfo;
                 }
             }
-            for (int i = 0; i < CardDrawPiles3D.Instance.SideDeck.CardsInDeck; i++)
-            {
-                if (Random.RandomRangeInt(0, 3) == 0)
-                {
+            for (int i = 0; i < CardDrawPiles3D.Instance.SideDeck.CardsInDeck; i++) {
+                if (Random.RandomRangeInt(0, 3) == 0) {
                     CardInfo newInfo = CardLoader.GetCardByName(base.Card.Info.name);
                     newInfo.Mods = new(CardDrawPiles3D.Instance.SideDeck.cards[i].Mods)
                     {
@@ -200,29 +168,22 @@ namespace BonniesBakingPack
             }
             yield break;
         }
-        private IEnumerator BingusTheScales()
-        {
+        private IEnumerator BingusTheScales() {
             yield return InvertScales();
-            for (int i = 0; i < 1 + Random.RandomRangeInt(0, 3); i++)
-            {
+            for (int i = 0; i < 1 + Random.RandomRangeInt(0, 3); i++) {
                 int rand = Random.RandomRangeInt(0, 3);
-                if (rand > 0)
-                {
-                    if (LifeManager.Instance is MagnificusLifeManager)
-                    {
-                        if (Random.value <= 0.5f)
-                        {
+                if (rand > 0) {
+                    if (LifeManager.Instance is MagnificusLifeManager) {
+                        if (Random.value <= 0.5f) {
                             MagnificusLifeManager.Instance.playerLife -= rand;
                             MagnificusLifeManager.Instance.playerLifeCounter.ShowValue(MagnificusLifeManager.Instance.playerLife);
                         }
-                        else
-                        {
+                        else {
                             MagnificusLifeManager.Instance.opponentLife -= rand;
                             MagnificusLifeManager.Instance.opponentLifeCounter.ShowValue(MagnificusLifeManager.Instance.opponentLife);
                         }
                     }
-                    else
-                    {
+                    else {
                         yield return Singleton<LifeManager>.Instance.ShowDamageSequence(rand, 1, toPlayer: Random.value <= 0.5f);
                     }
                     yield return new WaitForSeconds(0.11f);
@@ -232,29 +193,24 @@ namespace BonniesBakingPack
             }
             yield return new WaitForSeconds(0.5f);
         }
-        private IEnumerator InvertScales()
-        {
+        private IEnumerator InvertScales() {
             int balance = Singleton<LifeManager>.Instance.Balance * -2;
             if (balance == 0)
                 yield break;
 
             int damageToDeal = Mathf.Abs(balance);
             Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damageToDeal;
-            if (LifeManager.Instance is MagnificusLifeManager)
-            {
-                if (balance < 0)
-                {
+            if (LifeManager.Instance is MagnificusLifeManager) {
+                if (balance < 0) {
                     MagnificusLifeManager.Instance.playerLife -= damageToDeal;
                     MagnificusLifeManager.Instance.playerLifeCounter.ShowValue(MagnificusLifeManager.Instance.playerLife);
                 }
-                else
-                {
+                else {
                     MagnificusLifeManager.Instance.opponentLife -= damageToDeal;
                     MagnificusLifeManager.Instance.opponentLifeCounter.ShowValue(MagnificusLifeManager.Instance.opponentLife);
                 }
             }
-            else
-            {
+            else {
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damageToDeal, damageToDeal * 7, toPlayer: balance < 0);
             }
         }
@@ -266,13 +222,11 @@ namespace BonniesBakingPack
         #endregion
     }
 
-    public class BingusStatIcon : VariableStatBehaviour
-    {
+    public class BingusStatIcon : VariableStatBehaviour {
         public static SpecialStatIcon Icon;
         public override SpecialStatIcon IconType => Icon;
 
-        public override int[] GetStatValues()
-        {
+        public override int[] GetStatValues() {
             return new int[] { 62123, 62123 };
         }
     }

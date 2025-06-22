@@ -2,10 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Opponents.Saviour
-{
-    public class ApostleOpponent : TotemOpponent
-    {
+namespace WhistleWindLobotomyMod.Opponents.Saviour {
+    public class ApostleOpponent : TotemOpponent {
         public static readonly Opponent.Type ID;/* = OpponentManager.Add(
             LobotomyPlugin.pluginGuid, "ApostleOpponent",
             null, typeof(ApostleOpponent), new()
@@ -19,8 +17,7 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
         public override bool GiveCurrencyOnDefeat => false;
         public override Color InteractablesGlowColor => GameColors.Instance.gold;
 
-        public override IEnumerator LifeLostSequence()
-        {
+        public override IEnumerator LifeLostSequence() {
             yield break;
         }
     }

@@ -6,12 +6,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_StartingDecay()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_StartingDecay() {
             const string rulebookName = "Imminent Decay";
             const string rulebookDescription = "When [creature] is played, it gains 1 Decay for each stack of this sigil it possesses.";
             StartingDecay.ability = AbnormalAbilityHelper.CreateAbility<StartingDecay>(
@@ -24,14 +21,12 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class StartingDecay : AbilityBehaviour
-    {
+    public class StartingDecay : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToResolveOnBoard() => base.Card.LacksTrait(AbnormalPlugin.ImmuneToAilments);
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             yield return base.Card.AddStatusEffect<Decay>(1);
         }
     }

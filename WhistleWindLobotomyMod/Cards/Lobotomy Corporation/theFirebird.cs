@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string theFirebird = "wstl_theFirebird";
-        private static void TheFirebird_O02101()
-        {
+        private static void TheFirebird_O02101() {
             string textureName = "theFirebird";
             CardManager.New(LobotomyPlugin.pluginPrefix, theFirebird, "The Firebird",
                 attack: 2, health: 3, "A bird that longs for the thrill of being hunted.")

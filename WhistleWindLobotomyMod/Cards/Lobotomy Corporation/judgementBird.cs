@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string judgementBird = "wstl_judgementBird";
-        private static void JudgementBird_O0262()
-        {
+        private static void JudgementBird_O0262() {
             string textureName = "judgementBird";
             CardManager.New(LobotomyPlugin.pluginPrefix, judgementBird, "Judgement Bird",
                 attack: 1, health: 1, "A long-necked bird that swiftly judges sinners, guilty or no.")

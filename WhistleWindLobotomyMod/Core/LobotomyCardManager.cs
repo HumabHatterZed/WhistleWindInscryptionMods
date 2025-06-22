@@ -12,8 +12,7 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.Core.Helpers.CardHelper;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core
-{
+namespace WhistleWindLobotomyMod.Core {
     public static class LobotomyCardManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static CardInfo Build(
@@ -22,8 +21,7 @@ namespace WhistleWindLobotomyMod.Core
             RiskLevel riskLevel = RiskLevel.None,
             bool availableInGBC = false,
             bool overrideCardChoice = false
-            )
-        {
+            ) {
             switch (cardInfo.GetModPrefix()) {
                 case pluginPrefix:
                     BaseModCards.Add(cardInfo);
@@ -47,8 +45,7 @@ namespace WhistleWindLobotomyMod.Core
                 cardInfo.AddTraits(Trait.KillsSurvivors);
             }
 
-            if (cardType != CardType.None && CardCanBeObtained(cardInfo))
-            {
+            if (cardType != CardType.None && CardCanBeObtained(cardInfo)) {
                 cardInfo.SetCardType(cardType, !overrideCardChoice);
                 if (!overrideCardChoice) {
                     if (availableInGBC) {
@@ -78,8 +75,7 @@ namespace WhistleWindLobotomyMod.Core
             return cardInfo;
         }
 
-        public static bool CardIsDisabled(CardInfo info)
-        {
+        public static bool CardIsDisabled(CardInfo info) {
             if (info.HasCardMetaCategory(EventCard) && LobotomyConfigManager.NoEvents)
                 return true;
 
@@ -95,24 +91,21 @@ namespace WhistleWindLobotomyMod.Core
 
             return false;
         }
-        private static bool CardCanBeObtained(CardInfo info)
-        {
+        private static bool CardCanBeObtained(CardInfo info) {
             if (info.HasCardMetaCategory(EventCard))
                 return false;
 
             return !AllCardsDisabled && !CardIsDisabled(info);
         }
 
-        public static CardInfo SetEventCard(this CardInfo info, bool isRare)
-        {
+        public static CardInfo SetEventCard(this CardInfo info, bool isRare) {
             info.AddAppearances(isRare ? RareEventBackground.appearance : EventBackground.appearance);
             info.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
             info.AddMetaCategories(EventCard);
             return info;
         }
 
-        public static CardInfo SetNodeRestrictions(this CardInfo card, bool cannotGiveSigils, bool cannotGainSigils, bool cannotBuffStats, bool cannotCopyCard)
-        {
+        public static CardInfo SetNodeRestrictions(this CardInfo card, bool cannotGiveSigils, bool cannotGainSigils, bool cannotBuffStats, bool cannotCopyCard) {
             if (cannotGiveSigils)
                 card.AddTraits(AbnormalPlugin.CannotGiveSigils);
             if (cannotGainSigils)
@@ -124,8 +117,7 @@ namespace WhistleWindLobotomyMod.Core
             return card;
         }
 
-        public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType)
-        {
+        public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType) {
             string spellName = spellType.ToString();
             bool isGlobal = spellName.StartsWith("Global");
             bool isStatSpell = spellName.EndsWith("Stats");
@@ -139,10 +131,8 @@ namespace WhistleWindLobotomyMod.Core
             return cardInfo;
         }
 
-        public static RiskLevel GetRiskLevel(this CardInfo info)
-        {
-            return info.GetExtendedProperty("wstl:RiskLevel") switch
-            {
+        public static RiskLevel GetRiskLevel(this CardInfo info) {
+            return info.GetExtendedProperty("wstl:RiskLevel") switch {
                 "Aleph" => RiskLevel.Aleph,
                 "Waw" => RiskLevel.Waw,
                 "He" => RiskLevel.He,
@@ -166,8 +156,7 @@ namespace WhistleWindLobotomyMod.Core
         private static readonly List<CardInfo> ObtainableActMCards = new();
 
         private static readonly List<CardInfo> _obtainableCards = new();
-        public static List<CardInfo> ObtainableLobotomyCards
-        {
+        public static List<CardInfo> ObtainableLobotomyCards {
             get {
                 if (_obtainableCards.Count == 0)
                     _obtainableCards.Add(CardLoader.GetCardByName(Cards.trainingDummy));
@@ -202,8 +191,7 @@ namespace WhistleWindLobotomyMod.Core
         public static CardMetaCategory DonatorCard = GuidManager.GetEnumValue<CardMetaCategory>(LobotomyPlugin.pluginGuid, "DonatorCard");
 
         [Flags]
-        public enum RiskLevel
-        {
+        public enum RiskLevel {
             None = 0,
             Zayin = 1,
             Teth = 2,
@@ -213,8 +201,7 @@ namespace WhistleWindLobotomyMod.Core
             All = 32
         }
 
-        public enum SpellType
-        {
+        public enum SpellType {
             None,
             Global,
             GlobalStats,

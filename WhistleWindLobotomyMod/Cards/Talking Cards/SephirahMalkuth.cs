@@ -11,10 +11,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardMalkuth : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardMalkuth : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahMalkuth;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.8f, voiceSoundPitch: 1.5f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingMalkuthBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingMalkuthEmission.png");
 
@@ -81,11 +77,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahMalkuth = "wstl_sephirahMalkuth";
-        private static void Malkuth()
-        {
+        private static void Malkuth() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahMalkuth, "Malkuth",
                 attack: 1, health: 1, "The head of the Control Team, here to assist you any way she can.")
                 .SetBonesCost(3)
@@ -95,10 +89,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Malkuth()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Malkuth() {
             TalkingCardMalkuth.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardMalkuth>("Malkuth").Id;
         }
     }

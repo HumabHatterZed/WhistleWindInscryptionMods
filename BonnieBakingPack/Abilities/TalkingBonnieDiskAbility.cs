@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers;
+using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
-using InscryptionAPI.TalkingCards;
 using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
@@ -9,12 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static BonniesBakingPack.BakingPlugin;
-using InscryptionAPI.Helpers;
 
-namespace BonniesBakingPack
-{
-    public class TalkingBonnieDiskAbility : CustomDiskTalkingCard
-    {
+namespace BonniesBakingPack {
+    public class TalkingBonnieDiskAbility : CustomDiskTalkingCard {
         public override string CardName => "bbp_act3_bonnie";
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.6f, voiceSoundPitch: 1.6f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace BonniesBakingPack
         public static SpecialTriggeredAbility SpecialAbility;
         public override SpecialTriggeredAbility DialogueAbility => SpecialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = GetTexture("bonnie_act3.png").ConvertTexture(new(0.5f, 0f));
                 return new()
                 {

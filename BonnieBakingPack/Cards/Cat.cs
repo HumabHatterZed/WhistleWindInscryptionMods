@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateCats()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateCats() {
             // Cat
             CardInfo cat = CardManager.New(pluginPrefix, "cat", "Cat", 1, 1, "A refined cat with elite tastes, in more ways than one.")
                 .SetDefaultPart1Card().AddAct1()
@@ -34,8 +31,7 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("witchCat.png"))
                 .AddAbilities(Ability.BuffNeighbours, ScrybeCompat.GetMagnificusAbility("Familiar", Ability.GemDependant));
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 cat.AddMetaCategories(ScrybeCompat.NatureRegion);
                 nine.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);

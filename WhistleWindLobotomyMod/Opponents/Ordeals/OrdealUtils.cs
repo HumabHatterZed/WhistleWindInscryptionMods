@@ -7,11 +7,9 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     // Ordeals require you to defeat a certain number of opponent cards; they utilise card repositioning, deck renewal, and bone harvesting
-    public static class OrdealUtils
-    {
+    public static class OrdealUtils {
         public static Opponent.Type OpponentID { get; internal set; }
 
         public static ViewInfo OrdealViewInfo;
@@ -55,17 +53,14 @@ namespace WhistleWindLobotomyMod.Opponents
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
 
-        public static string GetOrdealIntroDescription(OrdealType type, int tier)
-        {
+        public static string GetOrdealIntroDescription(OrdealType type, int tier) {
             return LobotomyDialogue.BannerIntroDescriptions[type][tier];
         }
-        public static string GetOrdealOutroDescription(OrdealType type, int tier)
-        {
+        public static string GetOrdealOutroDescription(OrdealType type, int tier) {
             return LobotomyDialogue.BannerOutroDescriptions[type][tier];
         }
 
-        internal static void InitOrdeals()
-        {
+        internal static void InitOrdeals() {
             OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
             OrdealViewInfo = new() {
                 camPosition = new Vector3(0f, 7.65f, -5.15f),
@@ -117,8 +112,7 @@ namespace WhistleWindLobotomyMod.Opponents
             AssetManager.sfxClips.AddRange(OrdealSFX);
         }
 
-        internal static RegionData CreateWhiteOrdealRegion()
-        {
+        internal static RegionData CreateWhiteOrdealRegion() {
             RegionData trapper = RegionProgression.Instance.regions[2];
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
 
@@ -165,15 +159,13 @@ namespace WhistleWindLobotomyMod.Opponents
         }
     }
 
-    public class OrdealBattleNodeData : CardBattleNodeData
-    {
+    public class OrdealBattleNodeData : CardBattleNodeData {
         public bool totemOpponent;
         public int tier;
         public OrdealType ordealType;
     }
 
-    public enum OrdealType
-    {
+    public enum OrdealType {
         Green = 0,  // G G G G
         Crimson = 1,// C C C _
         Violet = 2, // V V _ V

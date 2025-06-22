@@ -11,10 +11,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardBinah : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardBinah : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahBinah;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.4f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingBinahBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingBinahEmission.png");
 
@@ -76,11 +72,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahBinah = "wstl_sephirahBinah";
-        private static void Binah()
-        {
+        private static void Binah() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahBinah, "Binah",
                 attack: 3, health: 5, "Callous and sadistic, she seems keen on seeing your struggles in person.")
                 .SetBloodCost(3)
@@ -90,10 +84,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Binah()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Binah() {
             TalkingCardBinah.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardBinah>("Binah").Id;
         }
     }

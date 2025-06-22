@@ -4,24 +4,19 @@ using InscryptionAPI.Dialogue;
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWind.Core.Helpers
-{
-    public static class DialogueHelper
-    {
+namespace WhistleWind.Core.Helpers {
+    public static class DialogueHelper {
         public static CustomLine NewLine(string dialogue, Emotion emotion) => new() { text = dialogue, emotion = emotion };
         /// <summary>
         /// Shorthand method for playing dialogue events.
         /// Checks if the inputted dialogue event has been played, then plays it if it hasn't been yet.
         /// </summary>
         /// <param name="name">Name of dialogue event to play.</param>
-        public static IEnumerator PlayDialogueEvent(string name, float waitFor = 0.2f, PlayableCard card = null, bool repeatLines = false)
-        {
-            if (!DialogueEventsData.EventIsPlayed(name) || repeatLines)
-            {
+        public static IEnumerator PlayDialogueEvent(string name, float waitFor = 0.2f, PlayableCard card = null, bool repeatLines = false) {
+            if (!DialogueEventsData.EventIsPlayed(name) || repeatLines) {
                 if (!SaveManager.SaveFile.IsPart2)
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent(name, TextDisplayer.MessageAdvanceMode.Input);
-                else
-                {
+                else {
                     CardTemple temple = card != null ? card.Info.temple : CardTemple.NUM_TEMPLES;
                     yield return Singleton<DialogueHandler>.Instance.PlayDialogueEvent(
                         name, (TextBox.Style)temple, GBCScrybe(temple));
@@ -32,10 +27,8 @@ namespace WhistleWind.Core.Helpers
             }
         }
 
-        public static IEnumerator PlayAlternateDialogue(params string[] dialogue)
-        {
-            foreach (string s in dialogue)
-            {
+        public static IEnumerator PlayAlternateDialogue(params string[] dialogue) {
+            foreach (string s in dialogue) {
                 yield return ShowUntilInput(s, Emotion.Neutral, DialogueEvent.Speaker.Leshy, style: TextBox.Style.Nature, screenPosition: TextBox.ScreenPosition.ForceBottom, delay: 0.2f);
             }
         }
@@ -44,10 +37,8 @@ namespace WhistleWind.Core.Helpers
             Emotion emotion = Emotion.Neutral,
             DialogueEvent.Speaker speaker = DialogueEvent.Speaker.Leshy,
             float delay = 0.2f,
-            params string[] dialogue)
-        {
-            foreach (string s in dialogue)
-            {
+            params string[] dialogue) {
+            foreach (string s in dialogue) {
                 yield return ShowUntilInput(s, emotion, speaker, style: TextBox.Style.Nature, screenPosition: TextBox.ScreenPosition.ForceBottom, delay: delay);
             }
         }
@@ -60,24 +51,19 @@ namespace WhistleWind.Core.Helpers
             float effectEyelidIntensity = 0.5f,
             TextBox.Style style = TextBox.Style.Neutral,
             TextBox.ScreenPosition screenPosition = TextBox.ScreenPosition.OppositeOfPlayer,
-            float delay = 0.2f)
-        {
+            float delay = 0.2f) {
             yield return new WaitForSeconds(delay);
-            if (SaveManager.SaveFile.IsPart2)
-            {
+            if (SaveManager.SaveFile.IsPart2) {
                 yield return Singleton<TextBox>.Instance.ShowUntilInput(message, style, null, screenPosition);
             }
-            else
-            {
+            else {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(message, effectFOVOffset, effectEyelidIntensity, emotion, speaker: speaker);
             }
             yield return new WaitForSeconds(delay);
         }
 
-        public static DialogueSpeaker.Character GetGBCCharacter(DialogueEvent.Speaker speaker)
-        {
-            return speaker switch
-            {
+        public static DialogueSpeaker.Character GetGBCCharacter(DialogueEvent.Speaker speaker) {
+            return speaker switch {
                 DialogueEvent.Speaker.Leshy => DialogueSpeaker.Character.Leshy,
                 DialogueEvent.Speaker.Stoat => DialogueSpeaker.Character.Stoat,
                 DialogueEvent.Speaker.Stinkbug => DialogueSpeaker.Character.Grimora,
@@ -102,40 +88,32 @@ namespace WhistleWind.Core.Helpers
                 _ => DialogueSpeaker.Character.Leshy
             };
         }
-        public static DialogueSpeaker GetGBCSpeaker(DialogueEvent.Speaker speaker)
-        {
+        public static DialogueSpeaker GetGBCSpeaker(DialogueEvent.Speaker speaker) {
             return InBattleDialogueSpeakers.Instance.GetSpeaker(GetGBCCharacter(speaker));
         }
 
-        public static DialogueSpeaker GBCScrybe(CardTemple temple)
-        {
-            return Singleton<InBattleDialogueSpeakers>.Instance.GetSpeaker(temple switch
-            {
+        public static DialogueSpeaker GBCScrybe(CardTemple temple) {
+            return Singleton<InBattleDialogueSpeakers>.Instance.GetSpeaker(temple switch {
                 CardTemple.Undead => DialogueSpeaker.Character.Grimora,
                 CardTemple.Wizard => DialogueSpeaker.Character.Magnificus,
                 CardTemple.Tech => DialogueSpeaker.Character.P03,
                 _ => DialogueSpeaker.Character.Leshy
             });
         }
-        public static DialogueSpeaker GBCScrybe()
-        {
+        public static DialogueSpeaker GBCScrybe() {
             if (!SaveManager.SaveFile.IsPart2)
                 return null;
 
-            if (StoryEventsData.EventCompleted(StoryEvent.GBCUndeadAmbition))
-            {
+            if (StoryEventsData.EventCompleted(StoryEvent.GBCUndeadAmbition)) {
                 return Singleton<InBattleDialogueSpeakers>.Instance.GetSpeaker(DialogueSpeaker.Character.Grimora);
             }
-            else if (StoryEventsData.EventCompleted(StoryEvent.GBCNatureAmbition))
-            {
+            else if (StoryEventsData.EventCompleted(StoryEvent.GBCNatureAmbition)) {
                 return Singleton<InBattleDialogueSpeakers>.Instance.GetSpeaker(DialogueSpeaker.Character.Leshy);
             }
-            else if (StoryEventsData.EventCompleted(StoryEvent.GBCTechAmbition))
-            {
+            else if (StoryEventsData.EventCompleted(StoryEvent.GBCTechAmbition)) {
                 return Singleton<InBattleDialogueSpeakers>.Instance.GetSpeaker(DialogueSpeaker.Character.P03);
             }
-            else
-            {
+            else {
                 return Singleton<InBattleDialogueSpeakers>.Instance.GetSpeaker(DialogueSpeaker.Character.Magnificus);
             }
         }

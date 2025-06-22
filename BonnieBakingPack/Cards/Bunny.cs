@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateBunnies()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateBunnies() {
             // Bunny
             CardInfo bunny = CardManager.New(pluginPrefix, "bunny", "Bunny", 1, 2, "A delivery driver with a missing sister. Perhaps you've seen her?")
                 .SetDefaultPart1Card().AddAct1()
@@ -43,8 +40,7 @@ namespace BonniesBakingPack
                 singletonId = "MagicHatSpecialMod" }
             };
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 bunny.AddMetaCategories(ScrybeCompat.NatureRegion);
                 duck.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);

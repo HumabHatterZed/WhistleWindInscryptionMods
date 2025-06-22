@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Sporogenic()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Sporogenic() {
             const string rulebookName = "Sporogenic";
             const string rulebookDescription = "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.";
             const string dialogue = "They will love this curse like a blessing.";
@@ -27,21 +24,18 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Sporogenic : AbilityBehaviour
-    {
+    public class Sporogenic : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override int Priority => int.MaxValue;
-        private bool CheckValid(PlayableCard card)
-        {
+        private bool CheckValid(PlayableCard card) {
             if (card != null)
                 return card.LacksAllTraits(AbnormalPlugin.SporeFriend, AbnormalPlugin.ImmuneToAilments);
             return false;
         }
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             PlayableCard leftCard = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, true)?.Card;
             PlayableCard rightCard = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false)?.Card;
             bool leftValid = CheckValid(leftCard);
@@ -60,8 +54,7 @@ namespace WhistleWind.AbnormalSigils
 
             yield return base.LearnAbility(0.4f);
         }
-        private IEnumerator AddSporesToCard(PlayableCard card)
-        {
+        private IEnumerator AddSporesToCard(PlayableCard card) {
             // apply extra Spore if this ability has stacks
             int stacks = base.Card.GetAbilityStacks(ability);
             card.Anim.LightNegationEffect();

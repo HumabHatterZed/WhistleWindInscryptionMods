@@ -6,15 +6,12 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string skinCheers = "wstl_skinCheers";
         public const string skinHarmony = "wstl_skinHarmony";
         public const string skinClimax = "wstl_skinClimax";
-        private static void Cards_CrimsonOrdeal()
-        {
+        private static void Cards_CrimsonOrdeal() {
             string textureName = "skinCheers";
             string textureName2 = "skinHarmony";
             string textureName3 = "skinClimax";

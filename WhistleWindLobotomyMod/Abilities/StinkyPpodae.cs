@@ -4,12 +4,9 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddPpodaeStinky()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddPpodaeStinky() {
             AbilityManager.FullAbility full = AbilityManager.AllAbilities.AbilityByID(Ability.DebuffEnemy);
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.SetRulebookName("Goodest Boy in the World")

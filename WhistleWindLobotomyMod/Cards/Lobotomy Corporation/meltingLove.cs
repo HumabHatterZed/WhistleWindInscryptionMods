@@ -4,13 +4,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string meltingLove = "wstl_meltingLove";
-        private static void MeltingLove_D03109()
-        {
+        private static void MeltingLove_D03109() {
             string name = "Melting Love";
             string desc = "Don't let your beasts get too close now.";
             string textureName = "meltingLove";

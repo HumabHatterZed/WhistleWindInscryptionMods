@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string dontTouchMe = "wstl_dontTouchMe";
-        private static void DontTouchMe_O0547()
-        {
+        private static void DontTouchMe_O0547() {
             string name = "Don't Touch Me";
             string name2 = "Please Don't Touch Me";
             string desc = "Don't touch it.";

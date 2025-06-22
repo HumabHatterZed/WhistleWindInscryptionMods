@@ -11,25 +11,21 @@ using System.Linq;
 using System.Xml.Linq;
 using WhistleWind.AbnormalSigils.Core;
 
-namespace WhistleWind.AbnormalSigils.Patches
-{
+namespace WhistleWind.AbnormalSigils.Patches {
     [HarmonyPatch]
-    public static class RuleBookPatches
-    {
+    public static class RuleBookPatches {
         public static PlayableCard CardForRuleBook = null;
 
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookController), nameof(RuleBookController.SetShown))]
-        public static bool ResetAlteredDescriptions(bool shown)
-        {
+        public static bool ResetAlteredDescriptions(bool shown) {
             if (!shown)
                 CardForRuleBook = null;
-            
+
             return true;
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookController), nameof(RuleBookController.OpenToAbilityPage))]
-        private static bool OpenToAbilityPage(string abilityName, PlayableCard card)
-        {
+        private static bool OpenToAbilityPage(string abilityName, PlayableCard card) {
             CardForRuleBook = card;
             return true;
         }

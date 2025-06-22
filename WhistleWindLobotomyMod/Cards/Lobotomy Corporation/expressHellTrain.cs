@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string expressHellTrain = "wstl_expressHellTrain";
-        private static void ExpressHellTrain_T0986()
-        {
+        private static void ExpressHellTrain_T0986() {
             string name = "Express Train to Hell";
             string name2 = "Express Train to Turbo Hell";
             string desc = "When the time comes, the train will sound its mighty horn.";

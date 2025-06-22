@@ -7,18 +7,15 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
-    public static class MiracleWorker
-    {
+namespace WhistleWindLobotomyMod.Challenges {
+    public static class MiracleWorker {
         internal const string title = "Miracle Worker";
         internal const string description = "Leshy may play Plague Doctor in battle. Beware the Clock.";
 
         public static AscensionChallenge Id { get; private set; }
 
         // Creates the challenge then calls the relevant patches
-        public static void Register(Harmony harmony)
-        {
+        public static void Register(Harmony harmony) {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
@@ -39,8 +36,7 @@ namespace WhistleWindLobotomyMod.Challenges
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPostfix]
-        private static void AddPlagueDoctor(ref Opponent __result)
-        {
+        private static void AddPlagueDoctor(ref Opponent __result) {
             if (!LobotomyConfigManager.ChallengeIsActive(Id) || BLACKLISTED_OPPONENTS.Contains(__result.OpponentType)) {
                 return;
             }

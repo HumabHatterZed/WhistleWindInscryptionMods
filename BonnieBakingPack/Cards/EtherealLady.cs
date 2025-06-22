@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateEtherealLadies()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateEtherealLadies() {
             // The Ethereal Lady
             CardInfo lady = CardManager.New(pluginPrefix, "etherealLady", "Ethereal Lady", 3, 1, "Under her protection, there will be no misery or strife.")
                 .SetRare().AddAct1()
@@ -50,8 +47,7 @@ namespace BonniesBakingPack
                 .SetOnePerDeck();
 
             ScrybeCompat.SetManaCost(gem, 1);
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 ScrybeCompat.AddPart3Decal(bot, bot.GetEmissivePortrait().texture);
 
                 lady.AddMetaCategories(ScrybeCompat.NatureRegion);

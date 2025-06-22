@@ -6,17 +6,14 @@ using WhistleWind.AbnormalSigils;
 using static DiskCardGame.EncounterBlueprintData;
 using static InscryptionAPI.Encounters.EncounterManager;
 
-namespace WhistleWindLobotomyMod.Core
-{
+namespace WhistleWindLobotomyMod.Core {
     /// <summary>
     /// Difficulty Ranges (no modifier)
     /// R0: (1,4) R1: (5,10) R2: (11,14) R3: (17,20)[boss region]
     /// Difficulty formula: RunState.Run.regionTier * 6 + (y + 1) / 3 - 1; where y = (0,14) and regionTier = (0,3)[3=bosss]
     /// </summary>
-    public static class LobotomyEncounterManager
-    {
-        public static void BuildEncounters()
-        {
+    public static class LobotomyEncounterManager {
+        public static void BuildEncounters() {
             CardBlueprint workerBee = NewCardBlueprint("wstl_queenBeeWorker", 25);
             CardBlueprint nakedWorm = NewCardBlueprint(Cards.theNakedWorm, 25);
             CardBlueprint spiderling = NewCardBlueprint("wstl_spiderling", 25);
@@ -433,8 +430,7 @@ namespace WhistleWindLobotomyMod.Core
 
         private static CardBlueprint EmptyBlueprint(int replacementChance) => NewCardBlueprint(null, replacementChance);
         private static CardBlueprint EmptyBlueprint(string replacement, int difficultyReplace) => NewCardBlueprint(null, 0, true, difficultyReplace, replacement);
-        private static EncounterBlueprintData Build(EncounterBlueprintData encounter, params int[] regions)
-        {
+        private static EncounterBlueprintData Build(EncounterBlueprintData encounter, params int[] regions) {
             regions.ForEach(x => ModEncounters[x].Add(encounter));
             return encounter;
         }

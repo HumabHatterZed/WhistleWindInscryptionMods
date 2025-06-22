@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string mhz176 = "wstl_mhz176";
-        private static void MHz176_T0727()
-        {
+        private static void MHz176_T0727() {
             string name = "1.76 MHz";
             string desc = "This is a record. A record of a day we must never forget.";
             string textureName = "mhz176";

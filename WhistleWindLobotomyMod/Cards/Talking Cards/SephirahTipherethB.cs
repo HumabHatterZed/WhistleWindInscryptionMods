@@ -11,10 +11,8 @@ using WhistleWindLobotomyMod.Core.Helpers;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardTipherethB : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardTipherethB : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahTipherethB;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.2f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingTipherethBBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingTipherethBEmission.png");
 
@@ -60,11 +56,9 @@ namespace WhistleWindLobotomyMod
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new();
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahTipherethB = "wstl_sephirahTipherethB";
-        private static void TipherethB()
-        {
+        private static void TipherethB() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethB, "Tiphereth",
                 attack: 0, health: 1)
                 .SetEnergyCost(3)
@@ -73,10 +67,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_TipherethB()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_TipherethB() {
             TalkingCardTipherethB.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardTipherethB>("TipherethB").Id;
         }
     }

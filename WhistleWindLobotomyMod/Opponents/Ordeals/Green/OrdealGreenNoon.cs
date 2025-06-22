@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// The second-weakest Green Ordeal.
     /// Green Ordeals should have simple blueprints, with cards appearing quickly.

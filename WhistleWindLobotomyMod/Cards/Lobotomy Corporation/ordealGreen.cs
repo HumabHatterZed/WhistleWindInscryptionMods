@@ -7,10 +7,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string doubtA = "wstl_doubtA";
         public const string doubtB = "wstl_doubtB";
         public const string doubtY = "wstl_doubtY";
@@ -20,8 +18,7 @@ namespace WhistleWindLobotomyMod
         public const string doubtProcessDown2 = "wstl_doubtProcess_down2";
         public const string whereWeReach = "wstl_doubtReach";
         public const string lastHelix = "wstl_doubtHelix";
-        private static void Cards_GreenOrdeal()
-        {
+        private static void Cards_GreenOrdeal() {
             string textureName = "doubtA";
             string textureName2 = "doubtB";
             string textureName3 = "doubtY";

@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_BindingStrike()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_BindingStrike() {
             const string rulebookName = "Binding Strike";
             const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to this card's Attack.";
             const string dialogue = "The creature has been slowed, if only temporarily.";
@@ -26,8 +23,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class BindingStrike : AbilityBehaviour
-    {
+    public class BindingStrike : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -35,14 +31,12 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
             => target != null && !target.Dead && target.LacksTrait(AbnormalPlugin.ImmuneToAilments);
 
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
-        {
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return base.PreSuccessfulTriggerSequence();
             yield return AddBindToCard(target);
             yield return base.LearnAbility(0.4f);
         }
-        private IEnumerator AddBindToCard(PlayableCard card)
-        {
+        private IEnumerator AddBindToCard(PlayableCard card) {
             card.Anim.LightNegationEffect();
             yield return card.AddStatusEffectToFaceDown<Bind>(base.Card.Attack, modifyTurnGained: (int i) => i + 1);
             yield return new WaitForSeconds(0.1f);

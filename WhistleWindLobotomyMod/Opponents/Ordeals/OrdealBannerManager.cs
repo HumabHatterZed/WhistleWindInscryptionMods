@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
-{
-    public class OrdealBannerManager : Singleton<OrdealBannerManager>
-    {
+namespace WhistleWindLobotomyMod {
+    public class OrdealBannerManager : Singleton<OrdealBannerManager> {
         private Image banner;
         private Animator anim;
 
@@ -16,8 +14,7 @@ namespace WhistleWindLobotomyMod
 
         public bool Displaying => bannerTitle.gameObject.activeSelf;
 
-        public void Initialise()
-        {
+        public void Initialise() {
             Transform textCanvas = Instance.transform.GetChild(0);
             Canvas bannerCanvas = textCanvas.GetComponent<Canvas>();
             Canvas referenceCanvas = TextDisplayer.Instance.transform.GetChild(0).GetComponent<Canvas>();
@@ -34,12 +31,10 @@ namespace WhistleWindLobotomyMod
             bannerDescription.transform.localPosition = new(0f, -54f, 0f);
         }
 
-        public void UpdateBanner(OrdealType type, int tier)
-        {
+        public void UpdateBanner(OrdealType type, int tier) {
             bannerTitle.text = tier switch { 0 => "Dawn", 1 => "Noon", 2 => "Dusk", 3 => "Midnight", _ => "Error" } + " of " + type.ToString();
             bannerDescription.text = OrdealUtils.GetOrdealIntroDescription(type, tier);
-            bannerTitle.color = bannerDescription.color = type switch
-            {
+            bannerTitle.color = bannerDescription.color = type switch {
                 OrdealType.Green => GameColors.Instance.limeGreen,
                 OrdealType.Violet => GameColors.Instance.purple,
                 OrdealType.Crimson => GameColors.Instance.glowRed,
@@ -51,17 +46,14 @@ namespace WhistleWindLobotomyMod
             color.a = 0.5f;
             banner.color = color;
         }
-        public void UpdateBannerOutro(OrdealType type, int tier)
-        {
+        public void UpdateBannerOutro(OrdealType type, int tier) {
             bannerDescription.text = OrdealUtils.GetOrdealOutroDescription(type, tier);
         }
 
-        public void DisplayBanner(OrdealType ordeal, bool intro)
-        {
+        public void DisplayBanner(OrdealType ordeal, bool intro) {
             base.StartCoroutine(DisplayBannerEnumerator(ordeal, intro));
         }
-        public IEnumerator DisplayBannerEnumerator(OrdealType ordeal, bool intro)
-        {
+        public IEnumerator DisplayBannerEnumerator(OrdealType ordeal, bool intro) {
             LobotomyPlugin.Log.LogInfo($"[OrdealBannerManager.DisplayBanner] [{ordeal}] Intro:{intro}");
             string audioName = ordeal.ToString() + "_" + (intro ? "start" : "end");
             AudioController.Instance.PlaySound2D(audioName, MixerGroup.TableObjectsSFX);
@@ -72,16 +64,13 @@ namespace WhistleWindLobotomyMod
         }
 
 
-        public void ShowBanner()
-        {
+        public void ShowBanner() {
             bannerTitle.gameObject.SetActive(true);
             anim.Play("fade_in", 0, 0f);
         }
-        public void HideBanner()
-        {
+        public void HideBanner() {
             anim.Play("fade_out", 0, 0f);
-            CustomCoroutine.WaitThenExecute(3f, delegate
-            {
+            CustomCoroutine.WaitThenExecute(3f, delegate {
                 bannerTitle.gameObject.SetActive(false);
             });
         }

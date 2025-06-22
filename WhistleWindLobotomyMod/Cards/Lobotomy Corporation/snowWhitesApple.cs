@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string snowWhitesApple = "wstl_snowWhitesApple";
-        private static void SnowWhitesApple_F0442()
-        {
+        private static void SnowWhitesApple_F0442() {
             string name = "Snow White's Apple";
             string name2 = "Snow White's Rotted Apple";
             string desc = "A poisoned apple brought to life, on a fruitless search for its own happily ever after.";

@@ -9,13 +9,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
-{
-    internal class OrdealPages
-    {
+namespace WhistleWindLobotomyMod {
+    internal class OrdealPages {
         // 008b02
-        internal static void AddPages()
-        {
+        internal static void AddPages() {
             MechanicPages.CreateNewMechanicPage("Ordeal", "An encounter wherein you must kill all of Leshy's cards in order to win. Direct damage you deal above the maximum scale value is converted into a maximum of 8 Bones at the end of the combat phase.", OrdealUtils.NoonAnim[0]);
 
             CreateNewPage("The Ordeals of Green", "Mechanical beings with piercing weaponry. Can appear at Dawn, Noon, Dusk, or Midnight.", null);
@@ -36,16 +33,13 @@ namespace WhistleWindLobotomyMod
                 fillPageAction: FillPage);
         }
 
-        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages)
-        {
+        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages) {
             return pages.FindLastIndex(rbi => rbi.pagePrefab == RuleBookController.Instance.bookInfo.pageRanges.Find(x => x.type == PageRangeType.Items).rangePrefab) + 1;
         }
         private static List<RuleBookPageInfo> CreatePages(RuleBookInfo instance, PageRangeInfo currentRange, AbilityMetaCategory metaCategory) => NewOrdealPages.Select(x => x.Item1).ToList();
 
-        private static void FillPage(RuleBookPage page, string pageId, object[] otherArgs)
-        {
-            if (page is ItemPage itemPage)
-            {
+        private static void FillPage(RuleBookPage page, string pageId, object[] otherArgs) {
+            if (page is ItemPage itemPage) {
                 string name = pageId.Replace("wstl:Ordeals_", "");
                 Tuple<RuleBookPageInfo, string, string, Texture> mechanic = NewOrdealPages.FirstOrDefault(x => x.Item2 == name);
                 itemPage.nameTextMesh.text = mechanic.Item2;
@@ -54,10 +48,8 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        private static void CreateNewPage(string name, string description, Texture texture)
-        {
-            RuleBookPageInfo pageInfo = new()
-            {
+        private static void CreateNewPage(string name, string description, Texture texture) {
+            RuleBookPageInfo pageInfo = new() {
                 pageId = "wstl:Ordeals_" + name
             };
             NewOrdealPages.Add(new(pageInfo, name, description, texture));

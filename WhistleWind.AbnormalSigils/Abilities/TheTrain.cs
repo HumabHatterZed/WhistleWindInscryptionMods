@@ -6,12 +6,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_TheTrain()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_TheTrain() {
             const string rulebookName = "The Train";
             const string rulebookDescription = "When [creature] is played, kill all creatures on the board. Creatures killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
@@ -25,13 +22,11 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class TheTrain : AbilityBehaviour
-    {
+    public class TheTrain : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             yield return base.PreSuccessfulTriggerSequence();
@@ -42,13 +37,11 @@ namespace WhistleWind.AbnormalSigils
             affectedSlots.RemoveAll(x => x.Card == null || x.Card.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath));
             affectedSlots.Remove(base.Card.Slot);
 
-            foreach (CardSlot slot in affectedSlots)
-            {
+            foreach (CardSlot slot in affectedSlots) {
                 slot.Card.Anim.SetShaking(true);
             }
             yield return new WaitForSeconds(0.55f);
-            foreach (CardSlot slot in affectedSlots)
-            {
+            foreach (CardSlot slot in affectedSlots) {
                 slot.Card.AddTemporaryMod(new() { singletonId = "wstl:NoBones" });
                 yield return slot.Card.Die(false, null);
                 yield return new WaitForSeconds(0.1f);

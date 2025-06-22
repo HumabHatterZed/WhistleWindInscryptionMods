@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string priceOfSilence = "wstl_priceOfSilence";
-        private static void PriceOfSilence_O0565()
-        {
+        private static void PriceOfSilence_O0565() {
             string name = "Price of Silence";
             string desc = "The unflinching hand of time cuts down man and beast alike.";
             string textureName = "priceOfSilence";

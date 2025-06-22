@@ -22,8 +22,7 @@ using static InscryptionAPI.Dialogue.DialogueManager;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
-namespace WhistleWindLobotomyMod
-{
+namespace WhistleWindLobotomyMod {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency(InscryptionAPIPlugin.ModGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(InfiniscryptionSpellsPlugin.PluginGuid, BepInDependency.DependencyFlags.HardDependency)]
@@ -32,25 +31,20 @@ namespace WhistleWindLobotomyMod
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("arackulele.inscryption.grimoramod", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.p03kayceerun", BepInDependency.DependencyFlags.SoftDependency)]
-    public class LobotomyPlugin : BaseUnityPlugin
-    {
-        private void Awake()
-        {
+    public class LobotomyPlugin : BaseUnityPlugin {
+        private void Awake() {
             Log = base.Logger;
             ModAssembly = Assembly.GetExecutingAssembly();
             LobotomyConfigManager.BindConfig();
-            if (!LobotomyConfigManager.ModEnabled)
-            {
+            if (!LobotomyConfigManager.ModEnabled) {
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
                 return;
             }
 
-            if (LobotomyConfigManager.NoRisk == RiskLevel.All)
-            {
+            if (LobotomyConfigManager.NoRisk == RiskLevel.All) {
                 DisabledRiskLevels = RiskLevel.Zayin & RiskLevel.Teth & RiskLevel.He & RiskLevel.Waw & RiskLevel.Aleph;
             }
-            else
-            {
+            else {
                 DisabledRiskLevels = LobotomyConfigManager.NoRisk;
             }
             AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
@@ -96,15 +90,13 @@ namespace WhistleWindLobotomyMod
             Log.LogInfo($"Plugin loaded! Let's get to work manager!");
         }
 
-        private void Start()
-        {
+        private void Start() {
             if (!LobotomyConfigManager.ModEnabled)
                 return;
 
             if (AllCardsDisabled)
                 Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards.");
-            else
-            {
+            else {
                 if (DisabledRiskLevels != RiskLevel.None)
                     Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
@@ -120,10 +112,8 @@ namespace WhistleWindLobotomyMod
         }
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
 
-        private void AddCards()
-        {
-            foreach (CardInfo card in CardManager.AllCardsCopy.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
-            {
+        private void AddCards() {
+            foreach (CardInfo card in CardManager.AllCardsCopy.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils")) {
                 if (!AllLobotomyCards.Contains(card))
                     AllLobotomyCards.Add(card);
             }
@@ -131,13 +121,11 @@ namespace WhistleWindLobotomyMod
             Cards.AddCustomDeathCards();
             CreateTalkingCards();
 
-            if (AllCardsDisabled)
-            {
+            if (AllCardsDisabled) {
                 Log.LogInfo("All mod cards are disabled, adding [Standard Training-Dummy Rabbit] as a fallback card.");
             }
         }
-        private void CreateTalkingCards()
-        {
+        private void CreateTalkingCards() {
             TalkingCardManager.New<TalkingCardHod>();
             TalkingCardManager.New<TalkingCardYesod>();
             TalkingCardManager.New<TalkingCardNetzach>();
@@ -154,8 +142,7 @@ namespace WhistleWindLobotomyMod
         /// <summary>
         /// 
         /// </summary>
-        private void AddChallenges()
-        {
+        private void AddChallenges() {
 
             //FinalComing.Register();
             FinalApocalypse.Register();
@@ -187,23 +174,20 @@ namespace WhistleWindLobotomyMod
             BossOrdeals.Info.SetIncompatibleChallengeGetterStatic(AbnormalBosses.Id);
         }
 
-        private void AddEncounters()
-        {
+        private void AddEncounters() {
             BuildEncounters();
             RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
             RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());
             RegionProgression.Instance.regions[2].AddEncounters(ModEncounters[2].ToArray());
         }
 
-        private void GenerateDialogueEvents()
-        {
+        private void GenerateDialogueEvents() {
             DialogueEventsManager.DialogueEvents ??= new();
             DialogueEventsManager.RepeatDialogueEvents ??= new();
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyDialogue)).Where(mi => mi.Name.StartsWith("Dialogue")).ForEach(mi => mi.Invoke(new LobotomyDialogue(), null));
 
-            foreach (KeyValuePair<string, List<CustomLine>> dialogue in DialogueEventsManager.DialogueEvents)
-            {
+            foreach (KeyValuePair<string, List<CustomLine>> dialogue in DialogueEventsManager.DialogueEvents) {
                 Speaker speaker = Speaker.Single;
 
                 if (dialogue.Key.StartsWith("NothingThere"))

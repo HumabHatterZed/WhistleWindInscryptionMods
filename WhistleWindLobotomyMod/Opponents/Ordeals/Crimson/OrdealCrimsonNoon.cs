@@ -2,8 +2,7 @@
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Difficulty (5 - 9) [+2]
     /// 
@@ -11,10 +10,8 @@ namespace WhistleWindLobotomyMod.Opponents
     /// 5 | H      | -      | H      | 2  | X  | X
     /// 7 | H      | H      |        | 2
     /// </summary>
-    public class OrdealCrimsonNoon : OrdealBattleSequencer
-    {
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
+    public class OrdealCrimsonNoon : OrdealBattleSequencer {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
                 EncounterManager.NewCardBlueprint(Cards.skinHarmony)

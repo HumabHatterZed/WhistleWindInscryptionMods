@@ -2,8 +2,7 @@
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Appears in R0
     /// Difficulty range: (1 - 3) +[0,2] // 4 difficulty is for boss node w/o challlenges
@@ -15,18 +14,15 @@ namespace WhistleWindLobotomyMod.Opponents
     /// 4 | P P P  | P P P  | P P P  | P P P  | 12 | 12 | 12
     /// 5 | P P P  | P P P P| P P P  | P P P P| 14 | 14 | 14
     /// </summary>
-    public class OrdealCrimsonDawn : OrdealBattleSequencer
-    {
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
+    public class OrdealCrimsonDawn : OrdealBattleSequencer {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
                 EncounterManager.NewCardBlueprint(Cards.skinCheers),
                 EncounterManager.NewCardBlueprint(Cards.skinCheers)
             };
 
-            if (encounterData.Difficulty >= 3)
-            {
+            if (encounterData.Difficulty >= 3) {
                 turn1.Add(EncounterManager.NewCardBlueprint(Cards.skinCheers));
                 if (encounterData.Difficulty >= 5)
                     turn1.Add(EncounterManager.NewCardBlueprint(Cards.skinCheers));

@@ -11,10 +11,8 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using EncounterBuilder = DiskCardGame.EncounterBuilder;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public abstract class OrdealBattleSequencer : LobotomyBattleSequencer
-    {
+namespace WhistleWindLobotomyMod.Opponents {
+    public abstract class OrdealBattleSequencer : LobotomyBattleSequencer {
         public override Opponent.Type BossType => OrdealUtils.OpponentID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
@@ -42,25 +40,21 @@ namespace WhistleWindLobotomyMod.Opponents
         /// Checks if the encounter has been completed defeated.
         /// </summary>
         /// <returns>True if no Ordeal cards remain and have all been killed.</returns>
-        public virtual bool PlayerHasDefeatedOrdeal()
-        {
+        public virtual bool PlayerHasDefeatedOrdeal() {
             return defeated || OrdealCounterManager.Instance.amountLeft == 0;
         }
 
         /// <summary>
         /// Tracks excess damage dealt then calls the base DigUpBones method.
         /// </summary>
-        public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot)
-        {
+        public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
             TotalExcessDamageDealt += damage - bonesToGive;
             base.DigUpBones(damage, bonesToGive, targetSlot);
         }
 
-        public override IEnumerator OnRoundEnd(bool opponentTurnSkipped)
-        {
+        public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd1: {OrdealCounterManager.Instance.amountLeft} left {opponentTurnSkipped}");
-            if (amountKilledThisTurn > 0)
-            {
+            if (amountKilledThisTurn > 0) {
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
                 yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
                 yield return new WaitForSeconds(0.75f);
@@ -81,9 +75,8 @@ namespace WhistleWindLobotomyMod.Opponents
             if (!defeated && !opponentTurnSkipped) {
                 yield return MoveOpponentCards();
             }
-            yield return base.OnRoundEnd(opponentTurnSkipped);
-            amountKilledThisTurn = 0;
 
+            currentExcessBones = amountKilledThisTurn = 0;
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd2: {OrdealCounterManager.Instance.amountLeft} left");
         }
 
@@ -103,7 +96,7 @@ namespace WhistleWindLobotomyMod.Opponents
             LobotomyPlugin.Log.LogInfo($"Ordeal: {card.HasTrait(LobotomyCardManager.Ordeal)} Valid: {ValidCards.Count == 0} || {ValidCards.Contains(card.Info.name)}");
             return card.HasTrait(LobotomyCardManager.Ordeal) && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
         }
-        
+
         /// <summary>
         /// Only valid Ordeal cards will trigger 'this.OnOtherCardDie'.
         /// By default, any card with the Ordeal trait is valid.
@@ -113,14 +106,12 @@ namespace WhistleWindLobotomyMod.Opponents
         /// <remarks>
         /// By default, only triggers when an opponent-owned Ordeal card dies.
         /// </remarks>
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             amountKilledThisTurn++;
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
 
             // Ordeal has been defeated
-            if (!defeated && OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn < 1)
-            {
+            if (!defeated && OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn < 1) {
                 defeated = true;
                 OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
                 OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
@@ -134,10 +125,8 @@ namespace WhistleWindLobotomyMod.Opponents
         /// If the player dealt excess damage, visualise the money gained.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerator PreCleanUp()
-        {
-            if (TotalExcessDamageDealt > 0)
-            {
+        public override IEnumerator PreCleanUp() {
+            if (TotalExcessDamageDealt > 0) {
                 ViewManager.Instance.SwitchToView(View.Default);
                 RunState.Run.currency += TotalExcessDamageDealt;
                 yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(TotalExcessDamageDealt, this);
@@ -148,32 +137,27 @@ namespace WhistleWindLobotomyMod.Opponents
         /// Modifies a queued card BEFORE it is fully queued, and AFTER it is modified by the Opponent class.
         /// </summary>
         /// <param name="card">The card being queued.</param>
-        public virtual void ModifyQueuedCard(PlayableCard card)
-        {
+        public virtual void ModifyQueuedCard(PlayableCard card) {
 
         }
         /// <summary>
         /// Modifies a spawned card BEFORE it is fully spawned, and AFTER it is modified by the Opponent class.
         /// </summary>
         /// <param name="card"></param>
-        public virtual void ModifySpawnedCard(PlayableCard card)
-        {
+        public virtual void ModifySpawnedCard(PlayableCard card) {
 
         }
 
-        public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
-        {
+        public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
             OrdealCounterManager.ValidateCounter();
-            if (nodeData is not OrdealBattleNodeData ordealData)
-            {
+            if (nodeData is not OrdealBattleNodeData ordealData) {
                 LobotomyPlugin.Log.LogWarning("[OrdealBattle] NodeData is null!");
                 return null;
             }
 
             ordealType = ordealData.ordealType;
             ordealTier = ordealData.tier;
-            EncounterData encounterData = new()
-            {
+            EncounterData encounterData = new() {
                 opponentType = OrdealUtils.OpponentID,
                 Blueprint = EncounterManager.New("", false).SetDifficulty(0, 20),
                 Difficulty = ordealData.difficulty + RunState.Run.DifficultyModifier
@@ -203,7 +187,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
             MinNumCardsRequired = ConstructOrdealBlueprint(encounterData, ordealData.difficulty);
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, encounterData.Difficulty, false);
-            
+
             if (ordealData.totemOpponent) {
                 GetAllBlacklistedAbilities(encounterData.Blueprint.redundantAbilities);
                 encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], encounterData.Difficulty, AllBlacklistedAbilities);

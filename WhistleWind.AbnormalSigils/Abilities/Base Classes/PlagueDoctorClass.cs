@@ -1,17 +1,13 @@
 ﻿using DiskCardGame;
 using System.Collections;
 
-namespace WhistleWind.AbnormalSigils
-{
+namespace WhistleWind.AbnormalSigils {
     // for triggering special card behaviour in Healer
-    public class PlagueDoctorClass : SpecialCardBehaviour
-    {
-        public virtual IEnumerator TriggerBlessing()
-        {
+    public class PlagueDoctorClass : SpecialCardBehaviour {
+        public virtual IEnumerator TriggerBlessing() {
             yield break;
         }
-        public virtual IEnumerator TriggerClock()
-        {
+        public virtual IEnumerator TriggerClock() {
             yield break;
         }
     }

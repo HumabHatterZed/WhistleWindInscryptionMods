@@ -2,12 +2,9 @@
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Roots()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Roots() {
             const string rulebookName = "Roots";
             const string rulebookDescription = "When [creature] is played, create Thorny Vines on adjacent empty spaces. [define:wstl_snowWhitesVine]";
             const string dialogue = "Resentment bursts forth like a weed.";
@@ -21,8 +18,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Roots : CreateCardsAdjacent
-    {
+    public class Roots : CreateCardsAdjacent {
         public static Ability ability;
         public override Ability Ability => ability;
         public override string SpawnedCardId => "wstl_snowWhitesVine";

@@ -1,30 +1,24 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
-namespace BonniesBakingPack
-{
-    public class NineAbility : SpecialCardBehaviour
-    {
+namespace BonniesBakingPack {
+    public class NineAbility : SpecialCardBehaviour {
         public static SpecialTriggeredAbility SpecialAbility;
 
         public override int Priority => 9;
         public const string NINE_LIVES_ID = "bbp_NineLives";
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             bool notInDeck;
             CardModificationInfo nineMod = base.PlayableCard.Info.Mods.Find(x => x.singletonId == NINE_LIVES_ID);
-            if (notInDeck = nineMod == null)
-            {
+            if (notInDeck = nineMod == null) {
                 nineMod = new() { singletonId = NINE_LIVES_ID };
                 base.PlayableCard.Info.Mods.Add(nineMod);
             }
             if (nineMod.nameReplacement == null)
                 nineMod.nameReplacement = "Eight";
-            else
-            {
-                nineMod.SetNameReplacement(nineMod.nameReplacement switch
-                {
+            else {
+                nineMod.SetNameReplacement(nineMod.nameReplacement switch {
                     "Eight" => "Seven",
                     "Seven" => "Six",
                     "Six" => "Five",
@@ -37,15 +31,13 @@ namespace BonniesBakingPack
                 });
             }
 
-            if (nineMod.nameReplacement == "Zero")
-            {
+            if (nineMod.nameReplacement == "Zero") {
                 nineMod.negateAbilities = new() { Ability.DrawCopyOnDeath };
                 nineMod.SetAttackAndHealth(9 - base.PlayableCard.Attack, 9 - base.PlayableCard.Health)
                     .SetBonesCost(9 - base.PlayableCard.BonesCost())
                     .AddAbilities(Ability.Brittle);
             }
-            else if (nineMod.nameReplacement == "Nine")
-            {
+            else if (nineMod.nameReplacement == "Nine") {
                 nineMod.nameReplacement = null;
                 nineMod.negateAbilities = new();
                 nineMod.abilities = new();

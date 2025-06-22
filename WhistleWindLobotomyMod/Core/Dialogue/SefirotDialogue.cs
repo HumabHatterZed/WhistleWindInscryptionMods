@@ -2,12 +2,9 @@
 using static WhistleWind.Core.Helpers.DialogueHelper;
 using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class LobotomyDialogue
-    {
-        private void Dialogue_Angela()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class LobotomyDialogue {
+        private void Dialogue_Angela() {
             #region Boss Dialogue
             CreateDialogueEvents("AngelaProspector", new()
             {
@@ -155,8 +152,7 @@ namespace WhistleWindLobotomyMod
             });
             #endregion
         }
-        private void Dialogue_Binah()
-        {
+        private void Dialogue_Binah() {
             #region Boss Dialogue
             CreateDialogueEvents("BinahProspector", new()
             {
@@ -292,8 +288,7 @@ namespace WhistleWindLobotomyMod
             });
             #endregion
         }
-        private void Dialogue_Chesed()
-        {
+        private void Dialogue_Chesed() {
             #region Boss Dialogue
             CreateDialogueEvents("ChesedProspector", new()
             {
@@ -430,8 +425,7 @@ namespace WhistleWindLobotomyMod
             });
             #endregion
         }
-        private void Dialogue_Gebura()
-        {
+        private void Dialogue_Gebura() {
             #region Boss Dialogue
             CreateDialogueEvents("GeburaProspector", new()
             {
@@ -563,8 +557,7 @@ namespace WhistleWindLobotomyMod
             });
             #endregion
         }
-        private void Dialogue_Hod()
-        {
+        private void Dialogue_Hod() {
             #region Boss Dialogue
             CreateDialogueEvents("HodProspector", new()
             {
@@ -695,8 +688,7 @@ namespace WhistleWindLobotomyMod
                 });
             #endregion
         }
-        private void Dialogue_Hokma()
-        {
+        private void Dialogue_Hokma() {
             #region Boss Dialogue
             CreateDialogueEvents("HokmaProspector", new()
             {
@@ -833,8 +825,7 @@ namespace WhistleWindLobotomyMod
             });
             #endregion
         }
-        private void Dialogue_Malkuth()
-        {
+        private void Dialogue_Malkuth() {
             #region Boss Dialogue
             CreateDialogueEvents("MalkuthProspector", new()
             {
@@ -967,8 +958,7 @@ namespace WhistleWindLobotomyMod
                 });
             #endregion
         }
-        private void Dialogue_Netzach()
-        {
+        private void Dialogue_Netzach() {
             #region Boss Dialogue
             CreateDialogueEvents("NetzachProspector", new()
             {
@@ -1096,8 +1086,7 @@ namespace WhistleWindLobotomyMod
                 });
             #endregion
         }
-        private void Dialogue_Tiphereth()
-        {
+        private void Dialogue_Tiphereth() {
             #region Boss Dialogue
             CreateDialogueEvents("TipherethAProspector", new()
             {
@@ -1247,8 +1236,7 @@ namespace WhistleWindLobotomyMod
             });
             #endregion
         }
-        private void Dialogue_Yesod()
-        {
+        private void Dialogue_Yesod() {
             #region Boss Dialogue
             CreateDialogueEvents("YesodProspector", new()
             {

@@ -5,31 +5,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Infiniscryption.Spells.Sigils
-{
-    public class GiveStats : GiveAbility
-    {
+namespace Infiniscryption.Spells.Sigils {
+    public class GiveStats : GiveAbility {
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
-        public override IEnumerator OnValidTarget(PlayableCard card)
-        {
+        public override IEnumerator OnValidTarget(PlayableCard card) {
             CardModificationInfo statMod = new(base.Card.Attack, 0);
-            if (base.Card.Health < 0)
-            {
+            if (base.Card.Health < 0) {
                 card.AddTemporaryMod(statMod);
                 yield return card.TakeDamage(-base.Card.Health, null);
             }
-            else
-            {
+            else {
                 statMod.healthAdjustment = base.Card.Health;
                 card.AddTemporaryMod(statMod);
             }
         }
 
 
-        public static void Register()
-        {
+        public static void Register() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Give Stats";
             info.rulebookDescription = "Gives this card's stats to the target.";

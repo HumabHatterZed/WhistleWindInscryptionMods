@@ -3,17 +3,14 @@ using InscryptionAPI.Ascension;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
-    public static class FinalApocalypse
-    {
+namespace WhistleWindLobotomyMod.Challenges {
+    public static class FinalApocalypse {
         internal const string title = "Final Apocalypse";
         internal const string description = "Leshy is replaced as the final boss of the run with the Beast.";
 
         public static AscensionChallenge Id { get; private set; }
 
-        internal static void Register()
-        {
+        internal static void Register() {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,

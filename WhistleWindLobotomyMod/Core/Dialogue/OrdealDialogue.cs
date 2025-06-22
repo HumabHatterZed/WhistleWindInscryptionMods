@@ -2,12 +2,9 @@
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class LobotomyDialogue
-    {
-        private void Dialogue_FirstOrdeal()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class LobotomyDialogue {
+        private void Dialogue_FirstOrdeal() {
             CreateDialogueEvents("OrdealRecall", new() {
                 "These creatures will not stay in one spot for long. Use these to reposition your creatures." });
 

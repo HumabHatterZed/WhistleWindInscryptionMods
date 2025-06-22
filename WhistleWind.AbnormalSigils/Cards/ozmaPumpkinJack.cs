@@ -3,12 +3,9 @@ using InscryptionAPI.Card;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Card_OzmaPumpkinJack_F04116()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Card_OzmaPumpkinJack_F04116() {
             const string ozmaPumpkinJack = "ozmaPumpkinJack";
             const string ozmaPumpkin = "ozmaPumpkin";
             Tribe[] tribes = new[] { TribeBotanic };

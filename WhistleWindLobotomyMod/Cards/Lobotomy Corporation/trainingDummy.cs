@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string trainingDummy = "wstl_trainingDummy";
-        private static void TrainingDummy_00000()
-        {
+        private static void TrainingDummy_00000() {
             string name = "Standard Training-Dummy Rabbit";
             string desc = "A beast in the shape of a training dummy. The safest of these abnormal creatures.";
             string textureName = "trainingDummy";

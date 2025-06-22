@@ -3,12 +3,9 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void AddFreshIngredientsMagnificus()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void AddFreshIngredientsMagnificus() {
             const string rulebookName = "Fresh Ingredients Magnificus";
             const string rulebookDescription = "When [creature] strikes a card and it perishes, create a random Food in your hand.";
             const string dialogue = "Made with the freshest ingredients.";
@@ -23,8 +20,7 @@ namespace BonniesBakingPack
         }
     }
 
-    public class FreshIngredientsMagnificus : FreshIngredients
-    {
+    public class FreshIngredientsMagnificus : FreshIngredients {
         public static Ability Id;
         public override Ability Ability => Id;
     }

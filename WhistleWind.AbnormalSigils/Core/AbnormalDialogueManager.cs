@@ -1,8 +1,7 @@
 ﻿using InscryptionAPI.Dialogue;
 using System.Collections.Generic;
 
-namespace WhistleWind.AbnormalSigils.Core
-{
+namespace WhistleWind.AbnormalSigils.Core {
     public class AbnormalDialogueManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static Dictionary<string, List<CustomLine>> EventNames => new()
@@ -55,8 +54,7 @@ namespace WhistleWind.AbnormalSigils.Core
                 new() { "The water evaporates in the scorching heat." }}
         };
 
-        public static void GenerateDialogueEvents()
-        {
+        public static void GenerateDialogueEvents() {
             foreach (KeyValuePair<string, List<CustomLine>> dialogue in EventNames)
                 DialogueManager.GenerateEvent(AbnormalPlugin.pluginGuid, dialogue.Key, dialogue.Value, defaultSpeaker: DialogueEvent.Speaker.Single);
         }

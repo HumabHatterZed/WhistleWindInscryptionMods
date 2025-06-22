@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string queenBee = "wstl_queenBee";
-        private static void QueenBee_T0450()
-        {
+        private static void QueenBee_T0450() {
             string textureName = "queenBee";
             CardManager.New(LobotomyPlugin.pluginPrefix, queenBee, "Queen Bee",
                 attack: 0, health: 4, "A monstrous amalgam of a hive and a bee.")

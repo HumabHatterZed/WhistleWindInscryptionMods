@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string bigBird = "wstl_bigBird";
-        private static void BigBird_O0240()
-        {
+        private static void BigBird_O0240() {
             string textureName = "bigBird";
             CardManager.New(LobotomyPlugin.pluginPrefix, bigBird, "Big Bird",
                 attack: 2, health: 4, "Its eyes light up the darkness like stars.")

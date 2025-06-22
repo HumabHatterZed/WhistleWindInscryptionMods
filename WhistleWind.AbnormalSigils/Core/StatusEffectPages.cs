@@ -7,13 +7,10 @@ using System.Linq;
 using System.Text;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
-namespace WhistleWind.AbnormalSigils.Core
-{
+namespace WhistleWind.AbnormalSigils.Core {
     [HarmonyPatch]
-    internal class StatusEffectPages
-    {
-        internal static void AddStatusEntries()
-        {
+    internal class StatusEffectPages {
+        internal static void AddStatusEntries() {
             RuleBookManager.New(
                 modGuid: AbnormalPlugin.pluginGuid,
                 pageType: PageRangeType.Abilities,
@@ -22,19 +19,16 @@ namespace WhistleWind.AbnormalSigils.Core
                 createPagesFunc: CreatePages);
         }
 
-        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages)
-        {
+        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages) {
             return pages.FindLastIndex(rbi => rbi.pagePrefab == pageRangeInfo.rangePrefab) + 1;
         }
-        private static List<RuleBookPageInfo> CreatePages(RuleBookInfo instance, PageRangeInfo currentRange, AbilityMetaCategory metaCategory)
-        {
+        private static List<RuleBookPageInfo> CreatePages(RuleBookInfo instance, PageRangeInfo currentRange, AbilityMetaCategory metaCategory) {
             List<RuleBookPageInfo> retval = new();
             List<StatusEffectManager.FullStatusEffect> statuses = StatusEffectManager.AllStatusEffects.Where(
                 x => x.IconInfo.HasMetaCategory(metaCategory)
                 ).ToList();
 
-            foreach (StatusEffectManager.FullStatusEffect statusEffect in statuses)
-            {
+            foreach (StatusEffectManager.FullStatusEffect statusEffect in statuses) {
                 RuleBookPageInfo page = new();
                 instance.FillAbilityPage(page, currentRange, (int)statusEffect.IconInfo.ability);
                 retval.Add(page);
@@ -47,12 +41,10 @@ namespace WhistleWind.AbnormalSigils.Core
             return retval;
         }
 
-        private static string StatusOverflow(PlayableCard card, List<Ability> distinct)
-        {
+        private static string StatusOverflow(PlayableCard card, List<Ability> distinct) {
             StringBuilder sb = new();
             List<Ability> abilities = card.GetDisplayedStatusEffects(true);
-            for (int i = 0; i < distinct.Count; i++)
-            {
+            for (int i = 0; i < distinct.Count; i++) {
                 AbilityInfo info = AbilitiesUtil.GetInfo(distinct[i]);
 
                 sb.Append(info.rulebookName + ":" + abilities.Count(x => x == info.ability));
@@ -65,10 +57,8 @@ namespace WhistleWind.AbnormalSigils.Core
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
-        private static bool StatusShouldBeAddedRegularly(int abilityIndex, AbilityMetaCategory rulebookCategory, ref bool __result)
-        {
-            if (StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)abilityIndex) != null)
-            {
+        private static bool StatusShouldBeAddedRegularly(int abilityIndex, AbilityMetaCategory rulebookCategory, ref bool __result) {
+            if (StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)abilityIndex) != null) {
                 return __result = false;
             }
             return true;

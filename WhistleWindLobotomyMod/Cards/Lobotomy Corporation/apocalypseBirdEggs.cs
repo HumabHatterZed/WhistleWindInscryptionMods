@@ -4,16 +4,13 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string bigEgg = "wstl_apocalypseEgg_big";
         public const string littleEgg = "wstl_apocalypseEgg_small";
         public const string longEgg = "wstl_apocalypseEgg_long";
         public const string giantApocalypse = "wstl_!GIANTCARD_ApocalypseBird";
-        private static void ApocalypseBirdEggs()
-        {
+        private static void ApocalypseBirdEggs() {
             Trait[] traits = new Trait[2] { Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath };
 
             CardManager.New(LobotomyPlugin.pluginPrefix, bigEgg, "Aspect of Big Bird",
@@ -38,7 +35,7 @@ namespace WhistleWindLobotomyMod
                 attack: 1, health: 90)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "judgementBird", "judgementBird_boss_emission.png", "")
                 .AddAbilities(ApocalypseAbility.ability, LongArms.ability, UnjustScale.ability, Challenging.ability)
-                .AddTraits(traits)
+                .AddTraits(traits).AddTraits(AbnormalPlugin.ImmuneToAilments)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
                 .Build();

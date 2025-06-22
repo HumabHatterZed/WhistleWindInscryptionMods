@@ -5,10 +5,8 @@ using TMPro;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod
-{
-    public class OrdealCounterManager : Singleton<OrdealCounterManager>
-    {
+namespace WhistleWindLobotomyMod {
+    public class OrdealCounterManager : Singleton<OrdealCounterManager> {
         public static Sprite dawnSprite;
         public static Sprite noonSprite;
         public static Sprite duskSprite;
@@ -20,10 +18,8 @@ namespace WhistleWindLobotomyMod
 
         public int amountLeft;
 
-        public static void ValidateCounter()
-        {
-            if (OrdealCounterManager.Instance == null)
-            {
+        public static void ValidateCounter() {
+            if (OrdealCounterManager.Instance == null) {
                 LobotomyPlugin.Log.LogDebug("[OrdealCounterManager] Setting up managers");
 
                 GameObject obj = Instantiate(AssetManager.ordealCounterPrefab, BoardManager.Instance.transform.parent);
@@ -34,14 +30,12 @@ namespace WhistleWindLobotomyMod
                 OrdealBannerManager.m_Instance = obj2.AddComponent<OrdealBannerManager>();
                 OrdealBannerManager.Instance.Initialise();
             }
-            else
-            {
+            else {
                 LobotomyPlugin.Log.LogDebug("[OrdealCounterManager] Managers exist");
             }
         }
 
-        private void Initialise()
-        {
+        private void Initialise() {
             anim = Instance.transform.GetChild(0).GetComponent<Animator>();
             leftRenderer = anim.transform.GetChild(0).GetComponent<SpriteRenderer>();
             counterText = anim.transform.GetChild(1).GetComponent<TextMeshPro>();
@@ -49,12 +43,10 @@ namespace WhistleWindLobotomyMod
             anim.transform.position = new(0f, -4.5f, 5f);
         }
 
-        public void UpdateConsole(int ordealTier, int startingAmount)
-        {
+        public void UpdateConsole(int ordealTier, int startingAmount) {
             amountLeft = startingAmount;
             counterText.text = this.amountLeft.ToString();
-            leftRenderer.sprite = ordealTier switch
-            {
+            leftRenderer.sprite = ordealTier switch {
                 0 => dawnSprite,
                 1 => noonSprite,
                 2 => duskSprite,
@@ -62,54 +54,44 @@ namespace WhistleWindLobotomyMod
                 _ => null
             };
         }
-        public void SetShown(bool shown)
-        {
-            if (shown)
-            {
+        public void SetShown(bool shown) {
+            if (shown) {
                 this.anim.gameObject.SetActive(true);
                 this.anim.Play("enter", 0, 0f);
                 Tween.Position(LeshyAnimationController.Instance.transform, new Vector3(0f, 6f, 9f), 1f, 0.5f);
             }
-            else
-            {
+            else {
                 amountLeft = 0;
                 leftRenderer.sprite = null;
                 counterText.text = "";
                 counterText.color = Color.black;
                 this.anim.Play("exit", 0, 0f);
                 Tween.Position(LeshyAnimationController.Instance.transform, new Vector3(0f, 4.75f, 9f), 1f, 0.5f);
-                CustomCoroutine.WaitThenExecute(0.5f, delegate
-                {
+                CustomCoroutine.WaitThenExecute(0.5f, delegate {
                     this.anim.gameObject.SetActive(false);
                 });
             }
         }
 
-        public void EnableConsole(bool enable)
-        {
+        public void EnableConsole(bool enable) {
             AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
-            if (enable)
-            {
+            if (enable) {
                 this.anim.Play("enable", 1, 0f);
             }
-            else
-            {
+            else {
                 this.anim.Play("disable", 1, 0f);
             }
         }
 
-        public IEnumerator UpdateAmountLeft(int amountKilled, float waitTime = 0.125f)
-        {
+        public IEnumerator UpdateAmountLeft(int amountKilled, float waitTime = 0.125f) {
             if (this.amountLeft == 0)
                 yield break;
 
-            for (int i = 0; i < amountKilled; i++)
-            {
+            for (int i = 0; i < amountKilled; i++) {
                 AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
 
                 this.amountLeft--;
-                if (this.amountLeft == 0)
-                {
+                if (this.amountLeft == 0) {
                     counterText.color = Color.red;
                 }
                 counterText.text = this.amountLeft.ToString();

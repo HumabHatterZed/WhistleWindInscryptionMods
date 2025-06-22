@@ -5,13 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static WhistleWindLobotomyMod.Opponents.IPreventInstantWin;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Base class for custom opponents used by the mod.
     /// </summary>
-    public abstract class LobotomyOpponent : Part1BossOpponent, IKillPlayerSequence, ICustomExhaustSequence, IPreventInstantWin
-    {
+    public abstract class LobotomyOpponent : Part1BossOpponent, IKillPlayerSequence, ICustomExhaustSequence, IPreventInstantWin {
         public abstract Opponent.Type ID { get; }
         public List<Ability> TotemAbilitiesWhitelist => new();
         public List<Ability> TotemAbilitiesBlacklist => new();
@@ -20,56 +18,46 @@ namespace WhistleWindLobotomyMod.Opponents
 
         protected const float BG_VOLUME = 0.3f;
 
-        public virtual bool PreventInstantWin(CardSlot triggeringSlot, InstantWinType instantWinType)
-        {
+        public virtual bool PreventInstantWin(CardSlot triggeringSlot, InstantWinType instantWinType) {
             return false;
         }
-        public virtual IEnumerator OnInstantWinPrevented(CardSlot triggeringSlot, InstantWinType instantWinType)
-        {
+        public virtual IEnumerator OnInstantWinPrevented(CardSlot triggeringSlot, InstantWinType instantWinType) {
             yield break;
         }
-        public virtual IEnumerator OnInstantWinTriggered(CardSlot triggeringSlot, InstantWinType instantWinType)
-        {
+        public virtual IEnumerator OnInstantWinTriggered(CardSlot triggeringSlot, InstantWinType instantWinType) {
             yield break;
         }
 
-        public virtual bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles)
-        {
+        public virtual bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) {
             return false;
         }
-        public virtual IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles)
-        {
+        public virtual IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles) {
             yield break;
         }
 
-        public virtual bool RespondsToKillPlayerSequence()
-        {
+        public virtual bool RespondsToKillPlayerSequence() {
             return false;
         }
-        public virtual IEnumerator KillPlayerSequence()
-        {
+        public virtual IEnumerator KillPlayerSequence() {
             yield break;
         }
 
         /// <summary>
         /// Creates and returns a new TotemBottomData instance, using the TotemAbilitiesWhitelist/Blacklist as required.
         /// </summary>
-        protected TotemBottomData CreateTotemBottomData(Tribe tribe, int difficulty)
-        {
+        protected TotemBottomData CreateTotemBottomData(Tribe tribe, int difficulty) {
             int randSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + GlobalTriggerHandler.Instance.NumTriggersThisBattle;
             TotemBottomData retval = ScriptableObject.CreateInstance<TotemBottomData>();
             retval.effect = TotemEffect.CardGainAbility;
             retval.effectParams = new();
 
             // whitelist overrides the blacklist
-            if (TotemAbilitiesWhitelist.Count > 0)
-            {
+            if (TotemAbilitiesWhitelist.Count > 0) {
                 int index = SeededRandom.Range(0, TotemAbilitiesWhitelist.Count, randSeed);
                 retval.effectParams.ability = TotemAbilitiesWhitelist[index];
                 TotemAbilitiesWhitelist.Remove(TotemAbilitiesWhitelist[index]);
             }
-            else
-            {
+            else {
                 int maxSigilPower = (int)Mathf.Ceil(difficulty / 5f);
                 TotemsUtil.AssignAbilityToBottom(retval, tribe, randSeed, maxSigilPower - 1, maxSigilPower, true, TotemAbilitiesBlacklist);
             }
@@ -80,8 +68,7 @@ namespace WhistleWindLobotomyMod.Opponents
         /// <summary>
         /// Sequence to update the totem with a different sigil.
         /// </summary>
-        public IEnumerator ReplaceTotemBottom()
-        {
+        public IEnumerator ReplaceTotemBottom() {
             // "disassemble" the totem
             totem.Anim.Play("slow_disassemble", 0, 0f);
             yield return new WaitForSeconds(0.333f);

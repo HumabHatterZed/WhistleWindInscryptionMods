@@ -3,10 +3,8 @@ using Infiniscryption.Core.Helpers;
 using InscryptionAPI.Card;
 using UnityEngine;
 
-namespace Infiniscryption.Spells.Sigils
-{
-    public class InstaGlobalSpellAbility : VariableStatBehaviour
-    {
+namespace Infiniscryption.Spells.Sigils {
+    public class InstaGlobalSpellAbility : VariableStatBehaviour {
         private static SpecialStatIcon _icon;
         public static SpecialStatIcon Icon => _icon;
         public override SpecialStatIcon IconType => _icon;
@@ -14,8 +12,7 @@ namespace Infiniscryption.Spells.Sigils
         private static SpecialTriggeredAbility _id;
         public static SpecialTriggeredAbility ID => _id;
 
-        public static void Register()
-        {
+        public static void Register() {
             StatIconInfo info = ScriptableObject.CreateInstance<StatIconInfo>();
             info.appliesToAttack = true;
             info.appliesToHealth = true;

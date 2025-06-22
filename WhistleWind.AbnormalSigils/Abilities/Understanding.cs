@@ -10,12 +10,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Understanding()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Understanding() {
             const string rulebookName = "Understanding";
             const string rulebookDescription = "If [creature] perishes due to indirect or self-inflicted damage, deal 4 damage to opposing creatures.";
             const string dialogue = "Too slow.";
@@ -28,17 +25,14 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Understanding : AbilityBehaviour
-    {
+    public class Understanding : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => killer == base.Card || killer == null;
 
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            foreach (PlayableCard card in BoardManager.Instance.GetCards(base.Card.OpponentCard))
-            {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
+            foreach (PlayableCard card in BoardManager.Instance.GetCards(base.Card.OpponentCard)) {
                 yield return card.TakeDamage(4, base.Card);
             }
 

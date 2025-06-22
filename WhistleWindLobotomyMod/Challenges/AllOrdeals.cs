@@ -3,8 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
+namespace WhistleWindLobotomyMod.Challenges {
     public static class AllOrdeals // taken from infiniscryption
     {
         internal const string title = "All Ordeals";
@@ -14,8 +13,7 @@ namespace WhistleWindLobotomyMod.Challenges
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
         // Creates the challenge then calls the relevant patches
-        internal static void Register(Harmony harmony)
-        {
+        internal static void Register(Harmony harmony) {
             Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
@@ -31,10 +29,8 @@ namespace WhistleWindLobotomyMod.Challenges
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.NextRegion))]
-        private static void ShowAllOrdealsActivation()
-        {
-            if (RunState.CurrentRegionTier < 3)
-            {
+        private static void ShowAllOrdealsActivation() {
+            if (RunState.CurrentRegionTier < 3) {
                 ChallengeActivationUI.TryShowActivation(AllOrdeals.Id);
             }
         }

@@ -5,8 +5,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
+namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalOrdeal // taken from infiniscryption
     {
         internal const string title = "Final Ordeals";
@@ -14,8 +13,7 @@ namespace WhistleWindLobotomyMod.Challenges
 
         public static AscensionChallenge Id { get; private set; }
 
-        internal static void Register()
-        {
+        internal static void Register() {
             AscensionChallengeInfo info = ScriptableObject.CreateInstance<AscensionChallengeInfo>();
             info.title = title;
             info.description = description;

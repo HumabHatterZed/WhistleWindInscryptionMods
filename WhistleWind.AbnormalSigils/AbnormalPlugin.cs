@@ -18,15 +18,13 @@ using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
+namespace WhistleWind.AbnormalSigils {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("community.inscryption.patch", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
-    public partial class AbnormalPlugin : BaseUnityPlugin
-    {
+    public partial class AbnormalPlugin : BaseUnityPlugin {
         public const string pluginGuid = "whistlewind.inscryption.abnormalsigils";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "Abnormal Sigils";
@@ -60,8 +58,7 @@ namespace WhistleWind.AbnormalSigils
         public static Trait CannotCopyCard = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotCopyCard");
 
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
-        private void Awake()
-        {
+        private void Awake() {
             Log = base.Logger;
             Assembly = Assembly.GetExecutingAssembly();
             InitAssetBundle();
@@ -70,8 +67,7 @@ namespace WhistleWind.AbnormalSigils
 
             if (!AbnormalConfigManager.Instance.EnableMod)
                 Logger.LogWarning($"{pluginName} is disabled in the configuration. This will likely break things.");
-            else
-            {
+            else {
                 HarmonyInstance.PatchAll(Assembly);
 
                 AddResources();
@@ -87,14 +83,11 @@ namespace WhistleWind.AbnormalSigils
                 Logger.LogInfo($"{pluginName} loaded!");
             }
         }
-        private void InitTribes()
-        {
-            if (TribalAPI.Enabled)
-            {
+        private void InitTribes() {
+            if (TribalAPI.Enabled) {
                 TribalAPI.UseTribalTribes();
             }
-            else
-            {
+            else {
                 Texture2D anthro = TextureLoader.LoadTextureFromFile("tribeAnthropoid.png");
                 Texture2D anthroBack = TextureLoader.LoadTextureFromFile("tribeAnthropoid_reward.png");
                 Texture2D botanical = TextureLoader.LoadTextureFromFile("tribeBotanic.png");
@@ -114,18 +107,15 @@ namespace WhistleWind.AbnormalSigils
             }
         }
 
-        private void AddResources()
-        {
+        private void AddResources() {
             List<string> decalStrings = new()
             {
                 "decalSpore",
                 "decalWorms"
             };
 
-            foreach (string name in decalStrings)
-            {
-                for (int i = 0; i < 3; i++)
-                {
+            foreach (string name in decalStrings) {
+                for (int i = 0; i < 3; i++) {
                     string resource = $"{name}_{i}";
                     Texture2D texture = TextureLoader.LoadTextureFromFile($"{resource}");
                     ResourceBankManager.AddDecal(pluginGuid, resource, texture);
@@ -136,10 +126,8 @@ namespace WhistleWind.AbnormalSigils
 
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
-        private void AddAbilities()
-        {
-            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
-            {
+        private void AddAbilities() {
+            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
                 StatusEffectManager.SyncStatusEffects();
                 abilities.AbilityByID(Ability.MadeOfStone).Info.SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
                 return abilities;
@@ -292,22 +280,18 @@ namespace WhistleWind.AbnormalSigils
             MechanicPages.AddMechanicEntries();
         }
 
-        private void AddSpecialAbilities()
-        {
+        private void AddSpecialAbilities() {
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
 
-        public static class SpellAPI
-        {
+        public static class SpellAPI {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.spells");
         }
 
-        public static class TribalAPI
-        {
+        public static class TribalAPI {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
-            public static void UseTribalTribes()
-            {
+            public static void UseTribalTribes() {
                 Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
                 TribeDivine = TribalLibary.Plugin.guardianTribe;
                 TribeFae = TribalLibary.Plugin.fairyTribe;
@@ -339,8 +323,7 @@ namespace WhistleWind.AbnormalSigils
 
         internal static AssetBundle AssetBundle { get; private set; }
         internal static RuntimeAnimatorController MiniGiantAnimator { get; private set; }
-        internal static void InitAssetBundle()
-        {
+        internal static void InitAssetBundle() {
             using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWind.AbnormalSigils.abnormalsigils");
             AssetBundle = AssetBundle.LoadFromStream(stream);
             MiniGiantAnimator = AssetBundle.LoadAsset<RuntimeAnimatorController>("Card_MiniGiant");

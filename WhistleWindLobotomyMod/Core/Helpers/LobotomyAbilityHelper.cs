@@ -5,8 +5,7 @@ using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
-{
+namespace WhistleWindLobotomyMod.Core.Helpers {
     public static class LobotomyAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static FullAbility CreateActivatedAbility<T>(
@@ -14,12 +13,10 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             string rulebookName, string rulebookDescription,
             string dialogue = null, string triggerText = null,
             int powerLevel = 0)
-            where T : ActivatedAbilityBehaviour
-        {
+            where T : ActivatedAbilityBehaviour {
             return AbilityHelper.NewActivated<T>(LobotomyPlugin.pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText);
         }
-        public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription) where T : AbilityBehaviour
-        {
+        public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription) where T : AbilityBehaviour {
             return AbilityHelper.NewFiller<T>(LobotomyPlugin.pluginGuid, "sigilAbnormality", rulebookName, rulebookDescription);
         }
 

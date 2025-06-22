@@ -11,10 +11,8 @@ using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public class TalkingCardHod : CustomPaperTalkingCard
-    {
+namespace WhistleWindLobotomyMod {
+    public class TalkingCardHod : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahHod;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
@@ -22,10 +20,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public override SpecialTriggeredAbility DialogueAbility => specialAbility;
 
-        public override List<EmotionData> Emotions
-        {
-            get
-            {
+        public override List<EmotionData> Emotions {
+            get {
                 Sprite face = LoadSpriteFromFile("talkingHodBody.png", new(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingHodEmission1.png");
                 FaceAnim emissionLaugh = MakeFaceAnim("talkingHodEmission2.png");
@@ -87,11 +83,9 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string sephirahHod = "wstl_sephirahHod";
-        private static void Hod()
-        {
+        private static void Hod() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahHod, "Hod",
                 attack: 1, health: 2, "Timid she may be, she will still try her hardest.")
                 .SetBonesCost(3)
@@ -101,10 +95,8 @@ namespace WhistleWindLobotomyMod
                 .Build();
         }
     }
-    public partial class Abilities
-    {
-        private static void AddSpecial_Hod()
-        {
+    public partial class Abilities {
+        private static void AddSpecial_Hod() {
             TalkingCardHod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardHod>("Hod").Id;
         }
     }

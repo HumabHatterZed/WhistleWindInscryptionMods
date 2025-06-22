@@ -3,14 +3,11 @@ using HarmonyLib;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomySaveManager;
 
-namespace WhistleWindLobotomyMod.Patches
-{
-    internal static class AchievementPatches
-    {
+namespace WhistleWindLobotomyMod.Patches {
+    internal static class AchievementPatches {
         // this runs at the end of the run and whenever the KCM menu loads
         [HarmonyPostfix, HarmonyPatch(typeof(AscensionMenuScreens), nameof(AscensionMenuScreens.TryUnlockAchievements))]
-        private static void UnlockAchievements()
-        {
+        private static void UnlockAchievements() {
             // RulebookPatches.ApocalypseEnding = null; // if I make a harder version of the boss, we'll want to reset the string here
             // bosses    
             AchievementAPI.Unlock(DefeatedApocalypseBoss, AchievementAPI.ThroughTheTwilight);

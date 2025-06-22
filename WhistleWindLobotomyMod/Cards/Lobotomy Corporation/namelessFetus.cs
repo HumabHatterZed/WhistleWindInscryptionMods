@@ -6,14 +6,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string namelessFetus = "wstl_namelessFetus";
         public const string namelessFetusAwake = "wstl_namelessFetusAwake";
-        private static void NamelessFetus_O0115()
-        {
+        private static void NamelessFetus_O0115() {
             string fetusName = "Nameless Fetus";
             string textureName = "namelessFetusAwake";
             string textureName2 = "namelessFetus";

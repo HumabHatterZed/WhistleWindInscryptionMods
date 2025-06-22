@@ -10,12 +10,9 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Healer()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Healer() {
             const string rulebookName = "Healer";
             const string rulebookDescription = "At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.";
             const string dialogue = "Never underestimate the importance of a healer.";
@@ -29,8 +26,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Healer : SniperSelectSlot
-    {
+    public class Healer : SniperSelectSlot {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -45,27 +41,22 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) => base.SelectionSequence();
 
-        public override IEnumerator OnValidTargetSelected(CardSlot slot) => HelperMethods.HealCard(1, slot.Card, onHealCallback: delegate (PlayableCard c)
-        {
+        public override IEnumerator OnValidTargetSelected(CardSlot slot) => HelperMethods.HealCard(1, slot.Card, onHealCallback: delegate (PlayableCard c) {
             List<StatusEffectBehaviour> statuses = c.GetStatusEffects(false);
             if (statuses.Count > 0)
                 c.RemoveStatusEffect(statuses[SeededRandom.Range(0, statuses.Count, base.GetRandomSeed())].StatusEffect);
         });
-        public override IEnumerator OnPostValidTargetSelected()
-        {
-            if (DoctorComponent != null)
-            {
+        public override IEnumerator OnPostValidTargetSelected() {
+            if (DoctorComponent != null) {
                 yield return DoctorComponent.TriggerBlessing();
                 yield return DoctorComponent.TriggerClock();
             }
             yield break;
         }
 
-        public override IEnumerator OnNoValidTargets()
-        {
+        public override IEnumerator OnNoValidTargets() {
             // if not Plague Doctor, simply play dialogue
-            if (DoctorComponent == null)
-            {
+            if (DoctorComponent == null) {
                 yield return DialogueHelper.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
                 yield break;
             }
@@ -77,8 +68,7 @@ namespace WhistleWind.AbnormalSigils
 
             // If there are valid targets on the opposing side, heal a random one of their cards.
             // Else spit out another failure message then break
-            if (validTargets.Count == 0)
-            {
+            if (validTargets.Count == 0) {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayAlternateDialogue(Emotion.Anger, dialogue: failExtraHardDialogue);
@@ -108,8 +98,7 @@ namespace WhistleWind.AbnormalSigils
             yield return DoctorComponent?.TriggerClock();
         }
 
-        public override int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
-        {
+        public override int AIEvaluateTarget(PlayableCard card, bool positiveEffect) {
             int baseEvaluation = card.MaxHealth - card.Health;
             if (card.HasAnyOfTraits(Trait.Terrain))
                 baseEvaluation -= 4;

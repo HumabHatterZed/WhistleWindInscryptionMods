@@ -4,13 +4,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string drownedSisters = "wstl_drownedSisters";
-        private static void DrownedSisters()
-        {
+        private static void DrownedSisters() {
             return;
             string textureName = "drownedSisters";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, drownedSisters, "The Drowned Sisters",

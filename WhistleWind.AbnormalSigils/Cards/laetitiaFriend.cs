@@ -2,12 +2,9 @@
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Card_LaetitiaFriend_O0167()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Card_LaetitiaFriend_O0167() {
             const string laetitiaFriend = "laetitiaFriend";
 
             CardManager.New(pluginPrefix, laetitiaFriend, "Wee Witch's Friend", 1, 1)

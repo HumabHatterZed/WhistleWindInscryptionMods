@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string porccubus = "wstl_porccubus";
-        private static void Porccubus_O0298()
-        {
+        private static void Porccubus_O0298() {
             string textureName = "porccubus";
             CardManager.New(LobotomyPlugin.pluginPrefix, porccubus, "Porccubus",
                 attack: 1, health: 1, "A prick from one of its quills creates a deadly euphoria.")

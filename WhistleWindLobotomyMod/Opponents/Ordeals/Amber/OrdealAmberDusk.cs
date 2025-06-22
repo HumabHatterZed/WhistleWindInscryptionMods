@@ -2,8 +2,7 @@
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Appears in R0
     /// Difficulty range: (1 - 3) +[0,2] // 4 difficulty is for boss node w/o challlenges
@@ -15,10 +14,8 @@ namespace WhistleWindLobotomyMod.Opponents
     /// 4 | P P P  | P P P  | P P P  | P P P  | 12 | 12 | 12
     /// 5 | P P P  | P P P P| P P P  | P P P P| 14 | 14 | 14
     /// </summary>
-    public class OrdealAmberDusk : OrdealBattleSequencer
-    {
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
+    public class OrdealAmberDusk : OrdealBattleSequencer {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
                 EncounterManager.NewCardBlueprint(Cards.perfectFood)
@@ -38,15 +35,12 @@ namespace WhistleWindLobotomyMod.Opponents
                 EncounterManager.NewCardBlueprint(Cards.perfectFood)
             };
 
-            for (int i = 2; i < encounterData.Difficulty + 1; i++)
-            {
-                if (i % 2 == 0)
-                {
+            for (int i = 2; i < encounterData.Difficulty + 1; i++) {
+                if (i % 2 == 0) {
                     turn1.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
                     turn3.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
                 }
-                else
-                {
+                else {
                     turn2.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
                     turn4.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
                 }

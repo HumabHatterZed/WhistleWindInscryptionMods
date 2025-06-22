@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string oldFaithAndPromise = "wstl_oldFaithAndPromise";
-        private static void OldFaithAndPromise_T0997()
-        {
+        private static void OldFaithAndPromise_T0997() {
             string name = "Old Faith and Promise";
             string name2 = "Elder Faith and Promise";
             string desc = "A mysterious marble. Use it without desire or expectation and you may be rewarded.";

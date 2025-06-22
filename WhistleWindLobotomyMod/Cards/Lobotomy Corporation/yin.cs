@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string yin = "wstl_yin";
-        private static void Yin_O05102()
-        {
+        private static void Yin_O05102() {
             string textureName = "yin";
             CardManager.New(LobotomyPlugin.pluginPrefix, yin, "Yin",
                 attack: 2, health: 3, "A black pendant in search of its missing half.")

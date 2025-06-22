@@ -2,12 +2,9 @@
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public class OrdealCrimsonDusk : OrdealBattleSequencer
-    {
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
+namespace WhistleWindLobotomyMod.Opponents {
+    public class OrdealCrimsonDusk : OrdealBattleSequencer {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
                 EncounterManager.NewCardBlueprint(Cards.skinClimax)

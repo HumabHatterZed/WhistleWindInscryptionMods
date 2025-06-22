@@ -4,13 +4,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string redQueen = "wstlWonder_redQueen";
-        private static void RedQueen()
-        {
+        private static void RedQueen() {
             string name = "Red Queen";
             string desc = "A royal figure that decapitates those that fail to please it.";
             string textureName = "redQueen";

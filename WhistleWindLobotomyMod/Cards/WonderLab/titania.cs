@@ -4,13 +4,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string titania = "wstl_titania";
-        private static void Titania()
-        {
+        private static void Titania() {
             return;
             string textureName = "titania";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, titania, "Titania",

@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Martyr()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Martyr() {
             const string rulebookName = "Martyr";
             const string rulebookDescription = "When [creature] dies, all allied creatures gain 2 Health and lose any negative status effects.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
@@ -32,8 +29,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             List<PlayableCard> validCards = Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard);
             validCards.Remove(base.Card);
 
@@ -42,8 +38,7 @@ namespace WhistleWind.AbnormalSigils
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.1f);
-            foreach (PlayableCard card in validCards)
-            {
+            foreach (PlayableCard card in validCards) {
                 yield return HelperMethods.HealCard(2, card, 0.1f);
                 yield return card.RemoveStatusEffects(false);
             }

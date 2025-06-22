@@ -6,26 +6,22 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class CensoredSpecial : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class CensoredSpecial : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "CENSORED";
         public const string rDesc = "Whenver CENSORED kills a card, create a CENSORED in your hand with the killed card's Power, tribes, and sigils.";
 
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             if (fromCombat)
                 return killer == base.PlayableCard && card.LacksAllTraits(Trait.Giant, Trait.Terrain, Trait.Pelt);
 
             return false;
         }
 
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             // Creates a minion that has the abilities, tribes, power of the killed card
             CardInfo minion = CardLoader.GetCardByName(Cards.censoredMinion);
 
@@ -48,8 +44,7 @@ namespace WhistleWindLobotomyMod
             foreach (Ability item in card.Info.abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
                 minion.Mods.Add(new CardModificationInfo(item));
 
-            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-            {
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable)) {
                 // Add merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 cardModificationInfo.healthAdjustment = 0;
@@ -60,10 +55,8 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
 
             // create minion in hand if not an opponent, otherwise add to queue
-            if (!base.PlayableCard.OpponentCard)
-            {
-                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-                {
+            if (!base.PlayableCard.OpponentCard) {
+                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand) {
                     yield return new WaitForSeconds(0.2f);
                     Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
                     yield return new WaitForSeconds(0.2f);
@@ -71,21 +64,18 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion);
                 yield return new WaitForSeconds(0.45f);
             }
-            else
-            {
+            else {
                 CombatHelpers.QueueCreatedCard(minion);
             }
             yield return DialogueHelper.PlayDialogueEvent("CENSOREDKilledCard");
             yield return new WaitForSeconds(0.25f);
         }
     }
-    public class RulebookEntryCensoredSpecial : AbilityBehaviour
-    {
+    public class RulebookEntryCensoredSpecial : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_CensoredSpecial()
             => RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
         private static void AddSpecial_CensoredSpecial()

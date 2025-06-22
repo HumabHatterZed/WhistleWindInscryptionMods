@@ -4,10 +4,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public class OrdealOpponent : LobotomyOpponent
-    {
+namespace WhistleWindLobotomyMod.Opponents {
+    public class OrdealOpponent : LobotomyOpponent {
         public override Type ID => OrdealUtils.OpponentID;
         public override string DefeatedPlayerDialogue => "Not good enough.";
         public override int StartingLives => 1;
@@ -48,8 +46,7 @@ namespace WhistleWindLobotomyMod.Opponents
             }
         }
 
-        public override IEnumerator IntroSequence(EncounterData encounter)
-        {
+        public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
 
             yield return base.IntroSequence(encounter);
@@ -151,7 +148,8 @@ namespace WhistleWindLobotomyMod.Opponents
                     mainHighlightColour = mainDefaultColour = GameColors.Instance.gray;
                     queueHighlightColour = queueDefaultColour = GameColors.Instance.nearBlack;
                     break;
-            };
+            }
+            ;
 
             mainDefaultColour.a = 0.5f;
             queueDefaultColour.a = 0.5f;

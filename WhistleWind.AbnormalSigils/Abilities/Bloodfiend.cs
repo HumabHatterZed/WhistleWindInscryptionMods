@@ -6,12 +6,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Bloodfiend()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Bloodfiend() {
             const string rulebookName = "Bloodfiend";
             const string rulebookDescription = "When [creature] strikes a creature, it gains 1 Health, up to 2 above its maximum Health.";
             const string dialogue = "Accursed fiend.";
@@ -25,14 +22,12 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Bloodfiend : AbilityBehaviour
-    {
+    public class Bloodfiend : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && base.Card.Health > 0 && !base.Card.Dead;
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
-        {
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.3f);
             base.Card.Anim.LightNegationEffect();

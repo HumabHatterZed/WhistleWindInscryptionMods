@@ -3,13 +3,10 @@ using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string mySweetHome = "wstl_mySweetHome";
-        private static void MySweetHome()
-        {
+        private static void MySweetHome() {
             return;
             string textureName = "mySweetHome";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHome, "My Sweet Home",

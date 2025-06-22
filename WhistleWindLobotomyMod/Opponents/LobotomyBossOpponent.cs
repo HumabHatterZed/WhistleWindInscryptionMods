@@ -2,15 +2,12 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public abstract class LobotomyBossOpponent : LobotomyOpponent
-    {
+namespace WhistleWindLobotomyMod.Opponents {
+    public abstract class LobotomyBossOpponent : LobotomyOpponent {
         public Animator MasterAnimator;
         public GameObject bossObjectAnimation;
 
-        public override IEnumerator IntroSequence(EncounterData encounter)
-        {
+        public override IEnumerator IntroSequence(EncounterData encounter) {
             yield return base.IntroSequence(encounter);
             RunState.CurrentMapRegion.FadeOutAmbientAudio();
             yield return ReducePlayerLivesSequence();
@@ -30,8 +27,7 @@ namespace WhistleWindLobotomyMod.Opponents
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
         }
 
-        public override IEnumerator OutroSequence(bool wasDefeated)
-        {
+        public override IEnumerator OutroSequence(bool wasDefeated) {
             if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)) {
                 yield return base.DisassembleTotem();
                 Singleton<OpponentAnimationController>.Instance.ClearLookTarget();

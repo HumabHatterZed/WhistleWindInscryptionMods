@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string behaviourAdjustment = "wstl_behaviourAdjustment";
-        private static void BehaviourAdjustment_O0996()
-        {
+        private static void BehaviourAdjustment_O0996() {
             string textureName = "behaviourAdjustment";
             CardManager.New(LobotomyPlugin.pluginPrefix, behaviourAdjustment, "Behaviour Adjustment",
                 attack: 0, health: 1, "A device that corrects errant beasts, though not always how you expect.")

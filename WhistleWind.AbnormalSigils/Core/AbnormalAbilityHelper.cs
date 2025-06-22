@@ -6,31 +6,24 @@ using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
-namespace WhistleWind.AbnormalSigils.Core.Helpers
-{
-    public static class AbnormalAbilityHelper
-    {
-        public static CardInfo SetBoneless(this CardInfo info)
-        {
+namespace WhistleWind.AbnormalSigils.Core.Helpers {
+    public static class AbnormalAbilityHelper {
+        public static CardInfo SetBoneless(this CardInfo info) {
             info.AddTraits(Boneless);
-            if (info.HasCardMetaCategory(CardMetaCategory.Rare))
-            {
+            if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
                 info.AddAppearances(RareBonelessCardBackground.appearance);
             }
-            else
-            {
+            else {
                 info.AddAppearances(BonelessCardBackground.appearance);
             }
 
             return info;
         }
-        public static CardInfo SetMiniGiant(this CardInfo info)
-        {
+        public static CardInfo SetMiniGiant(this CardInfo info) {
             return info.AddSpecialAbilities(MiniGiantCard.Id).AddAppearances(MiniGiantPortrait.appearance).AddTraits(Trait.Giant);
         }
 
-        public static bool IsConductor(this PlayableCard card)
-        {
+        public static bool IsConductor(this PlayableCard card) {
             return card.HasTrait(Orchestral) || card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);
         }
         /// <summary>
@@ -39,8 +32,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         /// <param name="attacker">The card with Opportunistic.</param>
         /// <param name="target">The card being targeted.</param>
         [Obsolete]
-        public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target)
-        {
+        public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target) {
             if (target == null || target.Attack > 0 || target.HasAbility(Neutered.ability))
                 return false;
 
@@ -55,15 +47,13 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         /// </summary>
         /// <param name="attacker">The card with Persistent.</param>
         /// <param name="target">The card being targeted.</param>
-        public static bool SimulatePersistentAttack(PlayableCard attacker, PlayableCard target)
-        {
+        public static bool SimulatePersistentAttack(PlayableCard attacker, PlayableCard target) {
             // Damsel ally override Persistent behaviour
             if (target == null || attacker.Slot.GetAdjacentCards().Exists(x => x != null && x.HasAbility(Damsel.ability)))
                 return false;
 
             // if attacker can hit the target
-            if (attacker.LacksAbility(Ability.Flying) || target.HasAbility(Ability.Reach))
-            {
+            if (attacker.LacksAbility(Ability.Flying) || target.HasAbility(Ability.Reach)) {
                 // if the target has Loose Tail and hasn't lost it
                 if (target.HasAbility(Ability.TailOnHit) && !target.Status.lostTail)
                     return true;
@@ -80,8 +70,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             int powerLevel = 0,
             bool canStack = false, bool modular = false, bool opponent = false,
             bool unobtainable = false, bool special = false)
-            where T : AbilityBehaviour
-        {
+            where T : AbilityBehaviour {
             bool addToRulebook = AddToRulebook(AbilityGroup.Normal, unobtainable, special);
             bool forceModular = ForceModularity(AbilityGroup.Normal, modular, unobtainable, special);
             return AbilityHelper.New<T>(pluginGuid,
@@ -95,16 +84,14 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             string dialogue = null, string triggerText = null,
             int powerLevel = 0,
             bool special = false, bool unobtainable = false)
-            where T : AbilityBehaviour
-        {
+            where T : AbilityBehaviour {
             bool addToRulebook = AddToRulebook(AbilityGroup.Activated, unobtainable, special);
             bool forceModular = ForceModularity(AbilityGroup.Activated, false, unobtainable, special);
             return AbilityHelper.NewActivated<T>(pluginGuid, abilityName, rulebookName, rulebookDescription, powerLevel, addToRulebook, dialogue, triggerText,
                 false, forceModular);
         }
 
-        private static bool AddToRulebook(AbilityGroup defaultGroup, bool rulebookOnly, bool special)
-        {
+        private static bool AddToRulebook(AbilityGroup defaultGroup, bool rulebookOnly, bool special) {
             if (ForceDisable.HasFlag(AbilityGroup.All) || ForceDisable.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
                 return false;
 
@@ -119,8 +106,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
 
             return true;
         }
-        private static bool ForceModularity(AbilityGroup defaultGroup, bool defaultModular, bool rulebookOnly, bool special)
-        {
+        private static bool ForceModularity(AbilityGroup defaultGroup, bool defaultModular, bool rulebookOnly, bool special) {
             if (ForceModular.HasFlag(AbilityGroup.All) || ForceModular.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
                 return true;
 
@@ -140,8 +126,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         private static AbilityGroup ForceDisable => AbnormalConfigManager.Instance.DisableModular;
 
         [Flags]
-        public enum AbilityGroup
-        {
+        public enum AbilityGroup {
             None = 0,
             Normal = 1,
             Activated = 2,

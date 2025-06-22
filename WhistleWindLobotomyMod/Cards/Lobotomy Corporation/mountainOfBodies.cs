@@ -5,16 +5,13 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string mountainOfBodies = "wstl_mountainOfBodies";
         public const string mountainOfBodiesPixel = "wstlGBC_mountainOfBodiesPixel";
         public const string mountainOfBodies2 = "wstl_mountainOfBodies2";
         public const string mountainOfBodies3 = "wstl_mountainOfBodies3";
-        private static void MountainOfBodies_T0175()
-        {
+        private static void MountainOfBodies_T0175() {
             string mountainName = "The Mountain of Smiling Bodies";
             string desc = "A mass grave, melted and congealed into one eternally hungry beast.";
             string textureName = "mountainOfBodies3";

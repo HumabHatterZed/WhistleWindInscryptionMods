@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Witness()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Witness() {
             const string rulebookName = "Witness";
             const string rulebookDescription = "Pay 1 Bone to inflict 1 Flagellation and increase the selected creature's Health by 2. This effect stacks up to 3 times.";
             const string dialogue = "The truth will set you free.";
@@ -26,14 +23,12 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Witness : ActivatedSelectSlotBehaviour
-    {
+    public class Witness : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override string InvalidTargetDialogue(CardSlot slot) => "You must choose one of your other cards to proselytise.";
         public override int StartingBonesCost => 1;
-        public override bool IsValidTarget(CardSlot slot)
-        {
+        public override bool IsValidTarget(CardSlot slot) {
             if (!base.IsValidTarget(slot))
                 return false;
 
@@ -42,13 +37,11 @@ namespace WhistleWind.AbnormalSigils
         }
 
         public override bool CanActivate() => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(IsValidTarget);
-        public override IEnumerator OnValidTargetSelected(CardSlot slot)
-        {
+        public override IEnumerator OnValidTargetSelected(CardSlot slot) {
             if (!slot.Card.FaceDown)
                 slot.Card.Anim.StrongNegationEffect();
 
-            slot.Card.AddStatusEffectToFaceDown<Prudence>(1, false, delegate (int i)
-            {
+            slot.Card.AddStatusEffectToFaceDown<Prudence>(1, false, delegate (int i) {
                 slot.Card.HealDamage(2);
                 return i;
             });

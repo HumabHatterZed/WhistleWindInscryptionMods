@@ -6,8 +6,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Last Helix:
     ///     Stage 1: Cooldown
@@ -26,8 +25,7 @@ namespace WhistleWindLobotomyMod.Opponents
     /// fire_laser
     /// set_idle_phase
     /// </summary>
-    public class OrdealGreenMidnight : OrdealBattleSequencer
-    {
+    public class OrdealGreenMidnight : OrdealBattleSequencer {
         private PlayableCard Helix;
         private Animator HelixAnimator;
 
@@ -55,30 +53,25 @@ namespace WhistleWindLobotomyMod.Opponents
         public bool CleanUpLasers = false;
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => true;
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            if (card.OpponentCard && base.RespondsToOtherCardDie(card, deathSlot, fromCombat, killer))
-            {
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
+            if (card.OpponentCard && base.RespondsToOtherCardDie(card, deathSlot, fromCombat, killer)) {
                 yield return EndActivePhase(true);
                 yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
             }
         }
-        private IEnumerator StartLasering()
-        {
+        private IEnumerator StartLasering() {
 
             yield break;
         }
 
-        private IEnumerator HandleLaser()
-        {
+        private IEnumerator HandleLaser() {
             AudioController.Instance.PlaySound3D("uberbot_beam_activate#2", MixerGroup.TableObjectsSFX, Helix.Slot.transform.position);
             yield return new WaitForSeconds(0.5f);
             AudioController.Instance.SetLoopAndPlay("uberbot_beam_looping");
 
         }
 
-        public override IEnumerator OpponentCombatStart()
-        {
+        public override IEnumerator OpponentCombatStart() {
             Debug.Log("OpponentCombatEnd");
             if (isActive && justActivated) // the turn after Helix activates
             {
@@ -99,35 +92,29 @@ namespace WhistleWindLobotomyMod.Opponents
         /// -> if not active, do nothing
         /// -> if active, ...
         /// </summary>
-        public override IEnumerator OpponentCombatEnd()
-        {
+        public override IEnumerator OpponentCombatEnd() {
             LobotomyPlugin.Log.LogDebug("OpponentCombatEnd");
 
             phaseCountdown--;
             UpdateCounter();
 
-            if (phaseCountdown > 0)
-            {
-                if (isActive)
-                {
+            if (phaseCountdown > 0) {
+                if (isActive) {
 
                 }
-                else
-                {
+                else {
                     yield break;
                 }
             }
 
-            if (isActive)
-            {
+            if (isActive) {
                 LobotomyPlugin.Log.LogDebug("Deactivate Helix");
 
                 isActive = false;
                 phaseCountdown = MaxCooldownPeriod;
                 yield return EndActivePhase(false);
             }
-            else
-            {
+            else {
                 LobotomyPlugin.Log.LogDebug("Activate Helix");
 
                 isActive = true;
@@ -137,8 +124,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         }
 
-        private IEnumerator BeginActivePhase()
-        {
+        private IEnumerator BeginActivePhase() {
             //isActive = false;
             /*if (standingLaserBehav != null)
                 yield break;*/
@@ -150,8 +136,7 @@ namespace WhistleWindLobotomyMod.Opponents
             AudioController.Instance.PlaySound2D("helix_open", MixerGroup.TableObjectsSFX);
             yield return new WaitForSeconds(5f);
         }
-        private IEnumerator EndActivePhase(bool bossDead)
-        {
+        private IEnumerator EndActivePhase(bool bossDead) {
             if (bossDead)
                 yield break;
 
@@ -172,8 +157,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         }
 
-        private void UpdateCounter()
-        {
+        private void UpdateCounter() {
             Debug.Log($"UpdateCounter: {phaseCountdown}");
             string newTex = phaseCountdown <= 0 ? "sigilTower.png" : ("sigilTower_" + phaseCountdown + ".png");
             Helix.RenderInfo.OverrideAbilityIcon(Tower.ability, TextureLoader.LoadTextureFromFile(newTex));
@@ -181,18 +165,16 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
 
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
             isActive = false;
             phaseCountdown = Mathf.Max(2, MaxCooldownPeriod - 1);
-            EncounterData.StartCondition cond = new()
-            {
+            EncounterData.StartCondition cond = new() {
                 cardsInOpponentSlots = new CardInfo[] { null, CardLoader.GetCardByName("wstl_lastHelix") } // Last Helix is guaranteed to appear in the second slot
             };
             encounterData.startConditions.Add(cond);
             return 1;
         }
-        
+
         public override void ModifySpawnedCard(PlayableCard card) {
             LobotomyPlugin.Log.LogDebug("ModifySpawnedCard: " + card.Info.name);
             if (card.Info.name != "wstl_lastHelix")
@@ -224,8 +206,7 @@ namespace WhistleWindLobotomyMod.Opponents
         }
     }
 
-    public class HelixLaserManager : ManagedBehaviour
-    {
+    public class HelixLaserManager : ManagedBehaviour {
         public CardSlot homeSlot = null;
         public CardSlot wanderingSlot;
 
@@ -234,8 +215,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public GameObject wanderingLaserObj;
 
 
-        public void Initialise(PlayableCard helix, CardSlot home, CardSlot wandering)
-        {
+        public void Initialise(PlayableCard helix, CardSlot home, CardSlot wandering) {
             helixCard = helix;
             homeSlot = home;
             wanderingSlot = wandering;
@@ -244,12 +224,10 @@ namespace WhistleWindLobotomyMod.Opponents
             UpdateWanderingSlot();
         }
 
-        public void UpdateHomeSlot()
-        {
+        public void UpdateHomeSlot() {
 
         }
-        public void UpdateWanderingSlot()
-        {
+        public void UpdateWanderingSlot() {
 
         }
     }

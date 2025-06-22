@@ -8,12 +8,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_FlowerQueen()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_FlowerQueen() {
             const string rulebookName = "Flower Queen";
             const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction and Blooms its old space.";
             const string dialogue = "From fertile flesh, a garden will soon bloom.";
@@ -27,13 +24,11 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class FlowerQueen : Strafe
-    {
+    public class FlowerQueen : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override IEnumerator PostSuccessfulMoveSequence(CardSlot oldSlot)
-        {
+        public override IEnumerator PostSuccessfulMoveSequence(CardSlot oldSlot) {
             if (oldSlot.GetSlotModification() == BloomingSlot.Id)
                 yield break;
 

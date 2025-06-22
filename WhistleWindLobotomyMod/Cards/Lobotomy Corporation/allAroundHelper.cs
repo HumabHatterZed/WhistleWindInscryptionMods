@@ -3,16 +3,13 @@ using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
+namespace WhistleWindLobotomyMod {
     /// <summary>
     /// Utility class containing the internal string names for all added cards, plus the methods for adding cards to the base game.
     /// </summary>
-    public partial class Cards
-    {
+    public partial class Cards {
         public const string allAroundHelper = "wstl_allAroundHelper";
-        private static void AllAroundHelper_T0541()
-        {
+        private static void AllAroundHelper_T0541() {
             string name = "All-Around Helper";
             string name2 = "All-Around Helper 2.0";
             string desc = "A murderous cleaning machine. Far nicer than a certain other...well, nevermind.";

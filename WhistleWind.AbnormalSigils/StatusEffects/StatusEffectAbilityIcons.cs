@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WhistleWind.AbnormalSigils.Core
-{
-    public class StatusEffectIconsManager : ManagedBehaviour
-    {
+namespace WhistleWind.AbnormalSigils.Core {
+    public class StatusEffectIconsManager : ManagedBehaviour {
         public List<GameObject> statusEffectIconGroups = new();
         public readonly List<AbilityIconInteractable> part1AbilityIcons = new();
 
@@ -17,8 +15,7 @@ namespace WhistleWind.AbnormalSigils.Core
         public int currentPage = 0;
     }
 
-    public class PixelStatusEffectAbilityIcons : ManagedBehaviour
-    {
+    public class PixelStatusEffectAbilityIcons : ManagedBehaviour {
         public List<GameObject> statusEffectIcons = new();
     }
 }

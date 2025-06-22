@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class StarSound : SpecialCardBehaviour, ISetupAttackSequence
-    {
+namespace WhistleWindLobotomyMod {
+    public class StarSound : SpecialCardBehaviour, ISetupAttackSequence {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -16,13 +14,11 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Sound of a Star";
         public const string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
 
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
             List<CardSlot> opposingSlots = BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
             if (opposingSlots.Exists(x => x.Card != null))
                 return currentSlots;
@@ -30,18 +26,15 @@ namespace WhistleWindLobotomyMod
             return opposingSlots;
         }
 
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return 0;
         }
     }
-    public class RulebookEntryStarSound : AbilityBehaviour
-    {
+    public class RulebookEntryStarSound : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_StarSound()
             => RulebookEntryStarSound.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryStarSound>(StarSound.rName, StarSound.rDesc).Id;
         private static void AddSpecial_StarSound()

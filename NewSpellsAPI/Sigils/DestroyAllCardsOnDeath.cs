@@ -5,17 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Infiniscryption.Spells.Sigils
-{
-    public class DestroyAllCardsOnDeath : AbilityBehaviour
-    {
+namespace Infiniscryption.Spells.Sigils {
+    public class DestroyAllCardsOnDeath : AbilityBehaviour {
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
 
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             yield return base.PreSuccessfulTriggerSequence();
             ViewManager.Instance.SwitchToView(View.Board);
 
@@ -34,8 +31,7 @@ namespace Infiniscryption.Spells.Sigils
             ViewManager.Instance.SwitchToView(View.Default);
         }
 
-        public static void Register()
-        {
+        public static void Register() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Cataclysm";
             info.rulebookDescription = "When [creature] dies, all other cards on the boards perish as well.";

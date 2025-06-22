@@ -6,12 +6,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_SoulboundFlesh()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_SoulboundFlesh() {
             const string rulebookName = "Soulbound";
             const string rulebookDescription = "Whenever [creature] takes damage, its owner takes an equal amount of damage.";
             const string dialogue = "So this is what they feel...";
@@ -24,15 +21,13 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Soulbound : AbilityBehaviour, IPreTakeDamage
-    {
+    public class Soulbound : AbilityBehaviour, IPreTakeDamage {
         public static Ability ability;
         public override Ability Ability => ability;
         int damageTaken = 0;
 
         public bool RespondsToPreTakeDamage(PlayableCard source, int damage) => damage > 0;
-        public IEnumerator OnPreTakeDamage(PlayableCard source, int damage)
-        {
+        public IEnumerator OnPreTakeDamage(PlayableCard source, int damage) {
             damageTaken += damage;
             yield break;
         }

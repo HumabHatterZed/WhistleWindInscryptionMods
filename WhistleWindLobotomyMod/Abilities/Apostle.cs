@@ -7,20 +7,16 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void AddApostle()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void AddApostle() {
             const string rulebookName = "Apostle";
             ApostleSigil.ability = AbilityHelper.New<ApostleSigil>(LobotomyPlugin.pluginGuid,
                 "sigilApostle", rulebookName, "On taking fatal damage, this card enters a downed state instead of dying.", -3, true).Id;
         }
     }
 
-    public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken
-    {
+    public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -32,8 +28,7 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToUpkeep(bool playerUpkeep) => Downed && base.Card.OpponentCard != playerUpkeep;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
 
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             downCount++;
             if (downCount < 2)
                 yield break;
@@ -43,22 +38,19 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
             base.Card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.2f);
-            if (!base.HasLearned)
-            {
+            if (!base.HasLearned) {
                 yield return new WaitForSeconds(0.5f);
                 yield return DialogueHelper.PlayAlternateDialogue(delay: 0f, dialogue: "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:]");
                 base.SetLearned();
             }
             yield return ReviveApostle();
         }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             // if killed by WhiteNight or One Sin, die normally
             if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                 yield break;
 
-            if (Downed)
-            {
+            if (Downed) {
                 // play dialogue if WhiteNight is present (cannot be killed)
                 if (Saviour)
                     yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleKilledByNull");
@@ -71,10 +63,8 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleDowned");
         }
 
-        private IEnumerator DownApostle()
-        {
-            CardInfo downedInfo = base.Card.Info.name switch
-            {
+        private IEnumerator DownApostle() {
+            CardInfo downedInfo = base.Card.Info.name switch {
                 Cards.apostleGuardian => CardLoader.GetCardByName(Cards.apostleGuardianDown),
                 Cards.apostleMoleman => CardLoader.GetCardByName(Cards.apostleMolemanDown),
                 Cards.apostleSpear => CardLoader.GetCardByName(Cards.apostleSpearDown),
@@ -93,10 +83,8 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
 
         }
-        private IEnumerator ReviveApostle()
-        {
-            CardInfo risenInfo = base.Card.Info.name switch
-            {
+        private IEnumerator ReviveApostle() {
+            CardInfo risenInfo = base.Card.Info.name switch {
                 Cards.apostleGuardianDown => CardLoader.GetCardByName(Cards.apostleGuardian),
                 Cards.apostleMolemanDown => CardLoader.GetCardByName(Cards.apostleMoleman),
                 Cards.apostleSpearDown => CardLoader.GetCardByName(Cards.apostleSpear),
@@ -110,13 +98,11 @@ namespace WhistleWindLobotomyMod
 
         private void ResetDamage() => base.Card.Status.damageTaken = 0;
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
             return base.Card == target && Downed && Saviour;
         }
 
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
             target.Anim.StrongNegationEffect();
             return 0;
         }

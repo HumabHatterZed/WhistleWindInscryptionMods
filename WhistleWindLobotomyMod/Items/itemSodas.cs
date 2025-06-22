@@ -6,12 +6,9 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Items
-    {
-        private static void SodaCans()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Items {
+        private static void SodaCans() {
             GameObject obj = AssetManager.AssetBundle.LoadAsset<GameObject>("FizzyLifter");
             GameObject obj2 = AssetManager.AssetBundle.LoadAsset<GameObject>("OceanSoda");
             GameObject obj3 = AssetManager.AssetBundle.LoadAsset<GameObject>("PotshotPop");
@@ -48,8 +45,7 @@ namespace WhistleWindLobotomyMod
                 .SetPowerLevel(4)
                 .SetAct1();
 
-            if (LobotomyConfigManager.ReskinSigils)
-            {
+            if (LobotomyConfigManager.ReskinSigils) {
                 item.SetRulebookDescription("To the user: Select a card on the board to gain Quick Draw for this and next turn.");
                 item2.SetRulebookDescription("To the user: Select a card on the board to gain Marksman for this turn.");
             }

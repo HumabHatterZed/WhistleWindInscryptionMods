@@ -12,39 +12,31 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Mimicry : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class Mimicry : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Mimicry";
         public const string rDesc = "Nothing There reveals itself after three turns on the board.";
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-        {
-            if (playerTurnEnd != base.PlayableCard.OpponentCard)
-            {
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) {
+            if (playerTurnEnd != base.PlayableCard.OpponentCard) {
                 return base.PlayableCard.Info.name == Cards.nothingThere || !base.PlayableCard.Info.name.StartsWith(Cards.nothingThere);
             }
             return false;
         }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            if (base.PlayableCard.TurnPlayed + 2 <= TurnManager.Instance.TurnNumber)
-            {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            if (base.PlayableCard.TurnPlayed + 2 <= TurnManager.Instance.TurnNumber) {
                 bool faceDown = base.PlayableCard.FaceDown;
                 yield return base.PlayableCard.FlipFaceUp(faceDown);
 
                 CardInfo evolution = CardLoader.GetCardByName(Cards.nothingThereTrue);
-                evolution.evolveParams = new()
-                {
+                evolution.evolveParams = new() {
                     turnsToEvolve = base.PlayableCard.OpponentCard == TurnManager.Instance.IsPlayerTurn ? 3 : 2,
                     evolution = evolution.evolveParams.evolution,
                 };
-                foreach (Ability item in base.PlayableCard.Info.DefaultAbilities)
-                {
+                foreach (Ability item in base.PlayableCard.Info.DefaultAbilities) {
                     evolution.Mods.Add(new CardModificationInfo(item) { fromCardMerge = true }); // Add base sigils
                 }
 
@@ -57,27 +49,22 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            if (!wasSacrifice)
-            {
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
+            if (!wasSacrifice) {
                 return base.PlayableCard.Info.name == Cards.nothingThere || !base.PlayableCard.Info.name.StartsWith(Cards.nothingThere);
             }
             return false;
         }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             bool faceDown = base.PlayableCard.FaceDown;
             yield return base.PlayableCard.FlipFaceUp(faceDown);
 
             CardInfo evolution = CardLoader.GetCardByName(Cards.nothingThereTrue);
-            evolution.evolveParams = new()
-            {
+            evolution.evolveParams = new() {
                 turnsToEvolve = base.PlayableCard.OpponentCard == TurnManager.Instance.IsPlayerTurn ? 3 : 2,
                 evolution = evolution.evolveParams.evolution,
             };
-            foreach (Ability item in base.PlayableCard.Info.DefaultAbilities)
-            {
+            foreach (Ability item in base.PlayableCard.Info.DefaultAbilities) {
                 evolution.Mods.Add(new CardModificationInfo(item) { fromCardMerge = true }); // Add base sigils
             }
 
@@ -90,18 +77,15 @@ namespace WhistleWindLobotomyMod
         }
 
         public override bool RespondsToDrawn() => true;
-        public override IEnumerator OnDrawn()
-        {
+        public override IEnumerator OnDrawn() {
             this.DisguiseInBattle();
             yield break;
         }
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
+        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect) {
             this.DisguiseOutOfBattle();
             yield break;
         }
-        public override IEnumerator OnSelectedForDeckTrial()
-        {
+        public override IEnumerator OnSelectedForDeckTrial() {
             this.DisguiseOutOfBattle();
             yield break;
         }
@@ -109,17 +93,14 @@ namespace WhistleWindLobotomyMod
         public override void OnShownInDeckReview() => DisguiseOutOfBattle();
         public override void OnShownForCardChoiceNode() => DisguiseAsCardChoice();
 
-        public void DisguiseInBattle()
-        {
+        public void DisguiseInBattle() {
             CardModificationInfo mod = GetNothingThereMod();
             CardInfo disguise;
 
-            if (base.PlayableCard.OpponentCard)
-            {
+            if (base.PlayableCard.OpponentCard) {
                 disguise = LobotomyCardLoader.GetRandomModDeathCard(base.GetRandomSeed()) ?? CardLoader.GetCardByName(Cards.nothingThere);
             }
-            else
-            {
+            else {
                 disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? Cards.nothingThere);
             }
 
@@ -127,8 +108,7 @@ namespace WhistleWindLobotomyMod
             base.PlayableCard.AddPermanentBehaviour<Mimicry>();
         }
 
-        private void DisguiseOutOfBattle()
-        {
+        private void DisguiseOutOfBattle() {
             CardModificationInfo mod = GetNothingThereMod();
             CardInfo disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? Cards.nothingThere);
             this.DisguiseAsCard(disguise);
@@ -148,29 +128,24 @@ namespace WhistleWindLobotomyMod
             this.DisguiseAsCard(disguise);
         }
 
-        private void DisguiseAsCard(CardInfo disguise)
-        {
+        private void DisguiseAsCard(CardInfo disguise) {
             base.Card.ClearAppearanceBehaviours();
             base.Card.SetInfo(disguise);
         }
 
-        public static CardInfo GetNothingThereInDeck()
-        {
+        public static CardInfo GetNothingThereInDeck() {
             return RunState.Run.playerDeck.Cards.Find(x => x.name == "wstl_nothingThere");
         }
-        public static CardModificationInfo GetNothingThereMod()
-        {
+        public static CardModificationInfo GetNothingThereMod() {
             return GetNothingThereInDeck()?.Mods.Find(x => HelperMethods.StartsWithSingleton(x.singletonId, "NothingThere:"));
         }
     }
 
-    public class RulebookEntryMimicry : AbilityBehaviour
-    {
+    public class RulebookEntryMimicry : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Mimicry()
             => RulebookEntryMimicry.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMimicry>(Mimicry.rName, Mimicry.rDesc).Id;
         private static void AddSpecial_Mimicry()

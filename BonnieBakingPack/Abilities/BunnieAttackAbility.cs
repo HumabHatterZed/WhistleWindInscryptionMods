@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BonniesBakingPack
-{
-    public class BunnieAttackAbility : SpecialCardBehaviour
-    {
+namespace BonniesBakingPack {
+    public class BunnieAttackAbility : SpecialCardBehaviour {
         public static SpecialTriggeredAbility SpecialAbility;
     }
 }

@@ -11,13 +11,10 @@ using WhistleWindLobotomyMod.Core;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string plagueDoctor = "wstl_plagueDoctor";
-        private static void PlagueDoctor_O0145()
-        {
+        private static void PlagueDoctor_O0145() {
             PlagueDoctorCreator.RegisterPortraitsAndEmissions();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, plagueDoctor, "Plague Doctor",
@@ -35,30 +32,24 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public static class PlagueDoctorCreator
-    {
+    public static class PlagueDoctorCreator {
         public static readonly List<Sprite> PlagueDoctorPortraits = new();
-        internal static void RegisterPortraitsAndEmissions()
-        {
-            for (int i = 0; i < 12; i++)
-            {
+        internal static void RegisterPortraitsAndEmissions() {
+            for (int i = 0; i < 12; i++) {
                 Sprite portrait = UpdateDoctorPortrait(i);
                 Sprite emission = UpdateDoctorEmission(i);
                 PlagueDoctorPortraits.Add(portrait);
                 portrait.RegisterEmissionForSprite(emission);
             }
         }
-        public static Sprite UpdateDoctorPortrait(int key)
-        {
+        public static Sprite UpdateDoctorPortrait(int key) {
             Sprite retval = TextureLoader.LoadSpriteFromFile(GetDoctorName(key) + ".png");
             retval.name = GetDoctorName(key) + "_portrait";
             return retval;
         }
         public static Sprite UpdateDoctorPixelPortrait(int key) => TextureLoader.LoadSpriteFromFile(GetDoctorName(key) + "_pixel.png");
-        public static Sprite UpdateDoctorEmission(int key)
-        {
-            string portraitName = key switch
-            {
+        public static Sprite UpdateDoctorEmission(int key) {
+            string portraitName = key switch {
                 5 => "plagueDoctor5",
                 9 => "plagueDoctor9",
                 11 => "plagueDoctor11",
@@ -66,10 +57,8 @@ namespace WhistleWindLobotomyMod
             };
             return TextureLoader.LoadSpriteFromFile(portraitName + "_emission.png");
         }
-        private static string GetDoctorName(int key)
-        {
-            return key switch
-            {
+        private static string GetDoctorName(int key) {
+            return key switch {
                 0 => "plagueDoctor",
                 1 => "plagueDoctor1",
                 2 => "plagueDoctor2",

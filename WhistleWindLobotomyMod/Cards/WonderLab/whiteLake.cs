@@ -3,13 +3,10 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string whiteLake = "wstl_whiteLake";
-        private static void XWhiteLake()
-        {
+        private static void XWhiteLake() {
             return;
             string textureName = "whiteLake";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, whiteLake, "White Lake",

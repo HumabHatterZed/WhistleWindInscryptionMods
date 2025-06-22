@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string crumblingArmour = "wstl_crumblingArmour";
-        private static void CrumblingArmour_O0561()
-        {
+        private static void CrumblingArmour_O0561() {
             string name = "Crumbling Armour";
             string desc = "A suit of armour that rewards the brave and punishes the cowardly.";
             string textureName = "crumblingArmour";

@@ -3,10 +3,8 @@ using InscryptionAPI.Ascension;
 using InscryptionAPI.Helpers;
 using System.Reflection;
 
-namespace ModDebuggingMod
-{
-    public partial class Plugin
-    {
+namespace ModDebuggingMod {
+    public partial class Plugin {
         public static AscensionChallenge Id1 { get; private set; }
         public static AscensionChallenge Id2 { get; private set; }
         public static AscensionChallenge Id3 { get; private set; }
@@ -32,8 +30,7 @@ namespace ModDebuggingMod
         public static AscensionChallenge Id23 { get; private set; }
         public static AscensionChallenge Id24 { get; private set; }
 
-        public void AddChallenges()
-        {
+        public void AddChallenges() {
             Id1 = AddDebug("Challenge1Boss", "challenge1_1.png", "challenge1_2.png", 1, 5, true);
 
             //Id2 = AddDebug("Challenge2", "challenge2 (1).png", "challenge2 (2).png", 1, 0);
@@ -61,8 +58,7 @@ namespace ModDebuggingMod
             //Id23 = AddDebug("Challenge23", "challenge923 (1).png", "challenge923 (2).png", num);
             //Id24 = AddDebug("Challenge24", "challenge924 (1).png", "challenge924 (2).png", num);
         }
-        private AscensionChallenge AddDebug(string name, string tex1, string tex2, int num = 1, int value = 50, bool boss = false)
-        {
+        private AscensionChallenge AddDebug(string name, string tex1, string tex2, int num = 1, int value = 50, bool boss = false) {
             Assembly ass = Assembly.GetExecutingAssembly();
             return ChallengeManager.Add(pluginGuid, name, name, value, TextureHelper.GetImageAsTexture(tex1, ass), TextureHelper.GetImageAsTexture(tex2, ass), boss ? 1 : 0, num > 1)
                 .SetAppearancesInChallengeScreen(num).SetBoss(boss).Challenge.challengeType;

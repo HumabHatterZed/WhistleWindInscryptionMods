@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreatePoliceWolves()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreatePoliceWolves() {
             CardInfo wolf = CardManager.New(pluginPrefix, "policeWolf", "Police Wolf", 2, 2, "An officer of the law, quick to respond to any trouble.")
                 .SetDefaultPart1Card().AddAct1()
                 .SetEnergyCost(6)
@@ -35,8 +32,7 @@ namespace BonniesBakingPack
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Gem Reckoning", Ability.GemDependant));
 
             ScrybeCompat.SetManaCost(pig, 2);
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 wolf.AddMetaCategories(ScrybeCompat.NatureRegion);
                 spirit.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);

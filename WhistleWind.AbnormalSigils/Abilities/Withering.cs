@@ -4,12 +4,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Withering()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Withering() {
             const string rulebookName = "Withering";
             const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.";
             const string dialogue = "Tick tock.";
@@ -22,25 +19,21 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Withering : AbilityBehaviour
-    {
+    public class Withering : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.Card.OpponentCard;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             yield return LifeManager.Instance.ShowDamageSequence(1, 1, base.Card.OpponentCard);
-            if (!base.HasLearned)
-            {
+            if (!base.HasLearned) {
                 base.SetLearned();
                 if (TextDisplayer.m_Instance == null)
                     yield break;
 
                 yield return new WaitForSeconds(0.4f);
                 DialogueEvent.LineSet abilityLearnedDialogue = AbilitiesUtil.GetInfo(this.Ability).abilityLearnedDialogue;
-                foreach (DialogueEvent.Line line in abilityLearnedDialogue.lines)
-                {
+                foreach (DialogueEvent.Line line in abilityLearnedDialogue.lines) {
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(line.text, -0.65f, 0.4f, line.emotion);
                 }
             }

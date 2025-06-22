@@ -8,10 +8,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Concord : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class Concord : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -19,28 +17,22 @@ namespace WhistleWindLobotomyMod
         public const string rDesc = "When Yang is adjacent to Yin, invert the scales.";
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Info.name == Cards.yin;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             PlayableCard card = base.PlayableCard.Slot.GetAdjacentCards().First(x => x.Info.name == Cards.yin);
-            if (card != null)
-            {
+            if (card != null) {
                 yield return DragonSequence(card);
             }
         }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot).Where(s => s != null && s.Card != null))
-            {
-                if (slot.Card == otherCard)
-                {
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot).Where(s => s != null && s.Card != null)) {
+                if (slot.Card == otherCard) {
                     yield return DragonSequence(otherCard);
                     break;
                 }
             }
             yield break;
         }
-        private IEnumerator DragonSequence(PlayableCard card)
-        {
+        private IEnumerator DragonSequence(PlayableCard card) {
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             yield return new WaitForSeconds(0.2f);
@@ -56,10 +48,8 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             yield return new WaitForSeconds(0.5f);
 
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
-            {
-                if (slot.Card != null)
-                {
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy) {
+                if (slot.Card != null) {
                     slot.Card.Info.SetExtendedProperty("wstl:NoBones", true);
                     yield return slot.Card.DieTriggerless();
                 }
@@ -72,10 +62,8 @@ namespace WhistleWindLobotomyMod
             List<CardSlot> reverseSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
             reverseSlots.Reverse();
 
-            foreach (CardSlot slot in reverseSlots)
-            {
-                if (slot.Card != null)
-                {
+            foreach (CardSlot slot in reverseSlots) {
+                if (slot.Card != null) {
                     slot.Card.RemoveFromBoard();
                     yield return new WaitForSeconds(0.05f);
                 }
@@ -87,8 +75,7 @@ namespace WhistleWindLobotomyMod
 
             Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damageToDeal;
 
-            if (damageToDeal > 0)
-            {
+            if (damageToDeal > 0) {
                 bool isNegative = balance < 0;
 
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damageToDeal, 1, toPlayer: isNegative);
@@ -99,8 +86,7 @@ namespace WhistleWindLobotomyMod
                 else
                     yield return DialogueHelper.PlayAlternateDialogue(dialogue: "The beginning at the end.");
             }
-            else
-            {
+            else {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Scales);
                 yield return new WaitForSeconds(0.5f);
                 yield return DialogueHelper.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
@@ -113,13 +99,11 @@ namespace WhistleWindLobotomyMod
             LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
     }
-    public class RulebookEntryConcord : AbilityBehaviour
-    {
+    public class RulebookEntryConcord : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Concord()
             => RulebookEntryConcord.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryConcord>(Concord.rName, Concord.rDesc).Id;
         private static void AddSpecial_Concord()

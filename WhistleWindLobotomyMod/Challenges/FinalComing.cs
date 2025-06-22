@@ -3,17 +3,14 @@ using InscryptionAPI.Ascension;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Challenges
-{
-    public static class FinalComing
-    {
+namespace WhistleWindLobotomyMod.Challenges {
+    public static class FinalComing {
         internal const string title = "Final Coming";
         internal const string description = "The Saviour boss will be stronger and guaranteed to appear.";
 
         public static AscensionChallenge Id { get; private set; }
 
-        internal static void Register()
-        {
+        internal static void Register() {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,

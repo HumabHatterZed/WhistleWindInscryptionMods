@@ -8,12 +8,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Copycat()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Copycat() {
             const string rulebookName = "Copycat";
             const string rulebookDescription = "[creature] will transform into a copy of the first creature that opposes it.";
             const string dialogue = "A near perfect impersonation.";
@@ -27,8 +24,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Copycat : AbilityBehaviour
-    {
+    public class Copycat : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override int Priority => -1;
@@ -36,29 +32,25 @@ namespace WhistleWind.AbnormalSigils
         bool copiedCard = false;
         private CardInfo originalCardInfo = null;
 
-        private void Start()
-        {
+        private void Start() {
             if (base.Card == null || originalCardInfo != null)
                 return;
 
             originalCardInfo = base.Card.Info.Clone() as CardInfo;
         }
         public override bool RespondsToResolveOnBoard() => base.Card.OpposingCard() != null;
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
             if (otherCard != null && otherCard == base.Card.OpposingCard())
                 return true;
 
             return false;
         }
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => copiedCard && !wasSacrifice;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             if (base.Card.Info.Mods.Exists(x => HelperMethods.CompareSingleton(x.singletonId, "wstl:Copycat")))
                 yield break;
 
-            if (!CanCopyCard(base.Card.OpposingCard()))
-            {
+            if (!CanCopyCard(base.Card.OpposingCard())) {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
@@ -67,21 +59,18 @@ namespace WhistleWind.AbnormalSigils
 
             PlayableCard card = base.Card; // store the playable card here to prevent null errors
             yield return TransformIntoCopy(base.Card.OpposingCard());
-            if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
-            {
+            if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard)) {
                 yield return new WaitForSeconds(0.4f);
                 foreach (var trigger in card.TriggerHandler.GetAllReceivers().Where(x => x != null && x.RespondsToResolveOnBoard()))
                     yield return trigger.OnResolveOnBoard();
 
             }
         }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
             if (base.Card.Info.Mods.Exists(x => HelperMethods.CompareSingleton(x.singletonId, "wstl:Copycat")))
                 yield break;
 
-            if (CanCopyCard(base.Card.OpposingCard()))
-            {
+            if (CanCopyCard(base.Card.OpposingCard())) {
                 yield return TransformIntoCopy(otherCard);
                 yield break;
             }
@@ -90,30 +79,25 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.4f);
             yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
         }
-        private IEnumerator TransformIntoCopy(PlayableCard otherCard)
-        {
+        private IEnumerator TransformIntoCopy(PlayableCard otherCard) {
             // copy temporary mods
-            foreach (CardModificationInfo mod in otherCard.TemporaryMods)
-            {
+            foreach (CardModificationInfo mod in otherCard.TemporaryMods) {
                 tempMods.Add(mod.FullClone());
             }
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.Card.TransformIntoCard(CopyInfo(otherCard.Info), NegateCopycat);
             yield return base.LearnAbility(0.5f);
         }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             base.Card.Anim.StrongNegationEffect();
             base.Card.SetInfo(originalCardInfo);
             yield return new WaitForSeconds(0.55f);
 
             yield return DialogueHelper.PlayDialogueEvent("CopycatDead");
         }
-        private CardInfo CopyInfo(CardInfo cloneCardInfo)
-        {
+        private CardInfo CopyInfo(CardInfo cloneCardInfo) {
             CardInfo evolutionCardInfo = cloneCardInfo.Clone() as CardInfo;
-            CardModificationInfo mod = new()
-            {
+            CardModificationInfo mod = new() {
                 nameReplacement = "False " + cloneCardInfo.DisplayedNameLocalized,
                 abilities = new(originalCardInfo.DefaultAbilities),
                 negateAbilities = new() { this.Ability },
@@ -125,8 +109,7 @@ namespace WhistleWind.AbnormalSigils
             return evolutionCardInfo;
         }
         private readonly List<CardModificationInfo> tempMods = new();
-        private void NegateCopycat()
-        {
+        private void NegateCopycat() {
             copiedCard = true;
 
             if (base.Card.Health == 0)

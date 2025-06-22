@@ -2,14 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
-{
-    public class TrapperTraderAbnormalBossOpponent : TrapperTraderBossOpponent
-    {
-        public override IEnumerator StartNewPhaseSequence()
-        {
-            if (HasGrizzlyGlitchPhase(1))
-            {
+namespace WhistleWindLobotomyMod.Opponents.TrapperTrader {
+    public class TrapperTraderAbnormalBossOpponent : TrapperTraderBossOpponent {
+        public override IEnumerator StartNewPhaseSequence() {
+            if (HasGrizzlyGlitchPhase(1)) {
                 yield return GrizzlyGlitchSequence();
                 yield break;
             }

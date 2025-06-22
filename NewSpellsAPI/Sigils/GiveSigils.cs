@@ -6,17 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Infiniscryption.Spells.Sigils
-{
-    public class GiveSigils : GiveAbility
-    {
+namespace Infiniscryption.Spells.Sigils {
+    public class GiveSigils : GiveAbility {
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
         public const int MaxSigilsToGive = 4;
 
-        public override IEnumerator OnValidTarget(PlayableCard card)
-        {
+        public override IEnumerator OnValidTarget(PlayableCard card) {
             List<Ability> shownAbilitiesOnTarget = CardHelpers.GetDistinctShownAbilities(card.Info, card.TemporaryMods, card.Status.hiddenAbilities);
             if (shownAbilitiesOnTarget.Count > MaxSigilsToGive)
                 yield break;
@@ -32,22 +29,18 @@ namespace Infiniscryption.Spells.Sigils
             // so we add stackable abilities that already exist
             // otherwise, check if we can add unique abilities to the base/merged sections
 
-            foreach (Ability abilityToCheck in abilitiesToAdd)
-            {
+            foreach (Ability abilityToCheck in abilitiesToAdd) {
                 if (shownAbilitiesOnTarget.Count + defaultAbilities.abilities.Count + mergedAbilities.abilities.Count >= MaxSigilsToGive)
                     break;
 
                 // ignore duplicate abilities that can't stack, add stacks that already exist on the card
-                if (AbilityManager.AllAbilityInfos.AbilityByID(abilityToCheck).canStack)
-                {
+                if (AbilityManager.AllAbilityInfos.AbilityByID(abilityToCheck).canStack) {
                     stackedAbilities.Add(abilityToCheck);
                 }
-                else if (card.Info.Abilities.Count + defaultAbilities.abilities.Count < 4)
-                {
+                else if (card.Info.Abilities.Count + defaultAbilities.abilities.Count < 4) {
                     defaultAbilities.AddAbilities(abilityToCheck);
                 }
-                else if (card.Info.ModAbilities.Count + card.TemporaryMods.Count(tm => tm.fromCardMerge) + mergedAbilities.abilities.Count < 4)
-                {
+                else if (card.Info.ModAbilities.Count + card.TemporaryMods.Count(tm => tm.fromCardMerge) + mergedAbilities.abilities.Count < 4) {
                     mergedAbilities.abilities.Add(abilityToCheck);
                 }
             }
@@ -55,12 +48,10 @@ namespace Infiniscryption.Spells.Sigils
             defaultAbilities.abilities.AddRange(stackedAbilities);
 
             card.Anim.PlayTransformAnimation();
-            if (card.Info.name == "!DEATHCARD_BASE")
-            {
+            if (card.Info.name == "!DEATHCARD_BASE") {
                 card.AddTemporaryMods(defaultAbilities, mergedAbilities);
             }
-            else
-            {
+            else {
                 CardInfo info = card.Info.Clone() as CardInfo;
                 info.Mods.Add(defaultAbilities);
                 info.Mods.Add(mergedAbilities);
@@ -68,8 +59,7 @@ namespace Infiniscryption.Spells.Sigils
             }
         }
 
-        public static void Register()
-        {
+        public static void Register() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Give Sigils";
             info.rulebookDescription = "Gives this card's sigils to the target.";

@@ -3,12 +3,9 @@ using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateShoolMice(CardInfo mouse, CardInfo bot, CardInfo wizard, CardInfo wizard2, CardInfo wizard3)
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateShoolMice(CardInfo mouse, CardInfo bot, CardInfo wizard, CardInfo wizard2, CardInfo wizard3) {
             // Shool Mouse
             CardInfo shool = CardManager.New(pluginPrefix, "mouseShool", "Shool Mouse", 1, 1, "A young mouse, spirited and full of potential.")
                 .SetDefaultPart1Card().AddAct1()
@@ -54,8 +51,7 @@ namespace BonniesBakingPack
                 .SetEvolve(wizard3, 1, new CardModificationInfo[] { new CardModificationInfo(0, 1) })
                 .AddAbilities(Ability.Evolve);
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 shool.AddMetaCategories(ScrybeCompat.NatureRegion);
                 ghool.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot1.AddMetaCategories(ScrybeCompat.NatureRegion);

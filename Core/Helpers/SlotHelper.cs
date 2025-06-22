@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static InscryptionAPI.Slots.SlotModificationManager;
 
-namespace WhistleWind.Core.Helpers
-{
-    public static class SlotHelper
-    {
+namespace WhistleWind.Core.Helpers {
+    public static class SlotHelper {
         public static ModificationType New<T>(
             string pluginGuid, string internalName,
             Texture2D slotTexture, Texture2D pixelTexture = null,
@@ -17,18 +15,15 @@ namespace WhistleWind.Core.Helpers
             string rulebookName = null,
             string rulebookDescription = null
             )
-            where T : SlotModificationBehaviour
-        {
+            where T : SlotModificationBehaviour {
             ModificationType retval = SlotModificationManager.New(pluginGuid, internalName, typeof(T), slotTexture, pixelTexture);
-            if (rulebookTexture != null)
-            {
+            if (rulebookTexture != null) {
                 retval.SetRulebook(rulebookName ?? internalName, rulebookDescription, rulebookTexture);
             }
             return retval;
         }
 
-        public static Dictionary<CardTemple, Texture2D> BuildTextureDictionary(Texture2D nature, Texture2D tech = null, Texture2D undead = null, Texture2D magic = null)
-        {
+        public static Dictionary<CardTemple, Texture2D> BuildTextureDictionary(Texture2D nature, Texture2D tech = null, Texture2D undead = null, Texture2D magic = null) {
             return new()
             {
                 { CardTemple.Nature, nature },
@@ -38,20 +33,16 @@ namespace WhistleWind.Core.Helpers
             };
         }
 
-        public static void SetSlotTexture(this CardSlot slot, Info info)
-        {
-            if (slot is PixelCardSlot pixel)
-            {
+        public static void SetSlotTexture(this CardSlot slot, Info info) {
+            if (slot is PixelCardSlot pixel) {
                 pixel.SetSlotTexture(info);
             }
-            else
-            {
+            else {
                 slot.SetTexture(info.Texture[SaveManager.SaveFile.GetSceneAsCardTemple() ?? CardTemple.Nature]);
             }
         }
 
-        public static SlotModificationBehaviour GetSlotBehaviour(this CardSlot slot)
-        {
+        public static SlotModificationBehaviour GetSlotBehaviour(this CardSlot slot) {
             return slot.GetComponent<SlotModificationBehaviour>();
         }
     }

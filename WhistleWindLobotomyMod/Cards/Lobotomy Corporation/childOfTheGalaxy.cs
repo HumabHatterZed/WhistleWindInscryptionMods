@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string childOfTheGalaxy = "wstl_childOfTheGalaxy";
-        private static void ChildOfTheGalaxy_O0155()
-        {
+        private static void ChildOfTheGalaxy_O0155() {
             string name = "Child of the Galaxy";
             string desc = "A small child longing for an eternal friend. Will you be his?";
             string textureName = "childOfTheGalaxy";

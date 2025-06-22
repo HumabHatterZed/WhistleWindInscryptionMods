@@ -7,11 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.Core.AbilityClasses
-{
+namespace WhistleWind.Core.AbilityClasses {
     // Stolen from Zerg mod with love <3
-    public abstract class SniperSelectSlot : AbilityBehaviour
-    {
+    public abstract class SniperSelectSlot : AbilityBehaviour {
         public CardSlot selectedSlot = null;
         public abstract bool IsPositiveEffect { get; }
         public abstract List<CardSlot> InitialTargets { get; }
@@ -21,64 +19,53 @@ namespace WhistleWind.Core.AbilityClasses
         public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
 
         public virtual bool SlotIsNotValid(CardSlot slot) => slot.Card == null;
-        public virtual IEnumerator OnNoValidTargets()
-        {
+        public virtual IEnumerator OnNoValidTargets() {
             yield break;
         }
-        public virtual IEnumerator OnValidTargetSelected(CardSlot slot)
-        {
+        public virtual IEnumerator OnValidTargetSelected(CardSlot slot) {
             yield break;
         }
-        public virtual IEnumerator OnPostValidTargetSelected()
-        {
+        public virtual IEnumerator OnPostValidTargetSelected() {
             yield break;
         }
         private bool InvalidTargets(CardSlot slot) => slot.Card == base.Card || (slot.Card?.Dead ?? false) || SlotIsNotValid(slot);
         private bool CanTargetNull() => GetValidTargets().Exists((CardSlot s) => s.Card == null);
         private bool HasValidTarget() => GetValidTargets().Count > 0;
 
-        private List<CardSlot> GetValidTargets()
-        {
+        private List<CardSlot> GetValidTargets() {
             List<CardSlot> validSlots = InitialTargets;
             validSlots.RemoveAll(x => InvalidTargets(x));
             return validSlots;
         }
-        private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser)
-        {
+        private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser) {
             instance.VisualizeStartSniperAbility(base.Card.Slot);
             visualiser?.VisualizeStartSniperAbility(base.Card.Slot);
 
             List<CardSlot> targetSlots = GetValidTargets();
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
-            if (cardSlot != null && targetSlots.Contains(cardSlot))
-            {
+            if (cardSlot != null && targetSlots.Contains(cardSlot)) {
                 instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
                 visualiser?.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
             }
             selectedSlot = null;
 
-            yield return Singleton<BoardManager>.Instance.ChooseTarget(InitialTargets, targetSlots, delegate (CardSlot s)
-            {
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(InitialTargets, targetSlots, delegate (CardSlot s) {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
                 visualiser?.VisualizeConfirmSniperAbility(s);
-            }, OnInvalidTarget, delegate (CardSlot s)
-            {
-                if (!SlotIsNotValid(s))
-                {
+            }, OnInvalidTarget, delegate (CardSlot s) {
+                if (!SlotIsNotValid(s)) {
                     instance.VisualizeAimSniperAbility(base.Card.Slot, s);
                     visualiser?.VisualizeAimSniperAbility(base.Card.Slot, s);
                 }
             }, () => false, CursorType.Target);
         }
-        private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser)
-        {
+        private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser) {
             List<CardSlot> validTargets = GetValidTargets();
             validTargets.RemoveAll(x => InvalidTargets(x));
             yield return new WaitForSeconds(0.3f);
-            yield return AISelectTarget(validTargets, delegate (CardSlot s)
-            {
+            yield return AISelectTarget(validTargets, delegate (CardSlot s) {
                 selectedSlot = s;
             });
 
@@ -86,10 +73,8 @@ namespace WhistleWind.Core.AbilityClasses
             visualiser?.VisualizeConfirmSniperAbility(selectedSlot);
             yield return new WaitForSeconds(0.25f);
         }
-        private void OnInvalidTarget(CardSlot slot)
-        {
-            if (!Singleton<TextDisplayer>.Instance.Displaying)
-            {
+        private void OnInvalidTarget(CardSlot slot) {
+            if (!Singleton<TextDisplayer>.Instance.Displaying) {
                 string dialogue = NullTargetDialogue;
 
                 if (slot.Card == base.Card)
@@ -100,22 +85,18 @@ namespace WhistleWind.Core.AbilityClasses
                 base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear(dialogue, 2.5f, 0f, Emotion.Anger));
             }
         }
-        private IEnumerator AISelectTarget(List<CardSlot> validTargets, Action<CardSlot> chosenCallback)
-        {
-            if (validTargets.Count > 0)
-            {
+        private IEnumerator AISelectTarget(List<CardSlot> validTargets, Action<CardSlot> chosenCallback) {
+            if (validTargets.Count > 0) {
                 validTargets.Sort((CardSlot a, CardSlot b) => AIEvaluateTarget(b.Card, IsPositiveEffect) - AIEvaluateTarget(a.Card, IsPositiveEffect));
                 chosenCallback(validTargets[0]);
                 yield return new WaitForSeconds(0.1f);
             }
-            else
-            {
+            else {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
             }
         }
-        public virtual int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
-        {
+        public virtual int AIEvaluateTarget(PlayableCard card, bool positiveEffect) {
             if (card == null)
                 return CanTargetNull() ? UnityEngine.Random.Range(0, 5) : -1000;
 
@@ -129,8 +110,7 @@ namespace WhistleWind.Core.AbilityClasses
             return num;
         }
 
-        public IEnumerator SelectionSequence()
-        {
+        public IEnumerator SelectionSequence() {
             // Lock the view so players can't mess it up
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
@@ -139,8 +119,7 @@ namespace WhistleWind.Core.AbilityClasses
             yield return new WaitForSeconds(0.2f);
 
             // If there are no valid targets, break
-            if (!HasValidTarget())
-            {
+            if (!HasValidTarget()) {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.2f);
 
@@ -155,14 +134,12 @@ namespace WhistleWind.Core.AbilityClasses
             CombatPhaseManager instance = Singleton<CombatPhaseManager>.Instance;
             Part1SniperVisualizer visualiser = instance.GetComponent<Part1SniperVisualizer>() ?? instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
-            if (base.Card.OpponentCard)
-            {
+            if (base.Card.OpponentCard) {
                 yield return OpponentSelectTarget(instance, visualiser);
                 if (selectedSlot != null && selectedSlot.Card != null)
                     yield return new WaitForSeconds(0.3f);
             }
-            else
-            {
+            else {
                 // Run player logic
                 Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;

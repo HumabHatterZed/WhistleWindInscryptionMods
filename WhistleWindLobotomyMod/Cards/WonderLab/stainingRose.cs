@@ -3,13 +3,10 @@ using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string stainingRose = "wstl_stainingRose";
-        private static void StainingRose()
-        {
+        private static void StainingRose() {
             return;
             string textureName = "stainingRose";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, stainingRose, "Staining Rose",

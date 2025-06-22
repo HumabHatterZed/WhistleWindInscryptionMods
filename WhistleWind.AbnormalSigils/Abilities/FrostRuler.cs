@@ -7,12 +7,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_FrostRuler()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_FrostRuler() {
             const string rulebookName = "Ruler of Frost";
             const string rulebookDescription = "Once per turn, choose a space on the board. If it is empty, pay 2 Bones to create a Block of Ice, otherwise pay 4 Bones to create a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
@@ -26,12 +23,10 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class FrostRuler : ActivatedSelectSlotBehaviour
-    {
+    public class FrostRuler : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override string InvalidTargetDialogue(CardSlot slot)
-        {
+        public override string InvalidTargetDialogue(CardSlot slot) {
             if (slot.Card.HasAbility(Scorching.ability))
                 return "This creature burns with passion. It cannot freeze.";
 
@@ -43,23 +38,17 @@ namespace WhistleWind.AbnormalSigils
         public override int StartingBonesCost => 2;
         public override int TurnDelay => 1;
 
-        public override bool CanActivate()
-        {
+        public override bool CanActivate() {
             // if we can only target an occupied space and can't afford it.
-            if (BoardManager.Instance.CardsOnBoard.Count == BoardManager.Instance.AllSlotsCopy.Count && ResourcesManager.Instance.PlayerBones < 4)
-            {
+            if (BoardManager.Instance.CardsOnBoard.Count == BoardManager.Instance.AllSlotsCopy.Count && ResourcesManager.Instance.PlayerBones < 4) {
                 return false;
             }
             return base.CanActivate();
         }
-        public override bool AIEvaluatePositiveEffect(CardSlot slot)
-        {
-            if (slot.IsPlayerSlot == base.Card.Slot.IsPlayerSlot)
-            {
-                if (slot.Card == null)
-                {
-                    foreach (PlayableCard card in BoardManager.Instance.GetCards(base.Card.OpponentCard))
-                    {
+        public override bool AIEvaluatePositiveEffect(CardSlot slot) {
+            if (slot.IsPlayerSlot == base.Card.Slot.IsPlayerSlot) {
+                if (slot.Card == null) {
+                    foreach (PlayableCard card in BoardManager.Instance.GetCards(base.Card.OpponentCard)) {
                         // if this slot is empty and an opponent card can attack this space
                         if (card.Attack > 0 && card.GetOpposingSlots().Contains(slot))
                             return true;
@@ -67,10 +56,8 @@ namespace WhistleWind.AbnormalSigils
                 }
                 return false;
             }
-            else if (slot.Card == null)
-            {
-                foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.Card.OpponentCard))
-                {
+            else if (slot.Card == null) {
+                foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.Card.OpponentCard)) {
                     // if this slot is empty and an opponent card can attack this space
                     if (card.Attack > 0 && card.GetOpposingSlots().Contains(slot))
                         return false;
@@ -78,11 +65,9 @@ namespace WhistleWind.AbnormalSigils
             }
             return base.AIEvaluatePositiveEffect(slot);
         }
-        public override IEnumerator OnValidTargetSelected(CardSlot slot)
-        {
+        public override IEnumerator OnValidTargetSelected(CardSlot slot) {
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            if (slot.Card != null)
-            {
+            if (slot.Card != null) {
                 if (!slot.Card.OpponentCard)
                     yield return ResourcesManager.Instance.SpendBones(2);
 
@@ -93,8 +78,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.6f);
                 yield return DialogueHelper.PlayDialogueEvent("FrostRulerKiss");
             }
-            else
-            {
+            else {
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_snowQueenIceBlock");
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardByName, slot, 0.15f);
             }
@@ -102,13 +86,11 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility();
         }
 
-        public override bool IsValidTarget(CardSlot slot)
-        {
+        public override bool IsValidTarget(CardSlot slot) {
             if (slot == base.Card.Slot)
                 return false;
 
-            if (slot.Card != null)
-            {
+            if (slot.Card != null) {
                 if (base.Card.OpponentCard || ResourcesManager.Instance.PlayerBones > 3)
                     return slot.Card.LacksAllTraits(Trait.Uncuttable, Trait.Terrain, Trait.Pelt, Trait.Giant) && slot.Card.LacksAbility(Scorching.ability);
 

@@ -6,12 +6,9 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Abilities
-    {
-        private static void StatusEffect_Sin()
-        {
+namespace WhistleWindLobotomyMod {
+    public partial class Abilities {
+        private static void StatusEffect_Sin() {
             const string rName = "Sin";
             const string rDesc = "When this card deals damage to another creature, transfer 1 Sin to that card.";
 
@@ -25,8 +22,7 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public class Sin : StatusEffectBehaviour, IOnUpkeepInHand
-    {
+    public class Sin : StatusEffectBehaviour, IOnUpkeepInHand {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
 
@@ -35,8 +31,7 @@ namespace WhistleWindLobotomyMod
 
         public override List<string> EffectDecalIds() => new();
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
+        public override bool RespondsToUpkeep(bool playerUpkeep) {
             // remove Sin when Long Arms is broken
             if (base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.Opponent is ApocalypseBossOpponent opp)
                 return opp.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms);
@@ -46,14 +41,12 @@ namespace WhistleWindLobotomyMod
         public bool RespondsToUpkeepInHand(bool playerUpkeep) => this.RespondsToUpkeep(playerUpkeep);
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null && EffectPotency > 0;
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
-        {
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return target.AddStatusEffect<Sin>(1);
             ModifyPotency(-1, false);
             yield break;
         }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             Destroy();
             yield break;
         }

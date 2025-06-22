@@ -8,11 +8,9 @@ using UnityEngine;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     [HarmonyPatch]
-    internal class OrdealPatches
-    {
+    internal class OrdealPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(ScissorsItem), nameof(ScissorsItem.OnValidTargetSelected))]
         private static IEnumerator CountScissoredOrdeals(IEnumerator enumerator, CardSlot target) {
             bool isOrdeal = target.Card.HasTrait(LobotomyCardManager.Ordeal);
@@ -27,18 +25,16 @@ namespace WhistleWindLobotomyMod.Opponents
         /// Guarantee amountKilledThisTurn is reset to 0.
         /// </remarks>
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
-        private static IEnumerator UpdateOrdealBattleVariables(IEnumerator enumerator, TurnManager __instance)
-        {
+        private static IEnumerator UpdateOrdealBattleVariables(IEnumerator enumerator, TurnManager __instance) {
             yield return enumerator;
             if (OrdealUtils.OpponentIsOrdeal())
-                yield return (__instance.SpecialSequencer as OrdealBattleSequencer).OnRoundEnd(true);
+                yield return (__instance.SpecialSequencer as OrdealBattleSequencer).OnOpponentTurnEnd(true);
         }
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.ScalesTippedToOpponent))]
         [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.LifeLossConditionsMet))]
-        private static void OrdealCompleted(TurnManager __instance, ref bool __result)
-        {
+        private static void OrdealCompleted(TurnManager __instance, ref bool __result) {
             if (__result || !OrdealUtils.OpponentIsOrdeal())
                 return;
 
@@ -47,8 +43,7 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
-        private static void ConvertBattleIntoOrdeal(ref NodeData __result, List<NodeData> previousNodes, int mapLength)
-        {
+        private static void ConvertBattleIntoOrdeal(ref NodeData __result, List<NodeData> previousNodes, int mapLength) {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
             bool bossNode = __result is BossBattleNodeData;
@@ -107,11 +102,9 @@ namespace WhistleWindLobotomyMod.Opponents
 
             LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.CurrentRegionTier} {tier}");
         }
-        private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier)
-        {
+        private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier) {
             ordealNodeData.tier = tier;
-            ordealNodeData.ordealType = tier switch
-            {
+            ordealNodeData.ordealType = tier switch {
                 1 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Indigo),
                 2 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber),
                 3 => AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
@@ -130,13 +123,11 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(ViewController), nameof(ViewController.SwitchToControlMode))]
-        internal static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
-        {
+        internal static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode) {
             if (!OrdealUtils.OpponentIsOrdeal())
                 return;
-            
-            switch (mode)
-            {
+
+            switch (mode) {
                 case ViewController.ControlMode.CardGameDefault:
                     AddOrdealViewControls(__instance, true);
                     break;
@@ -149,18 +140,15 @@ namespace WhistleWindLobotomyMod.Opponents
         /// <summary>
         /// Adds functionality for player to look at the Ordeal counter
         /// </summary>
-        private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
-        {
+        private static void AddOrdealViewControls(ViewController instance, bool addSideControls) {
             if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
                 instance.allowedViews.Add(OrdealUtils.ViewCounter);
 
-            if (!instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Exists(x => x.from == OrdealUtils.ViewCounter))
-            {
+            if (!instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Exists(x => x.from == OrdealUtils.ViewCounter)) {
                 instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(OrdealUtils.AcceptableViewTransitions[0]);
                 instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(OrdealUtils.AcceptableViewTransitions[1]);
 
-                if (addSideControls)
-                {
+                if (addSideControls) {
                     instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(OrdealUtils.AcceptableViewTransitions[2]);
                     instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(OrdealUtils.AcceptableViewTransitions[3]);
                 }

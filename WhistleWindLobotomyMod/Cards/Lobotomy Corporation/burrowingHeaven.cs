@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string burrowingHeaven = "wstl_burrowingHeaven";
-        private static void BurrowingHeaven_O0472()
-        {
+        private static void BurrowingHeaven_O0472() {
             string textureName = "burrowingHeaven";
             CardManager.New(LobotomyPlugin.pluginPrefix, burrowingHeaven, "The Burrowing Heaven",
                 attack: 0, health: 1, "Don't look away. Contain it in your sight.")

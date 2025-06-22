@@ -2,12 +2,9 @@
 using InscryptionAPI.Card;
 using UnityEngine;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void AddAbilities()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void AddAbilities() {
             AddFreshFood();
             AddFreshFoodMagnificus();
             AddFreshIngredients();

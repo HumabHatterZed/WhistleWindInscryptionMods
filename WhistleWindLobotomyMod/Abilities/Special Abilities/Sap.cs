@@ -5,10 +5,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class Sap : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class Sap : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "Sap";
@@ -17,17 +15,14 @@ namespace WhistleWindLobotomyMod
         private int sacrificeCount = 0;
 
         public override bool RespondsToSacrifice() => true;
-        public override IEnumerator OnSacrifice()
-        {
+        public override IEnumerator OnSacrifice() {
             GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
             float chanceToExplode = Mathf.Min(.66f, sacrificeCount / 10f);
-            if (SeededRandom.Value(base.GetRandomSeed()) <= chanceToExplode)
-            {
+            if (SeededRandom.Value(base.GetRandomSeed()) <= chanceToExplode) {
                 sacrificeCount = 0;
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
                 card.Anim.StrongNegationEffect();
-                if (card.LacksAbility(Ability.ExplodeOnDeath))
-                {
+                if (card.LacksAbility(Ability.ExplodeOnDeath)) {
                     card.Status.hiddenAbilities.Add(Ability.ExplodeOnDeath);
                     card.AddTemporaryMod(new(Ability.ExplodeOnDeath));
                 }
@@ -39,29 +34,24 @@ namespace WhistleWindLobotomyMod
                 sacrificeCount++;
         }
     }
-    public class SapDetonator : SpecialCardBehaviour
-    {
+    public class SapDetonator : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public override int Priority => 1000;
         public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             yield return new WaitForSeconds(0.2f);
             base.PlayableCard.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.3f);
             yield return base.PlayableCard.Die(false, null);
         }
     }
-    public class RulebookEntrySap : AbilityBehaviour
-    {
+    public class RulebookEntrySap : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_Sap() => RulebookEntrySap.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
-        private static void AddSpecial_Sap()
-        {
+        private static void AddSpecial_Sap() {
             Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(LobotomyPlugin.pluginGuid, Sap.rName).Id;
             SapDetonator.specialAbility = AbilityHelper.CreateSpecialAbility<SapDetonator>(LobotomyPlugin.pluginGuid, "SapDetonator").Id;
         }

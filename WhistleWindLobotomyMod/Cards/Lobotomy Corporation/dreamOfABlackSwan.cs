@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string dreamOfABlackSwan = "wstl_dreamOfABlackSwan";
-        private static void DreamOfABlackSwan_F0270()
-        {
+        private static void DreamOfABlackSwan_F0270() {
             string textureName = "dreamOfABlackSwan";
             CardManager.New(LobotomyPlugin.pluginPrefix, dreamOfABlackSwan, "Dream of a Black Swan",
                 attack: 3, health: 5, "Sister of six brothers. Tirelessly she worked to protect them, all for naught.")

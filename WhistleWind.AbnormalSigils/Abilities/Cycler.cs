@@ -9,12 +9,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Cycler()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Cycler() {
             const string rulebookName = "Cycler";
             const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.";
             const string dialogue = "A never-ending cycle.";
@@ -29,12 +26,10 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class Cycler : Strafe
-    {
+    public class Cycler : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight)
-        {
+        public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight) {
             if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
                 yield break;
 
@@ -55,15 +50,13 @@ namespace WhistleWind.AbnormalSigils
                 base.Card.Slot, allySlots.First(), allySlots.Last());
 
             // switch direction if we can't move
-            if (base.movingLeft && !canMoveLeftNormally && !canLoopAround)
-            {
+            if (base.movingLeft && !canMoveLeftNormally && !canLoopAround) {
                 base.movingLeft = false;
                 // update to see if can loop
                 canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
                     base.Card.Slot, allySlots.First(), allySlots.Last());
             }
-            if (!base.movingLeft && !canMoveRightNormally && !canLoopAround)
-            {
+            if (!base.movingLeft && !canMoveRightNormally && !canLoopAround) {
                 base.movingLeft = true;
                 canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
                     base.Card.Slot, allySlots.First(), allySlots.Last());
@@ -75,13 +68,11 @@ namespace WhistleWind.AbnormalSigils
             base.Card.RenderCard();
 
             // different destination and validation if we're looping or moving normally
-            if (canLoopAround)
-            {
+            if (canLoopAround) {
                 destination = base.movingLeft ? allySlots.Last() : allySlots.First();
                 destinationValid = destination.Card == null;
             }
-            else
-            {
+            else {
                 destination = base.movingLeft ? toLeft : toRight;
                 destinationValid = base.movingLeft ? canMoveLeftNormally : canMoveRightNormally;
             }
@@ -99,14 +90,12 @@ namespace WhistleWind.AbnormalSigils
                 else // standard movement behaviour
                     yield return MoveToSlot(destination, oldSlot);
             }
-            else
-            {
+            else {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.15f);
             }
         }
-        private IEnumerator LoopToSlot(CardSlot destination, CardSlot oldSlot)
-        {
+        private IEnumerator LoopToSlot(CardSlot destination, CardSlot oldSlot) {
             // Move out of slot
             Vector3 vector = base.Card.Slot.IsPlayerSlot ? Vector3.back : Vector3.forward;
             Tween.Position(base.Card.transform, base.Card.transform.position + vector * 2f + Vector3.up * 0.25f, 0.15f, 0f, Tween.EaseOut);
@@ -117,16 +106,13 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PostSuccessfulMoveSequence(oldSlot);
             yield return new WaitForSeconds(0.25f);
         }
-        private IEnumerator MoveToSlot(CardSlot destination, CardSlot oldSlot)
-        {
+        private IEnumerator MoveToSlot(CardSlot destination, CardSlot oldSlot) {
             yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.Card, destination);
             yield return base.PostSuccessfulMoveSequence(oldSlot);
             yield return new WaitForSeconds(0.25f);
         }
-        private static bool CheckIfCanLoop(bool atEndOfBoard, bool movingLeft, bool canMoveLeft, bool canMoveRight, CardSlot originalSlot, CardSlot firstSlot, CardSlot lastSlot)
-        {
-            if (atEndOfBoard)
-            {
+        private static bool CheckIfCanLoop(bool atEndOfBoard, bool movingLeft, bool canMoveLeft, bool canMoveRight, CardSlot originalSlot, CardSlot firstSlot, CardSlot lastSlot) {
+            if (atEndOfBoard) {
                 if (movingLeft && !canMoveLeft && originalSlot == firstSlot)
                     return lastSlot.Card == null;
                 if (!movingLeft && !canMoveRight && originalSlot == lastSlot)

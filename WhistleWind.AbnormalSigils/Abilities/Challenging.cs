@@ -4,12 +4,9 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Challenging()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Challenging() {
             const string rulebookName = "Elite";
             const string rulebookDescription = "[creature] is considered Made of Stone and Bleachproof.";
             Challenging.ability = AbnormalAbilityHelper.CreateAbility<Challenging>(
@@ -23,33 +20,27 @@ namespace WhistleWind.AbnormalSigils
     }
 
     [HarmonyPatch]
-    public class Challenging : AbilityBehaviour
-    {
+    public class Challenging : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.HasAbility))]
-        private static void CountsAsStoneAndBleachproof(PlayableCard __instance, Ability ability, ref bool __result)
-        {
+        private static void CountsAsStoneAndBleachproof(PlayableCard __instance, Ability ability, ref bool __result) {
             if (__result)
                 return;
 
-            if (ability == Ability.MadeOfStone || ability == Bleachproof.ability)
-            {
-                if (__instance.HasAbility(Challenging.ability))
-                {
+            if (ability == Ability.MadeOfStone || ability == Bleachproof.ability) {
+                if (__instance.HasAbility(Challenging.ability)) {
                     __result = true;
                 }
             }
         }
         [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.HasAbility))]
-        private static void InfoIsStoneAndBleachless(CardInfo __instance, Ability ability, ref bool __result)
-        {
+        private static void InfoIsStoneAndBleachless(CardInfo __instance, Ability ability, ref bool __result) {
             if (__result)
                 return;
 
-            if (ability == Ability.MadeOfStone || ability == Bleachproof.ability)
-            {
+            if (ability == Ability.MadeOfStone || ability == Bleachproof.ability) {
                 __result = __instance.HasAbility(Challenging.ability);
             }
         }

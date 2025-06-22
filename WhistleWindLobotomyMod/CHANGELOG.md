@@ -12,9 +12,10 @@
 ### Apocalypse Boss
 - Fixed boss card becoming invincible when too much damage is dealt to it
 - Fixed certain fight mechanics and effects triggering at incorrect times
+- Fixed incorrect dialogue relating to reactive difficulty
 - Added Challenging sigil to boss cards
 - Boss cards are no longer considered Terrain
-- Bones gained from excess direct damage are now capped at 3 per turn, with the amount being reduced as the player accumulates more tokens
+- Bones gained from excess direct damage are now capped at 2 per turn
 - Modified description of Unjust Scales sigil for clarity
 - Apocalypse sigil no longer changes behaviour and description during the final phase - split behaviour into separate sigil
 - Unjust Scales sigil no longer changes behaviour and description during the final phase

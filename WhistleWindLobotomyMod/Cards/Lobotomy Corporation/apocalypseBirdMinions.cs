@@ -4,18 +4,15 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string eyeballChick = "wstl_eyeballChick";
         public const string forestKeeper = "wstl_forestKeeper";
         public const string runawayBird = "wstl_runawayBird";
         public const string eyeballChick_mook = "wstl_eyeballChick_mook";
         public const string forestKeeper_mook = "wstl_forestKeeper_mook";
         public const string runawayBird_mook = "wstl_runawayBird_mook";
-        private static void ApocalypseBirdMinions()
-        {
+        private static void ApocalypseBirdMinions() {
             string textureName = "eyeballChick";
             string textureName2 = "forestKeeper";
             string textureName3 = "runawayBird";

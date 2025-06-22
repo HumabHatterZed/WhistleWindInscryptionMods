@@ -6,11 +6,9 @@ using System.Reflection;
 using UnityEngine;
 using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod.Core
-{
+namespace WhistleWindLobotomyMod.Core {
     [HarmonyPatch]
-    public static class AssetManager
-    {
+    public static class AssetManager {
         public static AssetBundle BossBundle { get; private set; }
         public static AssetBundle AssetBundle { get; private set; }
 
@@ -21,15 +19,12 @@ namespace WhistleWindLobotomyMod.Core
         public static readonly List<AudioClip> sfxClips = new();
         public static readonly List<AudioClip> musicLoops = new();
 
-        internal static void Initialise()
-        {
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodbosses"))
-            {
+        internal static void Initialise() {
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodbosses")) {
                 BossBundle = AssetBundle.LoadFromStream(stream);
             }
 
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets"))
-            {
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets")) {
                 AssetBundle = AssetBundle.LoadFromStream(stream);
             }
 

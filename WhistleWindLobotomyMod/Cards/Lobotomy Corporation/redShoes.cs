@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string redShoes = "wstl_redShoes";
-        private static void RedShoes_O0408()
-        {
+        private static void RedShoes_O0408() {
             string textureName = "redShoes";
             CardManager.New(LobotomyPlugin.pluginPrefix, redShoes, "Red Shoes",
                 attack: 0, health: 3, "How pretty. Maybe they'll fit.")

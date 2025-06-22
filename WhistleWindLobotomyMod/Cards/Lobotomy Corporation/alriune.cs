@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string alriune = "wstl_alriune";
-        private static void Alriune_T0453()
-        {
+        private static void Alriune_T0453() {
             string name = "Alriune";
             string textureName = "alriune";
             string description = "A doll yearning to be a human. A human yearning to be a doll.";

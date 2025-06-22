@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+
+namespace WhistleWind.AbnormalSigils.Core {
+    /// <summary>
+    /// Trigger intended for non-card receivers, or cards with effects that should trigger even if the opponent's turn is skipped.
+    /// </summary>
+    public interface IOpponentTurnEnd {
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped);
+        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped);
+        public int OpponentTurnEndPriority(bool opponentTurnSkipped);
+    }
+
+    /// <summary>
+    /// Trigger intended for non-card receivers, triggers at the very end of the player's turn, after all card triggers.
+    /// </summary>
+    public interface IPlayerTurnEnd {
+        public bool RespondsToPlayerTurnEnd();
+        public IEnumerator OnPlayerTurnEnd();
+        public int PlayerTurnEndPriority();
+    }
+}

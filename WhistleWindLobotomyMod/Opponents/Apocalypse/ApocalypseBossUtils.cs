@@ -5,12 +5,9 @@ using InscryptionAPI.Regions;
 using UnityEngine;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
-    public static class ApocalypseBossUtils
-    {
-        public static void ChangeTableColours()
-        {
+namespace WhistleWindLobotomyMod.Opponents {
+    public static class ApocalypseBossUtils {
+        public static void ChangeTableColours() {
             Color slotColour = GameColors.Instance.darkRed;
             slotColour.a = 0.5f;
 
@@ -26,8 +23,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 GameColors.Instance.lightGray);
         }
 
-        internal static EncounterBlueprintData CreateStartingBlueprint()
-        {
+        internal static EncounterBlueprintData CreateStartingBlueprint() {
             string minion = (TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).ActiveEggMinion;
 
             EncounterBlueprintData encounter = EncounterManager.New("ApocalypseBossPlan", false)
@@ -36,8 +32,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
             return encounter;
         }
-        internal static RegionData CreateRegion()
-        {
+        internal static RegionData CreateRegion() {
             RegionData trapper = RegionProgression.Instance.regions[2];
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
 

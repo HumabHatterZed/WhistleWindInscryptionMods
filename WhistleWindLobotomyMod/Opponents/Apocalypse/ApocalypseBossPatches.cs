@@ -4,16 +4,12 @@ using UnityEngine;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
-    internal static class ApocalypseBossPatches
-    {
+    internal static class ApocalypseBossPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveAttackBuffs))]
-        private static void BigEyesPhaseChangesAttackColour(ref int __result)
-        {
-            if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
-            {
+        private static void BigEyesPhaseChangesAttackColour(ref int __result) {
+            if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes) {
                 // easiest way to change the text colour
                 // since big eyes ignores passive attack buffs, this won't have an effect on cards' actual Power
                 __result = -1;
@@ -21,17 +17,14 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Attack), MethodType.Getter)]
-        private static void BigEyesPhaseNegatesAttackBuffs(PlayableCard __instance, ref int __result)
-        {
-            if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
-            {
+        private static void BigEyesPhaseNegatesAttackBuffs(PlayableCard __instance, ref int __result) {
+            if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes) {
                 __result = Mathf.Max(0, __instance.Info.Attack);
             }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnMapObjects))]
-        private static void MakeTheBlackForestBlack(MapDataReader __instance)
-        {
+        private static void MakeTheBlackForestBlack(MapDataReader __instance) {
             if (RunState.CurrentMapRegion != LobOpponentUtils.apocalypseRegion)
                 return;
 

@@ -5,16 +5,13 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string todaysShyLook = "wstl_todaysShyLook";
         public const string todaysShyLookNeutral = "wstl_todaysShyLookNeutral";
         public const string todaysShyLookHappy = "wstl_todaysShyLookHappy";
         public const string todaysShyLookAngry = "wstl_todaysShyLookAngry";
-        private static void TodaysShyLook_O0192()
-        {
+        private static void TodaysShyLook_O0192() {
             string lookName = "Today's Shy Look";
             string description = "An indecisive creature. Her expression is different whenever you draw her.";
             string evolveName = "Tomorrow's Shy Look";

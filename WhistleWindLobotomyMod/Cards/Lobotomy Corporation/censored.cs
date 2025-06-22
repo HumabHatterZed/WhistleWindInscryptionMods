@@ -4,14 +4,11 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string censored = "wstl_censored";
         public const string censoredMinion = "wstl_censoredMinion";
-        private static void CENSORED_O0389()
-        {
+        private static void CENSORED_O0389() {
             string name = "CENSORED";
             string textureName = "censored";
             string textureName2 = "censoredMinion";

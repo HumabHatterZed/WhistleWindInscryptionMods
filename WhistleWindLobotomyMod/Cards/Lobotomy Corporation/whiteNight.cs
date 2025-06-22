@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string whiteNight = "wstl_whiteNight";
-        private static void WhiteNight_T0346()
-        {
+        private static void WhiteNight_T0346() {
             string textureName = "whiteNight";
             CardManager.New(LobotomyPlugin.pluginPrefix, whiteNight, "WhiteNight",
                 attack: 0, health: 66, "The time has come.")

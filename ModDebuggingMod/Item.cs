@@ -5,12 +5,9 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Items.ConsumableItemManager;
 
-namespace ModDebuggingMod
-{
-    public partial class Plugin
-    {
-        private void ItemDebug()
-        {
+namespace ModDebuggingMod {
+    public partial class Plugin {
+        private void ItemDebug() {
             string rulebookName = "DebugItem";
             string rulebookDescription = "Displays text colour codes";
             ModelType modelType = ModelType.HoveringRune;
@@ -21,10 +18,8 @@ namespace ModDebuggingMod
                 .SetLearnItemDescription("AAAA");
         }
     }
-    public class DebugItem : ConsumableItem
-    {
-        public override IEnumerator ActivateSequence()
-        {
+    public class DebugItem : ConsumableItem {
+        public override IEnumerator ActivateSequence() {
             base.PlayExitAnimation();
             //yield return GraveyardManager.Instance.DrawCard();
             yield return new WaitForSeconds(0.25f);

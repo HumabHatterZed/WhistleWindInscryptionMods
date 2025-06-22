@@ -7,10 +7,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class CrimsonScar : SpecialCardBehaviour, ISetupAttackSequence
-    {
+namespace WhistleWindLobotomyMod {
+    public class CrimsonScar : SpecialCardBehaviour, ISetupAttackSequence {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -18,8 +16,7 @@ namespace WhistleWindLobotomyMod
         public const string rDesc = "Big and Will Be Bad Wolf and Red Hooded Mercenary will gain 1 Power when their counterpart is played on the board. While they're on the board, target them exclusively.";
 
         public bool Enraged = false;
-        private bool GrudgeExists(PlayableCard thisCard, PlayableCard otherCard)
-        {
+        private bool GrudgeExists(PlayableCard thisCard, PlayableCard otherCard) {
             if (otherCard == null)
                 return false;
 
@@ -32,15 +29,13 @@ namespace WhistleWindLobotomyMod
             return false;
         }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !Enraged && GrudgeExists(base.PlayableCard, otherCard);
-        public override bool RespondsToResolveOnBoard()
-        {
+        public override bool RespondsToResolveOnBoard() {
             PlayableCard otherCard = BoardManager.Instance.CardsOnBoard.Find(
                 x => x != base.PlayableCard && x.Info.name == (base.PlayableCard.Info.name == Cards.redHoodedMercenary ? Cards.willBeBadWolf : Cards.redHoodedMercenary));
 
             return !Enraged && GrudgeExists(base.PlayableCard, otherCard);
         }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) {
             Enraged = true;
             base.PlayableCard.Anim.StrongNegationEffect();
             base.PlayableCard.AddTemporaryMod(new(1, 0) { fromTotem = true });
@@ -53,8 +48,7 @@ namespace WhistleWindLobotomyMod
             else
                 yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarWolf", TextDisplayer.MessageAdvanceMode.Input);
         }
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             Enraged = true;
             base.PlayableCard.Anim.StrongNegationEffect();
             base.PlayableCard.AddTemporaryMod(new(1, 0) { fromTotem = true });
@@ -68,20 +62,16 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarWolf", TextDisplayer.MessageAdvanceMode.Input);
         }
 
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
-            if (Enraged)
-            {
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
+            if (Enraged) {
                 CardSlot slot = BoardManager.Instance.AllSlotsCopy.Find(
                     x => x.Card?.Info.name == (base.PlayableCard.Info.name == Cards.redHoodedMercenary ? Cards.willBeBadWolf : Cards.redHoodedMercenary));
 
-                if (slot != null)
-                {
+                if (slot != null) {
                     for (int i = 0; i < currentSlots.Count; i++)
                         currentSlots[i] = slot;
                 }
@@ -89,18 +79,15 @@ namespace WhistleWindLobotomyMod
             return currentSlots;
         }
 
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return 0;
         }
     }
-    public class RulebookEntryCrimsonScar : AbilityBehaviour
-    {
+    public class RulebookEntryCrimsonScar : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_CrimsonScar()
             => RulebookEntryCrimsonScar.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCrimsonScar>(CrimsonScar.rName, CrimsonScar.rDesc).Id;
         private static void AddSpecial_CrimsonScar()

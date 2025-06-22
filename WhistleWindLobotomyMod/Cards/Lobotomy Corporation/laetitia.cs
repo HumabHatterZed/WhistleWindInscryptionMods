@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string laetitia = "wstl_laetitia";
-        private static void Laetitia_O0167()
-        {
+        private static void Laetitia_O0167() {
             string name = "Laetitita";
             string desc = "A little witch carrying a heart-shaped gift.";
             string textureName = "laetitia";

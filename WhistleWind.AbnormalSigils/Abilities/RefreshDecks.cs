@@ -5,18 +5,15 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class RefreshDecks : AbilityBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class RefreshDecks : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToResolveOnBoard() => AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsGlobalSpell();
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && !AbnormalPlugin.SpellAPI.Enabled;
 
-        public override IEnumerator OnResolveOnBoard()
-        {
+        public override IEnumerator OnResolveOnBoard() {
             if (!SaveManager.SaveFile.IsPart2)
                 yield return HelperMethods.ChangeCurrentView(View.Hand, 0.2f, 0.4f);
 
@@ -40,10 +37,8 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) => OnResolveOnBoard();
     }
 
-    public partial class AbnormalPlugin
-    {
-        private void Ability_RefreshDecks()
-        {
+    public partial class AbnormalPlugin {
+        private void Ability_RefreshDecks() {
             const string rulebookName = "Grand Reopening";
             RefreshDecks.ability = AbnormalAbilityHelper.CreateAbility<RefreshDecks>(
                 "sigilRefreshDecks", rulebookName, "When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.",

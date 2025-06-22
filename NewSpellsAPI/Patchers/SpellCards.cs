@@ -3,12 +3,9 @@ using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 
-namespace Infiniscryption.Spells.Patchers
-{
-    public static class SpellCards
-    {
-        internal static void RegisterCustomCards()
-        {
+namespace Infiniscryption.Spells.Patchers {
+    public static class SpellCards {
+        internal static void RegisterCustomCards() {
             CardManager.New(InfiniscryptionSpellsPlugin.CardPrefix,
                     "Spell_Kettle_of_Avarice",
                     "Kettle of Avarice",

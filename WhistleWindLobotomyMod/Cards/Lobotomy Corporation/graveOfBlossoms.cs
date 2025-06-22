@@ -5,13 +5,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string graveOfBlossoms = "wstl_graveOfBlossoms";
-        private static void GraveOfBlossoms_O04100()
-        {
+        private static void GraveOfBlossoms_O04100() {
             string textureName = "graveOfBlossoms";
             CardManager.New(LobotomyPlugin.pluginPrefix, graveOfBlossoms, "Grave of Cherry Blossoms",
                 attack: 0, health: 3, "A blooming cherry tree. The more blood it has, the more beautiful it becomes.")

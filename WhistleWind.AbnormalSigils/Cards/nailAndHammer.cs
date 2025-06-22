@@ -2,12 +2,9 @@
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Card_NailHammer_O010()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Card_NailHammer_O010() {
             const string nail = "nail";
             const string hammer = "hammer";
 

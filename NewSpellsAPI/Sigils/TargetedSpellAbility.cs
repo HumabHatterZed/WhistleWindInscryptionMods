@@ -4,10 +4,8 @@ using InscryptionAPI.Card;
 using System.Linq;
 using UnityEngine;
 
-namespace Infiniscryption.Spells.Sigils
-{
-    public class TargetedSpellAbility : VariableStatBehaviour
-    {
+namespace Infiniscryption.Spells.Sigils {
+    public class TargetedSpellAbility : VariableStatBehaviour {
         // Why is this a stat behavior when these cards have no stats?
         // Simple. I want to cover over the health and attack icons.
         // I want these cards to have 0 health and 0 attack at all times in all zones.
@@ -22,8 +20,7 @@ namespace Infiniscryption.Spells.Sigils
         private static SpecialTriggeredAbility _id;
         public static SpecialTriggeredAbility ID => _id;
 
-        public static void Register()
-        {
+        public static void Register() {
             StatIconInfo info = ScriptableObject.CreateInstance<StatIconInfo>();
             info.appliesToAttack = true;
             info.appliesToHealth = true;

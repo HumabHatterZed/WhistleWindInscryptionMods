@@ -6,12 +6,9 @@ using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Piercing()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_Piercing() {
             const string rulebookName = "Piercing";
             const string rulebookDescription = "[creature] will strike through armoured cards. Opposing cards cannot reduce damage dealt by this card.";
             const string dialogue = "Even the thickest hide can be run through.";
@@ -25,26 +22,21 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Piercing : AbilityBehaviour, IModifyDamageTaken, IShieldPreventedDamage
-    {
+    public class Piercing : AbilityBehaviour, IModifyDamageTaken, IShieldPreventedDamage {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => true;
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
-        {
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             if (target.HasAnyOfAbilities(Ability.DeathShield, Ability.PreventAttack, ThickSkin.ability)
-                || target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability)))
-            {
+                || target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability))) {
                 yield return LearnAbility(0.25f);
             }
         }
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card && damage < originalDamage;
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            if (base.Card.LacksAbility(MindStrike.ability))
-            {
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
+            if (base.Card.LacksAbility(MindStrike.ability)) {
                 return originalDamage;
             }
             return 0; // account for Mind Strike not dealing damage
@@ -53,8 +45,7 @@ namespace WhistleWind.AbnormalSigils
 
         public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => attacker == base.Card;
 
-        public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker)
-        {
+        public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
             // recreate TakeDamage logic
             target.Status.damageTaken += damage;
             target.UpdateStatsText();
@@ -67,8 +58,7 @@ namespace WhistleWind.AbnormalSigils
             if (target.Health <= 0)
                 yield return target.Die(wasSacrifice: false, attacker);
 
-            if (attacker != null)
-            {
+            if (attacker != null) {
                 if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))
                     yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, target);
 

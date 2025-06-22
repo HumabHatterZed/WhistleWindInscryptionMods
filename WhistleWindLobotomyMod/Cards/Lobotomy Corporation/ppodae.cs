@@ -4,14 +4,11 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string ppodae = "wstl_ppodae";
         public const string ppodaeBuff = "wstl_ppodaeBuff";
-        private static void Ppodae_D02107()
-        {
+        private static void Ppodae_D02107() {
             string name = "Ppodae";
             string textureName = "ppodaeBuff";
             string textureName2 = "ppodae";

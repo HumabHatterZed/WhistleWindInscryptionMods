@@ -3,12 +3,9 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
 using InscryptionAPI.TalkingCards;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateBonnieDisk()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateBonnieDisk() {
             CardManager.New(pluginPrefix3, "bonnie", "Bonnie", 1, 1)
                 .SetBloodCost(1).SetRare().AddP03()
                 .SetPixelPortrait(GetTexture("bonnie_pixel.png"))

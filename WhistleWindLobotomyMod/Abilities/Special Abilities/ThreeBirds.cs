@@ -9,10 +9,8 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
-{
-    public class ThreeBirds : SpecialCardBehaviour
-    {
+namespace WhistleWindLobotomyMod {
+    public class ThreeBirds : SpecialCardBehaviour {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -24,10 +22,8 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForOtherCards();
 
-        private IEnumerator CheckForOtherCards()
-        {
-            if (LobotomySaveManager.OwnsApocalypseBird)
-            {
+        private IEnumerator CheckForOtherCards() {
+            if (LobotomySaveManager.OwnsApocalypseBird) {
                 LobotomyPlugin.Log.LogDebug("Player already has Apocalypse Bird.");
                 yield break;
             }
@@ -46,8 +42,7 @@ namespace WhistleWindLobotomyMod
             yield return BeginApocalypse(bigBird, punishingBird, judgementBird, isOpponent);
         }
 
-        private IEnumerator BeginApocalypse(PlayableCard big, PlayableCard small, PlayableCard tall, bool opponentCard)
-        {
+        private IEnumerator BeginApocalypse(PlayableCard big, PlayableCard small, PlayableCard tall, bool opponentCard) {
             bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             CardInfo info = CardLoader.GetCardByName(Cards.apocalypseBird);
 
@@ -58,8 +53,7 @@ namespace WhistleWindLobotomyMod
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
-            if (!DialogueEventsData.EventIsPlayed("ApocalypseBirdOutro"))
-            {
+            if (!DialogueEventsData.EventIsPlayed("ApocalypseBirdOutro")) {
                 yield return new WaitForSeconds(0.4f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
                 yield return new WaitForSeconds(0.5f);
@@ -85,7 +79,7 @@ namespace WhistleWindLobotomyMod
             }
 
             yield return HelperMethods.ChangeCurrentView(View.Board, lockAfter: true);
-            
+
             // Remove cards
             small.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.2f);
@@ -98,13 +92,11 @@ namespace WhistleWindLobotomyMod
                 yield return BoardEffects.ApocalypseTableEffects();
 
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
-            if (opponentCard)
-            {
+            if (opponentCard) {
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
                 yield return CombatHelpers.CreateCardInRandomSlot(info, validSlots);
             }
-            else
-            {
+            else {
                 RunState.Run.playerDeck.AddCard(info);
                 info.Mods.Add(new() { bloodCostAdjustment = -info.cost });
                 LobotomySaveManager.OwnsApocalypseBird = true;
@@ -123,13 +115,11 @@ namespace WhistleWindLobotomyMod
             LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
     }
-    public class RulebookEntryThreeBirds : AbilityBehaviour
-    {
+    public class RulebookEntryThreeBirds : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class Abilities
-    {
+    public partial class Abilities {
         private static void Rulebook_ThreeBirds()
             => RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
         private static void AddSpecial_ThreeBirds()

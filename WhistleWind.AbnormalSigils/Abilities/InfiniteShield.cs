@@ -6,12 +6,9 @@ using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_InfiniteShield()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_InfiniteShield() {
             const string rulebookName = "Unbreakable Defence";
             const string rulebookDescription = "[creature] prevents all damage dealt to it. All cards behave as if this card took damage.";
             InfiniteShield.ability = AbnormalAbilityHelper.CreateAbility<InfiniteShield>(
@@ -24,23 +21,20 @@ namespace WhistleWind.AbnormalSigils
         }
     }
     [HarmonyPatch]
-    public class InfiniteShield : DamageShieldBehaviour, IShieldPreventedDamage
-    {
+    public class InfiniteShield : DamageShieldBehaviour, IShieldPreventedDamage {
         public static Ability ability;
         public override Ability Ability => ability;
 
         // maybe not actually infinite
         public override int StartingNumShields => 9999;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.Card.OpponentCard;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             numShields = StartingNumShields;
             return base.OnTurnEnd(playerTurnEnd);
         }
 
         public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => target == base.Card;
-        public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker)
-        {
+        public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
             numShields = StartingNumShields;
 
             if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
@@ -49,10 +43,8 @@ namespace WhistleWind.AbnormalSigils
             if (target.Health <= 0)
                 yield return target.Die(wasSacrifice: false, attacker);
 
-            if (attacker != null)
-            {
-                if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))
-                {
+            if (attacker != null) {
+                if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target)) {
                     yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, target);
                 }
                 yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.OtherCardDealtDamage, false, attacker, attacker.Attack, target);

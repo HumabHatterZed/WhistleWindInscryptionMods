@@ -6,14 +6,11 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string nosferatu = "wstl_nosferatu";
         public const string nosferatuBeast = "wstl_nosferatuBeast";
-        private static void Nosferatu_F01113()
-        {
+        private static void Nosferatu_F01113() {
             string name = "Nosferatu";
             string desc = "A creature of the night, noble and regal. Will you help sate its thirst?";
             string textureName = "nosferatuBeast";

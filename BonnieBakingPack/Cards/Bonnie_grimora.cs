@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 
-namespace BonniesBakingPack
-{
-    public partial class BakingPlugin
-    {
-        private void CreateBonnieGrimora()
-        {
+namespace BonniesBakingPack {
+    public partial class BakingPlugin {
+        private void CreateBonnieGrimora() {
             CardInfo bon = CardManager.New(pluginPrefixG, "bonnie", "Leela", 1, 1, "AMIDST ALL THESE MONSTERS AND GHOULS, THIS HUMAN FITS RIGHT IN.")
                 .SetRare().AddGrimora()
                 .SetBloodCost(1)
@@ -24,8 +21,7 @@ namespace BonniesBakingPack
                 .AddSpecialAbilities(BunnieAttackAbility.SpecialAbility)
                 .SetOnePerDeck();
 
-            if (ScrybeCompat.P03Enabled)
-            {
+            if (ScrybeCompat.P03Enabled) {
                 bon.AddMetaCategories(ScrybeCompat.UndeadRegion);
             }
         }

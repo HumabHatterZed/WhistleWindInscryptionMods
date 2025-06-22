@@ -4,13 +4,10 @@ using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string yang = "wstl_yang";
-        private static void Yang_O07103()
-        {
+        private static void Yang_O07103() {
             string textureName = "yang";
             CardManager.New(LobotomyPlugin.pluginPrefix, yang, "Yang",
                 attack: 0, health: 3, "A white pendant that heals those nearby.")

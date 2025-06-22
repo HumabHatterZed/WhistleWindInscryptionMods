@@ -9,12 +9,9 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace ModDebuggingMod
-{
-    public partial class Plugin
-    {
-        private void CARD_DEBUG()
-        {
+namespace ModDebuggingMod {
+    public partial class Plugin {
+        private void CARD_DEBUG() {
             //MyTestCost.Init();
 
             CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",

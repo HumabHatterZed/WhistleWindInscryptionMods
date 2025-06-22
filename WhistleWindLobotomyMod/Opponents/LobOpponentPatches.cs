@@ -9,11 +9,9 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod.Patches
-{
+namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
-    internal static class LobOpponentPatches
-    {
+    internal static class LobOpponentPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.CanActivate))]
         private static void PreventHourglassItem(ConsumableItem __instance, ref bool __result) {
             if (!__result)
@@ -26,10 +24,8 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(Part1GameFlowManager), nameof(Part1GameFlowManager.KillPlayerSequence))]
-        private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator)
-        {
-            if (TurnManager.Instance.Opponent is IKillPlayerSequence killSeq && killSeq != null && killSeq.RespondsToKillPlayerSequence())
-            {
+        private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator) {
+            if (TurnManager.Instance.Opponent is IKillPlayerSequence killSeq && killSeq != null && killSeq.RespondsToKillPlayerSequence()) {
                 Singleton<PlayerHand>.Instance.SetShown(shown: false);
                 AudioSource reachSound = AudioController.Instance.PlaySound2D("eyes_opening", MixerGroup.TableObjectsSFX, 0.75f);
 
@@ -46,20 +42,17 @@ namespace WhistleWindLobotomyMod.Patches
                 Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetColor(GameColors.Instance.nearBlack);
                 Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetIntensity(1f, float.MaxValue);
                 yield return new WaitForSeconds(2f);
-                if (SaveFile.IsAscension)
-                {
+                if (SaveFile.IsAscension) {
                     AscensionMenuScreens.ReturningFromFailedRun = true;
                     AscensionStatsData.TryIncrementStat(AscensionStat.Type.Losses);
                     SaveManager.SaveToFile();
                     SceneLoader.Load("Ascension_Configure");
                 }
-                else
-                {
+                else {
                     SceneLoader.Load("Part1_Sanctum");
                 }
             }
-            else
-            {
+            else {
                 yield return enumerator;
             }
         }
@@ -71,14 +64,12 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
         [HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawFromSidePile))]
-        private static IEnumerator RefreshDeckBeforeExhaustion(IEnumerator enumerator, CardDrawPiles __instance)
-        {
+        private static IEnumerator RefreshDeckBeforeExhaustion(IEnumerator enumerator, CardDrawPiles __instance) {
             yield return enumerator;
             if (!LobOpponentUtils.FightingCustomBoss())
                 yield break;
 
-            if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
-            {
+            if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS")) {
                 yield return new WaitForSeconds(0.4f);
                 ViewManager.Instance.SwitchToView(View.Hand);
                 yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_REFRESH_DECKS"));
@@ -91,12 +82,9 @@ namespace WhistleWindLobotomyMod.Patches
         /// Prevents the camera from panning to the scales if direct damage has been modified to be 0.
         /// </summary>
         [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
-        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView)
-        {
-            if (TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
-            {
-                if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0))
-                {
+        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView) {
+            if (TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq && seq != null) {
+                if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0)) {
                     changeView = false;
                 }
             }
@@ -105,8 +93,7 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
-        private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator)
-        {
+        private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator) {
             if (LobOpponentUtils.FightingCustomBoss())
                 yield break;
 
@@ -114,17 +101,14 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
-        private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage)
-        {
-            if (attackingSlot.Card.LacksTrait(Trait.Giant) || !LobOpponentUtils.FightingCustomBoss())
-            {
+        private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage) {
+            if (attackingSlot.Card.LacksTrait(Trait.Giant) || !LobOpponentUtils.FightingCustomBoss()) {
                 yield return enumerator;
                 yield break;
             }
 
             List<Transform> newWeights = new();
-            for (int i = 0; i < Mathf.Min(20, damage); i++)
-            {
+            for (int i = 0; i < Mathf.Min(20, damage); i++) {
                 GameObject gameObject = GameObject.Instantiate(__instance.weightPrefab);
                 Vector3 vector = new(0f, 0f, attackingSlot.IsPlayerSlot ? 0.75f : (-0.75f));
                 gameObject.transform.position = targetSlot.transform.position + vector + new Vector3(i * 0.1f, 0f, i * 0.1f);
@@ -133,13 +117,10 @@ namespace WhistleWindLobotomyMod.Patches
             }
             __instance.damageWeights.AddRange(newWeights);
             // the giant card animation breaks if it's not targeting the firstmost slot, so we use the firstmost instead of the actual target slot
-            attackingSlot.Card.Anim.PlayAttackAnimation(attackPlayer: true, BoardManager.Instance.PlayerSlotsCopy[0], delegate
-            {
+            attackingSlot.Card.Anim.PlayAttackAnimation(attackPlayer: true, BoardManager.Instance.PlayerSlotsCopy[0], delegate {
                 Singleton<TableVisualEffectsManager>.Instance?.ThumpTable(0.075f * Mathf.Min(10, damage));
-                foreach (Transform item in newWeights)
-                {
-                    if (item != null)
-                    {
+                foreach (Transform item in newWeights) {
+                    if (item != null) {
                         item.gameObject.SetActive(value: true);
                         item.GetComponent<Rigidbody>().AddForce(Vector3.up * 4f, ForceMode.VelocityChange);
                     }
@@ -148,10 +129,8 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
-        private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result)
-        {
-            if (RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1)
-            {
+        private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result) {
+            if (RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1) {
                 if (LobotomyConfigManager.ChallengeIsActive(FinalApocalypse.Id)) {
                     __result = LobOpponentUtils.apocalypseRegion;
                 }

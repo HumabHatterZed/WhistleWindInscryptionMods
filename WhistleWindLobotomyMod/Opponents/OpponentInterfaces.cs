@@ -1,13 +1,11 @@
 ﻿using DiskCardGame;
 using System.Collections;
 
-namespace WhistleWindLobotomyMod.Opponents
-{
+namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Custom trigger interface for when an opponent kills the player.
     /// </summary>
-    public interface IKillPlayerSequence
-    {
+    public interface IKillPlayerSequence {
         public bool RespondsToKillPlayerSequence();
         public IEnumerator KillPlayerSequence();
     }
@@ -15,8 +13,7 @@ namespace WhistleWindLobotomyMod.Opponents
     /// <summary>
     /// Custom trigger interface for when certain effects trigger during a fight.
     /// </summary>
-    public interface IPreventInstantWin
-    {
+    public interface IPreventInstantWin {
         public bool PreventInstantWin(CardSlot triggeringSlot, InstantWinType instantWinType);
         /// <summary>
         /// Triggered if PreventInstantWin is true

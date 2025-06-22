@@ -4,12 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Ability_SeeMore()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Ability_SeeMore() {
             const string rulebookName = "See More";
             const string rulebookDescription = "Display the next page of status effects on this card.";
             AbilityInfo info = AbilityHelper.NewFiller<SeeMore>(pluginGuid, "sigilSeeMore", rulebookName, rulebookDescription)
@@ -19,8 +16,7 @@ namespace WhistleWind.AbnormalSigils
             SeeMore.ability = info.ability;
         }
     }
-    public class SeeMore : ActivatedAbilityBehaviour
-    {
+    public class SeeMore : ActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
@@ -31,8 +27,7 @@ namespace WhistleWind.AbnormalSigils
         public Dictionary<int, List<Ability>> AllPages = new();
 
         public int currentPage = 0;
-        public override IEnumerator Activate()
-        {
+        public override IEnumerator Activate() {
             currentPage++;
             if (currentPage > base.Card.GetAbilityStacks(this.Ability))
                 currentPage = 0;

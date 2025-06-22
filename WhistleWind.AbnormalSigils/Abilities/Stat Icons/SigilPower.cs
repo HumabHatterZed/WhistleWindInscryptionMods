@@ -5,15 +5,12 @@ using System.Linq;
 
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public class SigilPower : VariableStatBehaviour
-    {
+namespace WhistleWind.AbnormalSigils {
+    public class SigilPower : VariableStatBehaviour {
         public static SpecialStatIcon icon;
         public static SpecialStatIcon Icon => icon;
         public override SpecialStatIcon IconType => icon;
-        public override int[] GetStatValues()
-        {
+        public override int[] GetStatValues() {
             List<AbilityInfo> infos = base.PlayableCard.AllAbilities().Where(x => x != Ability.RandomAbility).Select(AbilityManager.AllAbilityInfos.AbilityByID).ToList();
             if (infos.Count == 0)
                 return new int[2] { 0, 0 };
@@ -23,10 +20,8 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public partial class AbnormalPlugin
-    {
-        private void StatIcon_SigilPower()
-        {
+    public partial class AbnormalPlugin {
+        private void StatIcon_SigilPower() {
             const string rulebookName = "Sigil Power";
             const string rulebookDescription = "The value represented with this sigil will be equal to the power level of this card's strongest sigil.";
             SigilPower.icon = AbilityHelper.CreateStatIcon<SigilPower>(

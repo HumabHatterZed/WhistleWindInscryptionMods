@@ -6,13 +6,10 @@ using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
-namespace WhistleWindLobotomyMod
-{
-    public partial class Cards
-    {
+namespace WhistleWindLobotomyMod {
+    public partial class Cards {
         public const string derFreischutz = "wstl_derFreischutz";
-        private static void DerFreischutz_F0169()
-        {
+        private static void DerFreischutz_F0169() {
             string name = "Der Freischütz";
             string desc = "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.";
             string textureName = "derFreischutz";

@@ -7,12 +7,9 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
-{
-    public partial class AbnormalPlugin
-    {
-        private void Slot_Flooded()
-        {
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private void Slot_Flooded() {
             const string rulebookName = "Flooded";
             const string rulebookDescription = "At the end of the round, deal 1 damage to cards occupying this space that aren't Airborne or face down, then reduce this effect's Severity by 1.";
 
@@ -51,49 +48,45 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class FloodedSlot : SlotModificationBehaviour, IOnRoundEnd
-    {
+    public class FloodedSlot : SlotModificationBehaviour, IOpponentTurnEnd {
         public static SlotModificationManager.ModificationType Id;
 
         public int Severity = 1;
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             Severity--;
             if (Severity < 2) yield return base.Slot.SetSlotModification(FloodedSlotShallow.Id);
         }
-        public static bool CardIsGrounded(PlayableCard card)
-        {
+        public static bool CardIsGrounded(PlayableCard card) {
             return !card.FaceDown && card.LacksAbility(Ability.Flying);
         }
 
-        public bool RespondsToRoundEnd(bool opponentTurnSkipped) => base.Slot.Card != null && CardIsGrounded(base.Slot.Card);
-        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Slot.Card != null && CardIsGrounded(base.Slot.Card);
+        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             if (ViewManager.Instance.CurrentView != View.Board) {
                 ViewManager.Instance.SwitchToView(View.Board);
             }
 
             yield return base.Slot.Card.TakeDamage(1, null);
         }
-        public int RoundEndPriority(bool opponentTurnSkipped) => 0;
+        public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
     }
 
-    public class FloodedSlotShallow : SlotModificationBehaviour, IOnRoundEnd
-    {
+    public class FloodedSlotShallow : SlotModificationBehaviour, IOpponentTurnEnd {
         public static SlotModificationManager.ModificationType Id;
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.SetSlotModification(SlotModificationManager.ModificationType.NoModification);
 
-        public bool RespondsToRoundEnd(bool opponentTurnSkipped) => base.Slot.Card != null && FloodedSlot.CardIsGrounded(base.Slot.Card);
-        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Slot.Card != null && FloodedSlot.CardIsGrounded(base.Slot.Card);
+        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             if (ViewManager.Instance.CurrentView != View.Board) {
                 ViewManager.Instance.SwitchToView(View.Board);
             }
 
             yield return base.Slot.Card.TakeDamage(1, null);
         }
-        public int RoundEndPriority(bool opponentTurnSkipped) => 0;
+        public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
     }
 }
