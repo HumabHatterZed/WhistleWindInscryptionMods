@@ -46,10 +46,6 @@
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="LobModPre\" />
-  </ItemGroup>
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /Y $(ProjectDir)\..\lib\*.dll $(TargetDir)" />
