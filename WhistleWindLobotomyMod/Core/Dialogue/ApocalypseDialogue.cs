@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod {
             CreateDialogueEvents("ApocalypseBossReactive1",
                 new() { "Your power angers the Beast." });
             CreateDialogueEvents("ApocalypseBossReactive2",
-                new() { "The Beast grows more aggressive." });
+                new() { "You feel the Beast's rage grow stronger." });
             CreateDialogueEvents("ApocalypseBossReactive3",
                 new() { "The Beast's strength grows beyond imagination..." });
 
