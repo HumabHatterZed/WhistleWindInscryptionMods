@@ -15,9 +15,10 @@ namespace ModDebuggingMod {
             //MyTestCost.Init();
 
             CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",
-                attack: 1, health: 100)
+                attack: 11, health: 100)
+                .AddAbilities(Ability.Sniper, Ability.DoubleStrike)
                 //.SetCost(0, 0, 0, new List<GemType>() { GemType.Blue, GemType.Blue, GemType.Green, GemType.Green, GemType.Green, GemType.Green, GemType.Orange })
-                .AddAbilities(Test.ability)
+                //.AddAbilities(Test.ability)
                 //.AddSpecialAbilities(BlindRage.specialAbility)
                 //.SetTransformerCardId("Squirrel")
                 .SetEvolve("Squirrel", 6)

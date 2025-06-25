@@ -10,33 +10,33 @@
 - Massive refactoring of basically everything
 - Removed unused asset files
 ### Apocalypse Boss
-- Fixed boss card becoming invincible when too much damage is dealt to it
+- Fixed boss not losing its damage reduction
 - Fixed certain fight mechanics and effects triggering at incorrect times
 - Fixed incorrect dialogue relating to reactive difficulty
-- Added Challenging sigil to boss cards
-- Boss cards are no longer considered Terrain
+- Fixed camera not changing to show the scales when collecting direct damage
 - Bones gained from excess direct damage are now capped at 2 per turn
-- Modified description of Unjust Scales sigil for clarity
-- Apocalypse sigil no longer changes behaviour and description during the final phase - split behaviour into separate sigil
+- Boss is no longer considered Terrain
+- Boss now possesses Challenging sigil
+- Clarified description of Unjust Scales sigil
 - Unjust Scales sigil no longer changes behaviour and description during the final phase
+- Apocalypse sigil no longer changes behaviour and description during the final phase - split behaviour into separate sigil
 - Movement order of opponent cards is now randomised each turn
-- Modified movement sequence for opponent cards
 - Hourglass item can no longer be used unless Long Arms is defeated
-- Sin can no longer be removed by certain effects like Martyr
-- Sin is now automatically removed from cards when Long Arms is defeated
-- Time Machine can no longer be activated unless Long Arms is defeated
+- Sin can no longer be removed by Martyr and similar effects
+- Sin is now removed from all cards when Long Arms phase is defeated
+- Time Machine can no longer be activated unless Long Arms phase is defeated
 - Time Machine now has a different effect when used during the battle
-- Adjusted reactive difficulty thresholds
+- Overhauled reactive difficulty system
 - Final phase can gain 1 additional base Power when above certain difficulty threshold
 - Defeat sequence is now shorter if the player is at max life
 ### Time Machine
 - Fixed selected cards not being correctly removed from the deck
 - Fixed the activating card being a possible choice for removal
-- Fixed Nothing There not being obtainable
+- Fixed Nothing There not being selectable
 - Can no longer activate if no other cards exist in the deck
 - Improved activation sequence
 - Changed how card choices are determined
-- Effect now changes during custom boss fights (Final Apocalypse, etc.)
+- Effect now changes during custom boss fights
 ### Cards
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
