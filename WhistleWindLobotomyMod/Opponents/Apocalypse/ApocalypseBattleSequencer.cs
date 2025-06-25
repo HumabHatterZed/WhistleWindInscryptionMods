@@ -296,27 +296,24 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         #endregion
 
         #region Giant Logic
-        public void CleanUpGiantTarget(CardSlot slot) {
-            GameObject obj = targetIcons.Find(x => x.transform.parent == slot.transform);
-            if (obj == null)
-                return;
-
-            giantTargetSlots[0].Remove(slot);
-            giantTargetSlots[1].Remove(slot);
-            targetIcons.Remove(obj);
-
-            CleanUpTargetIcon(obj);
-        }
-
         public IEnumerator GiantPhaseLogic(bool firstStrike) {
-            int maxRedTargets = 3, maxWhiteTargets = 1;
+            int maxRedTargets = 3, maxWhiteTargets = BossCard.Health < 16 ? 1 : 0;
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
             List<CardSlot> playerSlots = BoardManager.Instance.PlayerSlotsCopy;
             playerSlots.Randomize();
 
             if (firstStrike) {
                 maxRedTargets--;
-                maxWhiteTargets--;
+            }
+            if (ReactiveDifficulty < 14) {
+                maxRedTargets--;
+            }
+
+            if (ReactiveDifficulty < 8 || SeededRandom.Value(randomSeed++) <= 0.6f) {
+                playerSlots.RemoveAt(0);
+            }
+            if (SeededRandom.Value(randomSeed++) <= 0.2f) {
+                playerSlots.RemoveAt(0);
             }
 
             CleanupTargetIcons();
@@ -324,29 +321,25 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             giantTargetSlots[0].Clear();
             giantTargetSlots[1].Clear();
 
-            yield return SelectGiantTargets(3, 2, randomSeed, playerSlots);
+            yield return SelectGiantTargets(maxRedTargets, maxWhiteTargets, randomSeed, playerSlots);
         }
-
         private IEnumerator SelectGiantTargets(int numRedTargets, int numWhiteTargets, int randomSeed, List<CardSlot> targetSlots) {
             int numTargets = 0;
-            int halfHealth = BossHealthThreshold(2) / 2;
+            int numDirectHits = 0;
             float chanceForRed = 0.17f, chanceForWhite = 0.19f;
 
             if (ReactiveDifficulty > 3) {
-                float baseChance = (ReactiveDifficulty - 3) / 100f;
-                chanceForRed += baseChance;
+                float baseChance = Mathf.Min(0.17f, (ReactiveDifficulty - 3) / 100f);
+                chanceForRed += baseChance * 0.87f;
                 chanceForWhite += baseChance * 1.2f;
             }
 
-            if (BossCard.Health <= halfHealth) {
+            if (BossCard.Health < 16) {
                 chanceForRed += 0.02f;
-            }
-            else {
-                chanceForWhite = 0f;
             }
 
             foreach (CardSlot slot in targetSlots) {
-                float chanceToIgnore = numTargets * 0.25f;
+                float chanceToIgnore = numTargets * 0.25f + numDirectHits * 0.33f;
                 if (SeededRandom.Value(randomSeed++) <= chanceToIgnore) {
                     continue;
                 }
@@ -366,11 +359,24 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 yield return new WaitForSeconds(0.05f);
                 CreateTargetIcon(slot, targetColour);
                 specialTargetSlots.Add(slot);
+                if (slot.Card == null) {
+                    numDirectHits++;
+                }
             }
 
             yield return new WaitForSeconds(0.05f);
         }
+        public void CleanUpGiantTarget(CardSlot slot) {
+            GameObject obj = targetIcons.Find(x => x.transform.parent == slot.transform);
+            if (obj == null)
+                return;
 
+            giantTargetSlots[0].Remove(slot);
+            giantTargetSlots[1].Remove(slot);
+            targetIcons.Remove(obj);
+
+            CleanUpTargetIcon(obj);
+        }
         #endregion
 
         #region Turn Plan
@@ -453,76 +459,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
 
             return nextTurn;
         }
-
-        /*        private void CreateNextTurnPlan() {
-                    List<CardInfo> nextTurn = new();
-                    bool opponentWinning = LifeManager.Instance.Balance < 0;
-                    int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-
-                    // starting number of cards
-                    int cardNum = GetStartingCardCount();
-                    if (opponentWinning)
-                        cardNum--;
-                    else if (TurnNumber > 2 && LifeManager.Instance.Balance == HighestPositiveScaleBalance)
-                        cardNum++;
-
-                    // threshold for whether to give queued card a mod
-                    // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
-                    float gateValue;
-                    if (ReactiveDifficulty > 11) {
-                        gateValue = opponentWinning ? 0.65f + ((ReactiveDifficulty - 12) * 0.02f) : 1f; // guaranteed to give a mod at 12+ reactive if scale is losing
-                        cardNum++;
-                    }
-                    else
-                        gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / Mathf.Max(1f, 7f - RunState.Run.DifficultyModifier);
-
-                    // if the queue is full, reduce the cardNum
-                    if (BossOpponent.Queue.Count == 4) {
-                        // if the latest added turn was also full, add an empty turn plan
-                        if (BossOpponent.TurnPlan.Last().Count == 4 && ReactiveDifficulty < 11)
-                            cardNum = 0;
-                        else
-                            cardNum -= ReactiveDifficulty > 7 ? 1 : (ReactiveDifficulty > 4 ? 2 : 2);
-                    }
-
-                    for (int i = 0; i < cardNum; i++) {
-                        CardInfo clone = CardLoader.GetCardByName(ActiveEggMinion);
-                        float randomValue = SeededRandom.Value(randomSeed++);
-                        if (randomValue <= gateValue) // if give stat boost
-                        {
-                            // either give +1/-1 or 0/+1
-                            int attack = 0;
-                            int health = randomValue <= (gateValue / 2f) ? 1 : 0;
-
-                            if (ReactiveDifficulty > 3) {
-                                health++;
-                                if (ReactiveDifficulty > 7) {
-                                    attack++;
-                                    health++;
-                                }
-                            }
-                            if (SeededRandom.Bool(randomSeed++)) {
-                                attack++;
-                                if (ReactiveDifficulty <= 11)
-                                    health--;
-                            }
-                            else {
-                                if (ReactiveDifficulty > 11) // at 12+, give extra attack instead of health
-                                    attack++;
-                                else
-                                    health++;
-                            }
-
-                            clone.baseAttack += attack;
-                            clone.baseHealth += health;
-                            if (clone.baseHealth <= 0)
-                                clone.baseHealth = 1;
-                        }
-                        nextTurn.Add(clone);
-                    }
-
-                    BossOpponent.TurnPlan.Add(nextTurn);
-                }*/
         #endregion
 
         #region Reactive Difficulty
@@ -557,7 +493,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 yield break;
             }
 
-            if (amount > 2) {
+            if (amount > 1) {
                 Singleton<CameraEffects>.Instance.Shake(0.25f, 0.125f);
                 BossCard.Anim.StrongNegationEffect();
             }
@@ -912,16 +848,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             return data;
         }
 
-        public bool RespondsToItemCanBeUsed(string itemname, bool currentValue) {
-            return itemname == "Hourglass" && !DisabledEggEffects.Contains(ActiveEggEffect.LongArms);
-        }
-
+        public bool RespondsToItemCanBeUsed(string itemname, bool currentValue) => itemname == "Hourglass" && !DisabledEggEffects.Contains(ActiveEggEffect.LongArms);
         public bool CollectItemCanBeUsed(string itemname, bool currentValue) => false;
-
         public bool RespondsToItemPreventedFromUse(string itemName) => RespondsToItemCanBeUsed(itemName, false);
 
         public IEnumerator OnItemPreventedFromUse(string itemName) {
-            throw new NotImplementedException();
+            yield return DialogueHelper.ShowUntilInput("The Long Bird's arms conceal time.");
         }
     }
 
