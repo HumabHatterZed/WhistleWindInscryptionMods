@@ -34,6 +34,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             AddNextTurnToPlan();
         }
 
+        public virtual bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
+        public virtual int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
         /// <summary>
         /// Prevents damage taken by the boss from exceeding set health thresholds.
         /// </summary>
@@ -46,42 +48,13 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
             return damage;
         }
-        public virtual bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
-        public virtual int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
+
         #endregion
-
-        #region Turn-Based Variables
-        public void IncrementStatsThisTurn(int timesHit, int damageTaken) {
-            timesHitThisTurn += timesHit;
-            damageTakenThisTurn += damageTaken;
-        }
-        public void ResetVariablesTurnEnd() {
-            timesHitThisTurn = damageTakenThisTurn = currentExcessBones = 0;
-        }
-
-        public override IEnumerator OpponentCombatEnd() {
-            ResetVariablesTurnEnd();
-            yield return base.OpponentCombatEnd();
-        }
-
-        /// <summary>
-        /// Reset certain variables and make sure combat end logic is executed even when the turn is skipped.
-        /// </summary>
-        public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            if (opponentTurnSkipped) {
-                yield return OpponentCombatEnd();
-            }
-            else {
-                ResetVariablesTurnEnd();
-            }
-        }
-        #endregion
-
 
         #region Reactive Difficulty
         public IEnumerator IncreaseReactiveDifficulty(int amount) {
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBoss] Increase reactive: {reactiveDifficulty} (+{amount})");
             reactiveDifficulty += amount;
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBoss] Increase reactive: {reactiveDifficulty} (+{amount})");
             yield return OnReactiveDifficultyIncreased(amount);
         }
 
@@ -97,23 +70,19 @@ namespace WhistleWindLobotomyMod.Opponents {
             List<CardInfo> nextTurn = CreateNextTurnPlan(base.GetRandomSeed() + TurnManager.Instance.TurnNumber, LifeManager.Instance.Balance < 0);
             TurnManager.Instance.Opponent.TurnPlan.Add(nextTurn);
         }
-
-        #endregion
-
         public override IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
 
             for (int i = 0; i < slots.Count; i++) {
-                if (SeededRandom.Bool(rand++)) {
+                if (SeededRandom.Value(rand++) <= 0.75f) {
                     slots.Remove(slots[i]);
                 }
             }
 
-            if (!slots.Contains(BossCard.Slot)) // check if we need to override the boss card's movement
-            {
-                if (damageTakenThisTurn > 0 || changeToNextPhase || SeededRandom.Bool(rand++))
-                    slots.Add(BossCard.Slot);
+            // guarantee boss moves under certain conditions
+            if (!slots.Contains(BossCard.Slot) && (damageTakenThisTurn > 3 || changeToNextPhase || SeededRandom.Bool(rand++))) {
+                slots.Add(BossCard.Slot);
             }
 
             yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
@@ -124,5 +93,29 @@ namespace WhistleWindLobotomyMod.Opponents {
                 return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
             });
         }
+        #endregion
+
+        #region Turn-Based Variables
+        public void IncrementStatsThisTurn(int timesHit, int damageTaken) {
+            timesHitThisTurn += timesHit;
+            damageTakenThisTurn += damageTaken;
+            LobotomyPlugin.Log.LogDebug($"[IncrementStats] {timesHitThisTurn} (+{timesHit}) {damageTakenThisTurn} (+{damageTaken})");
+        }
+        public void ResetVariablesTurnEnd() {
+            timesHitThisTurn = damageTakenThisTurn = currentExcessBones = 0;
+        }
+
+        /// <summary>
+        /// Reset certain variables and make sure combat end logic is executed even when the turn is skipped.
+        /// </summary>
+        public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
+            if (opponentTurnSkipped) {
+                yield return OpponentCombatEnd();
+            }
+            else {
+                ResetVariablesTurnEnd();
+            }
+        }
+        #endregion
     }
 }
