@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, giantApocalypse, "",
-                attack: 3, health: 30)
+                attack: 2, health: 30)
                 .AddAbilities(ApocalypseGiant.ability, Soulbound.ability, Ability.Reach, Challenging.ability)
                 .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)
                 .AddSpecialAbilities(SpecialTriggeredAbility.GiantCard)
