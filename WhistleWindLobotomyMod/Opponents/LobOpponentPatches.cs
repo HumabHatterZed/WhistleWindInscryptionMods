@@ -82,11 +82,10 @@ namespace WhistleWindLobotomyMod.Patches {
         /// Prevents the camera from panning to the scales if direct damage has been modified to be 0.
         /// </summary>
         [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
-        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView) {
-            if (TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq && seq != null) {
-                if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0)) {
-                    changeView = false;
-                }
+        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, bool toPlayer, ref bool changeView) {
+            if (!toPlayer && TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq
+                    && seq.HighestPositiveScaleBalance == LifeManager.Instance.Balance) {
+                changeView = false;
             }
 
             return true;
@@ -98,6 +97,19 @@ namespace WhistleWindLobotomyMod.Patches {
                 yield break;
 
             yield return enumerator;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
+        private static void RemoveExcessTeethOnBoard(CardSlot attackingSlot, CardSlot targetSlot, ref int damage) {
+            if (targetSlot.IsPlayerSlot == attackingSlot.IsPlayerSlot || damage < 0) {
+                if (TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq) {
+                    int maxNumOfTeeth = seq.HighestPositiveScaleBalance - LifeManager.Instance.Balance;
+                    int bonesToGive = Mathf.Min(seq.MaxExcessBones - seq.currentExcessBones, damage) - maxNumOfTeeth;
+                    if (bonesToGive > 0) {
+                        maxNumOfTeeth -= bonesToGive;
+                    }
+                }
+            }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
