@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod.Opponents {
     public abstract class LobotomyBossOpponent : LobotomyOpponent {
-        public Animator MasterAnimator;
+        public Animator MasterAnimator { get; protected set; }
         public GameObject bossObjectAnimation;
 
         public override IEnumerator IntroSequence(EncounterData encounter) {
