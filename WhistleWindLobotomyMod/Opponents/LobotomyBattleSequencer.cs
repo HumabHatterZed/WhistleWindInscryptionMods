@@ -14,9 +14,12 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
     /// Abstract class containing logic shared by all custom opponents.
     /// </summary>
-    public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly {
-        public int currentExcessBones = 0;
+    public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IModifyDirectDamage {
         public bool drewInitialHand = false;
+
+        protected int bonesToGive;
+        protected int directDamageCache;
+        public int currentExcessBones;
 
         public GameObject targetIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
         public readonly List<GameObject> targetIcons = new();
@@ -29,80 +32,68 @@ namespace WhistleWindLobotomyMod.Opponents {
         public virtual bool DirectDamageGivesBones { get; set; } = true;
         public virtual int MaxExcessBones { get; } = 2;
 
+        public virtual IEnumerator MoveOpponentCards() {
+            int rand = base.GetRandomSeed() + TurnNumber;
+            List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
+            ViewManager.Instance.SwitchToView(View.Board);
+            yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
+                return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
+            });
+        }
+
+        #region Triggers
         public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => true;
         public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
         public virtual IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             currentExcessBones = 0;
             yield break;
         }
-
-        public virtual IEnumerator MoveOpponentCards() {
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer.MoveOpponentCards] Start");
-            int rand = base.GetRandomSeed() + TurnNumber;
-            List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
-            List<CardSlot> slots2 = new();
-            for (int i = 0; i < slots.Count; i++) {
-                if (true || SeededRandom.Bool(rand++)) {
-                    slots2.Add(slots[i]);
-                }
-            }
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer.MoveOpponentCards] CardsToMove: {slots2.Count}");
-            ViewManager.Instance.SwitchToView(View.Board);
-            yield return CardScramble.RandomiseCardsInSlots(slots2, rand, sortPredicate: delegate (CardSlot s) {
-                return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
-            });
-        }
-
-        public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) {
-            return !toPlayer && !PlayerCanWinThroughScaleDamage;
-        }
+        public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) => !toPlayer && !PlayerCanWinThroughScaleDamage;
         public virtual int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer) {
-            if (LifeManager.Instance.DamageUntilPlayerWin == 1)
-                return numWeights = 0;
-
-            if (damage >= LifeManager.Instance.DamageUntilPlayerWin) {
-                numWeights = Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights);
-                return LifeManager.Instance.DamageUntilPlayerWin - 1;
+            if (LifeManager.Instance.Balance + damage >= HighestPositiveScaleBalance) {
+                numWeights = Mathf.Min(numWeights, HighestPositiveScaleBalance - LifeManager.Instance.Balance);
+                return HighestPositiveScaleBalance - LifeManager.Instance.Balance;
             }
 
             return damage;
         }
+        #endregion
 
-        public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default) {
-            GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, materialColour);
-            targetIcons.Add(gameObject);
-        }
-        public void CleanUpTargetIcon(GameObject icon) {
-            TargetIconHelper.CleanUpTargetIcon(icon);
-        }
-        public void CleanupTargetIcons() {
-            targetIcons.ForEach(delegate (GameObject x) {
-                if (x != null) CleanUpTargetIcon(x);
-            });
-            targetIcons.Clear();
-        }
-
-        public virtual bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
-            if (!opposingSlot.IsPlayerSlot) {
+        #region Excess Bones
+        public virtual bool RespondsToModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) {
+            if (!target.IsPlayerSlot) {
                 return attacker.OpponentCard ? damage < 0 : damage > 0;
             }
             return false;
         }
+        public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker) => int.MinValue;
+        public virtual int OnModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) {
+            directDamageCache = 0;
+            if (!PlayerCanWinThroughScaleDamage) {
+                int damageToHighestBalance = Mathf.Max(0, HighestPositiveScaleBalance - LifeManager.Instance.Balance - TurnManager.Instance.DamageDealtThisTurn);
+                int excessDamageDealt = damageToHighestBalance - damage;
 
+                LobotomyPlugin.Log.LogInfo($"[LobotomyBattle] Dmg:{damage} ToBal:{damageToHighestBalance} Ex:{excessDamageDealt} {TurnManager.Instance.CombatPhaseManager.DamageDealtThisPhase}");
+                // if damage will exceed the highest balance, only deal enough damage to reach it
+                if (excessDamageDealt < 1) {
+                    if (DirectDamageGivesBones && currentExcessBones < MaxExcessBones) {
+                        bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, -excessDamageDealt);
+                    }
+
+                    directDamageCache = damage - damageToHighestBalance;
+                    TurnManager.Instance.CombatPhaseManager.DamageDealtThisPhase += directDamageCache;
+                    return damageToHighestBalance;
+                }
+            }
+            return damage;
+        }
+
+        public virtual bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => bonesToGive > 0;
         public virtual IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
-            if (!DirectDamageGivesBones || PlayerCanWinThroughScaleDamage || currentExcessBones >= MaxExcessBones) {
-                yield break;
-            }
-
-            int bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, damage) - (HighestPositiveScaleBalance - LifeManager.Instance.Balance);
-            
-            if (bonesToGive > 0) {
-                yield return new WaitForSeconds(0.01f);
-                DigUpBones(damage, bonesToGive, opposingSlot);
-                currentExcessBones += bonesToGive;
-                Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase -= bonesToGive;
-            }
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer] Dmg: {damage} currentBones/toGive: {currentExcessBones}/{bonesToGive} Balance: {LifeManager.Instance.Balance}");
+            yield return new WaitForSeconds(0.01f);
+            DigUpBones(damage, bonesToGive, opposingSlot);
+            currentExcessBones += bonesToGive;
+            bonesToGive = 0;
         }
 
         public virtual void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
@@ -130,7 +121,25 @@ namespace WhistleWindLobotomyMod.Opponents {
                 manager.isOrganized = false;
             }
         }
+        #endregion
 
+        #region Targets
+        public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default) {
+            GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, materialColour);
+            targetIcons.Add(gameObject);
+        }
+        public void CleanUpTargetIcon(GameObject icon) {
+            TargetIconHelper.CleanUpTargetIcon(icon);
+        }
+        public void CleanupTargetIcons() {
+            targetIcons.ForEach(delegate (GameObject x) {
+                if (x != null) CleanUpTargetIcon(x);
+            });
+            targetIcons.Clear();
+        }
+        #endregion
+
+        #region Opening Hoof
         public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
         public virtual IEnumerator PreDrawOpeningHand() {
             if (drewInitialHand) {
@@ -157,6 +166,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
             }
         }
+        #endregion
     }
 
     [HarmonyPatch]
