@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         public readonly Transform[] LeftEyes = new Transform[8];
         public readonly Transform[] RightEyes = new Transform[8];
         public override IEnumerator DefeatedPlayerSequence() {
-            LobotomyPlugin.Log.LogInfo($"[ApocalypseBoss] Final reactive difficulty: {BattleSequencer.ReactiveDifficulty}");
+            LobotomyPlugin.Log.LogMessage($"[ApocalypseBoss] Final reactive difficulty: {BattleSequencer.ReactiveDifficulty}");
             BattleSequencer.CleanupTargetIcons();
             AudioController.Instance.FadeOutLoop(0.5f, 0);
             yield return ResetToIdle();
@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             }
 
             if (base.NumLives == 0) {
-                LobotomyPlugin.Log.LogInfo($"[ApocalypseBoss] Final reactive difficulty: {BattleSequencer.ReactiveDifficulty}");
+                LobotomyPlugin.Log.LogMessage($"[ApocalypseBoss] Final reactive difficulty: {BattleSequencer.ReactiveDifficulty}");
                 AscensionStatsData.TryIncrementStat(AscensionStat.Type.BossesDefeated);
                 yield return new WaitForSeconds(0.25f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
@@ -123,8 +123,11 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 yield return StartGiantPhase();
         }
         private IEnumerator StartGiantPhase() {
+            LobotomyPlugin.Log.LogMessage($"[ApocalypseBoss] Giant reactive difficulty: {BattleSequencer.ReactiveDifficulty}");
             CardInfo beast = CardLoader.GetCardByName(Cards.giantApocalypse);
-            beast.Mods.Add(new(BattleSequencer.ReactiveDifficulty > 13 ? 1 : 0, BattleSequencer.BossHealthThreshold(2) - beast.baseHealth) { singletonId = "ReactiveStrength", nonCopyable = true });
+            if (BattleSequencer.ReactiveDifficulty > 18) {
+                beast.Mods.Add(new(1, 0) { singletonId = "ReactiveStrength" });
+            }
 
             yield return ClearBoard();
             yield return ClearQueue();
