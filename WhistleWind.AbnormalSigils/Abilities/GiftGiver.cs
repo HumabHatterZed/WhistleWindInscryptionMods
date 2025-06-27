@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is first played, create a random card in your hand.
+    /// </summary>
     public class GiftGiver : OpponentDrawCreatedCard {
         public static Ability ability;
         public override Ability Ability => ability;

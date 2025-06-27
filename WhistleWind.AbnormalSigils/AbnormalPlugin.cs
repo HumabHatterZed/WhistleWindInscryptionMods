@@ -273,6 +273,7 @@ namespace WhistleWind.AbnormalSigils {
             Ability_SoulboundFlesh();
             Ability_DeathPenalty();
             Ability_Ethereal();
+            Ability_IntenseVolley();
 
             #endregion
 

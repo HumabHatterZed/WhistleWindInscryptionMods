@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_IntenseVolley() {
             const string rulebookName = "Intense Volley";
-            const string rulebookDescription = "At the end of the owner's turn, this card will target at least 2 opposing spaces to attack on its next turn.";
+            const string rulebookDescription = "At the end of the owner's turn, this card will target at 2-4 opposing spaces to attack on its next turn.";
             IntenseVolley.ability = AbnormalAbilityHelper.CreateAbility<IntenseVolley>(
                 "sigilVolley",
                 rulebookName, rulebookDescription, powerLevel: 5,
@@ -26,6 +26,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, this card will target at 2-4 opposing spaces to attack on its next turn.
+    /// </summary>
     public class IntenseVolley : AbilityBehaviour, IPlayerTurnEnd, IOpponentTurnEnd, ISetupAttackSequence {
         public static Ability ability;
         public override Ability Ability => ability;
