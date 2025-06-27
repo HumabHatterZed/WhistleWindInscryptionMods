@@ -6,7 +6,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_FingerTapping() {
             const string rulebookName = "Finger Tapping";
-            const string rulebookDescription = "When [creature] is played, create Fingers on adjacent empty spaces. [define:wstl_finger]";
+            const string rulebookDescription = "When [creature] is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.";
             const string dialogue = "Resentment bursts forth like a weed.";
             const string triggerText = "Sharp thorns shoot out around [creature]!";
             FingerTapping.ability = AbnormalAbilityHelper.CreateAbility<FingerTapping>(
@@ -18,10 +18,14 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class FingerTapping : CreateCardsAdjacent {
+    /// <summary>
+    /// When [creature] is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.
+    /// </summary>
+    public class FingerTapping : CreateTwoCardsAdjacent {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override string SpawnedCardId => "wstl_finger";
-        public override string CannotSpawnDialogue => "Not enough hands to go around.";
+        protected override string LeftSpawnedCardId => "wstl_finger_left";
+        protected override string RightSpawnedCardId => "wstl_finger_right";
+        protected override string CannotSpawnDialogue => "Not enough hands to go around.";
     }
 }
