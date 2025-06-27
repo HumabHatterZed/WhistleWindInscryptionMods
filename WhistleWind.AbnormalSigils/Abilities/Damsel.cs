@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Damsel() {
             const string rulebookName = "Damsel";
-            const string rulebookDescription = "Creatures adjacent to [creature] will redirect their attacks to any creatures targeting this card.";
+            const string rulebookDescription = "Attacks from creatures adjacent to [creature] are redirected to creatures targeting this card.";
             const string dialogue = "The damsel demands warriors to destroy its tormentor.";
             Damsel.ability = AbnormalAbilityHelper.CreateAbility<Damsel>(
                 "sigilDamsel",
@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Attacks from creatures adjacent to [creature] are redirected to creatures targeting this card.
+    /// </summary>
     [HarmonyPatch]
     public class Damsel : AbilityBehaviour, IOnPreSlotAttackSequence, IOnPostSlotAttackSequence {
         public static Ability ability;
@@ -43,7 +46,7 @@ namespace WhistleWind.AbnormalSigils {
             return base.Card.Slot.GetAdjacentSlots().Contains(attackingSlot) && GetTormentorSlots(base.Card).Count > 0;
         }
         public IEnumerator OnPreSlotAttackSequence(CardSlot attackingSlot) {
-            AbnormalPlugin.Log.LogDebug($"Overriding opposingSlot for {attackingSlot}");
+            AbnormalPlugin.Log.LogDebug($"[Damsel] Overriding opposingSlot for {attackingSlot}");
             attackingSlot.opposingSlot = GetTormentorSlots(base.Card)[0];
             yield break;
         }
@@ -52,7 +55,7 @@ namespace WhistleWind.AbnormalSigils {
             return base.Card.Slot.GetAdjacentSlots().Contains(attackingSlot) && attackingSlot.opposingSlot.Index != attackingSlot.Index;
         }
         public IEnumerator OnPostSlotAttackSequence(CardSlot attackingSlot) {
-            AbnormalPlugin.Log.LogDebug($"Resetting opposingSlot for {attackingSlot}");
+            AbnormalPlugin.Log.LogDebug($"[Damsel] Resetting opposingSlot for {attackingSlot}");
             attackingSlot.opposingSlot = BoardManager.Instance.GetSlotsCopy(!attackingSlot.IsPlayerSlot).Find(x => x.Index == attackingSlot.Index);
             yield break;
         }
