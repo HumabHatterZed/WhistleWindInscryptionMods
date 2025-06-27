@@ -24,6 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is struck, the striker gains 1 Worms.
+    /// </summary>
     public class SerpentsNest : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

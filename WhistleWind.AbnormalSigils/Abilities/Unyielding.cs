@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] cannot be moved from its space on the board by most effects.
+    /// </summary>
     [HarmonyPatch]
     public class Unyielding : AbilityBehaviour {
         public static Ability ability;

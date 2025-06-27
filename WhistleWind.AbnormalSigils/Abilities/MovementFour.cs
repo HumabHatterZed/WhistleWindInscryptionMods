@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).ability;
         }
     }
+    /// <summary>
+    /// All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.
+    /// </summary>
     public class MovementFour : ConductorMovementBase {
         public static Ability ability;
         public override Ability Ability => ability;

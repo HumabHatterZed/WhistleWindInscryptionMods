@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, all other cards on the board take damage equal to this card's Power.
+    /// </summary>
     public class ReturnToNihil : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

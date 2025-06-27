@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the start of the owner's turn, [creature] gains Haste equal to 1 plus the number of times it has moved on the board.
+    /// </summary>
     public class NimbleFoot : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

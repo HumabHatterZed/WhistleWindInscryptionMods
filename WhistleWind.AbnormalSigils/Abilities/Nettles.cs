@@ -25,6 +25,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When this card is played, Brothers are created on adjacent empty spaces. This card gains the first sigil of each adjacent Brother while they are on the board.
+    /// </summary>
     public class Nettles : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -18,6 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] has its Power reduced to 0. At the start of the owner's next turn, remove this sigil.
+    /// </summary>
     public class Neutered : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

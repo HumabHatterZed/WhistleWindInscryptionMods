@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_SurefireDrink() {
             const string rulebookName = "Surefire Soda";
-            const string rulebookDescription = "The selected card will have Sniper for this turn.";
+            const string rulebookDescription = "The selected card will gain Sniper for this turn.";
             SurefireDrink.ability = AbnormalAbilityHelper.CreateAbility<SurefireDrink>(
                 "sigilSurefireDrink",
                 rulebookName, rulebookDescription, powerLevel: 2,
@@ -21,7 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// The selected card will have Sniper for this turn.
+    /// </summary>
     public class SurefireDrink : SodaAbilityBehaviour {
         public const Ability abilityToAdd = Ability.Sniper;
         public const string id = "SurefireDrunk";

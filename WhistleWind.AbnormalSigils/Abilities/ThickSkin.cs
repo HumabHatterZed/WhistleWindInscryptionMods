@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Whenever [creature] is struck by a creature, reduce the damage taken by 1.
+    /// </summary>
     public class ThickSkin : AbilityBehaviour, IModifyDamageTaken {
         public static Ability ability;
         public override Ability Ability => ability;

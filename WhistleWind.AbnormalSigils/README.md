@@ -37,7 +37,7 @@ Testing and Feedback:
 
 |Name|Totem|Stacks|Power|Description
 :-|:-:|:-:|-:|:-
-Punisher			|X|X|4	|When a card bearing this sigil is struck, the striker is killed.
+Punisher			|X|X|4	|When a card bearing this sigil is struck and killed, the attacker also perishes.
 Bloodfiend			|✓|✓|2	|When a card bearing this sigil deals damage, it gains 1 Health.
 Martyr				|✓|✓|1	|When a card bearing this sigil dies, all allied creatures gain 2 Health and lose any negative status effects.
 Aggravating			|X|✓|-3	|While this card is on the board, all opposing creatures gain 1 Power.
@@ -79,7 +79,7 @@ Nettle Clothes		|X|X|5	|When this card is played, fill all empty spaces on the o
 Sporogenic			|X|✓|2	|Creatures adjacent to this card gain 1 Spores at the end of the owner's turn. This sigil activates before other sigils.
 Witness				|X|X|2	|Pay 1 Bone to inflict 1 Flagellation and increase the selected creature's Health by 2. This effect stacks up to 3 times.
 Corrector			|✓|X|2	|When a card bearing this sigil is drawn, randomly change its stats according to its total play cost.
-Thick Skin			|✓|✓|2	|Whenever a card bearing this sigil takes damage, reduce that damage by 1.
+Thick Skin			|✓|✓|2	|Whenever a card bearing this sigil is struck by a creature, reduce the damage taken by 1.
 Opportunistic		|✓|✓|2	|A card bearing this sigil deals 1 additional damage when striking creatures that cannot attack it.
 Persistent			|✓|X|2	|Attacks by this card cannot be avoided or redirected by sigils like Loose Tail or Waterborne.
 Copycat				|X|X|2	|This gains the sigils and stats of the first card to be played in the opposing space.
@@ -110,14 +110,14 @@ Mind Strike			|X|X|2	|When a card bearing this sigil strikes another creature, d
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
 Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
 Healing Strike		|X|X|-2	|Creatures struck by a card bearing this sigil take no damage and instead regain Health equal to the damage dealt.
-Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike, Sniper.
-Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 Decay for each stack of this sigil.
-Understanding		|X|X|2	|If a card bearing this sigil perishes from the effect of Decay, deal 4 damage to each opposing creature and 4 direct damage to their owner.
+Finger Tapping		|X|X|4	|When [creature] is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.
+Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 Decay for each stack of this sigil it possesses.
+Understanding		|X|X|1	|If [creature] perishes due to self-inflicted damage, deal 4 damage to opposing creatures.
 Bleachproof			|X|X|2	|A card bearing this sigil cannot have its sigils removed by the Bleach Pot.
 Elite				|X|X|4	|A card bearing this sigil is considered as having Made of Stone and Bleachproof.
 Withering			|X|X|3	|At the end of the owner's turn, a card bearing this sigil deals 1 direct damage to the opposing side.
 Unbreakable Defence	|X|X|5	|A card bearing this sigil prevents all damage dealt to it. All cards behave as if this card took damage.
-Explosive Opening	|X|X|1	|When this card is played, adjacent and opposing cards are dealt 10 damage.
+Explosive Opening	|X|X|2	|When this card is played, adjacent and opposing cards are dealt 10 damage.
 </details>
 
 ### ⁉️ Stat Icons

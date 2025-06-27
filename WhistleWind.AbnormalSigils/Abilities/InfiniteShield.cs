@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] prevents all damage dealt to it. All cards behave as if this card took damage.
+    /// </summary>
     [HarmonyPatch]
     public class InfiniteShield : DamageShieldBehaviour, IShieldPreventedDamage {
         public static Ability ability;

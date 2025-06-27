@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, the creature opposing [creature] will take 1 damage. This card cannot be frozen.
+    /// </summary>
     public class Scorching : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

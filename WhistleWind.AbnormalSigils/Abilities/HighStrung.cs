@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the start of the player's turn, [creature] gains Haste equal to the opposing creature's Attack.
+    /// </summary>
     public class HighStrung : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

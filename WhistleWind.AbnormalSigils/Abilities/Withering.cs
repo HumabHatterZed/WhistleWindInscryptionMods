@@ -19,6 +19,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.
+    /// </summary>
     public class Withering : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

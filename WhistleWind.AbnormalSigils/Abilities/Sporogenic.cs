@@ -24,6 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.
+    /// </summary>
     public class Sporogenic : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -18,6 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is played, create Thorny Vines on adjacent empty spaces. [define:wstl_snowWhitesVine]
+    /// </summary>
     public class Roots : CreateCardsAdjacent {
         public static Ability ability;
         public override Ability Ability => ability;

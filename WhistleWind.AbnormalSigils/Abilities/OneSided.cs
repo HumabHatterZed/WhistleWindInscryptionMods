@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .Info.SetFlipYIfOpponent().ability;
         }
     }
+    /// <summary>
+    /// [creature] deals 1 additional damage when striking injured cards.
+    /// </summary>
     public class OneSided : ModifyDamageDealtAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

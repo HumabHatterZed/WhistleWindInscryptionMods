@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// While this card is on the board, all opposing creatures lose 1 Power.
+    /// </summary>
     public class Idol : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ability;
         public override Ability Ability => ability;

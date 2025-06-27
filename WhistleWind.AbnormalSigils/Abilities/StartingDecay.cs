@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is played, it gains 1 Decay for each stack of this sigil it possesses.
+    /// </summary>
     public class StartingDecay : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

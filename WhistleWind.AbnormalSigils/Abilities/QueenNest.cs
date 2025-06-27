@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// While [creature] is on the board, create a Worker Bee in your hand whenever another card perishes. [define:wstl_queenBeeWorker]
+    /// </summary>
     public class QueenNest : OpponentDrawCreatedCard {
         public static Ability ability;
         public override Ability Ability => ability;

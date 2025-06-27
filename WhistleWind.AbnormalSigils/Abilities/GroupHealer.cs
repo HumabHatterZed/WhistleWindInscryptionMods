@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the start of the owner's turn, [creature] will heal all injured allies by 1 Health.
+    /// </summary>
     public class GroupHealer : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

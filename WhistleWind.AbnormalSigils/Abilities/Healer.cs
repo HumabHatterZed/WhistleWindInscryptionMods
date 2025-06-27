@@ -26,6 +26,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.
+    /// </summary>
     public class Healer : SniperSelectSlot {
         public static Ability ability;
         public override Ability Ability => ability;

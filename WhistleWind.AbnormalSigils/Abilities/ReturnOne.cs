@@ -11,6 +11,9 @@ using WhistleWind.Core.Helpers;
 
 
 namespace WhistleWind.AbnormalSigils {
+    /// <summary>
+    /// Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.
+    /// </summary>
     public class ReturnCard : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

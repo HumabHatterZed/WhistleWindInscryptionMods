@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// While this card is on the board, all allied creatures gain 1 Power.
+    /// </summary>
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ability;
         public override Ability Ability => ability;

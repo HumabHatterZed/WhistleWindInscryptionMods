@@ -19,6 +19,9 @@ namespace WhistleWind.AbnormalSigils {
             Fervent.data.IconInfo.SetAbilityRedirect("Movement", MovementOne.ability, GameColors.Instance.gray);
         }
     }
+    /// <summary>
+    /// Creatures adjacent to [creature] gain 1 Power. At the start of the owner's next turn, begin the Second Movement: Sostenuto.
+    /// </summary>
     public class MovementOne : ConductorMovementBase {
         public static Ability ability;
         public override Ability Ability => ability;

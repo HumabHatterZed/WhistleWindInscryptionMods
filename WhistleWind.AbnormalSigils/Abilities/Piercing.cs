@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Piercing() {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "[creature] will strike through armoured cards. Opposing cards cannot reduce damage dealt by this card.";
+            const string rulebookDescription = "[creature] can strike through shields. Opposing cards cannot reduce damage dealt by this card.";
             const string dialogue = "Even the thickest hide can be run through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] can strike through shields. Opposing cards cannot reduce damage dealt by this card.
+    /// </summary>
     public class Piercing : AbilityBehaviour, IModifyDamageTaken, IShieldPreventedDamage {
         public static Ability ability;
         public override Ability Ability => ability;

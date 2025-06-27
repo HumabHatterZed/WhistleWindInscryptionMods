@@ -18,6 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] gains the stats of the creatures sacrificed to play it.
+    /// </summary>
     public class Grinder : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

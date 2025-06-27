@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).SetPowerlevel(5).ability;
         }
     }
+    /// <summary>
+    /// All other creatures on the board gain 3 Power and Fervent Adoration. At the start of the owner's next turn, this card will perish.
+    /// </summary>
     public class MovementFive : ConductorMovementBase {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Creatures adjacent to [creature] take 1 less damage when struck.
+    /// </summary>
     public class Protector : AbilityBehaviour, IModifyDamageTaken {
         public static Ability ability;
         public override Ability Ability => ability;

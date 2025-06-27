@@ -20,7 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// When a creature moves into the space opposite this card, they take damage equal to this card's Power.
+    /// </summary>
     public class Woodcutter : Sentry, IModifyDamageTaken {
         public static Ability ability;
         public override Ability Ability => ability;

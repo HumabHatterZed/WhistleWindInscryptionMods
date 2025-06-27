@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is played, kill all creatures on the board. Creatures killed this way do not drop bones.
+    /// </summary>
     public class TheTrain : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

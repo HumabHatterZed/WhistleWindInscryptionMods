@@ -21,7 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// The selected card will become Waterborne for 3 turns.
+    /// </summary>
     public class OceanSoda : SodaAbilityBehaviour {
         public const Ability abilityToAdd = Ability.Submerge;
         public const string id = "OceanSoda";

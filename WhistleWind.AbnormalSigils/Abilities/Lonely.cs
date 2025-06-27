@@ -24,6 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Choose one of your cards to gain Pebble unless a card with Pebble already exists, then return this card to your hand.
+    /// </summary>
     public class Lonely : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -21,7 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// Creatures struck by [creature] are pushed to an adjacent space.
+    /// </summary>
     public class Wedge : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Once per turn, pay [sigilcost:2 Bones] to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 1 Bone.
+    /// </summary>
     public class NeuteredLatch : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

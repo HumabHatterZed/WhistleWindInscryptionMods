@@ -18,6 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
         }
     }
+    /// <summary>
+    /// All other creatures on the board gain 1 Power. At the start of the owner's next turn, begin the Fourth Movement: Stringendo.
+    /// </summary>
     public class MovementThree : ConductorMovementBase {
         public static Ability ability;
         public override Ability Ability => ability;

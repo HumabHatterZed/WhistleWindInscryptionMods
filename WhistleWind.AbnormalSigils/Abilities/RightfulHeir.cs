@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Once per turn, pay [sigilcost:1 Bone] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1. [define:wstl_ozmaPumpkin]
+    /// </summary>
     public class RightfulHeir : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

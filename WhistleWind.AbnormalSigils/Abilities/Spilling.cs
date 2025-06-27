@@ -27,6 +27,9 @@ namespace WhistleWind.AbnormalSigils {
                 .Id;
         }
     }
+    /// <summary>
+    /// When [creature] perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
+    /// </summary>
     public class Spilling : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

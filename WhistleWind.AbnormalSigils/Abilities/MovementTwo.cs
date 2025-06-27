@@ -17,6 +17,9 @@ namespace WhistleWind.AbnormalSigils {
                 .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
         }
     }
+    /// <summary>
+    /// Allied creatures gain 1 Power. At the start of the owner's next turn, begin the Third Movement: Accelerando.
+    /// </summary>
     public class MovementTwo : ConductorMovementBase {
         public static Ability ability;
         public override Ability Ability => ability;

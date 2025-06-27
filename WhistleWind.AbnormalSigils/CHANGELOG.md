@@ -30,6 +30,7 @@
 - Renamed Bitter Enemies sigil to Vendetta
 - Renamed Little Witch's Friend to "Wee Witch's Friend"
 - Renamed Lonely sigil to Pebble Giver
+- Renamed Greedy Healing to Malignant Regeneration
 - Renamed Spore Mold Creature to Spore Mold Beast
 - Changed icons for Conductor sigil
 - Changed icons for Barreler sigil
@@ -68,6 +69,7 @@
 - Fixed Haste gained from High Strung being inconsistent on when it's removed from the card
 - Fixed learned ability dialogue not triggering
 - Fixed Spiderling not having Fledgling
+- Fixed incorrect descriptions, missing words, etc.
 ### ⚖️ Balancing
 - Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
 - Lonely - reduced powerlevel from 3 -> 2
@@ -76,12 +78,16 @@
 - Bloodfiend - reduced powerlevel from 3 -> 2
 - Bloodletter - healing is now capped at 2 above the card's max health
 - Bloodletter - reduced powerlevel from 4 -> 3
+- Corrector - modified stat formula to more closely follow Daniel Mullin's (in-game values should be the same or higher)
+- Corrector - Energy cost now follows the vanilla formula outside Act 1 for improved compatibility
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Gift Giver - increased powerlevel from 3 -> 4
-- Gift Giver - No longer gives multiple copies of singleton cards when retriggered
-- Healer - now removes a random negative status effect from targeted cards
+- Gift Giver - no longer gives multiple copies of singleton cards when retriggered
+- Greedy Healing - healing reduced to 1 per turn
+- Greedy Healing - changed kill condition to health exceeding its max by 3+
 - Healer - reduced health gained from 2 -> 1
+- Healer - now removes a random negative status effect from targeted cards
 - Nettle Clothes - reduced powerlevel from 5 -> 4
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
 - Nettle Clothes - changed singleton id used for tracking added sigils
@@ -115,6 +121,7 @@
 - Added extension methods for clearing status effects from a card
 - Added custom rulebook pages 'Mechanics'
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
+- Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Added 15 sigils:
     - Damsel

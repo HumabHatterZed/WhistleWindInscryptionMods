@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Pay 1 Bone to inflict 1 Flagellation and increase the selected creature's Health by 2. This effect stacks up to 3 times.
+    /// </summary>
     public class Witness : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

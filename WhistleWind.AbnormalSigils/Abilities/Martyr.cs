@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Martyr() {
             const string rulebookName = "Martyr";
-            const string rulebookDescription = "When [creature] dies, all allied creatures gain 2 Health and lose any negative status effects.";
+            const string rulebookDescription = "When [creature] perishes, allied creatures gain 2 Health and lose any negative status effects.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
             const string triggerText = "[creature]'s death cleanses your other creatures!";
             Martyr.ability = AbnormalAbilityHelper.CreateAbility<Martyr>(
@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] perishes, allied creatures gain 2 Health and lose any negative status effects.
+    /// </summary>
     public class Martyr : AbilityBehaviour // original code taken from SigilADay - julianperge
     {
         public static Ability ability;

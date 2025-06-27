@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the start of the owner's turn, creatures adjacent to [creature] regain 1 Health.
+    /// </summary>
     public class Regenerator : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Opposing creatures cannot avoid or redirect attacks from this card.
+    /// </summary>
     public class Persistent : AbilityBehaviour, IOnPreSlotAttackSequence, IOnPostSlotAttackSequence {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -286,10 +286,6 @@ namespace WhistleWind.AbnormalSigils {
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
 
-        public static class SpellAPI {
-            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.spells");
-        }
-
         public static class TribalAPI {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
             public static void UseTribalTribes() {

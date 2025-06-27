@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is struck and killed, the attacker also perishes.
+    /// </summary>
     public class Punisher : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -11,9 +11,7 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Scrambler() {
-            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then randomise the resulting stats.";
-            if (SpellAPI.Enabled)
-                rulebookDescription += " Works for Spells.";
+            string rulebookDescription = "This card gives its stats to the target card then randomises its new stats. For non-spells, activate when sacrificed.";
 
             const string rulebookName = "Scrambler";
             const string dialogue = "Do you love your city?";
@@ -27,14 +25,17 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// This card gives its stats to the target card then randomises its new stats. For non-spells, activate when sacrificed.
+    /// </summary>
     public class Scrambler : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
         public override bool RespondsToSacrifice() => true;
-        public override bool RespondsToResolveOnBoard() => AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsGlobalSpell();
+        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
-            if (AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsTargetedSpell() && slot.Card != null)
+            if (base.Card.Info.IsTargetedSpell() && slot.Card != null)
                 return base.Card.OpponentCard == slot.Card.OpponentCard;
 
             return false;

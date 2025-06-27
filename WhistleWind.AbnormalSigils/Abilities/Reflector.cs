@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is struck, the striker is dealt damage equal to its own Power.
+    /// </summary>
     public class Reflector : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

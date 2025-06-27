@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Creatures struck by [creature] take no damage and instead gain Health equal to the damage dealt.
+    /// </summary>
     public class HealingStrike : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

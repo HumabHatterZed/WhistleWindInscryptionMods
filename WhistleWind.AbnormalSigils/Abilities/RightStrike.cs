@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] will strike the opposing space to the right of the space across from it.
+    /// </summary>
     public class RightStrike : AbilityBehaviour, IGetOpposingSlots {
         public static Ability ability;
         public override Ability Ability => ability;

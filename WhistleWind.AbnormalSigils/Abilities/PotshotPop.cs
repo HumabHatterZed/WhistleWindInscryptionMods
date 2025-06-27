@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_PotshotPop() {
             const string rulebookName = "Potshot Pop";
-            const string rulebookDescription = "The selected card will have Sentry for 2 turns.";
+            const string rulebookDescription = "The selected card will gain Sentry for 2 turns.";
             PotshotPop.ability = AbnormalAbilityHelper.CreateAbility<PotshotPop>(
                 "sigilPotshotPop",
                 rulebookName, rulebookDescription, powerLevel: 2,
@@ -21,7 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// The selected card will gain Sentry for 2 turns.
+    /// </summary>
     public class PotshotPop : SodaAbilityBehaviour {
         public const Ability abilityToAdd = Ability.Sentry;
         public const string id = "PotshotPopped";

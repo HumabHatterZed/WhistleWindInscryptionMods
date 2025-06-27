@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Whenever [creature] takes damage, its owner takes an equal amount of damage.
+    /// </summary>
     public class Soulbound : AbilityBehaviour, IPreTakeDamage {
         public static Ability ability;
         public override Ability Ability => ability;

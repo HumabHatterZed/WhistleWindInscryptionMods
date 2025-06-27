@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, creatures adjacent to [creature] gain this sigil. If this card is not a Slime, also take 1 damage and transform into a Slime on death.
+    /// </summary>
     public class Slime : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

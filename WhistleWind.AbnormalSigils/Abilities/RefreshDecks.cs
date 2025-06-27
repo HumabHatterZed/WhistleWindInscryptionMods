@@ -6,13 +6,14 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
+    /// <summary>
+    /// When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.
+    /// </summary>
     public class RefreshDecks : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard() => AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsGlobalSpell();
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && !AbnormalPlugin.SpellAPI.Enabled;
-
+        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
         public override IEnumerator OnResolveOnBoard() {
             if (!SaveManager.SaveFile.IsPart2)
                 yield return HelperMethods.ChangeCurrentView(View.Hand, 0.2f, 0.4f);
@@ -33,8 +34,11 @@ namespace WhistleWind.AbnormalSigils {
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.1f);
             yield return Singleton<CardDrawPiles>.Instance.DrawOpeningHand(TurnManager.Instance.GetFixedHand());
+
+            if (!base.Card.Info.IsSpell()) {
+                yield return base.Card.Die(false, null);
+            }
         }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) => OnResolveOnBoard();
     }
 
     public partial class AbnormalPlugin {

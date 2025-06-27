@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_YellowBrickRoad() {
             const string rulebookName = "Follow the Leader";
-            const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.";
+            const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures move towards this card in the sigil's direction as far as possible.";
             const string dialogue = "Let's go, together.";
             const string triggerText = "[creature] leads your creatures forward.";
             YellowBrickRoad.ability = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
@@ -23,7 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures move towards this card in the sigil's direction as far as possible.
+    /// </summary>
     public class YellowBrickRoad : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;
