@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_CardScramble() {
             const string rulebookName = "Board Shuffle";
-            const string rulebookDescription = "Pay 3 Energy to shuffle all creatures on the board.";
+            const string rulebookDescription = "Pay 3 Energy to shuffle the position of all creatures on the board.";
             const string dialogue = "What a mess.";
             CardScramble.ability = AbnormalAbilityHelper.CreateAbility<CardScramble>(
                 "sigilCardScramble",
@@ -27,7 +27,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// Pay 3 Energy to shuffle the position of all creatures on the board.
+    /// </summary>
     public class CardScramble : DelayedActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

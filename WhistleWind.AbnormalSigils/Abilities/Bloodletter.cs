@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -23,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker, up to 2 above this card's maximum Health.
+    /// </summary>
     public class Bloodletter : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

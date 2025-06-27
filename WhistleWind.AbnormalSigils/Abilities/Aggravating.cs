@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .Id;
         }
     }
+    /// <summary>
+    /// While this card is on the board, all opposing creatures gain 1 Power.
+    /// </summary>
     public class Aggravating : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ability;
         public override Ability Ability => ability;

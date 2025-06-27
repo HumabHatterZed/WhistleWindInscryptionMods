@@ -24,6 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.
+    /// </summary>
     public class FalseThrone : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

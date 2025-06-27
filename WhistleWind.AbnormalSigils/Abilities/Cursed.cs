@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Cursed() {
             const string rulebookName = "Cursed";
-            const string rulebookDescription = "When [creature] dies, the killer transforms into a copy of this card.";
+            const string rulebookDescription = "If [creature] is struck and perishes, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
             const string triggerText = "[creature] passes the curse on.";
             Cursed.ability = AbnormalAbilityHelper.CreateAbility<Cursed>(
@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// If [creature] is struck and perishes, the killer transforms into a copy of this card.
+    /// </summary>
     public class Cursed : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

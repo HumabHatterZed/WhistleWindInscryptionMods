@@ -27,6 +27,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] remembers the first card that kills it. In all future battles, this card will carry a vendetta against similar cards.
+    /// </summary>
     public class BitterEnemies : ModifyDamageDealtAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

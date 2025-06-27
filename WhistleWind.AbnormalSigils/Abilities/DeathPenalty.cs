@@ -19,6 +19,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is killed, its owner takes 1 damage.
+    /// </summary>
     public class DeathPenalty : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

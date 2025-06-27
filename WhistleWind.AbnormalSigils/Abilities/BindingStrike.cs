@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to this card's Attack.
+    /// </summary>
     public class BindingStrike : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

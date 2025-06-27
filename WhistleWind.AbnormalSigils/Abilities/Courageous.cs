@@ -23,6 +23,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.
+    /// </summary>
     public class Courageous : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

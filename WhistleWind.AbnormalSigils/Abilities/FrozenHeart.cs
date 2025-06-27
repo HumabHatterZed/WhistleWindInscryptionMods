@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] perishes, the killer gains 1 Power and 1 Health.
+    /// </summary>
     public class FrozenHeart : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

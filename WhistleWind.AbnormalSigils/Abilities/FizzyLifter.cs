@@ -22,7 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// The selected card will become Airborne for 3 turns.
+    /// </summary>
     public class FizzyLifter : SodaAbilityBehaviour {
         public const Ability abilityToAdd = Ability.Flying;
         public const string id = "FizzyLifted";

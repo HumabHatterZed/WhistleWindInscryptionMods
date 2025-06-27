@@ -25,7 +25,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.
+    /// </summary>
     public class Cycler : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;

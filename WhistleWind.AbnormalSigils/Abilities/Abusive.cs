@@ -11,18 +11,20 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Abusive() {
             const string rulebookName = "Abusive";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] will strike adjacent creatures that failed to deal any damage during combat.";
-            const string dialogue = "This beast will not tolerate 'laziness'.";
-            const string triggerText = "[creature] 'motivates' lazy beasts.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] will strike adjacent creatures.";
+            const string dialogue = "Nothing is good enough.";
             Abusive.ability = AbnormalAbilityHelper.CreateAbility<Abusive>(
                 "sigilAbusive",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -3,
+                rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, [creature] will strike adjacent creatures.
+    /// </summary>
     public class Abusive : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

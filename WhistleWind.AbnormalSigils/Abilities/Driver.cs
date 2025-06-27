@@ -21,7 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// Creatures struck by [creature] gain Unyielding and lose Airborne.
+    /// </summary>
     public class Driver : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

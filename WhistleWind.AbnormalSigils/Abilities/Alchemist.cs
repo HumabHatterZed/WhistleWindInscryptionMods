@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Pay 2 Energy to discard your current hand and draw cards equal to the amount discarded. If the main pile is exhausted, draw from the side pile.
+    /// </summary>
     public class Alchemist : ExtendedActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] strikes a creature, it gains 1 Health, up to 2 above its maximum Health.
+    /// </summary>
     public class Bloodfiend : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

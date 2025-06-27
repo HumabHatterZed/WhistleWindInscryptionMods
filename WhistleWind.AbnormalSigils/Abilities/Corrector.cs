@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Corrector() {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its total play cost.";
+            const string rulebookDescription = "When [creature] is drawn, its stats are randomly changed according to its total play cost.";
             const string dialogue = "How balanced.";
             const string triggerText = "[creature] stats are forcefully 'corrected'.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is drawn, its stats are randomly changed according to its total play cost.
+    /// </summary>
     public class Corrector : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -48,24 +51,27 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private int GetCostPowerLevel() {
-            int powerLevel = base.Card.Info.BonesCost;
-            powerLevel += base.Card.Info.BloodCost switch {
+            int powerLevel = Mathf.CeilToInt(base.Card.BonesCost() * 1.2f);
+            powerLevel += base.Card.BloodCost() switch {
                 0 => 0,
                 1 => 4,
                 2 => 8,
-                3 => 13,
-                _ => 24 + (base.Card.Info.BloodCost - 4) * 7
+                3 => 14,
+                _ => 21 + (base.Card.BloodCost() - 4) * 7
             };
-            powerLevel += base.Card.Info.EnergyCost switch {
-                0 => 0,
-                1 => 1,
-                2 => 2,
-                3 => 4,
-                4 => 7,
-                5 => 9,
-                _ => 12 + (base.Card.Info.EnergyCost - 6) * 4
-            };
-            powerLevel += base.Card.Info.GemsCost.Count * 3;
+            if (!SaveManager.SaveFile.IsPart1 || base.Card.EnergyCost < 3) {
+                powerLevel += base.Card.EnergyCost;
+            }
+            else {
+                powerLevel += base.Card.EnergyCost switch {
+                    3 => 4,
+                    4 => 6,
+                    5 => 9,
+                    _ => 13 + (base.Card.EnergyCost - 6) * 4
+                };
+            }
+
+            powerLevel += base.Card.GemsCost().Count * 3;
 
             // Life Cost, Forbidden Mox compatibility
             powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0) * 2;

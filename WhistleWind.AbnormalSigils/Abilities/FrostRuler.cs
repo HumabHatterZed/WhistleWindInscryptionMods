@@ -22,7 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// Once per turn, choose a space on the board. If it is empty, pay 2 Bones to create a Block of Ice, otherwise pay 4 Bones to create a Frozen Heart.
+    /// </summary>
     public class FrostRuler : ActivatedSelectSlotBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -24,6 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// At the end of the owner's turn, this card moves in the sigil's direction and Blooms its old space.
+    /// </summary>
     public class FlowerQueen : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;

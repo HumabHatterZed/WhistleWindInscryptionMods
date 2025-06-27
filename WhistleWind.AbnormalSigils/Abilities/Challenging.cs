@@ -18,7 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// [creature] is considered Made of Stone and Bleachproof.
+    /// </summary>
     [HarmonyPatch]
     public class Challenging : AbilityBehaviour {
         public static Ability ability;

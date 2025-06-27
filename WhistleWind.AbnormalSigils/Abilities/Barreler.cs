@@ -24,7 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// At the end of the owner's turn, this card moves in the sigil's direction through other cards to the furthest empty space.
+    /// </summary>
     public class Barreler : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;

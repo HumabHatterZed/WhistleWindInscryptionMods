@@ -19,7 +19,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
-
+    /// <summary>
+    /// [creature] cannot have its sigils removed by the Bleach Pot.
+    /// </summary>
     [HarmonyPatch]
     public class Bleachproof : AbilityBehaviour {
         public static Ability ability;

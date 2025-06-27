@@ -24,6 +24,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// [creature] will transform into a copy of the first creature that opposes it.
+    /// </summary>
     public class Copycat : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

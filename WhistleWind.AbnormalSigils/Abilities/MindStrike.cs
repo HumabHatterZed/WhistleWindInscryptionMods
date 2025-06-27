@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .AddMetaCategories(AbilityMetaCategory.GrimoraRulebook, AbilityMetaCategory.MagnificusRulebook, AbilityMetaCategory.Part3Rulebook).ability;
         }
     }
+    /// <summary>
+    /// When [creature] strikes another creature, deal no damage and instead inflict Sinking equal to half this card's Health, rounded up.
+    /// </summary>
     public class MindStrike : ModifyDamageDealtAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

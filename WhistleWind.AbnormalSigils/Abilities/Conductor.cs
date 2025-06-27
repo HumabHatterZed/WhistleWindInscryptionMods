@@ -28,6 +28,9 @@ namespace WhistleWind.AbnormalSigils {
             Ability_Conductor5();
         }
     }
+    /// <summary>
+    /// When [creature] is played, begin Movement 1: Adagio.
+    /// </summary>
     public class Conductor : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

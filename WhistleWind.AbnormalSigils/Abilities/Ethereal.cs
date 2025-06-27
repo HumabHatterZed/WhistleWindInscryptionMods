@@ -16,6 +16,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// Attacks directed at [creature] will strike the owner instead.
+    /// </summary>
     public class Ethereal : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

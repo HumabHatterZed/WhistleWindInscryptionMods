@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// While this card is on the board, adjacent creatures gain 2 Health.
+    /// </summary>
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff {
         public static Ability ability;
         public override Ability Ability => ability;

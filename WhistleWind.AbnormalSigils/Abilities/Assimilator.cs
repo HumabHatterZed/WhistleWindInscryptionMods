@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.
+    /// </summary>
     public class Assimilator : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;

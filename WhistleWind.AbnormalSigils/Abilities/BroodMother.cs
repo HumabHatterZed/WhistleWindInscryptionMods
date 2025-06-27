@@ -22,6 +22,9 @@ namespace WhistleWind.AbnormalSigils {
                 .SetMagnificusRulebook().Id;
         }
     }
+    /// <summary>
+    /// When [creature] is struck, create a Spiderling in your hand. [define:wstl_spiderling]
+    /// </summary>
     public class BroodMother : OpponentDrawCreatedCard {
         public static Ability ability;
         public override Ability Ability => ability;

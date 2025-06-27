@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
 
             AbilityManager.FullAbility ab = AbnormalAbilityHelper.CreateAbility<ExplosiveOpening>(
                 "sigilExplosiveOpening",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
@@ -28,6 +28,9 @@ namespace WhistleWind.AbnormalSigils {
             ExplosiveOpening.ability = ab.Id;
         }
     }
+    /// <summary>
+    /// When this card is played, adjacent and opposing cards are dealt 10 damage.
+    /// </summary>
     public class ExplosiveOpening : ExplodeOnDeath {
         public static Ability ability;
         public override Ability Ability => ability;
