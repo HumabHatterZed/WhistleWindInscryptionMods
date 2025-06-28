@@ -9,20 +9,19 @@ namespace WhistleWindLobotomyMod {
         public const string hookahCaterpillar = "wstl_hookahCaterpillar";
         public const string hookahButterfly = "wstl_hookahButterfly";
         private static void HookahCaterpillar() {
-            return;
             string textureName = "hookahButterfly";
             string textureName2 = "hookahCaterpillar";
             CardInfo butterfly = CardManager.New(LobotomyPlugin.wonderlabPrefix, hookahButterfly, "Hookah Butterfly",
                 attack: 2, health: 3)
-                .SetEnergyCost(6)
+                .SetEnergyCost(4).SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(ReturnToNihil.ability)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, hookahCaterpillar, "Hookah Caterpillar",
-                attack: 0, health: 3)
-                .SetEnergyCost(3)
+                attack: 0, health: 3, "A gluttonous worm, it fattens itself on doubt and despair.")
+                .SetEnergyCost(2).SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Scorching.ability, Ability.Evolve)
                 .SetEvolve(butterfly, 2)
