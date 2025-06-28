@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -20,12 +21,9 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             CleanupTargetIcons();
 
-            loveSlots[0].Card?.Anim.PlayDeathAnimation();
-            loveSlots[1].Card?.Anim.PlayDeathAnimation();
+            if (loveSlots[0].Card != null) yield return loveSlots[0].Card.DieTriggerless();
 
-            if (loveSlots[0].Card != null) yield return loveSlots[0].Card.Die(false);
-
-            if (loveSlots[1].Card != null) yield return loveSlots[1].Card.Die(false);
+            if (loveSlots[1].Card != null) yield return loveSlots[1].Card.DieTriggerless();
 
             CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.grantUsLove), loveSlots[0]);
@@ -34,7 +32,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitForSeconds(1f);
             loveSlots = null;
         }
-        public override bool PlayerHasDefeatedOrdeal() => loveSlots == null && base.PlayerHasDefeatedOrdeal();
 
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             // if the next turn is the final turn in the turn plan, set up Grant Us Love
@@ -48,15 +45,9 @@ namespace WhistleWindLobotomyMod.Opponents {
                 yield return base.OnTurnEnd(playerTurnEnd);
             }
         }
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
-            // noon of violet only ends when Grant Us Love dies
-            if (card.Info.name != Cards.grantUsLove)
-                yield break;
-
-            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
-        }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
+            ValidCards.Add(Cards.grantUsLove);
             targetIconPrefab = AssetManager.warningTargetPrefab;
             return 1 + base.ConstructOrdealBlueprint(encounterData, baseDifficulty);
         }
