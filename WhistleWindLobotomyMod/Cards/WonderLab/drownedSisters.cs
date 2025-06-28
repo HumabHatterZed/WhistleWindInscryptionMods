@@ -8,14 +8,22 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string drownedSisters = "wstl_drownedSisters";
         private static void DrownedSisters() {
-            return;
             string textureName = "drownedSisters";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, drownedSisters, "The Drowned Sisters",
-                attack: 0, health: 2)
-                .SetBonesCost(2)
+                attack: 0, health: 1, "A pair of sisters, condemned for sins they don't know they committed.")
+                .SetBonesCost(2).SetEnergyCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.DebuffEnemy)
+                .AddAbilities(Ability.Submerge, Ability.DebuffEnemy)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, drownedSisters, "The Drowned Sisters",
+                attack: 0, health: 1, "A pair of sisters, condemned for sins they don't know they committed.")
+                .SetBonesCost(1).SetEnergyCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.Submerge, Ability.DebuffEnemy)
+                .AddTribes(AbnormalPlugin.TribeAnthropoid)
+                .SetCardTemple(CardTemple.Undead)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
