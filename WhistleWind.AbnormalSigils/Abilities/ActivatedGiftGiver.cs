@@ -12,26 +12,25 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_ActivatedGiftGiver() {
             const string rulebookName = "Gift Giver";
-            const string rulebookDescription = "Once per turn, pay 3 Bones to gain a random Present.";
+            const string rulebookDescription = "Once every three turns, you may draw a random card.";
             const string dialogue = "A gift for you.";
             const string triggerText = "[creature] has a gift for you!";
-            ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateAbility<ActivatedGiftGiver>(
+            ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedGiftGiver>(
                 "sigilGiftLatch",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: true, canStack: false)
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;
         }
     }
     /// <summary>
-    /// Once per turn, pay 3 Bones to gain a random Present.
+    /// Once every three turns, you may draw a random card.
     /// </summary>
     public class ActivatedGiftGiver : DelayedActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public const string CUSTOM_CARD_PROPERTY = "wstl:ActivatedGiftGiver";
-        public override int StartingBonesCost => 3;
+        public override int TurnDelay => 3;
         private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:ActivatedGiftGiver");
         private CardInfo CardToDraw {
             get {
