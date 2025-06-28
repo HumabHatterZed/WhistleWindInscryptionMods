@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
             Tribe[] tribes = new[] { Tribe.Hooved };
 
             CardManager.New(LobotomyPlugin.pluginPrefix, rudoltaSleigh, sleighName,
-                attack: 2, health: 3, "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.")
+                attack: 2, health: 3, "A grotesque effigy of a reindeer, laden with hate-filled gifts.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(abilities)
