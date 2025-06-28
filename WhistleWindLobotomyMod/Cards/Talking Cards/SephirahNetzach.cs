@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod {
         public const string sephirahNetzach = "wstl_sephirahNetzach";
         private static void Netzach() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahNetzach, "Netzach",
-                attack: 0, health: 3, "Unmotivated and unwilling. Surely there are others you can choose?")
+                attack: 0, health: 4, "Unmotivated and unwilling. Surely there are others you can choose?")
                 .SetBloodCost(1)
                 .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
                 .AddTraits(Sephirah)
