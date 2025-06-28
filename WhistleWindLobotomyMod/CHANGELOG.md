@@ -15,6 +15,7 @@
 - Fixed incorrect dialogue relating to reactive difficulty
 - Fixed camera not changing to show the scales when collecting direct damage
 - Bones gained from excess direct damage are now capped at 2 per turn
+- Reduced giant phase health from 40 -> 30
 - Boss is no longer considered Terrain
 - Boss now possesses Challenging sigil
 - Clarified description of Unjust Scales sigil
@@ -53,18 +54,23 @@
 - <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
 - Judgement Bird: now considered Rare
 - King of Greed: updated emission
+- Laetitia: replaced Gift-Laden sigil with Gift Giver
+- <span style='color:#DE6080'>Luminous Bracelet: reduced Health from 2 -> 1
+- <span style='color:#2084A0'>Luminous Bracelet: reduced play cost from 3 Energy -> 2 Energy
 - Magical Girl: now requires more cards to die before transforming into Queen of Hatred
 - Meat Lantern: updated artwork
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
+- <span style='color:#2084A0'>Netzach: increased Health from 3 -> 4
 - Nothing There: now reveals itself if on the board for a set number of turns - can still be killed to reveal sooner
 - Nothing There: now disguises as regular cards instead of death cards outside the Leshy fight
 - One Sin EX: fixed missing textures
-- <span style='color:#DE6080'>Ppodae EVO: Reduced Power from 3 -> 2
-- Ppodae: now possess unique version of Stinky
-- Ppodae: changed artwork
+- <span style='color:#DE6080'>Ppodae Evolution: Reduced Power from 3 -> 2
+- Ppodae & Evolution: now possess unique version of Stinky
+- Ppodae & Evolution: changed artwork
 - Red Riding Hooded Mercenary: reworked to 1/3; Vendetta, Sniper; 2 Blood
 - Sephirah: all cards now blink slower
+- The Dreaming Current: now possesses Nimble-Footed and Barreler
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - You're Bald...: changed evolution name
 ### Challenges

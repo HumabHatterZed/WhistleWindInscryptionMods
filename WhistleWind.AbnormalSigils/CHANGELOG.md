@@ -31,6 +31,7 @@
 - Renamed Little Witch's Friend to "Wee Witch's Friend"
 - Renamed Lonely sigil to Pebble Giver
 - Renamed Greedy Healing to Malignant Regeneration
+- Renamed Gift Giver sigil to Gift-Laden
 - Renamed Spore Mold Creature to Spore Mold Beast
 - Changed icons for Conductor sigil
 - Changed icons for Barreler sigil
@@ -70,6 +71,7 @@
 - Fixed learned ability dialogue not triggering
 - Fixed Spiderling not having Fledgling
 - Fixed incorrect descriptions, missing words, etc.
+- Fixed Witness not working
 ### ⚖️ Balancing
 - Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
 - Lonely - reduced powerlevel from 3 -> 2
@@ -83,7 +85,7 @@
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Gift Giver - increased powerlevel from 3 -> 4
-- Gift Giver - no longer gives multiple copies of singleton cards when retriggered
+- Gift Giver - now disables itself on activation
 - Greedy Healing - healing reduced to 1 per turn
 - Greedy Healing - changed kill condition to health exceeding its max by 3+
 - Healer - reduced health gained from 2 -> 1
@@ -123,7 +125,7 @@
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
-- Added 15 sigils:
+- Added 17 sigils:
     - Damsel
     - Abusive
     - Shove Aside
@@ -144,6 +146,8 @@
     - Soulbound Flesh
     - Ethereal
     - Death Penalty
+    - Intense Volley
+    - Gift Giver (different previous Gift Giver)
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:
