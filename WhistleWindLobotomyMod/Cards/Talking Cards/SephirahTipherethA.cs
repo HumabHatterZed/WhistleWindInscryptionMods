@@ -5,6 +5,7 @@ using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
@@ -86,8 +87,8 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(3)
                 .AddAbilities(GiftGiver.ability)
                 .AddTraits(Sephirah)
+                .SetGiftLadenId(Cards.sephirahTipherethB)
                 .SetOnePerDeck()
-                .SetExtendedProperty("wstl:GiftGiver", "wstl_sephirahTipherethB")
                 .Build();
         }
     }
