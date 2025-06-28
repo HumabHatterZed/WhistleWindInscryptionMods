@@ -8,13 +8,19 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string piscineMermaid = "wstl_piscineMermaid";
         private static void PiscineMermaid() {
-            return;
             string textureName = "piscineMermaid";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, piscineMermaid, "Piscine Mermaid",
                 attack: 1, health: 1)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GiftGiver.ability, Ability.Submerge)
+                .AddAbilities(Ability.Submerge, ActivatedGiftGiver.ability)
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, piscineMermaid, "Piscine Mermaid",
+                attack: 1, health: 1)
+                .SetBloodCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.Submerge, GiftGiver.ability)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
