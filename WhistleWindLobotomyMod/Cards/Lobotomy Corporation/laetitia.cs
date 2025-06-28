@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -17,8 +18,9 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, desc)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GiftGiver.ability)
+                .AddAbilities(ActivatedGiftGiver.ability)
                 .AddTribes(TribeFae)
+                .SetGiftGiverId("wstl_laetitiaFriend")
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
@@ -26,8 +28,9 @@ namespace WhistleWindLobotomyMod {
                 .SetGemsCost(GemType.Orange)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GiftGiver.ability)
+                .AddAbilities(ActivatedGiftGiver.ability)
                 .AddTribes(TribeFae)
+                .SetGiftGiverId("wstl_laetitiaFriend")
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
