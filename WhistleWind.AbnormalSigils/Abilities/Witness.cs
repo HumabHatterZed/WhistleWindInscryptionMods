@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils {
             if (!slot.Card.FaceDown)
                 slot.Card.Anim.StrongNegationEffect();
 
-            slot.Card.AddStatusEffectToFaceDown<Prudence>(1, false, delegate (int i) {
+            yield return slot.Card.AddStatusEffectToFaceDown<Prudence>(1, false, delegate (int i) {
                 slot.Card.HealDamage(2);
                 return i;
             });
