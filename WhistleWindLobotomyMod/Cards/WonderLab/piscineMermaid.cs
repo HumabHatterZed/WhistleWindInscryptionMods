@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 1)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Submerge, GiftGiver.ability)
+                .AddAbilities(GiftGiver.ability, Ability.Submerge)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }

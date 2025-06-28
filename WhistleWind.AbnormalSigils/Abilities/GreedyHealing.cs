@@ -28,7 +28,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd && base.Card.TurnPlayed < TurnManager.Instance.TurnNumber;
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
