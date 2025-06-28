@@ -853,6 +853,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         public bool RespondsToItemPreventedFromUse(string itemName) => RespondsToItemCanBeUsed(itemName, false);
 
         public IEnumerator OnItemPreventedFromUse(string itemName) {
+            Singleton<CameraEffects>.Instance.Shake(0.25f, 0.125f);
             yield return DialogueHelper.ShowUntilInput("The Long Bird's arms conceal time.");
         }
     }
