@@ -1,6 +1,7 @@
 ﻿using Core.Helpers;
 using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Saves;
 using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -39,7 +40,7 @@ namespace WhistleWind.AbnormalSigils {
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
                     return cardByName;
                 }
-                List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode));
+                List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode) && x.temple == SaveManager.SaveFile.GetSceneAsCardTemple());
                 list = CardLoader.RemoveDeckSingletonsIfInDeck(list);
                 if (SaveManager.SaveFile.IsPart2) {
                     list.RemoveAll(x => x.LacksCardMetaCategory(CardMetaCategory.GBCPlayable));
