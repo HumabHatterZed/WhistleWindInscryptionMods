@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,14 +10,14 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
-        private void Ability_GiftGiver() {
-            const string rulebookName = "Gift-Laden";
-            const string rulebookDescription = "When [creature] is first played, create a random card in your hand.";
+        private void Ability_ActivatedGiftGiver() {
+            const string rulebookName = "Gift Giver";
+            const string rulebookDescription = "Once per turn, pay 3 Bones to gain a random Present.";
             const string dialogue = "A gift for you.";
             const string triggerText = "[creature] has a gift for you!";
-            GiftGiver.ability = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
-                "sigilGiftGiver",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
+            ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateAbility<ActivatedGiftGiver>(
+                "sigilGiftLatch",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
@@ -24,14 +25,15 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// When [creature] is first played, create a random card in your hand.
+    /// Once per turn, pay 3 Bones to gain a random Present.
     /// </summary>
-    public class GiftGiver : OpponentDrawCreatedCard {
+    public class ActivatedGiftGiver : DelayedActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-        public const string CUSTOM_CARD_PROPERTY = "wstl:GiftGiver";
-        private string CustomCardToDraw => base.Card.Info.GetExtendedProperty(CUSTOM_CARD_PROPERTY);
-        public override CardInfo CardToDraw {
+        public const string CUSTOM_CARD_PROPERTY = "wstl:ActivatedGiftGiver";
+        public override int StartingBonesCost => 3;
+        private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:ActivatedGiftGiver");
+        private CardInfo CardToDraw {
             get {
                 if (CustomCardToDraw != null) {
                     CardInfo cardByName = CardLoader.GetCardByName(CustomCardToDraw);
@@ -51,13 +53,10 @@ namespace WhistleWind.AbnormalSigils {
                 return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }
         }
-
-        public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard() {
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return QueueOrCreateDrawnCard();
-            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability }, singletonId = "GiftGiverDisabled", nonCopyable = true });
-            yield return base.LearnAbility();
+        public override IEnumerator Activate() {
+            yield return CombatHelpers.QueueOrCreateDrawnCard(CardToDraw, base.Card.OpponentCard);
+            yield return base.LearnAbility(0.4f);
+            yield return base.Activate();
         }
     }
 }

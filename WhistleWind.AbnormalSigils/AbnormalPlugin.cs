@@ -274,6 +274,7 @@ namespace WhistleWind.AbnormalSigils {
             Ability_DeathPenalty();
             Ability_Ethereal();
             Ability_IntenseVolley();
+            Ability_ActivatedGiftGiver();
 
             #endregion
 

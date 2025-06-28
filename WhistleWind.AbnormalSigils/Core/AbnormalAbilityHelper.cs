@@ -8,6 +8,9 @@ using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers {
     public static class AbnormalAbilityHelper {
+        public static CardInfo SetGiftLadenId(this CardInfo info, string id) => info.SetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY, id);
+        public static CardInfo SetGiftGiverId(this CardInfo info, string id) => info.SetExtendedProperty(ActivatedGiftGiver.CUSTOM_CARD_PROPERTY, id);
+
         public static CardInfo SetBoneless(this CardInfo info) {
             info.AddTraits(Boneless);
             if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
