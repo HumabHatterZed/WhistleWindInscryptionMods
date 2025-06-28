@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_ActivatedGiftGiver() {
             const string rulebookName = "Gift Giver";
-            const string rulebookDescription = "Once every three turns, you may draw a random card.";
+            const string rulebookDescription = "Once every three turns, you may create a random card in your hand.";
             const string dialogue = "A gift for you.";
             const string triggerText = "[creature] has a gift for you!";
             ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedGiftGiver>(
@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// Once every three turns, you may draw a random card.
+    /// Once every three turns, you may create a random card in your hand.
     /// </summary>
     public class ActivatedGiftGiver : DelayedActivatedAbilityBehaviour {
         public static Ability ability;
