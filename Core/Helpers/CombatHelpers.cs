@@ -9,6 +9,31 @@ using WhistleWind.Core.Helpers;
 namespace Core.Helpers {
     public static class CombatHelpers {
         /// <summary>
+        /// Static version of OpponentDrawCreatedCard logic. Draws a card to hoof or adds it to the opponent's queue.
+        /// </summary>
+        public static IEnumerator QueueOrCreateDrawnCard(CardInfo cardToDraw, bool opponent, List<CardModificationInfo> tempMods = null, View view = View.Default) {
+            if (opponent) {
+                yield return QueueCreatedCard(cardToDraw);
+            }
+            else {
+                yield return CreateDrawnCard(cardToDraw, tempMods, view);
+            }
+        }
+
+        /// <summary>
+        /// Changes the current view to the specific View then creates a new card in the player's hoof.
+        /// </summary>
+        public static IEnumerator CreateDrawnCard(CardInfo cardToDraw, List<CardModificationInfo> tempMods = null, View view = View.Default) {
+            if (Singleton<ViewManager>.Instance.CurrentView != view) {
+                yield return new WaitForSeconds(0.2f);
+                Singleton<ViewManager>.Instance.SwitchToView(view);
+                yield return new WaitForSeconds(0.2f);
+            }
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardToDraw, tempMods);
+            yield return new WaitForSeconds(0.45f);
+        }
+
+        /// <summary>
         /// Creates a card with the given CardInfo in the opponent queue.
         /// </summary>
         /// <param name="cardToQueue">CardInfo for the card to add to the opponent queue.</param>

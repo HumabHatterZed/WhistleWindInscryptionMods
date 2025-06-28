@@ -1,7 +1,6 @@
 using Core.Helpers;
 using DiskCardGame;
 using System.Collections;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.Core.AbilityClasses {
     public abstract class OpponentDrawCreatedCard : DrawCreatedCard {
