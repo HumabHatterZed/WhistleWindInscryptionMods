@@ -5,7 +5,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string whiteLake = "wstl_whiteLake";
+        public const string whiteLake = "wstlWonder_whiteLake";
         private static void WhiteLake() {
             string textureName = "whiteLake";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, whiteLake, "White Lake",

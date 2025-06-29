@@ -5,7 +5,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string pygmalion = "wstl_pygmalion";
+        public const string pygmalion = "wstlWonder_pygmalion";
         private static void Pygmalion() {
             string textureName = "pygmalion";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, pygmalion, "Pygmalion",

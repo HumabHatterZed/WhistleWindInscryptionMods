@@ -6,7 +6,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string titania = "wstl_titania";
+        public const string titania = "wstlWonder_titania";
         private static void Titania() {
             return;
             string textureName = "titania";

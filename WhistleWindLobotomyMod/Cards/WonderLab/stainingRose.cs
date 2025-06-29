@@ -5,7 +5,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string stainingRose = "wstl_stainingRose";
+        public const string stainingRose = "wstlWonder_stainingRose";
         private static void StainingRose() {
             return;
             string textureName = "stainingRose";

@@ -6,7 +6,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string drownedSisters = "wstl_drownedSisters";
+        public const string drownedSisters = "wstlWonder_drownedSisters";
         private static void DrownedSisters() {
             string textureName = "drownedSisters";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, drownedSisters, "The Drowned Sisters",

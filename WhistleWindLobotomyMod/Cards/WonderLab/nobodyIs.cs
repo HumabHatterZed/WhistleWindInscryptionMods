@@ -4,7 +4,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string nobodyIs = "wstl_nobodyIs";
+        public const string nobodyIs = "wstlWonder_nobodyIs";
         private static void Nobodyis() {
             return;
             string textureName = "nobodyIs";

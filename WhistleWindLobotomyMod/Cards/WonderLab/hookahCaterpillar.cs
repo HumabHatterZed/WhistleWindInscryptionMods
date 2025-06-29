@@ -6,8 +6,8 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string hookahCaterpillar = "wstl_hookahCaterpillar";
-        public const string hookahButterfly = "wstl_hookahButterfly";
+        public const string hookahCaterpillar = "wstlWonder_hookahCaterpillar";
+        public const string hookahButterfly = "wstlWonder_hookahButterfly";
         private static void HookahCaterpillar() {
             string textureName = "hookahButterfly";
             string textureName2 = "hookahCaterpillar";

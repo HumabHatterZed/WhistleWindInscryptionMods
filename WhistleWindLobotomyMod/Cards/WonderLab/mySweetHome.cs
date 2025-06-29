@@ -5,7 +5,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
-        public const string mySweetHome = "wstl_mySweetHome";
+        public const string mySweetHome = "wstlWonder_mySweetHome";
         private static void MySweetHome() {
             return;
             string textureName = "mySweetHome";
