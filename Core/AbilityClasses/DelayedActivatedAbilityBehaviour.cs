@@ -19,8 +19,9 @@ namespace WhistleWind.Core.AbilityClasses {
 
         public override bool CanActivate() => currentTurnDelay <= 0;
         public override IEnumerator Activate() {
-            if (currentTurnDelay == 0) // reset the turn delay
+            if (currentTurnDelay == 0) {
                 currentTurnDelay = TurnDelay;
+            }
 
             yield break;
         }

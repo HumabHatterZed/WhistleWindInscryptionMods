@@ -30,9 +30,8 @@ namespace WhistleWind.AbnormalSigils {
     public class ActivatedGiftGiver : DelayedActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-        public const string CUSTOM_CARD_PROPERTY = "wstl:ActivatedGiftGiver";
         public override int TurnDelay => 3;
-        private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:ActivatedGiftGiver");
+        private string CustomCardToDraw => base.Card.Info.GetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY);
         private CardInfo CardToDraw {
             get {
                 if (CustomCardToDraw != null) {

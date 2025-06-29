@@ -87,7 +87,7 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(3)
                 .AddAbilities(GiftGiver.ability)
                 .AddTraits(Sephirah)
-                .SetGiftLadenId(Cards.sephirahTipherethB)
+                .SetGiftGiverId(Cards.sephirahTipherethB)
                 .SetOnePerDeck()
                 .Build();
         }
