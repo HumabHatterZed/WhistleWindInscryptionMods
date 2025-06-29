@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_GreedyHealing() {
             const string rulebookName = "Malignant Regeneration";
-            const string rulebookDescription = "At the end of the owner's turn, this card gains 2 Health. This card perishes when its Health exceeds its maximum by 3 or more.";
+            const string rulebookDescription = "At the end of the owner's turn, this card gains 1 Health. If its Health exceeds its maximum by 3, it will perish.";
             const string dialogue = "Your beast has Health in excess.";
             const string triggerText = "[creature] gives itself more Health!";
             GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// At the end of the owner's turn, this card gains 1 Health. This card perishes when its Health exceeds its maximum by 3 or more.
+    /// At the end of the owner's turn, this card gains 1 Health. If its Health exceeds its maximum by 3, it will perish.
     /// </summary>
     public class GreedyHealing : AbilityBehaviour {
         public static Ability ability;
@@ -36,7 +36,7 @@ namespace WhistleWind.AbnormalSigils {
             bool faceDown = base.Card.FaceDown;
             yield return base.Card.FlipFaceUp(faceDown);
             base.Card.Anim.LightNegationEffect();
-            base.Card.HealDamage(2);
+            base.Card.HealDamage(1);
             yield return new WaitForSeconds(0.3f);
 
             if (base.Card.Health < base.Card.MaxHealth + 3) {

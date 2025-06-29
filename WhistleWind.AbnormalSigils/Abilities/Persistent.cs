@@ -35,12 +35,13 @@ namespace WhistleWind.AbnormalSigils {
         public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot == base.Card.Slot;
 
         public IEnumerator OnPreSlotAttackSequence(CardSlot attackingSlot) {
-            currentTargets = base.Card.GetOpposingSlots().FindAll(x => x.Card).Select(x => x.Card).ToList();
+            currentTargets.AddRange(base.Card.GetOpposingSlots().FindAll(x => x.Card).Select(x => x.Card));
             yield break;
         }
 
         public IEnumerator OnPostSlotAttackSequence(CardSlot attackingSlot) {
-            previousTargets = new(currentTargets);
+            previousTargets.Clear();
+            previousTargets.AddRange(currentTargets);
             currentTargets.Clear();
             yield break;
         }

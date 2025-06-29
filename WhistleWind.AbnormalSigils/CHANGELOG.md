@@ -87,7 +87,7 @@
 - Gift Giver - increased powerlevel from 3 -> 4
 - Gift Giver - now disables itself on activation
 - Greedy Healing - healing reduced to 1 per turn
-- Greedy Healing - changed kill condition to health exceeding its max by 3+
+- Greedy Healing - changed kill condition to current health exceeding max health by 3 or more
 - Healer - reduced health gained from 2 -> 1
 - Healer - now removes a random negative status effect from targeted cards
 - Nettle Clothes - reduced powerlevel from 5 -> 4
@@ -109,7 +109,7 @@
 - Block of Ice - removed Mighty Leap sigil
 - First Brother - replaced Double Strike with Persistent
 - All Brother cards - removed play cost, reduced Health to 1
-- Little Witch's Friend - reworked from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
+- Little Witch's Friend - reworked from 1/2, 3 Bones -> 1/1, Detonator
 - Hammer - replaced Made of Stone with Pin Down
 - Little Witch's Friend - no longer possesses the Insect tribe
 - Pumpkin Jack - Replaced Cursed sigil with Brittle

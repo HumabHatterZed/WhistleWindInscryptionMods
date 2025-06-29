@@ -231,6 +231,7 @@ namespace WhistleWind.AbnormalSigils {
 
             #region v2.0
             Ability_Damsel();
+            Ability_StressResponse();
             Ability_Abusive();
             Ability_Wedge();
             Ability_Driver();

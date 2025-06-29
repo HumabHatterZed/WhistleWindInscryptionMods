@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils {
     public class Lonely : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => base.Card == attacker && CheckValid(slot);
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
             yield return slot.Card.AddStatusEffectToFaceDown<Pebble>();
@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils {
                 yield return new WaitForSeconds(0.4f);
             }
             else {
-                yield return HelperMethods.ChangeCurrentView(View.Hand);
+                yield return HelperMethods.ChangeCurrentView(View.Default);
                 yield return CardSpawner.Instance.SpawnCardToHand(base.Card.Info.Clone() as CardInfo);
                 yield return new WaitForSeconds(0.4f);
             }
