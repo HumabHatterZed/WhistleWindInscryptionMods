@@ -14,6 +14,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodletter.ability)
+                .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, penitentGirl, "The Penitent Girl",
@@ -21,6 +22,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodletter.ability)
+                .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .SetCardTemple(CardTemple.Undead)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
