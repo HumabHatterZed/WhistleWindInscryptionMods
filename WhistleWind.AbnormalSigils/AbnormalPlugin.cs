@@ -117,7 +117,7 @@ namespace WhistleWind.AbnormalSigils {
             foreach (string name in decalStrings) {
                 for (int i = 0; i < 3; i++) {
                     string resource = $"{name}_{i}";
-                    Texture2D texture = TextureLoader.LoadTextureFromFile($"{resource}");
+                    Texture2D texture = TextureLoader.LoadTextureFromFile($"{resource}.png");
                     ResourceBankManager.AddDecal(pluginGuid, resource, texture);
                     PixelCardManager.AddGBCDecal(pluginGuid, resource, texture);
                 }
