@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_MindStrike() {
             const string rulebookName = "Mind Strike";
-            const string rulebookDescription = "When [creature] strikes another creature, deal no damage and instead inflict Sinking equal to half this card's Health, rounded up.";
+            const string rulebookDescription = "[creature] has its base Power capped at 1. When striking another creature, Sinking equal to half this card's Health, rounded up.";
             const string dialogue = "Why destroy the flesh when you can destroy the mind?";
             const string triggerText = "[creature] deals emotional damage!";
             MindStrike.ability = AbnormalAbilityHelper.CreateAbility<MindStrike>(

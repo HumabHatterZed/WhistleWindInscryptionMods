@@ -108,8 +108,7 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private void AddResources() {
-            List<string> decalStrings = new()
-            {
+            List<string> decalStrings = new() {
                 "decalSpore",
                 "decalWorms"
             };
