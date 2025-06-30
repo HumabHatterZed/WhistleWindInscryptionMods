@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -7,13 +8,20 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string penitentGirl = "wstlWonder_penitentGirl";
         private static void PenitentGirl() {
-            return;
             string textureName = "penitentGirl";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, penitentGirl, "The Penitent Girl",
-                attack: 0, health: 1)
-                .SetBonesCost(3)
+                attack: 1, health: 2)
+                .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Sharp, Ability.Sharp)
+                .AddAbilities(Bloodletter.ability)
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, penitentGirl, "The Penitent Girl",
+                attack: 1, health: 2)
+                .SetBonesCost(5)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Bloodletter.ability)
+                .SetCardTemple(CardTemple.Undead)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
