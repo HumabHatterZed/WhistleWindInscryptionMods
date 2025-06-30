@@ -5,6 +5,14 @@ using System.Text;
 
 namespace WhistleWind.AbnormalSigils.Core {
     /// <summary>
+    /// Trigger that's called before TurnEnd.
+    /// </summary>
+    public interface IPreTurnEnd {
+        public bool RespondsToPreTurnEnd(bool playerTurnEnd);
+        public IEnumerator OnPreTurnEnd(bool playerTurnEnd);
+    }
+
+    /// <summary>
     /// Trigger intended for non-card receivers, or cards with effects that should trigger even if the opponent's turn is skipped.
     /// </summary>
     public interface IOpponentTurnEnd {

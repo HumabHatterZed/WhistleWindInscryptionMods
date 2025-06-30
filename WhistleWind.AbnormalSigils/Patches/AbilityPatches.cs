@@ -3,6 +3,7 @@ using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,20 @@ using WhistleWind.AbnormalSigils.Core;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches {
-    [HarmonyPatch(typeof(PlayableCard))]
-    internal class PlayableCardAbilityPatches {
-        [HarmonyPriority(Priority.Last)]
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
-        private static void NeuteredModifyAttackStat(PlayableCard __instance, ref int __result) {
-            if (__instance.HasAbility(Neutered.ability))
-                __result = 0;
-        }
-
-        [HarmonyPriority(Priority.Last)]
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
-        private static void NeuteredColourChange(PlayableCard __instance) {
-            if (__instance.HasAbility(Neutered.ability))
-                __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
-        }
-    }
-
     [HarmonyPatch]
-    internal class OtherAbilityPatches {
+    internal class AbilityPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
+        private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard) {
+            if (queuedCard != null && queuedCard.HasAbility(Lonely.ability) && queuedCard.GetComponent<Lonely>().HasFriend)
+                __result = true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
+        private static void DeathTouchImmunetoInstaDeath(ref bool __result, int amount, PlayableCard target) {
+            if (__result && target.HasTrait(AbnormalPlugin.ImmuneToInstaDeath))
+                __result = false;
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(AbilityBehaviour), nameof(AbilityBehaviour.GetNonDefaultModsFromSelf))]
         private static void DeathPenaltyNonInheritable(ref List<CardModificationInfo> __result) {
             if (__result.Count == 0 || __result[0].abilities.Count == 0) {
@@ -37,33 +33,6 @@ namespace WhistleWind.AbnormalSigils.Patches {
             }
 
             __result[0].abilities.Remove(DeathPenalty.ability);
-        }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
-        private static IEnumerator TriggerOnTurnEndPlayer(IEnumerator result, TurnManager __instance) {
-            yield return result;
-
-            List<IPlayerTurnEnd> onTurnEnd = CustomTriggerFinder.FindGlobalTriggers<IPlayerTurnEnd>(true).ToList();
-            onTurnEnd.Sort((a, b) => b.PlayerTurnEndPriority() - a.PlayerTurnEndPriority());
-
-            foreach (IPlayerTurnEnd trigger in onTurnEnd) {
-                if (trigger.RespondsToPlayerTurnEnd())
-                    yield return trigger.OnPlayerTurnEnd();
-            }
-        }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
-        private static IEnumerator TriggerOnTurnEndOpponent(IEnumerator result, TurnManager __instance) {
-            bool skipTurn = __instance.Opponent.SkipNextTurn;
-            yield return result;
-
-            List<IOpponentTurnEnd> onOpponentTurnEnd = CustomTriggerFinder.FindGlobalTriggers<IOpponentTurnEnd>(true).ToList();
-            onOpponentTurnEnd.Sort((a, b) => b.OpponentTurnEndPriority(skipTurn) - a.OpponentTurnEndPriority(skipTurn));
-
-            foreach (IOpponentTurnEnd trigger in onOpponentTurnEnd) {
-                if (trigger.RespondsToOpponentTurnEnd(skipTurn))
-                    yield return trigger.OnOpponentTurnEnd(skipTurn);
-            }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(ExplodeOnDeath), nameof(ExplodeOnDeath.BombCard))]
@@ -77,77 +46,91 @@ namespace WhistleWind.AbnormalSigils.Patches {
             }
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
-        private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard) {
-            if (queuedCard != null && queuedCard.HasAbility(Lonely.ability) && queuedCard.GetComponent<Lonely>().HasFriend)
-                __result = true;
+        [HarmonyPriority(Priority.Last)]
+        [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.Attack), MethodType.Getter)]
+        private static void MindStrikeModifyAttackStat(CardInfo __instance, ref int __result) {
+            if (__instance.HasAbility(MindStrike.ability) && __result > 0)
+                __result = 1;
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
-        private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target) {
-            if (amount > 0 && target != null && !target.Dead && target.HasTrait(AbnormalPlugin.ImmuneToInstaDeath))
-                __result = false;
-        }
+        //private static Type type = AccessTools.TypeByName("DiskCardGame.GlobalTriggerHandler+<TriggerCardsOnBoard>d__16");
+        //// Triggers card with Fungal Infector before other cards
+        //[HarmonyPostfix, HarmonyPatch(typeof(GlobalTriggerHandler), nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
+        //private static IEnumerator TriggerSporogenicFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs) {
+        //    if (trigger != Trigger.TurnEnd) {
+        //        yield return enumerator;
+        //        yield break;
+        //    }
+        //    List<PlayableCard> list = Singleton<BoardManager>.Instance.CardsOnBoard;
+        //    List<PlayableCard> spore = list.FindAll(x => x.HasAbility(Sporogenic.ability));
 
-        // Triggers card with Fungal Infector before other cards
-        [HarmonyPostfix, HarmonyPatch(typeof(GlobalTriggerHandler), nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
-        private static IEnumerator TriggerSporogenicFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs) {
-            if (trigger == Trigger.TurnEnd) {
-                List<PlayableCard> list = Singleton<BoardManager>.Instance.CardsOnBoard;
-                if (list.Exists(x => x.HasAbility(Sporogenic.ability))) {
-                    yield return __instance.TriggerNonCardReceivers(beforeCards: true, trigger, otherArgs);
+        //    yield return __instance.TriggerNonCardReceivers(beforeCards: true, trigger, otherArgs);
 
-                    // Trigger Sporogenic cards
-                    foreach (PlayableCard item in list.Where(x => x.HasAbility(Sporogenic.ability))) {
-                        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
-                            yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
-                    }
+        //    // Trigger Sporogenic cards
+        //    foreach (PlayableCard item in spore) {
+        //        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
+        //            yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
+        //    }
 
-                    // Trigger remaining cards
-                    foreach (PlayableCard item in list.Where(x => x.LacksAbility(Sporogenic.ability))) {
-                        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
-                            yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
-                    }
+        //    // Trigger remaining cards
+        //    foreach (PlayableCard item in list.Where(x => x.LacksAbility(Sporogenic.ability))) {
+        //        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
+        //            yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
+        //    }
 
-                    yield return __instance.TriggerNonCardReceivers(beforeCards: false, trigger, otherArgs);
-                    yield break;
+        //    yield return __instance.TriggerNonCardReceivers(beforeCards: false, trigger, otherArgs);
+        //}
+
+        //[HarmonyPatch(typeof(PlayableCard))]
+        //internal class PlayableCardPatches {
+        //    [HarmonyPriority(Priority.Last)]
+        //    [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
+        //    private static void NeuteredModifyAttackStat(PlayableCard __instance, ref int __result) {
+        //        if (__instance.HasAbility(Neutered.ability))
+        //            __result = 0;
+        //    }
+
+        //    [HarmonyPriority(Priority.Last)]
+        //    [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
+        //    private static void NeuteredColourChange(PlayableCard __instance) {
+        //        if (__instance.HasAbility(Neutered.ability))
+        //            __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+        //    }
+        //}
+
+        [HarmonyPatch]
+        internal class SigilPowerPatches {
+            [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
+            private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+            [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorEnter")]
+            private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+            [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorExit")]
+            private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, false);
+
+            [HarmonyPostfix, HarmonyPatch(typeof(MainInputInteractable), "OnCursorExit")]
+            private static void ShowStatsSelectableCards(MainInputInteractable __instance) {
+                if (__instance is PlayableCard) {
+                    PlayableCard playableCard = __instance as PlayableCard;
+                    UpdatePlayableStatsSpellDisplay(playableCard, false);
                 }
             }
-            yield return enumerator;
-        }
 
-        #region SigilPower
-        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
-        private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+            internal static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats) {
+                if (!card.InHand || card.Info.SpecialStatIcon != SigilPower.Icon)
+                    return;
 
-        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorEnter")]
-        private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+                card.RenderInfo.showSpecialStats = showStats;
+                if (showStats) {
+                    card.RenderInfo.attack = card.Info.Attack;
+                    card.RenderInfo.health = card.Info.Health;
+                }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorExit")]
-        private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, false);
-
-        [HarmonyPostfix, HarmonyPatch(typeof(MainInputInteractable), "OnCursorExit")]
-        private static void ShowStatsSelectableCards(MainInputInteractable __instance) {
-            if (__instance is PlayableCard) {
-                PlayableCard playableCard = __instance as PlayableCard;
-                UpdatePlayableStatsSpellDisplay(playableCard, false);
+                card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+                card.RenderInfo.healthTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+                card.RenderCard();
             }
         }
-
-        internal static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats) {
-            if (!card.InHand || card.Info.SpecialStatIcon != SigilPower.Icon)
-                return;
-
-            card.RenderInfo.showSpecialStats = showStats;
-            if (showStats) {
-                card.RenderInfo.attack = card.Info.Attack;
-                card.RenderInfo.health = card.Info.Health;
-            }
-
-            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
-            card.RenderInfo.healthTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
-            card.RenderCard();
-        }
-        #endregion
     }
 }
