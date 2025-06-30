@@ -14,8 +14,7 @@ namespace WhistleWind.AbnormalSigils {
         public override SpecialTriggeredAbility StatusEffect => specialAbility;
 
         public override List<string> EffectDecalIds() {
-            return new()
-            {
+            return new() {
                 "decalSpore_" + Mathf.Min(2, EffectPotency - 1)
             };
         }
