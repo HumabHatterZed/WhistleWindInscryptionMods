@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "censored";
             string textureName2 = "censoredMinion";
             CardManager.New(LobotomyPlugin.pluginPrefix, censored, name,
-                attack: 4, health: 4, "It's best you never learn what it looks like.")
+                attack: 4, health: 6, "It's best you never learn what it looks like.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodfiend.ability)
