@@ -115,7 +115,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         }
 
         public static CardModificationInfo SetStatusEffect(this CardModificationInfo mod, bool markAsStatus = true) {
-            return mod.SetExtendedProperty(STATUS_EFFECT_PROPERTY, true);
+            return mod.SetExtendedProperty(STATUS_EFFECT_PROPERTY, markAsStatus);
         }
         public static bool IsStatusEffect(this CardModificationInfo mod) {
             return mod.GetExtendedPropertyAsBool(STATUS_EFFECT_PROPERTY) == true;
