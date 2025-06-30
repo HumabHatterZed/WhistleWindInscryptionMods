@@ -258,7 +258,6 @@ namespace WhistleWind.AbnormalSigils {
             Slot_Blooming();
             Ability_FlowerQueen();
 
-            Ability_HealingStrike();
             Ability_FingerTapping();
 
             StatusEffect_Decay();
