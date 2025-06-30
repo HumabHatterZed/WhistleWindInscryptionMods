@@ -46,7 +46,6 @@ namespace WhistleWind.AbnormalSigils {
         public static Trait SporeFriend = GuidManager.GetEnumValue<Trait>(pluginGuid, "SporeFriend");
         public static Trait LovingSlime = GuidManager.GetEnumValue<Trait>(pluginGuid, "LovingSlime");
         public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
-        public static Trait BloomingFlower = GuidManager.GetEnumValue<Trait>(pluginGuid, "BloomingFlower");
         public static Trait SodaLover = GuidManager.GetEnumValue<Trait>(pluginGuid, "SodaLover");
 
         public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
