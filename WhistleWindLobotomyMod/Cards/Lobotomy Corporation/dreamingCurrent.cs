@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod {
         private static void DreamingCurrent_T0271() {
             string textureName = "dreamingCurrent";
             CardManager.New(LobotomyPlugin.pluginPrefix, dreamingCurrent, "The Dreaming Current",
-                attack: 4, health: 2, "A sickly child fed candy that let it see the ocean.")
+                attack: 4, health: 4, "A sickly child fed candy that let it see the ocean.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(NimbleFoot.ability, Barreler.ability)
