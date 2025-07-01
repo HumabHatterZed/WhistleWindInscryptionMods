@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTitle(LobotomyPlugin.ModAssembly, "skinCheers_title.png")
-                .AddAbilities(Withering.ability, Ability.Strafe, Ability.ExplodeOnDeath)
+                .AddAbilities(Withering.ability, Ability.ExplodeOnDeath)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal)
