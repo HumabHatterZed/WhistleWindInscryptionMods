@@ -8,10 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 
-// Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches {
+    /// <summary>
+    /// Patches to make abilities function properly
+    /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
@@ -49,54 +50,9 @@ namespace WhistleWind.AbnormalSigils.Patches {
         [HarmonyPriority(Priority.Last)]
         [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.Attack), MethodType.Getter)]
         private static void MindStrikeModifyAttackStat(CardInfo __instance, ref int __result) {
-            if (__instance.HasAbility(MindStrike.ability) && __result > 0)
+            if (__instance.HasAbility(MindStrike.ability) && __result > 1)
                 __result = 1;
         }
-
-        //private static Type type = AccessTools.TypeByName("DiskCardGame.GlobalTriggerHandler+<TriggerCardsOnBoard>d__16");
-        //// Triggers card with Fungal Infector before other cards
-        //[HarmonyPostfix, HarmonyPatch(typeof(GlobalTriggerHandler), nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
-        //private static IEnumerator TriggerSporogenicFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs) {
-        //    if (trigger != Trigger.TurnEnd) {
-        //        yield return enumerator;
-        //        yield break;
-        //    }
-        //    List<PlayableCard> list = Singleton<BoardManager>.Instance.CardsOnBoard;
-        //    List<PlayableCard> spore = list.FindAll(x => x.HasAbility(Sporogenic.ability));
-
-        //    yield return __instance.TriggerNonCardReceivers(beforeCards: true, trigger, otherArgs);
-
-        //    // Trigger Sporogenic cards
-        //    foreach (PlayableCard item in spore) {
-        //        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
-        //            yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
-        //    }
-
-        //    // Trigger remaining cards
-        //    foreach (PlayableCard item in list.Where(x => x.LacksAbility(Sporogenic.ability))) {
-        //        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
-        //            yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
-        //    }
-
-        //    yield return __instance.TriggerNonCardReceivers(beforeCards: false, trigger, otherArgs);
-        //}
-
-        //[HarmonyPatch(typeof(PlayableCard))]
-        //internal class PlayableCardPatches {
-        //    [HarmonyPriority(Priority.Last)]
-        //    [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
-        //    private static void NeuteredModifyAttackStat(PlayableCard __instance, ref int __result) {
-        //        if (__instance.HasAbility(Neutered.ability))
-        //            __result = 0;
-        //    }
-
-        //    [HarmonyPriority(Priority.Last)]
-        //    [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
-        //    private static void NeuteredColourChange(PlayableCard __instance) {
-        //        if (__instance.HasAbility(Neutered.ability))
-        //            __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
-        //    }
-        //}
 
         [HarmonyPatch]
         internal class SigilPowerPatches {
