@@ -43,9 +43,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return base.LearnAbility(0.4f);
         }
 
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
-            return otherCard == base.Card;
-        }
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard == base.Card;
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
             extraHaste++;
             yield break;

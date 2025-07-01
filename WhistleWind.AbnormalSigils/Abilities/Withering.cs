@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Withering() {
             const string rulebookName = "Withering";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 damage directly to the opponent.";
             const string dialogue = "Tick tock.";
             Withering.ability = AbnormalAbilityHelper.CreateAbility<Withering>(
                 "sigilPleasure",
@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.
+    /// At the end of the owner's turn, [creature] deals 1 damage directly to the opponent.
     /// </summary>
     public class Withering : AbilityBehaviour {
         public static Ability ability;

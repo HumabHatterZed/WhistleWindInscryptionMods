@@ -11,12 +11,14 @@ namespace WhistleWindLobotomyMod {
         private static void AddLife() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Life";
-            info.rulebookDescription = "When this card is played, create 2 Dawns/Noons of Green on the board. After two turns, return to the queue.";
+            info.rulebookDescription = "When this card is played, create 2 random Doubts or Processes of Understanding on the owner's side of the board. After two turns, return to the queue.";
             info.powerLevel = 4;
             Life.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
         }
     }
-
+    /// <summary>
+    /// When this card is played, create 2 random Doubts or Processes of Understanding on the owner's side of the board. After two turns, return to the queue.
+    /// </summary>
     public class Life : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
