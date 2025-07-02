@@ -138,7 +138,14 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <param name="card">The card being queued.</param>
         public virtual void ModifyQueuedCard(PlayableCard card) {
-
+            if (UnityEngine.Random.value <= (Opponent.Difficulty * 0.02f)) {
+                if (UnityEngine.Random.value <= 0.2f) {
+                    card.AddTemporaryMod(new(1, 0));
+                }
+                else {
+                    card.AddTemporaryMod(new(0, 1));
+                }
+            }
         }
         /// <summary>
         /// Modifies a spawned card BEFORE it is fully spawned, and AFTER it is modified by the Opponent class.

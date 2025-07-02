@@ -4,32 +4,35 @@ using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
-    /// Appears in R0
-    /// Difficulty range: (1 - 3) +[0,2] // 4 difficulty is for boss node w/o challlenges
-    /// 
-    /// D | Turn 1 | Turn 2 | Turn 3 | Turn 4 | ## | HP | Atk
-    /// 1 | P      | P P    | P      | P P    | 6  | 6  | 6
-    /// 2 | P P    | P P    | P P    | P P    | 8  | 8  | 8
-    /// 3 | P P    | P P P  | P P    | P P P  | 10 | 10 | 10
-    /// 4 | P P P  | P P P  | P P P  | P P P  | 12 | 12 | 12
-    /// 5 | P P P  | P P P P| P P P  | P P P P| 14 | 14 | 14
+    /// The weakest Crimson Ordeal.
+    /// Crimson Ordeals are themed around compounding threats, with Ordeals appearing in groups and stronger tiers splitting into weaker ones.
+    /// Dawn will have cards appear in pairs.
+    /// Cards required: 2, 4, 6,...
+    /// Valid regions: 0, 1
     /// </summary>
     public class OrdealCrimsonDawn : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
-            {
-                EncounterManager.NewCardBlueprint(Cards.skinCheers),
-                EncounterManager.NewCardBlueprint(Cards.skinCheers)
-            };
-
-            if (encounterData.Difficulty >= 3) {
-                turn1.Add(EncounterManager.NewCardBlueprint(Cards.skinCheers));
-                if (encounterData.Difficulty >= 5)
-                    turn1.Add(EncounterManager.NewCardBlueprint(Cards.skinCheers));
+            int num = 0;
+            int numTurns = 1 + difficulty / 3;
+            if (difficulty > 3) {
+                EncounterData.StartCondition cond = new();
+                List<CardInfo> infos = new() { CardLoader.GetCardByName(Cards.skinCheers), CardLoader.GetCardByName(Cards.skinCheers), null, null };
+                infos.Randomize();
+                cond.cardsInOpponentSlots = infos.ToArray();
+                encounterData.startConditions.Add(cond);
+                num += 2;
+            }
+            
+            for (int i = 0; i < numTurns; i++) {
+                List<EncounterBlueprintData.CardBlueprint> turn = new() {
+                    EncounterManager.NewCardBlueprint(Cards.skinCheers),
+                    EncounterManager.NewCardBlueprint(Cards.skinCheers)
+                };
+                encounterData.Blueprint.AddTurn(turn).AddTurn().AddTurn();
+                num += 2;
             }
 
-            encounterData.Blueprint.AddTurns(turn1);
-            return -1;
+            return num;
         }
     }
 }
