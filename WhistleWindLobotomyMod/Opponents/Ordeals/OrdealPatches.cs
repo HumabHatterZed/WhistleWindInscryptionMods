@@ -76,13 +76,14 @@ namespace WhistleWindLobotomyMod.Opponents {
                 float randomValue = UnityEngine.Random.value;
                 data.totemOpponent = __result is TotemBattleNodeData;
 
-                // .50  1   0
-                // .28 .83  1 
-                // .06 .66  1
-                if (randomValue <= 0.5f - RunState.CurrentRegionTier * 0.22f) {
+                // gate values for region tiers
+                // 0.60 1.00  0
+                // 0.25 0.82  1 
+                // -0.1 0.64  1
+                if (randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
                     tier = 0;
                 }
-                else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.17f) {
+                else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
                     tier = 1;
                 }
                 else {
