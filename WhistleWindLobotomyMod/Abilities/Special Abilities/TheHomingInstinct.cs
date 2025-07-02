@@ -30,7 +30,6 @@ namespace WhistleWindLobotomyMod {
                 yield return CreateDrawnCard(CardToDraw);
         }
         private IEnumerator CreateDrawnCard(CardInfo CardToDraw) {
-            //yield return HelperMethods.ChangeCurrentView(View.Default);
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
             yield return new WaitForSeconds(0.45f);
 

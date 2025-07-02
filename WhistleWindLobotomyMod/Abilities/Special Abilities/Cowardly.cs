@@ -10,7 +10,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod {
-    public class Cowardly : SpecialCardBehaviour, IOnBellRung {
+    public class Cowardly : SpecialCardBehaviour, IOnBellRung, IOnAddedToHand {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnResolveOnBoard() => CheckTransform(base.PlayableCard);
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckTransform(base.PlayableCard);
         public IEnumerator OnBellRung(bool playerCombatPhase) => CheckTransform(base.PlayableCard);
-        public override bool RespondsToDrawn() => true;
-        public override IEnumerator OnDrawn() {
+        public bool RespondsToAddedToHand() => true;
+        public IEnumerator OnAddedToHand() {
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return CheckTransform(base.PlayableCard);
         }
