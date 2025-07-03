@@ -15,8 +15,8 @@ namespace WhistleWindLobotomyMod {
             string textureName = "skinCheers";
             string textureName2 = "skinHarmony";
             string textureName3 = "skinClimax";
-            CardInfo cheer = CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, "Cheers for the Beginning",
-                attack: 0, health: 3)
+            CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, "Cheers for the Beginning",
+                attack: 1, health: 3)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTitle(LobotomyPlugin.ModAssembly, "skinCheers_title.png")
@@ -27,10 +27,10 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, "Harmony of Skin",
-                attack: 1, health: 4)
+                attack: 2, health: 4)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(HarmonyAbility.ability, Ability.StrafeSwap, Challenging.ability)
+                .AddAbilities(HarmonyAbility.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 3, health: 5)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
-                .AddAbilities(Ability.IceCube, Cycler.ability, Challenging.ability)
+                .AddAbilities(Ability.IceCube, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
