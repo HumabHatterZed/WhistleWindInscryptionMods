@@ -4,30 +4,36 @@ using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
-    /// Difficulty (5 - 9) [+2]
-    /// 
-    /// D | Turn 1 | Turn 2 | Turn 3 | ## | HP | Atk
-    /// 5 | H      | -      | H      | 2  | X  | X
-    /// 7 | H      | H      |        | 2
+    /// The weakest Crimson Ordeal.
+    /// Crimson Ordeals are themed around compounding threats, with Ordeals appearing in groups and stronger tiers splitting into weaker ones.
+    /// Noon will have two Harmony of Skins appear, one after the other.
+    /// Cards required: 6, 9
+    /// Valid regions: 0, 1, 2
     /// </summary>
     public class OrdealCrimsonNoon : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
-            {
+            int num = 3;
+            List<EncounterBlueprintData.CardBlueprint> turn = new() {
                 EncounterManager.NewCardBlueprint(Cards.skinHarmony)
             };
-            List<EncounterBlueprintData.CardBlueprint> turn2 = new()
-            {
-                EncounterManager.NewCardBlueprint(Cards.skinHarmony)
-            };
+            if (encounterData.Difficulty > 8) {
+                EncounterData.StartCondition cond = new();
+                List<CardInfo> info = new() { null, null, null, CardLoader.GetCardByName(Cards.skinHarmony) };
+                info.Randomize();
+                cond.cardsInOpponentSlots = info.ToArray();
+                encounterData.startConditions.Add(cond);
+            }
+            else {
+                encounterData.Blueprint.AddTurn(turn);
+            }
+            encounterData.Blueprint.AddTurn().AddTurn();
 
-            encounterData.Blueprint.AddTurn(turn1);
-            if (encounterData.Difficulty < 7)
-                encounterData.Blueprint.AddTurn();
-
-            encounterData.Blueprint.AddTurn(turn2);
-
-            return -1;
+            if (difficulty > 11) {
+                num += 3;
+                encounterData.Blueprint.AddTurn(turn).AddTurn();
+            }
+            encounterData.Blueprint.AddTurn(turn);
+            return num;
         }
     }
 }
