@@ -21,13 +21,22 @@ namespace WhistleWindLobotomyMod {
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
-            CardInfo CardToDraw = CardLoader.GetCardByName(Cards.scaredyCat);
-            ModifySpawnedCard(CardToDraw);
-
-            if (base.PlayableCard.OpponentCard)
-                yield return CombatHelpers.QueueCreatedCard(CardToDraw);
-            else
+            if (BoardManager.Instance.CardsOnBoard.Exists(x => x.Info.name == Cards.scaredyCat)) {
+                yield break;
+            }
+            
+            if (base.PlayableCard.OpponentCard) {
+                if (!TurnManager.Instance.Opponent.Queue.Exists(x => x.Info.name == Cards.scaredyCat)) {
+                    CardInfo CardToDraw = CardLoader.GetCardByName(Cards.scaredyCat);
+                    ModifySpawnedCard(CardToDraw);
+                    yield return CombatHelpers.QueueCreatedCard(CardToDraw);
+                }
+            }
+            else if (!PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == Cards.scaredyCat)) {
+                CardInfo CardToDraw = CardLoader.GetCardByName(Cards.scaredyCat);
+                ModifySpawnedCard(CardToDraw);
                 yield return CreateDrawnCard(CardToDraw);
+            }
         }
         private IEnumerator CreateDrawnCard(CardInfo CardToDraw) {
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
