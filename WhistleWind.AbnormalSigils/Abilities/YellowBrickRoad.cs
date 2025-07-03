@@ -29,6 +29,13 @@ namespace WhistleWind.AbnormalSigils {
     public class YellowBrickRoad : Strafe {
         public static Ability ability;
         public override Ability Ability => ability;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
+            CardSlot toRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.25f);
+            yield return this.DoStrafe(toLeft, toRight);
+        }
         public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight) {
             if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
                 yield break;
@@ -36,62 +43,66 @@ namespace WhistleWind.AbnormalSigils {
             List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
             CardSlot oldSlot = base.Card.Slot;
 
-            CardSlot destination;
-            bool destinationValid;
+            if (base.Card.LacksAbility(Unyielding.ability)) {
+                CardSlot destination;
+                bool destinationValid;
+                bool atEndOfBoard = base.Card.Slot == allySlots.First() || base.Card.Slot == allySlots.Last();
 
-            bool atEndOfBoard = base.Card.Slot == allySlots.First() || base.Card.Slot == allySlots.Last();
+                // if slot exists and card is empty
+                bool canMoveLeftNormally = toLeft != null && toLeft.Card == null;
+                bool canMoveRightNormally = toRight != null && toRight.Card == null;
 
-            // if slot exists and card is empty
-            bool canMoveLeftNormally = toLeft != null && toLeft.Card == null;
-            bool canMoveRightNormally = toRight != null && toRight.Card == null;
-
-            // if at the end of the board and we can't move normally, see if it's possible for us to loop around
-            bool canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
-                base.Card.Slot, allySlots.First(), allySlots.Last());
-
-            // switch direction if we can't move
-            if (base.movingLeft && !canMoveLeftNormally && !canLoopAround) {
-                base.movingLeft = false;
-                // update to see if can loop
-                canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
+                // if at the end of the board and we can't move normally, see if it's possible for us to loop around
+                bool canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
                     base.Card.Slot, allySlots.First(), allySlots.Last());
-            }
-            if (!base.movingLeft && !canMoveRightNormally && !canLoopAround) {
-                base.movingLeft = true;
-                canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
-                    base.Card.Slot, allySlots.First(), allySlots.Last());
-            }
 
-            // flip card
-            base.Card.RenderInfo.SetAbilityFlipped(Ability, base.movingLeft);
-            base.Card.RenderInfo.flippedPortrait = base.movingLeft && base.Card.Info.flipPortraitForStrafe;
-            base.Card.RenderCard();
+                // switch direction if we can't move
+                if (base.movingLeft && !canMoveLeftNormally && !canLoopAround) {
+                    base.movingLeft = false;
+                    // update to see if can loop
+                    canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
+                        base.Card.Slot, allySlots.First(), allySlots.Last());
+                }
+                if (!base.movingLeft && !canMoveRightNormally && !canLoopAround) {
+                    base.movingLeft = true;
+                    canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
+                        base.Card.Slot, allySlots.First(), allySlots.Last());
+                }
 
-            // different destination and validation if we're looping or moving normally
-            if (canLoopAround) {
-                destination = base.movingLeft ? allySlots.Last() : allySlots.First();
-                destinationValid = destination.Card == null;
+                // flip card
+                base.Card.RenderInfo.SetAbilityFlipped(Ability, base.movingLeft);
+                base.Card.RenderInfo.flippedPortrait = base.movingLeft && base.Card.Info.flipPortraitForStrafe;
+                base.Card.RenderCard();
+
+                // different destination and validation if we're looping or moving normally
+                if (canLoopAround) {
+                    destination = base.movingLeft ? allySlots.Last() : allySlots.First();
+                    destinationValid = destination.Card == null;
+                }
+                else {
+                    destination = base.movingLeft ? toLeft : toRight;
+                    destinationValid = base.movingLeft ? canMoveLeftNormally : canMoveRightNormally;
+                }
+
+                if (destination != null && destinationValid) {
+                    yield return base.PreSuccessfulTriggerSequence();
+                    if (canLoopAround) // if this card is at the end of the board, cycle to the other side
+                        yield return MoveToEndOfBoard(base.Card, destination, oldSlot, destinationValid);
+                    else // standard movement behaviour
+                        yield return MoveToAdjacentSlot(base.Card, destination, destinationValid);
+                    yield return base.PostSuccessfulMoveSequence(oldSlot);
+                }
+                else {
+                    base.Card.Anim.StrongNegationEffect();
+                    yield return new WaitForSeconds(0.15f);
+                }
             }
             else {
-                destination = base.movingLeft ? toLeft : toRight;
-                destinationValid = base.movingLeft ? canMoveLeftNormally : canMoveRightNormally;
-            }
-
-            if (destination != null && destinationValid) {
-                if (canLoopAround) // if this card is at the end of the board, cycle to the other side
-                    yield return MoveToEndOfBoard(base.Card, destination, oldSlot, destinationValid);
-                else // standard movement behaviour
-                    yield return MoveToAdjacentSlot(base.Card, destination, destinationValid);
-                yield return base.PostSuccessfulMoveSequence(oldSlot);
-            }
-            else {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.15f);
+                yield return Unyielding.OnPreventMovement(this);
             }
 
             // if there are other cards to move
-            if (allySlots.FindAll(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ability)).Count > 0) {
-                yield return base.PreSuccessfulTriggerSequence();
+            if (allySlots.Count(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ability)) > 0) {
                 yield return base.LearnAbility();
                 yield return MoveFollowingCards(oldSlot, allySlots);
             }
@@ -155,8 +166,7 @@ namespace WhistleWind.AbnormalSigils {
                     bool atEndOfBoardSlot = destination == boardSlots.First() || destination == boardSlots.Last();
                     bool atEndOfBoardSlotToCheck = slotToCheck == boardSlots.First() || slotToCheck == boardSlots.Last();
 
-                    if (slotToCheck.Card != null && destination.Card == null &&
-                        slotToCheck != base.Card.Slot && destination != base.Card.Slot) {
+                    if (slotToCheck != base.Card.Slot && slotToCheck.Card != null && destination != base.Card.Slot && destination.Card == null) {
                         if (atEndOfBoardSlot && atEndOfBoardSlotToCheck)
                             yield return MoveToEndOfBoard(slotToCheck.Card, destination, slotToCheck.Card.Slot, destination != null && destination.Card == null);
                         else
