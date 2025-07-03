@@ -13,6 +13,7 @@ using UnityEngine;
 namespace WhistleWind.AbnormalSigils.Patches {
     /// <summary>
     /// Patches related to Unyielding sigil.
+    /// Contains logic for clockwise rotation.
     /// </summary>
     [HarmonyPatch]
     internal class UnyieldingPatches {
@@ -123,80 +124,103 @@ namespace WhistleWind.AbnormalSigils.Patches {
             yield return instance.AimHook(slot);
         }
 
+        [HarmonyPostfix, HarmonyPatch(typeof(PocketWatchItem), nameof(PocketWatchItem.SomeCardsOnBoard))]
+        private static void PreventRotationWhenUnyieldingFull(ref bool __result) {
+            // if the board is full and there is at least 1 Unyielding card, prevent rotation
+            if (__result && !BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card == null) && BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(Unyielding.ability))) {
+                __result = false;
+            }
+        }
+
         [HarmonyPrefix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.MoveAllCardsClockwise))]
         private static bool AccountForUnyieldingCards(ref IEnumerator __result, BoardManager __instance) {
             __result = RotateAllCardsOnBoard(true);
             return false;
         }
-        public static IEnumerator RotateAllCardsOnBoard(bool clockwise, CardSlot leader = null) {
+        /// <summary>
+        /// Version of BoardManager.MoveAllCardsClockwise that accounts for Unyielding cards and supports counterclockwise rotation.
+        /// </summary>
+        /// <param name="clockwise">Whether cards on the board should be rotated clockwise or counterclockwise.</param>
+        /// <returns></returns>
+        public static IEnumerator RotateAllCardsOnBoard(bool clockwise) {
             if (!BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card != null && !x.Card.HasAbility(Unyielding.ability))) {
                 yield break;
             }
-            AbnormalPlugin.Log.LogInfo($"[RotateAllCardsOnBoard] Clockwise: {clockwise}");
+            //AbnormalPlugin.Log.LogInfo($"[RotateAllCardsOnBoard] Clockwise: {clockwise}");
             List<CardSlot> playerSlots = BoardManager.Instance.PlayerSlotsCopy;
             List<CardSlot> opponentSlots = BoardManager.Instance.OpponentSlotsCopy;
+
             Dictionary<PlayableCard, CardSlot> originalAssignments = new();
             Dictionary<PlayableCard, CardSlot> destinations = new();
             int highestIndex = playerSlots.Count - 1;
 
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
-                AbnormalPlugin.Log.LogInfo($"Cache slot {slot.Index} [{slot.IsPlayerSlot}]");
-                if (slot.Card == null || slot.Card.HasAbility(Unyielding.ability)) {
-                    continue;
-                }
-
-                CardSlot destination = null;
-                int i = slot.Index;
-                if (slot.IsPlayerSlot) {
-                    if (clockwise) {
-                        destination = i == 0 ? opponentSlots[0] : playerSlots[i - 1];
-                    }
-                    else {
-                        destination = i == highestIndex ? opponentSlots[highestIndex] : playerSlots[i + 1];
-                    }
-                }
-                else {
-                    if (clockwise) {
-                        destination = i == highestIndex ? playerSlots[highestIndex] : opponentSlots[i + 1];
-                    }
-                    else {
-                        destination = i == 0 ? playerSlots[0] : opponentSlots[i - 1];
-                    }
-                }
-                originalAssignments.Add(slot.Card, slot);
-                destinations.Add(slot.Card, destination);
-                AbnormalPlugin.Log.LogInfo($"Cache destination: {destination.Index} [{destination.IsPlayerSlot}]");
+            for (int i = 0; i <= highestIndex; i++) {
+                CardSlot slot = clockwise ? playerSlots[i] : opponentSlots[i];
+                HandleSlotRotation(slot, clockwise, 0, playerSlots, opponentSlots, originalAssignments, destinations);
             }
-
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
-                if (slot.Card == null || slot.Card.HasAbility(Unyielding.ability)) {
-                    continue;
-                }
-                slot.Card.Slot = null;
-                slot.Card = null;
+            for (int i = highestIndex; i >= 0; i--) {
+                CardSlot slot = clockwise ? opponentSlots[i] : playerSlots[i];
+                HandleSlotRotation(slot, clockwise, highestIndex, playerSlots, opponentSlots, originalAssignments, destinations);
             }
 
             foreach (KeyValuePair<PlayableCard, CardSlot> keyPairs in originalAssignments) {
                 PlayableCard card = keyPairs.Key;
-                AbnormalPlugin.Log.LogInfo($"Assigning card [{card?.Info.name}] in slot [{keyPairs.Value?.Index}]");
+                //AbnormalPlugin.Log.LogInfo($"Assigning card [{card?.Info.name}] in slot [{keyPairs.Value?.Index}]");
                 if (card != null && destinations.TryGetValue(card, out CardSlot slot) && slot.Card == null) {
-                    bool isOpponent = card.OpponentCard;
+                    bool movingToOtherSide = card.OpponentCard == slot.IsPlayerSlot;
                     card.SetIsOpponentCard(!slot.IsPlayerSlot);
-                    yield return AssignCardToSlotCoro(card, slot, isOpponent);
-                    //CustomCoroutine.Instance.StartCoroutine(AssignCardToSlotCoro(card, slot, isOpponent));
-                    AbnormalPlugin.Log.LogInfo($"Assign to Slot[{slot.Index}]");
+                    if (movingToOtherSide && SaveManager.SaveFile.IsPart1) {
+                        card.transform.eulerAngles += new Vector3(0f, 0f, -180f);
+                    }
+                    yield return BoardManager.Instance.AssignCardToSlot(card, slot, resolveTriggers: false);
+                    if (movingToOtherSide && card.FaceDown) {
+                        card.SetFaceDown(false);
+                        card.UpdateFaceUpOnBoardEffects();
+                    }
+                    //AbnormalPlugin.Log.LogInfo($"Assign to Slot[{slot.Index}]");
                 }
             }
             ResourcesManager.Instance.ForceGemsUpdate();
-        }
-        private static IEnumerator AssignCardToSlotCoro(PlayableCard card, CardSlot slot, bool wasOpponent) {
-            yield return BoardManager.Instance.AssignCardToSlot(card, slot);
-            if (card.FaceDown) {
-                if (wasOpponent != card.OpponentCard) {
-                    card.SetFaceDown(false);
-                    card.UpdateFaceUpOnBoardEffects();
-                }
+
+            // trigger OtherCardAssignedToSlot after rotating all cards, rather than after each one
+            foreach (PlayableCard card in destinations.Keys) {
+                yield return GlobalTriggerHandler.Instance.TriggerCardsOnBoard(Trigger.OtherCardAssignedToSlot, false, card);
             }
+        }
+        private static void HandleSlotRotation(
+            CardSlot slot, bool clockwise, int edgeIndex,
+            List<CardSlot> playerSlots, List<CardSlot> opponentSlots,
+            Dictionary<PlayableCard, CardSlot> originalSlots, Dictionary<PlayableCard, CardSlot> destinations)
+        {
+            AbnormalPlugin.Log.LogInfo($"Cache player slot {slot.Index}");
+            int nextIndex;
+            CardSlot destination;
+            if (slot.IsPlayerSlot) {
+                nextIndex = slot.Index + (clockwise ? -1 : 1);
+                destination = DetermineDestination(slot, edgeIndex, nextIndex, playerSlots, opponentSlots);
+            }
+            else {
+                nextIndex = slot.Index + (clockwise ? 1 : -1);
+                destination = DetermineDestination(slot, edgeIndex, nextIndex, opponentSlots, playerSlots);
+            }
+            if (destination != null) {
+                originalSlots.Add(slot.Card, slot);
+                destinations.Add(slot.Card, destination);
+                AbnormalPlugin.Log.LogInfo($"Cache destination: {destination.Index} [{destination.IsPlayerSlot}]");
+            }
+        }
+        private static CardSlot DetermineDestination(
+            CardSlot slot, int edgeIndex, int nextIndex,
+            List<CardSlot> sameSideSlots, List<CardSlot> opposingSlots)
+        {
+            if (slot.Card == null || slot.Card.HasAbility(Unyielding.ability)) {
+                return null;
+            }
+            CardSlot destination = slot.Index == edgeIndex ? opposingSlots[edgeIndex] : sameSideSlots[nextIndex];
+            if (destination.Card != null && destination.Card.HasAbility(Unyielding.ability)) {
+                return null;
+            }
+            return destination;
         }
     }
 }
