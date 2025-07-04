@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public List<string> ValidCards { get; protected set; } = new();
         public List<Ability> AllBlacklistedAbilities { get; private set; }
         public int MinNumCardsRequired { get; protected set; }
-        protected EncounterData Encounter { get; private set; }
+        protected List<List<CardInfo>> EncounterBluePrint { get; private set; }
         protected OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
         public bool defeated = false;
         public OrdealType ordealType;
@@ -53,7 +53,6 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd1: {OrdealCounterManager.Instance.amountLeft} left {opponentTurnSkipped}");
             if (amountKilledThisTurn > 0) {
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
                 yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
@@ -67,8 +66,9 @@ namespace WhistleWindLobotomyMod.Opponents {
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
                 }
                 else if (ShouldExtendBattle()) {
-                    LobotomyPlugin.Log.LogDebug("[OrdealBattle] OnRoundEnd1.5: Extend turn place");
-                    Opponent.ReplaceAndAppendTurnPlan(Encounter.opponentTurnPlan);
+                    LobotomyPlugin.Log.LogDebug("[OrdealBattle] OnRoundEnd: Extend turn plan");
+                    Opponent.ReplaceAndAppendTurnPlan(Opponent.ModifyTurnPlan(EncounterBluePrint));
+                    yield return Opponent.QueueNewCards();
                 }
             }
 
@@ -77,14 +77,14 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             currentExcessBones = amountKilledThisTurn = 0;
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd2: {OrdealCounterManager.Instance.amountLeft} left");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd: {OrdealCounterManager.Instance.amountLeft} left {opponentTurnSkipped}");
         }
 
         /// <summary>
         /// Checks if the battle should be extended with additional Ordeal cards.
         /// </summary>
         /// <returns>True if the player runs out of Ordeal cards before meeting the kill requirement.</returns>
-        public bool ShouldExtendBattle() {
+        public virtual bool ShouldExtendBattle() {
             LobotomyPlugin.Log.LogDebug($"[ShouldExtendOrdeal] {Opponent.NumTurnsTaken} {Opponent.TurnPlan.Count}");
             return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count
                 && BoardManager.Instance.GetOpponentCards(CardIsValidOrdeal).Count == 0
@@ -201,7 +201,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}] {encounterData.opponentTurnPlan.Count} {encounterData.opponentTurnPlan.FirstOrDefault()?.Count}");
-            return Encounter = encounterData;
+            EncounterBluePrint = new(encounterData.opponentTurnPlan);
+            return encounterData;
         }
 
         private void GetAllBlacklistedAbilities(List<Ability> redundantAbilities) {
