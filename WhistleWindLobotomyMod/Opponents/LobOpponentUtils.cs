@@ -39,9 +39,11 @@ namespace WhistleWindLobotomyMod.Opponents {
         internal static void InitBossObjects() {
             CardOffscreenLayer = CardLoader.GetCardByName("!GIANTCARD_MOON").AnimatedPortrait.transform.GetChild(0).gameObject.layer;
 
-            apocalypseBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseBoss");
-            helixBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("LastHelixPortrait");
-            FixAnimatedPortraitLayers(helixBossPrefab);
+            ApocalypseBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseBoss");
+            HelixBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("LastHelixPortrait");
+            GrantUsLovePrefab = AssetManager.BossBundle.LoadAsset<GameObject>("GrantUsLovePortrait");
+            FixAnimatedPortraitLayers(HelixBossPrefab);
+            FixAnimatedPortraitLayers(GrantUsLovePrefab);
 
             bossSFX = // unity settings: compressed, preload data
             [
@@ -85,10 +87,11 @@ namespace WhistleWindLobotomyMod.Opponents {
         //public static Opponent.Type SaviourBossID { get; private set; }
 
 
-        public static GameObject apocalypseBossPrefab;
+        public static GameObject ApocalypseBossPrefab { get; private set; }
         //public static GameObject raptureBossPrefab;
 
-        public static GameObject helixBossPrefab;
+        public static GameObject HelixBossPrefab { get; private set; }
+        public static GameObject GrantUsLovePrefab { get; private set; }
 
         public static AudioClip[] bossSFX;
         public static AudioClip[] bossLoop;

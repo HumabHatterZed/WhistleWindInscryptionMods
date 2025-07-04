@@ -213,7 +213,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
             yield return base.FaceZoomSequence();
 
-            bossObjectAnimation = Instantiate(LobOpponentUtils.apocalypseBossPrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
+            bossObjectAnimation = Instantiate(LobOpponentUtils.ApocalypseBossPrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
             bossObjectAnimation.name = "ApocalypseBoss";
 
             MasterAnimator = bossObjectAnimation.GetComponent<Animator>();

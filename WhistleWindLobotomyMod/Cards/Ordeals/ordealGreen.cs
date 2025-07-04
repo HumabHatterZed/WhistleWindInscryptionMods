@@ -124,7 +124,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                .SetAnimatedPortrait(LobOpponentUtils.helixBossPrefab)
+                .SetAnimatedPortrait(LobOpponentUtils.HelixBossPrefab)
                 .SetTerrain(false)
                 .SetMiniGiant()
                 .Build();
