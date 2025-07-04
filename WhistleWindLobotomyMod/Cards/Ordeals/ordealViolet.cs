@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -23,18 +24,18 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
-                .AddTraits(Ordeal)
+                .AddTraits(Ordeal, Trait.Uncuttable)
                 .Build();
 
             CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, "Grant Us Love",
-                attack: 1, health: 10)
-                .SetBonesCost(12)
+                attack: 1, health: 16)
+                .SetBonesCost(16)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(Ability.AllStrike, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
+                .AddAbilities(IntenseVolley.ability, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
-                .AddSpecialAbilities(MiniGiantCard.Id)
                 .AddTribes(TribeDivine)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .SetMiniGiant()
                 .Build();
 
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
