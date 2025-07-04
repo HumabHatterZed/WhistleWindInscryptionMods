@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
-using InscryptionAPI.Card;
-using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -16,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_IntenseVolley() {
             const string rulebookName = "Intense Volley";
-            const string rulebookDescription = "At the end of the owner's turn, this card will target at 2-4 opposing spaces to attack on its next turn.";
+            const string rulebookDescription = "At the end of the owner's turn, this card will target 2-4 opposing spaces to attack on its next turn.";
             IntenseVolley.ability = AbnormalAbilityHelper.CreateAbility<IntenseVolley>(
                 "sigilVolley",
                 rulebookName, rulebookDescription, powerLevel: 5,
@@ -29,16 +26,16 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// At the end of the owner's turn, this card will target at 2-4 opposing spaces to attack on its next turn.
     /// </summary>
-    public class IntenseVolley : AbilityBehaviour, IPlayerTurnEnd, IOpponentTurnEnd, ISetupAttackSequence {
+    public class IntenseVolley : AbilityBehaviour, IPlayerTurnEnd, IOpponentTurnEnd, ISetupAttackSequence, IOnPostSingularSlotAttackSlot {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly List<Tuple<CardSlot, GameObject>> currentTargets = new();
-        //private readonly List<GameObject> targetIcons = new();
+        public readonly Dictionary<CardSlot, GameObject> currentTargets = new();
 
-        public IEnumerator SelectTargets(int maxTargets, int maxNullTargets, int randomSeed) {
-            List<CardSlot> allTargets = BoardManager.Instance.GetSlotsCopy(base.Card.OpponentCard);
+        public virtual IEnumerator SelectTargets(int maxTargets, int maxNullTargets, int randomSeed) {
+            GameObject targetIcon;
             List<CardSlot> validTargets = new();
+            List<CardSlot> allTargets = BoardManager.Instance.GetSlotsCopy(base.Card.OpponentCard);
             for (int i = 0; i < maxTargets; i++) {
                 if (allTargets.Count == 0) {
                     break;
@@ -57,41 +54,47 @@ namespace WhistleWind.AbnormalSigils {
                 }
                 yield return new WaitForSeconds(0.05f);
                 if (LifeManager.Instance.Scales3D?.highlightedInteractable != null) {
-                    currentTargets.Add(new(slot, TargetIconHelper.CreateTargetIcon(slot, LifeManager.Instance.Scales3D.highlightedInteractable.highlightedColor)));
+                    targetIcon = TargetIconHelper.CreateTargetIcon(slot, LifeManager.Instance.Scales3D.highlightedInteractable.highlightedColor);
                 }
                 else {
-                    currentTargets.Add(new(slot, TargetIconHelper.CreateTargetIcon(slot)));
+                    targetIcon = TargetIconHelper.CreateTargetIcon(slot);
                 }
-                currentTargets[currentTargets.Count - 1].Item2.transform.localScale *= 0.75f;
+                targetIcon.transform.localScale *= 0.75f;
+                currentTargets.Add(slot, targetIcon);
             }
         }
 
-        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) => OnPlayerTurnEnd();
-        public IEnumerator OnPlayerTurnEnd() {
+        public virtual IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) => OnPlayerTurnEnd();
+        public virtual IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();
-            int randomSeed = base.GetRandomSeed();
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
             int maxTargets = BoardManager.Instance.OpponentSlotsCopy.Count;
-            if (base.Card.LacksAbility(Challenging.ability) || SeededRandom.Value(randomSeed++) <= (base.Card.Health / (float)(base.Card.MaxHealth + 1))) {
+            if (SeededRandom.Value(randomSeed++) <= (base.Card.Health / (float)(base.Card.MaxHealth + 1))) {
                 maxTargets--;
             }
-            if (SeededRandom.Value(randomSeed++) <= 0.5f) {
+            if (SeededRandom.Bool(randomSeed++)) {
                 maxTargets--;
             }
+            yield return base.PreSuccessfulTriggerSequence();
             yield return SelectTargets(maxTargets, maxTargets--, randomSeed);
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
-            List<CardSlot> retval = new();
-            foreach (Tuple<CardSlot, GameObject> tuple in currentTargets) {
-                retval.Add(tuple.Item1);
-                TargetIconHelper.CleanUpTargetIcon(tuple.Item2);
-            }
-            return retval;
+            return currentTargets.Keys.ToList();
         }
 
-        private void CleanupTargetIcons() {
-            foreach (Tuple<CardSlot, GameObject> tuple in currentTargets) {
-                TargetIconHelper.CleanUpTargetIcon(tuple.Item2);
+        public IEnumerator OnPostSingularSlotAttackSlot(CardSlot attackingSlot, CardSlot targetSlot) {
+            AbnormalPlugin.Log.LogInfo($"[IntenseVolley] OnPostSingular {base.Card.Anim.DoingAttackAnimation} {targetSlot.Index}");
+            if (currentTargets.TryGetValue(targetSlot, out GameObject obj)) {
+                TargetIconHelper.CleanUpTargetIcon(obj);
+                currentTargets.Remove(targetSlot);
+            }
+            yield break;
+        }
+
+        public void CleanupTargetIcons() {
+            foreach (GameObject obj in currentTargets.Values) {
+                TargetIconHelper.CleanUpTargetIcon(obj);
             }
             currentTargets.Clear();
         }
@@ -105,5 +108,7 @@ namespace WhistleWind.AbnormalSigils {
         public int PlayerTurnEndPriority() => 0;
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
             => 0;
+
+        public bool RespondsToPostSingularSlotAttackSlot(CardSlot attackingSlot, CardSlot targetSlot) => attackingSlot == base.Card.Slot;
     }
 }
