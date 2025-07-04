@@ -344,10 +344,11 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                     continue;
                 }
                 Color targetColour = GameColors.Instance.yellow;
-
+                GameObject prefab = TargetIconHelper.targetIconPrefab;
                 if (numRedTargets > 0 && SeededRandom.Value(randomSeed++) <= chanceForRed) {
                     targetColour = GameColors.Instance.glowRed;
                     giantTargetSlots[0].Add(slot);
+                    prefab = AssetManager.warningTargetPrefab;
                     numRedTargets--;
                 }
                 else if (numWhiteTargets > 0 && SeededRandom.Value(randomSeed++) <= chanceForWhite) {
@@ -357,7 +358,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 }
 
                 yield return new WaitForSeconds(0.05f);
-                CreateTargetIcon(slot, targetColour);
+                CreateTargetIcon(slot, prefab, targetColour);
                 specialTargetSlots.Add(slot);
                 if (slot.Card == null) {
                     numDirectHits++;

@@ -124,8 +124,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         #endregion
 
         #region Targets
+        public void CreateTargetIcon(CardSlot targetSlot, GameObject prefab, Color materialColour = default) {
+            GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, prefab, materialColour);
+            targetIcons.Add(gameObject);
+        }
         public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default) {
-            GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, materialColour);
+            GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, targetIconPrefab, materialColour);
             targetIcons.Add(gameObject);
         }
         public void CleanUpTargetIcon(GameObject icon) {
