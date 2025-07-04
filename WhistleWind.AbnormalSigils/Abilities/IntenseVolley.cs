@@ -75,6 +75,9 @@ namespace WhistleWind.AbnormalSigils {
             if (SeededRandom.Bool(randomSeed++)) {
                 maxTargets--;
             }
+            if (base.Card.Attack > 3) {
+                maxTargets--;
+            }
             yield return base.PreSuccessfulTriggerSequence();
             yield return SelectTargets(maxTargets, maxTargets--, randomSeed);
         }
