@@ -29,6 +29,9 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability Ability => ability;
 
         public override bool RespondsToResolveOnBoard() => base.Card.LacksTrait(AbnormalPlugin.ImmuneToAilments);
-        public override IEnumerator OnResolveOnBoard() => base.Card.AddStatusEffect<Decay>(1);
+        public override IEnumerator OnResolveOnBoard() {
+            yield return base.Card.AddStatusEffect<Decay>(1);
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability } });
+        }
     }
 }
