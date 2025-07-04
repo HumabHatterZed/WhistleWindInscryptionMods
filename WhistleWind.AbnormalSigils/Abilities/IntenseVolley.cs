@@ -72,10 +72,7 @@ namespace WhistleWind.AbnormalSigils {
             if (SeededRandom.Value(randomSeed++) <= (base.Card.Health / (float)(base.Card.MaxHealth + 1))) {
                 maxTargets--;
             }
-            if (SeededRandom.Bool(randomSeed++)) {
-                maxTargets--;
-            }
-            if (base.Card.Attack > 3) {
+            if (base.Card.Attack > 3 || SeededRandom.Bool(randomSeed++)) {
                 maxTargets--;
             }
             yield return base.PreSuccessfulTriggerSequence();
