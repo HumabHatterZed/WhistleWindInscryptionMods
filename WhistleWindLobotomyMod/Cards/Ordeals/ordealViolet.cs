@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -14,9 +14,7 @@ namespace WhistleWindLobotomyMod {
         public const string grantUsLove = "wstl_fruitGrantLove";
         private static void Cards_VioletOrdeal() {
             string textureName = "fruitUnderstanding";
-            string textureName2 = "grantUsLove";
-            //string textureName3 = ""
-            CardInfo fruit = CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
+            CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
                 attack: 0, health: 4)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
@@ -30,12 +28,13 @@ namespace WhistleWindLobotomyMod {
             CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, "Grant Us Love",
                 attack: 1, health: 16)
                 .SetBonesCost(16)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(IntenseVolley.ability, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .SetAnimatedPortrait(LobOpponentUtils.GrantUsLovePrefab)
                 .SetMiniGiant()
+                .SetMiniGiantEmission(TextureLoader.LoadTextureFromFile("grantUsLove_emission.png", LobotomyPlugin.ModAssembly))
                 .Build();
 
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
