@@ -5,6 +5,9 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
+    /// <summary>
+    /// At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this effect will perish, with the killer being itself.
+    /// </summary>
     public class Decay : ModifyOnUpkeepStatusEffectBehaviour {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
@@ -13,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
         public override int PotencyModification => -1;
         public override IEnumerator OnModifyOnUpkeep() {
             yield return base.OnModifyOnUpkeep();
-            if (EffectPotency <= 0) {
+            if (EffectPotency < 1) {
                 yield return base.PlayableCard.Die(false, base.PlayableCard);
             }
         }
@@ -21,9 +24,9 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void StatusEffect_Decay() {
             const string rName = "Decay";
-            const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this sigil will perish.";
+            const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this effect will perish, with the killer being itself.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Decay>(
-                pluginGuid, rName, rDesc, -3, GameColors.Instance.lightPurple,
+                pluginGuid, rName, rDesc, -3, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilDecay.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilDecay_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.MagnificusStatusEffect)
