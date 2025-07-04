@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -23,6 +24,9 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         }
         public static CardInfo SetMiniGiant(this CardInfo info) {
             return info.AddSpecialAbilities(MiniGiantCard.Id).AddAppearances(MiniGiantPortrait.appearance).AddTraits(Trait.Giant);
+        }
+        public static CardInfo SetMiniGiantEmission(this CardInfo info, Texture2D emissionTex) {
+            return info.SetPortrait(emissionTex);
         }
 
         public static bool IsConductor(this PlayableCard card) {

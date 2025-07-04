@@ -9,8 +9,9 @@ using System.Reflection.Emit;
 using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils {
-    // for triggering special card behaviour in Healer
-    [HarmonyPatch]
+    /// <summary>
+    /// Version of giant cards that occupies 2 slots.
+    /// </summary>
     public class MiniGiantCard : SpecialCardBehaviour {
         public static SpecialTriggeredAbility Id;
         public SpecialTriggeredAbility SpecialAbility => Id;
@@ -36,12 +37,22 @@ namespace WhistleWind.AbnormalSigils {
 
     [HarmonyPatch]
     internal class MiniGiantPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.DisplayInfo))]
+        private static void RenderEmissionForMiniGiants(CardDisplayer3D __instance, CardRenderInfo renderInfo, PlayableCard playableCard) {
+            if (renderInfo.hidePortrait && renderInfo.baseInfo.HasSpecialAbility(MiniGiantCard.Id) && __instance.emissivePortraitRenderer != null) {
+                __instance.emissivePortraitRenderer.gameObject.SetActive(false);
+                if (__instance.portraitRenderer.sprite != null) {
+                    __instance.emissivePortraitRenderer.gameObject.SetActive(true);
+                    __instance.emissivePortraitRenderer.sprite = __instance.portraitRenderer.sprite;
+                }
+            }
+        }
         [HarmonyPrefix, HarmonyPatch(typeof(CardSpawner), nameof(CardSpawner.SpawnPlayableCard))]
         private static bool ResizeMiniGiantCard(CardInfo info, ref PlayableCard __result) {
             if (!info.HasSpecialAbility(MiniGiantCard.Id))
                 return true;
 
-            AbnormalPlugin.Log.LogDebug("SpawnPlayableCard: MiniGiant");
+            AbnormalPlugin.Log.LogDebug("[SpawnPlayableCard] Create MiniGiant");
             GameObject go = GameObject.Instantiate(CardSpawner.Instance.PlayableCardPrefab);
             __result = go.GetComponent<PlayableCard>();
             __result.SetInfo(info);
