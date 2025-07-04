@@ -88,47 +88,6 @@ namespace WhistleWindLobotomyMod.Patches {
             yield return enumerator;
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
-        private static void RemoveExcessTeethOnBoard(CardSlot attackingSlot, CardSlot targetSlot, ref int damage) {
-            if (targetSlot.IsPlayerSlot == attackingSlot.IsPlayerSlot || damage < 0) {
-                if (TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq) {
-                    int maxNumOfTeeth = seq.HighestPositiveScaleBalance - LifeManager.Instance.Balance;
-                    int bonesToGive = Mathf.Min(seq.MaxExcessBones - seq.currentExcessBones, damage) - maxNumOfTeeth;
-                    if (bonesToGive > 0) {
-                        maxNumOfTeeth -= bonesToGive;
-                    }
-                }
-            }
-        }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
-        private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage) {
-            if (attackingSlot.Card.LacksTrait(Trait.Giant) || !LobOpponentUtils.FightingCustomBoss()) {
-                yield return enumerator;
-                yield break;
-            }
-
-            List<Transform> newWeights = new();
-            for (int i = 0; i < Mathf.Min(20, damage); i++) {
-                GameObject gameObject = GameObject.Instantiate(__instance.weightPrefab);
-                Vector3 vector = new(0f, 0f, attackingSlot.IsPlayerSlot ? 0.75f : (-0.75f));
-                gameObject.transform.position = targetSlot.transform.position + vector + new Vector3(i * 0.1f, 0f, i * 0.1f);
-                gameObject.transform.eulerAngles = UnityEngine.Random.insideUnitSphere;
-                newWeights.Add(gameObject.transform);
-            }
-            __instance.damageWeights.AddRange(newWeights);
-            // the giant card animation breaks if it's not targeting the firstmost slot, so we use the firstmost instead of the actual target slot
-            attackingSlot.Card.Anim.PlayAttackAnimation(attackPlayer: true, BoardManager.Instance.PlayerSlotsCopy[0], delegate {
-                Singleton<TableVisualEffectsManager>.Instance?.ThumpTable(0.075f * Mathf.Min(10, damage));
-                foreach (Transform item in newWeights) {
-                    if (item != null) {
-                        item.gameObject.SetActive(value: true);
-                        item.GetComponent<Rigidbody>().AddForce(Vector3.up * 4f, ForceMode.VelocityChange);
-                    }
-                }
-            });
-        }
-
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
         private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result) {
             if (RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1) {
