@@ -51,8 +51,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 minCards++;
             }
 
-            encounterData.Blueprint.AddTurn(turn);
             fruitToSpawn = minCards;
+            encounterData.Blueprint.AddTurn(turn);
             return minCards;
         }
     }

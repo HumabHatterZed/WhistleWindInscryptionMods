@@ -17,7 +17,14 @@ namespace WhistleWindLobotomyMod.Opponents {
     public class OrdealVioletNoon : OrdealVioletDawn, IPlayerTurnEnd {
         private CardSlot[] loveSlots = null;
         private bool spawnedNoon = false;
-        private int minTurnToForceNoon = 6;
+        private int minTurnToForceNoon = 5;
+
+        public override bool ShouldExtendBattle() {
+            if (loveSlots != null || spawnedNoon) {
+                return false;
+            }
+            return base.ShouldExtendBattle();
+        }
 
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             if (BeginNoon()) {
@@ -39,9 +46,8 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            //ValidCards.Add(Cards.grantUsLove);
-            if (baseDifficulty > 7 && encounterData.Difficulty > 1 + baseDifficulty) {
-                minTurnToForceNoon -= encounterData.Difficulty - baseDifficulty - 1;
+            if (encounterData.Difficulty > 5) {
+                minTurnToForceNoon--;
             }
             targetIconPrefab = AssetManager.warningTargetPrefab;
             return 1 + base.ConstructOrdealBlueprint(encounterData, baseDifficulty);
@@ -50,7 +56,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
             if (OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn == 1) {
-                ValidCards.Add(Cards.grantUsLove); // prevent Ordeal from ending before Noon
+                ValidCards.Add(Cards.grantUsLove); // prevent Ordeal from ending before Noon is killed
                 minTurnToForceNoon = Opponent.NumTurnsTaken;
             }
         }
@@ -64,8 +70,10 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             if (loveSlots[1].Card != null) yield return loveSlots[1].Card.DieTriggerless();
 
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
             CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.grantUsLove), loveSlots[0]);
+            //ViewManager.Instance.SwitchToView(View.OpponentQueue);
             yield return new WaitForSeconds(0.2f);
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             yield return new WaitForSeconds(1f);
