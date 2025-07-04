@@ -30,9 +30,11 @@ namespace WhistleWind.AbnormalSigils.Core {
             return gameObject;
         }
         public static void CleanUpTargetIcon(GameObject icon) {
-            Tween.LocalScale(icon.transform, Vector3.zero, 0.1f, 0f, Tween.EaseIn, Tween.LoopType.None, null, delegate {
-                GameObject.Destroy(icon);
-            });
+            if (icon != null) {
+                Tween.LocalScale(icon.transform, Vector3.zero, 0.1f, 0f, Tween.EaseIn, Tween.LoopType.None, null, delegate {
+                    GameObject.Destroy(icon);
+                });
+            }
         }
     }
 }
