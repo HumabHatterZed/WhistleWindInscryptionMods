@@ -38,7 +38,9 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnResolveOnBoard() {
             foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
                 if (slot.Card != null && !slot.Card.HasStatusEffect<Fervent>() && slot.Card != base.Card) {
-                    yield return slot.Card.AddStatusEffect<Fervent>(1);
+                    if (slot.Card.LacksTrait(Trait.Giant)) {
+                        yield return slot.Card.AddStatusEffect<Fervent>(1);
+                    }
                 }
             }
         }
