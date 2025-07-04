@@ -15,6 +15,20 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.CardsOnBoard), MethodType.Getter)]
+        private static void FixGiantDuplicateTriggers(ref List<PlayableCard> __result) {
+            __result = __result.Distinct().ToList();
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(PaperCardAnimationController), nameof(PaperCardAnimationController.PlayAttackAnimation), new Type[] { typeof(bool), typeof(CardSlot) })]
+        private static bool FixGiantAnimationTriggers(PaperCardAnimationController __instance, bool attackPlayer, CardSlot targetSlot) {
+            if (__instance.Card?.Info.HasTrait(Trait.Giant) ?? false) {
+                __instance.Anim.SetTrigger(attackPlayer ? "attack_player" : "attack_creature");
+                return false;
+            }
+            return true;
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
         private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard) {
             if (queuedCard != null && queuedCard.HasAbility(Lonely.ability) && queuedCard.GetComponent<Lonely>().HasFriend)
