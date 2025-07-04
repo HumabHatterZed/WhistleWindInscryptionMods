@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             CardModificationInfo mod = new();
-            int decayStacks = fruitToSpawn == 4 ? 5 : 4;
+            int decayStacks = fruitToSpawn == 4 ? 3 : 2;
             if (Opponent.Difficulty > 5) {
                 decayStacks--;
             }
@@ -42,11 +42,11 @@ namespace WhistleWindLobotomyMod.Opponents {
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
 
-            if (baseDifficulty > 2) {
+            if (encounterData.Difficulty > 3) {
                 turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
                 minCards++;
             }
-            if (baseDifficulty > 7) {
+            if (encounterData.Difficulty > 8) {
                 turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
                 minCards++;
             }
