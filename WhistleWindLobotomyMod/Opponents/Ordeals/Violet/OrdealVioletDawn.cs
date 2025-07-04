@@ -1,51 +1,58 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
+using UnityEngine;
 using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
-    /// Appears in R0
-    /// Difficulty range: (1 - 3) +[0,2] // 4 difficulty is for boss node w/o challlenges
-    /// 
-    /// D | Turn 1 | Turn 2 | Turn 3 | ## | HP | Atk
-    /// 1 | F4     | F3     | F3     | 3  | 12 | 0
-    /// 3 | F3     | F3     | F2     | 3  | 12 | 0
-    /// 5 | F3     | F2 F2  | F2     | 4  | 16 | 0
+    /// The weakest Violet Ordeal.
+    /// Violet Ordeals are religious themed.
+    /// Dawn will have cards appear all at once, with several turns to kill all cards before they detonate.
+    /// Cards required: 2, 3, 4
+    /// Valid regions: 0, 1
     /// </summary>
     public class OrdealVioletDawn : OrdealBattleSequencer {
+        private int fruitToSpawn = 0;
         public override void ModifyQueuedCard(PlayableCard card) {
-            if (Opponent.Difficulty < RunState.Run.regionTier * 6 + 2) {
-                if (Opponent.NumTurnsTaken == 0)
-                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability, StartingDecay.ability } });
-                else
-                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
+            base.ModifyQueuedCard(card);
+            if (card.Info.name != Cards.fruitUnderstanding) {
+                return;
             }
-            else if (Opponent.NumTurnsTaken < 2)
-                card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
+
+            CardModificationInfo mod = new();
+            int decayStacks = fruitToSpawn == 4 ? 5 : 4;
+            if (Opponent.Difficulty > 5) {
+                decayStacks--;
+            }
+            if (fruitToSpawn == 1) {
+                decayStacks--;
+            }
+            for (int i = 0; i < decayStacks; i++) {
+                mod.abilities.Add(StartingDecay.ability);
+            }
+            card.AddTemporaryMod(mod);
+            fruitToSpawn--;
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            int minCards = 3;
-            List<EncounterBlueprintData.CardBlueprint> turn1 = new() {
-                EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
-            };
-            List<EncounterBlueprintData.CardBlueprint> turn2 = new() {
-                EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
-            };
-            List<EncounterBlueprintData.CardBlueprint> turn3 = new() {
+            int minCards = 2;
+            List<EncounterBlueprintData.CardBlueprint> turn = new() {
+                EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding),
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
 
-            if (encounterData.Difficulty > baseDifficulty + 1) {
+            if (baseDifficulty > 2) {
+                turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
                 minCards++;
-                turn2.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
+            }
+            if (baseDifficulty > 7) {
+                turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
+                minCards++;
             }
 
-            encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
-            if (baseDifficulty < 3)
-                encounterData.Blueprint.AddTurn();
-
+            encounterData.Blueprint.AddTurn(turn);
+            fruitToSpawn = minCards;
             return minCards;
         }
     }

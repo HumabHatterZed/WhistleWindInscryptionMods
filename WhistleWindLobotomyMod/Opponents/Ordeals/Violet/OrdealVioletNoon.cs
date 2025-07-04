@@ -2,23 +2,62 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
-    /// Appears in R1
-    /// Difficulty range: (5 - 9) +[0,2]
-    /// 
-    /// Begin with short version of Dawn encounter then do Noon proper
+    /// The second-strongest Violet Ordeal.
+    /// Violet Ordeals are religious themed.
+    /// Noon will begin with the Violet Dawn, with Noon appearing a few turns after or once all Dawns are defeated.
+    /// Cards required: 3, 4, 5
+    /// Valid regions: 0, 1, 2
     /// </summary>
-    public class OrdealVioletNoon : OrdealVioletDawn {
+    public class OrdealVioletNoon : OrdealVioletDawn, IPlayerTurnEnd {
         private CardSlot[] loveSlots = null;
+        private bool spawnedNoon = false;
+        private int minTurnToForceNoon = 6;
 
-        public override IEnumerator OpponentUpkeep() {
-            if (loveSlots == null || Opponent.NumTurnsTaken < Opponent.TurnPlan.Count + 1)
-                yield break;
+        public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
+            if (BeginNoon()) {
+                yield return HelperMethods.ChangeCurrentView(View.Board);
+                int slotIndex = UnityEngine.Random.Range(0, BoardManager.Instance.OpponentSlotsCopy.Count - 1);
+                loveSlots = new CardSlot[] { BoardManager.Instance.OpponentSlotsCopy[slotIndex], BoardManager.Instance.OpponentSlotsCopy[slotIndex + 1] };
+                CreateTargetIcon(loveSlots[0], GameColors.Instance.glowRed);
+                CreateTargetIcon(loveSlots[1], GameColors.Instance.glowRed);
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return base.OnOpponentTurnEnd(opponentTurnSkipped);
+        }
 
+        private bool BeginNoon() {
+            if (loveSlots == null && !spawnedNoon) {
+                return Opponent.NumTurnsTaken >= minTurnToForceNoon;
+            }
+            return false;
+        }
+
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
+            //ValidCards.Add(Cards.grantUsLove);
+            if (baseDifficulty > 7 && encounterData.Difficulty > 1 + baseDifficulty) {
+                minTurnToForceNoon -= encounterData.Difficulty - baseDifficulty - 1;
+            }
+            targetIconPrefab = AssetManager.warningTargetPrefab;
+            return 1 + base.ConstructOrdealBlueprint(encounterData, baseDifficulty);
+        }
+
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
+            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
+            if (OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn == 1) {
+                ValidCards.Add(Cards.grantUsLove); // prevent Ordeal from ending before Noon
+                minTurnToForceNoon = Opponent.NumTurnsTaken;
+            }
+        }
+
+        
+
+        public IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();
 
             if (loveSlots[0].Card != null) yield return loveSlots[0].Card.DieTriggerless();
@@ -31,25 +70,10 @@ namespace WhistleWindLobotomyMod.Opponents {
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             yield return new WaitForSeconds(1f);
             loveSlots = null;
+            spawnedNoon = true;
         }
 
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
-            // if the next turn is the final turn in the turn plan, set up Grant Us Love
-            if (loveSlots == null && Opponent.NumTurnsTaken == Opponent.TurnPlan.Count) {
-                int slotIndex = UnityEngine.Random.Range(0, BoardManager.Instance.OpponentSlotsCopy.Count - 1);
-                loveSlots = new CardSlot[] { BoardManager.Instance.OpponentSlotsCopy[slotIndex], BoardManager.Instance.OpponentSlotsCopy[slotIndex + 1] };
-                CreateTargetIcon(loveSlots[0], GameColors.Instance.darkPurple);
-                CreateTargetIcon(loveSlots[1], GameColors.Instance.darkPurple);
-            }
-            else {
-                yield return base.OnTurnEnd(playerTurnEnd);
-            }
-        }
-
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            ValidCards.Add(Cards.grantUsLove);
-            targetIconPrefab = AssetManager.warningTargetPrefab;
-            return 1 + base.ConstructOrdealBlueprint(encounterData, baseDifficulty);
-        }
+        public bool RespondsToPlayerTurnEnd() => loveSlots != null && !spawnedNoon;
+        public int PlayerTurnEndPriority() => 0;
     }
 }
