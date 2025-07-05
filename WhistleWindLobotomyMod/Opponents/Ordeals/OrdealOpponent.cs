@@ -48,7 +48,9 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
-
+            if (BattleSequencer.ordealType == OrdealType.White) {
+                this.NumLives = 4; // add exception here since we can't do it in the sequencer
+            }
             yield return base.IntroSequence(encounter);
             AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
 
