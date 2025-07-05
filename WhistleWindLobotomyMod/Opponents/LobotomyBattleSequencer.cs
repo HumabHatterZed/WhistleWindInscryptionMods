@@ -39,12 +39,13 @@ namespace WhistleWindLobotomyMod.Opponents {
             int numRemoved = 0;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
             for (int i = 0; i < slots.Count; i++) {
-                if (SeededRandom.Value(rand++) <= (0.5f - numRemoved * 0.15f)) {
-                    slots[i] = null;
+                if (SeededRandom.Value(rand++) <= (slots[i].Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 0.25f :(0.5f - numRemoved * 0.15f))) {
+                    slots.Remove(slots[i]);
                     numRemoved++;
+                    i--;
                 }
             }
-            slots.RemoveAll(x => x == null);
+
             if (slots.Count > 0) {
                 ViewManager.Instance.SwitchToView(View.Board);
                 yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
