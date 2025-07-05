@@ -128,10 +128,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 _ => Cards.fixerRed
             };
 
-            encounterData.Blueprint
-                .AddTurn()
-                .AddTurn()
-                .AddTurn(new List<EncounterBlueprintData.CardBlueprint>() {
+            encounterData.Blueprint.AddTurn(
+                new List<EncounterBlueprintData.CardBlueprint>() {
                     EncounterManager.NewCardBlueprint(chosenWhiteDawnFixer)
             });
 
@@ -177,7 +175,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             return 4;
         }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            Opponent.NumLives = 4;
             return ConstructWhiteDawn(encounterData);
         }
     }
