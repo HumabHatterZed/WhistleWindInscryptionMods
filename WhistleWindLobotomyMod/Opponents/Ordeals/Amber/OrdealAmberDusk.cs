@@ -11,12 +11,12 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// The weakest Amber Ordeal.
     /// Crimson Ordeals are themed around constantly spawning enemies.
     /// Dusk cards will summon Dawn cards, which will be added to the total required.
-    /// Cards required: 3, 4, 5... (not counting Dawn cards)
+    /// Cards required: 2, 3, 4... (not counting Dawn cards)
     /// Valid regions: 1, 2
     /// </summary>
     public class OrdealAmberDusk : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            int num = 3;
+            int num = 2;
             if (RunState.Run.regionTier > 1) {
                 num++;
             }
