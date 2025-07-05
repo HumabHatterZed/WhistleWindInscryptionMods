@@ -87,10 +87,10 @@ namespace WhistleWindLobotomyMod {
             if (this.amountLeft == 0)
                 yield break;
 
-            for (int i = 0; i < amountKilled; i++) {
+            for (int i = 0; i < Mathf.Abs(amountKilled); i++) {
                 AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
 
-                this.amountLeft--;
+                this.amountLeft += amountKilled < 0 ? 1 : -1;
                 if (this.amountLeft == 0) {
                     counterText.color = Color.red;
                 }
