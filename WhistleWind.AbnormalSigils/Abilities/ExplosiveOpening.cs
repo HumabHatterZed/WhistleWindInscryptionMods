@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
 
             AbilityManager.FullAbility ab = AbnormalAbilityHelper.CreateAbility<ExplosiveOpening>(
                 "sigilExplosiveOpening",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: false, opponent: true, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
