@@ -94,6 +94,9 @@ namespace WhistleWindLobotomyMod.Patches {
                 if (LobotomyConfigManager.ChallengeIsActive(FinalApocalypse.Id)) {
                     __result = LobOpponentUtils.apocalypseRegion;
                 }
+                else if (LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id)) {
+                    __result = LobOpponentUtils.whiteOrdealRegion;
+                }
             }
         }
     }
