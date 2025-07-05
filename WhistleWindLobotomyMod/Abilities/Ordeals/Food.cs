@@ -17,6 +17,9 @@ namespace WhistleWindLobotomyMod {
         }
     }
 
+    /// <summary>
+    /// Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_foodPerfect]
+    /// </summary>
     public class Food : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
