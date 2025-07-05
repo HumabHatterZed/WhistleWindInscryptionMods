@@ -52,44 +52,56 @@ namespace WhistleWindLobotomyMod.Opponents {
                 return;
             }
 
-            bool addOrdeal = false;
-            if (bossNode || AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id) ||
-                UnityEngine.Random.value > (0.75f + previousNodes.Count(x => x is OrdealBattleNodeData) * 0.01f - RunState.Run.DifficultyModifier * 0.023f)) {
-                addOrdeal = true;
+            if (bossNode && AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id)) {
+                OrdealBossBattleNodeData bossData = new() {
+                    id = __result.id,
+                    gridX = __result.gridX,
+                    gridY = __result.gridY,
+                    difficulty = nodeData.difficulty,
+                    connectedNodes = __result.connectedNodes,
+                    bossType = OrdealUtils.OpponentID,
+                    tier = 3,
+                    ordealType = OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
+                    totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)
+                };
+                bossData.specialBattleId = bossData.ordealType switch { 
+                    OrdealType.Violet => OrdealUtils.VioletMidnight,
+                    OrdealType.Amber => OrdealUtils.AmberMidnight,
+                    _ => OrdealUtils.GreenMidnight
+                };
+                __result = bossData;
+                LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Boss {RunState.CurrentRegionTier} {bossData.ordealType}");
+                return;
             }
 
-            if (!addOrdeal) return;
+            if (!AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id)
+                    && UnityEngine.Random.value <= (0.75f + previousNodes.Count(x => x is OrdealBattleNodeData) * 0.01f - RunState.Run.DifficultyModifier * 0.023f)) {
+                return;
+            }
 
             int tier;
+            float randomValue = UnityEngine.Random.value;
             OrdealBattleNodeData data = new() {
                 id = __result.id,
                 gridX = __result.gridX,
                 gridY = __result.gridY,
                 difficulty = nodeData.difficulty,
-                connectedNodes = __result.connectedNodes
+                connectedNodes = __result.connectedNodes,
+                totemOpponent = __result is TotemBattleNodeData
             };
 
-            if (bossNode) {
-                data.totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems);
-                tier = 3;
+            // gate values for region tiers
+            // 0.60 1.00  0
+            // 0.25 0.82  1 
+            // -0.1 0.64  1
+            if (randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
+                tier = 0;
+            }
+            else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
+                tier = 1;
             }
             else {
-                float randomValue = UnityEngine.Random.value;
-                data.totemOpponent = __result is TotemBattleNodeData;
-
-                // gate values for region tiers
-                // 0.60 1.00  0
-                // 0.25 0.82  1 
-                // -0.1 0.64  1
-                if (randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
-                    tier = 0;
-                }
-                else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
-                    tier = 1;
-                }
-                else {
-                    tier = 2;
-                }
+                tier = 2;
             }
 
             AssignOrdealDataToNode(data, tier);
@@ -102,7 +114,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             ordealNodeData.ordealType = tier switch {
                 1 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Indigo),
                 2 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber),
-                3 => (RunState.CurrentRegionTier > 2 && AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id)) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
                 _ => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
             };
         }
@@ -153,7 +164,62 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnAndPlaceElement))]
         private static void ConstructOrdealMapNode(ref GameObject __result, MapElementData data) {
-            if (data is OrdealBattleNodeData ordealNodeData) {
+            int tier = -1;
+            bool totemOpponent = false;
+            OrdealType type = OrdealType.Green;
+            if (data is OrdealBossBattleNodeData bossNodeData) {
+                tier = 3;
+                type = bossNodeData.ordealType;
+                totemOpponent = bossNodeData.totemOpponent;
+            }
+            else if (data is OrdealBattleNodeData ordealNodeData) {
+                tier = ordealNodeData.tier;
+                type = ordealNodeData.ordealType;
+                totemOpponent = ordealNodeData.totemOpponent;
+                
+                ordealNodeData.specialBattleId = type switch {
+                    OrdealType.Green => tier switch {
+                        1 => OrdealUtils.GreenNoon,
+                        2 => OrdealUtils.GreenDusk,
+                        _ => OrdealUtils.GreenDawn
+                    },
+                    OrdealType.Violet => tier switch {
+                        1 => OrdealUtils.VioletNoon,
+                        _ => OrdealUtils.VioletDawn
+                    },
+                    OrdealType.Crimson => tier switch {
+                        1 => OrdealUtils.CrimsonNoon,
+                        2 => OrdealUtils.CrimsonDusk,
+                        _ => OrdealUtils.CrimsonDawn
+                    },
+                    OrdealType.Amber => tier switch {
+                        2 => OrdealUtils.AmberDusk,
+                        _ => OrdealUtils.AmberDawn
+                    },
+                    _ => OrdealUtils.IndigoNoon
+                };
+            }
+
+            if (tier != -1) {
+                AnimatingSprite sprite = __result.GetComponentInChildren<AnimatingSprite>();
+                Texture2D[] nodeAnimation = tier switch {
+                    1 => totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim,
+                    2 => totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim,
+                    3 => totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim,
+                    _ => totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim,
+                };
+
+                for (int i = 0; i < sprite.textureFrames.Count; i++) {
+                    sprite.textureFrames[i] = nodeAnimation[i];
+                }
+
+                sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)type];
+                sprite.IterateFrame();
+            }
+
+            /*else if (data is OrdealBattleNodeData ordealNodeData) {
+                tier = ordealNodeData.tier;
+                totemOpponent = ordealNodeData.totemOpponent;
                 Texture2D[] nodeAnimation = null;
                 float randomValue = UnityEngine.Random.value;
                 AnimatingSprite sprite = __result.GetComponentInChildren<AnimatingSprite>();
@@ -200,7 +266,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     _ => OrdealUtils.WhiteOrdeal
                 };
                 sprite.IterateFrame();
-            }
+            }*/
         }
     }
 }

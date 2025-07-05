@@ -162,17 +162,30 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
             OrdealCounterManager.ValidateCounter();
-            if (nodeData is not OrdealBattleNodeData ordealData) {
-                LobotomyPlugin.Log.LogWarning("[OrdealBattle] NodeData is null!");
+            int tier = -1;
+            OrdealType type = OrdealType.Green;
+            bool totem = false;
+            if (nodeData is OrdealBattleNodeData ordealData) {
+                tier = ordealData.tier;
+                type = ordealData.ordealType;
+                totem = ordealData.totemOpponent;
+            }
+            else if (nodeData is OrdealBossBattleNodeData bossData) {
+                tier = bossData.tier;
+                type = bossData.ordealType;
+                totem = bossData.totemOpponent;
+            }
+
+            if (tier == -1) {
                 return null;
             }
 
-            ordealType = ordealData.ordealType;
-            ordealTier = ordealData.tier;
+            ordealType = type;
+            ordealTier = tier;
             EncounterData encounterData = new() {
                 opponentType = OrdealUtils.OpponentID,
                 Blueprint = EncounterManager.New("", false).SetDifficulty(0, 20),
-                Difficulty = ordealData.difficulty + RunState.Run.DifficultyModifier
+                Difficulty = nodeData.difficulty + RunState.Run.DifficultyModifier
             };
 
             //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Difficulty: {encounterData.Difficulty}");
@@ -197,10 +210,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                     break;
             }
 
-            MinNumCardsRequired = ConstructOrdealBlueprint(encounterData, ordealData.difficulty);
+            MinNumCardsRequired = ConstructOrdealBlueprint(encounterData, nodeData.difficulty);
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, encounterData.Difficulty, false);
 
-            if (ordealData.totemOpponent) {
+            if (totem) {
                 GetAllBlacklistedAbilities(encounterData.Blueprint.redundantAbilities);
                 encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], encounterData.Difficulty, AllBlacklistedAbilities);
             }
