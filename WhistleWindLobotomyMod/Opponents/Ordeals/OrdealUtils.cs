@@ -103,10 +103,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                 AssetManager.AssetBundle.LoadAsset<AudioClip>("Violet_end"),
                 AssetManager.AssetBundle.LoadAsset<AudioClip>("Amber_start"),
                 AssetManager.AssetBundle.LoadAsset<AudioClip>("Amber_end"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indog_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indigo_end")/*,
-                AssetManager.BossBundle.LoadAsset<AudioClip>("White_start"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("White_end")*/
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indigo_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indigo_end"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("White_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("White_end")
             ];
 
             AssetManager.sfxClips.AddRange(OrdealSFX);
