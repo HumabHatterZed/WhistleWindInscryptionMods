@@ -4,6 +4,7 @@ using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
@@ -34,11 +35,21 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public virtual IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
+            int numRemoved = 0;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
-            ViewManager.Instance.SwitchToView(View.Board);
-            yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
-                return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
-            });
+            for (int i = 0; i < slots.Count; i++) {
+                if (SeededRandom.Value(rand++) <= (1f - numRemoved * 0.2f)) {
+                    slots[i] = null;
+                    numRemoved++;
+                }
+            }
+            slots.RemoveAll(x => x == null);
+            if (slots.Count > 0) {
+                ViewManager.Instance.SwitchToView(View.Board);
+                yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
+                    return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
+                });
+            }
         }
 
         #region Triggers
