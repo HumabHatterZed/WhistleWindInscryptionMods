@@ -10,6 +10,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
     public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IPlayerTurnEnd, IModifyDamageTaken/*, IItemCanBeUsed, IOnItemPreventedFromUse, IOnPostItemUsed*/ {
@@ -90,7 +91,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 if (s == BossCard.Slot)
                     return 1000;
 
-                return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
+                return s.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
             });
         }
         #endregion

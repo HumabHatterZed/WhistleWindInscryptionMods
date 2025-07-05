@@ -185,6 +185,7 @@ namespace WhistleWindLobotomyMod.Core {
         public static Trait BlackForest = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "BlackForest");
         public static Trait EmeraldCity = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "EmeraldCity");
         public static Trait MagicalGirl = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "MagicalGirl");
+        public static Trait PriorityMovement = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "PriorityMovement");
 
         public static CardMetaCategory RuinaCard = GuidManager.GetEnumValue<CardMetaCategory>(LobotomyPlugin.pluginGuid, "RuinaCard");
         public static CardMetaCategory EventCard = GuidManager.GetEnumValue<CardMetaCategory>(LobotomyPlugin.pluginGuid, "EventCard");

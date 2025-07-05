@@ -9,6 +9,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -38,7 +39,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             int numRemoved = 0;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
             for (int i = 0; i < slots.Count; i++) {
-                if (SeededRandom.Value(rand++) <= (1f - numRemoved * 0.2f)) {
+                if (SeededRandom.Value(rand++) <= (0.5f - numRemoved * 0.15f)) {
                     slots[i] = null;
                     numRemoved++;
                 }
@@ -47,7 +48,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (slots.Count > 0) {
                 ViewManager.Instance.SwitchToView(View.Board);
                 yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
-                    return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
+                    return s.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
                 });
             }
         }

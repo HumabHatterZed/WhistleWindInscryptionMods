@@ -58,6 +58,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(HighStrung.ability, Persistent.ability)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
+                .AddTraits(PriorityMovement)
                 .Build();
             CardManager.New(LobotomyPlugin.pluginPrefix, runawayBird_mook, name3,
                 attack: 1, health: 2)

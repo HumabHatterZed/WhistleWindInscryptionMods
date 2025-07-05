@@ -26,13 +26,13 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardInfo chain = CardManager.New(LobotomyPlugin.pluginPrefix, foodChain, "The Food Chain",
-                attack: 3, health: 4)
-                .SetBonesCost(12)
+                attack: 2, health: 5)
+                .SetBonesCost(18)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Food.ability, Challenging.ability)
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)
-                .AddTraits(Ordeal)
+                .AddTraits(Ordeal, PriorityMovement)
                 .Build();
 
             CardInfo meal = CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, "The Eternal Meal",
