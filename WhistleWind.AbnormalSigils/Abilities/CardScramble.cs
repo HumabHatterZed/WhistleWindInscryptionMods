@@ -155,8 +155,7 @@ namespace WhistleWind.AbnormalSigils {
                 //AbnormalPlugin.Log.LogDebug("Move to new slot");
                 card.Slot = null;
                 openSlots.Remove(slot);
-                BoardManager.Instance.StartCoroutine(MoveToNewSlot(card, slot, 0.1f));
-                yield return new WaitForSeconds(0.1f);
+                yield return MoveToNewSlot(card, slot, 0.1f);
             }
 
             yield return new WaitForSeconds(waitAfter);
