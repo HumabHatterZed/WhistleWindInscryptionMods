@@ -169,7 +169,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             isActive = false;
             phaseCountdown = Mathf.Max(2, MaxCooldownPeriod - 1);
             EncounterData.StartCondition cond = new() {
-                cardsInOpponentSlots = new CardInfo[] { null, CardLoader.GetCardByName("wstl_lastHelix") } // Last Helix is guaranteed to appear in the second slot
+                cardsInOpponentSlots = new CardInfo[] { null, CardLoader.GetCardByName(Cards.lastHelix) } // Last Helix is guaranteed to appear in the second slot
             };
             encounterData.startConditions.Add(cond);
             return 1;
@@ -177,7 +177,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override void ModifySpawnedCard(PlayableCard card) {
             LobotomyPlugin.Log.LogDebug("ModifySpawnedCard: " + card.Info.name);
-            if (card.Info.name != "wstl_lastHelix")
+            if (card.Info.name != Cards.lastHelix)
                 return;
 
             Helix = card;
