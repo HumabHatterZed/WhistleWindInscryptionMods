@@ -53,12 +53,15 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            if (amountKilledThisTurn > 0) {
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
+            if (amountKilledThisTurn != 0) {
+                //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] update amount left");
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
                 yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
                 yield return new WaitForSeconds(0.75f);
             }
 
+            amountKilledThisTurn = 0; // reset here so we can modify it in MoveOpponentCards (see Amber Dusk for ex)
             if (!defeated) {
                 if (OrdealCounterManager.Instance.amountLeft == 0) {
                     defeated = true;
@@ -66,18 +69,20 @@ namespace WhistleWindLobotomyMod.Opponents {
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
                 }
                 else if (ShouldExtendBattle()) {
-                    LobotomyPlugin.Log.LogDebug("[OrdealBattle] OnRoundEnd: Extend turn plan");
+                    //LobotomyPlugin.Log.LogDebug("[OrdealBattle] OpponentTurnEnd: Extend turn plan");
                     Opponent.ReplaceAndAppendTurnPlan(Opponent.ModifyTurnPlan(EncounterBluePrint));
                     yield return Opponent.QueueNewCards();
                 }
-            }
 
-            if (!defeated && !opponentTurnSkipped) {
-                yield return MoveOpponentCards();
+                if (!opponentTurnSkipped) {
+                    yield return MoveOpponentCards();
+                }
             }
-
-            currentExcessBones = amountKilledThisTurn = 0;
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd: {OrdealCounterManager.Instance.amountLeft} left {opponentTurnSkipped}");
+            currentExcessBones = 0;
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd: [{OrdealCounterManager.Instance.amountLeft}] left");
+            if (amountKilledThisTurn != 0) {
+                yield return OnOpponentTurnEnd(true);
+            }
         }
 
         /// <summary>
@@ -85,7 +90,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns>True if the player runs out of Ordeal cards before meeting the kill requirement.</returns>
         public virtual bool ShouldExtendBattle() {
-            LobotomyPlugin.Log.LogDebug($"[ShouldExtendOrdeal] {Opponent.NumTurnsTaken} {Opponent.TurnPlan.Count}");
+            //LobotomyPlugin.Log.LogDebug($"[ShouldExtendOrdeal] {Opponent.NumTurnsTaken} {Opponent.TurnPlan.Count}");
             return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count
                 && BoardManager.Instance.GetOpponentCards(CardIsValidOrdeal).Count == 0
                 && Opponent.Queue.Count(CardIsValidOrdeal) == 0;
@@ -93,7 +98,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         /// <returns>True if the given card's death is counted towards the kill requirement.</returns>
         protected bool CardIsValidOrdeal(PlayableCard card) {
-            LobotomyPlugin.Log.LogInfo($"Ordeal: {card.HasTrait(LobotomyCardManager.Ordeal)} Valid: {ValidCards.Count == 0} || {ValidCards.Contains(card.Info.name)}");
+            //LobotomyPlugin.Log.LogInfo($"Ordeal: {card.HasTrait(LobotomyCardManager.Ordeal)} Valid: {ValidCards.Count == 0} || {ValidCards.Contains(card.Info.name)}");
             return card.HasTrait(LobotomyCardManager.Ordeal) && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
         }
 
@@ -170,8 +175,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 Difficulty = ordealData.difficulty + RunState.Run.DifficultyModifier
             };
 
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Difficulty: {encounterData.Difficulty}");
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Base Difficulty: {ordealData.difficulty}");
+            //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Difficulty: {encounterData.Difficulty}");
+            //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Base Difficulty: {ordealData.difficulty}");
 
             // set the dominant tribe and redundant abilities for each Ordeal type
             switch (ordealType) {
