@@ -6,7 +6,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     /// <summary>
-    /// At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this effect will perish, with the killer being itself.
+    /// At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this effect will kill itself.
     /// </summary>
     public class Decay : ModifyOnUpkeepStatusEffectBehaviour {
         public static Ability iconId;
@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void StatusEffect_Decay() {
             const string rName = "Decay";
-            const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this effect will perish, with the killer being itself.";
+            const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this effect will kill itself.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Decay>(
                 pluginGuid, rName, rDesc, -3, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilDecay.png", Assembly),
