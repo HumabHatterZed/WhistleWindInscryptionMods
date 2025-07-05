@@ -27,8 +27,9 @@ namespace WhistleWindLobotomyMod.Opponents {
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
         private static IEnumerator UpdateOrdealBattleVariables(IEnumerator enumerator, TurnManager __instance) {
             yield return enumerator;
-            if (OrdealUtils.OpponentIsOrdeal())
+            if (OrdealUtils.OpponentIsOrdeal()) {
                 yield return (__instance.SpecialSequencer as OrdealBattleSequencer).OnOpponentTurnEnd(true);
+            }
         }
 
         [HarmonyPostfix]
@@ -52,7 +53,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             bool addOrdeal = false;
-            if (AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id) ||
+            if (bossNode || AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id) ||
                 UnityEngine.Random.value > (0.75f + previousNodes.Count(x => x is OrdealBattleNodeData) * 0.01f - RunState.Run.DifficultyModifier * 0.023f)) {
                 addOrdeal = true;
             }
@@ -91,14 +92,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
             }
 
-            // DEBUG DEBUG
-            // REMOVE ON RELEASE
-            // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            if (true) {
-                data.tier = tier;
-                data.ordealType = OrdealType.Green;
-            }
-            //AssignOrdealDataToNode(data, tier);
+            AssignOrdealDataToNode(data, tier);
             __result = data;
 
             LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.CurrentRegionTier} {tier}");
@@ -108,7 +102,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             ordealNodeData.ordealType = tier switch {
                 1 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Indigo),
                 2 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber),
-                3 => AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
+                3 => (RunState.CurrentRegionTier > 2 && AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id)) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
                 _ => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
             };
         }
