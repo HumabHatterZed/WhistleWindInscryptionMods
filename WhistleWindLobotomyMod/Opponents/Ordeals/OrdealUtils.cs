@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Guid;
 using UnityEngine;
@@ -146,8 +147,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                 },
                 new()
                 {
-                    new BossBattleNodeData
+                    new OrdealBossBattleNodeData
                     {
+                        tier = 0,
+                        ordealType = OrdealType.White,
                         bossType = OpponentID,
                         specialBattleId = WhiteOrdeal,
                         difficulty = 20,
@@ -155,11 +158,26 @@ namespace WhistleWindLobotomyMod.Opponents {
                     }
                 }
             };
+
+            DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, whiteOrdealRegion, new()
+            {
+                "At long last, your journey approaches its end.",
+                "After countless trials and tribulations, you finally have reached the summit.",
+                "Yet already, you can see enemies on the horizon.",
+                "They will not let you past so easily.",
+                "Prepare yourself for one final [c:bR]ordeal[c:]."
+            });
+
             return whiteOrdealRegion;
         }
     }
 
     public class OrdealBattleNodeData : CardBattleNodeData {
+        public bool totemOpponent;
+        public int tier;
+        public OrdealType ordealType;
+    }
+    public class OrdealBossBattleNodeData : BossBattleNodeData {
         public bool totemOpponent;
         public int tier;
         public OrdealType ordealType;

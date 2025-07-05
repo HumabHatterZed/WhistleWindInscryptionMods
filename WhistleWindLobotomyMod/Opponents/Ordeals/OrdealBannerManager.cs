@@ -56,7 +56,6 @@ namespace WhistleWindLobotomyMod {
         public IEnumerator DisplayBannerEnumerator(OrdealType ordeal, bool intro) {
             LobotomyPlugin.Log.LogInfo($"[OrdealBannerManager.DisplayBanner] [{ordeal}] Intro:{intro}");
             string audioName = ordeal.ToString() + "_" + (intro ? "start" : "end");
-            LobotomyPlugin.Log.LogInfo($"[OrdealBannerManager.DisplayBanner] {audioName}");
             AudioController.Instance.PlaySound2D(audioName, MixerGroup.TableObjectsSFX);
             ShowBanner();
             yield return new WaitForSeconds(3f);
