@@ -45,6 +45,7 @@
 - <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
 - Big and Will Be Bad Wolf: reworked to 3/3; Vendetta, Blood Lust; 3 Blood
+- <span style='color:#2084A0'>CENSORED: Increased Health from 4 -> 5
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
 - <span style='color:#2084A0'>Dream of a Black Swan: Buffed from 2/5 -> 3/5
@@ -59,6 +60,7 @@
 - <span style='color:#2084A0'>Luminous Bracelet: reduced play cost from 3 Energy -> 2 Energy
 - Magical Girl: now requires more cards to die before transforming into Queen of Hatred
 - Meat Lantern: updated artwork
+- Meat Lantern: rebalanced from 1/2; Punisher to 1/3; Reflector
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
 - <span style='color:#2084A0'>Netzach: increased Health from 3 -> 4
@@ -70,7 +72,8 @@
 - Ppodae & Evolution: changed artwork
 - Red Riding Hooded Mercenary: reworked to 1/3; Vendetta, Sniper; 2 Blood
 - Sephirah: all cards now blink slower
-- The Dreaming Current: now possesses Nimble-Footed and Barreler
+- The Dreaming Current: Increased Health from 2 -> 3, now possesses Nimble-Footed and Barreler
+- The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - You're Bald...: changed evolution name
 ### Challenges
@@ -82,6 +85,7 @@
 ### General
 - Fixed True Saviour sigil activating certain effects when it shouldn't
 - Fixed Nothing There not disguising when played by Leshy
+- Fixed camera looking at opponent queue when player draws Scaredy Cat
 - Overhauled encounters
 - Modified some dialogue
 - Modified some pixel artwork

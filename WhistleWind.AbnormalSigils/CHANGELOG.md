@@ -50,6 +50,7 @@
 - Sigils that modify the base card's attack when it attacks now briefly indicate the final damage value when attacking
 - Sped up sequence when gaining or losing a status effect
 - Spore Mold Creatures now inherit the name of the card they were created from
+- Sporogenic now uses PreTurnEnd trigger for effect, should eliminate any prior trigger weirdness
 - Frozen Heart card is now considered Terrain
 - Shortened some sigil sequences
 - Sigils that inherit from ActivatedSelectSlotBehaviour are now usable by the opponent on upkeep
@@ -62,6 +63,7 @@
 ### 🩹 Bug fixes
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
+- Fixed Witness not working
 - Fixed interaction with Creature Retrieval where Nettles would retain sigils when replayed
 - Fixed Worms status effect not letting Infested cards attack the right-most ally card
 - Fixed Bitter Enemies sigil using an incorrect description
@@ -71,7 +73,6 @@
 - Fixed learned ability dialogue not triggering
 - Fixed Spiderling not having Fledgling
 - Fixed incorrect descriptions, missing words, etc.
-- Fixed Witness not working
 ### ⚖️ Balancing
 - Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
 - Lonely - reduced powerlevel from 3 -> 2
@@ -103,6 +104,7 @@
 - Thick Skin - no longer modular
 - Witness - reduced activation cost from 2 Bones -> 1 Bone
 - Spores - increased powerlevel from -1 -> 0
+- Sporogenic - reduced powerlevel from 2 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
 - Worms - no longer affects cards with Made of Stone
@@ -125,45 +127,18 @@
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
-- Added 17 sigils:
-    - Damsel
-    - Abusive
-    - Shove Aside
-    - Pin Down
-    - Mind Strike
-    - Unyielding
-    - Spilling
-    - Flower Queen
-    - Healing Strike
-    - Finger Tapping
-    - Imminent Decay
-    - Understanding
-    - Bleachproof
-    - Elite
-    - Withering
-    - Explosive Opening
-    - Board Shuffle
-    - Soulbound Flesh
-    - Ethereal
-    - Death Penalty
-    - Intense Volley
-    - Gift Giver (different previous Gift Giver)
-- Added 1 stat icons:
+- Added the following sigils sigils:
+    - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different previous Gift Giver)
+- Added the following stat icons:
     - Flower Power
-- Added 4 status effects:
-    - Fervent Adoration
-    - Grief
-    - Sinking
-    - Decay
-- Added 2 slot modifications:
-    - Flooded
-    - Blooming
-- Added 2 Traits:
+- Added the following status effects:
+    - Fervent Adoration, Grief, Sinking, Decay
+- Added the following slot modifications:
+    - Flooded, Blooming
+- Added the following Traits:
     - ImmuneToAilments
-    - BloomingFlower
-- Added 2 card appearances:
-    - ForcedGreenEmission
-    - ForcedPurpleEmission
+- Added the following card appearances:
+    - ForcedGreenEmission, ForcedPurpleEmission
 ### 💣 Removals
 - Removed Volatile sigil
 - Removed unnecessary ability patches

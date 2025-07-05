@@ -16,40 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// </summary>
     public class OrdealAmberMidnight : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
-            {
-                EncounterManager.NewCardBlueprint(Cards.perfectFood)
-            };
-            List<EncounterBlueprintData.CardBlueprint> turn2 = new()
-            {
-                EncounterManager.NewCardBlueprint(Cards.perfectFood),
-                EncounterManager.NewCardBlueprint(Cards.perfectFood)
-            };
-            List<EncounterBlueprintData.CardBlueprint> turn3 = new()
-            {
-                EncounterManager.NewCardBlueprint(Cards.perfectFood)
-            };
-            List<EncounterBlueprintData.CardBlueprint> turn4 = new()
-            {
-                EncounterManager.NewCardBlueprint(Cards.perfectFood),
-                EncounterManager.NewCardBlueprint(Cards.perfectFood)
-            };
-
-            for (int i = 2; i < encounterData.Difficulty + 1; i++) {
-                if (i % 2 == 0) {
-                    turn1.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
-                    turn3.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
-                }
-                else {
-                    turn2.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
-                    turn4.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
-                }
-
-                if (turn1.Count >= 4 && turn2.Count >= 4) break;
-            }
-
-            encounterData.Blueprint.AddTurns(turn1, turn2, turn3, turn4);
-            return -1;
+            return 0;
         }
     }
 }
