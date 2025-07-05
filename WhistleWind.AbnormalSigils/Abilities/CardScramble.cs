@@ -56,7 +56,7 @@ namespace WhistleWind.AbnormalSigils {
                     CardSlot slot = allSlotsCopy.GetSeededRandom(rand++);
                     allSlotsCopy.Remove(slot);
 
-                    base.StartCoroutine(RelocateCardToSlot(pair.Item1, slot, 0.1f));
+                    CustomCoroutine.Instance.StartCoroutine(RelocateCardToSlot(pair.Item1, slot, 0.1f));
                     yield return new WaitForSeconds(0.1f);
                 }
             }
@@ -71,7 +71,7 @@ namespace WhistleWind.AbnormalSigils {
             }
 
             foreach (Tuple<PlayableCard, CardSlot> pair in cardAndNewSlot) {
-                base.StartCoroutine(MoveToNewSlot(pair.Item1, pair.Item2, 0.1f));
+                CustomCoroutine.Instance.StartCoroutine(MoveToNewSlot(pair.Item1, pair.Item2, 0.1f));
                 yield return new WaitForSeconds(0.1f);
             }
 
@@ -155,7 +155,8 @@ namespace WhistleWind.AbnormalSigils {
                 //AbnormalPlugin.Log.LogDebug("Move to new slot");
                 card.Slot = null;
                 openSlots.Remove(slot);
-                yield return MoveToNewSlot(card, slot, 0.1f);
+                CustomCoroutine.Instance.StartCoroutine(MoveToNewSlot(card, slot, 0.1f));
+                yield return new WaitForSeconds(0.1f);
             }
 
             yield return new WaitForSeconds(waitAfter);
