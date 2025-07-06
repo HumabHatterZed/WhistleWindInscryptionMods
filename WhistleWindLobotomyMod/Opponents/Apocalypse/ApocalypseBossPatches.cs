@@ -31,16 +31,5 @@ namespace WhistleWindLobotomyMod.Patches {
             foreach (MapElement i in __instance.scenery)
                 i.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", Texture2D.blackTexture);
         }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.OnExtraActivationPrerequisitesNotMet))]
-        private static void PreventHourglassItemDialogue(ConsumableItem __instance) {
-            if (__instance is HourglassItem
-                && LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss)
-                && !boss.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms)) {
-                if (!TextDisplayer.Instance.textMesh.gameObject.activeSelf) {
-                    CustomCoroutine.Instance.StartCoroutine(TextDisplayer.Instance.ShowUntilInput("The Long Bird's arms conceal time."));
-                }
-            }
-        }
     }
 }
