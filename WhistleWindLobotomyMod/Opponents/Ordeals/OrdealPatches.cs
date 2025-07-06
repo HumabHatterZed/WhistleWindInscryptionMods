@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             bool isOrdeal = target.Card.HasTrait(LobotomyCardManager.Ordeal);
             yield return enumerator;
             if (isOrdeal && OrdealUtils.OpponentIsOrdeal()) {
-                yield return TurnManager.Instance.SpecialSequencer.OnOtherCardDie(null, target, false, null);
+                yield return TurnManager.Instance.SpecialSequencer.OnOtherCardDie(target.Card, target, false, null);
             }
         }
 
@@ -216,57 +216,6 @@ namespace WhistleWindLobotomyMod.Opponents {
                 sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)type];
                 sprite.IterateFrame();
             }
-
-            /*else if (data is OrdealBattleNodeData ordealNodeData) {
-                tier = ordealNodeData.tier;
-                totemOpponent = ordealNodeData.totemOpponent;
-                Texture2D[] nodeAnimation = null;
-                float randomValue = UnityEngine.Random.value;
-                AnimatingSprite sprite = __result.GetComponentInChildren<AnimatingSprite>();
-
-                // region 1: dawn
-                // region 2: noon
-                // region 3: dusk
-                nodeAnimation = ordealNodeData.tier switch {
-                    1 => ordealNodeData.totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim,
-                    2 => ordealNodeData.totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim,
-                    3 => ordealNodeData.totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim,
-                    _ => ordealNodeData.totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim,
-                };
-
-                for (int i = 0; i < sprite.textureFrames.Count; i++) {
-                    sprite.textureFrames[i] = nodeAnimation[i];
-                }
-
-                // recolour the sprite's mask based on the ordeal colour - also assign the correct battle id for the given the colour and tier
-                sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)ordealNodeData.ordealType];
-                ordealNodeData.specialBattleId = ordealNodeData.ordealType switch {
-                    OrdealType.Green => ordealNodeData.tier switch {
-                        1 => OrdealUtils.GreenNoon,
-                        2 => OrdealUtils.GreenDusk,
-                        3 => OrdealUtils.GreenMidnight,
-                        _ => OrdealUtils.GreenDawn
-                    },
-                    OrdealType.Violet => ordealNodeData.tier switch {
-                        1 => OrdealUtils.VioletNoon,
-                        3 => OrdealUtils.VioletMidnight,
-                        _ => OrdealUtils.VioletDawn
-                    },
-                    OrdealType.Crimson => ordealNodeData.tier switch {
-                        1 => OrdealUtils.CrimsonNoon,
-                        2 => OrdealUtils.CrimsonDusk,
-                        _ => OrdealUtils.CrimsonDawn
-                    },
-                    OrdealType.Amber => ordealNodeData.tier switch {
-                        2 => OrdealUtils.AmberDusk,
-                        3 => OrdealUtils.AmberMidnight,
-                        _ => OrdealUtils.AmberDawn
-                    },
-                    OrdealType.Indigo => OrdealUtils.IndigoNoon,
-                    _ => OrdealUtils.WhiteOrdeal
-                };
-                sprite.IterateFrame();
-            }*/
         }
     }
 }
