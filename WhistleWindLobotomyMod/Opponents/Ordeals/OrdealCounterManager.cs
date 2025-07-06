@@ -64,7 +64,7 @@ namespace WhistleWindLobotomyMod {
                 amountLeft = 0;
                 leftRenderer.sprite = null;
                 counterText.text = "";
-                counterText.color = Color.black;
+                SetTextColour(Color.black);
                 this.anim.Play("exit", 0, 0f);
                 Tween.Position(LeshyAnimationController.Instance.transform, new Vector3(0f, 4.75f, 9f), 1f, 0.5f);
                 CustomCoroutine.WaitThenExecute(0.5f, delegate {
@@ -73,6 +73,9 @@ namespace WhistleWindLobotomyMod {
             }
         }
 
+        public void SetTextColour(Color colour) {
+            counterText.color = colour;
+        }
         public void EnableConsole(bool enable) {
             AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
             if (enable) {
@@ -92,7 +95,7 @@ namespace WhistleWindLobotomyMod {
 
                 this.amountLeft += amountKilled < 0 ? 1 : -1;
                 if (this.amountLeft == 0) {
-                    counterText.color = Color.red;
+                    SetTextColour(Color.red);
                 }
                 counterText.text = this.amountLeft.ToString();
                 yield return new WaitForSeconds(waitTime);
