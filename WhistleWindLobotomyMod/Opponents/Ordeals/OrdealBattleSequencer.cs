@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public List<string> ValidCards { get; protected set; } = new();
         public List<Ability> AllBlacklistedAbilities { get; private set; }
         public int MinNumCardsRequired { get; protected set; }
-        protected List<List<CardInfo>> EncounterBluePrint { get; private set; }
+        public List<List<CardInfo>> EncounterBluePrint { get; protected set; }
         protected OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
         public bool defeated = false;
         public OrdealType ordealType;
@@ -177,6 +177,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             if (tier == -1) {
+                LobotomyPlugin.Log.LogWarning("[OrdealBattle] nodeData is null!");
                 return null;
             }
 
@@ -185,7 +186,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             EncounterData encounterData = new() {
                 opponentType = OrdealUtils.OpponentID,
                 Blueprint = EncounterManager.New("", false).SetDifficulty(0, 20),
-                Difficulty = nodeData.difficulty + RunState.Run.DifficultyModifier
+                Difficulty = Mathf.Min(20, nodeData.difficulty + RunState.Run.DifficultyModifier)
             };
 
             //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Difficulty: {encounterData.Difficulty}");
