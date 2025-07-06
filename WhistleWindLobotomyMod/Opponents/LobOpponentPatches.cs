@@ -7,7 +7,6 @@ using UnityEngine;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
@@ -58,7 +57,12 @@ namespace WhistleWindLobotomyMod.Patches {
             if (!LobOpponentUtils.FightingCustomBoss())
                 yield break;
 
-            if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS")) {
+            if (__instance is not CardDrawPiles3D pile || (pile.Deck.CardsInDeck + pile.SideDeck.CardsInDeck) > 1) {
+                yield break;
+            }
+
+            LobotomyPlugin.Log.LogInfo("[RefreshDeck] check for exhaustion");
+            if (!PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS")) {
                 yield return new WaitForSeconds(0.4f);
                 ViewManager.Instance.SwitchToView(View.Hand);
                 yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_REFRESH_DECKS"));
@@ -82,7 +86,7 @@ namespace WhistleWindLobotomyMod.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator) {
-            if (LobOpponentUtils.FightingCustomBoss())
+            if (LobOpponentUtils.FightingCustomOpponent())
                 yield break;
 
             yield return enumerator;

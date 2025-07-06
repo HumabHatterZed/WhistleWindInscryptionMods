@@ -8,7 +8,9 @@ using WhistleWindLobotomyMod.Core;
 namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch(typeof(CardLoader))]
     internal class CardLoaderPatch {
-        // Corrects the possible chooseable cards to exclude certain cards and to include non-Nature Temple cards
+        /// <summary>
+        /// Corrects the possible chooseable cards to exclude certain cards and to include non-Nature Temple cards
+        /// </summary>
         [HarmonyPostfix, HarmonyPatch(nameof(CardLoader.GetUnlockedCards))]
         private static void RemoveUniqueCards(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple) {
             if (LobotomySaveManager.UsedBackwardClock)
