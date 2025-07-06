@@ -84,7 +84,7 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public IEnumerator OnPostSingularSlotAttackSlot(CardSlot attackingSlot, CardSlot targetSlot) {
-            AbnormalPlugin.Log.LogInfo($"[IntenseVolley] OnPostSingular {base.Card.Anim.DoingAttackAnimation} {targetSlot.Index}");
+            //AbnormalPlugin.Log.LogInfo($"[IntenseVolley] OnPostSingular {base.Card.Anim.DoingAttackAnimation} {targetSlot.Index}");
             if (currentTargets.TryGetValue(targetSlot, out GameObject obj)) {
                 TargetIconHelper.CleanUpTargetIcon(obj);
                 currentTargets.Remove(targetSlot);
