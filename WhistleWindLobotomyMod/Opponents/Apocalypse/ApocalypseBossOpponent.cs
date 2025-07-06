@@ -320,9 +320,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             yield return new WaitForSeconds(0.25f);
             BattleSequencer.BossCard.AddTemporaryMod(new CardModificationInfo(1, 0));
             BattleSequencer.BossCard.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.5f);
-            // TEST TEST
-            // need to unlock view?
+            yield return new WaitForSeconds(0.4f);
         }
 
         public override bool RespondsToKillPlayerSequence() => true;
