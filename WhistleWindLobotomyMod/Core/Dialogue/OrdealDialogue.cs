@@ -5,6 +5,11 @@ using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
         private void Dialogue_FirstOrdeal() {
+            CreateDialogueEvents("OrdealExhausted", new() {
+                "It seems you've run dry.",
+                "Worry not, it's not over for you yet.",
+                "But you're running out of time. And the enemy knows you're desperate." });
+
             CreateDialogueEvents("OrdealRecall", new() {
                 "These creatures will not stay in one spot for long. Use these to reposition your creatures." });
 

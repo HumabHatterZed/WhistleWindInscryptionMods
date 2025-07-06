@@ -1,5 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -146,9 +149,9 @@ namespace WhistleWindLobotomyMod.Opponents {
                     queueHighlightColour = queueDefaultColour = GameColors.Instance.darkPurple;
                     break;
                 default:
-                    cardLightColour = GameColors.Instance.nearWhite;
-                    mainHighlightColour = mainDefaultColour = GameColors.Instance.gray;
-                    queueHighlightColour = queueDefaultColour = GameColors.Instance.nearBlack;
+                    cardLightColour = GameColors.Instance.gray;
+                    mainHighlightColour = mainDefaultColour = GameColors.Instance.lightGray;
+                    queueHighlightColour = queueDefaultColour = Color.gray;
                     break;
             }
             ;
@@ -183,6 +186,32 @@ namespace WhistleWindLobotomyMod.Opponents {
                 OrdealType.Indigo => GameColors.Instance.blue,
                 _ => GameColors.Instance.gray,
             };
+        }
+
+        public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => true;
+        public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles) {
+            if (drawPiles.turnsSinceExhausted == 0) {
+                yield return DialogueHelper.PlayDialogueEvent("OrdealExhausted");
+            }
+
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
+            yield return new WaitForSeconds(0.1f);
+            
+            if (drawPiles.turnsSinceExhausted > 7) {
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true);
+                BattleSequencer.HighestPositiveScaleBalance--; // really show the player i hate them
+            }
+
+            List<PlayableCard> opponentCards = BoardManager.Instance.GetOpponentCards().Concat(Queue).ToList();
+            if (opponentCards.Count > 0) {
+                yield break;
+            }
+            for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
+                PlayableCard card = opponentCards.GetRandom();
+                card.AddTemporaryMod(new(1, 0));
+                card.Anim.LightNegationEffect();
+            }
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
