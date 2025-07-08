@@ -36,44 +36,27 @@ namespace WhistleWindLobotomyMod.Opponents {
             RegionData trapper = RegionProgression.Instance.regions[2];
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
 
-            RegionData apocalypseRegion = ScriptableObject.CreateInstance<RegionData>();
-            apocalypseRegion.name = "wstl_the_black_forest";
-            apocalypseRegion.boardLightColor = new(0f, 0.3f, 0f, 1f);
-            apocalypseRegion.cardsLightColor = new(0.2f, 0.33f, 0f, 1f);
-            apocalypseRegion.dominantTribes = new() { Tribe.Bird };
-            apocalypseRegion.bosses = new() { LobOpponentUtils.ApocalypseBossID };
-            apocalypseRegion.fillerScenery = new() { new FillerSceneryEntry() { data = trapper.scarceScenery[1].data } };
-            apocalypseRegion.fogAlpha = 0.75f;
-            apocalypseRegion.fogEnabled = true;
+            RegionData apocalypseRegion = RegionManager.New("wstl_the_black_forest", 3, false)
+                .AddBosses(LobOpponentUtils.ApocalypseBossID)
+                .AddDominantTribes(Tribe.Bird)
+                .SetBoardColor(new(0.05f, 0.2f, 0.05f, 1f))
+                .SetCardsColor(new(0.2f, 0.33f, 0f, 1f))
+                .SetFogEnabled(true).SetFogAlpha(0.8f)
+                .AddFillerScenery(new FillerSceneryEntry() { data = trapper.scarceScenery[1].data })
+                .SetMapAlbedo(leshy.mapAlbedo);
+
             apocalypseRegion.fogProfile = ScriptableObject.CreateInstance<VolumetricFogAndMist.VolumetricFogProfile>();
             apocalypseRegion.fogProfile.color = new(0.5f, 0.5f, 0.5f, 1f);
             apocalypseRegion.fogProfile.lightColor = new(0.5f, 0.5f, 0.5f, 1f);
             apocalypseRegion.fogProfile.specularColor = new(0.5f, 0.5f, 0.5f, 1f);
-            apocalypseRegion.mapAlbedo = leshy.mapAlbedo;
-            apocalypseRegion.mapEmission = leshy.mapEmission;
-            apocalypseRegion.mapEmissionColor = leshy.mapEmissionColor;
             apocalypseRegion.predefinedNodes = ScriptableObject.CreateInstance<PredefinedNodes>();
-            apocalypseRegion.predefinedNodes.nodeRows = new()
-            {
-                new() {
-                    new NodeData { position = new(0.5f, 0.42f) }
-                },
-                new()
-                {
-                    new CardMergeNodeData { position = new(0.315f, 0.65f) },
-                    new GainConsumablesNodeData { position = new(0.435f, 0.64f) },
-                    new TradePeltsNodeData { position = new(0.565f, 0.66f) },
-                    new BuildTotemNodeData { position = new(0.685f, 0.64f) }
-                },
-                new()
-                {
-                    new BossBattleNodeData
-                    {
-                        bossType = LobOpponentUtils.ApocalypseBossID,
-                        specialBattleId = ApocalypseBattleSequencer.ID,
-                        difficulty = 20,
-                        position = new(0.5f, 0.86f)
-                    }
+            apocalypseRegion.predefinedNodes.nodeRows = new(leshy.predefinedNodes.nodeRows);
+            apocalypseRegion.predefinedNodes.nodeRows[2] = new() {
+                new BossBattleNodeData {
+                    bossType = LobOpponentUtils.ApocalypseBossID,
+                    specialBattleId = ApocalypseBattleSequencer.ID,
+                    difficulty = 20,
+                    position = new(0.5f, 0.86f)
                 }
             };
 
