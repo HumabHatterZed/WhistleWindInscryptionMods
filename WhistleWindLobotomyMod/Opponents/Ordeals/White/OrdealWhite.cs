@@ -3,7 +3,9 @@ using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -14,7 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// Cards required: 1, 2, 4, 1
     /// Valid regions: 3
     /// </summary>
-    public class OrdealWhite : OrdealBattleSequencer {
+    public class OrdealWhite : OrdealBattleSequencer, IPlayerTurnEnd {
         private string chosenWhiteDawnFixer;
         private readonly List<string> allPossibleFixers = new()
         {
@@ -22,14 +24,16 @@ namespace WhistleWindLobotomyMod.Opponents {
         };
         private CardSlot clawSlot = null;
 
-        public override IEnumerator OpponentUpkeep() {
-            if (Opponent.NumLives > 1 || clawSlot == null)
-                yield break;
+        private bool playedTheClaw = false;
 
+        public bool RespondsToPlayerTurnEnd() => Opponent.NumLives == 1 && !playedTheClaw && clawSlot != null;
+        public int PlayerTurnEndPriority() => 0;
+        public IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();
 
-            if (clawSlot.Card != null)
+            if (clawSlot.Card != null) {
                 yield return clawSlot.Card.DieTriggerless();
+            }
 
             CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.claw), clawSlot);
@@ -39,10 +43,15 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-            yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn, 0.25f);
-
-            clawSlot = null;
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.3f);
+            OrdealCounterManager.Instance.SetTextColour(Color.black);
+            OrdealCounterManager.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(0.3f);
+            playedTheClaw = true;
         }
+
         //public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         //{
         //    LobotomyPlugin.Log.LogDebug("[WhiteOrdeal] OnTurnEnd");
@@ -62,30 +71,18 @@ namespace WhistleWindLobotomyMod.Opponents {
         //            break;
         //    }
         //}
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
-            LobotomyPlugin.Log.LogDebug("[WhiteOrdeal] OnOtherCardDie");
-            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
-            //yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
-            //ordealTier++;
-            //MinNumCardsRequired = ordealTier switch { 1 => ConstructWhiteNoon(), 2 => ConstructWhiteDusk(), _ => 1 };
-
-            //if (ordealTier < 4 || card.Info.name != Cards.claw)
-            //    yield break;
-
-
-        }
 
         public override IEnumerator OpponentLifeLost() {
             LobotomyPlugin.Log.LogDebug($"[WhiteOrdeal] OpponentLifeLost: numLives: {Opponent.NumLives}");
 
             if (Opponent.NumLives == 0)
                 yield break;
-
             ordealTier++;
+            defeated = false;
+            yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
             OrdealBannerManager.Instance.UpdateBanner(ordealType, ordealTier);
 
-            Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
-
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
             Opponent.StartCoroutine(Opponent.ClearBoard());
             yield return Opponent.ClearQueue();
 
@@ -93,89 +90,84 @@ namespace WhistleWindLobotomyMod.Opponents {
                 case 3:
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, true);
                     MinNumCardsRequired = ConstructWhiteNoon();
+                    yield return Opponent.QueueNewCards();
                     break;
                 case 2:
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, true);
                     MinNumCardsRequired = ConstructWhiteDusk();
+                    yield return Opponent.QueueNewCards();
                     break;
                 case 1:
-                    MinNumCardsRequired = 1;
+                    ValidCards.Add(Cards.claw);
+                    OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = 1;
+                    EncounterBluePrint = new();
                     InitiateWhiteMidnight();
-                    break;
+                    yield break;
             }
+            yield return new WaitForSeconds(0.75f);
+            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter);
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.3f);
+            OrdealCounterManager.Instance.SetTextColour(Color.black);
+            OrdealCounterManager.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(0.3f);
         }
 
-        //private IEnumerator AdvanceToNextTier()
-        //{
-        //    currentTier++;
-        //    MinNumCardsRequired = currentTier switch { 1 => ConstructWhiteNoon(), 2 => ConstructWhiteDusk(), _ => 1 };
-
-        //    OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
-        //    base.StartCoroutine(Opponent.DisplayBanner(ordealType, false));
-
-        //    OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
-        //    AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
-        //}
         private void InitiateWhiteMidnight() {
+            LobotomyPlugin.Log.LogInfo("[WhiteOrdeal] Midnight");
             clawSlot = BoardManager.Instance.OpponentSlotsCopy[UnityEngine.Random.RandomRangeInt(0, BoardManager.Instance.OpponentSlotsCopy.Count)];
             CreateTargetIcon(clawSlot, GameColors.Instance.gold);
         }
+        private int ConstructWhiteDusk() {
+            LobotomyPlugin.Log.LogInfo("[WhiteOrdeal] Dusk");
+            List<string> possibleFixers = new(allPossibleFixers);
+            possibleFixers.Randomize();
 
-        private int ConstructWhiteDawn(EncounterData encounterData) {
-            chosenWhiteDawnFixer = UnityEngine.Random.RandomRangeInt(0, 3) switch {
-                0 => Cards.fixerWhite,
-                1 => Cards.fixerBlack,
-                _ => Cards.fixerRed
+            List<List<CardInfo>> newPlan = new() {
+                new(),
+                new() { CardLoader.GetCardByName(possibleFixers[0]) },
+                new(),
+                new() { CardLoader.GetCardByName(possibleFixers[1]), CardLoader.GetCardByName(possibleFixers[2]) },
+                new(),
+                new(),
+                new() { CardLoader.GetCardByName(possibleFixers[3]) }
             };
 
-            encounterData.Blueprint.AddTurn(
-                new List<EncounterBlueprintData.CardBlueprint>() {
-                    EncounterManager.NewCardBlueprint(chosenWhiteDawnFixer)
-            });
-
-            return 1;
+            EncounterBluePrint = newPlan;
+            Opponent.ReplaceAndAppendTurnPlan(newPlan);
+            return 4;
         }
         private int ConstructWhiteNoon() {
-
+            LobotomyPlugin.Log.LogInfo("[WhiteOrdeal] Noon");
             List<string> possibleFixers = new(allPossibleFixers);
             possibleFixers.Remove(chosenWhiteDawnFixer);
             possibleFixers.Remove(Cards.fixerPale);
             possibleFixers.Randomize();
 
             List<List<CardInfo>> newPlan = new() {
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[0]) },
-                new(),
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[1]) }
+                new() { CardLoader.GetCardByName(possibleFixers[0]), CardLoader.GetCardByName(possibleFixers[1]) }
             };
 
+            EncounterBluePrint = newPlan;
             Opponent.ReplaceAndAppendTurnPlan(newPlan);
             return 2;
         }
-        private int ConstructWhiteDusk() {
-            List<string> possibleFixers = new(allPossibleFixers);
-            possibleFixers.Randomize();
-
-            List<List<CardInfo>> newPlan = new() {
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[0]) },
-                new(),
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[1]) },
-                new(),
-                new(),
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[2]) },
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[3]) }
-            };
-
-            Opponent.ReplaceAndAppendTurnPlan(newPlan);
-            return 4;
-        }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            return ConstructWhiteDawn(encounterData);
+            chosenWhiteDawnFixer = UnityEngine.Random.RandomRangeInt(0, 3) switch {
+                0 => Cards.fixerWhite,
+                1 => Cards.fixerBlack,
+                _ => Cards.fixerRed
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn = new() {
+                EncounterManager.NewCardBlueprint(chosenWhiteDawnFixer)
+            };
+            encounterData.Blueprint.AddTurn(turn);
+            return 1;
+        }
+
+        public override void ModifyQueuedCard(PlayableCard card) {
+            // fixers shouldn't gain random buffs
         }
     }
 }

@@ -47,12 +47,14 @@ namespace WhistleWindLobotomyMod.Opponents {
         private static void ConvertBattleIntoOrdeal(ref NodeData __result, List<NodeData> previousNodes, int mapLength) {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
-            bool bossNode = __result is BossBattleNodeData;
-            if ((bossNode && !AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id)) || __result is not CardBattleNodeData nodeData) {
+            if (__result is not CardBattleNodeData nodeData) {
                 return;
             }
-
-            if (bossNode && AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id)) {
+            bool bossNode = __result is BossBattleNodeData;
+            if (bossNode && OrdealRegionOrder != null) {
+                if (RunState.CurrentRegionTier == 3 && LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id)) {
+                    return;
+                }
                 OrdealBossBattleNodeData bossData = new() {
                     id = __result.id,
                     gridX = __result.gridX,
@@ -61,7 +63,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     connectedNodes = __result.connectedNodes,
                     bossType = OrdealUtils.OpponentID,
                     tier = 3,
-                    ordealType = OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
+                    ordealType = RunState.CurrentRegionTier < OrdealRegionOrder.Length ? OrdealRegionOrder[RunState.CurrentRegionTier] : OrdealType.Green,
                     totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)
                 };
                 bossData.specialBattleId = bossData.ordealType switch { 
@@ -74,8 +76,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 return;
             }
 
-            if (!AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id)
-                    && UnityEngine.Random.value <= (0.75f + previousNodes.Count(x => x is OrdealBattleNodeData) * 0.01f - RunState.Run.DifficultyModifier * 0.023f)) {
+            if (!LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) && UnityEngine.Random.value <= (0.8f - RunState.Run.DifficultyModifier * 0.023f)) {
                 return;
             }
 
@@ -213,9 +214,31 @@ namespace WhistleWindLobotomyMod.Opponents {
                     sprite.textureFrames[i] = nodeAnimation[i];
                 }
 
-                sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)type];
+                if (type != OrdealType.White) {
+                    sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)type];
+                }
                 sprite.IterateFrame();
             }
         }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.RollCurrentRunRegionOrder))]
+        private static void DetermineMidnightOrder(AscensionSaveData __instance) {
+            if (LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
+                List<OrdealType> ordeals = new() { OrdealType.Amber, OrdealType.Violet, OrdealType.Green };
+                if (SaveFile.IsAscension) {
+                    ordeals.Randomize();
+                    ordeals.Add(OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Amber, OrdealType.Violet));
+                }
+                else {
+                    ordeals.Add(OrdealType.Violet);
+                }
+
+                OrdealRegionOrder = ordeals.ToArray();
+            }
+            else {
+                OrdealRegionOrder = null;
+            }
+        }
+        public static OrdealType[] OrdealRegionOrder = null;
     }
 }
