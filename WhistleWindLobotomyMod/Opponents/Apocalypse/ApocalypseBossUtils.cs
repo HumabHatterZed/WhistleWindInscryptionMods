@@ -34,9 +34,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             return encounter;
         }
         internal static RegionData CreateRegion() {
+            RegionData angler = RegionProgression.Instance.regions[1];
             RegionData trapper = RegionProgression.Instance.regions[2];
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
-            RegionData angler = RegionProgression.Instance.regions[1];
 
             RegionData apocalypseRegion = RegionManager.New("wstl_the_black_forest", 3, false)
                 .AddBosses(LobOpponentUtils.ApocalypseBossID)
