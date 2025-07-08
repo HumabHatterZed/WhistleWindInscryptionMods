@@ -2,6 +2,9 @@
 using InscryptionAPI.Dialogue;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Guid;
+using InscryptionAPI.Regions;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
@@ -115,57 +118,49 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         internal static RegionData CreateWhiteOrdealRegion() {
             RegionData trapper = RegionProgression.Instance.regions[2];
+            RegionData angler = RegionProgression.Instance.regions[1];
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
 
-            RegionData whiteOrdealRegion = ScriptableObject.CreateInstance<RegionData>();
-            whiteOrdealRegion.name = "wstl_day_46";
-            whiteOrdealRegion.boardLightColor = new(6f, 0.6f, 0.6f, 1f);
-            whiteOrdealRegion.cardsLightColor = new(0.4f, 0.4f, 0.4f, 1f);
-            whiteOrdealRegion.dominantTribes = new() { AbnormalPlugin.TribeAnthropoid };
-            whiteOrdealRegion.bosses = new() { OpponentID };
-            whiteOrdealRegion.fogAlpha = 0.75f;
-            whiteOrdealRegion.fogEnabled = true;
+            RegionData whiteOrdealRegion = RegionManager.New("wstl_day_46", 3, false)
+                .AddBosses(OpponentID)
+                .AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
+                .SetBoardColor(new(0.5f, 0.4f, 0.3f, 1f))
+                .SetCardsColor(new(0.8f, 0.7f, 0.6f, 1f))
+                .SetFogEnabled(true).SetFogAlpha(0.8f)
+                .SetMapAlbedo(TextureLoader.LoadTextureFromFile("mapScroll_Albedo_City.png", LobotomyPlugin.ModAssembly));
+
             whiteOrdealRegion.fogProfile = ScriptableObject.CreateInstance<VolumetricFogAndMist.VolumetricFogProfile>();
-            whiteOrdealRegion.fogProfile.color = new(0.7f, 0.7f, 0.7f, 1f);
-            whiteOrdealRegion.fogProfile.lightColor = new(0.7f, 0.7f, 0.7f, 1f);
-            whiteOrdealRegion.fogProfile.specularColor = new(0.7f, 0.7f, 0.7f, 1f);
-            whiteOrdealRegion.mapAlbedo = leshy.mapAlbedo;
-            whiteOrdealRegion.mapEmission = leshy.mapEmission;
-            whiteOrdealRegion.mapEmissionColor = leshy.mapEmissionColor;
+            whiteOrdealRegion.fogProfile.color = new(0.7f, 0.6f, 0.8f, 1f);
+            whiteOrdealRegion.fogProfile.lightColor = new(0.6f, 0.7f, 0.8f, 1f);
+            whiteOrdealRegion.fogProfile.specularColor = new(0.7f, 0.6f, 0.8f, 1f);
+
+            if (AssetManager.CustomSceneryData.TryGetValue("twisted_building", out List<SceneryData> data)) {
+                whiteOrdealRegion.fillerScenery = data.Select(x => new FillerSceneryEntry() { data = x }).ToList();
+            }
+            else {
+                LobotomyPlugin.Log.LogWarning("Could not get twisted_building scenery data");
+            }
+
+            
             whiteOrdealRegion.predefinedNodes = ScriptableObject.CreateInstance<PredefinedNodes>();
-            whiteOrdealRegion.predefinedNodes.nodeRows = new()
-            {
-                new() {
-                    new NodeData { position = new(0.5f, 0.42f) }
-                },
-                new()
-                {
-                    new CardMergeNodeData { position = new(0.315f, 0.65f) },
-                    new GainConsumablesNodeData { position = new(0.435f, 0.64f) },
-                    new TradePeltsNodeData { position = new(0.565f, 0.66f) },
-                    new BuildTotemNodeData { position = new(0.685f, 0.64f) }
-                },
-                new()
-                {
-                    new OrdealBossBattleNodeData
-                    {
-                        tier = 0,
-                        ordealType = OrdealType.White,
-                        bossType = OpponentID,
-                        specialBattleId = WhiteOrdeal,
-                        difficulty = 20,
-                        position = new(0.5f, 0.86f)
-                    }
+            whiteOrdealRegion.predefinedNodes.nodeRows = new(leshy.predefinedNodes.nodeRows);
+            whiteOrdealRegion.predefinedNodes.nodeRows[2] = new() {
+                new OrdealBossBattleNodeData {
+                    bossType = LobOpponentUtils.ApocalypseBossID,
+                    specialBattleId = WhiteOrdeal,
+                    ordealType = OrdealType.White,
+                    tier = 3,
+                    difficulty = 20,
+                    position = new(0.5f, 0.86f)
                 }
             };
 
             DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, whiteOrdealRegion, new()
             {
-                "At long last, your journey approaches its end.",
-                "After countless trials and tribulations, you finally have reached the summit.",
-                "Yet already, you can see enemies on the horizon.",
-                "They will not let you past so easily.",
-                "Prepare yourself for one final [c:bR]ordeal[c:]."
+                "At long last, you approach the end of your journey.",
+                "Buildings loom far into the distance, leering down with hundreds of glowing eyes.",
+                "Your destination lies just ahead, but someone will undoubtedly try to stop you.",
+                "Preparing for the worst, you march onward into [c:bR]The City[c:]."
             });
 
             return whiteOrdealRegion;
