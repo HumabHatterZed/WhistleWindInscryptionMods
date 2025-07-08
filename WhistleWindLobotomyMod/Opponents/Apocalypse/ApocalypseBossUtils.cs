@@ -3,6 +3,7 @@ using InscryptionAPI.Dialogue;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -35,6 +36,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         internal static RegionData CreateRegion() {
             RegionData trapper = RegionProgression.Instance.regions[2];
             RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
+            RegionData angler = RegionProgression.Instance.regions[1];
 
             RegionData apocalypseRegion = RegionManager.New("wstl_the_black_forest", 3, false)
                 .AddBosses(LobOpponentUtils.ApocalypseBossID)
@@ -43,7 +45,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 .SetCardsColor(new(0.2f, 0.33f, 0f, 1f))
                 .SetFogEnabled(true).SetFogAlpha(0.8f)
                 .AddFillerScenery(new FillerSceneryEntry() { data = trapper.scarceScenery[1].data })
-                .SetMapAlbedo(leshy.mapAlbedo);
+                .SetMapAlbedo(TextureLoader.LoadTextureFromFile("mapScroll_Albedo_TrueDarkness.png", LobotomyPlugin.ModAssembly))
+                .SetDustParticlesEnabled(true).SetMapParticlesPrefabs(angler.mapParticlesPrefabs.ToArray());
 
             apocalypseRegion.fogProfile = ScriptableObject.CreateInstance<VolumetricFogAndMist.VolumetricFogProfile>();
             apocalypseRegion.fogProfile.color = new(0.5f, 0.5f, 0.5f, 1f);
