@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/2 Opportunistic
+        /// </summary>
         public const string magicalGirlHeart = "wstl_magicalGirlHeart";
         public const string queenOfHatred = "wstl_queenOfHatred";
         public const string queenOfHatredTired = "wstl_queenOfHatredTired";

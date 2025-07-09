@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/3 Serpent's Nest
+        /// </summary>
         public const string theNakedNest = "wstl_theNakedNest";
         private static void TheNakedNest_O0274() {
             string textureName = "theNakedNest";

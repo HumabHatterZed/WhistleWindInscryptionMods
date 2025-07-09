@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/3 Regenerator
+        /// </summary>
         public const string yang = "wstl_yang";
         private static void Yang_O07103() {
             string textureName = "yang";
@@ -17,6 +20,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Regenerator.ability)
                 .AddSpecialAbilities(Concord.specialAbility)
                 .AddAppearances(AlternateBattlePortrait.appearance)
+                .AddTribes(AbnormalPlugin.TribeDivine)
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

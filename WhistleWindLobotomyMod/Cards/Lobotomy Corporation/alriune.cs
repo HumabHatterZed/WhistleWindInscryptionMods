@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 4/5 Strafe
+        /// </summary>
         public const string alriune = "wstl_alriune";
         private static void Alriune_T0453() {
             string name = "Alriune";

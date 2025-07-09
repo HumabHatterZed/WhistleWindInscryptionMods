@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/1 Stinky, Waterborne
+        /// </summary>
         public const string drownedSisters = "wstlWonder_drownedSisters";
         private static void DrownedSisters() {
             string textureName = "drownedSisters";

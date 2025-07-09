@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Double Strike
+        /// </summary>
         public const string funeralOfButterflies = "wstl_funeralOfButterflies";
         private static void FuneralOfButterflies_T0168() {
             string name = "Funeral of the Dead Butterflies";

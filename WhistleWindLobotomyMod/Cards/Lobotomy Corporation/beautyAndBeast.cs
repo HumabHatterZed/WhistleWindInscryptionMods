@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/1 Cursed
+        /// </summary>
         public const string beautyAndBeast = "wstl_beautyAndBeast";
         private static void BeautyAndBeast_O0244() {
             string textureName = "beautyAndBeast";

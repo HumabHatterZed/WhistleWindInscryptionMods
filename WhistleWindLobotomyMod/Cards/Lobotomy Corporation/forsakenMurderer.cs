@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 4/1
+        /// </summary>
         public const string forsakenMurderer = "wstl_forsakenMurderer";
         private static void ForsakenMurderer_T0154() {
             string textureName = "forsakenMurderer";

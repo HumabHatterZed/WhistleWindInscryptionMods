@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 3/9 Omni-, Split Strike
+        /// </summary>
         public const string apocalypseBird = "wstl_apocalypseBird";
         private static void ApocalypseBird_O0263() {
             string textureName = "apocalypseBird";

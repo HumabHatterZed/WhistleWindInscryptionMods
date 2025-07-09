@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Roots
+        /// </summary>
         public const string snowWhitesApple = "wstl_snowWhitesApple";
         private static void SnowWhitesApple_F0442() {
             string name = "Snow White's Apple";

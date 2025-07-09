@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 3/5 Nettle Clothes
+        /// </summary>
         public const string dreamOfABlackSwan = "wstl_dreamOfABlackSwan";
         private static void DreamOfABlackSwan_F0270() {
             string textureName = "dreamOfABlackSwan";

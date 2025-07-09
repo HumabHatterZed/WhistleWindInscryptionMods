@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/2 Piercing
+        /// </summary>
         public const string fragmentOfUniverse = "wstl_fragmentOfUniverse";
         private static void FragmentOfUniverse_O0360() {
             string name = "Fragment of the Universe";

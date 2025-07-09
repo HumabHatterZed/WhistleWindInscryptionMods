@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 2/3 Flying Scorching
+        /// </summary>
         public const string theFirebird = "wstl_theFirebird";
         private static void TheFirebird_O02101() {
             string textureName = "theFirebird";

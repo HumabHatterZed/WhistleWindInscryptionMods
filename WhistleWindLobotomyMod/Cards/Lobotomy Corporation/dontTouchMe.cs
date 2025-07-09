@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/1 Punisher
+        /// </summary>
         public const string dontTouchMe = "wstl_dontTouchMe";
         private static void DontTouchMe_O0547() {
             string name = "Don't Touch Me";

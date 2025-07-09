@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 2/1 Bitter Enemies, Sniper
+        /// </summary>
         public const string redHoodedMercenary = "wstl_redHoodedMercenary";
         private static void RedHoodedMercenary_F0157() {
             string name = "Little Red Riding Hooded Mercenary";

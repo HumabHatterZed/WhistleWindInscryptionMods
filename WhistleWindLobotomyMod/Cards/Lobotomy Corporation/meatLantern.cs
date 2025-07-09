@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/3 Reflector, Reach
+        /// </summary>
         public const string meatLantern = "wstl_meatLantern";
         private static void MeatLantern_O0484() {
             string textureName = "meatLantern";

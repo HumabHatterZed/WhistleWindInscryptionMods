@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Fledgling, Airborne
+        /// </summary>
         public const string voidDream = "wstl_voidDream";
         public const string voidDreamRooster = "wstl_voidDreamRooster";
         private static void VoidDream_T0299() {

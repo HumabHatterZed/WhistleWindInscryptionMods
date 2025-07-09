@@ -8,6 +8,9 @@ namespace WhistleWindLobotomyMod {
     /// Utility class containing the internal string names for all added cards, plus the methods for adding cards to the base game.
     /// </summary>
     public partial class Cards {
+        /// <summary>
+        /// 1/3 Strafe, Split Strike
+        /// </summary>
         public const string allAroundHelper = "wstl_allAroundHelper";
         private static void AllAroundHelper_T0541() {
             string name = "All-Around Helper";

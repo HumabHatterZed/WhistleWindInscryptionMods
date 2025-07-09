@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 2/2 Sniper, Persistent
+        /// </summary>
         public const string derFreischutz = "wstl_derFreischutz";
         private static void DerFreischutz_F0169() {
             string name = "Der Freischütz";

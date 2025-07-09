@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 2/3 Waterborne, Strafe
+        /// </summary>
         public const string yin = "wstl_yin";
         private static void Yin_O05102() {
             string textureName = "yin";
@@ -17,6 +20,7 @@ namespace WhistleWindLobotomyMod {
                 .SetAltPortraits(LobotomyPlugin.ModAssembly, "yinAlt")
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
                 .AddAppearances(AlternateBattlePortrait.appearance)
+                .AddTribes(AbnormalPlugin.TribeDivine)
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Sniper, Executioner
+        /// </summary>
         public const string judgementBird = "wstl_judgementBird";
         private static void JudgementBird_O0262() {
             string textureName = "judgementBird";

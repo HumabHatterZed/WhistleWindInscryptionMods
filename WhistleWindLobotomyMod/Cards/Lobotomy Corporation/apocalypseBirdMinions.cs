@@ -9,8 +9,17 @@ namespace WhistleWindLobotomyMod {
         public const string eyeballChick = "wstl_eyeballChick";
         public const string forestKeeper = "wstl_forestKeeper";
         public const string runawayBird = "wstl_runawayBird";
+        /// <summary>
+        /// 2/1 Binding Strike
+        /// </summary>
         public const string eyeballChick_mook = "wstl_eyeballChick_mook";
+        /// <summary>
+        /// 1/2 Bloodlust
+        /// </summary>
         public const string forestKeeper_mook = "wstl_forestKeeper_mook";
+        /// <summary>
+        /// 1/2 High Strung
+        /// </summary>
         public const string runawayBird_mook = "wstl_runawayBird_mook";
         private static void ApocalypseBirdMinions() {
             string textureName = "eyeballChick";

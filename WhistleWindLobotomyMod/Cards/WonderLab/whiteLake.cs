@@ -5,6 +5,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/2 Damsel
+        /// </summary>
         public const string whiteLake = "wstlWonder_whiteLake";
         private static void WhiteLake() {
             string textureName = "whiteLake";

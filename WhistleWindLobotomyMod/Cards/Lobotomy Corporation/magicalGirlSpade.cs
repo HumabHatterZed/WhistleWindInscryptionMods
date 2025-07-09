@@ -8,7 +8,13 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/4 Split Strike, Piercing
+        /// </summary>
         public const string knightOfDespair = "wstl_knightOfDespair";
+        /// <summary>
+        /// 1/4 Protector
+        /// </summary>
         public const string magicalGirlSpade = "wstl_magicalGirlSpade";
         public const string knightOfDespairPixel = "wstlGBC_knightOfDespairPixel";
         public const string magicalGirlSpadePixel = "wstlGBC_magicalGirlSpadePixel";

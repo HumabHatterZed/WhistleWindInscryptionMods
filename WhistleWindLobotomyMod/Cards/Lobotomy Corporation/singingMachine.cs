@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/4 Team leader, Aggravating
+        /// </summary>
         public const string singingMachine = "wstl_singingMachine";
         private static void SingingMachine_O0530() {
             string name = "Singing Machine";

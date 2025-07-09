@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/2 Stinky
+        /// </summary>
         public const string oldLady = "wstl_oldLady";
         private static void OldLady_O0112() {
             string textureName = "oldLady";

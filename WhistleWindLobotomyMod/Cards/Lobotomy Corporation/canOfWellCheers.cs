@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -8,6 +9,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Waterborne, Strafe
+        /// </summary>
         public const string canOfWellCheers = "wstl_canOfWellCheers";
         public const string skeletonShrimp = "wstl_SKELETON_SHRIMP";
         public const string crumpledCan = "wstl_CRUMPLED_CAN";
@@ -40,6 +44,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(AbnormalPlugin.SodaLover)
                 .AddTribes(TribeMechanical)
                 .SetIceCube(skeleton)
+                .SetGiftGiverId(Cards.skeletonShrimp)
                 .SetDefaultEvolutionName("Opened Can of Elder WellCheers")
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

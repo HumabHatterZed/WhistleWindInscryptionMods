@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/2 Bloodletter
+        /// </summary>
         public const string penitentGirl = "wstlWonder_penitentGirl";
         private static void PenitentGirl() {
             string textureName = "penitentGirl";

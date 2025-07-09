@@ -9,6 +9,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Follow the Leader
+        /// </summary>
         public const string theRoadHome = "wstl_theRoadHome";
         public const string theRoadHomePixel = "wstlGBC_theRoadHome";
         private static void TheRoadHome_F01114() {

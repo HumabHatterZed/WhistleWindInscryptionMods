@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 0/1 Guardian, Sentry
+        /// </summary>
         public const string burrowingHeaven = "wstl_burrowingHeaven";
         private static void BurrowingHeaven_O0472() {
             string textureName = "burrowingHeaven";

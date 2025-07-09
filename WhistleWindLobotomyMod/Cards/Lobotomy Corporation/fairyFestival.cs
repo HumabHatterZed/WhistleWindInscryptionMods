@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/1 Bloodfiend
+        /// </summary>
         public const string fairyFestival = "wstl_fairyFestival";
         private static void FairyFestival_F0483() {
             string textureName = "fairyFestival";

@@ -9,6 +9,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// 1/2 Gift Giver
+        /// </summary>
         public const string laetitia = "wstl_laetitia";
         private static void Laetitia_O0167() {
             string name = "Laetitita";
