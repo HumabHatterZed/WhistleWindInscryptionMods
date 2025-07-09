@@ -18,7 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+                .SetMagnificusRulebook()
+                .Info.SetFlipYIfOpponent()
+                .ability;
         }
     }
     /// <summary>

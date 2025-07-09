@@ -18,7 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+                .SetMagnificusRulebook()
+                .Info.SetFlipYIfOpponent()
+                .ability;
         }
     }
     /// <summary>
@@ -32,8 +34,8 @@ namespace WhistleWind.AbnormalSigils {
         public bool RespondsToGetOpposingSlots() => true;
         public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots) {
             List<CardSlot> retval = new();
-            if (base.Card.OpposingSlot().GetAdjacent(true) != null)
-                retval.Add(base.Card.OpposingSlot().GetAdjacent(true));
+            if (base.Card.OpposingSlot().GetAdjacent(false) != null)
+                retval.Add(base.Card.OpposingSlot().GetAdjacent(false));
             return retval;
         }
     }
