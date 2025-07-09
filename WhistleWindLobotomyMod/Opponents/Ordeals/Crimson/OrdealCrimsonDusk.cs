@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 base.ModifyQueuedCard(card);
             }
             else if (Opponent.Difficulty > 12) {
-                card.AddTemporaryMod(new(Opponent.Difficulty > 14 ? 1 : 0, Mathf.Max(0, Opponent.Difficulty - 12)));
+                card.Info.Mods.Add(new(Opponent.Difficulty > 14 ? 1 : 0, Mathf.Max(0, Opponent.Difficulty - 12)));
+                card.OnStatsChanged();
             }
         }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
