@@ -17,6 +17,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 using static DialogueEvent;
 using static InscryptionAPI.Dialogue.DialogueManager;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -124,6 +125,8 @@ namespace WhistleWindLobotomyMod {
             if (AllCardsDisabled) {
                 Log.LogInfo("All mod cards are disabled, adding [Standard Training-Dummy Rabbit] as a fallback card.");
             }
+
+            QlippothCards.InitialiseQlippothCardInfos();
         }
         private void CreateTalkingCards() {
             TalkingCardManager.New<TalkingCardHod>();

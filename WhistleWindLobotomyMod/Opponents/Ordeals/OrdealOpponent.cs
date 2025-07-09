@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -40,6 +41,20 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override void ModifyQueuedCard(PlayableCard card) {
             base.ModifyQueuedCard(card);
             BattleSequencer.ModifyQueuedCard(card);
+        }
+
+        public override List<List<CardInfo>> ModifyTurnPlan(List<List<CardInfo>> turnPlan) {
+            if (LobotomyConfigManager.ChallengeIsActive(QlippothMeltdown.Id)) {
+                string key = BattleSequencer.ordealType switch {
+                    OrdealType.Green => "Mechanical",
+                    OrdealType.Violet => "Divine",
+                    OrdealType.Crimson => "Fae",
+                    OrdealType.Amber => "Insect",
+                    _ => "Anthropoid"
+                };
+                return QlippothCards.AddEmpoweredCardsToTurnPlan(turnPlan, key);
+            }
+            return base.ModifyTurnPlan(turnPlan);
         }
 
         public override IEnumerator PostResetScalesSequence() {
@@ -128,7 +143,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
-
 
         public IEnumerator DefeatedFinalBossSequence() {
             Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
