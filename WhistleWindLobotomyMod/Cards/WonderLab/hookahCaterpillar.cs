@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "hookahButterfly";
             string textureName2 = "hookahCaterpillar";
             CardInfo butterfly = CardManager.New(LobotomyPlugin.wonderlabPrefix, hookahButterfly, "Hookah Butterfly",
-                attack: 2, health: 3)
+                attack: 2, health: 2)
                 .SetEnergyCost(4).SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(ReturnToNihil.ability)
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, hookahCaterpillar, "Hookah Caterpillar",
-                attack: 0, health: 3, "A gluttonous worm, it fattens itself on doubt and despair.")
+                attack: 0, health: 2, "A gluttonous worm, it fattens itself on doubt and despair.")
                 .SetEnergyCost(2).SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Scorching.ability, Ability.Evolve)
