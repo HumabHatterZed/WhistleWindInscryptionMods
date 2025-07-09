@@ -49,7 +49,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (card.Info.name == Cards.grantUsLove) {
                 int tier = RunState.CurrentRegionTier;
                 if (tier > 0) {
-                    CardModificationInfo mod = new(0, tier * 2);
+                    CardModificationInfo mod = new(0, tier * 3);
                     if (tier > 1) {
                         mod.attackAdjustment++;
                     }

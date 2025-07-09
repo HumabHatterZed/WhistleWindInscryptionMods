@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void Cards_VioletOrdeal() {
             string textureName = "fruitUnderstanding";
             CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
-                attack: 0, health: 3)
+                attack: 0, health: 4)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
