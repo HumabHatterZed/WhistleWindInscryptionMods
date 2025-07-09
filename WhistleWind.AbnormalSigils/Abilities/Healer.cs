@@ -20,10 +20,12 @@ namespace WhistleWind.AbnormalSigils {
             Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
                 "sigilHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: false, opponent: false, canStack: false)
+                modular: false, opponent: false, canStack: true)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+                .SetMagnificusRulebook()
+                .Info.SetTriggersOncePerStack()
+                .ability;
         }
     }
     /// <summary>
