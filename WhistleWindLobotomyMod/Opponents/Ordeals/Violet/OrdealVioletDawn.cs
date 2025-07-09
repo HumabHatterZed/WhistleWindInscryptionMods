@@ -14,6 +14,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// </summary>
     public class OrdealVioletDawn : OrdealBattleSequencer {
         private int fruitToSpawn = 0;
+        private int maxFruit = 0;
         public override void ModifyQueuedCard(PlayableCard card) {
             base.ModifyQueuedCard(card);
             if (card.Info.name != Cards.fruitUnderstanding) {
@@ -21,8 +22,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             CardModificationInfo mod = new();
-            int decayStacks = fruitToSpawn == 4 ? 3 : 2;
-            if (Opponent.Difficulty > 5) {
+            int decayStacks = 2;
+            if (maxFruit == fruitToSpawn) {
+                decayStacks++;
+            }
+            if (Opponent.Difficulty > 7) {
                 decayStacks--;
             }
             if (fruitToSpawn == 1) {
@@ -31,7 +35,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             for (int i = 0; i < decayStacks; i++) {
                 mod.abilities.Add(StartingDecay.ability);
             }
-            card.AddTemporaryMod(mod);
+            card.Info.Mods.Add(mod);
+            card.OnStatsChanged();
             fruitToSpawn--;
         }
 
@@ -51,7 +56,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 minCards++;
             }
 
-            fruitToSpawn = minCards;
+            fruitToSpawn = maxFruit = minCards;
             encounterData.Blueprint.AddTurn(turn);
             return minCards;
         }

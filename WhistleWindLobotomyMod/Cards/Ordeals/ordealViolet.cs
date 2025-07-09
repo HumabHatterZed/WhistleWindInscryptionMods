@@ -15,18 +15,18 @@ namespace WhistleWindLobotomyMod {
         private static void Cards_VioletOrdeal() {
             string textureName = "fruitUnderstanding";
             CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
-                attack: 0, health: 4)
+                attack: 0, health: 3)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
-                .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
+                .AddAbilities(StartingDecay.ability, StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Ordeal, Trait.Uncuttable)
                 .Build();
 
             CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, "Grant Us Love",
-                attack: 1, health: 16)
+                attack: 0, health: 8)
                 .SetBonesCost(16)
                 .AddAbilities(IntenseVolley.ability, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)

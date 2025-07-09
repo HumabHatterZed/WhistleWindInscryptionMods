@@ -45,6 +45,18 @@ namespace WhistleWindLobotomyMod.Opponents {
             return false;
         }
 
+        public override void ModifySpawnedCard(PlayableCard card) {
+            if (card.Info.name == Cards.grantUsLove) {
+                int tier = RunState.CurrentRegionTier;
+                if (tier > 0) {
+                    CardModificationInfo mod = new(0, tier * 2);
+                    if (tier > 1) {
+                        mod.attackAdjustment++;
+                    }
+                    card.Info.Mods.Add(mod);
+                }
+            }
+        }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             if (encounterData.Difficulty > 5) {
                 minTurnToForceNoon--;
@@ -71,9 +83,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (loveSlots[1].Card != null) yield return loveSlots[1].Card.DieTriggerless();
 
             yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
-            CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.grantUsLove), loveSlots[0]);
-            //ViewManager.Instance.SwitchToView(View.OpponentQueue);
+            CameraEffects.Instance.Shake(1f, 0.75f);
             yield return new WaitForSeconds(0.2f);
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             yield return new WaitForSeconds(1f);
