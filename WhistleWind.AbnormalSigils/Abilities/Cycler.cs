@@ -32,7 +32,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
         public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight) {
-            if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
+            if (!Unyielding.CardCanBeMoved(base.Card)) // do nothing for giant cards
                 yield break;
 
             List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);

@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,6 +68,10 @@ namespace WhistleWind.AbnormalSigils {
 
             yield return new WaitForSeconds(0.4f);
             yield return ability.LearnAbility();
+        }
+
+        public static bool CardCanBeMoved(PlayableCard card) {
+            return card.LacksAbility(Unyielding.ability) && card.LacksTrait(Trait.Giant);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead && target.LacksAbility(Unyielding.ability) && !target.HasTrait(Trait.Giant);
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && Unyielding.CardCanBeMoved(target);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             CardSlot left = target.Slot.GetAdjacent(true);
             CardSlot right = target.Slot.GetAdjacent(false);

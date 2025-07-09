@@ -19,14 +19,14 @@ namespace WhistleWind.AbnormalSigils.Patches {
     internal class UnyieldingPatches {
         [HarmonyPrefix, HarmonyPatch(typeof(Strafe), nameof(Strafe.MoveToSlot))]
         private static bool PreventMovingToSlot(CardSlot destination, ref bool destinationValid) {
-            if (destinationValid && destination?.Card != null && destination.Card.HasAbility(Unyielding.ability))
+            if (destinationValid && destination?.Card != null && !Unyielding.CardCanBeMoved(destination.Card))
                 destinationValid = false;
 
             return true;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(Strafe), nameof(Strafe.OnTurnEnd))]
         private static IEnumerator PreventStrafeActivation(IEnumerator enumerator, Strafe __instance) {
-            if (__instance.Card.HasAbility(Unyielding.ability)) {
+            if (!Unyielding.CardCanBeMoved(__instance.Card)) {
                 yield return Unyielding.OnPreventMovement(__instance);
                 yield break;
             }
@@ -34,17 +34,17 @@ namespace WhistleWind.AbnormalSigils.Patches {
         }
         [HarmonyPostfix, HarmonyPatch(typeof(StrafePush), nameof(StrafePush.SlotHasSpace))]
         private static void PreventShoving(CardSlot slot, ref bool __result) {
-            if (__result && slot?.Card != null && slot.Card.HasAbility(Unyielding.ability))
+            if (__result && slot?.Card != null && !Unyielding.CardCanBeMoved(slot.Card))
                 __result = false;
         }
         [HarmonyPrefix, HarmonyPatch(typeof(StrafeSwap), nameof(StrafeSwap.DoStrafe))]
         private static bool PreventGrabnabbing(ref CardSlot toLeft, ref CardSlot toRight) {
-            if (toLeft?.Card != null && toLeft.Card.HasAbility(Unyielding.ability)) {
+            if (toLeft?.Card != null && !Unyielding.CardCanBeMoved(toLeft.Card)) {
                 toLeft.Card.Anim.StrongNegationEffect();
                 toLeft = null;
             }
 
-            if (toRight?.Card != null && toRight.Card.HasAbility(Unyielding.ability)) {
+            if (toRight?.Card != null && !Unyielding.CardCanBeMoved(toRight.Card)) {
                 toRight.Card.Anim.StrongNegationEffect();
                 toRight = null;
             }
@@ -57,7 +57,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(WhackAMole), nameof(WhackAMole.OnSlotTargetedForAttack))]
         private static IEnumerator PreventMoleWhacking(IEnumerator enumerator, WhackAMole __instance) {
-            if (__instance.Card.HasAbility(Unyielding.ability)) {
+            if (!Unyielding.CardCanBeMoved(__instance.Card)) {
                 yield return Unyielding.OnPreventMovement(__instance);
                 yield break;
             }
@@ -65,7 +65,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         }
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.AssignCardToSlot))]
         private static IEnumerator PreventNewAssignments(IEnumerator enumerator, PlayableCard card, CardSlot slot) {
-            if (card.HasAbility(Unyielding.ability)) {
+            if (!Unyielding.CardCanBeMoved(card)) {
                 Unyielding behav = card.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == Unyielding.ability)?.Item2 as Unyielding;
                 if (behav?.homeSlot != null && slot != behav.homeSlot) // if the card has already resolved and is being assigned to a different slot
                 {
@@ -77,7 +77,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         }
 
         private static bool UnyieldingPatchCheck(PlayableCard card, ref bool result) {
-            if (card.HasAbility(Unyielding.ability)) {
+            if (!Unyielding.CardCanBeMoved(card)) {
                 result = false;
                 return false;
             }
@@ -94,12 +94,12 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(FishHookItem), nameof(FishHookItem.GetValidTargets))]
         private static void PreventOpponentHooking(List<CardSlot> __result) {
-            __result.RemoveAll(x => x.Card.HasAbility(Unyielding.ability));
+            __result.RemoveAll(x => !Unyielding.CardCanBeMoved(x.Card));
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(FishHookGrab), nameof(FishHookGrab.PullHook))]
         private static IEnumerator PreventAnglerPullHook(IEnumerator result, FishHookGrab __instance) {
-            if (__instance.hookTargetSlot?.Card != null && __instance.hookTargetSlot.Card.HasAbility(Unyielding.ability))
+            if (__instance.hookTargetSlot?.Card != null && !Unyielding.CardCanBeMoved(__instance.hookTargetSlot.Card))
                 yield break;
 
             yield return result;
@@ -112,7 +112,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
         public static IEnumerator NewAimHookAtRandomSlot(FishHookGrab instance) {
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
-            List<CardSlot> slotsWithCards = Singleton<BoardManager>.Instance.PlayerSlotsCopy.FindAll(x => x.Card != null && !x.Card.HasAbility(Unyielding.ability));
+            List<CardSlot> slotsWithCards = Singleton<BoardManager>.Instance.PlayerSlotsCopy.FindAll(x => x.Card != null && Unyielding.CardCanBeMoved(x.Card));
             CardSlot slot;
             if (slotsWithCards.Count > 0) {
                 yield return instance.TeachMechanicSequence("TeachFishHookAimRandom");
@@ -127,7 +127,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         [HarmonyPostfix, HarmonyPatch(typeof(PocketWatchItem), nameof(PocketWatchItem.SomeCardsOnBoard))]
         private static void PreventRotationWhenUnyieldingFull(ref bool __result) {
             // if the board is full and there is at least 1 Unyielding card, prevent rotation
-            if (__result && !BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card == null) && BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(Unyielding.ability))) {
+            if (__result && !BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card == null) && BoardManager.Instance.CardsOnBoard.Exists(x => !Unyielding.CardCanBeMoved(x))) {
                 __result = false;
             }
         }
@@ -143,7 +143,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         /// <param name="clockwise">Whether cards on the board should be rotated clockwise or counterclockwise.</param>
         /// <returns></returns>
         public static IEnumerator RotateAllCardsOnBoard(bool clockwise) {
-            if (!BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card != null && !x.Card.HasAbility(Unyielding.ability))) {
+            if (!BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card != null && Unyielding.CardCanBeMoved(x.Card))) {
                 yield break;
             }
             //AbnormalPlugin.Log.LogInfo($"[RotateAllCardsOnBoard] Clockwise: {clockwise}");
@@ -213,11 +213,11 @@ namespace WhistleWind.AbnormalSigils.Patches {
             CardSlot slot, int edgeIndex, int nextIndex,
             List<CardSlot> sameSideSlots, List<CardSlot> opposingSlots)
         {
-            if (slot.Card == null || slot.Card.HasAbility(Unyielding.ability)) {
+            if (slot.Card == null || !Unyielding.CardCanBeMoved(slot.Card)) {
                 return null;
             }
             CardSlot destination = slot.Index == edgeIndex ? opposingSlots[edgeIndex] : sameSideSlots[nextIndex];
-            if (destination.Card != null && destination.Card.HasAbility(Unyielding.ability)) {
+            if (destination.Card != null && !Unyielding.CardCanBeMoved(destination.Card)) {
                 return null;
             }
             return destination;

@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,14 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
+            if (!Unyielding.CardCanBeMoved(slot.Card)) {
+                if (!base.Card.OpponentCard && !base.HasLearned) {
+                    slot.Card.Anim.StrongNegationEffect();
+                    yield return new WaitForSeconds(0.3f);
+                    yield return DialogueHelper.ShowUntilInput("It refuses to move.");
+                }
+                yield break;
+            }
             if (base.Card.OpponentCard) {
                 ViewManager.Instance.SwitchToView(View.OpponentQueue);
                 yield return TurnManager.Instance.Opponent.ReturnCardToQueue(slot.Card, 0.2f);
@@ -70,7 +79,17 @@ namespace WhistleWind.AbnormalSigils {
                 }
             }
             else {
+                bool showDialogue = !base.HasLearned;
                 foreach (PlayableCard card in BoardManager.Instance.GetCards(true)) {
+                    if (!Unyielding.CardCanBeMoved(card)) {
+                        if (!base.Card.OpponentCard && showDialogue) {
+                            showDialogue = false;
+                            card.Anim.StrongNegationEffect();
+                            yield return new WaitForSeconds(0.3f);
+                            yield return DialogueHelper.ShowUntilInput("It refuses to move.");
+                        }
+                        yield break;
+                    }
                     CardInfo copy = card.Info.Clone() as CardInfo;
                     PlayableCardStatus status = new(card.Status);
                     List<CardModificationInfo> tempMods = card.TemporaryMods;
