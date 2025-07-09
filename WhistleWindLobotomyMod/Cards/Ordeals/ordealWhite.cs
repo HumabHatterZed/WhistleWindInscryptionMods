@@ -23,49 +23,62 @@ namespace WhistleWindLobotomyMod {
             string textureName3 = "fixerWhite";
             string textureName4 = "fixerBlack";
             string textureName5 = "fixerPale";
+            Trait[] traits = new Trait[] { Ordeal, Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement };
             CardInfo red2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed2, "Red Fixer",
-                attack: 3, health: 6)
+                attack: 2, health: 6)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.AllStrike, Piercing.ability, Ability.Transformer, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
                 .Build();
 
             CardInfo red = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed, "Red Fixer",
                 attack: 3, health: 6)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Piercing.ability, Ability.Transformer, Challenging.ability)
+                .AddAbilities(Ability.Sniper, Piercing.ability, Ability.Transformer, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
                 .SetEvolve(red2, 2)
                 .Build();
             red2.SetEvolve(red, 2);
 
-            CardInfo white2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite2, "White Fixer",
+            CardInfo white3 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite2, "White Fixer",
                 attack: 0, health: 10)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(InfiniteShield.ability, Reflector.ability, Ability.Transformer, Challenging.ability)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
+                .Build();
+            
+            CardInfo white2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite, "White Fixer",
+                attack: 1, health: 10)
+                .SetEnergyCost(8)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
+                .AddAbilities(MindStrike.ability, Ability.AllStrike, Ability.Transformer, Challenging.ability)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .AddTribes(TribeAnthropoid)
+                .AddTraits(traits)
+                .SetEvolve(white3, 2)
                 .Build();
 
             CardInfo white = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite, "White Fixer",
                 attack: 1, health: 10)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
-                .AddAbilities(Ability.Sniper, MindStrike.ability, Ability.Transformer, Challenging.ability)
+                .AddAbilities(MindStrike.ability, Ability.Sniper, Ability.Transformer, Challenging.ability)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
                 .SetEvolve(white2, 2)
                 .Build();
-            white2.SetEvolve(white, 2);
+            
+            white3.SetEvolve(white, 1);
 
             CardInfo black2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack2, "Black Fixer",
                 attack: 2, health: 7)
@@ -74,17 +87,17 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(TeamLeader.ability, Ability.Transformer, Challenging.ability)
                 .AddAppearances(ForcedEmission.appearance)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
                 .Build();
 
             CardInfo black = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack, "Black Fixer",
                 attack: 2, health: 7)
                 .SetBloodCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName4)
-                .AddAbilities(Ability.BuffNeighbours, Ability.Transformer, Challenging.ability)
+                .AddAbilities(Piercing.ability, Driver.ability, Ability.Transformer, Challenging.ability)
                 .AddAppearances(ForcedEmission.appearance)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
                 .SetEvolve(black2, 2)
                 .Build();
             black2.SetEvolve(black, 2);
@@ -96,7 +109,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(IntenseVolley.ability, Piercing.ability, Persistent.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(traits)
                 .Build();
 
             CardInfo clawCard = CardManager.New(LobotomyPlugin.pluginPrefix, claw, "The Claw",
@@ -106,7 +119,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(/*ClawAbility.ability*/Piercing.ability, Persistent.ability, Challenging.ability)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement)
+                .AddTraits(traits)
                 .Build();
         }
     }

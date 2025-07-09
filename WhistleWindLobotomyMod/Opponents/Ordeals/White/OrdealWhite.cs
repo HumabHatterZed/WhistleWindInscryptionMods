@@ -77,6 +77,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             if (Opponent.NumLives == 0)
                 yield break;
+
             ordealTier++;
             defeated = false;
             yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
@@ -125,11 +126,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             possibleFixers.Randomize();
 
             List<List<CardInfo>> newPlan = new() {
-                new(),
-                new() { CardLoader.GetCardByName(possibleFixers[0]) },
-                new(),
                 new() { CardLoader.GetCardByName(possibleFixers[1]), CardLoader.GetCardByName(possibleFixers[2]) },
                 new(),
+                new() { CardLoader.GetCardByName(possibleFixers[0]) },
                 new(),
                 new() { CardLoader.GetCardByName(possibleFixers[3]) }
             };
@@ -154,6 +153,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             return 2;
         }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
+            ordealTier = 0;
             chosenWhiteDawnFixer = UnityEngine.Random.RandomRangeInt(0, 3) switch {
                 0 => Cards.fixerWhite,
                 1 => Cards.fixerBlack,

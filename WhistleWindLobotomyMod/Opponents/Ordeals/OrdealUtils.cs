@@ -28,6 +28,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public static Texture2D[] DuskTotemAnim;
         public static Texture2D[] MidnightAnim;
         public static Texture2D[] MidnightTotemAnim;
+        public static Texture2D[] WhiteOrdealAnim;
 
         public static Texture2D[] OrdealNodeMats;
 
@@ -83,6 +84,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             DuskTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDuskTotem1", "nodeOrdealDuskTotem2", "nodeOrdealDuskTotem3", "nodeOrdealDuskTotem4").ToArray();
             MidnightAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnight1", "nodeOrdealMidnight2", "nodeOrdealMidnight3", "nodeOrdealMidnight4").ToArray();
             MidnightTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnightTotem1", "nodeOrdealMidnightTotem2", "nodeOrdealMidnightTotem3", "nodeOrdealMidnightTotem4").ToArray();
+            WhiteOrdealAnim = NodeHelper.GetNodeTextureList("nodeOrdealFinal1", "nodeOrdealFinal2", "nodeOrdealFinal3", "nodeOrdealFinal4").ToArray();
 
             OrdealCounterManager.dawnSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_dawn");
             OrdealCounterManager.noonSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_noon");
@@ -149,7 +151,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     bossType = LobOpponentUtils.ApocalypseBossID,
                     specialBattleId = WhiteOrdeal,
                     ordealType = OrdealType.White,
-                    tier = 3,
+                    tier = 0,
                     difficulty = 20,
                     position = new(0.5f, 0.86f)
                 }
