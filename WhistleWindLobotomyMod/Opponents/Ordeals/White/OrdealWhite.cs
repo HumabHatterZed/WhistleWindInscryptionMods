@@ -38,9 +38,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.claw), clawSlot);
             yield return new WaitForSeconds(0.2f);
-            OrdealBannerManager.Instance.DisplayBanner(ordealType, true);
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
-
+            OrdealBannerManager.Instance.DisplayBanner(ordealType, true);
+            ViewManager.Instance.SwitchToView(View.Default);
             yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
             OrdealCounterManager.Instance.EnableConsole(false);
@@ -74,13 +74,19 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override IEnumerator OpponentLifeLost() {
             LobotomyPlugin.Log.LogDebug($"[WhiteOrdeal] OpponentLifeLost: numLives: {Opponent.NumLives}");
-
-            if (Opponent.NumLives == 0)
+            yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
+            if (Opponent.NumLives == 0) {
+                yield return HelperMethods.ChangeCurrentView(View.Default);
+                OrdealCounterManager.Instance.EnableConsole(false);
+                yield return new WaitForSeconds(0.25f);
+                OrdealCounterManager.Instance.SetShown(false);
+                yield return new WaitForSeconds(1.5f);
+                yield return Opponent.DefeatedFinalBossSequence();
                 yield break;
+            }
 
             ordealTier++;
             defeated = false;
-            yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
             OrdealBannerManager.Instance.UpdateBanner(ordealType, ordealTier);
 
             yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);

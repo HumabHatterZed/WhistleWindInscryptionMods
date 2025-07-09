@@ -122,7 +122,15 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override IEnumerator LifeLostSequence() {
-            yield break; // don't run the base sequence
+            if (base.NumLives == 0) {
+                yield return DefeatedOpponentSequence();
+            }
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
+        }
+
+        public virtual IEnumerator DefeatedOpponentSequence() {
+            yield break;
         }
     }
 }

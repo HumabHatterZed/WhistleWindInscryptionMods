@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public bool hasTotem;
         private Color totemGlowColour;
+        public bool IsBoss() => BattleSequencer.ordealTier == 3 || BattleSequencer.ordealType == OrdealType.White;
 
         /// <remarks>
         /// Insert empty turns when the queue is full so we don't skip over any cards.
@@ -52,10 +53,14 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
             if (BattleSequencer.ordealType == OrdealType.White) {
-                this.NumLives = 4; // add exception here since we can't do it in the sequencer
+                this.NumLives = 4; // add this here since we can't do it in the sequencer
             }
             yield return base.IntroSequence(encounter);
             AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
+            if (IsBoss()) {
+                yield return this.ReducePlayerLivesSequence();
+                yield return new WaitForSeconds(0.25f);
+            }
 
             OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, true);
             this.SetSceneEffectsShown(true);
@@ -107,11 +112,86 @@ namespace WhistleWindLobotomyMod.Opponents {
             OrdealCounterManager.Instance.SetShown(false);
             yield return new WaitForSeconds(1.5f);
 
+            // if this is a boss ordeal, restore life and setup a rare card sequence
+            if (IsBoss()) {
+                if (RunState.CurrentRegionTier == 3) {
+                    yield return DefeatedFinalBossSequence();
+                }
+                else {
+                    yield return DefeatedBossSequence();
+                }
+            }
+
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
 
+
+        public IEnumerator DefeatedFinalBossSequence() {
+            Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
+            yield return new WaitForSeconds(0.5f);
+            Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetColor(GameColors.Instance.nearBlack);
+            Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetIntensity(1f, float.MaxValue);
+            AudioController.Instance.StopAllLoops();
+            Singleton<InteractionCursor>.Instance.SetHidden(hidden: true);
+            yield return new WaitForSeconds(3f);
+            if (SaveFile.IsAscension) {
+                this.EndAscensionRun();
+                SceneLoader.Load("Ascension_Configure");
+            }
+            else {
+                Singleton<TurnManager>.Instance.PostBattleSpecialNode = new VictoryFeastNodeData();
+                (Singleton<GameFlowManager>.Instance.SpecialSequencer as FinaleGameFlowSequencer).TrySetTutorialFlag();
+                AudioListener.volume = 0f;
+            }
+        }
+        private IEnumerator DefeatedBossSequence() {
+            this.DestroyScenery();
+            this.SetSceneEffectsShown(shown: false);
+            AudioController.Instance.StopAllLoops();
+            yield return new WaitForSeconds(0.75f);
+            this.CleanUpBossBehaviours();
+            CustomCoroutine.WaitThenExecute(1f, LeshyAnimationController.Instance.HideArms);
+
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
+            yield return new WaitForSeconds(0.8f);
+            if (RunState.Run.maxPlayerLives > 1) {
+                yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ReplenishLives", TextDisplayer.MessageAdvanceMode.Input);
+                yield return new WaitForSeconds(0.25f);
+                if (Random.value > 0.8f) {
+                    Singleton<VideoCameraRig>.Instance.PlayCameraAnim("refocus_quick");
+                }
+                yield return Singleton<CandleHolder>.Instance.ReplenishFlamesSequence();
+                RunState.Run.playerLives = RunState.Run.maxPlayerLives;
+            }
+            Singleton<TurnManager>.Instance.PostBattleSpecialNode = new ChooseRareCardNodeData();
+        }
+        public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => true;
+        public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles) {
+            if (drawPiles.turnsSinceExhausted == 0) {
+                yield return DialogueHelper.PlayDialogueEvent("OrdealExhausted");
+            }
+
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
+            yield return new WaitForSeconds(0.1f);
+            
+            if (drawPiles.turnsSinceExhausted > 7) {
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true);
+                BattleSequencer.HighestPositiveScaleBalance--; // really show the player i hate them
+            }
+
+            List<PlayableCard> opponentCards = BoardManager.Instance.GetOpponentCards().Concat(Queue).ToList();
+            if (opponentCards.Count > 0) {
+                yield break;
+            }
+            for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
+                PlayableCard card = opponentCards.GetRandom();
+                card.AddTemporaryMod(new(1, 0));
+                card.Anim.LightNegationEffect();
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
         public override void SetSceneEffectsShown(bool shown) {
             Singleton<TableVisualEffectsManager>.Instance.SetDustParticlesActive(!shown);
             if (!shown) {
@@ -154,7 +234,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     queueHighlightColour = queueDefaultColour = Color.gray;
                     break;
             }
-            ;
+    ;
 
             mainDefaultColour.a = 0.5f;
             queueDefaultColour.a = 0.5f;
@@ -169,7 +249,6 @@ namespace WhistleWindLobotomyMod.Opponents {
                 queueHighlightColour,
                 totemGlowColour);
         }
-
         public override void InitialiseOpponent(EncounterData encounter) {
             base.InitialiseOpponent(encounter);
             if (BattleSequencer.BlacklistedAbilities != null) {
@@ -186,32 +265,6 @@ namespace WhistleWindLobotomyMod.Opponents {
                 OrdealType.Indigo => GameColors.Instance.blue,
                 _ => GameColors.Instance.gray,
             };
-        }
-
-        public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => true;
-        public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles) {
-            if (drawPiles.turnsSinceExhausted == 0) {
-                yield return DialogueHelper.PlayDialogueEvent("OrdealExhausted");
-            }
-
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
-            yield return new WaitForSeconds(0.1f);
-            
-            if (drawPiles.turnsSinceExhausted > 7) {
-                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true);
-                BattleSequencer.HighestPositiveScaleBalance--; // really show the player i hate them
-            }
-
-            List<PlayableCard> opponentCards = BoardManager.Instance.GetOpponentCards().Concat(Queue).ToList();
-            if (opponentCards.Count > 0) {
-                yield break;
-            }
-            for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
-                PlayableCard card = opponentCards.GetRandom();
-                card.AddTemporaryMod(new(1, 0));
-                card.Anim.LightNegationEffect();
-            }
-            yield return new WaitForSeconds(0.2f);
         }
     }
 }

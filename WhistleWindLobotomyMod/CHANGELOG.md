@@ -30,6 +30,7 @@
 - Overhauled reactive difficulty system
 - Final phase can gain 1 additional base Power when above certain difficulty threshold
 - Defeat sequence is now shorter if the player is at max life
+- Modified Black Forest region
 ### Time Machine
 - Fixed selected cards not being correctly removed from the deck
 - Fixed the activating card being a possible choice for removal
