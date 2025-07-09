@@ -1,7 +1,10 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
@@ -19,6 +22,24 @@ namespace WhistleWindLobotomyMod {
     public class Dazzling : AbilityBehaviour, IPreTakeDamage {
         public static Ability ability;
         public override Ability Ability => ability;
+
+        public override bool RespondsToUpkeep(bool playerUpkeep) {
+            if (base.Card.Info.name == Cards.bigBird && TurnManager.Instance.TurnNumber > base.Card.TurnPlayed) {
+                return playerUpkeep != base.Card.OpponentCard;
+            }
+            return false;
+        }
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
+            List<PlayableCard> cards = BoardManager.Instance.GetCards(base.Card.OpponentCard);
+            if (cards.Count > 0) {
+                yield return base.PreSuccessfulTriggerSequence();
+                PlayableCard card = cards.GetSeededRandom(base.GetRandomSeed());
+                card.Anim.StrongNegationEffect();
+                yield return card.AddStatusEffect<Enchanted>(1, modifyTurnGained: (int i) => i + 1);
+                yield return new WaitForSeconds(0.4f);
+            }
+            base.Card.TurnPlayed = TurnManager.Instance.TurnNumber + 2;
+        }
 
         public bool RespondsToPreTakeDamage(PlayableCard source, int damage) {
             return source != null && source.HasStatusEffect<Enchanted>(true);
