@@ -6,6 +6,7 @@ using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
@@ -139,6 +140,11 @@ namespace WhistleWind.AbnormalSigils {
             if (base.Card.OpponentCard || base.Card.OriginatedFromQueue)
                 yield break;
 
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            if (!base.HasLearned) {
+                yield return DialogueHelper.ShowUntilInput(base.Card.Info.DisplayedNameLocalized + " will remember this.");
+            }
             AddVendettaMod(CreateVendettaMod(killer.Info.name, killer.Info.tribes));
         }
         public override bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
