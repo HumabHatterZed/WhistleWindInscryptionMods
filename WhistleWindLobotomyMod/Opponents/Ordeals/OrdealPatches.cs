@@ -44,15 +44,15 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
-        private static void ConvertBattleIntoOrdeal(ref NodeData __result, List<NodeData> previousNodes, int mapLength) {
+        private static void ConvertBattleIntoOrdeal(ref NodeData __result) {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
             if (__result is not CardBattleNodeData nodeData) {
                 return;
             }
-            bool bossNode = __result is BossBattleNodeData;
-            if (bossNode && OrdealRegionOrder != null) {
-                if (RunState.CurrentRegionTier == 3 && LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id)) {
+
+            if (__result is BossBattleNodeData) {
+                if (OrdealRegionOrder == null || (RunState.CurrentRegionTier == 3 && LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id))) {
                     return;
                 }
                 OrdealBossBattleNodeData bossData = new() {
@@ -76,7 +76,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 return;
             }
 
-            if (!LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) && UnityEngine.Random.value <= (0.75f - RunState.Run.DifficultyModifier * 0.043f)) {
+            if (!LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) && UnityEngine.Random.value <= (0.72f - RunState.Run.DifficultyModifier * 0.043f)) {
                 return;
             }
 
@@ -234,6 +234,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         [HarmonyPostfix, HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.RollCurrentRunRegionOrder))]
         private static void DetermineMidnightOrder(AscensionSaveData __instance) {
+            OrdealRegionOrder = null;
             if (LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
                 List<OrdealType> ordeals = new() { OrdealType.Amber, OrdealType.Violet, OrdealType.Green };
                 if (SaveFile.IsAscension) {
@@ -245,9 +246,6 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
 
                 OrdealRegionOrder = ordeals.ToArray();
-            }
-            else {
-                OrdealRegionOrder = null;
             }
         }
         public static OrdealType[] OrdealRegionOrder = null;

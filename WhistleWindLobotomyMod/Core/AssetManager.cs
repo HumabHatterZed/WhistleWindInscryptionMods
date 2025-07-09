@@ -41,19 +41,24 @@ namespace WhistleWindLobotomyMod.Core {
             sfxClips.Add(AssetBundle.LoadAsset<AudioClip>("can_hit"));
 
             GameObject obj = AssetBundle.LoadAsset<GameObject>("twisted_building");
-            MapElement elem = obj.AddComponent<MapElement>();
-            elem.Data = new MapElementData();
+            obj.AddComponent<MapElement>().Data = new MapElementData();
+
+            GameObject obj2 = AssetBundle.LoadAsset<GameObject>("twisted_building_2");
+            obj2.AddComponent<MapElement>().Data = new MapElementData();
 
             ResourceBankManager.Add(LobotomyPlugin.pluginGuid, SceneryData.PREFABS_ROOT + "twisted_building", obj);
-            List<SceneryData> twistedBuildings = new();
-            twistedBuildings.Add(ScriptableObject.CreateInstance<SceneryData>());
-            twistedBuildings[0].prefabNames = new() { "twisted_building" };
-            twistedBuildings[0].radius = 0.095f;
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, SceneryData.PREFABS_ROOT + "twisted_building_2", obj2);
+            List<SceneryData> twistedBuildings = new() { ScriptableObject.CreateInstance<SceneryData>() };
+            twistedBuildings[0].radius = 0.096f;
             twistedBuildings[0].minScale = new(6f, 6f);
             twistedBuildings[0].maxScale = new(8f, 8f);
+            
+            twistedBuildings[0].prefabNames = new() { "twisted_building", "twisted_building_2" };
             twistedBuildings[0].baseEulers = new(266f, 0f, 0f);
 
             CustomSceneryData.Add("twisted_building", twistedBuildings);
+
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, "Prefabs/Environment/TableEffects/" + "CityTableEffects", BossBundle.LoadAsset<GameObject>("CityTableEffects"));
 
             LobOpponentUtils.InitBossObjects();
             OrdealUtils.InitOrdeals();
