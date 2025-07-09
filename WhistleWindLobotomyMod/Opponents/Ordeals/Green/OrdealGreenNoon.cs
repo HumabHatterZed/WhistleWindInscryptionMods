@@ -46,16 +46,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             if (encounterData.Difficulty > 8) {
-                startingCard[0] = CardLoader.GetCardByName(encounterData.Difficulty > 10 ? Cards.doubtProcessDown : Cards.doubtProcessDown2);
+                startingCard[0] = CardLoader.GetCardByName(Cards.doubtProcessDown2);
                 minCards++;
-            }
-
-            if (encounterData.Difficulty > 12) {
-                float strongCeiling = Mathf.Max(0, 0.5f + (encounterData.Difficulty - 6) * 0.05f);
-                for (int i = 0; i < (encounterData.Difficulty - 11) / 2; i++) {
-                    CardLoader.GetCardByName(UnityEngine.Random.value <= strongCeiling ? Cards.doubtProcessDown : Cards.doubtProcessDown2);
-                    minCards++;
-                }
             }
 
             EncounterData.StartCondition cond = new();
