@@ -76,7 +76,7 @@ namespace WhistleWindLobotomyMod {
             CardInfo down = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcessDown, "Process of Understanding",
                 attack: 0, health: 4)
                 .SetEnergyCost(4)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName51, "")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName51)
                 .AddAbilities(Piercing.ability, Ability.Transformer)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
@@ -99,7 +99,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcessDown2, "Process of Understanding",
                 attack: 0, health: 4)
                 .SetEnergyCost(4)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName51, "")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName51)
                 .AddAbilities(Piercing.ability, Ability.Transformer)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
