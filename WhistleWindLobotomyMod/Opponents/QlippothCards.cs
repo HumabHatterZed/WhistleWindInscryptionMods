@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 { Cards.runawayBird_mook, new(0, 1) { abilities = new() { Persistent.ability } } },
                 { Cards.schadenfreude, new() { abilities = new() { Ability.Sentry, NimbleFoot.ability } } },
                 { Cards.silentGirl, new() { abilities = new() { OneSided.ability } } },
-                { Cards.singingMachine, new() { abilities = new() { Ability.BuffEnemy }, negateAbilities = new() { Aggravating.ability } } },
+                { Cards.singingMachine, new() { negateAbilities = new() { Aggravating.ability } } },
                 { Cards.snowQueen, new() { abilities = new() { Ability.BuffNeighbours } } },
                 { Cards.snowWhitesApple, new(0, 1) { abilities = new() { Ability.Deathtouch } } },
                 { Cards.theFirebird, new() { abilities = new() { Scorching.ability, Scorching.ability } } },
@@ -80,10 +80,13 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public static List<List<CardInfo>> AddEmpoweredCardsToTurnPlan(List<List<CardInfo>> turnPlan, string keyOverride = null) {
             int empoweredCards = 0;
-            bool addEmpoweredCard = UnityEngine.Random.value <= 0.21f;
+            int seed = SaveManager.SaveFile.GetCurrentRandomSeed() + 1000;
+            bool addEmpoweredCard = SeededRandom.Value(seed) <= 0.21f;
+            seed += 1000;
             for (int i = 0; i < turnPlan.Count; i++) {
                 if (!addEmpoweredCard) {
-                    addEmpoweredCard = UnityEngine.Random.value <= (0.21f - empoweredCards * 0.05f);
+                    addEmpoweredCard = SeededRandom.Value(seed) <= (0.21f - empoweredCards * 0.05f);
+                    seed += 1000;
                     continue;
                 }
                 List<CardInfo> infos = turnPlan[i].Randomize().ToList();
@@ -110,7 +113,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                     infoToReplace.Mods.Add(new() { singletonId = QLIPPOTH_ID });
                 }
                 empoweredCards++;
-                addEmpoweredCard = UnityEngine.Random.value <= (0.21f - empoweredCards * 0.05f);
+                addEmpoweredCard = SeededRandom.Value(seed) <= (0.21f - empoweredCards * 0.05f);
+                seed += 1000;
             }
             return turnPlan;
         }
