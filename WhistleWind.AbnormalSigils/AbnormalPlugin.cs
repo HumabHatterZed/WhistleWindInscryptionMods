@@ -15,6 +15,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -128,9 +129,15 @@ namespace WhistleWind.AbnormalSigils {
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
                 StatusEffectManager.SyncStatusEffects();
                 abilities.AbilityByID(Ability.MadeOfStone).Info.SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
+                abilities.AbilityByID(Ability.SkeletonStrafe).Info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
                 return abilities;
             };
+            CardManager.ModifyCardList += delegate (List<CardInfo> infos) {
+                infos.Find(x => x.name == "!GIANTCARD_MOON")?.SetUniqueCopycat("wstl_miniMoon");
+                infos.Find(x => x.name == "!GIANTCARD_SHIP")?.SetUniqueCopycat("wstl_littlecello");
 
+                return infos;
+            };
             #region 1.0L
             Ability_Punisher();
             Ability_Bloodfiend();

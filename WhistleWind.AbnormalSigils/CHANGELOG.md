@@ -23,6 +23,7 @@
 - Overhauled Pebble status effect
 - Return Card to Hand now works when used by the opponent
 - Replaced dialogue for when a Brother card dies while a card with Nettle Clothes is on the board
+- Changed how Gift-Laden determines unique cards to give
 - Renamed Refresh Decks sigil to Grand Reopening
 - Renamed Status Effect Overflow sigil to See More
 - Renamed Return Card to Hand sigil to Creature Retrieval
@@ -64,6 +65,7 @@
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
 - Fixed Witness not working
+- Fixed Right-Veering Strike behaving like Left-Veering Strike
 - Fixed interaction with Creature Retrieval where Nettles would retain sigils when replayed
 - Fixed Worms status effect not letting Infested cards attack the right-most ally card
 - Fixed Bitter Enemies sigil using an incorrect description
@@ -81,6 +83,7 @@
 - Bloodfiend - reduced powerlevel from 3 -> 2
 - Bloodletter - healing is now capped at 2 above the card's max health
 - Bloodletter - reduced powerlevel from 4 -> 3
+- Copycat - can now copy the Moon and Limoncello
 - Corrector - modified stat formula to more closely follow Daniel Mullin's (in-game values should be the same or higher)
 - Corrector - Energy cost now follows the vanilla formula outside Act 1 for improved compatibility
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
@@ -91,6 +94,7 @@
 - Greedy Healing - changed kill condition to current health exceeding max health by 3 or more
 - Healer - reduced health gained from 2 -> 1
 - Healer - now removes a random negative status effect from targeted cards
+- Healer - now stackable
 - Nettle Clothes - reduced powerlevel from 5 -> 4
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
 - Nettle Clothes - changed singleton id used for tracking added sigils
@@ -123,6 +127,7 @@
 - Added dialogue for when first encountering a status effect
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
+- Added SetGiftGiverId and SetUniqueCopycat extension methods for CardInfo
 - Added custom rulebook pages 'Mechanics'
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Added ability class 'CreateTwoCardsAdjacent'

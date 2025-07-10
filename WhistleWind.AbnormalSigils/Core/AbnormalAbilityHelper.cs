@@ -9,6 +9,8 @@ using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers {
     public static class AbnormalAbilityHelper {
+        public static CardInfo SetUniqueCopycat(this CardInfo info, string id) => info.SetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID, id);
+
         public static CardInfo SetGiftGiverId(this CardInfo info, string id) => info.SetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY, id);
 
         public static CardInfo SetBoneless(this CardInfo info) {
@@ -29,6 +31,8 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
             return info.SetPortrait(emissionTex);
         }
 
+        public static bool HasUniqueCopyCat(this CardInfo info) => info.GetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID) != null;
+        public static string GetUniqueCopyCat(this CardInfo info) => info.GetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID);
         public static bool IsConductor(this PlayableCard card) {
             return card.HasTrait(Orchestral) || card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);
         }
@@ -37,7 +41,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         /// </summary>
         /// <param name="attacker">The card with Opportunistic.</param>
         /// <param name="target">The card being targeted.</param>
-        [Obsolete]
+        [Obsolete("Opportunistic has been reworked, method no longer used.")]
         public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target) {
             if (target == null || target.Attack > 0 || target.HasAbility(Neutered.ability))
                 return false;

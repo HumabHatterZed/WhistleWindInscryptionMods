@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using GracesGames.Common.Scripts;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
         public override int Priority => -1;
-
+        public const string UNIQUE_COPYCAT_ID = "UNIQUE_COPYCAT";
         bool copiedCard = false;
         private CardInfo originalCardInfo = null;
 
@@ -89,7 +90,18 @@ namespace WhistleWind.AbnormalSigils {
             }
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.Card.TransformIntoCard(CopyInfo(otherCard.Info), NegateCopycat);
-            yield return base.LearnAbility(0.5f);
+            if (otherCard.Info.name == "!GIANTCARD_MOON") {
+                yield return DialogueHelper.PlayDialogueEvent("CopycatMoon");
+            }
+            else if (otherCard.Info.name == "!GIANTCARD_SHIP") {
+                yield return DialogueHelper.PlayDialogueEvent("CopycatShip");
+            }
+            else if (otherCard.Info.HasUniqueCopyCat()) {
+                yield return DialogueHelper.PlayDialogueEvent("CopycatUnique");
+            }
+            else {
+                yield return base.LearnAbility(0.5f);
+            }
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             base.Card.Anim.StrongNegationEffect();
@@ -99,15 +111,22 @@ namespace WhistleWind.AbnormalSigils {
             yield return DialogueHelper.PlayDialogueEvent("CopycatDead");
         }
         private CardInfo CopyInfo(CardInfo cloneCardInfo) {
-            CardInfo evolutionCardInfo = cloneCardInfo.Clone() as CardInfo;
             CardModificationInfo mod = new() {
-                nameReplacement = "False " + cloneCardInfo.DisplayedNameLocalized,
-                abilities = new(originalCardInfo.DefaultAbilities),
                 negateAbilities = new() { this.Ability },
                 singletonId = "wstl:CopyCat",
                 nonCopyable = true
             };
-            mod.abilities.Remove(this.Ability);
+            CardInfo evolutionCardInfo;
+            if (cloneCardInfo.HasUniqueCopyCat()) {
+                evolutionCardInfo = CardLoader.GetCardByName(cloneCardInfo.GetUniqueCopyCat());
+            }
+            else {
+                evolutionCardInfo = (cloneCardInfo.Clone() as CardInfo);
+                mod.nameReplacement = "False " + cloneCardInfo.DisplayedNameLocalized;
+                mod.abilities = new(originalCardInfo.DefaultAbilities);
+                mod.abilities.Remove(this.Ability);
+            }
+
             evolutionCardInfo.Mods.Add(mod);
             return evolutionCardInfo;
         }
@@ -118,6 +137,6 @@ namespace WhistleWind.AbnormalSigils {
             if (base.Card.Health == 0)
                 base.Card.Status.damageTaken = 0;
         }
-        private bool CanCopyCard(PlayableCard card) => card.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
+        private bool CanCopyCard(PlayableCard card) => card.Info.HasUniqueCopyCat() || card.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
     }
 }
