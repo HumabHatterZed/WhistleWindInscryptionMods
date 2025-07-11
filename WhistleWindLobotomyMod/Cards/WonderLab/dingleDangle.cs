@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod {
         private static void DingleDangle() {
             string textureName = "dingleDangle";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, dingleDangle, "Dingle Dangle",
-                attack: 1, health: 2, "A beautiful ribbon that binds despairing hearts, so they may all become hanging, dangling fruits.")
+                attack: 1, health: 2, "A ribbon that binds despairing hearts, those ripest of dangling fruit.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(BindingStrike.ability)

@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
         private static void PenitentGirl() {
             string textureName = "penitentGirl";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, penitentGirl, "The Penitent Girl",
-                attack: 1, health: 2)
+                attack: 1, health: 2, "A once-vain child, now prostrating on bloody stumps.")
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodletter.ability)
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod {
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, penitentGirl, "The Penitent Girl",
-                attack: 1, health: 2)
+                attack: 1, health: 2, "A once-vain child, now prostrating on bloody stumps.")
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodletter.ability)
