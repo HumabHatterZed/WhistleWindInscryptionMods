@@ -40,6 +40,7 @@
 - Changed how card choices are determined
 - Effect now changes during custom boss fights
 ### Cards
+- 1.75 MHz: now belongs to the Mechanical tribe
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
 - Apocalypse Bird: changed evolution name
@@ -70,13 +71,16 @@
 - One Sin EX: fixed missing textures
 - <span style='color:#DE6080'>Ppodae Evolution: Reduced Power from 3 -> 2
 - Ppodae & Evolution: now possess unique version of Stinky
-- Ppodae & Evolution: changed artwork
+- Ppodae & Evolution: replaced artwork
 - Red Riding Hooded Mercenary: reworked to 1/3; Vendetta, Sniper; 2 Blood
 - Sephirah: all cards now blink slower
 - The Dreaming Current: Increased Health from 2 -> 3, now possesses Nimble-Footed and Barreler
 - The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
+- Yin: now belongs to the Divine tribe
+- Yang: now belongs to the Divine tribe
 - You're Bald...: changed evolution name
+- Modified some portraits
 ### Challenges
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Adjusted points given by challenges and rearranged positioning
