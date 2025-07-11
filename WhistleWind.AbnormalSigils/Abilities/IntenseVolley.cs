@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
@@ -12,7 +13,7 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_IntenseVolley() {
-            const string rulebookName = "Intense Volley";
+            const string rulebookName = "Volley Strike";
             const string rulebookDescription = "At the end of the owner's turn, this card will target 2-4 opposing spaces to attack on its next turn.";
             IntenseVolley.ability = AbnormalAbilityHelper.CreateAbility<IntenseVolley>(
                 "sigilVolley",
@@ -20,7 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 modular: false, opponent: true, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+                .SetMagnificusRulebook()
+                .Info.SetFlipYIfOpponent()
+                .ability;
         }
     }
     /// <summary>
