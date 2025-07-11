@@ -25,6 +25,16 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(Ordeal, Trait.Uncuttable)
                 .Build();
 
+            CardInfo mini = CardManager.New(LobotomyPlugin.pluginPrefix, "grantMeSize", "Grant Me Size",
+                attack: 1, health: 4)
+                .SetBonesCost(8)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "grantUsLove")
+                .AddAbilities(Ability.Evolve, Ability.MadeOfStone)
+                .AddAppearances(ForcedPurpleEmission.appearance)
+                .AddTribes(TribeDivine)
+                .Build(overrideCardChoice: true);
+            mini.SetEvolve(mini, 2, new List<CardModificationInfo>() { new(1, 0) });
+
             CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, "Grant Us Love",
                 attack: 0, health: 8)
                 .SetBonesCost(16)
@@ -35,8 +45,8 @@ namespace WhistleWindLobotomyMod {
                 .SetAnimatedPortrait(LobOpponentUtils.GrantUsLovePrefab)
                 .SetMiniGiant()
                 .SetMiniGiantEmission(TextureLoader.LoadTextureFromFile("grantUsLove_emission.png", LobotomyPlugin.ModAssembly))
+                .SetUniqueCopycat("wstl_grantMeSize")
                 .Build();
-
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
         }
     }
