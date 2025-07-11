@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
 
-            CardManager.New(LobotomyPlugin.pixelPrefix, penitentGirl, "The Penitent Girl",
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, "The Penitent Girl",
                 attack: 1, health: 2, "A once-vain child, now prostrating on bloody stumps.")
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)

@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
-            CardManager.New(LobotomyPlugin.pixelPrefix, drownedSisters, "The Drowned Sisters",
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, "The Drowned Sisters",
                 attack: 0, health: 1, "A pair of sisters, condemned for sins they don't know they committed.")
                 .SetBonesCost(1).SetEnergyCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
