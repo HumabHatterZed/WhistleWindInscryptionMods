@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
             string textureName4 = "doubtO";
             string textureName5 = "doubtProcess";
             string textureName51 = "doubtProcess_down";
-            string textureName6 = "whereWeReach";
+            string textureName6 = "doubtReach";
             CardInfo infoO = CardManager.New(LobotomyPlugin.pluginPrefix, doubtO, "Doubt O",
                 attack: 2, health: 3)
                 .SetEnergyCost(4)
