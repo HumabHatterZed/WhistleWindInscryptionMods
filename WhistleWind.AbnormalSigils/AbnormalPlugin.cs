@@ -280,6 +280,7 @@ namespace WhistleWind.AbnormalSigils {
             Ability_Ethereal();
             Ability_IntenseVolley();
             Ability_ActivatedGiftGiver();
+            Ability_Alluring();
 
             #endregion
 
