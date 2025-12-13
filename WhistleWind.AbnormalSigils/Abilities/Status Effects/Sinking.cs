@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
             if (target == base.PlayableCard) {
                 int powerDown = this.EffectPotency / target.MaxHealth;
                 if (powerDown > 0) {
-                    return powerDown;
+                    return -powerDown;
                 }
             }
             return 0;
