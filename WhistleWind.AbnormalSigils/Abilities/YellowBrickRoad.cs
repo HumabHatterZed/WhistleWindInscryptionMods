@@ -143,7 +143,7 @@ namespace WhistleWind.AbnormalSigils {
             if (!base.movingLeft)
                 boardSlotsCopy.Reverse();
 
-            // when we iterate, we can to check oldSlot first, then the slots behind this card, then the slots ahead of it
+            // when we iterate, we want to check oldSlot first, then the slots behind this card, then the slots ahead of it
             // based on this card's direction
             List<CardSlot> orderedSlots = new() { oldSlot };
 
@@ -166,7 +166,7 @@ namespace WhistleWind.AbnormalSigils {
                     bool atEndOfBoardSlot = destination == boardSlots.First() || destination == boardSlots.Last();
                     bool atEndOfBoardSlotToCheck = slotToCheck == boardSlots.First() || slotToCheck == boardSlots.Last();
 
-                    if (slotToCheck != base.Card.Slot && slotToCheck.Card != null && destination != base.Card.Slot && destination.Card == null) {
+                    if (slotToCheck != base.Card.Slot && slotToCheck.Card != null && slotToCheck.Card.LacksAbility(Unyielding.ability) && destination != base.Card.Slot && destination.Card == null) {
                         if (atEndOfBoardSlot && atEndOfBoardSlotToCheck)
                             yield return MoveToEndOfBoard(slotToCheck.Card, destination, slotToCheck.Card.Slot, destination != null && destination.Card == null);
                         else
