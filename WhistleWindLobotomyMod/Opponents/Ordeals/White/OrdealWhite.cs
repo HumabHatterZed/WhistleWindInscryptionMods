@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -169,6 +170,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 EncounterManager.NewCardBlueprint(chosenWhiteDawnFixer)
             };
             encounterData.Blueprint.AddTurn(turn);
+            targetIconPrefab = AssetManager.warningTargetPrefab;
             return 1;
         }
 
