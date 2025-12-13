@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_InfiniteShield() {
             const string rulebookName = "Unbreakable Defence";
-            const string rulebookDescription = "[creature] prevents all damage dealt to it. All cards behave as if this card took damage.";
+            const string rulebookDescription = "[creature] cannot be damaged. When this card is struck, all cards behave as if this card took damage.";
             InfiniteShield.ability = AbnormalAbilityHelper.CreateAbility<InfiniteShield>(
                 "sigilInfiniteShield",
                 rulebookName, rulebookDescription, powerLevel: 5,
@@ -21,24 +21,16 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// [creature] prevents all damage dealt to it. All cards behave as if this card took damage.
+    /// [creature] cannot be damaged. When this card is struck, all cards behave as if this card took damage.
     /// </summary>
     [HarmonyPatch]
-    public class InfiniteShield : DamageShieldBehaviour, IShieldPreventedDamage {
+    public class InfiniteShield : AbilityBehaviour, IShieldPreventedDamage {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        // maybe not actually infinite
-        public override int StartingNumShields => 9999;
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.Card.OpponentCard;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
-            numShields = StartingNumShields;
-            return base.OnTurnEnd(playerTurnEnd);
-        }
-
         public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => target == base.Card;
         public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
-            numShields = StartingNumShields;
+            //numShields = StartingNumShields;
 
             if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
                 yield return target.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
