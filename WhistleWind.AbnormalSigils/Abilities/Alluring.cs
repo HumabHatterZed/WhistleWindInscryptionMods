@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
             Alluring.ability = AbnormalAbilityHelper.CreateAbility<Alluring>(
                 "sigilAlluring",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: false)
+                modular: false, opponent: true, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook()
