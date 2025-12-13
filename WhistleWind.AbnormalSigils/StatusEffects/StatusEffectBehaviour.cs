@@ -77,7 +77,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
                 for (int i = 0; i < EffectPotency; i++) {
                     retval.abilities.Add(IconAbility);
                 }
-
+                
                 retval.SetStatusEffect();
             }
             else {

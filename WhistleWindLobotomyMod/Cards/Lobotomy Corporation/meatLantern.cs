@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 3, "A beautiful flower attached to a mysterious creature.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Reach, Reflector.ability)
+                .AddAbilities(Alluring.ability, Ability.Sentry)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }

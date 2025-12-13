@@ -168,13 +168,15 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
             T component = card.GetComponent<T>();
             bool firstStack = component == null || component.EffectPotency < 1;
             if (firstStack) {
-                component = card.gameObject.AddComponent<T>();
-                card.TriggerHandler.permanentlyAttachedBehaviours.Add(component);
+                if (component == null) {
+                    component = card.gameObject.AddComponent<T>();
+                    card.TriggerHandler.permanentlyAttachedBehaviours.Add(component);
+                }
                 component.TurnGained = modifyTurnGained?.Invoke(TurnManager.Instance.TurnNumber) ?? TurnManager.Instance.TurnNumber;
             }
 
             component.ModifyPotency(amount, updateDecals);
-
+            
             yield return CustomTriggerFinder.TriggerAll<IOnStatusEffectAdded>(firstStack,
                 x => x.RespondsToStatusEffectAdded(card, amount, component, firstStack),
                 x => x.OnStatusEffectAdded(card, amount, component, firstStack));
