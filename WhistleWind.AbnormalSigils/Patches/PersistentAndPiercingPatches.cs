@@ -30,10 +30,12 @@ namespace WhistleWind.AbnormalSigils.Patches {
             if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach)) {
                 // piercing can always hit face down cards while persistent can always hit face up cards
                 if (opposingSlot.Card.FaceDown) {
-                    __result = __instance.HasAbility(Piercing.ability);
+                    if (__instance.HasAbility(Piercing.ability)) {
+                        __result = false;
+                    }
                 }
-                else {
-                    __result = __instance.HasAbility(Persistent.ability);
+                else if (__instance.HasAbility(Persistent.ability)){
+                    __result = false;
                 }
             }
         }
