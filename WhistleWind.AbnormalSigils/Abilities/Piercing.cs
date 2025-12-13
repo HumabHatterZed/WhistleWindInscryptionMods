@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Piercing() {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "[creature] can strike through shields. Opposing cards cannot reduce damage dealt by this card.";
+            const string rulebookDescription = "[creature] can strike through breakable shields. Opposing cards cannot reduce or prevent damage dealt by this card.";
             const string dialogue = "Even the thickest hide can be run through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
@@ -23,7 +23,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// [creature] can strike through shields. Opposing cards cannot reduce damage dealt by this card.
+    /// [creature] can strike through breakable shields. Opposing cards cannot reduce or prevent damage dealt by this card.
     /// </summary>
     public class Piercing : AbilityBehaviour, IModifyDamageTaken, IShieldPreventedDamage {
         public static Ability ability;
@@ -39,14 +39,11 @@ namespace WhistleWind.AbnormalSigils {
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card && damage < originalDamage;
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
-            if (base.Card.LacksAbility(MindStrike.ability)) {
-                return originalDamage;
-            }
-            return 0; // account for Mind Strike not dealing damage
+            return originalDamage;
         }
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -1000;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -9000;
 
-        public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => attacker == base.Card;
+        public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => attacker == base.Card && target.LacksAbility(InfiniteShield.ability);
 
         public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
             // recreate TakeDamage logic
