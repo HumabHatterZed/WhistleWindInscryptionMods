@@ -61,13 +61,6 @@ namespace WhistleWind.AbnormalSigils.Patches {
             }
         }
 
-        [HarmonyPriority(Priority.Last)]
-        [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.Attack), MethodType.Getter)]
-        private static void MindStrikeModifyAttackStat(CardInfo __instance, ref int __result) {
-            if (__instance.HasAbility(MindStrike.ability) && __result > 1)
-                __result = 1;
-        }
-
         [HarmonyPatch]
         internal class SigilPowerPatches {
             [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
