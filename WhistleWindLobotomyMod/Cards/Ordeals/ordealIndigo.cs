@@ -2,7 +2,7 @@
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -21,8 +21,8 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.SplitStrike, Persistent.ability, Bloodfiend.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-                .AddTribes(TribeFae)
-                .AddTraits(Ordeal)
+                .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.Indigo)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeper2, "Sweeper B",
@@ -31,8 +31,8 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.DoubleStrike, Persistent.ability, Bloodfiend.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-                .AddTribes(TribeFae)
-                .AddTraits(Ordeal)
+                .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.Indigo)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeper3, "Sweeper C",
@@ -41,8 +41,8 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(Ability.Sniper, Persistent.ability, Bloodfiend.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-                .AddTribes(TribeFae)
-                .AddTraits(Ordeal)
+                .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.Indigo)
                 .Build();
         }
     }

@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.CardHelper;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
@@ -97,6 +97,31 @@ namespace WhistleWindLobotomyMod.Core {
             return !AllCardsDisabled && !CardIsDisabled(info);
         }
 
+        public static CardInfo SetOrdealCard(this CardInfo info, OrdealType type) {
+            switch (type) {
+                case OrdealType.Green:
+                    info.AddAppearances(OrdealBackgroundGreen.appearance);
+                    break;
+                case OrdealType.Crimson:
+                    info.AddAppearances(OrdealBackgroundCrimson.appearance);
+                    break;
+                case OrdealType.Violet:
+                    info.AddAppearances(OrdealBackgroundViolet.appearance);
+                    break;
+                case OrdealType.Amber:
+                    info.AddAppearances(OrdealBackgroundAmber.appearance);
+                    break;
+                case OrdealType.Indigo:
+                    info.AddAppearances(OrdealBackgroundIndigo.appearance);
+                    break;
+                case OrdealType.White:
+                    info.AddAppearances(OrdealBackgroundWhite.appearance);
+                    break;
+            }
+            info.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
+            info.AddTraits(Ordeal);
+            return info;
+        }
         public static CardInfo SetEventCard(this CardInfo info, bool isRare) {
             info.AddAppearances(isRare ? RareEventBackground.appearance : EventBackground.appearance);
             info.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);

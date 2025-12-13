@@ -2,7 +2,7 @@
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
             string textureName3 = "fixerWhite";
             string textureName4 = "fixerBlack";
             string textureName5 = "fixerPale";
-            Trait[] traits = new Trait[] { Ordeal, Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement };
+            Trait[] traits = new Trait[] { Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement };
             CardInfo red2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed2, "Red Fixer",
                 attack: 2, health: 6)
                 .SetEnergyCost(8)
@@ -32,6 +32,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .Build();
 
             CardInfo red = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed, "Red Fixer",
@@ -42,6 +43,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .SetEvolve(red2, 2)
                 .Build();
             red2.SetEvolve(red, 2);
@@ -53,6 +55,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(InfiniteShield.ability, Reflector.ability, Ability.Transformer, Challenging.ability)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.White)
                 .AddTraits(traits)
                 .Build();
 
@@ -63,6 +66,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(MindStrike.ability, Ability.AllStrike, Ability.Transformer, Challenging.ability)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.White)
                 .AddTraits(traits)
                 .SetEvolve(white3, 2)
                 .Build();
@@ -75,6 +79,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .SetEvolve(white2, 2)
                 .Build();
 
@@ -88,6 +93,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedEmission.appearance)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .Build();
 
             CardInfo black = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack, "Black Fixer",
@@ -98,6 +104,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedEmission.appearance)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .SetEvolve(black2, 2)
                 .Build();
             black2.SetEvolve(black, 2);
@@ -110,6 +117,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .Build();
 
             CardInfo clawCard = CardManager.New(LobotomyPlugin.pluginPrefix, claw, "The Claw",
@@ -120,6 +128,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
+                .SetOrdealCard(OrdealType.White)
                 .Build();
         }
     }

@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Piercing.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .Build();
 
             CardInfo infoY = CardManager.New(LobotomyPlugin.pluginPrefix, doubtY, "Doubt Y",
@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoO, 1)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .Build();
 
             CardInfo infoB = CardManager.New(LobotomyPlugin.pluginPrefix, doubtB, "Doubt B",
@@ -58,7 +58,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoY, 1)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, doubtA, "Doubt A",
@@ -70,7 +70,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoB, 1)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .Build();
 
             CardInfo down = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcessDown, "Process of Understanding",
@@ -80,7 +80,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Piercing.ability, Ability.Transformer)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .Build();
 
             CardInfo pro = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, "Process of Understanding",
@@ -90,7 +90,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Piercing.ability, Ability.Sentry, Ability.Transformer)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .SetEvolve(down, 2)
                 .Build();
 
@@ -103,7 +103,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Piercing.ability, Ability.Transformer)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(OrdealType.Green)
                 .SetEvolve(pro, 2)
                 .Build();
 
@@ -114,8 +114,9 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Life.ability, Challenging.ability)
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetTerrain(false)
+                .SetOrdealCard(OrdealType.Green)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, "Last Helix",
@@ -126,6 +127,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetAnimatedPortrait(LobOpponentUtils.HelixBossPrefab)
                 .SetTerrain(false)
+                .SetOrdealCard(OrdealType.Green)
                 .SetMiniGiant()
                 .Build();
         }

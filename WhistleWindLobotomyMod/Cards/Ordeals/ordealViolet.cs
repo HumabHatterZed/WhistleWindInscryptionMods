@@ -22,7 +22,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
-                .AddTraits(Ordeal, Trait.Uncuttable)
+                .AddTraits(Trait.Uncuttable)
+                .SetOrdealCard(OrdealType.Violet)
                 .Build();
 
             CardInfo mini = CardManager.New(LobotomyPlugin.pluginPrefix, "grantMeSize", "Grant Me Size",
@@ -41,7 +42,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(IntenseVolley.ability, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
-                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .SetOrdealCard(OrdealType.Violet)
                 .SetAnimatedPortrait(LobOpponentUtils.GrantUsLovePrefab)
                 .SetMiniGiant()
                 .SetMiniGiantEmission(TextureLoader.LoadTextureFromFile("grantUsLove_emission.png", LobotomyPlugin.ModAssembly))
