@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Alluring() {
             const string rulebookName = "Alluring";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] attracts an opposing creature to the space across from it.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] attracts an opposing adjacent creature to the space across from this card if possible.";
             const string dialogue = "A sweet scent.";
 
             Alluring.ability = AbnormalAbilityHelper.CreateAbility<Alluring>(
@@ -26,7 +26,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// At the end of the owner's turn, [creature] attracts an opposing creature to the space across from it.
+    /// At the end of the owner's turn, [creature] attracts an opposing adjacent creature to the space across from this card if possible.
     /// </summary>
     public class Alluring : AbilityBehaviour {
         public static Ability ability;
@@ -35,10 +35,9 @@ namespace WhistleWind.AbnormalSigils {
 
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             CardSlot slot = base.Card.OpposingSlot().GetAdjacent(true);
-            if (IsValid(slot)) {
-                yield break;
-            }
-            else {
+
+            // if left AO is not valid, get the right AO
+            if (!IsValid(slot)) {
                 slot = base.Card.OpposingSlot().GetAdjacent(false);
                 if (!IsValid(slot)) {
                     yield break;
