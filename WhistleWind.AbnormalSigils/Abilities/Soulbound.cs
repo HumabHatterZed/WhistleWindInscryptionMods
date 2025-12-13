@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string dialogue = "So this is what they feel...";
             Soulbound.ability = AbnormalAbilityHelper.CreateAbility<Soulbound>(
                 "sigilSoulboundFlesh",
-                rulebookName, rulebookDescription, dialogue, powerLevel: -10,
+                rulebookName, rulebookDescription, dialogue, powerLevel: -5,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
