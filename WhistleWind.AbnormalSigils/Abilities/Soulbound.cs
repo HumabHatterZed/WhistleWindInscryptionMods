@@ -14,9 +14,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilSoulboundFlesh",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -5,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

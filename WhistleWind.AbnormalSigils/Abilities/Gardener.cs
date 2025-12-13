@@ -16,9 +16,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilGardener",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

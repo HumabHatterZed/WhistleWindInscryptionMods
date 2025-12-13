@@ -18,9 +18,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilCycler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: true)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

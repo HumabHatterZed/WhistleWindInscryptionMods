@@ -16,9 +16,7 @@ namespace WhistleWind.AbnormalSigils {
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
                 "sigilRightfulHeir",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

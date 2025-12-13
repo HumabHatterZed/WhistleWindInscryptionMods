@@ -15,9 +15,6 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilAlluring",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
-
-
-
                 .Id;
         }
     }

@@ -19,9 +19,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
                 .SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

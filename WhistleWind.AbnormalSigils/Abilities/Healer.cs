@@ -21,9 +21,6 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: false, canStack: true)
-
-
-
                 .Info.SetTriggersOncePerStack()
                 .ability;
         }

@@ -14,9 +14,6 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilOneSided",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: true, opponent: true, canStack: true)
-
-
-
                 .Info.SetFlipYIfOpponent().ability;
         }
     }

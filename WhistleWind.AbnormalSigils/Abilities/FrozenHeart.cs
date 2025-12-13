@@ -16,9 +16,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilFrozenHeart",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

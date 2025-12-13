@@ -19,12 +19,9 @@ namespace WhistleWind.AbnormalSigils {
             AbilityManager.FullAbility ab = AbnormalAbilityHelper.CreateAbility<ExplosiveOpening>(
                 "sigilExplosiveOpening",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
-                modular: false, opponent: true, canStack: false)
-
-
-;
+                modular: false, opponent: true, canStack: false);
+                
             ab.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilExplosiveOpening_flipped.png"));
-
             ExplosiveOpening.ability = ab.Id;
         }
     }

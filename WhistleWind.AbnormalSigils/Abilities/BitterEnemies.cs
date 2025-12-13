@@ -23,9 +23,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
                 .SetMechanicRedirect("vendetta", "Bitter Vendetta", GameColors.Instance.glowRed)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

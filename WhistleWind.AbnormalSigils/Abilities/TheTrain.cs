@@ -16,9 +16,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilTheTrain",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 special: true)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

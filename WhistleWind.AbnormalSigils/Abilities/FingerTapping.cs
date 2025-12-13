@@ -12,9 +12,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilFingerTapping",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

@@ -17,9 +17,7 @@ namespace WhistleWind.AbnormalSigils {
             const string triggerText = "[creature] leads your creatures forward.";
             YellowBrickRoad.ability = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
                 "sigilYellowBrickRoad", rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2, special: true)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

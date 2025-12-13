@@ -17,9 +17,7 @@ namespace WhistleWind.AbnormalSigils {
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
                 "sigilFrostRuler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

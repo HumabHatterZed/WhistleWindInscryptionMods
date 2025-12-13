@@ -17,9 +17,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
                 .SetAbilityRedirect("Haste", Haste.iconId, GameColors.Instance.orange)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

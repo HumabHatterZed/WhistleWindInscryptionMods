@@ -17,9 +17,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilWitness",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2)
                 .SetAbilityRedirect("Flagellation", Prudence.iconId, GameColors.Instance.red)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

@@ -14,9 +14,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilWedge",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

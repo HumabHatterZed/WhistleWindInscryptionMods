@@ -14,9 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             NeuteredLatch.ability = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
                 "sigilNeuteredLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

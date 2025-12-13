@@ -16,9 +16,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
                 .SetSlotRedirect("Blooms", BloomingSlot.Id, Color.green)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

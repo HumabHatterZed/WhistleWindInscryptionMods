@@ -13,9 +13,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilUnderstanding",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

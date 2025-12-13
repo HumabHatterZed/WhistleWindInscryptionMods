@@ -12,9 +12,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilPersecutor",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

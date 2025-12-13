@@ -12,9 +12,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilBleachproof",
                 rulebookName, rulebookDescription, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

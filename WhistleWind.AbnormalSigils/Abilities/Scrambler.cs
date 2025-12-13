@@ -20,9 +20,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilScrambler",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

@@ -21,9 +21,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilCardScramble",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 modular: false, opponent: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

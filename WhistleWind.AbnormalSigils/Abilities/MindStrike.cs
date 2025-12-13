@@ -16,9 +16,10 @@ namespace WhistleWind.AbnormalSigils {
             MindStrike.ability = AbnormalAbilityHelper.CreateAbility<MindStrike>(
                 "sigilMindFlayer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: false, opponent: true, canStack: false).SetAbilityRedirect("Sinking", Sinking.iconId, GameColors.Instance.seafoam).Info
+                modular: false, opponent: true, canStack: false)
+                .SetAbilityRedirect("Sinking", Sinking.iconId, GameColors.Instance.seafoam).Info
                 .SetFlipYIfOpponent(true)
-                .AddMetaCategories(AbilityMetaCategory.GrimoraRulebook, AbilityMetaCategory.MagnificusRulebook, AbilityMetaCategory.Part3Rulebook).ability;
+                .ability;
         }
     }
     /// <summary>

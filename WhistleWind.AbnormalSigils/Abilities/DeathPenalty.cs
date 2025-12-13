@@ -13,9 +13,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilDeathPenalty",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: true)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

@@ -19,9 +19,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilFalseThrone",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4, special: true)
                 .SetAbilityRedirect("Neutered", Neutered.ability, GameColors.Instance.gray)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

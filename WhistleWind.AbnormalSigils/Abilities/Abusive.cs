@@ -18,9 +18,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
                 .SetAbilityRedirect("Stress Response", StressResponse.ability, GameColors.instance.glowRed)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

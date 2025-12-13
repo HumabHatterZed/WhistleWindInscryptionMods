@@ -14,9 +14,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilWoodcutter",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

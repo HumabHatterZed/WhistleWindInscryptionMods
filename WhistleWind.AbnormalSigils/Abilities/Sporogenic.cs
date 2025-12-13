@@ -20,9 +20,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: false, opponent: true, canStack: false)
                 .SetAbilityRedirect("Spores", Spores.iconId, GameColors.Instance.blue)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

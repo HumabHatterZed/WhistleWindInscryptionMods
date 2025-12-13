@@ -10,9 +10,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilOceanSoda",
                 rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

@@ -14,9 +14,6 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilLeftStrike",
                 rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
-
-
-
                 .Info.SetFlipYIfOpponent()
                 .ability;
         }

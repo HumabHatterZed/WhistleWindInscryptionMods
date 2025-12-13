@@ -18,9 +18,6 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilVolley",
                 rulebookName, rulebookDescription, powerLevel: 5,
                 modular: false, opponent: true, canStack: false)
-
-
-
                 .Info.SetFlipYIfOpponent()
                 .ability;
         }

@@ -18,9 +18,7 @@ namespace WhistleWind.AbnormalSigils {
             ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedGiftGiver>(
                 "sigilGiftLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

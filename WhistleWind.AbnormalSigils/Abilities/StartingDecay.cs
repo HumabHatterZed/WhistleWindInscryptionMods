@@ -15,9 +15,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, powerLevel: -3,
                 modular: false, opponent: false, canStack: true)
                 .SetAbilityRedirect("Decay", Decay.iconId, GameColors.Instance.darkPurple)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

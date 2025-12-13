@@ -17,9 +17,7 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: false, opponent: true, canStack: false)
                 .SetAbilityRedirect("Bind", Bind.iconId, GameColors.Instance.orange)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>

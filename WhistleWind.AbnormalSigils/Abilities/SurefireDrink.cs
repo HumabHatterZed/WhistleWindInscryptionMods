@@ -10,9 +10,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilSurefireDrink",
                 rulebookName, rulebookDescription, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
-
-
-.Id;
+                .Id;
         }
     }
     /// <summary>
