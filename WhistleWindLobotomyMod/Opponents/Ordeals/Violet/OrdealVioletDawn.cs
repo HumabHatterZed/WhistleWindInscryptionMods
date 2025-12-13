@@ -22,20 +22,28 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             CardModificationInfo mod = new();
-            int decayStacks = 2;
+            int decayStacks = 3;
+
+            // first fruit has higher timer
             if (maxFruit == fruitToSpawn) {
                 decayStacks++;
             }
             if (Opponent.Difficulty > 7) {
                 decayStacks--;
+                if (Opponent.Difficulty > 13) {
+                    decayStacks--;
+                }
             }
+
+            // last fruit has reduced timer
             if (fruitToSpawn == 1) {
                 decayStacks--;
             }
             for (int i = 0; i < decayStacks; i++) {
                 mod.abilities.Add(StartingDecay.ability);
+                //card.TriggerHandler.AddAbility(StartingDecay.ability);
             }
-            card.Info.Mods.Add(mod);
+            card.AddTemporaryMod(mod);
             card.OnStatsChanged();
             fruitToSpawn--;
         }

@@ -19,14 +19,14 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
-                .AddAbilities(StartingDecay.ability, StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
+                .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Ordeal, Trait.Uncuttable)
                 .Build();
 
             CardInfo mini = CardManager.New(LobotomyPlugin.pluginPrefix, "grantMeSize", "Grant Me Size",
-                attack: 1, health: 4)
+                attack: 0, health: 4)
                 .SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "grantUsLove")
                 .AddAbilities(Ability.Evolve, Ability.MadeOfStone)
