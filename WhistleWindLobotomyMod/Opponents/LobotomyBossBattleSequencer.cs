@@ -1,12 +1,7 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;

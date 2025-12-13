@@ -4,7 +4,6 @@ using InscryptionAPI.RuleBook;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -16,9 +15,9 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, powerLevel: -3,
                 modular: false, opponent: false, canStack: true)
                 .SetAbilityRedirect("Decay", Decay.iconId, GameColors.Instance.darkPurple)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

@@ -19,9 +19,9 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
                 .SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>
@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils {
     public class Lonely : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-        
+
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => base.Card == attacker && CheckValid(slot);
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
             yield return slot.Card.AddStatusEffectToFaceDown<Pebble>();

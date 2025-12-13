@@ -17,7 +17,6 @@ using MagnificusMod;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace BonniesBakingPack {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]

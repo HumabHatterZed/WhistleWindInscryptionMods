@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using GracesGames.Common.Scripts;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,9 +19,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilCopycat",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

@@ -16,9 +16,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilFrozenHeart",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

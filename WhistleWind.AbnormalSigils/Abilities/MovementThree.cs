@@ -13,9 +13,13 @@ namespace WhistleWind.AbnormalSigils {
             MovementThree.ability = AbilityHelper.NewFiller<MovementThree>(
                 pluginGuid, "sigilMovementThree", rulebookName, rulebookDescription)
                 .SetPart3Rulebook()
-                .SetGrimoraRulebook()
                 .SetMagnificusRulebook()
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
+                .SetGrimoraRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
+                .SetPassive(false)
+                .SetPowerlevel(5)
+                .ability;
         }
     }
     /// <summary>

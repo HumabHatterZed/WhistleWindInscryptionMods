@@ -5,8 +5,6 @@ using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
-using WhistleWind.Core.Helpers;
-
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_RightStrike() {
@@ -16,9 +14,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilRightStrike",
                 rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook()
+
+
+
                 .Info.SetFlipYIfOpponent()
                 .ability;
         }

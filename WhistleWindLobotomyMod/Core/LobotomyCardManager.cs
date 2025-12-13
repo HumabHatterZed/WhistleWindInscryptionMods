@@ -5,7 +5,6 @@ using InscryptionAPI.Guid;
 using InscryptionAPI.Saves;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 

@@ -3,11 +3,7 @@ using InscryptionAPI.Helpers;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
-using InscryptionAPI.Triggers;
-using Pixelplacement;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static BonniesBakingPack.BakingPlugin;
 

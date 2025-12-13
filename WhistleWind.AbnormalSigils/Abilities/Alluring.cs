@@ -1,12 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Linq;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -19,9 +15,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilAlluring",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook()
+
+
+
                 .Id;
         }
     }

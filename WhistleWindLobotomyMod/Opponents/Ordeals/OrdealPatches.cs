@@ -3,7 +3,6 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
@@ -52,6 +51,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             if (__result is BossBattleNodeData) {
+                // if no order was decided or it's the final region and we are overriding with the white ordeals
                 if (OrdealRegionOrder == null || (RunState.CurrentRegionTier == 3 && LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id))) {
                     return;
                 }
@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     ordealType = RunState.CurrentRegionTier < OrdealRegionOrder.Length ? OrdealRegionOrder[RunState.CurrentRegionTier] : OrdealType.Green,
                     totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)
                 };
-                bossData.specialBattleId = bossData.ordealType switch { 
+                bossData.specialBattleId = bossData.ordealType switch {
                     OrdealType.Violet => OrdealUtils.VioletMidnight,
                     OrdealType.Amber => OrdealUtils.AmberMidnight,
                     _ => OrdealUtils.GreenMidnight
@@ -186,7 +186,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 tier = ordealNodeData.tier;
                 type = ordealNodeData.ordealType;
                 totemOpponent = ordealNodeData.totemOpponent;
-                
+
                 ordealNodeData.specialBattleId = type switch {
                     OrdealType.Green => tier switch {
                         1 => OrdealUtils.GreenNoon,

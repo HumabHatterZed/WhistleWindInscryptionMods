@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -13,9 +12,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilPersecutor",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

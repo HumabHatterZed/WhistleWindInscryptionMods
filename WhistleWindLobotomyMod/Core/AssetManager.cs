@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod.Core {
             twistedBuildings[0].radius = 0.096f;
             twistedBuildings[0].minScale = new(6f, 6f);
             twistedBuildings[0].maxScale = new(8f, 8f);
-            
+
             twistedBuildings[0].prefabNames = new() { "twisted_building", "twisted_building_2" };
             twistedBuildings[0].baseEulers = new(266f, 0f, 0f);
 

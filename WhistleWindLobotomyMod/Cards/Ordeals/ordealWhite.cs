@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(traits)
                 .Build();
-            
+
             CardInfo white2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite, "White Fixer",
                 attack: 1, health: 10)
                 .SetEnergyCost(8)
@@ -77,7 +77,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(traits)
                 .SetEvolve(white2, 2)
                 .Build();
-            
+
             white3.SetEvolve(white, 1);
 
             CardInfo black2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack2, "Black Fixer",

@@ -15,9 +15,9 @@ namespace WhistleWind.AbnormalSigils {
             Alchemist.ability = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
                 "sigilAlchemist",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

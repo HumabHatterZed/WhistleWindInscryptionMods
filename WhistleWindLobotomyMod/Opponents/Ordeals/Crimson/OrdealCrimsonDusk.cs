@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 encounterData.Blueprint.AddTurn();
             }
             encounterData.Blueprint.AddTurn(turn);
-            
+
             if (RunState.CurrentRegionTier < 2) {
                 encounterData.Blueprint.AddTurn();
             }

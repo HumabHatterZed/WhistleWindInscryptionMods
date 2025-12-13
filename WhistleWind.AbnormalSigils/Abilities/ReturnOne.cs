@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
-using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod.Opponents {

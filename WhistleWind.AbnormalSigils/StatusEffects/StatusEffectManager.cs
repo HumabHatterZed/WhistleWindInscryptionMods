@@ -176,7 +176,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
             }
 
             component.ModifyPotency(amount, updateDecals);
-            
+
             yield return CustomTriggerFinder.TriggerAll<IOnStatusEffectAdded>(firstStack,
                 x => x.RespondsToStatusEffectAdded(card, amount, component, firstStack),
                 x => x.OnStatusEffectAdded(card, amount, component, firstStack));

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWindLobotomyMod.Opponents;
 

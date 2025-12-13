@@ -10,7 +10,6 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.AbilityClasses;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -22,9 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilCardScramble",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 modular: false, opponent: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

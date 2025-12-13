@@ -21,9 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 modular: false, opponent: false, canStack: false)
                 .SetSlotRedirect("Flood", FloodedSlot.Id, GameColors.Instance.brightSeafoam)
                 .SetAbilityRedirect("Scorching", Scorching.ability, GameColors.Instance.red)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook()
+
+
+
                 .Id;
         }
     }

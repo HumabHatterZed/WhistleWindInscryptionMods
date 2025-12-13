@@ -17,9 +17,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilConductor",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+                .Id;
 
             Ability_Conductor1();
             Ability_Conductor2();

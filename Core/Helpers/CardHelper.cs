@@ -2,7 +2,6 @@
 using InscryptionAPI.Card;
 using System.Reflection;
 using UnityEngine;
-using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace WhistleWind.Core.Helpers {
     public static class CardHelper {

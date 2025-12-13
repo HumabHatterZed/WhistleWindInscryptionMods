@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;

@@ -143,7 +143,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 LobotomyPlugin.Log.LogWarning("Could not get twisted_building scenery data");
             }
 
-            
+
             whiteOrdealRegion.predefinedNodes = ScriptableObject.CreateInstance<PredefinedNodes>();
             whiteOrdealRegion.predefinedNodes.nodeRows = new(leshy.predefinedNodes.nodeRows);
             whiteOrdealRegion.predefinedNodes.nodeRows[2] = new() {

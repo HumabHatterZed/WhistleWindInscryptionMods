@@ -1,13 +1,7 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionCommunityPatch.Card;
-using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.Core.AbilityClasses {
     public abstract class NoFirstPersonTargetSlotItem : TargetSlotItem {

@@ -191,7 +191,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(0.1f);
-            
+
             if (drawPiles.turnsSinceExhausted > 7) {
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true);
                 BattleSequencer.HighestPositiveScaleBalance--; // really show the player i hate them

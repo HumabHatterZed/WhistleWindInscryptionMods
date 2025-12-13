@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -15,9 +14,9 @@ namespace WhistleWind.AbnormalSigils {
             NeuteredLatch.ability = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
                 "sigilNeuteredLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

@@ -43,6 +43,7 @@
 - 1.75 MHz: now belongs to the Mechanical tribe
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
+- Angela: Fixed eyes disappearing whenever she blinked
 - Apocalypse Bird: changed evolution name
 - <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
 - <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike

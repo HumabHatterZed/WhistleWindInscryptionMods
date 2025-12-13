@@ -6,8 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
-using WhistleWind.Core.Helpers;
-
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Damsel() {
@@ -18,9 +16,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilDamsel",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

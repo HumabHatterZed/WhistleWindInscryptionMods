@@ -1,13 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
 using Sirenix.Utilities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -58,7 +54,9 @@ namespace WhistleWindLobotomyMod {
 
                     abilities.AbilityByID(Ability.ExplodeOnDeath).Info
                         .SetRulebookName("Volatile")
+                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilVolatile.png"))
                         .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", LobotomyPlugin.ModAssembly))
+                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilVolatile_pixel.png"))
                         .SetFlipYIfOpponent(false)
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 

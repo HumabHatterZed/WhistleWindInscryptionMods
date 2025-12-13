@@ -1,10 +1,6 @@
 ﻿using BepInEx.Bootstrap;
-using Infiniscryption.Achievements;
 using Infiniscryption.PackManagement;
-using InscryptionAPI.Card;
-using System.Linq;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Patches;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 

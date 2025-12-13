@@ -4,11 +4,9 @@ using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
@@ -39,7 +37,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             int numRemoved = 0;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
             for (int i = 0; i < slots.Count; i++) {
-                if (SeededRandom.Value(rand++) <= (slots[i].Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 0.25f :(0.5f - numRemoved * 0.15f))) {
+                if (SeededRandom.Value(rand++) <= (slots[i].Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 0.25f : (0.5f - numRemoved * 0.15f))) {
                     slots.Remove(slots[i]);
                     numRemoved++;
                     i--;

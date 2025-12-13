@@ -14,10 +14,14 @@ namespace WhistleWind.AbnormalSigils {
             MovementFour.ability = AbilityHelper.NewFiller<MovementFour>(
                 pluginGuid, "sigilMovementFour", rulebookName, rulebookDescription)
                 .SetPart3Rulebook()
-                .SetGrimoraRulebook()
                 .SetMagnificusRulebook()
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5)
-                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).ability;
+                .SetGrimoraRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
+                .SetPassive(false)
+                .SetPowerlevel(5)
+                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed)
+                .ability;
         }
     }
     /// <summary>

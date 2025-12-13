@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -16,9 +15,9 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, powerLevel: 1,
                 modular: true, opponent: true, canStack: false)
                 .SetAbilityRedirect("Haste", Haste.iconId, GameColors.Instance.orange)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

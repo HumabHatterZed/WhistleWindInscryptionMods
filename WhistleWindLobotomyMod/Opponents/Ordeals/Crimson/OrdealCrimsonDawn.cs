@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 encounterData.startConditions.Add(cond);
                 num += 2;
             }
-            
+
             for (int i = 0; i < numTurns; i++) {
                 List<EncounterBlueprintData.CardBlueprint> turn = new() {
                     EncounterManager.NewCardBlueprint(Cards.skinCheers),

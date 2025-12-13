@@ -17,9 +17,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilReturnToNihil",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, special: true, opponent: false, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Triggers;
-using System.Collections;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 

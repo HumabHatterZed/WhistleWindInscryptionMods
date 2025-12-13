@@ -128,10 +128,12 @@ namespace WhistleWind.AbnormalSigils {
         private void AddAbilities() {
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
                 StatusEffectManager.SyncStatusEffects();
+                VerifyCustomSigilUsage(abilities);
                 abilities.AbilityByID(Ability.MadeOfStone).Info.SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
                 abilities.AbilityByID(Ability.SkeletonStrafe).Info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
                 return abilities;
             };
+
             CardManager.ModifyCardList += delegate (List<CardInfo> infos) {
                 infos.Find(x => x.name == "!GIANTCARD_MOON")?.SetUniqueCopycat("wstl_miniMoon");
                 infos.Find(x => x.name == "!GIANTCARD_SHIP")?.SetUniqueCopycat("wstl_littlecello");
@@ -292,6 +294,40 @@ namespace WhistleWind.AbnormalSigils {
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
+
+        internal static void VerifyCustomSigilUsage(List<AbilityManager.FullAbility> abilities) {
+            foreach (AbilityManager.FullAbility ability in abilities.Where(x => x.ModGUID == pluginGuid)) {
+                List<CardInfo> validCards = CardManager.AllCardsCopy.FindAll(x => x.HasAbility(ability.Id));
+                if (validCards.Count == 0) {
+                    continue;
+                }
+
+                bool rulebook = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.ADDTORULEBOOK) == true;
+                bool modular = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.ADDTORULEBOOK) == true;
+
+                if (validCards.Exists(x => x.temple == CardTemple.Nature) || modular) {
+                    if (rulebook) {
+                        ability.Info.metaCategories.Add(AbilityMetaCategory.Part1Rulebook);
+                    }
+                    if (modular) {
+                        ability.Info.metaCategories.Add(AbilityMetaCategory.Part1Modular);
+                    }
+                }
+
+                if (validCards.Exists(x => x.temple == CardTemple.Tech) && rulebook) {
+                    ability.Info.metaCategories.Add(AbilityMetaCategory.Part3Rulebook);
+                }
+
+                if (validCards.Exists(x => x.temple == CardTemple.Undead) && rulebook) {
+                    ability.Info.metaCategories.Add(AbilityMetaCategory.GrimoraRulebook);
+                }
+
+                if (validCards.Exists(x => x.temple == CardTemple.Wizard) && rulebook) {
+                    ability.Info.metaCategories.Add(AbilityMetaCategory.MagnificusRulebook);
+                }
+            }
+        }
+
 
         public static class TribalAPI {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");

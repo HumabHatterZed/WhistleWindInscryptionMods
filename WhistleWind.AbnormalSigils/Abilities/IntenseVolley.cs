@@ -8,7 +8,6 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -19,9 +18,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilVolley",
                 rulebookName, rulebookDescription, powerLevel: 5,
                 modular: false, opponent: true, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook()
+
+
+
                 .Info.SetFlipYIfOpponent()
                 .ability;
         }
@@ -111,7 +110,7 @@ namespace WhistleWind.AbnormalSigils {
         public bool RespondsToPlayerTurnEnd() => !base.Card.OpponentCard;
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
             => card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;
-        
+
         public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
         public int PlayerTurnEndPriority() => 0;
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)

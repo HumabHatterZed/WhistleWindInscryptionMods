@@ -1,10 +1,8 @@
 ﻿using Core.Helpers;
-using DigitalRuby.LightningBolt;
 using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

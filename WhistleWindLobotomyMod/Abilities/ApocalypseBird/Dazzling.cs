@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;

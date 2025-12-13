@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
 
 using static InscryptionAPI.Card.AbilityManager;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers {
     public static class LobotomyAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge

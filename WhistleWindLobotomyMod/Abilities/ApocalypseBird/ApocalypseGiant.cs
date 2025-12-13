@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;

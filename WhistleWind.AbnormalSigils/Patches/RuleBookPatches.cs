@@ -1,15 +1,5 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
-using Sirenix.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using WhistleWind.AbnormalSigils.Core;
 
 namespace WhistleWind.AbnormalSigils.Patches {
     [HarmonyPatch]

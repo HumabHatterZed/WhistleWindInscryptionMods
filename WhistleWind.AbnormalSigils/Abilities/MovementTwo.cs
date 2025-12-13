@@ -12,9 +12,13 @@ namespace WhistleWind.AbnormalSigils {
             MovementTwo.ability = AbilityHelper.NewFiller<MovementTwo>(
                 pluginGuid, "sigilMovementTwo", rulebookName, rulebookDescription)
                 .SetPart3Rulebook()
-                .SetGrimoraRulebook()
                 .SetMagnificusRulebook()
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
+                .SetGrimoraRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
+                .SetPassive(false)
+                .SetPowerlevel(5)
+                .ability;
         }
     }
     /// <summary>

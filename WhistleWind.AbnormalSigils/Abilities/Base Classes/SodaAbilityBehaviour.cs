@@ -1,14 +1,10 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
-using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public abstract class SodaAbilityBehaviour : AbilityBehaviour {

@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Saves;
-using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

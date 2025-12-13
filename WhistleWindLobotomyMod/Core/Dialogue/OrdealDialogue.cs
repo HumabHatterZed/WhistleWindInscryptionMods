@@ -5,6 +5,10 @@ using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
         private void Dialogue_FirstOrdeal() {
+            CreateDialogueEvents("OrdealNonOrdealKilled", new() {
+                "Abhorrent though that creature was, its death will not reduce the counter.",
+                "Aim for the others. Before you're overwhelmed." });
+
             CreateDialogueEvents("OrdealExhausted", new() {
                 "It seems you've run dry.",
                 "Worry not, it's not over for you yet.",

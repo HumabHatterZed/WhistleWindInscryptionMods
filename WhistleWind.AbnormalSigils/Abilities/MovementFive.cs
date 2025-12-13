@@ -15,10 +15,14 @@ namespace WhistleWind.AbnormalSigils {
             MovementFive.ability = AbilityHelper.NewFiller<MovementFive>(
                 pluginGuid, "sigilMovementFive", rulebookName, rulebookDescription)
                 .SetPart3Rulebook()
-                .SetGrimoraRulebook()
                 .SetMagnificusRulebook()
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false)
-                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).SetPowerlevel(5).ability;
+                .SetGrimoraRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
+                .SetPassive(false)
+                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed)
+                .SetPowerlevel(5)
+                .ability;
         }
     }
     /// <summary>

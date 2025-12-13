@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Triggers;
 
 //using InscryptionAPI.Slots;
-using System.Collections;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod {

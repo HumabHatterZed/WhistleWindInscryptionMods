@@ -14,7 +14,13 @@ namespace WhistleWind.AbnormalSigils {
             const string triggerText = "The beasts start to forget everything for the symphony.";
             MovementOne.ability = AbilityHelper.NewFiller<MovementOne>(
                 pluginGuid, "sigilMovementOne", rulebookName, rulebookDescription)
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(3).ability;
+                .SetPart3Rulebook()
+                .SetMagnificusRulebook()
+                .SetGrimoraRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
+                .SetPassive(false)
+                .SetPowerlevel(3).ability;
 
             Fervent.data.IconInfo.SetAbilityRedirect("Movement", MovementOne.ability, GameColors.Instance.gray);
         }

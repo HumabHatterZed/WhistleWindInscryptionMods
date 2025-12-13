@@ -1,13 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Saves;
-using InscryptionAPI.Slots;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod {
     public class MimicryCombat : SpecialCardBehaviour {

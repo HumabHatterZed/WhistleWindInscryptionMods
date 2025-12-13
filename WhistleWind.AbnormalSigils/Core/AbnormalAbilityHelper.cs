@@ -9,6 +9,9 @@ using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers {
     public static class AbnormalAbilityHelper {
+        public const string ADDTORULEBOOK = "wstl_ADDTORULEBOOK";
+        public const string FORCEMODULAR = "wstl_FORCEMODULAR";
+
         public static CardInfo SetUniqueCopycat(this CardInfo info, string id) => info.SetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID, id);
 
         public static CardInfo SetGiftGiverId(this CardInfo info, string id) => info.SetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY, id);
@@ -79,13 +82,16 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
             string dialogue = null, string triggerText = null,
             int powerLevel = 0,
             bool canStack = false, bool modular = false, bool opponent = false,
-            bool unobtainable = false, bool special = false)
-            where T : AbilityBehaviour {
+            bool unobtainable = false, bool special = false) where T : AbilityBehaviour {
             bool addToRulebook = AddToRulebook(AbilityGroup.Normal, unobtainable, special);
             bool forceModular = ForceModularity(AbilityGroup.Normal, modular, unobtainable, special);
-            return AbilityHelper.New<T>(pluginGuid,
-                abilityName, rulebookName, rulebookDescription, powerLevel, addToRulebook, dialogue, triggerText,
-                canStack, forceModular, opponent);
+            FullAbility ab = AbilityHelper.New<T>(pluginGuid,
+                abilityName, rulebookName, rulebookDescription, powerLevel, false, dialogue, triggerText,
+                canStack, false, opponent);
+
+            ab.SetExtendedProperty(ADDTORULEBOOK, addToRulebook);
+            ab.SetExtendedProperty(FORCEMODULAR, forceModular);
+            return ab;
         }
 
         public static FullAbility CreateActivatedAbility<T>(
@@ -97,8 +103,12 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
             where T : AbilityBehaviour {
             bool addToRulebook = AddToRulebook(AbilityGroup.Activated, unobtainable, special);
             bool forceModular = ForceModularity(AbilityGroup.Activated, false, unobtainable, special);
-            return AbilityHelper.NewActivated<T>(pluginGuid, abilityName, rulebookName, rulebookDescription, powerLevel, addToRulebook, dialogue, triggerText,
-                false, forceModular);
+            FullAbility ab = AbilityHelper.NewActivated<T>(pluginGuid, abilityName, rulebookName, rulebookDescription, powerLevel, false, dialogue, triggerText,
+                false, false);
+
+            ab.SetExtendedProperty(ADDTORULEBOOK, addToRulebook);
+            ab.SetExtendedProperty(FORCEMODULAR, forceModular);
+            return ab;
         }
 
         private static bool AddToRulebook(AbilityGroup defaultGroup, bool rulebookOnly, bool special) {

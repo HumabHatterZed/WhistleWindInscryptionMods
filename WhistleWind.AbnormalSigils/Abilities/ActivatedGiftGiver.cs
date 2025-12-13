@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -19,9 +18,9 @@ namespace WhistleWind.AbnormalSigils {
             ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedGiftGiver>(
                 "sigilGiftLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils.Core {
             Config_DisableModular = WstlConfigFile.Bind(
                     "Settings.Abilities", "Disable Abilities", AbnormalAbilityHelper.AbilityGroup.None,
                     new ConfigDescription(
-                        "Disables abilities based on type group, preventing them from being seen in the Rulebook or obtained as totem bases.\n" +
+                        "Disables abilities based on type group, preventing them from being seen in the Rulebook or obtained through regular gameplay.\n" +
                         "This overrides any settings in Make Modular."));
 
             Config_MakeModular = WstlConfigFile.Bind(

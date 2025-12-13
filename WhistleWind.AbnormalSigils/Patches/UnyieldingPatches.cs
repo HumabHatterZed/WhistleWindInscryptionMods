@@ -1,13 +1,7 @@
 ﻿using DiskCardGame;
-using GBC;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using InscryptionAPI.Triggers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils.Patches {
@@ -85,10 +79,10 @@ namespace WhistleWind.AbnormalSigils.Patches {
         }
         [HarmonyPrefix, HarmonyPatch(typeof(GuardDog), nameof(GuardDog.RespondsToOtherCardResolve))]
         private static bool PreventGuardDogging(GuardDog __instance, ref bool __result) => UnyieldingPatchCheck(__instance.Card, ref __result);
-        
+
         [HarmonyPrefix, HarmonyPatch(typeof(MoveBeside), nameof(MoveBeside.RespondsToOtherCardResolve))]
         private static bool PreventClingyBehaviour(MoveBeside __instance, ref bool __result) => UnyieldingPatchCheck(__instance.Card, ref __result);
-        
+
         [HarmonyPrefix, HarmonyPatch(typeof(TailOnHit), nameof(TailOnHit.RespondsToCardGettingAttacked))]
         private static bool PreventTailLoss(TailOnHit __instance, ref bool __result) => UnyieldingPatchCheck(__instance.Card, ref __result);
 
@@ -190,8 +184,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         private static void HandleSlotRotation(
             CardSlot slot, bool clockwise, int edgeIndex,
             List<CardSlot> playerSlots, List<CardSlot> opponentSlots,
-            Dictionary<PlayableCard, CardSlot> originalSlots, Dictionary<PlayableCard, CardSlot> destinations)
-        {
+            Dictionary<PlayableCard, CardSlot> originalSlots, Dictionary<PlayableCard, CardSlot> destinations) {
             AbnormalPlugin.Log.LogInfo($"Cache player slot {slot.Index}");
             int nextIndex;
             CardSlot destination;
@@ -211,8 +204,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         }
         private static CardSlot DetermineDestination(
             CardSlot slot, int edgeIndex, int nextIndex,
-            List<CardSlot> sameSideSlots, List<CardSlot> opposingSlots)
-        {
+            List<CardSlot> sameSideSlots, List<CardSlot> opposingSlots) {
             if (slot.Card == null || !Unyielding.CardCanBeMoved(slot.Card)) {
                 return null;
             }

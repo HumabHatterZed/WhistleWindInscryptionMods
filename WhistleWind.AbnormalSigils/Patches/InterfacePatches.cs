@@ -1,12 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Patches {
     [HarmonyPatch]
@@ -23,7 +21,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
                 }
             }
             yield return result;
-        } 
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
         private static IEnumerator TriggerOnTurnEndPlayer(IEnumerator result, TurnManager __instance) {
             yield return result;

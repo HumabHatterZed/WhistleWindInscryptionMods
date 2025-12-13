@@ -1,10 +1,5 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
-using System.Linq;
-using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]

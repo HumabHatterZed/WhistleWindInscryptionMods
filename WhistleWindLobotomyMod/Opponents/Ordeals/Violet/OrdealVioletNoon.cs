@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -73,7 +72,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
 
-        
+
 
         public IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();

@@ -20,9 +20,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilNettles",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>
@@ -113,7 +113,7 @@ namespace WhistleWind.AbnormalSigils {
 
             base.Card.RemoveTemporaryMod(base.Card.TemporaryMods.Find(x => x.singletonId == LEFT_MOD_ID));
             base.Card.RemoveTemporaryMod(base.Card.TemporaryMods.Find(x => x.singletonId == RIGHT_MOD_ID));
-            
+
             LEFT_MOD = new() { singletonId = LEFT_MOD_ID, nonCopyable = true };
             RIGHT_MOD = new() { singletonId = RIGHT_MOD_ID, nonCopyable = true };
             beginChecks = true; // make sure everything has fully loaded before we start doing per-frame checks

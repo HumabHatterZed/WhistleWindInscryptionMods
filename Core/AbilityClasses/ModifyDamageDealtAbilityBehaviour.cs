@@ -1,10 +1,7 @@
 ﻿using Core.Helpers;
 using DiskCardGame;
 using InscryptionAPI.Triggers;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Core.AbilityClasses {
     public abstract class ModifyDamageDealtAbilityBehaviour : AbilityBehaviour, IModifyDamageTaken, IPostCardGettingAttacked {

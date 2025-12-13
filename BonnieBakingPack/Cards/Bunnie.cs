@@ -1,14 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
-using InscryptionAPI.TalkingCards.Create;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static BonniesBakingPack.BakingPlugin;
 
 namespace BonniesBakingPack {
     public partial class BakingPlugin {

@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections;
-using UnityEngine;
 
 namespace BonniesBakingPack {
     public partial class BakingPlugin {

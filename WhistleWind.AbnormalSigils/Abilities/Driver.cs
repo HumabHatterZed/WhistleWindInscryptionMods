@@ -3,8 +3,6 @@ using InscryptionAPI.Card;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
-using WhistleWind.Core.Helpers;
-
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Driver() {
@@ -16,9 +14,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilDriver",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: true, canStack: false)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook().Id;
+
+
+.Id;
         }
     }
     /// <summary>

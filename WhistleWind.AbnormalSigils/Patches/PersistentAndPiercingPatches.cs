@@ -6,7 +6,6 @@ using Pixelplacement;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Patches {
     /// <summary>
@@ -34,7 +33,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
                         __result = false;
                     }
                 }
-                else if (__instance.HasAbility(Persistent.ability)){
+                else if (__instance.HasAbility(Persistent.ability)) {
                     __result = false;
                 }
             }

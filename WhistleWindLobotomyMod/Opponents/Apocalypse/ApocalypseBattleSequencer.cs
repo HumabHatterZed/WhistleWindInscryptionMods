@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             List<CardSlot> possibleTargetSlots;
             int maxCount;
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-            
+
             if (BossOpponent.NumLives < 3 || ReactiveDifficulty > 8) {
                 possibleTargetSlots = BoardManager.Instance.PlayerSlotsCopy;
                 maxCount = possibleTargetSlots.Count;
@@ -199,7 +199,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             yield return new WaitForSeconds(0.1f);
         }
         #endregion
-        
+
         #endregion
 
         #region Small Beak
@@ -647,7 +647,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
 
             //// if we're switching due to losing a life, reset the turn plan and create the next turn plan
             //if (lostLife) {
-                
+
             //    //BossOpponent.NumTurnsTaken = 0; // reset NumTurnsTaken so the turn plan doesn't break
             //    //CreateNextTurnPlan();
 
@@ -734,7 +734,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             if (!opposingSlot.IsPlayerSlot && directDamageCache > 2) {
                 yield return IncreaseReactiveDifficulty(directDamageCache % 3);
             }
-            
+
             if (finalPhase && attacker == BossCard) {
                 if (giantTargetSlots[1].Contains(opposingSlot))
                     BossCard.HealDamage(damage * 2);

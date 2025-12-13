@@ -21,9 +21,9 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: false, canStack: true)
-                .SetPart3Rulebook()
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook()
+
+
+
                 .Info.SetTriggersOncePerStack()
                 .ability;
         }
