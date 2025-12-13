@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
@@ -10,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Piercing() {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "[creature] can strike through breakable shields. Opposing cards cannot reduce or prevent damage dealt by this card.";
+            const string rulebookDescription = "[creature] can strike face down cards and through shields. Opposing cards cannot reduce damage dealt by this card.";
             const string dialogue = "Even the thickest hide can be run through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
@@ -23,27 +24,42 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// [creature] can strike through breakable shields. Opposing cards cannot reduce or prevent damage dealt by this card.
+    /// [creature] can strike face down cards and through shields. Opposing cards cannot reduce damage dealt by this card.
     /// </summary>
     public class Piercing : AbilityBehaviour, IModifyDamageTaken, IShieldPreventedDamage {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => true;
+        private bool forcedFaceUp = false;
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
+            return attacker == base.Card && slot.Card != null && slot.Card.FaceDown;
+        }
+
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
+            forcedFaceUp = true;
+            yield return slot.Card.FlipFaceUp(true);
+        }
+
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => forcedFaceUp || CardTriggersPiercingDialogue(target);
+
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
-            if (target.HasAnyOfAbilities(Ability.DeathShield, Ability.PreventAttack, ThickSkin.ability)
-                || target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability))) {
-                yield return LearnAbility(0.25f);
+            yield return LearnAbility(0.25f);
+            if (forcedFaceUp && !target.Dead) {
+                yield return new WaitForSeconds(0.5f);
+                yield return target.FlipFaceDown(true);
+                forcedFaceUp = false;
             }
         }
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card && damage < originalDamage;
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+            => attacker == base.Card && damage < originalDamage;
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
             return originalDamage;
         }
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -9000;
 
-        public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => attacker == base.Card && target.LacksAbility(InfiniteShield.ability);
+        public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) =>
+            attacker == base.Card && target.LacksAbility(InfiniteShield.ability);
 
         public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
             // recreate TakeDamage logic
@@ -72,5 +88,14 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public int ShieldPreventedDamagePriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
+
+        public static bool CardTriggersPiercingDialogue(PlayableCard card) {
+            if (card != null) {
+                return card.FaceDown
+                    || card.HasAnyOfAbilities(Ability.DeathShield, ThickSkin.ability)
+                    || card.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability));
+            }
+            return false;
+        }
     }
 }

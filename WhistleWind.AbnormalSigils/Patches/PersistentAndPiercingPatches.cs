@@ -15,30 +15,37 @@ namespace WhistleWind.AbnormalSigils.Patches {
     [HarmonyPatch]
     internal class PersistentAndPiercingPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanAttackDirectly))]
-        private static void AllowAttackingSubmerged(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
+        private static void CanAttackDirectlyPatch(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
             if (opposingSlot.Card == null) {
                 return;
             }
 
-            if (opposingSlot.Card.HasAbility(Ethereal.ability)) // Ethereal cards cannot be hit normally
-            {
+            // Ethereal cards cannot be hit
+            if (opposingSlot.Card.HasAbility(Ethereal.ability)) {
                 __result = true;
+                return;
             }
 
-            if (__instance.HasAbility(Persistent.ability)) // Persistent cards can always hit cards unless it has Flying and they can't Reach
-            {
-                __result = __instance.HasAbility(Ability.Flying) && opposingSlot.Card.LacksAbility(Ability.Reach);
+            // if we can make direct contact with the opposing card
+            if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach)) {
+                // piercing can always hit face down cards while persistent can always hit face up cards
+                if (opposingSlot.Card.FaceDown) {
+                    __result = __instance.HasAbility(Piercing.ability);
+                }
+                else {
+                    __result = __instance.HasAbility(Persistent.ability);
+                }
             }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.AttackIsBlocked))]
-        private static void NotAffectedByRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
+        private static void PersistentIgnoresRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
             if (__instance.HasAbility(Persistent.ability))
                 __result = false;
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
-        private static bool PerformPersistence(CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot, float waitAfter, ref IEnumerator __result) {
+        private static bool PerformPersistenceAttack(CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot, float waitAfter, ref IEnumerator __result) {
             // both opposing and attacker cards must exist
             if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Persistent.ability)
                 && AbnormalAbilityHelper.SimulatePersistentAttack(attackingSlot.Card, opposingSlot.Card)) {
@@ -53,7 +60,6 @@ namespace WhistleWind.AbnormalSigils.Patches {
             CardSlot attackingSlot = attacker;
             PlayableCard persistentTarget = opposingSlot.Card;
 
-            bool forcedFaceUp = persistentTarget.FaceDown;
             bool targetHasMoved = false;
 
             yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.SlotTargetedForAttack, false, opposingSlot, attackingSlot.Card);
@@ -120,9 +126,6 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
                     attackingSlot = attackingCard.Slot;
 
-                    if (forcedFaceUp)
-                        yield return ForceTargetFaceUp(opposingSlot, attackingSlot);
-
                     if (attackingSlot.Card.IsFlyingAttackingReach()) {
                         opposingSlot.Card.Anim.PlayJumpAnimation();
                         yield return new WaitForSeconds(0.3f);
@@ -143,14 +146,8 @@ namespace WhistleWind.AbnormalSigils.Patches {
                 }
             }
             yield return new WaitForSeconds(waitAfter);
-            if (targetHasMoved || forcedFaceUp)
+            if (targetHasMoved)
                 yield return attacker.Card.GetComponent<Persistent>().LearnAbility(waitAfter);
-
-            yield return opposingSlot.Card?.FlipFaceDown(forcedFaceUp);
-        }
-        private static IEnumerator ForceTargetFaceUp(CardSlot opposingSlot, CardSlot attacker) {
-            yield return opposingSlot.Card.FlipFaceDown(false, 0.45f);
-            yield return attacker.Card.GetComponent<Persistent>().PreSuccessfulTriggerSequence();
         }
 
         private static IEnumerator UpdateSniperIcons(CombatPhaseManager instance, CardSlot attacker, CardSlot previousSlot, CardSlot newSlot) {
