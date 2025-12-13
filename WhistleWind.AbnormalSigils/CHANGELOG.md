@@ -100,6 +100,8 @@
 - Nettle Clothes - changed singleton id used for tracking added sigils
 - Opportunistic - reworked to trigger against injured cards
 - Persecutor - summoned cards are now considered Terrain, have 1 Health
+- Persistent - no longer affects face down cards
+- Piercing - now affects face down cards
 - Punisher - now activates on card death instead of on taking damage
 - Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
 - Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
@@ -133,7 +135,7 @@
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Added the following sigils sigils:
-    - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different previous Gift Giver)
+    - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Unbreakable Defence, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different from previous Gift Giver), Alluring
 - Added the following stat icons:
     - Flower Power
 - Added the following status effects:

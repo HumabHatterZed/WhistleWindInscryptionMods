@@ -37,7 +37,7 @@ Testing and Feedback:
 
 |Name|Totem|Stacks|Power|Description
 :-|:-:|:-:|-:|:-
-Punisher			|X|X|4	|When a card bearing this sigil is struck and killed, the attacker also perishes.
+Punisher			|X|X|4	|When [creature] is struck and killed, the attacker perishes as well.
 Bloodfiend			|✓|✓|2	|When a card bearing this sigil deals damage, it gains 1 Health.
 Martyr				|✓|✓|1	|When a card bearing this sigil dies, all allied creatures gain 2 Health and lose any negative status effects.
 Aggravating			|X|✓|-3	|While this card is on the board, all opposing creatures gain 1 Power.
@@ -68,8 +68,8 @@ Grinder				|X|X|3	|A card bearing this sigil gains the stats of the creatures sa
 The Train			|X|X|5	|When a card bearing this sigil is played, kill all creatures on the board. Creatures killed this way do not drop bones.
 Scorching			|✓|✓|2	|At the end of its owner's turn, the creature opposing a card bearing this sigil will take 1 damage. This card cannot be frozen.
 Regenerator			|✓|✓|3	|At the start of the owner's turn, creatures adjacent to a card bearing this sigil regain 1 Health.
-Gift Giver			|X|X|3	|When a card bearing this sigil is played, create a random card in your hand.
-Piercing			|✓|X|2	|A card bearing thi sigil will strike through shields. Damage dealt by this card cannot be reduced.
+Gift-Laden			|X|X|3	|When a card bearing this sigil is first played, create a random card in your hand.
+Piercing			|✓|X|2	|A card bearing this sigil can strike face down cards and through shields. Opposing cards cannot reduce damage dealt by this card.
 Scrambler			|X|X|3	|When a card bearing this sigil is sacrificed, give its stats to the sacrificing card then randomise the resulting stats. Works with Spells.
 Gardener			|X|X|4	|While a card bearing this sigil is on the board, create a Sapling whenever an ally card perishes. A Sapling is defined as: 0 Power, 2 Health, Bone Digger.
 Made of Slime		|X|X|5	|At the end of the owner's turn, creatures adjacent to a card bearing this sigil gain this sigil. If this card is not a Slime, also take 1 damage and transform into a Slime on death.
@@ -106,7 +106,7 @@ Damsel				|X|X|3  |Creatures adjacent to a card bearing this sigil will redirect
 Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to deal any damage during combat.
 Shove Aside			|✓|X|2	|Creatures struck by a card bearing this sigil are pushed to an adjacent space.
 Pin Down			|✓|X|1	|Creatures struck by a card bearing this sigil gain Unyielding.
-Mind Strike			|X|X|2	|When a card bearing this sigil strikes another creature, deal no damage and instead inflict Sinking equal to half this card's Health, rounded up.
+Mind Strike			|X|X|2	|[creature] may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
 Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
 Healing Strike		|X|X|-2	|Creatures struck by a card bearing this sigil take no damage and instead regain Health equal to the damage dealt.
@@ -116,8 +116,15 @@ Understanding		|X|X|1	|If [creature] perishes due to self-inflicted damage, deal
 Bleachproof			|X|X|2	|A card bearing this sigil cannot have its sigils removed by the Bleach Pot.
 Elite				|X|X|4	|A card bearing this sigil is considered as having Made of Stone and Bleachproof.
 Withering			|X|X|3	|At the end of the owner's turn, a card bearing this sigil deals 1 direct damage to the opposing side.
-Unbreakable Defence	|X|X|5	|A card bearing this sigil prevents all damage dealt to it. All cards behave as if this card took damage.
+Unbreakable Defence	|X|X|5	|A card bearing this sigil cannot be damaged. When this card is struck, all cards behave as if this card took damage.
 Explosive Opening	|X|X|2	|When this card is played, adjacent and opposing cards are dealt 10 damage.
+Board Shuffle		|X|X|4	|Pay 3 Energy to shuffle the position of all creatures on the board.
+Soulbound			|X|X|-5	|Whenever [creature] takes damage, its owner takes an equal amount of damage.
+Death Penalty		|X|✓|-3	|When [creature] is killed, its owner takes 1 damage.
+Ethereal			|X|X|0	|Attacks directed at a card bearing this sigil will pass through and strike its owner instead.
+Volley Strike		|X|X|5	|At the end of the owner's turn, this card will target 2-4 opposing spaces to attack on its next turn.
+Gift Giver			|X|X|3	|Activate: Create a random card in your hand, then deactivate this sigil for 3 turns.
+Alluring			|X|X|2	|At the end of the owner's turn, a card bearing this sigil attracts an opposing adjacent creature to the space across from this card if possible.
 </details>
 
 ### ⁉️ Stat Icons
