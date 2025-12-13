@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Slot_Blooming() {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card.";
+            const string rulebookDescription = "At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card to the occupying card.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
@@ -31,11 +31,14 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
 
+    /// <summary>
+    /// At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card to the occupying card.
+    /// </summary>
     public class BloomingSlot : SlotModificationBehaviour {
         public static SlotModificationManager.ModificationType Id;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
-            => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.opposingSlot.Card != null && base.Slot.Card != null;
+            => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.Card != null && base.Slot.Card.OpposingCard() != null;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             if (ViewManager.Instance.CurrentView != View.Board) {
                 ViewManager.Instance.SwitchToView(View.Board);
@@ -44,6 +47,7 @@ namespace WhistleWind.AbnormalSigils {
             if (base.Slot.Card.Health < base.Slot.Card.MaxHealth) {
                 base.Slot.Card.Anim.LightNegationEffect();
                 base.Slot.opposingSlot.Card.Anim.LightNegationEffect();
+
                 base.Slot.opposingSlot.Card.HealDamage(-1);
                 base.Slot.Card.HealDamage(1);
 

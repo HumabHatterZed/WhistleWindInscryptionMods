@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
         public static SpecialStatIcon icon;
         public static SpecialStatIcon Icon => icon;
         public override SpecialStatIcon IconType => icon;
-        private int[] statValue = new int[2] { 0, 0 };
+        private readonly int[] statValue = new int[2] { 0, 0 };
         public override int[] GetStatValues() {
             statValue[0] = BoardManager.Instance.AllSlotsCopy.Count(x => x.GetSlotModification() == BloomingSlot.Id);
             return statValue;
