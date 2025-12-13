@@ -19,9 +19,12 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
+        public override bool RespondsToResolveOnBoard() =>
+            base.Card.Info.IsGlobalSpell()
+                && BoardManager.Instance.GetCards(!base.Card.OpponentCard, x => x.LacksAbility(Unyielding.ability)).Count > 0;
+
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
-            if (base.Card.Info.IsTargetedSpell() && slot.Card != null) {
+            if (base.Card.Info.IsTargetedSpell() && slot.Card != null && slot.Card.LacksAbility(Unyielding.ability)) {
                 return base.Card.OriginatedFromQueue ? !slot.IsPlayerSlot : slot.IsPlayerSlot;
             }
             return false;
@@ -72,7 +75,7 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnResolveOnBoard() {
             if (base.Card.OriginatedFromQueue) {
                 ViewManager.Instance.SwitchToView(View.OpponentQueue);
-                foreach (PlayableCard card in BoardManager.Instance.GetCards(false)) {
+                foreach (PlayableCard card in BoardManager.Instance.GetCards(false, x => x.LacksAbility(Unyielding.ability))) {
                     yield return TurnManager.Instance.Opponent.ReturnCardToQueue(card, 0.2f);
                     card.Slot.Card = null;
                     card.UnassignFromSlot();
@@ -80,7 +83,7 @@ namespace WhistleWind.AbnormalSigils {
             }
             else {
                 bool showDialogue = !base.HasLearned;
-                foreach (PlayableCard card in BoardManager.Instance.GetCards(true)) {
+                foreach (PlayableCard card in BoardManager.Instance.GetCards(true, x => x.LacksAbility(Unyielding.ability))) {
                     if (!Unyielding.CardCanBeMoved(card)) {
                         if (!base.Card.OpponentCard && showDialogue) {
                             showDialogue = false;
