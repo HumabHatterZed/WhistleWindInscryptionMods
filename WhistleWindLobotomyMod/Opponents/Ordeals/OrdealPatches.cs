@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
-        private static void ConvertBattleIntoOrdeal(ref NodeData __result) {
+        private static void ConvertBattleIntoOrdeal(ref NodeData __result, ref int y) {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
             if (__result is not CardBattleNodeData nodeData) {
@@ -91,11 +91,15 @@ namespace WhistleWindLobotomyMod.Opponents {
                 totemOpponent = __result is TotemBattleNodeData
             };
 
+            // exception for 1st map - no noons as the first couple battles
             // gate values for region tiers
             // 0.60 1.00  0
             // 0.25 0.82  1 
             // -0.1 0.64  1
-            if (randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
+            if (RunState.CurrentRegionTier == 0 && y < 7) {
+                tier = 0;
+            }
+            else if (randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
                 tier = 0;
             }
             else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
