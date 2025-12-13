@@ -45,7 +45,6 @@ namespace WhistleWind.AbnormalSigils {
             }
 
             yield return base.PreSuccessfulTriggerSequence();
-            slot.Card.Anim.LightNegationEffect();
             yield return BoardManager.Instance.AssignCardToSlot(slot.Card, base.Card.OpposingSlot());
             yield return base.LearnAbility(0.5f);
         }
