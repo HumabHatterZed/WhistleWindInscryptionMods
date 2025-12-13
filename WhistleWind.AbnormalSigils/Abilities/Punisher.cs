@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Punisher() {
             const string rulebookName = "Punisher";
-            const string rulebookDescription = "When [creature] is struck and killed, the attacker also perishes.";
+            const string rulebookDescription = "When [creature] is struck and killed, the attacker perishes as well.";
             const string dialogue = "Retaliation is switft and brutal.";
             const string triggerText = "[creature] swiftly retaliates!";
             Punisher.ability = AbnormalAbilityHelper.CreateAbility<Punisher>(
@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// When [creature] is struck and killed, the attacker also perishes.
+    /// When [creature] is struck and killed, the attacker perishes as well.
     /// </summary>
     public class Punisher : AbilityBehaviour {
         public static Ability ability;
