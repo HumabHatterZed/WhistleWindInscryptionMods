@@ -3,7 +3,7 @@
 
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
-## v2.0.0 - ()
+## v2.0.0 - Fear and Wonder(Lab) ()
 ### 🧱 Structural
 - New Spell Card Toolkit is now a required dependency
 - Overhauled status effects
@@ -61,6 +61,7 @@
 - Barreler sigil now displaces moved cards randomly
 - Piercing sigil now implements IShieldPreventedDamage
 - Haste gained from High Strung is now applied on each player's turn rather than on round's end
+- Pin Down can now affect Uncuttable cards, no longer affects cards marked Giant or NonInstaKill
 ### 🩹 Bug fixes
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
@@ -123,7 +124,6 @@
 - Pumpkin Jack - Replaced Cursed sigil with Brittle
 - Spiderling - reduced play cost from 3 Bones -> Free
 - Spider Brood - reduced Health from 3 -> 2
-
 ### ➕ Additions
 - Added TargetIconHelper - contains helper methods for creating target icons in Act 1
 - Added dialogue for when first encountering a status effect
@@ -149,6 +149,7 @@
 ### 💣 Removals
 - Removed Volatile sigil
 - Removed unnecessary ability patches
+
 ## v1.1.2 - Minor patch (5/23/2024)
 ### 🩹 Bug fixes
 - Fixed Conductor sigil crashing the game when multiple copies are on the same side of the board

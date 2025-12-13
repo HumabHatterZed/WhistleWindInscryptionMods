@@ -28,7 +28,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead && target.LacksAbility(Unyielding.ability) && !target.HasTrait(Trait.Uncuttable);
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead && target.LacksAbility(Unyielding.ability) && target.LacksAllTraits(Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return base.PreSuccessfulTriggerSequence();
             target.AddTemporaryMod(new(Unyielding.ability) { fromCardMerge = true, negateAbilities = new() { Ability.Flying }, nonCopyable = true });
