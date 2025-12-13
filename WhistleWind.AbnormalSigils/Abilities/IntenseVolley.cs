@@ -2,7 +2,6 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using Sirenix.Serialization.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
