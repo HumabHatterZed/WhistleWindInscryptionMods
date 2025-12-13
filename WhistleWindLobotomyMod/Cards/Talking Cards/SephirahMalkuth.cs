@@ -14,7 +14,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public class TalkingCardMalkuth : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahMalkuth;
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.8f, voiceSoundPitch: 1.5f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 4f, voiceSoundPitch: 1.5f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;

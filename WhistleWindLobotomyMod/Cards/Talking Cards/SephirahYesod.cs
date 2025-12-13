@@ -13,7 +13,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public class TalkingCardYesod : CustomPaperTalkingCard {
         public override string CardName => Cards.sephirahYesod;
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.2f, voiceSoundPitch: 0.7f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 4f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;

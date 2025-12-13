@@ -15,7 +15,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public class TalkingCardAngela : CustomPaperTalkingCard {
         public override string CardName => Cards.angela;
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.4f, voiceSoundPitch: 1f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 4f, voiceSoundPitch: 1.1f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -30,17 +30,17 @@ namespace WhistleWindLobotomyMod {
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1.png"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1.png", "talkingAngelaEyesClosed1.png"),
                         mouth: MakeFaceAnim("talkingAngelaMouthOpen1.png", "talkingAngelaMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1.png"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1.png", "talkingAngelaEyesClosed1.png"),
                         mouth: MakeFaceAnim("talkingAngelaMouthOpen2.png", "talkingAngelaMouthClosed2.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2.png"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2.png", "talkingAngelaEyesClosed2.png"),
                         mouth: MakeFaceAnim("talkingAngelaMouthClosed1.png", "talkingAngelaMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Surprise,
@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod {
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3.png"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3.png", "talkingAngelaEyesClosed3.png"),
                         mouth: MakeFaceAnim("talkingAngelaMouthClosed1.png", "talkingAngelaMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple)
                 };
