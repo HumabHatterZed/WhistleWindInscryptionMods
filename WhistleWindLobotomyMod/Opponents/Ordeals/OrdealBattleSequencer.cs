@@ -106,14 +106,16 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// Only valid Ordeal cards will trigger 'this.OnOtherCardDie'.
         /// By default, any card with the Ordeal trait is valid.
         /// </summary>
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => card.OpponentCard;
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => true;
 
         /// <remarks>
         /// By default, only triggers when an opponent-owned Ordeal card dies.
         /// </remarks>
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             if (!CardIsValidOrdeal(card)) {
-                yield return DialogueHelper.PlayDialogueEvent("OrdealNonOrdealKilled");
+                if (card.OpponentCard) {
+                    yield return DialogueHelper.PlayDialogueEvent("OrdealNonOrdealKilled");
+                }
                 yield break;
             }
             amountKilledThisTurn++;
