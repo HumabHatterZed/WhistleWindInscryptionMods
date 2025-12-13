@@ -15,6 +15,13 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.HasShield))]
+        private static void InfiniteShields(PlayableCard __instance, ref bool __result) {
+            if (__instance != null && __instance.HasAbility(InfiniteShield.ability)) {
+                __result = true;
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.CardsOnBoard), MethodType.Getter)]
         private static void FixGiantDuplicateTriggers(ref List<PlayableCard> __result) {
             __result = __result.Distinct().ToList();
