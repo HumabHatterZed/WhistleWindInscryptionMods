@@ -12,8 +12,8 @@ namespace WhistleWind.AbnormalSigils {
             const string dialogue = "Pay better care to your beasts.";
             DeathPenalty.ability = AbnormalAbilityHelper.CreateAbility<DeathPenalty>(
                 "sigilDeathPenalty",
-                rulebookName, rulebookDescription, dialogue, powerLevel: -4,
-                modular: false, opponent: false, canStack: false)
+                rulebookName, rulebookDescription, dialogue, powerLevel: -3,
+                modular: false, opponent: false, canStack: true)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;
