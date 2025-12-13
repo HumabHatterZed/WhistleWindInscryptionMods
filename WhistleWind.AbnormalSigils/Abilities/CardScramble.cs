@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils {
     public class CardScramble : DelayedActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int StartingEnergyCost => 1;
+        public override int StartingEnergyCost => 3;
 
         public override IEnumerator Activate() {
             int rand = base.GetRandomSeed();
