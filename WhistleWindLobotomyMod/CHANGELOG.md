@@ -45,6 +45,7 @@
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
 - Apocalypse Bird: changed evolution name
 - <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
+- <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
 - Big and Will Be Bad Wolf: reworked to 3/3; Vendetta, Blood Lust; 3 Blood
 - <span style='color:#2084A0'>CENSORED: Increased Health from 4 -> 5
