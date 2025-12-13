@@ -243,10 +243,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                 List<OrdealType> ordeals = new() { OrdealType.Amber, OrdealType.Violet, OrdealType.Green };
                 if (SaveFile.IsAscension) {
                     ordeals.Randomize();
-                    ordeals.Add(OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Amber, OrdealType.Violet));
+                    ordeals.Add(OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Amber, OrdealType.Violet)); // randomly add 4th ordeal
                 }
                 else {
-                    ordeals.Add(OrdealType.Violet);
+                    ordeals.Add(OrdealType.Violet); // for non KCM, leshy is always replaced with Violet
                 }
 
                 OrdealRegionOrder = ordeals.ToArray();
