@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
+using Sirenix.Serialization.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,11 @@ namespace WhistleWind.AbnormalSigils {
 
         public readonly Dictionary<CardSlot, GameObject> currentTargets = new();
 
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
+            CleanupTargetIcons();
+            yield break;
+        }
         public virtual IEnumerator SelectTargets(int maxTargets, int maxNullTargets, int randomSeed) {
             GameObject targetIcon;
             List<CardSlot> validTargets = new();
