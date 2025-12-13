@@ -31,7 +31,7 @@ namespace WhistleWind.Core.AbilityClasses {
             if (currentTurnDelay > 0) // if turnDelay is above 0, reduce it by 1
             {
                 currentTurnDelay--;
-                if (currentTurnDelay == 0 && !base.Card.OpponentCard) {
+                if (currentTurnDelay == 0) {
                     yield return HelperMethods.ChangeCurrentView(View.Board);
                     base.Card.Anim.LightNegationEffect();
                     yield return new WaitForSeconds(0.2f);
@@ -39,6 +39,9 @@ namespace WhistleWind.Core.AbilityClasses {
             }
 
             if (base.Card.OpponentCard && CanActivateOpponent()) {
+                yield return HelperMethods.ChangeCurrentView(View.Board);
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
                 yield return Activate();
             }
         }
