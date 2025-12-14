@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
+using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
 using System.Collections;
@@ -12,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Spilling() {
             const string rulebookName = "Spilling";
-            const string rulebookDescription = "When [creature] perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.";
+            const string rulebookDescription = "When [creature] perishes, Flood all spaces on the board and extinguish grounded Scorching cards.";
             const string dialogue = "Don't worry, it will dry soon enough.";
             const string triggerText = "[creature]'s insides flood the board!";
             Spilling.ability = AbnormalAbilityHelper.CreateAbility<Spilling>(
@@ -49,7 +50,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++) {
                 int distance = GetSlotDistance(startingSlot, slots[i]);
-                if (slots[i].Card != null && slots[i].Card.HasAbility(Scorching.ability)) {
+                if (slots[i].Card != null && slots[i].Card.HasAbility(Scorching.ability) && slots[i].Card.LacksAbility(Ability.Flying)) {
                     extinguishedCard = true;
                     yield return Scorching.ExtinguishCard(slots[i].Card, false);
                 }

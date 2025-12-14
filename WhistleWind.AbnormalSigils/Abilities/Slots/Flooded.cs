@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Slot_Flooded() {
             const string rulebookName = "Flooded";
-            const string rulebookDescription = "At the end of the round, deal 1 damage to cards occupying this space that aren't Airborne or face down, then reduce this effect's Severity by 1.";
+            const string rulebookDescription = "At the end of the round, deal 1 damage to the occupying card if it is not Airborne or face down, then reduce this effect's duration by 1.";
 
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
                 TextureLoader.LoadTextureFromFile("slotFlooded_act1.png", Assembly),
@@ -48,6 +48,9 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
 
+    /// <summary>
+    /// At the end of the round, deal 1 damage to the occupying card if it is not Airborne or face down, then reduce this effect's duration by 1.
+    /// </summary>
     public class FloodedSlot : SlotModificationBehaviour, IOpponentTurnEnd {
         public static SlotModificationManager.ModificationType Id;
 
