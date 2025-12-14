@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod.Patches {
                     card.Mods = new() { new() { singletonId = "NothingThere:" + disguise } };
                 }
 
-                if (AscensionSaveData.Data.ChallengeIsActive(SoulboundCards.Id) && card.DefaultAbilities.Count < 4) {
+                if (SaveFile.IsAscension && AscensionSaveData.Data.ChallengeIsActive(SoulboundCards.Id) && card.DefaultAbilities.Count < 4) {
                     card.Mods.Add(new(DeathPenalty.ability));
                 }
             }
