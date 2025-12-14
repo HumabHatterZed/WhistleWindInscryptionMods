@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Withering.ability, Ability.ExplodeOnDeath)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(Opponents.OrdealType.Crimson)
                 .Build();
 
             CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, "Harmony of Skin",
@@ -33,7 +33,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(HarmonyAbility.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .SetOrdealCard(Opponents.OrdealType.Crimson)
+                .AddTraits(Trait.Uncuttable)
                 .Build();
 
             CardInfo struggle = CardManager.New(LobotomyPlugin.pluginPrefix, skinClimax, "Struggle at the Climax",
@@ -43,7 +44,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Ability.IceCube, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .SetOrdealCard(Opponents.OrdealType.Crimson)
+                .AddTraits(Trait.Uncuttable, PriorityMovement)
                 .SetIceCube(harmony)
                 .Build();
         }

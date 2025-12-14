@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities()
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)
-                .AddTraits(Ordeal)
+                .SetOrdealCard(Opponents.OrdealType.Amber)
                 .Build();
 
             CardInfo chain = CardManager.New(LobotomyPlugin.pluginPrefix, foodChain, "The Food Chain",
@@ -32,7 +32,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Food.ability, Challenging.ability)
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)
-                .AddTraits(Ordeal, PriorityMovement)
+                .AddTraits(PriorityMovement)
+                .SetOrdealCard(Opponents.OrdealType.Amber)
                 .Build();
 
             CardInfo meal = CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, "The Eternal Meal",
@@ -42,7 +43,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Survival.ability, Challenging.ability)
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)
-                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .AddTraits(Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement)
+                .SetOrdealCard(Opponents.OrdealType.Amber)
                 .Build();
         }
     }
