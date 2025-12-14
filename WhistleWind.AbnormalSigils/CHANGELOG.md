@@ -63,6 +63,7 @@
 - Haste gained from High Strung is now applied on each player's turn rather than on round's end
 - Pin Down can now affect Uncuttable cards, no longer affects cards marked Giant or NonInstaKill
 ### 🩹 Bug fixes
+- Fixed status effects not rendering above merged sigils
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
 - Fixed Witness not working

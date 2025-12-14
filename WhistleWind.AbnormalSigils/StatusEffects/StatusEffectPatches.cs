@@ -41,8 +41,9 @@ namespace WhistleWind.AbnormalSigils.Core {
                 controller = __instance.gameObject.AddComponent<StatusEffectIconsManager>();
                 controller.statusEffectMat = __instance.emissiveIconMat ?? __instance.defaultIconMat;
 
-                if (__instance.transform.Find("StatusEffectIcons_1") == null)
+                if (__instance.transform.Find("StatusEffectIcons_1") == null) {
                     AddStatusIconsToCard(controller, __instance.transform, __instance.defaultIconGroups.Count, playableCard);
+                }
             }
             __instance.abilityIcons.RemoveAll(controller.abilityIcons.Contains);
             controller.abilityIcons.Clear();
@@ -132,10 +133,14 @@ namespace WhistleWind.AbnormalSigils.Core {
                 List<Transform> icons = NewIcons(iconGroup, i + 1);
                 for (int j = 0; j < icons.Count; j++) {
                     Renderer iconRenderer = icons[j].GetComponent<Renderer>();
+                    iconRenderer.sortingOrder = 15;
+                    if (iconRenderer.gameObject.GetComponent<SetSortingLayer>() != null) {
+                        iconRenderer.gameObject.GetComponent<SetSortingLayer>().sortingOrder = iconRenderer.sortingOrder;
+                    }
                     AbilityIconInteractable interactable = icons[j].GetComponent<AbilityIconInteractable>();
 
                     if (SaveManager.SaveFile.IsPart1) {
-                        icons[j].localPosition = new(-0.375f + 0.1875f * j, 0.2f, 0f);
+                        icons[j].localPosition = new(-0.375f + 0.1875f * j, 0.2f, -0.1f);
                         icons[j].transform.localScale = new(0.15f, 0.10f, 1f);
 
                         GameObject back = GameObject.Instantiate(abilityIconParent.Find("CardMergeIcon_1/Back").gameObject, icons[j]);
@@ -147,6 +152,9 @@ namespace WhistleWind.AbnormalSigils.Core {
 
                         backRenderer.sortingLayerID = iconRenderer.sortingLayerID;
                         backRenderer.sortingOrder = iconRenderer.sortingOrder;
+                        if (backRenderer.gameObject.GetComponent<SetSortingLayer>() != null) {
+                            backRenderer.gameObject.GetComponent<SetSortingLayer>().sortingOrder = iconRenderer.sortingOrder;
+                        }
 
                         GameObject.Destroy(back.GetComponent<AbilityIconInteractable>());
                         GameObject.Destroy(back.GetComponent<BoxCollider>());

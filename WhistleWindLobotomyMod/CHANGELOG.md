@@ -40,7 +40,7 @@
 - Changed how card choices are determined
 - Effect now changes during custom boss fights
 ### Cards
-- 1.75 MHz: now belongs to the Mechanical tribe
+- 1.76 MHz: now belongs to the Mechanical tribe
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
 - Angela: Fixed eyes disappearing whenever she blinked
