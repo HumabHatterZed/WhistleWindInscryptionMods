@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
@@ -16,7 +17,8 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilDamsel",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false)
-                .Id;
+                .Info.SetFlipYIfOpponent()
+                .ability;
         }
     }
     /// <summary>
