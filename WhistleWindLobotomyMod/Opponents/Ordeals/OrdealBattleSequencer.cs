@@ -235,6 +235,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (BlacklistedAbilities != null) {
                 AllBlacklistedAbilities.AddRange(BlacklistedAbilities);
             }
+
+            // Since Ordeals are card-destruction, Waterborne cannot be a Totem sigil
+            if (!AllBlacklistedAbilities.Contains(Ability.Submerge)) {
+                AllBlacklistedAbilities.Add(Ability.Submerge);
+            }
         }
     }
 }
