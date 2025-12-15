@@ -17,6 +17,16 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public bool hasTotem;
         private Color totemGlowColour;
+
+        public override Color InteractablesGlowColor => BattleSequencer.ordealType switch {
+            OrdealType.Green => GameColors.Instance.darkLimeGreen,
+            OrdealType.Violet => GameColors.Instance.purple,
+            OrdealType.Crimson => GameColors.Instance.glowRed,
+            OrdealType.Amber => GameColors.Instance.orange,
+            OrdealType.Indigo => GameColors.Instance.blue,
+            _ => GameColors.Instance.gray,
+        };
+
         public bool IsBoss() => BattleSequencer.ordealTier == 3 || BattleSequencer.ordealType == OrdealType.White;
 
         /// <remarks>
@@ -267,9 +277,6 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
         public override void InitialiseOpponent(EncounterData encounter) {
             base.InitialiseOpponent(encounter);
-            if (BattleSequencer.BlacklistedAbilities != null) {
-                TotemAbilitiesBlacklist.AddRange(BattleSequencer.BlacklistedAbilities);
-            }
             hasTotem = encounter.opponentTotem != null;
             OrdealBannerManager.Instance.UpdateBanner(BattleSequencer.ordealType, BattleSequencer.ordealTier);
             OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
