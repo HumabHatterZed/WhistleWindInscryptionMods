@@ -15,26 +15,30 @@ namespace WhistleWind.AbnormalSigils.Patches {
     internal class PersistentAndPiercingPatches {
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanAttackDirectly))]
         private static void CanAttackDirectlyPatch(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
-            if (opposingSlot.Card == null) {
-                return;
-            }
-
-            // Ethereal cards cannot be hit
-            if (opposingSlot.Card.HasAbility(Ethereal.ability)) {
+            // Ethereal cards always hit directly
+            if (__instance.HasAbility(Ethereal.ability)) {
                 __result = true;
                 return;
             }
 
-            // if we can make direct contact with the opposing card
-            if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach)) {
-                // piercing can always hit face down cards while persistent can always hit face up cards
-                if (opposingSlot.Card.FaceDown) {
-                    if (__instance.HasAbility(Piercing.ability)) {
+            if (opposingSlot.Card != null) {
+                // Ethereal cards cannot be hit
+                if (opposingSlot.Card.HasAbility(Ethereal.ability)) {
+                    __result = true;
+                    return;
+                }
+
+                // if we can make direct contact with the opposing card
+                if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach)) {
+                    // piercing can always hit face down cards
+                    if (opposingSlot.Card.FaceDown) {
+                        if (__instance.HasAbility(Piercing.ability)) {
+                            __result = false;
+                        }
+                    }
+                    else if (__instance.HasAbility(Persistent.ability)) {
                         __result = false;
                     }
-                }
-                else if (__instance.HasAbility(Persistent.ability)) {
-                    __result = false;
                 }
             }
         }

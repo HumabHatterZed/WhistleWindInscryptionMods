@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils {
 
         private bool forcedFaceUp = false;
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
-            return attacker == base.Card && slot.Card != null && slot.Card.FaceDown;
+            return attacker == base.Card && slot.Card != null && !attacker.CanAttackDirectly(slot);
         }
 
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {

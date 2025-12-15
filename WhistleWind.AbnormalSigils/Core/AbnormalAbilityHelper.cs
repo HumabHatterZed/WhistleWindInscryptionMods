@@ -66,13 +66,13 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
                 return false;
 
             // if attacker can hit the target
-            if (attacker.LacksAbility(Ability.Flying) || target.HasAbility(Ability.Reach)) {
+            if (!attacker.CanAttackDirectly(target.Slot)) {
                 // if the target has Loose Tail and hasn't lost it
                 if (target.HasAbility(Ability.TailOnHit) && !target.Status.lostTail)
                     return true;
 
                 // attacker can hit facedown cards and Repulsive cards
-                return target.FaceDown || target.HasAbility(Ability.PreventAttack);
+                return target.HasAbility(Ability.PreventAttack);
             }
             return false;
         }
