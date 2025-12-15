@@ -9,6 +9,23 @@ namespace WhistleWind.Core.Helpers {
         public const string _PIXEL = "_pixel.png";
         public const string _PNG = ".png";
 
+        public static bool IsObtainable(this CardInfo info, CardTemple actTemple) {
+            if (info != null) {
+                // GBC check
+                if (actTemple == CardTemple.NUM_TEMPLES) {
+                    return info.HasAnyOfCardMetaCategories(CardMetaCategory.GBCPlayable);
+                }
+
+                // Act 1 Trader check
+                if (actTemple == CardTemple.Nature && info.HasCardMetaCategory(CardMetaCategory.TraderOffer)) {
+                    return true;
+                }
+
+                return info.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare);
+            }
+
+            return false;
+        }
         /// <remarks>
         /// portraitName must not end with a file extension. emissionName and pixelPortrait must end with a file extension if not null.
         /// </remarks>
