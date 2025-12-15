@@ -2,6 +2,7 @@
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
+using GracesGames.Common.Scripts;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
@@ -56,6 +57,9 @@ namespace WhistleWind.AbnormalSigils {
         public static Trait CannotGainSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGainSigils");
         public static Trait CannotBoostStats = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotBoostStats");
         public static Trait CannotCopyCard = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotCopyCard");
+
+        internal static AssetBundle AssetBundle { get; private set; }
+        internal static RuntimeAnimatorController MiniGiantAnimator { get; private set; }
 
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
         private void Awake() {
@@ -126,20 +130,6 @@ namespace WhistleWind.AbnormalSigils {
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities() {
-            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
-                StatusEffectManager.SyncStatusEffects();
-                VerifyCustomSigilUsage(abilities);
-                abilities.AbilityByID(Ability.MadeOfStone).Info.SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
-                abilities.AbilityByID(Ability.SkeletonStrafe).Info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-                return abilities;
-            };
-
-            CardManager.ModifyCardList += delegate (List<CardInfo> infos) {
-                infos.Find(x => x.name == "!GIANTCARD_MOON")?.SetUniqueCopycat("wstl_miniMoon");
-                infos.Find(x => x.name == "!GIANTCARD_SHIP")?.SetUniqueCopycat("wstl_littlecello");
-
-                return infos;
-            };
             #region 1.0L
             Ability_Punisher();
             Ability_Bloodfiend();
@@ -295,6 +285,26 @@ namespace WhistleWind.AbnormalSigils {
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
 
+        internal static void AddCardAndAbilityVerification() {
+            CardManager.AllCardsCopy.Find(x => x.name == "!GIANTCARD_MOON")?.SetUniqueCopycat("wstl_miniMoon");
+            CardManager.AllCardsCopy.Find(x => x.name == "!GIANTCARD_SHIP")?.SetUniqueCopycat("wstl_littlecello");
+
+            AbilityManager.AllAbilities.AbilityByID(Ability.MadeOfStone)?.Info.SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
+            AbilityManager.AllAbilities.AbilityByID(Ability.SkeletonStrafe)?.Info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook); // littlecello
+
+            CardManager.ModifyCardList += delegate (List<CardInfo> infos) {
+                VerifyCustomTribeUsage(infos);
+
+                return infos;
+            };
+
+            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
+                StatusEffectManager.SyncStatusEffects();
+                VerifyCustomSigilUsage(abilities);
+
+                return abilities;
+            };
+        }
         internal static void VerifyCustomSigilUsage(List<AbilityManager.FullAbility> abilities) {
             foreach (AbilityManager.FullAbility ability in abilities.Where(x => x.ModGUID == pluginGuid)) {
                 List<CardInfo> validCards = CardManager.AllCardsCopy.FindAll(x => x.HasAbility(ability.Id));
@@ -328,6 +338,20 @@ namespace WhistleWind.AbnormalSigils {
             }
         }
 
+        internal static void VerifyCustomTribeUsage(List<CardInfo> allCardsCopy) {
+            List<CardInfo> act1Cards = allCardsCopy.FindAll(x => x.IsObtainable(CardTemple.Nature));
+            TribeManager.GetCustomTribeInfo(TribeFae).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeFae));
+            TribeManager.GetCustomTribeInfo(TribeDivine).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeDivine));
+            TribeManager.GetCustomTribeInfo(TribeBotanic).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeBotanic));
+            TribeManager.GetCustomTribeInfo(TribeMechanical).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeMechanical));
+            TribeManager.GetCustomTribeInfo(TribeAnthropoid).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeAnthropoid));
+        }
+
+        internal static void InitAssetBundle() {
+            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWind.AbnormalSigils.abnormalsigils");
+            AssetBundle = AssetBundle.LoadFromStream(stream);
+            MiniGiantAnimator = AssetBundle.LoadAsset<RuntimeAnimatorController>("Card_MiniGiant");
+        }
 
         public static class TribalAPI {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
@@ -359,14 +383,6 @@ namespace WhistleWind.AbnormalSigils {
                 botanicTribe.icon = TextureHelper.GetImageAsTexture("tribeBotanic.png", Assembly).ConvertTexture();
                 botanicTribe.cardback = TextureHelper.GetImageAsTexture("tribeBotanic_reward.png", Assembly);
             }
-        }
-
-        internal static AssetBundle AssetBundle { get; private set; }
-        internal static RuntimeAnimatorController MiniGiantAnimator { get; private set; }
-        internal static void InitAssetBundle() {
-            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWind.AbnormalSigils.abnormalsigils");
-            AssetBundle = AssetBundle.LoadFromStream(stream);
-            MiniGiantAnimator = AssetBundle.LoadAsset<RuntimeAnimatorController>("Card_MiniGiant");
         }
     }
 }
