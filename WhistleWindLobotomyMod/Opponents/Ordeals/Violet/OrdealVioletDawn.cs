@@ -12,8 +12,9 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// Valid regions: 0, 1
     /// </summary>
     public class OrdealVioletDawn : OrdealBattleSequencer {
-        private int fruitToSpawn = 0;
         private int maxFruit = 0;
+        private int fruitToSpawn = 0;
+
         public override void ModifyQueuedCard(PlayableCard card) {
             base.ModifyQueuedCard(card);
             if (card.Info.name != Cards.fruitUnderstanding) {
