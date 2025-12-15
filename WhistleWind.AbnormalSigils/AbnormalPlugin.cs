@@ -2,7 +2,6 @@
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
-using GracesGames.Common.Scripts;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
@@ -78,8 +77,10 @@ namespace WhistleWind.AbnormalSigils {
                 AbnormalDialogueManager.GenerateDialogueEvents();
 
                 InitTribes();
+                AddCardAndAbilityVerification(); // call before adding cards/sigils so the events get called
                 AddAbilities();
                 AddSpecialAbilities();
+
                 AddAppearances();
 
                 AddCards();
