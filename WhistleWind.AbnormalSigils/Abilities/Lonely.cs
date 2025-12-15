@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using HarmonyLib;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using System.Collections;
@@ -25,6 +26,7 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// Choose one of your cards to gain Pebble unless a card with Pebble already exists, then return this card to your hand.
     /// </summary>
+    [HarmonyPatch]
     public class Lonely : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -66,5 +68,11 @@ namespace WhistleWind.AbnormalSigils {
             }
         }
         private bool CheckValid(CardSlot target) => target.IsOpponentSlot() == base.Card.OpponentCard && target.Card != null && !HasFriend;
+
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
+        private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard) {
+            if (queuedCard != null && queuedCard.HasAbility(ability) && queuedCard.GetComponent<Lonely>().HasFriend)
+                __result = true;
+        }
     }
 }

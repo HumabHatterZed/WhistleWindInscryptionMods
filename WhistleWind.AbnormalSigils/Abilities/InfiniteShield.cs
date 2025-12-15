@@ -44,5 +44,12 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public int ShieldPreventedDamagePriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.HasShield))]
+        private static void InfiniteShields(PlayableCard __instance, ref bool __result) {
+            if (__instance != null && __instance.HasAbility(ability)) {
+                __result = true;
+            }
+        }
     }
 }
