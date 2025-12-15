@@ -185,24 +185,6 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             UpdateCounter();
         }
-
-        /// <summary>
-        /// Last Helix should not possess any movement sigils
-        /// </summary>
-        public override List<Ability> BlacklistedAbilities {
-            get {
-                return new() {
-                    Ability.WhackAMole,
-                    Ability.Strafe,
-                    Ability.StrafePush,
-                    Ability.StrafeSwap,
-                    Ability.GuardDog,
-                    Ability.TailOnHit,
-                    Cycler.ability,
-                    Barreler.ability
-                };
-            }
-        }
     }
 
     public class HelixLaserManager : ManagedBehaviour {

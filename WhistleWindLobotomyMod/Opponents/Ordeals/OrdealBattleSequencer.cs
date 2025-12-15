@@ -235,6 +235,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             if (totem) {
                 encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], encounterData.Difficulty, null);
+                
                 AssignTotemAbility(encounterData);
             }
 
