@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             if (encounterData.Difficulty > 8) {
-                startingCard[0] = CardLoader.GetCardByName(Cards.doubtProcessDown2);
+                startingCard[0].Mods.Add(new(0, 1));
                 minCards++;
             }
 
