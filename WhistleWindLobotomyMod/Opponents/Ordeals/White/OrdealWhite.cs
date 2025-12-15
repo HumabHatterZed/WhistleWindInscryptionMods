@@ -174,6 +174,19 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override void ModifyQueuedCard(PlayableCard card) {
             // fixers shouldn't gain random buffs
+            if (ordealTier < 2) {
+                card.Info.Mods.Add(new(1, 0));
+            }
+            if (ordealTier > 0) {
+                card.Info.Mods.Add(new(ordealTier, 0));
+                if (card.Info.name == Cards.fixerWhite) {
+                    card.Info.Mods.Add(new(1, 0));
+                }
+            }
+
+            if (ordealTier != 3) {
+                card.OnStatsChanged();
+            }
         }
     }
 }

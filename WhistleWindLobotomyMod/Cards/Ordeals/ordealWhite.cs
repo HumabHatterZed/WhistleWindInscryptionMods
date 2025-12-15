@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
             string textureName5 = "fixerPale";
             Trait[] traits = new Trait[] { Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement };
             CardInfo red2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed2, "Red Fixer",
-                attack: 2, health: 6)
+                attack: 3, health: 5)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.AllStrike, Piercing.ability, Ability.Transformer, Challenging.ability)
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardInfo red = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed, "Red Fixer",
-                attack: 3, health: 6)
+                attack: 4, health: 5)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sniper, Piercing.ability, Ability.Transformer, Challenging.ability)
@@ -48,8 +48,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
             red2.SetEvolve(red, 2);
 
-            CardInfo white3 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite2, "White Fixer",
-                attack: 0, health: 10)
+            CardInfo white2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite2, "White Fixer",
+                attack: 0, health: 8)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(InfiniteShield.ability, Reflector.ability, Ability.Transformer, Challenging.ability)
@@ -59,20 +59,8 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(traits)
                 .Build();
 
-            CardInfo white2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite, "White Fixer",
-                attack: 1, health: 10)
-                .SetEnergyCost(8)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
-                .AddAbilities(MindStrike.ability, Ability.AllStrike, Ability.Transformer, Challenging.ability)
-                .AddAppearances(ForcedWhiteEmission.appearance)
-                .AddTribes(TribeAnthropoid)
-                .SetOrdealCard(OrdealType.White)
-                .AddTraits(traits)
-                .SetEvolve(white3, 2)
-                .Build();
-
             CardInfo white = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite, "White Fixer",
-                attack: 1, health: 10)
+                attack: 2, health: 8)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(MindStrike.ability, Ability.Sniper, Ability.Transformer, Challenging.ability)
@@ -83,10 +71,10 @@ namespace WhistleWindLobotomyMod {
                 .SetEvolve(white2, 2)
                 .Build();
 
-            white3.SetEvolve(white, 1);
+            white2.SetEvolve(white, 1);
 
             CardInfo black2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack2, "Black Fixer",
-                attack: 2, health: 7)
+                attack: 3, health: 6)
                 .SetEnergyCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName4)
                 .AddAbilities(TeamLeader.ability, Ability.Transformer, Challenging.ability)
@@ -97,7 +85,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardInfo black = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack, "Black Fixer",
-                attack: 2, health: 7)
+                attack: 3, health: 6)
                 .SetBloodCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName4)
                 .AddAbilities(Piercing.ability, Driver.ability, Ability.Transformer, Challenging.ability)
@@ -110,7 +98,7 @@ namespace WhistleWindLobotomyMod {
             black2.SetEvolve(black, 2);
 
             CardInfo pale = CardManager.New(LobotomyPlugin.pluginPrefix, fixerPale, "Pale Fixer",
-                attack: 2, health: 6)
+                attack: 3, health: 5)
                 .SetBloodCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
                 .AddAbilities(IntenseVolley.ability, Piercing.ability, Persistent.ability, Challenging.ability)
