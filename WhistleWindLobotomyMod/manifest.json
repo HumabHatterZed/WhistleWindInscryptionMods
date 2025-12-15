@@ -2,7 +2,7 @@
 	"name": "WhistleWind_Lobotomy_Mod",
 	"version_number": "3.0.0",
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
-	"description": "Into the Twilight - New boss, balance changes, and bug fixes. | A content mod for Inscryption that adds cards and abilities based on the abnormalities from the game Lobotomy Corporation.",
+	"description": "A content mod for Inscryption based on Project Moon's games. Adds new cards, encounters, bosses, and more. Now with a new battle type: Ordeals.",
 	"dependencies": [
 		"WhistleWind-WhistleWind_Abnormal_Sigils-2.0.0",
 		"Infiniscryption-Achievements-1.0.0"
