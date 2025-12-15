@@ -16,12 +16,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override Opponent.Type BossType => OrdealUtils.OpponentID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
-        public virtual List<Ability> BlacklistedAbilities { get; set; }
+
         public List<string> ValidCards { get; protected set; } = new();
-        public List<Ability> AllBlacklistedAbilities { get; private set; }
         public int MinNumCardsRequired { get; protected set; }
         public List<List<CardInfo>> EncounterBluePrint { get; protected set; }
         protected OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
+
         public bool defeated = false;
         public OrdealType ordealType;
         public int ordealTier;
@@ -201,28 +201,41 @@ namespace WhistleWindLobotomyMod.Opponents {
             // set the dominant tribe and redundant abilities for each Ordeal type
             switch (ordealType) {
                 case OrdealType.Green:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeMechanical).SetRedundantAbilities(Ability.Flying, Piercing.ability);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeMechanical)
+                        .SetRedundantAbilities(Ability.Flying, Piercing.ability);
                     break;
                 case OrdealType.Crimson:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeFae).SetRedundantAbilities(Ability.ExplodeOnDeath);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeFae)
+                        .SetRedundantAbilities(Ability.ExplodeOnDeath);
                     break;
                 case OrdealType.Violet:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeDivine).SetRedundantAbilities(Scorching.ability, Ability.Evolve);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeDivine)
+                        .SetRedundantAbilities(Ability.Flying, NimbleFoot.ability, Ability.Evolve);
                     break;
                 case OrdealType.Amber:
-                    encounterData.Blueprint.AddDominantTribes(Tribe.Insect).SetRedundantAbilities(Ability.WhackAMole, Ability.Strafe, Ability.StrafePush, Cycler.ability, Barreler.ability);
+                    encounterData.Blueprint.AddDominantTribes(Tribe.Insect)
+                        .SetRedundantAbilities();
                     break;
                 default:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeAnthropoid).SetRedundantAbilities(Persistent.ability, Bloodfiend.ability);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
+                        .SetRedundantAbilities(Ability.Flying, Persistent.ability, Bloodfiend.ability);
                     break;
             }
+
+            // Since Ordeals are card-destruction, Waterborne cannot be a Totem sigil
+            // Also remove movement-modifying sigils
+            encounterData.Blueprint.SetRedundantAbilities(
+                Ability.Submerge, Ability.SubmergeSquid,
+                Ability.WhackAMole, Ability.Strafe, Ability.StrafePush,
+                Cycler.ability, Barreler.ability, YellowBrickRoad.ability
+                );
 
             MinNumCardsRequired = ConstructOrdealBlueprint(encounterData, nodeData.difficulty);
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, encounterData.Difficulty, false);
 
             if (totem) {
-                GetAllBlacklistedAbilities(encounterData.Blueprint.redundantAbilities);
-                encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], encounterData.Difficulty, AllBlacklistedAbilities);
+                encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], encounterData.Difficulty, null);
+                AssignTotemAbility(encounterData);
             }
 
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}] {encounterData.opponentTurnPlan.Count} {encounterData.opponentTurnPlan.FirstOrDefault()?.Count}");
@@ -230,16 +243,30 @@ namespace WhistleWindLobotomyMod.Opponents {
             return encounterData;
         }
 
-        private void GetAllBlacklistedAbilities(List<Ability> redundantAbilities) {
-            AllBlacklistedAbilities = new(redundantAbilities);
-            if (BlacklistedAbilities != null) {
-                AllBlacklistedAbilities.AddRange(BlacklistedAbilities);
+        private void AssignTotemAbility(EncounterData data) {
+            Ability totemAbility = Ability.Sharp;
+            switch (ordealType) {
+                case OrdealType.Green: // Account for 0 Power cards
+                    totemAbility = (Ability.Sentry);
+                    break;
+                case OrdealType.Crimson:
+                    totemAbility = (HighStrung.ability);
+                    break;
+                case OrdealType.Violet:
+                    totemAbility = (Withering.ability);
+                    break;
+                case OrdealType.Amber:
+                    totemAbility = (OneSided.ability);
+                    break;
+                case OrdealType.Indigo:
+                    totemAbility = (Driver.ability);
+                    break;
+                case OrdealType.White:
+                    totemAbility = (StressResponse.ability);
+                    break;
             }
 
-            // Since Ordeals are card-destruction, Waterborne cannot be a Totem sigil
-            if (!AllBlacklistedAbilities.Contains(Ability.Submerge)) {
-                AllBlacklistedAbilities.Add(Ability.Submerge);
-            }
+            data.opponentTotem.bottom.effectParams.ability = totemAbility;
         }
     }
 }
