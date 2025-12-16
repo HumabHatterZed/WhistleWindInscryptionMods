@@ -3,13 +3,24 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.XR.Tango;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
     [HarmonyPatch]
     internal class OrdealPatches {
+        private static readonly OrdealType[] NonAscensionBossOrder = {
+            OrdealType.Green,
+            OrdealType.Violet,
+            OrdealType.Amber,
+            OrdealType.Violet
+        };
+
+
+
         [HarmonyPostfix, HarmonyPatch(typeof(ScissorsItem), nameof(ScissorsItem.OnValidTargetSelected))]
         private static IEnumerator CountScissoredOrdeals(IEnumerator enumerator, CardSlot target) {
             bool isOrdeal = target.Card.HasTrait(LobotomyCardManager.Ordeal);
@@ -42,77 +53,69 @@ namespace WhistleWindLobotomyMod.Opponents {
                 __result = true;
         }
 
+        private static OrdealBossBattleNodeData CreateOrdealBossNode(NodeData baseNode, int nodeDifficulty, int regionTier) {
+            OrdealBossBattleNodeData retval = new() {
+                id = baseNode.id,
+                gridX = baseNode.gridX,
+                gridY = baseNode.gridY,
+                difficulty = nodeDifficulty,
+                connectedNodes = baseNode.connectedNodes,
+                bossType = OrdealUtils.OpponentID,
+                tier = 3,
+                ordealType = SaveFile.IsAscension ? (OrdealType)LobotomySaveManager.GetCurrentOrdealBoss(regionTier) : NonAscensionBossOrder[regionTier],
+                totemOpponent = SaveFile.IsAscension && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)
+            };
+            retval.specialBattleId = retval.ordealType switch {
+                OrdealType.Violet => OrdealUtils.VioletMidnight,
+                OrdealType.Amber => OrdealUtils.AmberMidnight,
+                _ => OrdealUtils.GreenMidnight
+            };
+            return retval;
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
         private static void ConvertBattleIntoOrdeal(ref NodeData __result, ref int y) {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
-            if (__result is not CardBattleNodeData nodeData) {
+            if (RunState.CurrentRegionTier > 2 || __result is not CardBattleNodeData nodeData) {
                 return;
             }
 
-            if (__result is BossBattleNodeData) {
-                // if no order was decided or it's the final region and we are overriding with the white ordeals
-                if (OrdealRegionOrder == null || (RunState.CurrentRegionTier == 3 && LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id))) {
-                    return;
-                }
-                OrdealBossBattleNodeData bossData = new() {
+            if (__result is BossBattleNodeData && LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
+                // if no boss ordeals or it's the final region and we are overriding with the white ordeals
+                OrdealBossBattleNodeData bossData = CreateOrdealBossNode(__result, nodeData.difficulty, RunState.CurrentRegionTier);
+                __result = bossData;
+                LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Boss: {bossData.ordealType} | regionTier: {RunState.CurrentRegionTier}");
+            }
+            else if (LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) || Random.value <= (0.72f - RunState.Run.DifficultyModifier * 0.043f)) {
+                int tier;
+                float randomValue = UnityEngine.Random.value;
+                OrdealBattleNodeData data = new() {
                     id = __result.id,
                     gridX = __result.gridX,
                     gridY = __result.gridY,
                     difficulty = nodeData.difficulty,
                     connectedNodes = __result.connectedNodes,
-                    bossType = OrdealUtils.OpponentID,
-                    tier = 3,
-                    ordealType = RunState.CurrentRegionTier < OrdealRegionOrder.Length ? OrdealRegionOrder[RunState.CurrentRegionTier] : OrdealType.Green,
-                    totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)
+                    totemOpponent = __result is TotemBattleNodeData
                 };
-                bossData.specialBattleId = bossData.ordealType switch {
-                    OrdealType.Violet => OrdealUtils.VioletMidnight,
-                    OrdealType.Amber => OrdealUtils.AmberMidnight,
-                    _ => OrdealUtils.GreenMidnight
-                };
-                __result = bossData;
-                LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Boss: {bossData.ordealType} | tier: {RunState.CurrentRegionTier}");
-                return;
-            }
 
-            if (!LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) && UnityEngine.Random.value <= (0.72f - RunState.Run.DifficultyModifier * 0.043f)) {
-                return;
-            }
+                // exception for 1st map - no noons as the first couple battles
+                // gate values for region tiers
+                // 0.60 1.00  0
+                // 0.25 0.82  1 
+                // -0.1 0.64  1
+                if ((RunState.CurrentRegionTier == 0 && y < 7) || randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
+                    tier = 0;
+                }
+                else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
+                    tier = 1;
+                }
+                else {
+                    tier = 2;
+                }
 
-            int tier;
-            float randomValue = UnityEngine.Random.value;
-            OrdealBattleNodeData data = new() {
-                id = __result.id,
-                gridX = __result.gridX,
-                gridY = __result.gridY,
-                difficulty = nodeData.difficulty,
-                connectedNodes = __result.connectedNodes,
-                totemOpponent = __result is TotemBattleNodeData
-            };
-
-            // exception for 1st map - no noons as the first couple battles
-            // gate values for region tiers
-            // 0.60 1.00  0
-            // 0.25 0.82  1 
-            // -0.1 0.64  1
-            if (RunState.CurrentRegionTier == 0 && y < 7) {
-                tier = 0;
+                AssignOrdealDataToNode(data, tier);
+                __result = data;
             }
-            else if (randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
-                tier = 0;
-            }
-            else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
-                tier = 1;
-            }
-            else {
-                tier = 2;
-            }
-
-            AssignOrdealDataToNode(data, tier);
-            __result = data;
-
-            LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.CurrentRegionTier} {tier}");
         }
         private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier) {
             ordealNodeData.tier = tier;
@@ -121,6 +124,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 2 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber),
                 _ => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
             };
+            LobotomyPlugin.Log.LogDebug($"[AssignOrdealDataToNode] {tier} {ordealNodeData.ordealType}");
         }
 
         #region Counter View
@@ -238,20 +242,23 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         [HarmonyPostfix, HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.RollCurrentRunRegionOrder))]
         private static void DetermineMidnightOrder(AscensionSaveData __instance) {
-            OrdealRegionOrder = null;
+            //OrdealRegionOrder = null;
             if (LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
                 List<OrdealType> ordeals = new() { OrdealType.Amber, OrdealType.Violet, OrdealType.Green };
                 if (SaveFile.IsAscension) {
-                    ordeals.Randomize();
+                    ordeals = ordeals.Randomize().ToList();
                     ordeals.Add(OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Amber, OrdealType.Violet)); // randomly add 4th ordeal
                 }
                 else {
                     ordeals.Add(OrdealType.Violet); // for non KCM, leshy is always replaced with Violet
                 }
 
-                OrdealRegionOrder = ordeals.ToArray();
+                LobotomySaveManager.OrdealBossOrder1 = (int)ordeals[0];
+                LobotomySaveManager.OrdealBossOrder2 = (int)ordeals[1];
+                LobotomySaveManager.OrdealBossOrder3 = (int)ordeals[2];
+                LobotomySaveManager.OrdealBossOrder4 = (int)ordeals[3];
             }
         }
-        public static OrdealType[] OrdealRegionOrder = null;
+        //public static OrdealType[] OrdealRegionOrder = null;
     }
 }
