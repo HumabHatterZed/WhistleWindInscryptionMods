@@ -58,6 +58,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 id = baseNode.id,
                 gridX = baseNode.gridX,
                 gridY = baseNode.gridY,
+                position = baseNode.position,
                 difficulty = nodeDifficulty,
                 connectedNodes = baseNode.connectedNodes,
                 bossType = OrdealUtils.OpponentID,
@@ -72,6 +73,16 @@ namespace WhistleWindLobotomyMod.Opponents {
             };
             return retval;
         }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.GenerateNodes))]
+        private static void ReplaceLeshyRoyalWithOrdeal(PredefinedNodes predefinedNodes) {
+            if (RunState.CurrentMapRegion == RegionProgression.Instance.ascensionFinalBossRegion || RunState.CurrentMapRegion == RegionProgression.Instance.ascensionFinalRegion) {
+                NodeData lastNode = predefinedNodes.nodeRows[predefinedNodes.nodeRows.Count - 1][0];
+                NodeData ordealNode = CreateOrdealBossNode(lastNode, 20, 3);
+                predefinedNodes.nodeRows[predefinedNodes.nodeRows.Count - 1][0] = ordealNode;
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
         private static void ConvertBattleIntoOrdeal(ref NodeData __result, ref int y) {
             // only modify card battle nodes
