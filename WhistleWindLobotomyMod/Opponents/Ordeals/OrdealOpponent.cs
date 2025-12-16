@@ -231,12 +231,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             switch (BattleSequencer.ordealType) {
                 case OrdealType.Green:
                     cardLightColour = GameColors.Instance.seafoam;
-                    mainHighlightColour = mainDefaultColour = GameColors.Instance.darkLimeGreen;
+                    mainHighlightColour = mainDefaultColour = GameColors.Instance.limeGreen;
                     queueHighlightColour = queueDefaultColour = GameColors.Instance.darkSeafoam;
                     break;
                 case OrdealType.Violet:
-                    cardLightColour = GameColors.Instance.fuschia;
-                    mainHighlightColour = mainDefaultColour = GameColors.Instance.darkPurple;
+                    cardLightColour = GameColors.Instance.purple;
+                    mainHighlightColour = mainDefaultColour = GameColors.Instance.lightPurple;
                     queueHighlightColour = queueDefaultColour = GameColors.Instance.darkFuschia;
                     break;
                 case OrdealType.Crimson:
@@ -250,9 +250,9 @@ namespace WhistleWindLobotomyMod.Opponents {
                     queueHighlightColour = queueDefaultColour = GameColors.Instance.darkGold;
                     break;
                 case OrdealType.Indigo:
-                    cardLightColour = GameColors.Instance.purple;
-                    mainHighlightColour = mainDefaultColour = GameColors.Instance.darkBlue;
-                    queueHighlightColour = queueDefaultColour = GameColors.Instance.darkPurple;
+                    cardLightColour = GameColors.Instance.brightBlue;
+                    mainHighlightColour = mainDefaultColour = GameColors.Instance.brightBlue;
+                    queueHighlightColour = queueDefaultColour = GameColors.Instance.darkBlue;
                     break;
                 default:
                     cardLightColour = GameColors.Instance.gray;
