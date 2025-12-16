@@ -32,31 +32,31 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public static Texture2D[] OrdealNodeMats;
 
-        public static readonly string GreenDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenDawn)).Id;
-        public static readonly string GreenNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenNoon", typeof(OrdealGreenNoon)).Id;
-        public static readonly string GreenDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDusk", typeof(OrdealGreenDusk)).Id;
-        public static readonly string GreenMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenMidnight", typeof(OrdealGreenMidnight)).Id;
+        public static string GreenDawn;
+        public static string GreenNoon;
+        public static string GreenDusk;
+        public static string GreenMidnight;
 
-        public static readonly string VioletDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletDawn", typeof(OrdealVioletDawn)).Id;
-        public static readonly string VioletNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletNoon", typeof(OrdealVioletNoon)).Id;
-        public static readonly string VioletMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletMidnight", typeof(OrdealVioletMidnight)).Id;
+        public static string VioletDawn;
+        public static string VioletNoon;
+        public static string VioletMidnight;
 
-        public static readonly string CrimsonDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonDawn", typeof(OrdealCrimsonDawn)).Id;
-        public static readonly string CrimsonNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonNoon", typeof(OrdealCrimsonNoon)).Id;
-        public static readonly string CrimsonDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonDusk", typeof(OrdealCrimsonDusk)).Id;
+        public static string CrimsonDawn;
+        public static string CrimsonNoon;
+        public static string CrimsonDusk;
 
-        public static readonly string AmberDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberDawn", typeof(OrdealAmberDawn)).Id;
-        public static readonly string AmberDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberDusk", typeof(OrdealAmberDusk)).Id;
-        public static readonly string AmberMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberMidnight", typeof(OrdealAmberMidnight)).Id;
+        public static string AmberDawn;
+        public static string AmberDusk;
+        public static string AmberMidnight;
 
-        public static readonly string IndigoNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealIndigoNoon", typeof(OrdealIndigoNoon)).Id;
+        public static string IndigoNoon;
 
-        public static readonly string WhiteOrdeal = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealWhite", typeof(OrdealWhite)).Id;
+        public static string WhiteOrdeal;
 
         public static AudioClip[] OrdealSFX;
 
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
-        public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
+        public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length)];
 
         public static string GetOrdealIntroDescription(OrdealType type, int tier) {
             return LobotomyDialogue.BannerIntroDescriptions[type][tier];
@@ -66,6 +66,26 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         internal static void InitOrdeals() {
+            GreenDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenDawn)).Id;
+            GreenNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenNoon", typeof(OrdealGreenNoon)).Id;
+            GreenDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDusk", typeof(OrdealGreenDusk)).Id;
+            GreenMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenMidnight", typeof(OrdealGreenMidnight)).Id;
+
+            VioletDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletDawn", typeof(OrdealVioletDawn)).Id;
+            VioletNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletNoon", typeof(OrdealVioletNoon)).Id;
+            VioletMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletMidnight", typeof(OrdealVioletMidnight)).Id;
+
+            CrimsonDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonDawn", typeof(OrdealCrimsonDawn)).Id;
+            CrimsonNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonNoon", typeof(OrdealCrimsonNoon)).Id;
+            CrimsonDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonDusk", typeof(OrdealCrimsonDusk)).Id;
+
+            AmberDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberDawn", typeof(OrdealAmberDawn)).Id;
+            AmberDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberDusk", typeof(OrdealAmberDusk)).Id;
+            AmberMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberMidnight", typeof(OrdealAmberMidnight)).Id;
+
+            IndigoNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealIndigoNoon", typeof(OrdealIndigoNoon)).Id;
+
+            WhiteOrdeal = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealWhite", typeof(OrdealWhite)).Id;
             OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
             OrdealViewInfo = new() {
                 camPosition = new Vector3(0f, 7.65f, -5.15f),
