@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "sweeper";
             string textureName2 = "sweeper2";
             string textureName3 = "sweeper3";
-            CardManager.New(LobotomyPlugin.pluginPrefix, sweeper, "Sweeper A",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sweeper, "Sweeper",
                 attack: 1, health: 2)
                 .SetBloodCost(2).SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.Indigo)
                 .Build();
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, sweeper2, "Sweeper B",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sweeper2, "Sweeper",
                 attack: 1, health: 2)
                 .SetBloodCost(2).SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.Indigo)
                 .Build();
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, sweeper3, "Sweeper C",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sweeper3, "Sweeper",
                 attack: 2, health: 2)
                 .SetBloodCost(2).SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
