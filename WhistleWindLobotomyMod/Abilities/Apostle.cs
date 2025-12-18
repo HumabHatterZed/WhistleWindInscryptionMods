@@ -12,10 +12,13 @@ namespace WhistleWindLobotomyMod {
         private static void AddApostle() {
             const string rulebookName = "Apostle";
             ApostleSigil.ability = AbilityHelper.New<ApostleSigil>(LobotomyPlugin.pluginGuid,
-                "sigilApostle", rulebookName, "On taking fatal damage, this card enters a downed state instead of dying.", -3, true).Id;
+                "sigilApostle", rulebookName, "This card enters a downed state instead of perishing unless already downed. Downed cards cannot be killed while an ally card is the True Saviour.", -3, true).Id;
         }
     }
 
+    /// <summary>
+    /// This card enters a downed state instead of perishing unless already downed. Downed cards cannot be killed while an ally card is the True Saviour.
+    /// </summary>
     public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken {
         public static Ability ability;
         public override Ability Ability => ability;

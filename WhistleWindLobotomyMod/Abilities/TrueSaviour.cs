@@ -16,9 +16,13 @@ namespace WhistleWindLobotomyMod {
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
             TrueSaviour.ability = AbilityHelper.New<TrueSaviour>(LobotomyPlugin.pluginGuid,
-                "sigilTrueSaviour", rulebookName, "While this card is on the board, transform allies into Apostles, and downed cards become invulnerable.", powerLevel: -3, true, dialogue).Id;
+                "sigilTrueSaviour", rulebookName, "While this card is on the board, it will transform allies into Apostles.", powerLevel: -3, true, dialogue).Id;
         }
     }
+
+    /// <summary>
+    /// While this card is on the board, it will transform allies into Apostles.
+    /// </summary>
     public class TrueSaviour : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
