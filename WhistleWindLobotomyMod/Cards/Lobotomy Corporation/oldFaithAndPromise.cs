@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod {
         public const string oldFaithAndPromise = "wstl_oldFaithAndPromise";
         private static void OldFaithAndPromise_T0997() {
             string name = "Old Faith and Promise";
-            string name2 = "Elder Faith and Promise";
+            string name2 = "Older Faith and Promise";
             string desc = "A mysterious marble. Use it without desire or expectation and you may be rewarded.";
             string textureName = "oldFaithAndPromise";
             CardManager.New(LobotomyPlugin.pluginPrefix, oldFaithAndPromise, name,
