@@ -7,6 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string hookahCaterpillar = "wstlWonder_hookahCaterpillar";
+        public const string hookahPupa = "wstlWonder_hookahPupa";
         public const string hookahButterfly = "wstlWonder_hookahButterfly";
         private static void HookahCaterpillar() {
             string textureName = "hookahButterfly";
@@ -19,12 +20,21 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
+            CardInfo pupa = CardManager.New(LobotomyPlugin.wonderlabPrefix, hookahPupa, "Hookah Pupa",
+                attack: 0, health: 3)
+                .SetEnergyCost(3).SetBonesCost(5)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "hookahPupa")
+                .AddAbilities(Scorching.ability, Ability.Evolve)
+                .SetEvolve(butterfly, 1)
+                .AddTribes(Tribe.Insect)
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
+
             CardManager.New(LobotomyPlugin.wonderlabPrefix, hookahCaterpillar, "Hookah Caterpillar",
                 attack: 0, health: 3, "A gluttonous worm, it fattens itself on doubt and despair.")
                 .SetEnergyCost(2).SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Scorching.ability, Ability.Evolve)
-                .SetEvolve(butterfly, 2)
+                .SetEvolve(pupa, 1)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
         }
