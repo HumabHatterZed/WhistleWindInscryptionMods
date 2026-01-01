@@ -65,6 +65,7 @@ namespace WhistleWindLobotomyMod {
             }
 
             AddPpodaeStinky();
+            AddSteelTrapSweetHome();
             AddBoneMeal();
             AddTimeMachine();
             AddApostle();
