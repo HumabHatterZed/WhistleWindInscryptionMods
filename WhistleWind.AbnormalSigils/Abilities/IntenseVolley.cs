@@ -103,16 +103,17 @@ namespace WhistleWind.AbnormalSigils {
             currentTargets.Clear();
         }
 
-        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Card.OpponentCard && !opponentTurnSkipped;
-        public bool RespondsToPlayerTurnEnd() => !base.Card.OpponentCard;
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Card.Attack > 0 && base.Card.OpponentCard && !opponentTurnSkipped;
+        public bool RespondsToPlayerTurnEnd() => base.Card.Attack > 0 && !base.Card.OpponentCard;
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-            => card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;
+            => card == base.Card && base.Card.Attack > 0 && modType == OpposingSlotTriggerPriority.PostAdditionModification;
+
+        public bool RespondsToPostSingularSlotAttackSlot(CardSlot attackingSlot, CardSlot targetSlot)
+            => attackingSlot == base.Card.Slot && base.Card.Attack > 0;
 
         public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
         public int PlayerTurnEndPriority() => 0;
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
             => 0;
-
-        public bool RespondsToPostSingularSlotAttackSlot(CardSlot attackingSlot, CardSlot targetSlot) => attackingSlot == base.Card.Slot;
     }
 }
