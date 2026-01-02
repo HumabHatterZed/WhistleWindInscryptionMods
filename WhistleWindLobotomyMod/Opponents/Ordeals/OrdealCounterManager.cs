@@ -7,6 +7,8 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod {
     public class OrdealCounterManager : Singleton<OrdealCounterManager> {
+        private const string REMAINING_TEXT = "remaining";
+        
         public static Sprite dawnSprite;
         public static Sprite noonSprite;
         public static Sprite duskSprite;
@@ -15,37 +17,26 @@ namespace WhistleWindLobotomyMod {
         private Animator anim;
         private SpriteRenderer leftRenderer;
         private TextMeshPro counterText;
+        private TextMeshPro remainingText;
+        
+        /// <summary>
+        /// Whether or not the monitor display's subtitle displays the default 'remaining' subtitle.
+        /// </summary>
+        public bool Dirty { get; private set; }
 
         public int amountLeft;
 
-        public static void ValidateCounter() {
-            if (OrdealCounterManager.Instance == null) {
-                LobotomyPlugin.Log.LogDebug("[OrdealCounterManager] Setting up managers");
-
-                GameObject obj = Instantiate(AssetManager.ordealCounterPrefab, BoardManager.Instance.transform.parent);
-                m_Instance = obj.AddComponent<OrdealCounterManager>();
-                Instance.Initialise();
-
-                GameObject obj2 = Instantiate(AssetManager.ordealBannerPrefab, TextDisplayer.Instance.transform.parent);
-                OrdealBannerManager.m_Instance = obj2.AddComponent<OrdealBannerManager>();
-                OrdealBannerManager.Instance.Initialise();
+        public void UpdateConsole(int ordealTier, int startingAmount, string text = REMAINING_TEXT) {
+            Dirty = text != REMAINING_TEXT;
+            if (!Dirty) {
+                amountLeft = startingAmount;
+                counterText.text = this.amountLeft.ToString();
             }
             else {
-                LobotomyPlugin.Log.LogDebug("[OrdealCounterManager] Managers exist");
+                counterText.text = startingAmount.ToString();
             }
-        }
-
-        private void Initialise() {
-            anim = Instance.transform.GetChild(0).GetComponent<Animator>();
-            leftRenderer = anim.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            counterText = anim.transform.GetChild(1).GetComponent<TextMeshPro>();
-
-            anim.transform.position = new(0f, -4.5f, 5f);
-        }
-
-        public void UpdateConsole(int ordealTier, int startingAmount) {
-            amountLeft = startingAmount;
-            counterText.text = this.amountLeft.ToString();
+            remainingText.text = text;
+            
             leftRenderer.sprite = ordealTier switch {
                 0 => dawnSprite,
                 1 => noonSprite,
@@ -61,13 +52,11 @@ namespace WhistleWindLobotomyMod {
                 Tween.Position(LeshyAnimationController.Instance.transform, new Vector3(0f, 6f, 9f), 1f, 0.5f);
             }
             else {
-                amountLeft = 0;
-                leftRenderer.sprite = null;
-                counterText.text = "";
-                SetTextColour(Color.black);
                 this.anim.Play("exit", 0, 0f);
                 Tween.Position(LeshyAnimationController.Instance.transform, new Vector3(0f, 4.75f, 9f), 1f, 0.5f);
                 CustomCoroutine.WaitThenExecute(0.5f, delegate {
+                    UpdateConsole(4, 0);
+                    SetTextColour(Color.black);
                     this.anim.gameObject.SetActive(false);
                 });
             }
@@ -91,14 +80,44 @@ namespace WhistleWindLobotomyMod {
                 yield break;
 
             for (int i = 0; i < Mathf.Abs(amountKilled); i++) {
-                AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
-
                 this.amountLeft += amountKilled < 0 ? 1 : -1;
-                if (this.amountLeft == 0) {
-                    SetTextColour(Color.red);
-                }
-                counterText.text = this.amountLeft.ToString();
-                yield return new WaitForSeconds(waitTime);
+                yield return UpdateDisplayedValue(this.amountLeft, waitTime);
+            }
+        }
+
+        public IEnumerator UpdateDisplayedValue(int value, float waitTime = 0.125f) {
+            if (value == 0) {
+                SetTextColour(Color.red);
+            }
+            counterText.text = value.ToString();
+
+            AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
+            yield return new WaitForSeconds(waitTime);
+        }
+
+        private void Initialise() {
+            anim = Instance.transform.GetChild(0).GetComponent<Animator>();
+            leftRenderer = anim.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            counterText = anim.transform.GetChild(1).GetComponent<TextMeshPro>();
+            remainingText = counterText.transform.GetChild(0).GetComponent<TextMeshPro>();
+            anim.transform.position = new(0f, -4.5f, 5f);
+        }
+
+        public static void ValidateOrdealManagers() {
+            if (OrdealCounterManager.Instance == null) {
+                LobotomyPlugin.Log.LogDebug("[ValidateOrdealManagers] Setting up OrdealCounterManager");
+                GameObject obj = Instantiate(AssetManager.ordealCounterPrefab, BoardManager.Instance.transform.parent);
+                m_Instance = obj.AddComponent<OrdealCounterManager>();
+                OrdealCounterManager.Instance.Initialise();
+
+
+            }
+
+            if (OrdealBannerManager.Instance == null) {
+                LobotomyPlugin.Log.LogDebug("[ValidateOrdealManagers] Setting up OrdealBannerManager");
+                GameObject obj2 = Instantiate(AssetManager.ordealBannerPrefab, TextDisplayer.Instance.transform.parent);
+                OrdealBannerManager.m_Instance = obj2.AddComponent<OrdealBannerManager>();
+                OrdealBannerManager.Instance.Initialise();
             }
         }
     }

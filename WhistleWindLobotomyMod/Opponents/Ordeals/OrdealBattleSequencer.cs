@@ -52,13 +52,34 @@ namespace WhistleWindLobotomyMod.Opponents {
             base.DigUpBones(damage, bonesToGive, targetSlot);
         }
 
+        public IEnumerator UpdateOrdealMonitor(int amountKilled) {
+            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
+            if (OrdealCounterManager.Instance.Dirty) {
+                OrdealCounterManager.Instance.EnableConsole(false);
+                yield return new WaitForSeconds(0.8f);
+                OrdealCounterManager.Instance.UpdateConsole(ordealTier, OrdealCounterManager.Instance.amountLeft);
+                OrdealCounterManager.Instance.EnableConsole(true);
+                if (!defeated) {
+                    yield return new WaitForSeconds(0.8f);
+                }
+            }
+            yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilled);
+            yield return new WaitForSeconds(0.75f);
+        }
+
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
             if (amountKilledThisTurn != 0) {
                 //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] update amount left");
-                yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-                yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
-                yield return new WaitForSeconds(0.75f);
+
+                yield return UpdateOrdealMonitor(amountKilledThisTurn);
+
+                //if (OrdealCounterManager.Instance.Dirty) {
+                //    OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
+                //}
+                //yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
+                //yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
+                //yield return new WaitForSeconds(0.75f);
             }
 
             amountKilledThisTurn = 0; // reset here so we can modify it in MoveOpponentCards (see Amber Dusk for ex)
@@ -167,7 +188,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
-            OrdealCounterManager.ValidateCounter();
+            OrdealCounterManager.ValidateOrdealManagers();
             int tier = -1;
             OrdealType type = OrdealType.Green;
             bool totem = false;
