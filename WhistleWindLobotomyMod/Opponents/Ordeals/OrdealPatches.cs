@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 __result = bossData;
                 LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Boss: {bossData.ordealType} | regionTier: {RunState.CurrentRegionTier}");
             }
-            else if (LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) || Random.value <= (0.72f - RunState.Run.DifficultyModifier * 0.043f)) {
+            else if (LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) || Random.value <= 0.39f) {
                 int tier;
                 float randomValue = UnityEngine.Random.value;
                 OrdealBattleNodeData data = new() {
@@ -111,16 +111,24 @@ namespace WhistleWindLobotomyMod.Opponents {
 
                 // exception for 1st map - no noons as the first couple battles
                 // gate values for region tiers
-                // 0.60 1.00  0
-                // 0.25 0.82  1 
-                // -0.1 0.64  1
-                if ((RunState.CurrentRegionTier == 0 && y < 7) || randomValue <= 0.6f - RunState.CurrentRegionTier * 0.35f) {
+                // Dawn Noon Dusk
+                //  0.60 1.00 1.00  0   0.30 0.84 1.00
+                //  0.25 0.82 1.00  1  -0.05 0.66 1.00
+                // -0.10 0.64 1.00  2  -0.40 0.48 1.00
+                float weakGate = 0.6f - ((RunState.Run.DifficultyModifier - 1) * 0.15f + RunState.CurrentRegionTier * 0.35f);
+                float strongGate = 1f - ((RunState.Run.DifficultyModifier - 1) * 0.08f + RunState.CurrentRegionTier * 0.18f);
+
+                if ((RunState.CurrentRegionTier == 0 && y < 8 - RunState.Run.DifficultyModifier) || randomValue <= weakGate) {
+                    // always create dawns for the first 1-2 nodes of map 1
+                    // dawns only appear in regions 0 & 1
                     tier = 0;
                 }
-                else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.18f) {
+                else if (RunState.CurrentRegionTier == 0 || y < 4 || randomValue <= strongGate) {
+                    // for region 0, always create a noon if not creating a dawn
                     tier = 1;
                 }
                 else {
+                    // dusks only appear on maps 2 & 3, and never for the first node
                     tier = 2;
                 }
 
