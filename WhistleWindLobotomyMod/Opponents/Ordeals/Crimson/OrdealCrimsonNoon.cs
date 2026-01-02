@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -19,8 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (encounterData.Difficulty > 8) {
                 EncounterData.StartCondition cond = new();
                 List<CardInfo> info = new() { null, null, null, CardLoader.GetCardByName(Cards.skinHarmony) };
-                info.Randomize();
-                cond.cardsInOpponentSlots = info.ToArray();
+                cond.cardsInOpponentSlots = info.Randomize().ToArray();
                 encounterData.startConditions.Add(cond);
             }
             else {

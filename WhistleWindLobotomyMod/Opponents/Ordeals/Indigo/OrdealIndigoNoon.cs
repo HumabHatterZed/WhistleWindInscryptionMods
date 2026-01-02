@@ -17,35 +17,39 @@ namespace WhistleWindLobotomyMod.Opponents {
             int seed = base.GetRandomSeed();
 
             for (int i = 0; i < numTurns; i++) {
-                float randVal = SeededRandom.Value(seed++);
                 List<EncounterBlueprintData.CardBlueprint> turn = new();
+
+                switch (SeededRandom.Range(0, 3, seed++)) {
+                    case 0:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper));
+                        break;
+                    case 1:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper2));
+                        break;
+                    default:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper3));
+                        break;
+                }
                 num++;
 
-                if (randVal <= 0.33f) {
-                    turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper));
-                }
-                else if (randVal <= 0.67f) {
-                    turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper2));
-                }
-                else {
-                    turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper3));
-                }
-
-                if (i % 2 == 0) {
-                    encounterData.Blueprint.AddTurn();
-                }
-                else if (i % 3 == 0) {
+                if (i % 3 == 0) {
+                    switch (SeededRandom.Range(0, 3, seed++)) {
+                        case 0:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper));
+                            break;
+                        case 1:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper2));
+                            break;
+                        default:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper3));
+                            break;
+                    }
                     num++;
-                    randVal = SeededRandom.Value(seed++);
-                    if (randVal <= 0.33f) {
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper));
-                    }
-                    else if (randVal <= 0.67f) {
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper2));
-                    }
-                    else {
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper3));
-                    }
+                }
+                else if (i % 2 == 0 && (RunState.Run.DifficultyModifier < 2 || encounterData.Blueprint.turns.Count < 6 - RunState.Run.DifficultyModifier)) {
+                    // create empty turns before turns with cards
+                    // if the difficulty modifier is not 1, stop adding buffer turns after X num of turns have been added
+                    encounterData.Blueprint.AddTurn();
                 }
 
                 encounterData.Blueprint.AddTurn(turn);
