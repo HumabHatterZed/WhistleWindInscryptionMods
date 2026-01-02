@@ -71,6 +71,10 @@ namespace WhistleWind.AbnormalSigils {
         public virtual IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) => OnPlayerTurnEnd();
         public virtual IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();
+            if (base.Card.Attack == 0) {
+                yield break;
+            }
+
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
             int maxTargets = BoardManager.Instance.OpponentSlotsCopy.Count;
             if (SeededRandom.Value(randomSeed++) <= (base.Card.Health / (float)(base.Card.MaxHealth + 1))) {
@@ -103,8 +107,8 @@ namespace WhistleWind.AbnormalSigils {
             currentTargets.Clear();
         }
 
-        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Card.Attack > 0 && base.Card.OpponentCard && !opponentTurnSkipped;
-        public bool RespondsToPlayerTurnEnd() => base.Card.Attack > 0 && !base.Card.OpponentCard;
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Card.OpponentCard && !opponentTurnSkipped;
+        public bool RespondsToPlayerTurnEnd() => !base.Card.OpponentCard;
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
             => card == base.Card && base.Card.Attack > 0 && modType == OpposingSlotTriggerPriority.PostAdditionModification;
 
