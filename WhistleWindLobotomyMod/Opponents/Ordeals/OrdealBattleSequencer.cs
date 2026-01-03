@@ -15,7 +15,6 @@ namespace WhistleWindLobotomyMod.Opponents {
     public abstract class OrdealBattleSequencer : LobotomyBattleSequencer {
         public override Opponent.Type BossType => OrdealUtils.OpponentID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
-        public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
 
         public List<string> ValidCards { get; protected set; } = new();
         public int MinNumCardsRequired { get; protected set; }
@@ -68,18 +67,11 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
+            //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
             if (amountKilledThisTurn != 0) {
                 //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] update amount left");
 
                 yield return UpdateOrdealMonitor(amountKilledThisTurn);
-
-                //if (OrdealCounterManager.Instance.Dirty) {
-                //    OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
-                //}
-                //yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-                //yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
-                //yield return new WaitForSeconds(0.75f);
             }
 
             amountKilledThisTurn = 0; // reset here so we can modify it in MoveOpponentCards (see Amber Dusk for ex)
@@ -100,7 +92,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
             }
             currentExcessBones = 0;
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd: [{OrdealCounterManager.Instance.amountLeft}] left");
+            //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd: [{OrdealCounterManager.Instance.amountLeft}] left");
             if (amountKilledThisTurn != 0) {
                 yield return OnOpponentTurnEnd(true);
             }
@@ -189,6 +181,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
             OrdealCounterManager.ValidateOrdealManagers();
+            HighestPositiveScaleBalance = 4;
             int tier = -1;
             OrdealType type = OrdealType.Green;
             bool totem = false;
