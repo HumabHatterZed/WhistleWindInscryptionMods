@@ -9,10 +9,10 @@ using WhistleWindLobotomyMod.Core;
 namespace WhistleWindLobotomyMod {
     public partial class Items {
         private static void SodaCans() {
-            GameObject obj = AssetManager.AssetBundle.LoadAsset<GameObject>("FizzyLifter");
-            GameObject obj2 = AssetManager.AssetBundle.LoadAsset<GameObject>("OceanSoda");
-            GameObject obj3 = AssetManager.AssetBundle.LoadAsset<GameObject>("PotshotPop");
-            GameObject obj4 = AssetManager.AssetBundle.LoadAsset<GameObject>("SurefireDrink");
+            GameObject obj = AssetManager.assetBundle.LoadAsset<GameObject>("FizzyLifter");
+            GameObject obj2 = AssetManager.assetBundle.LoadAsset<GameObject>("OceanSoda");
+            GameObject obj3 = AssetManager.assetBundle.LoadAsset<GameObject>("PotshotPop");
+            GameObject obj4 = AssetManager.assetBundle.LoadAsset<GameObject>("SurefireDrink");
             ConsumableItemManager.New(LobotomyPlugin.pluginGuid,
                 "Fizzy Lifting Drink",
                 "Select a card on the board to gain Airborne for this and next turn.", TextureLoader.LoadTextureFromFile("itemFizzyLifter.png", LobotomyPlugin.ModAssembly), typeof(FizzyLifterItem), obj)

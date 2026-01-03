@@ -11,8 +11,10 @@ using InscryptionAPI.Regions;
 using InscryptionAPI.TalkingCards;
 using Sirenix.Utilities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
@@ -56,13 +58,16 @@ namespace WhistleWindLobotomyMod {
             if (LobotomyConfigManager.NumOfBlessings > 11)
                 LobotomyConfigManager.SetBlessings(11);
 
+            Log.LogDebug("Loading assets...");
             AssetManager.Initialise();
+
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
             Log.LogDebug("Loading dialogue...");
             GenerateDialogueEvents();
 
             AddChallenges();
+            OrdealPages.AddPages();
 
             Log.LogDebug("Loading abilities...");
             Abilities.AddAbilities(this);
@@ -80,14 +85,16 @@ namespace WhistleWindLobotomyMod {
             // Pebble - Gives Pebble effect to a card
             // Accelerator - Gives card +X Haste
             // Decelerator - Gives card +X Bind
+
             AccessTools.GetDeclaredMethods(typeof(Items)).ForEach(mi => mi.Invoke(this, null));
             AccessTools.GetDeclaredMethods(typeof(Nodes)).ForEach(mi => mi.Invoke(this, null));
-            //OrdealPages.AddPages();
 
             if (PackAPI.Enabled)
                 PackAPI.CreateCardPack();
 
             AchievementAPI.CreateAchievements();
+
+            AssetManager.UnloadAssetBundle();
             Log.LogInfo($"Plugin loaded! Let's get to work manager!");
         }
 

@@ -19,7 +19,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "ApocalypseBattleSequencer", typeof(ApocalypseBattleSequencer)).Id;
         public override Opponent.Type BossType => LobOpponentUtils.ApocalypseBossID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.ApocalypseBossDefeated;
-        public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
         private ApocalypseBossOpponent BossOpponent => TurnManager.Instance.Opponent as ApocalypseBossOpponent;
 
         private readonly Dictionary<ActiveEggEffect, string[]> AllBossPhases = new()
@@ -59,7 +58,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             new() // white targets
         };
 
-        private GameObject bossMouthPrefab;
         public readonly Dictionary<CardSlot, GameObject> mouthIcons = new();
 
         #region Big Eyes
@@ -222,7 +220,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             // create the mouth objects relative to the opponent slots' positions
             foreach (CardSlot slot in specialTargetSlots.Where(x => x.IsOpponentSlot())) {
                 yield return new WaitForSeconds(0.1f);
-                GameObject obj = Instantiate(bossMouthPrefab);
+                GameObject obj = Instantiate(LobOpponentUtils.ApocalypseBossMouthPrefab);
                 obj.transform.localPosition = slot.transform.position + new Vector3(0f, 1.2f, 0.4f);
                 mouthIcons.Add(slot, obj);
             }
@@ -827,8 +825,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         }
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
             ChangeActiveEggEffect();
-            bossMouthPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseMouth");
-
+            HighestPositiveScaleBalance = 4;
+            
             EncounterData data = base.BuildCustomEncounter(nodeData);
             CardInfo startingEgg = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
 

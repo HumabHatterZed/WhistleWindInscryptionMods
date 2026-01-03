@@ -53,8 +53,6 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public static string WhiteOrdeal;
 
-        public static AudioClip[] OrdealSFX;
-
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length)];
 
@@ -65,7 +63,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             return LobotomyDialogue.BannerOutroDescriptions[type][tier];
         }
 
-        internal static void InitOrdeals() {
+        internal static void InitOrdeals(AssetBundle bundle) {
             GreenDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenDawn)).Id;
             GreenNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenNoon", typeof(OrdealGreenNoon)).Id;
             GreenDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDusk", typeof(OrdealGreenDusk)).Id;
@@ -106,10 +104,10 @@ namespace WhistleWindLobotomyMod.Opponents {
             MidnightTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnightTotem1", "nodeOrdealMidnightTotem2", "nodeOrdealMidnightTotem3", "nodeOrdealMidnightTotem4").ToArray();
             WhiteOrdealAnim = NodeHelper.GetNodeTextureList("nodeOrdealFinal1", "nodeOrdealFinal2", "nodeOrdealFinal3", "nodeOrdealFinal4").ToArray();
 
-            OrdealCounterManager.dawnSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_dawn");
-            OrdealCounterManager.noonSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_noon");
-            OrdealCounterManager.duskSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_dusk");
-            OrdealCounterManager.midnightSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_midnight");
+            OrdealCounterManager.dawnSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dawn");
+            OrdealCounterManager.noonSprite = bundle.LoadAsset<Sprite>("ordeal_counter_noon");
+            OrdealCounterManager.duskSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dusk");
+            OrdealCounterManager.midnightSprite = bundle.LoadAsset<Sprite>("ordeal_counter_midnight");
 
             OrdealNodeMats = [
                 TextureLoader.LoadTextureFromFile("scratched_green.png", LobotomyPlugin.ModAssembly),
@@ -120,22 +118,18 @@ namespace WhistleWindLobotomyMod.Opponents {
                 TextureLoader.LoadTextureFromFile("scratched_white.png", LobotomyPlugin.ModAssembly)
             ];
 
-            OrdealSFX = [
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Green_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Green_end"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Crimson_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Crimson_end"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Violet_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Violet_end"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Amber_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Amber_end"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indigo_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indigo_end"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("White_start"),
-                AssetManager.AssetBundle.LoadAsset<AudioClip>("White_end")
-            ];
-
-            AssetManager.sfxClips.AddRange(OrdealSFX);
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Green_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Green_end"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Crimson_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Crimson_end"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_end"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Amber_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Amber_end"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Indigo_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Indigo_end"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("White_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("White_end"));
         }
 
         internal static RegionData CreateWhiteOrdealRegion() {

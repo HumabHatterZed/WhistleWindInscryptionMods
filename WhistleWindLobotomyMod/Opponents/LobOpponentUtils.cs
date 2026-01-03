@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Resource;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -36,35 +37,26 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
 
-        internal static void InitBossObjects() {
+        internal static void InitBossObjects(AssetBundle bundle) {
             CardOffscreenLayer = CardLoader.GetCardByName("!GIANTCARD_MOON").AnimatedPortrait.transform.GetChild(0).gameObject.layer;
 
-            ApocalypseBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseBoss");
-            HelixBossPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("LastHelixPortrait");
-            GrantUsLovePrefab = AssetManager.BossBundle.LoadAsset<GameObject>("GrantUsLovePortrait");
+            ApocalypseBossPrefab = bundle.LoadAsset<GameObject>("ApocalypseBoss");
+            ApocalypseBossMouthPrefab = bundle.LoadAsset<GameObject>("ApocalypseMouth");
+            HelixBossPrefab = bundle.LoadAsset<GameObject>("LastHelixPortrait");
+            HelixBossLaserPrefab = bundle.LoadAsset<GameObject>("LastHelixLaser");
+            GrantUsLovePrefab = bundle.LoadAsset<GameObject>("GrantUsLovePortrait");
             FixAnimatedPortraitLayers(HelixBossPrefab);
             FixAnimatedPortraitLayers(GrantUsLovePrefab);
 
-            bossSFX = // unity settings: compressed, preload data
-            [
-                AssetManager.BossBundle.LoadAsset<AudioClip>("bird_roar"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("bird_mouth"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("bird_down"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("bird_laser_fire"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("bird_dead"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("helix_open"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("helix_deactivate")
-            ];
-            bossLoop = // unity settings: streaming
-            [
-                AssetManager.BossBundle.LoadAsset<AudioClip>("second_trumpet_intro"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("second_trumpet_intro_loop"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("second_trumpet_main"),
-                AssetManager.BossBundle.LoadAsset<AudioClip>("second_trumpet_main_loop")
-            ];
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, "Prefabs/Environment/TableEffects/" + "CityTableEffects", bundle.LoadAsset<GameObject>("CityTableEffects"));
 
-            AssetManager.sfxClips.AddRange(bossSFX);
-            AssetManager.musicLoops.AddRange(bossLoop);
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_roar"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_mouth"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_down"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_laser_fire"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_dead"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("helix_open"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("helix_deactivate"));
 
             ApocalypseBossID = OpponentManager.Add(
                 LobotomyPlugin.pluginGuid, "ApocalypseBossOpponent",
@@ -87,13 +79,12 @@ namespace WhistleWindLobotomyMod.Opponents {
 
 
         public static GameObject ApocalypseBossPrefab { get; private set; }
+        public static GameObject ApocalypseBossMouthPrefab { get; private set; }
         //public static GameObject raptureBossPrefab;
 
         public static GameObject HelixBossPrefab { get; private set; }
+        public static GameObject HelixBossLaserPrefab { get; private set; }
         public static GameObject GrantUsLovePrefab { get; private set; }
-
-        public static AudioClip[] bossSFX;
-        public static AudioClip[] bossLoop;
 
         public enum LobotomyBoss {
             Apocalypse,

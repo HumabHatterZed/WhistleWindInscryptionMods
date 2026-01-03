@@ -11,8 +11,7 @@ using WhistleWindLobotomyMod.Opponents;
 namespace WhistleWindLobotomyMod.Core {
     [HarmonyPatch]
     public static class AssetManager {
-        public static AssetBundle BossBundle { get; private set; }
-        public static AssetBundle AssetBundle { get; private set; }
+        private static AssetBundle musicBundle;
 
         internal static GameObject warningTargetPrefab;
         internal static GameObject ordealCounterPrefab;
@@ -25,25 +24,22 @@ namespace WhistleWindLobotomyMod.Core {
 
         public static readonly Dictionary<string, List<SceneryData>> CustomSceneryData = new();
 
+        internal static AssetBundle assetBundle;
+        private static Stream assetBundleStream;
+
         internal static void Initialise() {
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodbosses")) {
-                BossBundle = AssetBundle.LoadFromStream(stream);
-            }
+            assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets");
+            assetBundle = AssetBundle.LoadFromStream(assetBundleStream);
+            warningTargetPrefab = assetBundle.LoadAsset<GameObject>("WarningTargetIcon");
+            ordealCounterPrefab = assetBundle.LoadAsset<GameObject>("OrdealCounter");
+            ordealBannerPrefab = assetBundle.LoadAsset<GameObject>("OrdealBanner");
+            sfxClips.Add(assetBundle.LoadAsset<AudioClip>("soda_open"));
+            sfxClips.Add(assetBundle.LoadAsset<AudioClip>("can_hit"));
 
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets")) {
-                AssetBundle = AssetBundle.LoadFromStream(stream);
-            }
-
-            warningTargetPrefab = AssetBundle.LoadAsset<GameObject>("WarningTargetIcon");
-            ordealCounterPrefab = AssetBundle.LoadAsset<GameObject>("OrdealCounter");
-            ordealBannerPrefab = AssetBundle.LoadAsset<GameObject>("OrdealBanner");
-            sfxClips.Add(AssetBundle.LoadAsset<AudioClip>("soda_open"));
-            sfxClips.Add(AssetBundle.LoadAsset<AudioClip>("can_hit"));
-
-            GameObject obj = AssetBundle.LoadAsset<GameObject>("twisted_building");
+            GameObject obj = assetBundle.LoadAsset<GameObject>("twisted_building");
             obj.AddComponent<MapElement>().Data = new MapElementData();
 
-            GameObject obj2 = AssetBundle.LoadAsset<GameObject>("twisted_building_2");
+            GameObject obj2 = assetBundle.LoadAsset<GameObject>("twisted_building_2");
             obj2.AddComponent<MapElement>().Data = new MapElementData();
 
             ResourceBankManager.Add(LobotomyPlugin.pluginGuid, SceneryData.PREFABS_ROOT + "twisted_building", obj);
@@ -58,10 +54,24 @@ namespace WhistleWindLobotomyMod.Core {
 
             CustomSceneryData.Add("twisted_building", twistedBuildings);
 
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, "Prefabs/Environment/TableEffects/" + "CityTableEffects", BossBundle.LoadAsset<GameObject>("CityTableEffects"));
+            OrdealUtils.InitOrdeals(assetBundle);
+            LobOpponentUtils.InitBossObjects(assetBundle);
 
-            LobOpponentUtils.InitBossObjects();
-            OrdealUtils.InitOrdeals();
+            using (Stream musicStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodmusic")) {
+                musicBundle = AssetBundle.LoadFromStream(musicStream);
+
+                musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_intro"));
+                musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_intro_loop"));
+                musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_main"));
+                musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_main_loop"));
+
+                // streamed audio won't play if the bundle is unloaded
+            }
+        }
+
+        public static void UnloadAssetBundle() {
+            assetBundle.Unload(false);
+            assetBundleStream.Close();
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(AudioController), nameof(AudioController.GetAudioClip))]
