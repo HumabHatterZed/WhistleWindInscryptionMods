@@ -108,13 +108,13 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, "Last Helix",
-                attack: 0, health: 25)
-                .AddAbilities(Piercing.ability, Ability.Reach, Tower.ability, Challenging.ability)
+                attack: 0, health: 30)
+                .AddAbilities(Ability.Reach, Challenging.ability, Tower.ability)
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetAnimatedPortrait(LobOpponentUtils.HelixBossPrefab)
-                .SetTerrain(false)
+                .SetTerrain()
                 .SetOrdealCard(OrdealType.Green)
                 .SetMiniGiant()
                 .Build();
