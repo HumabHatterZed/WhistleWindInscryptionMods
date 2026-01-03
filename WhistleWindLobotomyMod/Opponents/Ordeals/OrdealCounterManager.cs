@@ -89,6 +89,9 @@ namespace WhistleWindLobotomyMod {
             if (value == 0) {
                 SetTextColour(Color.red);
             }
+            else {
+                SetTextColour(Color.black);
+            }
             counterText.text = value.ToString();
 
             AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
