@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -44,7 +45,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(TribeDivine)
                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetOrdealCard(OrdealType.Violet)
-                .SetAnimatedPortrait(LobOpponentUtils.GrantUsLovePrefab)
+                .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("GrantUsLovePortrait"))
                 .SetMiniGiant()
                 .SetMiniGiantEmission(TextureLoader.LoadTextureFromFile("grantUsLove_emission.png", LobotomyPlugin.ModAssembly))
                 .SetUniqueCopycat("wstl_grantMeSize")

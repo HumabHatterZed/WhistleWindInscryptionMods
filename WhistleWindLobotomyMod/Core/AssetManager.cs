@@ -23,11 +23,14 @@ namespace WhistleWindLobotomyMod.Core {
         public static readonly List<GameObject> scenery = new();
 
         public static readonly Dictionary<string, List<SceneryData>> CustomSceneryData = new();
+        public static int CardOffscreenLayer { get; internal set; }
 
-        internal static AssetBundle assetBundle;
+        private static AssetBundle assetBundle;
         private static Stream assetBundleStream;
 
         internal static void Initialise() {
+            CardOffscreenLayer = CardLoader.GetCardByName("!GIANTCARD_MOON").AnimatedPortrait.transform.GetChild(0).gameObject.layer;
+
             assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets");
             assetBundle = AssetBundle.LoadFromStream(assetBundleStream);
             warningTargetPrefab = assetBundle.LoadAsset<GameObject>("WarningTargetIcon");
@@ -71,7 +74,35 @@ namespace WhistleWindLobotomyMod.Core {
 
         public static void UnloadAssetBundle() {
             assetBundle.Unload(false);
-            assetBundleStream.Close();
+            assetBundleStream.Dispose();
+        }
+
+        /// <summary>
+        /// Recursively goes through each Transform in a given GameObjct and sets its layer to CardOffscreenLayer.
+        /// </summary>
+        /// <param name="obj"></param>
+        private static void FixAnimatedPortraitLayers(GameObject obj) {
+            obj.layer = CardOffscreenLayer;
+            foreach (Transform child in obj.transform) {
+                FixAnimatedPortraitLayers(child.gameObject);
+            }
+        }
+
+        /// <remarks>
+        /// Must only be called when first loading the mod in Awake().
+        /// </remarks>
+        internal static GameObject GetAnimatedPortraitPrefab(string prefabName) {
+            GameObject prefab = assetBundle.LoadAsset<GameObject>(prefabName);
+            FixAnimatedPortraitLayers(prefab);
+            return prefab;
+        }
+
+        /// <remarks>
+        /// Must only be called when first loading the mod in Awake().
+        /// </remarks>
+        internal static GameObject GetGameObject(string prefabName) {
+            GameObject prefab = assetBundle.LoadAsset<GameObject>(prefabName);
+            return prefab;
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(AudioController), nameof(AudioController.GetAudioClip))]

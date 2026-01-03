@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -113,10 +114,11 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                .SetAnimatedPortrait(LobOpponentUtils.HelixBossPrefab)
+                .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("LastHelixPortrait"))
                 .SetTerrain()
                 .SetOrdealCard(OrdealType.Green)
                 .SetMiniGiant()
+                //.SetMiniGiantEmission()
                 .Build();
         }
     }
