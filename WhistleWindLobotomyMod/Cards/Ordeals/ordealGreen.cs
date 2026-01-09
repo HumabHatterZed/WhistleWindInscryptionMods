@@ -18,6 +18,7 @@ namespace WhistleWindLobotomyMod {
         public const string doubtProcessDown = "wstl_doubtProcess_down";
         public const string whereWeReach = "wstl_doubtReach";
         public const string lastHelix = "wstl_doubtHelix";
+        public const string lilHelix = "wstl_lilHelix";
         private static void Cards_GreenOrdeal() {
             string textureName = "doubtA";
             string textureName2 = "doubtB";
@@ -108,17 +109,27 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.Green)
                 .Build();
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, "Last Helix",
-                attack: 0, health: 30)
-                .AddAbilities(Ability.Reach, Challenging.ability, Tower.ability)
+            CardManager.New(LobotomyPlugin.pluginPrefix, lilHelix, "Li'l Helix",
+                attack: 2, health: 1)
+                .SetEnergyCost(6)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "lilHelix")
+                .AddAbilities(Ability.Sniper, Piercing.ability)
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .AddTraits(Trait.Structure)
+                .Build();
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, string.Empty,
+                attack: 0, health: 30)
+                .AddAbilities(Tower.ability, Ability.Reach, Challenging.ability)
+                .AddTribes(TribeMechanical)
+                .AddTraits(Ordeal, Trait.Giant, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("LastHelixPortrait"))
-                .SetTerrain()
+                .SetTerrain(false)
                 .SetOrdealCard(OrdealType.Green)
-                .SetMiniGiant()
-                //.SetMiniGiantEmission()
+                .AddSpecialAbilities(SpecialTriggeredAbility.GiantCard)
+                .AddAppearances(GiantTowerAppearance.appearance)
+                .SetUniqueCopycat(lilHelix)
                 .Build();
         }
     }
