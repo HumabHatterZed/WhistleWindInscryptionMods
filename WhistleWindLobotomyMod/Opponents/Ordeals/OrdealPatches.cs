@@ -3,6 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Tango;
@@ -19,7 +20,24 @@ namespace WhistleWindLobotomyMod.Opponents {
             OrdealType.Violet
         };
 
+        [HarmonyPostfix, HarmonyPatch(typeof(CardRenderCamera), nameof(CardRenderCamera.TryCreateCameraForLiveRender))]
+        private static void FixGiantEmissionCameraAspectRatio(CardRenderCamera __instance, RenderStatsLayer layer) {
+            if (!__instance.liveRenderCameras.ContainsKey(layer) || layer is not RenderLiveStatsLayer live || !live.Giant) {
+                return;
+            }
+            Transform emissionRenderCam = __instance.liveRenderCameras[layer].transform.Find("EmissionRenderCamera");
+            emissionRenderCam.GetComponent<Camera>().aspect = 1.434f;
+            emissionRenderCam.GetComponent<SetCameraAspect>().defaultAspect = 1.434f;
+        }
 
+        [HarmonyPrefix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.EmissionEnabledForCard))]
+        private static bool ForceEmissionRendering(ref bool __result, CardRenderInfo renderInfo) {
+            if (renderInfo != null && renderInfo.baseInfo != null && renderInfo.baseInfo.name.Equals(Cards.lastHelix)) {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
 
         [HarmonyPostfix, HarmonyPatch(typeof(ScissorsItem), nameof(ScissorsItem.OnValidTargetSelected))]
         private static IEnumerator CountScissoredOrdeals(IEnumerator enumerator, CardSlot target) {
