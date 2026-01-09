@@ -82,7 +82,8 @@ namespace WhistleWindLobotomyMod.Core {
         /// </summary>
         /// <param name="obj"></param>
         private static void FixAnimatedPortraitLayers(GameObject obj) {
-            obj.layer = CardOffscreenLayer;
+            if (obj.layer == 0)
+                obj.layer = CardOffscreenLayer;
             foreach (Transform child in obj.transform) {
                 FixAnimatedPortraitLayers(child.gameObject);
             }
