@@ -32,35 +32,27 @@ namespace WhistleWindLobotomyMod.Opponents {
         private PlayableCard Helix { get; set; }
         private Animator HelixAnimator;
 
-        private readonly int MaxCooldownPeriod = 2;
+        private int maxCooldownPeriod = 1;
         private readonly int MaxActivePeriod = 4;
 
         public int phaseCountdown = 0;
 
-        public bool isActive = false;
-        public bool justActivated = false;
+        private bool isActive = false;
+        private bool justActivated = false;
 
-        public HelixLight wanderingLight;
-        public HelixLight stationaryLight;
-
-        private IEnumerator BeginLaserSequence() {
-            CleanupTargetIcons();
-
-            ViewManager.Instance.SwitchToView(View.Default);
-            AudioController.Instance.PlaySound3D("uberbot_beam_activate#2", MixerGroup.TableObjectsSFX, Helix.Slot.transform.position);
-            yield return new WaitForSeconds(0.5f);
-            wanderingLight.gameObject.SetActive(true);
-            stationaryLight.gameObject.SetActive(true);
-            wanderingLight.system.Play();
-            stationaryLight.system.Play();
-            AudioController.Instance.StopAllLoops();
-            AudioController.Instance.SetLoopAndPlay("uberbot_beam_looping");
-            yield return new WaitForSeconds(0.5f);
-        }
+        private HelixLight wanderingLight;
+        private HelixLight stationaryLight;
 
         private HelixLight CreateLaser() {
             GameObject obj = Instantiate(LobOpponentUtils.HelixBossLaserPrefab);
             return obj.AddComponent<HelixLight>();
+        }
+
+        private void SelectStartingLaserSlot() {
+            int randomIdx = UnityEngine.Random.RandomRangeInt(0, BoardManager.Instance.PlayerSlotsCopy.Count);
+            CardSlot startingSlot = BoardManager.Instance.PlayerSlotsCopy[randomIdx];
+            wanderingLight.Initialise(startingSlot);
+            stationaryLight.Initialise(startingSlot);
         }
 
         private void CleanUpLasers() {
@@ -71,114 +63,116 @@ namespace WhistleWindLobotomyMod.Opponents {
             stationaryLight.gameObject.SetActive(false);
         }
 
-        /// <summary>
-        /// Reduce counter
-        /// When counter == 0
-        /// -> if not active, activate Helix and set counter to MaxActive
-        /// -> if active, deactivate Helix and set counter to MaxCooldown
-        /// When counter > 0
-        /// -> if not active, do nothing
-        /// -> if active, ...
-        /// </summary>
         public override IEnumerator OpponentCombatEnd() {
-            phaseCountdown--;
-            yield return UpdateCounterIcon();
-
-            if (isActive) {
-                if (phaseCountdown == 0) {
-                    LobotomyPlugin.Log.LogDebug("Deactivate Helix");
-                    isActive = false;
-                    phaseCountdown = MaxCooldownPeriod;
-                    yield return CleanUpActivePhase();
-                    yield return QueueTheVanguard();
-                }
-                else {
-                    ViewManager.Instance.SwitchToView(View.Default);
-                    yield return wanderingLight.UpdateCurrentSlot();
-                }
-            }
-            else if (phaseCountdown == 1) {
-                // turn before activating the lasers, initialise them and play setup animations
-                yield return InitialiseActivePhase();
-            }
-            else if (phaseCountdown == 0) {
+            if (justActivated) {
                 isActive = true;
+                justActivated = false;
                 phaseCountdown = MaxActivePeriod;
                 yield return BeginLaserSequence();
                 yield return new WaitForSeconds(0.75f);
                 yield return UpdateCounterIcon();
             }
-        }
+            else {
+                phaseCountdown--;
+                
+                if (isActive) {
+                    ViewManager.Instance.SwitchToView(View.Default);
+                    yield return wanderingLight.UpdateCurrentSlot();
+                    yield return UpdateCounterIcon();
 
-        private string GetVanguardByDifficulty(int difficulty, int seed) {
-            string retval = null;
-            int randVal = SeededRandom.Range(Mathf.Max(0, RunState.Run.DifficultyModifier - 1), difficulty, seed);
-
-            switch (randVal) {
-                case 0:
-                    retval = Cards.doubtA;
-                    break;
-                case 1:
-                    retval = Cards.doubtB;
-                    break;
-                case 2:
-                    retval = Cards.doubtY;
-                    break;
-                case 3:
-                    retval = Cards.doubtO;
-                    break;
-                case 4:
-                    retval = Cards.doubtProcessDown;
-                    break;
-            }
-            return retval;
-        }
-        private IEnumerator QueueTheVanguard() {
-            int baseDifficulty = RunState.CurrentRegionTier + RunState.Run.DifficultyModifier;
-            int seed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-            string vanguard1 = GetVanguardByDifficulty(baseDifficulty, seed++);
-            string vanguard2 = GetVanguardByDifficulty(baseDifficulty, seed);
-
-            if (vanguard1 != null) {
-                yield return Opponent.QueueCard(CardLoader.GetCardByName(vanguard1), BoardManager.Instance.OpponentSlotsCopy[0]);
-            }
-            if (vanguard2 != null) {
-                yield return Opponent.QueueCard(CardLoader.GetCardByName(vanguard2), BoardManager.Instance.OpponentSlotsCopy[BoardManager.Instance.OpponentSlotsCopy.Count - 1]);
+                    if (phaseCountdown == 0) {
+                        LobotomyPlugin.Log.LogDebug("Deactivate Helix");
+                        phaseCountdown = maxCooldownPeriod;
+                        yield return CleanUpActivePhase();
+                    }
+                }
+                else if (phaseCountdown == 1) {
+                    // turn before activating the lasers, initialise them and play setup animations
+                    yield return UpdateCounterIcon();
+                    yield return PreActivePhase();
+                }
             }
         }
 
         private IEnumerator InitialiseActivePhase() {
-            int randomIdx = UnityEngine.Random.RandomRangeInt(0, BoardManager.Instance.PlayerSlotsCopy.Count);
-            CardSlot startingSlot = BoardManager.Instance.PlayerSlotsCopy[randomIdx];
-            justActivated = true;
+            wanderingLight = CreateLaser();
+            stationaryLight = CreateLaser();
 
-            if (wanderingLight == null) {
-                wanderingLight = CreateLaser();
-                stationaryLight = CreateLaser();
+            // for the first activation, open the helix shell
+            HelixAnimator.SetBool("open", true);
+            AudioController.Instance.PlaySound2D("helix_open", MixerGroup.TableObjectsSFX);
+            yield return new WaitForSeconds(8.5f);
+            HelixAnimator.SetTrigger("lights"); // do initial light activation sequence
+            yield return new WaitForSeconds(2f);
+        }
+
+        private IEnumerator PreActivePhase() {
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, endDelay: 0.5f, lockAfter: true);
+            if (!HelixAnimator.GetBool("open")) {
+                yield return InitialiseActivePhase();
+            }
+            else {
+                HelixAnimator.SetBool("activate", true);
+                HelixAnimator.SetFloat("gears", -1f);
+                AudioController.Instance.PlaySound2D("helix_open", MixerGroup.TableObjectsSFX);
+                yield return new WaitForSeconds(3.5f);
+                HelixAnimator.SetBool("activate", false);
+                HelixAnimator.SetFloat("gears", 1f);
             }
 
-            wanderingLight.Initialise(startingSlot);
-            stationaryLight.Initialise(startingSlot);
-
-            ViewManager.Instance.SwitchToView(View.Default);
-            HelixAnimator.SetTrigger("set_active_phase");
-            AudioController.Instance.PlaySound2D("helix_open", MixerGroup.TableObjectsSFX);
-            yield return new WaitForSeconds(3f);
-
+            yield return HelperMethods.ChangeCurrentView(View.Default);
             foreach (CardSlot s in BoardManager.Instance.PlayerSlotsCopy) {
                 CreateTargetIcon(s, AssetManager.warningTargetPrefab);
             }
+
+            SelectStartingLaserSlot();
+
+            ViewManager.Instance.Controller.LockState = ViewLockState.Unlocked;
+            justActivated = true;
+        }
+
+        private IEnumerator BeginLaserSequence() {
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, endDelay: 0.5f);
+            // gears speed up and move in reverse and gun rattles around
+            HelixAnimator.SetBool("fire", true);
+            HelixAnimator.SetFloat("gears", -2f);
+            AudioController.Instance.PlaySound2D("uberbot_beam_activate#2", MixerGroup.TableObjectsSFX, 1.5f);
+            yield return new WaitForSeconds(0.75f);
+            ViewManager.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.2f);
+            //BeginEmissionLoop();
+            // return gears to normal speed+rot
+            // enable laser + light emissions (lights blink periodically)
+            HelixAnimator.SetFloat("gears", 1f);
+            HelixAnimator.SetBool("laser", true);
+            HelixAnimator.SetTrigger("lights");
+            
+            CleanupTargetIcons();
+            wanderingLight.gameObject.SetActive(true);
+            stationaryLight.gameObject.SetActive(true);
+            wanderingLight.system.Play();
+            stationaryLight.system.Play();
+            AudioController.Instance.StopAllLoops();
+            AudioController.Instance.SetLoopAndPlay("uberbot_beam_looping");
+            yield return new WaitForSeconds(0.5f);
         }
 
         private IEnumerator CleanUpActivePhase() {
-            yield return HelperMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
             AudioController.Instance.PlaySound2D("helix_deactivate", MixerGroup.TableObjectsSFX);
             CleanUpLasers();
-            yield return new WaitForSeconds(3f);
-            ViewManager.Instance.SwitchToView(View.Default);
-            AudioController.Instance.PlaySound2D("helix_open", MixerGroup.TableObjectsSFX);
-            yield return new WaitForSeconds(3f);
+
+            // return gears to normal speed+rot, return gun to idle position
+            // disable laser and light emissions
+            HelixAnimator.SetFloat("gears", 1f);
+            HelixAnimator.SetBool("laser", false);
+            HelixAnimator.SetTrigger("lights");
+            HelixAnimator.SetBool("fire", false);
+            
+            //EndEmissionLoop();
+            yield return new WaitForSeconds(3.5f);
             yield return UpdateCounterIcon();
+            isActive = false;
         }
 
         private IEnumerator UpdateCounterIcon() {
@@ -200,74 +194,69 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// Display the turns left counter on the monitor at the start of the encounter, after the intro and deck piles have been setup.
         /// </summary>
         public override IEnumerator PreHandDraw() {
+            if (HighestPositiveScaleBalance < 0) {
+                yield return LifeManager.Instance.ShowDamageSequence(HighestPositiveScaleBalance, 1, toPlayer: true);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            if (phaseCountdown > 1) {
+                maxCooldownPeriod = 2;
+            }
+            // pre heat the active phase if the initial countdown is <= 1
+            if (phaseCountdown < 2) {
+                yield return PreActivePhase();
+                // activate immediately if the initial countdown is <= 0
+                if (phaseCountdown < 1) {
+                    yield return OpponentCombatEnd();
+                    yield break;
+                }
+            }
+
             yield return UpdateCounterIcon();
             yield return new WaitForSeconds(0.5f);
             ViewManager.Instance.SwitchToView(View.Default);
         }
 
-        public override void ModifyQueuedCard(PlayableCard card) {
-            if (TurnManager.Instance.TurnNumber > 11 - RunState.Run.DifficultyModifier - RunState.CurrentRegionTier) {
-                card.Info.Mods.Add(new(Ability.Sniper));
-            }
-            base.ModifyQueuedCard(card);
-        }
-
         public override void ModifySpawnedCard(PlayableCard card) {
-            LobotomyPlugin.Log.LogDebug("[GreenMidnight] ModifySpawnedCard: " + card.Info.name);
             if (card.Info.name != Cards.lastHelix)
                 return;
 
             Helix = card;
-            Helix.Status.damageTaken -= RunState.Run.regionTier * 10;
-            HelixAnimator = Helix.Anim.Anim;
+            Camera liveRenderCam = Singleton<CardRenderCamera>.Instance.GetLiveRenderCamera(Helix.StatsLayer);
+            // get the animator from the actual rendered portrait offscreen, not the animator on the card object on the board
+            Transform t = liveRenderCam.transform.GetChild(1).GetChild(0).GetChild(0);
+            HelixAnimator = t.GetChild(t.childCount - 1).GetComponentInChildren<Animator>();
+            
+            int gate = RunState.CurrentRegionTier + RunState.Run.DifficultyModifier - 1;
+            if (gate > 0) {
+                Helix.Info.baseAttack = 1;
+                Helix.Info.Mods.Add(new(Ability.AllStrike));
+                Helix.TriggerHandler.AddAbility(Ability.AllStrike);
+                if (gate > 2) {
+                    Helix.Info.baseAttack++;
+                }
+            }
+            Helix.Info.baseHealth += RunState.CurrentRegionTier * 10;
         }
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => true;
+
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
+            HighestPositiveScaleBalance = Mathf.Max(-2, 1 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
+            ValidCards.Add(Cards.lastHelix);
+            phaseCountdown = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
+            
+            EncounterData.StartCondition cond = new() {
+                cardsInOpponentSlots = new CardInfo[] { CardLoader.GetCardByName(Cards.lastHelix), null, null, null }
+            };
+            encounterData.startConditions.Add(cond);
+            return 1;
+        }
+
+        // clean up lasers before ending the battle
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             if (card == Helix) {
                 CleanUpLasers();
             }
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
-        }
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            //HighestPositiveScaleBalance = 0;
-            ValidCards.Add(Cards.lastHelix);
-            isActive = false;
-            phaseCountdown = 2;
-
-            CardInfo start1, start2;
-
-            switch (RunState.CurrentRegionTier + RunState.Run.DifficultyModifier - 1) {
-                case 0:
-                    start1 = null;
-                    start2 = null;
-                    break;
-                case 1:
-                    start1 = CardLoader.GetCardByName(Cards.doubtA);
-                    start2 = CardLoader.GetCardByName(Cards.doubtA);
-                    break;
-                case 2:
-                    start1 = CardLoader.GetCardByName(Cards.doubtB);
-                    start2 = CardLoader.GetCardByName(Cards.doubtB);
-                    break;
-                case 3:
-                    start1 = CardLoader.GetCardByName(Cards.doubtB);
-                    start2 = CardLoader.GetCardByName(Cards.doubtY);
-                    break;
-                case 4:
-                    start1 = CardLoader.GetCardByName(Cards.doubtProcessDown);
-                    start2 = CardLoader.GetCardByName(Cards.doubtY);
-                    break;
-                default:
-                    start1 = CardLoader.GetCardByName(Cards.doubtProcessDown);
-                    start2 = CardLoader.GetCardByName(Cards.doubtProcessDown);
-                    break;
-            }
-
-            EncounterData.StartCondition cond = new() {
-                cardsInOpponentSlots = new CardInfo[] { start1, CardLoader.GetCardByName(Cards.lastHelix), null, start2 } // Last Helix is guaranteed to appear in the second slot
-            };
-            encounterData.startConditions.Add(cond);
-            return 1;
         }
     }
 }
