@@ -47,6 +47,7 @@ namespace WhistleWindLobotomyMod {
 
             CardManager.New(LobotomyPlugin.pluginPrefix, crisisChick, "Crisis Chick",
                 attack: 1, health: 3)
+                .SetBloodCost(3)
                 .AddAbilities(IntenseVolley.ability)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "apocalypseBird")
                 .Build();
