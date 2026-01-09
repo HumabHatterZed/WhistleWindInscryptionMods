@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         public void UpdateBanner(OrdealType type, int tier) {
-            bannerTitle.text = tier switch { 0 => "Dawn", 1 => "Noon", 2 => "Dusk", 3 => "Midnight", _ => "Error" } + " of " + type.ToString();
+            bannerTitle.text = "The " + tier switch { 0 => "Dawn", 1 => "Noon", 2 => "Dusk", 3 => "Midnight", _ => "Error" } + " of " + type.ToString();
             bannerDescription.text = OrdealUtils.GetOrdealIntroDescription(type, tier);
             bannerTitle.color = bannerDescription.color = type switch {
                 OrdealType.Green => GameColors.Instance.limeGreen,
