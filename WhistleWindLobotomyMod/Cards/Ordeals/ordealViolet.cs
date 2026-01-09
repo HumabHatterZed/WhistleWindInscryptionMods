@@ -13,6 +13,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string fruitUnderstanding = "wstl_fruitUnderstanding";
         public const string grantUsLove = "wstl_fruitGrantLove";
+        public const string grantMeSize = "wstl_grantMeSize";
         private static void Cards_VioletOrdeal() {
             string textureName = "fruitUnderstanding";
             CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
@@ -27,7 +28,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.Violet)
                 .Build();
 
-            CardInfo mini = CardManager.New(LobotomyPlugin.pluginPrefix, "grantMeSize", "Grant Me Size",
+            CardInfo mini = CardManager.New(LobotomyPlugin.pluginPrefix, grantMeSize, "Grant Me Size",
                 attack: 0, health: 4)
                 .SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "grantUsLove")
@@ -48,7 +49,7 @@ namespace WhistleWindLobotomyMod {
                 .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("GrantUsLovePortrait"))
                 .SetMiniGiant()
                 .SetMiniGiantEmission(TextureLoader.LoadTextureFromFile("grantUsLove_emission.png", LobotomyPlugin.ModAssembly))
-                .SetUniqueCopycat("wstl_grantMeSize")
+                .SetUniqueCopycat(grantMeSize)
                 .Build();
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
         }
