@@ -110,10 +110,10 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lilHelix, "Li'l Helix",
-                attack: 2, health: 1)
+                attack: 1, health: 1)
                 .SetEnergyCost(6)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "lilHelix")
-                .AddAbilities(Ability.Sniper, Piercing.ability)
+                .AddAbilities(Ability.AllStrike)
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Trait.Structure)
