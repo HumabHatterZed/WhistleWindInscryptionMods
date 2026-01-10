@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
 
             //CreateNewPage("The Ordeals of Green", "Mechanical beings with piercing weaponry. Can appear at Dawn, Noon, Dusk, or Midnight.", null);
 
-            CreateNewPage("Helix Light", "Any cards occupying the targeted spaces will be destroyed. At the end of combat, move to the right, looping to the other side.", TextureLoader.LoadTextureFromFile("sigilTower.png"));
+            CreateNewPage("Light of the End", "Split into two pillars, one will remain stationary while the other will move right at the end of the opponent's combat. All cards caught in the light will be destroyed.", TextureLoader.LoadSpriteFromFile("sigilTower.png"));
 
             //CreateNewPage("The Ordeals of Violet", "Divine beings that directly target your mind and body. Can appear at Dawn, Noon, or Midnight.", null);
             //CreateNewPage("The Ordeals of Crimson", "Fae-like beings that multiply as they are struck down. Can appear at Dawn, Noon, or Dusk.", null);
@@ -41,20 +41,20 @@ namespace WhistleWindLobotomyMod {
         private static void FillPage(RuleBookPage page, string pageId, object[] otherArgs) {
             if (page is ItemPage itemPage) {
                 string name = pageId.Replace("wstl:Ordeals_", "");
-                Tuple<RuleBookPageInfo, string, string, Texture> mechanic = NewOrdealPages.FirstOrDefault(x => x.Item2 == name);
+                Tuple<RuleBookPageInfo, string, string, Sprite> mechanic = NewOrdealPages.FirstOrDefault(x => x.Item2 == name);
                 itemPage.nameTextMesh.text = mechanic.Item2;
                 itemPage.descriptionTextMesh.text = mechanic.Item3;
-                itemPage.iconRenderer.material.mainTexture = mechanic.Item4;
+                itemPage.iconRenderer.sprite = mechanic.Item4;
             }
         }
 
-        private static void CreateNewPage(string name, string description, Texture texture) {
+        private static void CreateNewPage(string name, string description, Sprite texture) {
             RuleBookPageInfo pageInfo = new() {
                 pageId = "wstl:Ordeals_" + name
             };
             NewOrdealPages.Add(new(pageInfo, name, description, texture));
         }
 
-        private static ObservableCollection<Tuple<RuleBookPageInfo, string, string, Texture>> NewOrdealPages = new();
+        private static ObservableCollection<Tuple<RuleBookPageInfo, string, string, Sprite>> NewOrdealPages = new();
     }
 }
