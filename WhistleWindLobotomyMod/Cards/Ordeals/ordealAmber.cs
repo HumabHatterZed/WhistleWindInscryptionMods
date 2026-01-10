@@ -2,7 +2,7 @@
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "perfectFood";
             string textureName2 = "foodChain";
             string textureName3 = "eternalMeal";
-            CardInfo food = CardManager.New(LobotomyPlugin.pluginPrefix, perfectFood, "The Perfect Food",
+            CardInfo food = CardManager.New(LobotomyPlugin.pluginPrefix, perfectFood, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 0),
                 attack: 1, health: 1)
                 .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(Opponents.OrdealType.Amber)
                 .Build();
 
-            CardInfo chain = CardManager.New(LobotomyPlugin.pluginPrefix, foodChain, "The Food Chain",
+            CardInfo chain = CardManager.New(LobotomyPlugin.pluginPrefix, foodChain, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 2),
                 attack: 2, health: 5)
                 .SetBonesCost(18)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(Opponents.OrdealType.Amber)
                 .Build();
 
-            CardInfo meal = CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, "The Eternal Meal",
+            CardInfo meal = CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 3),
                 attack: 2, health: 20)
                 .SetBonesCost(40)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)

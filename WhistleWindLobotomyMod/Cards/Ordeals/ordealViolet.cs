@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
         public const string grantMeSize = "wstl_grantMeSize";
         private static void Cards_VioletOrdeal() {
             string textureName = "fruitUnderstanding";
-            CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
+            CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 0),
                 attack: 0, health: 4)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod {
                 .Build(overrideCardChoice: true);
             mini.SetEvolve(mini, 2, new List<CardModificationInfo>() { new(1, 0) });
 
-            CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, "Grant Us Love",
+            CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 1),
                 attack: 0, health: 8)
                 .SetBonesCost(16)
                 .AddAbilities(IntenseVolley.ability, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)

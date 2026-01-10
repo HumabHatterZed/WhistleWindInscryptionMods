@@ -2,7 +2,7 @@
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "skinCheers";
             string textureName2 = "skinHarmony";
             string textureName3 = "skinClimax";
-            CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, "Cheers for the Beginning",
+            CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 0),
                 attack: 1, health: 3)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(Opponents.OrdealType.Crimson)
                 .Build();
 
-            CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, "Harmony of Skin",
+            CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 1),
                 attack: 2, health: 4)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(Trait.Uncuttable)
                 .Build();
 
-            CardInfo struggle = CardManager.New(LobotomyPlugin.pluginPrefix, skinClimax, "Struggle at the Climax",
+            CardInfo struggle = CardManager.New(LobotomyPlugin.pluginPrefix, skinClimax, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 2),
                 attack: 3, health: 5)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)

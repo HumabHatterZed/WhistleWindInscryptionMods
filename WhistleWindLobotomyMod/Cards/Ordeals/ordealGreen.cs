@@ -84,7 +84,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.Green)
                 .Build();
 
-            CardInfo pro = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, "Process of Understanding",
+            CardInfo pro = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, OrdealUtils.GetOrdealTitle(OrdealType.Green, 1),
                 attack: 3, health: 4)
                 .SetEnergyCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod {
 
             down.SetEvolve(pro, 1);
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, whereWeReach, "Where We Must Reach",
+            CardManager.New(LobotomyPlugin.pluginPrefix, whereWeReach, OrdealUtils.GetOrdealTitle(OrdealType.Green, 2),
                 attack: 0, health: 7)
                 .SetEnergyCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName6)
@@ -121,7 +121,7 @@ namespace WhistleWindLobotomyMod {
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, string.Empty,
                 attack: 0, health: 30)
-                .AddAbilities(Tower.ability, Ability.Reach, Challenging.ability)
+                .AddAbilities(Ability.Reach, Tower.ability, Challenging.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Giant, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("LastHelixPortrait"))

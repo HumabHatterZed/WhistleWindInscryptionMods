@@ -108,7 +108,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.White)
                 .Build();
 
-            CardInfo clawCard = CardManager.New(LobotomyPlugin.pluginPrefix, claw, "The Claw",
+            CardInfo clawCard = CardManager.New(LobotomyPlugin.pluginPrefix, claw, OrdealUtils.GetOrdealTitle(OrdealType.White, 3),
                 attack: 3, health: 20)
                 .SetBloodCost(15)
                 //.SetPortraits(LobotomyPlugin.ModAssembly, textureName claw)
