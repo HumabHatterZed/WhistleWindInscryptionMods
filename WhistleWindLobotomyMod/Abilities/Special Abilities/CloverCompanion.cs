@@ -13,6 +13,7 @@ namespace WhistleWindLobotomyMod {
 
         public override string CardToTransformInto => SaveManager.SaveFile.IsPart1 ? Cards.servantOfWrath : Cards.servantOfWrathPixel;
         public override string PostEvolveDialogueId => "ServantOfWrathTransform";
+        public override int NumDeathsTillEvolve => 2;
     }
     public class RulebookEntryCloverCompanion : AbilityBehaviour {
         public static Ability ability;
