@@ -18,14 +18,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public bool hasTotem;
         private Color totemGlowColour;
 
-        public override Color InteractablesGlowColor => BattleSequencer.ordealType switch {
-            OrdealType.Green => GameColors.Instance.darkLimeGreen,
-            OrdealType.Violet => GameColors.Instance.purple,
-            OrdealType.Crimson => GameColors.Instance.glowRed,
-            OrdealType.Amber => GameColors.Instance.orange,
-            OrdealType.Indigo => GameColors.Instance.blue,
-            _ => GameColors.Instance.gray,
-        };
+        public override Color InteractablesGlowColor => OrdealUtils.GetOrdealColor(BattleSequencer.ordealType);
 
         public bool IsBoss() => BattleSequencer.ordealTier == 3 || BattleSequencer.ordealType == OrdealType.White;
 
@@ -278,16 +271,9 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override void InitialiseOpponent(EncounterData encounter) {
             base.InitialiseOpponent(encounter);
             hasTotem = encounter.opponentTotem != null;
+            totemGlowColour = InteractablesGlowColor;
             OrdealBannerManager.Instance.UpdateBanner(BattleSequencer.ordealType, BattleSequencer.ordealTier);
             OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
-            totemGlowColour = BattleSequencer.ordealType switch {
-                OrdealType.Green => GameColors.Instance.darkLimeGreen,
-                OrdealType.Violet => GameColors.Instance.purple,
-                OrdealType.Crimson => GameColors.Instance.glowRed,
-                OrdealType.Amber => GameColors.Instance.orange,
-                OrdealType.Indigo => GameColors.Instance.blue,
-                _ => GameColors.Instance.gray,
-            };
         }
     }
 }
