@@ -7,7 +7,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_StressResponse() {
             const string rulebookName = "Stress Response";
-            const string rulebookDescription = "If this card is struck while at or below half Health, its next attack gains 1 Power. Gain 1 more Power when struck by an ally.";
+            const string rulebookDescription = "If this card is at or below half Health after being struck, its next attack gains 1 Power. Also, gain 1 Power when struck by an ally.";
             const string dialogue = "A final show of force.";
             StressResponse.ability = AbnormalAbilityHelper.CreateAbility<StressResponse>(
                 "sigilStressResponse",
@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// If this card is struck while at or below half Health, its next attack gains 1 Power. Gain 1 more Power when struck by an ally.
+    /// If this card is at or below half Health after being struck, its next attack gains 1 Power. Also, gain 1 Power when struck by an ally.
     /// </summary>
     public class StressResponse : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ability;
@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils {
         public override bool RespondsToAttackEnded() => true;
         public override IEnumerator OnAttackEnded() {
             empowerNextAttack = attackedByAlly = false;
-            return base.OnAttackEnded();
+            yield break;
         }
 
         public int GetPassiveAttackBuff(PlayableCard target) {
