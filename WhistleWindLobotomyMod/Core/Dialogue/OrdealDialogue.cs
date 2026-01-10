@@ -39,95 +39,135 @@ namespace WhistleWindLobotomyMod {
             });
         }
 
-        public static Dictionary<OrdealType, List<string>> BannerIntroDescriptions = new() {
+        // string[] format:
+        // [0] title
+        // [1] intro desc
+        // [2] outro desc
+        public static readonly Dictionary<OrdealType, List<string[]>> BannerStrings = new() {
             {
                 OrdealType.Green, new() {
-                    "One day, a question crossed through my mind: Where do we come from? We were given life and left in this world against our own volition.",
-                    "We will understand life and the soul with our own hands.",
-                    "We constructed a looming tower to return whence we came.",
-                    "The tower is touched by the sky, and it will leave nothing on the earth."
-                }},
+                    new string[] {
+                        "Doubt",
+                        "One day, a question crossed through my mind. Where do we come from? We were given life and left in this world against our own volition.",
+                        "To live was a process full of pain."
+                    },
+                    new string[] {
+                        "Process of Understanding",
+                        "In the end, they were bound to life. We existed only to express despair and ire.",
+                        "We will understand life and the soul with our own hands."
+                    },
+                    new string[] {
+                        "Where We Must Reach",
+                        "We constructed a looming tower to return whence we came.",
+                        "There wasn’t an answer. We didn’t find a single thing we wanted. We only witnessed the death of life itself."
+                    },
+                    new string[] {
+                        "Helix of the End",
+                        "The tower is touched by the sky, and nothing will remain on the ground.",
+                        "Who pays for the suffering and neglect of the lives given to us?"
+                    }
+                }
+            },
             {
                 OrdealType.Violet, new() {
-                    "To gain an understanding of what is incomprehensible, they dream, staring.",
-                    "We could only hear the weakest and faintest of their acts. We sought for love and compassion from them.",
+                    new string[] {
+                        "The Fruit of Understanding",
+                        "To gain an understanding of what is incomprehensible, they dream, staring.",
+                        "They complied with nothing in their bid to understand. They simply did so."
+                    },
+                    new string[] {
+                        "Grant Us Love",
+                        "We could only hear the weakest and faintest of their acts. We sought for love and compassion from them.",
+                        "We cannot understand them, nor will they understand us."
+                    },
                     null,
-                    "We incessantly tried to accept it. We wanted to understand them in our heads by any means, regardless of the consequences."
-                }},
+                    new string[] {
+                        "The God Delusion",
+                        "We incessantly tried to accept it. We wanted to understand them in our heads by any means, regardless of the consequences.",
+                        "For the sake of not crumbling in on oneself. The idea that they may impossibly exist, or that they are unreachable and forever enigmatic no matter the path. Unacceptable…"
+                    }
+                }
+            },
             {
                 OrdealType.Crimson, new() {
-                    "Let us light a flame yet more radiant in our lives; for life is a candlelight, destined to snuff out one day.",
-                    "We marched from time to time, and we would share our pleasure.",
-                    "Throwing away our old bodies, we all become one, infinitely continuing the red march.",
+                    new string[] {
+                        "Cheers for the Beginning",
+                        "Let us light a flame yet more radiant in our lives; for life is a candlelight, destined to snuff out one day.",
+                        "To live is to yearn and fight for our desires."
+                    },
+                    new string[] {
+                        "The Harmony of Skin",
+                        "We marched from time to time, and we would share our pleasure.",
+                        "The collision of one life with another, skin harmonizing, painting a yet more beautiful appearance."
+                    },
+                    new string[] {
+                        "The Struggle at the Climax",
+                        "Throwing away our old bodies, we all become one, infinitely continuing the red march.",
+                        "One day we will know, and tomorrow we will march hand in hand."
+                    },
                     null
-                }},
+                }
+            },
             {
                 OrdealType.Amber, new() {
-                    "A perfect meal, an excellent substitute.",
+                    new string[] {
+                        "The Perfect Food",
+                        "A perfect meal, an excellent substitute.",
+                        "We ate incessantly to live. The inevitable diminution, the waste…"
+                    },
                     null,
-                    "To accustom oneself to the taste was an inevitable process.",
-                    "They fought amongst themselves to eat the others."
-                }},
+                    new string[] {
+                        "The Food Chain",
+                        "To accustom oneself to the taste was an inevitable process.",
+                        "We could live. We could continue eating."
+                    },
+                    new string[] {
+                        "The Eternal Meal",
+                        "They fought amongst themselves to eat the others.",
+                        "And the stronger side survived. That, simply, is the story."
+                    }
+                }
+            },
             {
                 OrdealType.Indigo, new() {
                     null,
-                    "When night falls in the Backstreets, they will come.",
+                    new string[] {
+                        "The Sweepers",
+                        "When night falls in the Backstreets, they will come.",
+                        "When the sun rises up, there will be no remains anymore."
+                    },
                     null,
-                    null
-                }},
+                    new string[] {
+                        "Night in the Backstreets",
+                        "From the borders of the Nest they emerge, sweeping away everything in their path.",
+                        "For eighty minutes they appear to clean the Backstreets. Dead bodies, unauthorised constructions, anything and everything the City doesn't need."
+                    }
+                }
+            },
             {
                 OrdealType.White, new() {
-                    "From meaningless errands, to exploration, to contract killing; they will do whatever you wish, so long as you pay them sufficiently.",
-                    "They search constantly, be it for the Backers of the Wings, the Inventions of the Backstreets, the Relics of the Outskirts, the Artefacts of the Ruins...",
-                    "The colossal tower of light was titled the Library. It is only natural for the Fixers to be drawn to such a mystic place of life and death.",
-                    "To know and manipulate all the secrets of the world: that is the privilege of the Head, the Eye, and the Claws. It is their honour and absolute power."
-                }},
+                    new string[] {
+                        "A Request",
+                        "From meaningless errands, to exploration, to contract killing; they will do whatever you wish, so long as you pay them sufficiently.",
+                        "They work in the Offices, Syndicates, and the Wings. Their tasks vary from the banal things to something truly sublime."
+                    },
+                    new string[] {
+                        "Armaments",
+                        "They search constantly, be it for the Backers of the Wings, the Inventions of the Backstreets, the Reliques of the Outskirts, the Artefacts of the Ruins...",
+                        "As they have always done, they will overcome all that impedes them, weapons in hand."
+                    },
+                    new string[] {
+                        "The Fixers",
+                        "The colossal tower of light was titled The Library. It is only natural for the Fixers to be drawn to such a mystic place of life and death.",
+                        "Bookhunters... One day they will rummage through the Library reigned over by the Pale Librarian. They are what shall become of the Fixers."
+                    },
+                    new string[] {
+                        "The Claw",
+                        "To know and manipulate all the secrets of the world; that is the privilege of the Head, the Eye, and the Claws. It is their honor and absolute power.",
+                        "No one dares to stand against them. As long as they exist, the tale of the Nest will never reach its close."
+                    }
+                }
+            }
         };
-
-        public static Dictionary<OrdealType, List<string>> BannerOutroDescriptions = new() {
-            {
-                OrdealType.Green, new() {
-                    "To live was a process full of pain.",
-                    "In the end, they were bound to life. We existed only to express despair and ire.",
-                    "There wasn't an answer. We didn't find a single thing we wanted. We only witnessed the death of life itself.",
-                    "Who pays for the suffering and regret of the lives given to us?"
-                }},
-            {
-                OrdealType.Violet, new() {
-                    "They complied with nothing in their bid to understand. They simply did so.",
-                    "We cannot understand them, nor will they understand us.",
-                    null,
-                    "For the sake of not crumbling in on oneself. The idea that they may impossibly exist, or that they are unreachable and forever enigmatic no matter the path. Unacceptable..."
-                }},
-            {
-                OrdealType.Crimson, new() {
-                    "To live is to yearn and fight for our desires.",
-                    "The collision of one life with another, skin harmonising, painting a yet more beautiful appearance.",
-                    "One day we will know, and tomorrow we will march hand in hand.",
-                    null
-                }},
-            {
-                OrdealType.Amber, new() {
-                    "We ate incessantly to live. The inevitable diminution, the waste...",
-                    null,
-                    "We could live. We could continue eating.",
-                    "And the stronger side survived. That, simply, is the story."
-                }},
-            {
-                OrdealType.Indigo, new() {
-                    null,
-                    "When the sun rises anew, not a scrap will remain.",
-                    null,
-                    null
-                }},
-            {
-                OrdealType.White, new() {
-                    "They work in the Offices, Syndicates, and the Wings. Their work varies from banal things to something truly sublime.",
-                    "As they have always done, they will overcome all that impedes them, weapons in hand.",
-                    "Bookhunters... One day they will rummage through the Library reigned over by the Pale Librarian. They are what will become of the Fixers.",
-                    "No one dares to stand against them. As long as they exist, the tale of the Nest will never reach its close."
-                }},
-        };
-
     }
 }

@@ -10,6 +10,7 @@ namespace WhistleWindLobotomyMod {
         private Animator anim;
 
         private Text bannerTitle;
+        private Text bannerSubtitle;
         private Text bannerDescription;
 
         public bool Displaying => bannerTitle.gameObject.activeSelf;
@@ -24,7 +25,8 @@ namespace WhistleWindLobotomyMod {
 
             anim = Instance.GetComponent<Animator>();
             bannerTitle = textCanvas.GetChild(0).GetChild(0).GetComponent<Text>();
-            bannerDescription = bannerTitle.transform.GetChild(0).GetComponent<Text>();
+            bannerSubtitle = bannerTitle.transform.GetChild(0).GetComponent<Text>();
+            bannerDescription = bannerTitle.transform.GetChild(1).GetComponent<Text>();
             banner = bannerDescription.transform.GetChild(0).GetComponent<Image>();
 
             Instance.transform.position = new(0f, 0f, 1f);
@@ -32,16 +34,10 @@ namespace WhistleWindLobotomyMod {
         }
 
         public void UpdateBanner(OrdealType type, int tier) {
-            bannerTitle.text = "The " + tier switch { 0 => "Dawn", 1 => "Noon", 2 => "Dusk", 3 => "Midnight", _ => "Error" } + " of " + type.ToString();
+            bannerTitle.text = OrdealUtils.GetOrdealTitle(type, tier);
+            bannerSubtitle.text = OrdealUtils.GetOrdealSubtitle(type, tier);
             bannerDescription.text = OrdealUtils.GetOrdealIntroDescription(type, tier);
-            bannerTitle.color = bannerDescription.color = type switch {
-                OrdealType.Green => GameColors.Instance.limeGreen,
-                OrdealType.Violet => GameColors.Instance.purple,
-                OrdealType.Crimson => GameColors.Instance.glowRed,
-                OrdealType.Amber => GameColors.Instance.orange,
-                OrdealType.Indigo => GameColors.Instance.blue,
-                _ => GameColors.Instance.gray
-            };
+            bannerTitle.color = bannerSubtitle.color = bannerDescription.color = OrdealUtils.GetOrdealColor(type);
             Color color = bannerTitle.color;
             color.a = 0.5f;
             banner.color = color;

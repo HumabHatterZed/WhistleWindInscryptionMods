@@ -53,14 +53,37 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public static string WhiteOrdeal;
 
+        private const string ORDEAL_SUBTITLE = "The {0} of {1}";
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length)];
 
+        public static Color GetOrdealColor(OrdealType type) {
+            return type switch {
+                OrdealType.Green => GameColors.Instance.darkLimeGreen,
+                OrdealType.Violet => GameColors.Instance.purple,
+                OrdealType.Crimson => GameColors.Instance.glowRed,
+                OrdealType.Amber => GameColors.Instance.orange,
+                OrdealType.Indigo => GameColors.Instance.blue,
+                _ => GameColors.Instance.gray
+            };
+        }
+        public static string GetOrdealTitle(OrdealType type, int tier) {
+            return LobotomyDialogue.BannerStrings[type][tier][0];
+        }
+        public static string GetOrdealSubtitle(OrdealType type, int tier) {
+            string arg0 = tier switch {
+                0 => "Dawn",
+                1 => "Noon",
+                2 => "Dusk",
+                _ => "Midnight"
+            };
+            return string.Format(ORDEAL_SUBTITLE, arg0, type.ToString());
+        }
         public static string GetOrdealIntroDescription(OrdealType type, int tier) {
-            return LobotomyDialogue.BannerIntroDescriptions[type][tier];
+            return LobotomyDialogue.BannerStrings[type][tier][1];
         }
         public static string GetOrdealOutroDescription(OrdealType type, int tier) {
-            return LobotomyDialogue.BannerOutroDescriptions[type][tier];
+            return LobotomyDialogue.BannerStrings[type][tier][2];
         }
 
         internal static void InitOrdeals(AssetBundle bundle) {
