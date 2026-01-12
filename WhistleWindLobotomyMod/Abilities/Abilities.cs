@@ -75,6 +75,7 @@ namespace WhistleWindLobotomyMod {
             AddLife();
             AddHarmony();
             AddFood();
+            AddSweeperPersistence();
             AddSurvival();
             AddTower();
 

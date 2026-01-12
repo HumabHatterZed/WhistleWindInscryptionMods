@@ -19,29 +19,35 @@ namespace WhistleWindLobotomyMod.Opponents {
             for (int i = 0; i < numTurns; i++) {
                 List<EncounterBlueprintData.CardBlueprint> turn = new();
 
-                switch (SeededRandom.Range(0, 3, seed++)) {
+                switch (SeededRandom.Range(0, 4, seed++)) {
                     case 0:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper));
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperA));
                         break;
                     case 1:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper2));
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperB));
+                        break;
+                    case 2:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
                         break;
                     default:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper3));
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
                         break;
                 }
                 num++;
 
                 if (i % 3 == 0) {
-                    switch (SeededRandom.Range(0, 3, seed++)) {
+                    switch (SeededRandom.Range(0, 4, seed++)) {
                         case 0:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper));
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperA));
                             break;
                         case 1:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper2));
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperB));
+                            break;
+                        case 2:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
                             break;
                         default:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeper3));
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
                             break;
                     }
                     num++;

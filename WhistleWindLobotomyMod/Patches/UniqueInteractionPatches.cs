@@ -4,7 +4,6 @@ using HarmonyLib;
 namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch]
     internal class UniqueInteractionPatches {
-        // Corrects the possible chooseable cards to exclude certain cards and to include non-Nature Temple cards
         [HarmonyPrefix, HarmonyPatch(typeof(DrawRabbits), nameof(DrawRabbits.CardToDraw), MethodType.Getter)]
         private static bool InfiniteTrainingDummies(DrawRabbits __instance, ref CardInfo __result) {
             if (__instance.Card.Info.name == Cards.trainingDummy) {
