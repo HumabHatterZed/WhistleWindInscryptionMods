@@ -9,6 +9,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string namelessFetus = "wstl_namelessFetus";
+        public const string namelessFetusPixel = "wstlGBC_namelessFetus";
         public const string namelessFetusAwake = "wstl_namelessFetusAwake";
         private static void NamelessFetus_O0115() {
             string fetusName = "Nameless Fetus";
@@ -28,10 +29,21 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1, "A neverending supply of blood. Just don't wake it up.")
                 .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
+                .AddAbilities(Ability.TripleBlood, Ability.Sacrificial, Engraved.ability)
+                .AddSpecialAbilities(Syrinx.specialAbility)
+                .AddTribes(tribes)
+                .AddTraits(Trait.Goat, CannotGiveSigils)
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, namelessFetusPixel, fetusName,
+                attack: 0, health: 1, "A neverending supply of blood. Just don't wake it up.")
+                .SetBonesCost(3)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.TripleBlood, Ability.Sacrificial)
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)
-                .AddTraits(Trait.Goat)
+                .AddTraits(Trait.Goat, CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
