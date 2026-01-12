@@ -95,12 +95,27 @@ namespace WhistleWind.AbnormalSigils {
                     CardInfo copy = card.Info.Clone() as CardInfo;
                     PlayableCardStatus status = new(card.Status);
                     List<CardModificationInfo> tempMods = card.TemporaryMods;
-                    tempMods.Add(new() {
+                    CardModificationInfo recallMod = new() {
                         bloodCostAdjustment = -card.BloodCost(),
                         bonesCostAdjustment = GetBonesCost(card) - card.BonesCost(),
                         energyCostAdjustment = -card.EnergyCost,
-                        nullifyGemsCost = true
-                    });
+                        nullifyGemsCost = true,
+                        singletonId = "wstl:Recalled"
+                    };
+                    if (SaveFile.IsAscension) {
+                        recallMod.AddNegateAbilities(Ability.DrawCopy);
+                        if (SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
+                            Singleton<ChallengeActivationUI>.Instance.ShowTextLines(new string[3]
+                            {
+                                Localization.Translate("DEPLOY SIGIL NERF: FECUNDITY"),
+                                Localization.Translate("RemoveSigilFromCopy()"),
+                                Localization.Translate("// It had to be done.")
+                            });
+                            yield return new WaitForSeconds(0.5f);
+                            yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("AscensionFecundityNerf", TextDisplayer.MessageAdvanceMode.Input);
+                            DialogueEventsData.MarkEventPlayed("AscensionFecundityNerfRecall");
+                        }
+                    }
 
                     card.RemoveFromBoard(false);
                     yield return HelperMethods.ChangeCurrentView(View.Default, 0.1f, 0.1f);
@@ -115,7 +130,7 @@ namespace WhistleWind.AbnormalSigils {
 
     public partial class AbnormalPlugin {
         private void Ability_ReturnCard() {
-            const string rulebookName = "Creature Retrieval";
+            const string rulebookName = "Recall Creature";
             const string rulebookDescription = "Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.";
             ReturnCard.ability = AbnormalAbilityHelper.CreateAbility<ReturnCard>(
                 "sigilReturnCard", rulebookName, rulebookDescription,
