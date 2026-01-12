@@ -54,7 +54,7 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnResolveOnBoard() {
             yield return base.PreSuccessfulTriggerSequence();
             yield return QueueOrCreateDrawnCard();
-            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability }, singletonId = "GiftGiverDisabled", nonCopyable = true });
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability }, singletonId = "GiftGiverDisabled" });
             yield return base.LearnAbility();
         }
     }
