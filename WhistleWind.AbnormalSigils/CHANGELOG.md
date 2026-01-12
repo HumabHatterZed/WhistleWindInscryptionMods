@@ -3,7 +3,7 @@
 
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
-## v2.0.0 - Fear and Wonder(Lab) ()
+## v2.0.0 - Fear and Wonder: Termina ()
 ### 🧱 Structural
 - New Spell Card Toolkit is now a required dependency
 - Overhauled status effects
@@ -105,7 +105,8 @@
 - Persistent - no longer affects face down cards
 - Piercing - now affects face down cards
 - Punisher - now activates on card death instead of on taking damage
-- Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
+- Recall Creature - Recalled Fecundity cards now lose Fecundity in KCM/Ascension mode
+- Refresh Deck - now discards the player's current hand and draws a new opening hand after replenishing and resetting the draw piles
 - Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
 - Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
 - Thick Skin - now only reduces damage from cards; null sources no longer trigger damage reduction
@@ -136,7 +137,7 @@
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Added the following sigils sigils:
-    - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Unbreakable Defence, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different from previous Gift Giver), Alluring
+    - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Unbreakable Defence, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different from previous Gift Giver), Alluring, Deeply Engraved
 - Added the following stat icons:
     - Flower Power
 - Added the following status effects:
