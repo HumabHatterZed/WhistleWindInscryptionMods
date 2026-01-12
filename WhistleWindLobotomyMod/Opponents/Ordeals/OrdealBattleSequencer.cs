@@ -215,41 +215,27 @@ namespace WhistleWindLobotomyMod.Opponents {
             // set the dominant tribe and redundant abilities for each Ordeal type
             switch (ordealType) {
                 case OrdealType.Green:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeMechanical)
-                        .SetRedundantAbilities(Ability.Flying, Piercing.ability);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeMechanical);
                     break;
                 case OrdealType.Crimson:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeFae)
-                        .SetRedundantAbilities(Ability.ExplodeOnDeath);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeFae);
                     break;
                 case OrdealType.Violet:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeDivine)
-                        .SetRedundantAbilities(Ability.Flying, NimbleFoot.ability, Ability.Evolve);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeDivine);
                     break;
                 case OrdealType.Amber:
-                    encounterData.Blueprint.AddDominantTribes(Tribe.Insect)
-                        .SetRedundantAbilities();
+                    encounterData.Blueprint.AddDominantTribes(Tribe.Insect);
                     break;
                 default:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
-                        .SetRedundantAbilities(Ability.Flying, Persistent.ability, Bloodfiend.ability);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeAnthropoid);
                     break;
             }
-
-            // Since Ordeals are card-destruction, Waterborne cannot be a Totem sigil
-            // Also remove movement-modifying sigils
-            encounterData.Blueprint.SetRedundantAbilities(
-                Ability.Submerge, Ability.SubmergeSquid,
-                Ability.WhackAMole, Ability.Strafe, Ability.StrafePush,
-                Cycler.ability, Barreler.ability, YellowBrickRoad.ability
-                );
 
             MinNumCardsRequired = ConstructOrdealBlueprint(encounterData, nodeData.difficulty);
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, encounterData.Difficulty, false);
 
             if (totem) {
                 encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], encounterData.Difficulty, null);
-                
                 AssignTotemAbility(encounterData);
             }
 
@@ -274,7 +260,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     totemAbility = (OneSided.ability);
                     break;
                 case OrdealType.Indigo:
-                    totemAbility = (Ability.GainAttackOnKill);
+                    totemAbility = (Ability.IceCube);
                     break;
                 case OrdealType.White:
                     totemAbility = (StressResponse.ability);

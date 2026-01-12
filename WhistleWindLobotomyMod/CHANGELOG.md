@@ -31,6 +31,7 @@
 - Final phase can gain 1 additional base Power when above certain difficulty threshold
 - Defeat sequence is now shorter if the player is at max life
 - Modified Black Forest region
+- Boss card has a unique interaction with Copycat sigil
 ### Time Machine
 - Fixed selected cards not being correctly removed from the deck
 - Fixed the activating card being a possible choice for removal
@@ -55,7 +56,7 @@
 - <span style='color:#2084A0'>Dream of a Black Swan: Buffed from 2/5 -> 3/5
 - Dream of a Black Swan: no longer considered Rare
 - Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
-- Funeral of the Dead Butterflies: now belongs to the Undead temple
+- Funeral of the Dead Butterflies: now belongs to the Undead temple (Act 2)
 - <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
 - Judgement Bird: now considered Rare
 - King of Greed: updated emission
@@ -67,8 +68,11 @@
 - Meat Lantern: rebalanced from 1/2; Punisher to 1/3; Reflector
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
+- Nameless Fetus: now belongs to the Undead temple (Act 2)
+- <span style='color:#DE6080'>Nameless Fetus: now has a random chance of transforming each sacrifice
+- <span style='color:#DE6080'>Nameless Fetus: now has Deeply Engraved sigil, cannot give its sigils to other cards
 - <span style='color:#2084A0'>Netzach: increased Health from 3 -> 4
-- Nothing There: now reveals itself if on the board for a set number of turns - can still be killed to reveal sooner
+- Nothing There: now guaranteed to reveal itself when on the board long enough without dying
 - Nothing There: now disguises as regular cards instead of death cards outside the Leshy fight
 - One Sin EX: fixed missing textures
 - <span style='color:#DE6080'>Ppodae Evolution: Reduced Power from 3 -> 2
@@ -78,6 +82,7 @@
 - Sephirah: all cards now blink slower
 - The Dreaming Current: Increased Health from 2 -> 3, now possesses Nimble-Footed and Barreler
 - The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession
+- <span style='color:#DE6080'>The Servant of Wrath: special ability now triggers when 2 adjacent allies die instead of 1
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - Yin: now belongs to the Divine tribe
 - Yang: now belongs to the Divine tribe
