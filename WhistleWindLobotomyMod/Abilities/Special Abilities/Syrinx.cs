@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnSacrifice() {
             this.sacrificeCount++;
 
-            if (this.sacrificeCount >= 6) {
+            if (this.sacrificeCount > 5 || SeededRandom.Range(0, 7 - this.sacrificeCount, base.GetRandomSeed()) == 0) {
                 yield return new WaitForSeconds(0.25f);
                 CardInfo cardByName = CardLoader.GetCardByName(Cards.namelessFetusAwake);
                 yield return DialogueHelper.PlayDialogueEvent("NamelessFetusAwake", 0f);
