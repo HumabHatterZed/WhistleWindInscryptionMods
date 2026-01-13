@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
-    /// Indigo Ordeal is an onslaught of cards that can heal themselves when dealing damage and have additional attacks.
+    /// Based on the Sweepers battle in Limbus Company.
+    /// Indigo Midnight is a constant onslaught of cards, where the player must survive three waves.
     /// Cards appear in a steady stream.
     /// Cards required: 5
     /// Valid regions: 0, 1, 2
     /// </summary>
-    public class OrdealIndigoNoon : OrdealBattleSequencer {
+    public class OrdealIndigoMidnight : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int num = 0;
             int numTurns = 5 + encounterData.Difficulty / 7;
@@ -28,8 +29,17 @@ namespace WhistleWindLobotomyMod.Opponents {
                     case 2:
                         turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
                         break;
-                    default:
+                    case 3:
                         turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
+                        break;
+                    case 4:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperE));
+                        break;
+                    case 5:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperF));
+                        break;
+                    default:
+                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperG));
                         break;
                 }
                 num++;
@@ -45,8 +55,17 @@ namespace WhistleWindLobotomyMod.Opponents {
                         case 2:
                             turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
                             break;
-                        default:
+                        case 3:
                             turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
+                            break;
+                        case 4:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperE));
+                            break;
+                        case 5:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperF));
+                            break;
+                        default:
+                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperG));
                             break;
                     }
                     num++;

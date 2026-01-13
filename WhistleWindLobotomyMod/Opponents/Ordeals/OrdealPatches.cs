@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod.Opponents {
     internal class OrdealPatches {
         private static readonly OrdealType[] NonAscensionBossOrder = {
             OrdealType.Green,
-            OrdealType.Violet,
             OrdealType.Amber,
-            OrdealType.Violet
+            OrdealType.Violet,
+            OrdealType.Indigo
         };
 
         [HarmonyPrefix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.EmissionEnabledForCard))]
@@ -75,9 +75,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                 totemOpponent = SaveFile.IsAscension && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)
             };
             retval.specialBattleId = retval.ordealType switch {
+                OrdealType.Green => OrdealUtils.GreenMidnight,
                 OrdealType.Violet => OrdealUtils.VioletMidnight,
                 OrdealType.Amber => OrdealUtils.AmberMidnight,
-                _ => OrdealUtils.GreenMidnight
+                _ => OrdealUtils.IndigoMidnight
             };
             return retval;
         }
@@ -244,21 +245,26 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (tier != -1) {
                 AnimatingSprite sprite = __result.GetComponentInChildren<AnimatingSprite>();
                 Texture2D[] nodeAnimation;
-                if (type == OrdealType.White) {
-                    nodeAnimation = OrdealUtils.WhiteOrdealAnim;
+                if (tier == 3) {
+                    nodeAnimation = type switch {
+                        OrdealType.Green => OrdealUtils.GreenMidnightAnim,
+                        OrdealType.Violet => OrdealUtils.VioletMidnightAnim,
+                        OrdealType.Amber => OrdealUtils.AmberMidnightAnim,
+                        OrdealType.White => OrdealUtils.WhiteOrdealAnim,
+                        _ => OrdealUtils.IndigoMidnightAnim
+                    };
                 }
                 else {
                     nodeAnimation = tier switch {
                         1 => totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim,
                         2 => totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim,
-                        3 => totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim,
                         _ => totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim,
                     };
                 }
 
-                for (int i = 0; i < sprite.textureFrames.Count; i++) {
-                    sprite.textureFrames[i] = nodeAnimation[i];
-                }
+                    for (int i = 0; i < sprite.textureFrames.Count; i++) {
+                        sprite.textureFrames[i] = nodeAnimation[i];
+                    }
 
                 if (type != OrdealType.White) {
                     sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)type];

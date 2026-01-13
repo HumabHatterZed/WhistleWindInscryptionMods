@@ -28,6 +28,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         public static Texture2D[] DuskTotemAnim;
         public static Texture2D[] MidnightAnim;
         public static Texture2D[] MidnightTotemAnim;
+
+        public static Texture2D[] GreenMidnightAnim;
+        public static Texture2D[] VioletMidnightAnim;
+        public static Texture2D[] AmberMidnightAnim;
+        public static Texture2D[] IndigoMidnightAnim;
+
         public static Texture2D[] WhiteOrdealAnim;
 
         public static Texture2D[] OrdealNodeMats;
@@ -50,6 +56,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public static string AmberMidnight;
 
         public static string IndigoNoon;
+        public static string IndigoMidnight;
 
         public static string WhiteOrdeal;
 
@@ -105,6 +112,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             AmberMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberMidnight", typeof(OrdealAmberMidnight)).Id;
 
             IndigoNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealIndigoNoon", typeof(OrdealIndigoNoon)).Id;
+            IndigoMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealIndigoMidnight", typeof(OrdealIndigoMidnight)).Id;
 
             WhiteOrdeal = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealWhite", typeof(OrdealWhite)).Id;
             OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
@@ -125,6 +133,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             DuskTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDuskTotem1", "nodeOrdealDuskTotem2", "nodeOrdealDuskTotem3", "nodeOrdealDuskTotem4").ToArray();
             MidnightAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnight1", "nodeOrdealMidnight2", "nodeOrdealMidnight3", "nodeOrdealMidnight4").ToArray();
             MidnightTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnightTotem1", "nodeOrdealMidnightTotem2", "nodeOrdealMidnightTotem3", "nodeOrdealMidnightTotem4").ToArray();
+
+            GreenMidnightAnim = NodeHelper.GetNodeTextureList("nodeGreenMidnight1", "nodeGreenMidnight2", "nodeGreenMidnight3", "nodeGreenMidnight4").ToArray();
+            VioletMidnightAnim = NodeHelper.GetNodeTextureList("nodeVioletMidnight1", "nodeVioletMidnight2", "nodeVioletMidnight3", "nodeVioletMidnight4").ToArray();
+            AmberMidnightAnim = NodeHelper.GetNodeTextureList("nodeAmberMidnight1", "nodeAmberMidnight2", "nodeAmberMidnight3", "nodeAmberMidnight4").ToArray();
+            IndigoMidnightAnim = NodeHelper.GetNodeTextureList("nodeIndigoMidnight1", "nodeIndigoMidnight2", "nodeIndigoMidnight3", "nodeIndigoMidnight4").ToArray();
+            
             WhiteOrdealAnim = NodeHelper.GetNodeTextureList("nodeOrdealFinal1", "nodeOrdealFinal2", "nodeOrdealFinal3", "nodeOrdealFinal4").ToArray();
 
             OrdealCounterManager.dawnSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dawn");
@@ -185,10 +199,10 @@ namespace WhistleWindLobotomyMod.Opponents {
             whiteOrdealRegion.predefinedNodes.nodeRows = new(leshy.predefinedNodes.nodeRows);
             whiteOrdealRegion.predefinedNodes.nodeRows[2] = new() {
                 new OrdealBossBattleNodeData {
-                    bossType = LobOpponentUtils.ApocalypseBossID,
+                    bossType = OpponentID,
                     specialBattleId = WhiteOrdeal,
                     ordealType = OrdealType.White,
-                    tier = 0,
+                    tier = 3,
                     difficulty = 20,
                     position = new(0.5f, 0.86f)
                 }

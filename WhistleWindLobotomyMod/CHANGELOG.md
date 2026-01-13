@@ -69,7 +69,7 @@
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
 - Nameless Fetus: now belongs to the Undead temple (Act 2)
-- <span style='color:#DE6080'>Nameless Fetus: now has a random chance of transforming each sacrifice
+- <span style='color:#DE6080'>Nameless Fetus: now has a random chance of transforming each sacrifice alongside its prior criteria
 - <span style='color:#DE6080'>Nameless Fetus: now has Deeply Engraved sigil, cannot give its sigils to other cards
 - <span style='color:#2084A0'>Netzach: increased Health from 3 -> 4
 - Nothing There: now guaranteed to reveal itself when on the board long enough without dying
