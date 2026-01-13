@@ -251,7 +251,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     totemAbility = (Ability.Sentry);
                     break;
                 case OrdealType.Crimson:
-                    totemAbility = (HighStrung.ability);
+                    totemAbility = (Ability.TailOnHit); // HighStrung.ability
                     break;
                 case OrdealType.Violet:
                     totemAbility = (Scorching.ability);
@@ -259,7 +259,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 case OrdealType.Amber:
                     totemAbility = (OneSided.ability);
                     break;
-                case OrdealType.Indigo:
+                case OrdealType.Indigo: // infinite corpses
                     totemAbility = (Ability.IceCube);
                     break;
                 case OrdealType.White:
