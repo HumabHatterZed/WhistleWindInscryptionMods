@@ -53,6 +53,7 @@ namespace WhistleWind.AbnormalSigils {
                 yield break;
             }
 
+            bool hasFecundity = slot.Card.HasAbility(Ability.DrawCopy);
             CardInfo copy = slot.Card.Info.Clone() as CardInfo;
             PlayableCardStatus status = new(slot.Card.Status);
             List<CardModificationInfo> tempMods = slot.Card.TemporaryMods;
@@ -63,7 +64,7 @@ namespace WhistleWind.AbnormalSigils {
                 nullifyGemsCost = true,
                 singletonId = "wstl:Recalled"
             };
-            if (SaveFile.IsAscension) {
+            if (hasFecundity && SaveFile.IsAscension) {
                 recallMod.AddNegateAbilities(Ability.DrawCopy);
             }
             tempMods.Add(recallMod);
@@ -82,7 +83,7 @@ namespace WhistleWind.AbnormalSigils {
 
             yield return new WaitForSeconds(0.2f);
 
-            if (SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
+            if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
                 Singleton<ChallengeActivationUI>.Instance.ShowTextLines(new string[3] {
                         Localization.Translate("DEPLOY SIGIL NERF: FECUNDITY"),
                         Localization.Translate("RemoveSigilFromCopy()"),
