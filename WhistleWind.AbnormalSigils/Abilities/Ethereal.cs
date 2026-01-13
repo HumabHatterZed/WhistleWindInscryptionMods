@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Ethereal() {
             const string rulebookName = "Ethereal";
-            const string rulebookDescription = "[creature] cannot take from or deal damage to opposing creatures. Instead, attacks from and against this card will always strike directly.";
+            const string rulebookDescription = "[creature] cannot take damage from or deal damage to opposing creatures. Instead, attacks from and against this card will always strike directly.";
             Ethereal.ability = AbnormalAbilityHelper.CreateAbility<Ethereal>(
                 "sigilEthereal",
                 rulebookName, rulebookDescription, powerLevel: 0,
