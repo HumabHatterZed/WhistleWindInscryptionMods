@@ -64,6 +64,15 @@ namespace WhistleWindLobotomyMod.Opponents {
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length)];
 
+        public static OrdealType GetOrdealBossType(Opponent.Type bossType) {
+            return bossType switch {
+                Opponent.Type.ProspectorBoss => OrdealType.Green,
+                Opponent.Type.AnglerBoss => OrdealType.Amber,
+                Opponent.Type.TrapperTraderBoss => OrdealType.Violet,
+                _ => OrdealType.Indigo
+            };
+        }
+
         public static Color GetOrdealColor(OrdealType type) {
             return type switch {
                 OrdealType.Green => GameColors.Instance.darkLimeGreen,

@@ -5,33 +5,6 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Core {
     public static class LobotomySaveManager {
-
-        public static int GetCurrentOrdealBoss(int regionTier) {
-            return regionTier switch {
-                0 => OrdealBossOrder1,
-                1 => OrdealBossOrder2,
-                2 => OrdealBossOrder3,
-                3 => OrdealBossOrder4,
-                _ => 0
-            };
-        }
-        public static int OrdealBossOrder1 {
-            get => GetRunInt("OrdealBossOrder1");
-            set => SetRunValue("OrdealBossOrder1", value);
-        }
-        public static int OrdealBossOrder2 {
-            get => GetRunInt("OrdealBossOrder2");
-            set => SetRunValue("OrdealBossOrder2", value);
-        }
-        public static int OrdealBossOrder3 {
-            get => GetRunInt("OrdealBossOrder3");
-            set => SetRunValue("OrdealBossOrder3", value);
-        }
-        public static int OrdealBossOrder4 {
-            get => GetRunInt("OrdealBossOrder4");
-            set => SetRunValue("OrdealBossOrder4", value);
-        }
-
         public static bool LearnedOrdeals {
             get => GetSaveBool("LearnedOrdeals");
             set => SetSaveValue("LearnedOrdeals", value);
