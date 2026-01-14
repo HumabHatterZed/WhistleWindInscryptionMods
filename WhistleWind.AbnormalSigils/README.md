@@ -169,6 +169,16 @@ Flooded|At the end of the opponent's turn, deal 1 damage to cards occupying this
 Blooming|At the end of the owner's turn, cards occupying this space are transformed into Flowers if they are close to death. A Flower is defined as: 1 Power, 1 Health, Healing Strike.
 
 ## 📚 Other
+### Mini Giant Cards
+Alongside everything else this mod adds, there is also a new card type: mini giant cards.
+These cards behave identically to giant cards, but only occupy two slots, good for minibosses or if you think giant cards are too big.
+
+For C#, you can create one using CardInfo.SetMiniGiant(). For JSONLoader, you need to add the Giant Trait to the card, as well as the following:
+- SpecialTriggeredAbility: "whistlewind.inscryption.abnormalsigils.MiniGiantCard"
+- CardAppearanceBehaviour: "whistlewind.inscryption.abnormalsigils.MiniGiantPortrait"
+
+Card emissions work identically for mini giant cards as normal cards.
+
 ### 🐺 Tribes
 - Anthropoid - humans and humanoids
 - Botanic - plants, fungi, and other technically-not-plants
@@ -179,22 +189,32 @@ Blooming|At the end of the owner's turn, cards occupying this space are transfor
 ### 📕 Traits
 Note that the description is only how they're used in this mod; you can use them for other things if you wanted.
 - Boneless - This card will not drop bones when killed
-- SwanBrother - This card will give its first sigil to cards bearing Nettle Clothes
-- NakedSerpent - This card is immune to the Sporogenic ability
-- SporeFriend - This card is immune to the Serpent Nest ability
-- LovingSlime - This card is immune to the Made of Slime ability
-- ImmunetoInstaDeath - This card is immune to insta-kill abilities Touch of Death and Punisher
-
-### 📘 CardMetaCategories
 - CannotGiveSigils - This card cannot be sacrificed for card merging
 - CannotGainSigils - This card cannot be a host for card merging
 - CannotBoostStats - This card cannot be used at the campfire
 - CannotCopyCard - This card cannot be painted by Goobert
+- ImmunetoInstaDeath - This card is immune to insta-kill abilities Touch of Death and Punisher
+- SwanBrother - This card will give its first sigil to cards bearing Nettle Clothes
+- NakedSerpent - This card is immune to the Sporogenic ability
+- Orchestral - This card counts as a conductor when determining the power gained via the Conductor sigil and Movement 'X' sigils
+- SporeFriend - This card is immune to the Serpent Nest ability
+- LovingSlime - This card is immune to the Made of Slime ability
 
 ### 📙 CardAppearanceBehaviours
 - AlternateBattlePortrait - This card will switch to its alternate portrait during card battles (works in Act 2 if an alternate pixel portrait exists)
+- BonelessCardBackground - Card texture appearance, intended for use with the Boneless Trait
+- BonelessCardBackgroundRare - variant of BonelessCardBackground for Rare cards
 - ForcedEmission - This card's emission is always on
 - ForcedWhiteEmission - This card's emission is always on and lit using white light
+- ForcedGreenmission - This card's emission is always on and lit using green light
+- ForcedOrangeEmission - This card's emission is always on and lit using orange light
+- ForcedPurpleEmission - This card's emission is always on and lit using purple light
+- ForcedWhiteEmission - This card's emission is always on and lit using white light
+- MiniGiantPortrait - Appearance behaviour for mini giant cards, see that section for more info
+
+### Extended Properties
+- UNIQUE_COPYCAT - used with the Copycat ability to specify how it interacts with certain cards (eg Giant cards)
+- wstl:GiftGiver - used with Gift-Laden and Gift Giver to specify a specific card to draw when those sigils trigger
 
 ## 🛠️ Configuration Options
 
