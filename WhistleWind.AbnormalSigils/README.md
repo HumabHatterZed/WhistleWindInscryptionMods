@@ -189,16 +189,18 @@ Card emissions work identically for mini giant cards as normal cards.
 ### 📕 Traits
 Note that the description is only how they're used in this mod; you can use them for other things if you wanted.
 - Boneless - This card will not drop bones when killed
-- CannotGiveSigils - This card cannot be sacrificed for card merging
-- CannotGainSigils - This card cannot be a host for card merging
-- CannotBoostStats - This card cannot be used at the campfire
-- CannotCopyCard - This card cannot be painted by Goobert
 - ImmunetoInstaDeath - This card is immune to insta-kill abilities Touch of Death and Punisher
 - SwanBrother - This card will give its first sigil to cards bearing Nettle Clothes
 - NakedSerpent - This card is immune to the Sporogenic ability
 - Orchestral - This card counts as a conductor when determining the power gained via the Conductor sigil and Movement 'X' sigils
 - SporeFriend - This card is immune to the Serpent Nest ability
 - LovingSlime - This card is immune to the Made of Slime ability
+
+### CardMetaCategory
+- CannotGiveSigils - This card cannot be sacrificed for card merging
+- CannotGainSigils - This card cannot be a host for card merging
+- CannotBoostStats - This card cannot be used at the campfire
+- CannotCopyCard - This card cannot be painted by Goobert
 
 ### 📙 CardAppearanceBehaviours
 - AlternateBattlePortrait - This card will switch to its alternate portrait during card battles (works in Act 2 if an alternate pixel portrait exists)

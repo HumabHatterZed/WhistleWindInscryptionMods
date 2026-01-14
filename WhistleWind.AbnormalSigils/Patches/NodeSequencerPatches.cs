@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 
 namespace WhistleWind.AbnormalSigils {
@@ -8,13 +9,13 @@ namespace WhistleWind.AbnormalSigils {
         // Prevents cards from being sacrificed / transferring their sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result) {
-            __result.RemoveAll(x => x.HasAbility(Engraved.ability) || x.HasTrait(AbnormalPlugin.CannotGiveSigils));
+            __result.RemoveAll(x => x.HasAbility(Engraved.ability) || x.HasCardMetaCategory(AbnormalPlugin.CannotGiveSigils));
         }
 
         // Prevents card from being merged / gaining sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result) {
-            __result.RemoveAll(x => x.HasTrait(AbnormalPlugin.CannotGainSigils));
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotGainSigils));
         }
     }
 
@@ -23,14 +24,14 @@ namespace WhistleWind.AbnormalSigils {
         // Prevents cards from having their stats boostable
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result) {
-            __result.RemoveAll(x => x.HasTrait(AbnormalPlugin.CannotBoostStats));
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotBoostStats));
         }
     }
     [HarmonyPatch(typeof(CopyCardSequencer))]
     internal class CopyCardPatch {
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result) {
-            __result.RemoveAll(x => x.HasTrait(AbnormalPlugin.CannotCopyCard));
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotCopyCard));
         }
     }
 }

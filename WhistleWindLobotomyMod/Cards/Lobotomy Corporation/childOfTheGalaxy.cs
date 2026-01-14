@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Lonely.ability)
                 .SetSpellType(SpellType.Targeted)
-                .AddTraits(CannotGiveSigils)
+                .AddMetaCategories(CannotGiveSigils)
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
 
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Lonely.ability)
                 .SetSpellType(SpellType.Targeted)
-                .AddTraits(CannotGiveSigils)
+                .AddMetaCategories(CannotGiveSigils)
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

@@ -32,7 +32,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Ability.TripleBlood, Ability.Sacrificial, Engraved.ability)
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)
-                .AddTraits(Trait.Goat, CannotGiveSigils)
+                .AddTraits(Trait.Goat)
+                .AddMetaCategories(CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, namelessFetusPixel, fetusName,
@@ -43,7 +44,8 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(Ability.TripleBlood, Ability.Sacrificial)
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)
-                .AddTraits(Trait.Goat, CannotGiveSigils)
+                .AddTraits(Trait.Goat)
+                .AddMetaCategories(CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }

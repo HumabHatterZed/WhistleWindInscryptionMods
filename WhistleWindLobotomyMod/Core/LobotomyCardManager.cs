@@ -131,13 +131,13 @@ namespace WhistleWindLobotomyMod.Core {
 
         public static CardInfo SetNodeRestrictions(this CardInfo card, bool cannotGiveSigils, bool cannotGainSigils, bool cannotBuffStats, bool cannotCopyCard) {
             if (cannotGiveSigils)
-                card.AddTraits(AbnormalPlugin.CannotGiveSigils);
+                card.AddMetaCategories(AbnormalPlugin.CannotGiveSigils);
             if (cannotGainSigils)
-                card.AddTraits(AbnormalPlugin.CannotGainSigils);
+                card.AddMetaCategories(AbnormalPlugin.CannotGainSigils);
             if (cannotBuffStats)
-                card.AddTraits(AbnormalPlugin.CannotBoostStats);
+                card.AddMetaCategories(AbnormalPlugin.CannotBoostStats);
             if (cannotCopyCard)
-                card.AddTraits(AbnormalPlugin.CannotCopyCard);
+                card.AddMetaCategories(AbnormalPlugin.CannotCopyCard);
             return card;
         }
 

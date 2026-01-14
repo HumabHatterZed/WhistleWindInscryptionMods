@@ -63,12 +63,13 @@
 - Haste gained from High Strung is now applied on each player's turn rather than on round's end
 - Pin Down can now affect Uncuttable cards, no longer affects cards marked Giant or NonInstaKill
 ### 🩹 Bug fixes
+- Fixed CardMetaCategories not working
 - Fixed status effects not rendering above merged sigils
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
 - Fixed Witness not working
 - Fixed Right-Veering Strike behaving like Left-Veering Strike
-- Fixed interaction with Creature Retrieval where Nettles would retain sigils when replayed
+- Fixed interaction with Recall Creature where Nettles would retain sigils when replayed
 - Fixed Worms status effect not letting Infested cards attack the right-most ally card
 - Fixed Bitter Enemies sigil using an incorrect description
 - Fixed Alchemist sigil breaking in Act 2 when trying to activate after the deck is exhausted

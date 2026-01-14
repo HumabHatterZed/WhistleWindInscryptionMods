@@ -52,10 +52,10 @@ namespace WhistleWind.AbnormalSigils {
         public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
 
-        public static Trait CannotGiveSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGiveSigils");
-        public static Trait CannotGainSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGainSigils");
-        public static Trait CannotBoostStats = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotBoostStats");
-        public static Trait CannotCopyCard = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotCopyCard");
+        public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
+        public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
+        public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
+        public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
         internal static RuntimeAnimatorController MiniGiantAnimator { get; private set; }
 
