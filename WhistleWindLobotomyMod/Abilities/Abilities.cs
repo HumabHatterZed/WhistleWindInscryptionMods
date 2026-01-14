@@ -66,7 +66,6 @@ namespace WhistleWindLobotomyMod {
 
             AddPpodaeStinky();
             AddSteelTrapSweetHome();
-            AddBoneMeal();
             AddTimeMachine();
             AddApostle();
             AddTrueSaviour();
@@ -76,8 +75,16 @@ namespace WhistleWindLobotomyMod {
             AddHarmony();
             AddFood();
             AddSweeperPersistence();
-            AddSurvival();
+            
             AddTower();
+
+            AddDelusion();
+            AddGodRed();
+            AddGodWhite();
+            AddGodBlack();
+            AddGodPale();
+
+            AddSurvival();
 
             AddApocalypse();
             AddApocalypseGiant();
