@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Core {
@@ -30,6 +31,23 @@ namespace WhistleWindLobotomyMod.Core {
 
         internal static void Initialise() {
             CardOffscreenLayer = CardLoader.GetCardByName("!GIANTCARD_MOON").AnimatedPortrait.transform.GetChild(0).gameObject.layer;
+
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadTextureFromFile("sigilDelusion1.png", LobotomyPlugin.ModAssembly),
+                path = "Art/Cards/AbilityIcons/sigilDelusion_1"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadTextureFromFile("sigilDelusion2.png", LobotomyPlugin.ModAssembly),
+                path = "Art/Cards/AbilityIcons/sigilDelusion_2"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadTextureFromFile("sigilDelusion3.png", LobotomyPlugin.ModAssembly),
+                path = "Art/Cards/AbilityIcons/sigilDelusion_3"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadTextureFromFile("sigilDelusion4.png", LobotomyPlugin.ModAssembly),
+                path = "Art/Cards/AbilityIcons/sigilDelusion_4"
+            });
 
             assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets");
             assetBundle = AssetBundle.LoadFromStream(assetBundleStream);
