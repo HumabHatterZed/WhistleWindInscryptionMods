@@ -14,12 +14,17 @@ namespace WhistleWindLobotomyMod {
         public const string fruitUnderstanding = "wstl_fruitUnderstanding";
         public const string grantUsLove = "wstl_fruitGrantLove";
         public const string grantMeSize = "wstl_grantMeSize";
+
+        public const string godDelusionR = "wstl_godDelusionR";
+        public const string godDelusionW = "wstl_godDelusionW";
+        public const string godDelusionB = "wstl_godDelusionB";
+        public const string godDelusionP = "wstl_godDelusionP";
+
         private static void Cards_VioletOrdeal() {
-            string textureName = "fruitUnderstanding";
             CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 0),
                 attack: 0, health: 4)
                 .SetBonesCost(4)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "fruitUnderstanding")
                 .SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
@@ -52,6 +57,54 @@ namespace WhistleWindLobotomyMod {
                 .SetUniqueCopycat(grantMeSize)
                 .Build();
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionR, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
+                 attack: 0, health: 10)
+                 .SetBonesCost(4)
+                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionR")
+                 .AddAbilities(Ability.Reach, Delusion.ability, GodRed.ability, Challenging.ability)
+                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                 .AddTribes(TribeDivine)
+                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                 .SetOrdealCard(OrdealType.Violet)
+                 .SetTerrain()
+                 .Build();
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionW, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
+                 attack: 0, health: 10)
+                 .SetBonesCost(4)
+                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionW")
+                 .AddAbilities(Ability.Reach, Delusion.ability, GodWhite.ability, Challenging.ability)
+                 .AddAppearances(ForcedWhiteEmission.appearance)
+                 .AddTribes(TribeDivine)
+                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                 .SetOrdealCard(OrdealType.Violet)
+                 .SetTerrain()
+                 .Build();
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionB, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
+                 attack: 0, health: 10)
+                 .SetBonesCost(4)
+                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionB")
+                 .AddAbilities(Ability.Reach, Delusion.ability, GodBlack.ability, Challenging.ability)
+                 .AddAppearances(ForcedPurpleEmission.appearance)
+                 .AddTribes(TribeDivine)
+                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                 .SetOrdealCard(OrdealType.Violet)
+                 .SetTerrain()
+                 .Build();
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionP, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
+                 attack: 0, health: 10)
+                 .SetBonesCost(4)
+                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionP")
+                 .AddAbilities(Ability.Reach, Delusion.ability, GodPale.ability, Challenging.ability)
+                 .AddAppearances(ForcedEmission.appearance)
+                 .AddTribes(TribeDivine)
+                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                 .SetOrdealCard(OrdealType.Violet)
+                 .SetTerrain()
+                 .Build();
         }
     }
 }
