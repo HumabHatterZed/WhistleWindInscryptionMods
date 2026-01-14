@@ -57,7 +57,6 @@ namespace WhistleWind.AbnormalSigils {
         public static Trait CannotBoostStats = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotBoostStats");
         public static Trait CannotCopyCard = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotCopyCard");
 
-        internal static AssetBundle AssetBundle { get; private set; }
         internal static RuntimeAnimatorController MiniGiantAnimator { get; private set; }
 
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
@@ -351,9 +350,11 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         internal static void InitAssetBundle() {
-            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWind.AbnormalSigils.abnormalsigils");
-            AssetBundle = AssetBundle.LoadFromStream(stream);
-            MiniGiantAnimator = AssetBundle.LoadAsset<RuntimeAnimatorController>("Card_MiniGiant");
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWind.AbnormalSigils.abnormalsigils");
+            AssetBundle assetBundle = AssetBundle.LoadFromStream(stream);
+            MiniGiantAnimator = assetBundle.LoadAsset<RuntimeAnimatorController>("Card_MiniGiant");
+            stream.Dispose();
+            assetBundle.Unload(false);
         }
 
         public static class TribalAPI {
