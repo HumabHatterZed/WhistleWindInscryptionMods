@@ -343,11 +343,11 @@ namespace WhistleWind.AbnormalSigils {
 
         internal static void VerifyCustomTribeUsage(List<CardInfo> allCardsCopy) {
             List<CardInfo> act1Cards = allCardsCopy.FindAll(x => x.IsObtainable(CardTemple.Nature));
-            //TribeManager.GetCustomTribeInfo(TribeFae).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeFae));
-            //TribeManager.GetCustomTribeInfo(TribeDivine).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeDivine));
-            //TribeManager.GetCustomTribeInfo(TribeBotanic).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeBotanic));
-            //TribeManager.GetCustomTribeInfo(TribeMechanical).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeMechanical));
-            //TribeManager.GetCustomTribeInfo(TribeAnthropoid).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeAnthropoid));
+            TribeManager.GetCustomTribeInfo(TribeFae).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeFae));
+            TribeManager.GetCustomTribeInfo(TribeDivine).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeDivine));
+            TribeManager.GetCustomTribeInfo(TribeBotanic).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeBotanic));
+            TribeManager.GetCustomTribeInfo(TribeMechanical).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeMechanical));
+            TribeManager.GetCustomTribeInfo(TribeAnthropoid).tribeChoice = act1Cards.Exists(x => x.IsOfTribe(TribeAnthropoid));
         }
 
         internal static void InitAssetBundle() {
