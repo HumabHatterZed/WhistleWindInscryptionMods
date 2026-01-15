@@ -153,6 +153,10 @@
 - Removed Volatile sigil
 - Removed unnecessary ability patches
 
+## v1.1.3 - Rough Hotfix (1/14/2026)
+### 🩹 Bug fixes
+- Fixed custom CardMetaCategories not working
+
 ## v1.1.2 - Minor patch (5/23/2024)
 ### 🩹 Bug fixes
 - Fixed Conductor sigil crashing the game when multiple copies are on the same side of the board
