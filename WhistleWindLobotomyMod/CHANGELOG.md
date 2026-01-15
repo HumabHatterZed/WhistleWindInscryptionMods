@@ -3,7 +3,11 @@
 
 # Plugin GUID: whistlewind.inscryption.lobotomycorp
 
-## v2.1.1 - Minor Patch (2/?/2024)
+## v2.1.2 - Rough Hotfix (1/14/2024)
+### 🩹 Bug fixes
+- Fixed WhiteNight sequence softlocking when One Sin and Hundreds of Good Deeds is in the player's hand or deck
+
+## v2.1.1 - Minor Patch (2/19/2024)
 ### 🩹 Bug fixes
 - Fixed Plague Doctor portrait not updating correctly in Act 2
 - Fixed Confession sigil causing a death loop when activated

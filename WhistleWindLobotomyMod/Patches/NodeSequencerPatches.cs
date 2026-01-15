@@ -28,51 +28,11 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch(typeof(CardMergeSequencer))]
     internal class CardMergePatches
     {
-        // Prevents cards from being sacrificed / transferring their sigils
-        [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
-        private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
-        {
-            RemoveInvalidCards(__result, AbnormalPlugin.CannotGiveSigils);
-        }
-
-        // Prevents card from being merged / gaining sigils
-        [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
-        private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
-        {
-            RemoveInvalidCards(__result, AbnormalPlugin.CannotGainSigils);
-        }
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
         private static void AddSapSpecialAbility(CardInfo hostCardInfo, CardInfo sacrificeCardInfo)
         {
             if (sacrificeCardInfo.HasSpecialAbility(Sap.specialAbility))
                 RunState.Run.playerDeck.ModifyCard(hostCardInfo, new() { specialAbilities = { Sap.specialAbility } });
-        }
-
-        internal static void RemoveInvalidCards(List<CardInfo> result, CardMetaCategory metaToRemove)
-        {
-            result.RemoveAll(x => x.HasCardMetaCategory(metaToRemove)
-            || x.HasSpecialAbility(Mimicry.specialAbility)
-            || x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
-        }
-    }
-
-    [HarmonyPatch(typeof(CardStatBoostSequencer))]
-    internal class StatBoostPatch
-    {
-        // Prevents cards from having their stats boostable
-        [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
-        private static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
-        {
-            CardMergePatches.RemoveInvalidCards(__result, AbnormalPlugin.CannotBoostStats);
-        }
-    }
-    [HarmonyPatch(typeof(CopyCardSequencer))]
-    internal class CopyCardPatch
-    {
-        [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
-        private static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
-        {
-            CardMergePatches.RemoveInvalidCards(__result, AbnormalPlugin.CannotCopyCard);
         }
     }
 }

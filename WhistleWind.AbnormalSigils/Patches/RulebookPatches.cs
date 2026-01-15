@@ -148,9 +148,9 @@ namespace WhistleWind.AbnormalSigils.Patches
         };
         private static readonly List<string> ConductorDescriptions = new()
         {
-            "Adjacent creatures gain Power equal to half this card's Power, rounded down. This effect changes next turn.",
-            "Allied creatures gain Power equal to half this card's Power, rounded down. This effect changes next turn.",
-            "All other creatures gain Power equal to this card's Power."
+            "Adjacent creatures gain Power equal to half this card's base Power, rounded down. This effect changes next turn.",
+            "Allied creatures on the board gain Power equal to half this card's base Power, rounded down. This effect changes next turn.",
+            "All other creatures on the board gain Power equal to this card's Power."
         };
     }
 }

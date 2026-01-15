@@ -110,13 +110,12 @@ namespace WhistleWindLobotomyMod
                 // if player still doesn't have the Heretic
                 if (!SaviourBossUtils.PlayerHasHeretic)
                 {
-                    if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == SaviourBossUtils.ONESIN_NAME))
-                    {
-                        LobotomyPlugin.Log.LogDebug("One Sin is in the player's hand");
-                        yield return PlayerHand.Instance.CardsInHand.Find(x => x.name == SaviourBossUtils.ONESIN_NAME).TransformIntoCardAboveHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                    PlayableCard oneSinInHoof = PlayerHand.Instance.CardsInHand.Find(x => x.Info.name == SaviourBossUtils.ONESIN_NAME);
+                    if (oneSinInHoof != null) {
+                        LobotomyPlugin.Log.LogDebug("One Sin is in the player's hand, transform into Heretic Apostle");
+                        yield return oneSinInHoof.TransformIntoCardAboveHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
                     }
-                    else
-                    {
+                    else {
                         LobotomyPlugin.Log.LogDebug("Forcing Heretic into the hand");
                         yield return HelperMethods.ChangeCurrentView(View.Hand, 0f);
                         yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"));

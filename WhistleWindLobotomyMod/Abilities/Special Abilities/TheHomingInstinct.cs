@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
             ModifySpawnedCard(CardToDraw);
 
             if (base.PlayableCard.OpponentCard)
-                yield return HelperMethods.QueueCreatedCard(CardToDraw, true);
+                yield return HelperMethods.QueueCreatedCard(CardToDraw);
             else
                 yield return CreateDrawnCard(CardToDraw);
         }
