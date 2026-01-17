@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodRed() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God Red";
-            info.rulebookDescription = "";
+            info.rulebookDescription = "axe";
             info.powerLevel = 5;
 
             GodRed.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodRed), TextureLoader.LoadTextureFromFile("sigilGodRed.png")).Id;

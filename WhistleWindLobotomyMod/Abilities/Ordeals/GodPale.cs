@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodPale() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God Pale";
-            info.rulebookDescription = "";
+            info.rulebookDescription = "axe";
             info.powerLevel = 5;
 
             GodPale.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodPale), TextureLoader.LoadTextureFromFile("sigilGodPale.png")).Id;
