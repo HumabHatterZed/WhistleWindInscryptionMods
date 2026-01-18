@@ -315,11 +315,23 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossCardsExhausted");
             }
 
+            CardModificationInfo mod = new(drawPiles.turnsSinceExhausted, drawPiles.turnsSinceExhausted) { singletonId = "StarvationBird" };
+            if (drawPiles.turnsSinceExhausted >= 8) {
+                mod.abilities.Add(Ethereal.ability);
+            }
+            else if (drawPiles.turnsSinceExhausted >= 4) {
+                mod.abilities.Add(Ability.Flying);
+            }
+
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(0.25f);
-            BattleSequencer.BossCard.AddTemporaryMod(new CardModificationInfo(1, 0));
+            BattleSequencer.BossCard.AddTemporaryMod(mod);
             BattleSequencer.BossCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
+
+            if (drawPiles.turnsSinceExhausted >= 8) {
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true);
+            }
         }
 
         public override bool RespondsToKillPlayerSequence() => true;
