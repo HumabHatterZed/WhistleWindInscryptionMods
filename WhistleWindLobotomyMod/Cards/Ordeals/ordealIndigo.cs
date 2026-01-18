@@ -23,8 +23,9 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperCorpse")
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability)
+                .SetTerrain()
                 .SetOrdealCard(OrdealType.Indigo)
-                .RemoveTraits(Ordeal)
+                .RemoveTraits(Ordeal, Trait.Terrain)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperA, cardName,

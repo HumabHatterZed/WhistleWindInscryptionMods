@@ -122,7 +122,12 @@ namespace WhistleWindLobotomyMod.Core {
                     info.AddAppearances(OrdealBackgroundAmber.appearance);
                     break;
                 case OrdealType.Indigo:
-                    info.AddAppearances(OrdealBackgroundIndigo.appearance);
+                    if (info.HasTrait(Trait.Terrain)) {
+                        info.AddAppearances(OrdealBackgroundIndigoTerrain.appearance);
+                    }
+                    else {
+                        info.AddAppearances(OrdealBackgroundIndigo.appearance);
+                    }
                     break;
                 case OrdealType.White:
                     info.AddAppearances(OrdealBackgroundWhite.appearance);
