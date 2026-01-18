@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_RightfulHeir() {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Once per turn, pay [sigilcost:1 Bone] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1. [define:wstl_ozmaPumpkin]";
+            const string rulebookDescription = "Pay [sigilcost:1 Bone] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone.";
             const string dialogue = "All she has left now are her children.";
             const string triggerText = "[creature] turns the creature into a pumpkin.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
@@ -32,7 +32,7 @@ namespace WhistleWind.AbnormalSigils {
                 return "No need, it's already perfect.";
             return "That card is fine as it is.";
         }
-        public override int TurnDelay => 1;
+
         public override int StartingBonesCost => 1;
         public override int OnActivateBonesCostMod => 1;
         public override bool IsValidTarget(CardSlot slot) {
@@ -44,7 +44,13 @@ namespace WhistleWind.AbnormalSigils {
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => false;
         public override IEnumerator OnValidTargetSelected(CardSlot slot) {
-            CardInfo info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
+            CardInfo info;
+            if (slot.IsPlayerSlot == base.Card.Slot.IsPlayerSlot) {
+                info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
+            }
+            else {
+                info = CardLoader.GetCardByName("wstl_ozmaPumpkinWeak");
+            }
             yield return slot.Card.TransformIntoCard(info);
             yield return new WaitForSeconds(0.5f);
         }
