@@ -107,7 +107,7 @@
 - Piercing - now affects face down cards
 - Punisher - now activates on card death instead of on taking damage
 - Recall Creature - Recalled Fecundity cards now lose Fecundity in KCM/Ascension mode
-- Refresh Deck - now discards the player's current hand and draws a new opening hand after replenishing and resetting the draw piles
+- Refresh Deck/Grand Reopening - now discards the player's current hand and draws additional cards based on how long the battle's gone on
 - Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
 - Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
 - Thick Skin - now only reduces damage from cards; null sources no longer trigger damage reduction
@@ -137,7 +137,7 @@
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
-- Added the following sigils sigils:
+- Added the following sigils:
     - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Unbreakable Defence, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different from previous Gift Giver), Alluring, Deeply Engraved
 - Added the following stat icons:
     - Flower Power

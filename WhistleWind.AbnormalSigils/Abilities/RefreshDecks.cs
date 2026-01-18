@@ -7,7 +7,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     /// <summary>
-    /// When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.
+    /// When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.
     /// </summary>
     public class RefreshDecks : AbilityBehaviour {
         public static Ability ability;
@@ -33,10 +33,45 @@ namespace WhistleWind.AbnormalSigils {
 
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.1f);
-            yield return Singleton<CardDrawPiles>.Instance.DrawOpeningHand(TurnManager.Instance.GetFixedHand());
+
+            yield return DrawImprovedOpeningHoof();
 
             if (!base.Card.Info.IsSpell()) {
                 yield return base.Card.Die(false, null);
+            }
+        }
+
+        private IEnumerator DrawImprovedOpeningHoof() {
+            AbnormalPlugin.Log.LogDebug($"[RefreshDecks] TurnNum: {TurnManager.Instance.TurnNumber}");
+            bool hasPiles = Singleton<CardDrawPiles3D>.Instance != null;
+
+            if (hasPiles && TurnManager.Instance.TurnNumber > 3) {
+                // max out at 3 additional side draws
+                int numAdditionalSide = TurnManager.Instance.TurnNumber > 11 ? 3 : (int)Mathf.Sqrt(TurnManager.Instance.TurnNumber - 3);
+                AbnormalPlugin.Log.LogDebug($"[RefreshDecks] Side: {numAdditionalSide}");
+                for (int i = 0; i < numAdditionalSide; i++) {
+                    Singleton<CardDrawPiles3D>.Instance.sidePile.Draw();
+                    yield return Singleton<CardDrawPiles3D>.Instance.DrawFromSidePile();
+                }
+            }
+
+            yield return Singleton<CardDrawPiles>.Instance.DrawOpeningHand(TurnManager.Instance.GetFixedHand());
+
+            if (TurnManager.Instance.TurnNumber > 3) {
+                // max out at 3 additional main draws
+                int numAdditionalMain = TurnManager.Instance.TurnNumber > 14 ? 3 : (int)Mathf.Sqrt(3 * TurnManager.Instance.TurnNumber / 4 - 2);
+                AbnormalPlugin.Log.LogDebug($"[RefreshDecks] Main: {numAdditionalMain}");
+                if (hasPiles) {
+                    for (int i = 0; i < numAdditionalMain; i++) {
+                        Singleton<CardDrawPiles3D>.Instance.pile.Draw();
+                        yield return Singleton<CardDrawPiles>.Instance.DrawCardFromDeck();
+                    }
+                }
+                else {
+                    for (int i = 0; i < numAdditionalMain; i++) {
+                        yield return Singleton<CardDrawPiles>.Instance.DrawCardFromDeck();
+                    }
+                }
             }
         }
     }
@@ -45,7 +80,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_RefreshDecks() {
             const string rulebookName = "Grand Reopening";
             RefreshDecks.ability = AbnormalAbilityHelper.CreateAbility<RefreshDecks>(
-                "sigilRefreshDecks", rulebookName, "When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.",
+                "sigilRefreshDecks", rulebookName, "When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.",
                 null, powerLevel: 0, canStack: false).Id;
         }
     }

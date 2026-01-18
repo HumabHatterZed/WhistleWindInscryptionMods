@@ -102,7 +102,7 @@ Pebble Giver		|X|X|2	|Choose one of your cards to gain Pebble unless a card with
 False Throne		|X|X|4	|Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.
 Return to Nihil		|X|X|5	|At the end of the owner's turn, all other cards on the board take damage equal to this card's Power.
 Creature Retrieval	|X|X|0	|Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.
-Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.
+Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.
 Damsel				|X|X|3  |Creatures adjacent to a card bearing this sigil will redirect their attacks to any creatures targeting this card.
 Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to deal any damage during combat.
 Shove Aside			|✓|X|2	|Creatures struck by a card bearing this sigil are pushed to an adjacent space.
