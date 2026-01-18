@@ -1,9 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
@@ -202,12 +204,16 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             List<PlayableCard> opponentCards = BoardManager.Instance.GetOpponentCards().Concat(Queue).ToList();
             if (opponentCards.Count > 0) {
-                yield break;
-            }
-            for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
-                PlayableCard card = opponentCards.GetRandom();
-                card.AddTemporaryMod(new(1, 0));
-                card.Anim.LightNegationEffect();
+                for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
+                    PlayableCard card = opponentCards.GetRandom();
+                    if (card.HasTrait(Trait.Terrain)) {
+                        card.AddTemporaryMod(new(Withering.ability) { fromCardMerge = true });
+                    }
+                    else {
+                        card.AddTemporaryMod(new(1, 0));
+                    }
+                    card.Anim.LightNegationEffect();
+                }
             }
             yield return new WaitForSeconds(0.2f);
         }
