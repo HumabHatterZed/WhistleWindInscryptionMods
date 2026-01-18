@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public override IEnumerator Activate() {
             bool hasSideDeck = Singleton<CardDrawPiles3D>.Instance != null;
-
+            
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.2f);
             foreach (PlayableCard card in PlayerHand.Instance.CardsInHand) {
@@ -73,6 +73,7 @@ namespace WhistleWind.AbnormalSigils {
             }
             yield return new WaitForSeconds(0.3f);
             this.currentTurnDelay = TurnDelay;
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability } });
         }
 
         // prevent turn counter from decrementing
@@ -80,46 +81,5 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             yield break;
         }
-
-        //public override bool IsValidTarget(CardSlot slot) => base.IsValidTarget(slot);
-        //public override IEnumerator OnValidTargetSelected(CardSlot slot) {
-        //    if (slot != null && slot.Card != null) {
-        //        bool wasDefault = false;
-        //        CardInfo cardInfo = CardLoader.GetCardByName(slot.Card.Info.name);
-        //        if (slot.Card.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable)) {
-        //            if (slot.Card.Info.HasUniqueCopyCat()) {
-        //                cardInfo = CardLoader.GetCardByName(slot.Card.Info.GetUniqueCopyCat());
-        //            }
-        //            else {
-        //                cardInfo = CardLoader.GetCardByName("");
-        //                wasDefault = true;
-        //            }
-        //        }
-        //        else {
-        //            cardInfo = CardLoader.GetCardByName(slot.Card.Info.name);
-        //        }
-
-        //        cardInfo.Mods.AddRange(GetNonDefaultModsFromSelf(this.Ability, this.LatchAbility));
-        //        cardInfo.Mods.Add(new() {
-        //            bloodCostAdjustment = -999,
-        //            energyCostAdjustment = -999,
-        //            bonesCostAdjustment = -999,
-        //            nullifyGemsCost = true
-        //        });
-        //        slot.Card.Anim.LightNegationEffect();
-        //        slot.Card.AddTemporaryMod(new(LatchAbility) { singletonId = "wstl:EmeraldNeuter" });
-        //        yield return new WaitForSeconds(0.75f);
-
-        //        yield return HelperMethods.ChangeCurrentView(View.Default);
-        //        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null);
-        //        yield return new WaitForSeconds(0.45f);
-        //        if (wasDefault) {
-        //            yield return DialogueManager.PlayDialogueEventSafe("FalseThroneDefault", TextDisplayer.MessageAdvanceMode.Input);
-        //        }
-        //        else {
-        //            yield return base.LearnAbility(0.1f);
-        //        }
-        //    }
-        //}
     }
 }
