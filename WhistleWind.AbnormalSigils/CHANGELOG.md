@@ -87,6 +87,7 @@
 - Bloodletter - healing is now capped at 2 above the card's max health
 - Bloodletter - reduced powerlevel from 4 -> 3
 - Copycat - can now copy the Moon and Limoncello
+- Copycat - now gains +1 Power when it fails to copy a card - this is removed when it successfully copies a card
 - Corrector - modified stat formula to more closely follow Daniel Mullin's (in-game values should be the same or higher)
 - Corrector - Energy cost now follows the vanilla formula outside Act 1 for improved compatibility
 - False Throne - reworked sigil effect completely, see new description for more info

@@ -52,9 +52,7 @@ namespace WhistleWind.AbnormalSigils {
                 yield break;
 
             if (!CanCopyCard(base.Card.OpposingCard())) {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
+                yield return TransformIntoDefaultCopycat();
                 yield break;
             }
 
@@ -76,10 +74,21 @@ namespace WhistleWind.AbnormalSigils {
                 yield break;
             }
             // if cannot copy card
+            yield return TransformIntoDefaultCopycat();
+        }
+
+        private IEnumerator TransformIntoDefaultCopycat() {
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
+            ViewManager.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.15f);
+            base.Card.Anim.PlayTransformAnimation();
+            yield return new WaitForSeconds(0.15f);
+            base.Card.AddTemporaryMod(new(1, 0) { singletonId = "wstl:DefaultCopycat" });
+            yield return new WaitForSeconds(0.4f);
         }
+
         private IEnumerator TransformIntoCopy(PlayableCard otherCard) {
             // copy temporary mods
             foreach (CardModificationInfo mod in otherCard.TemporaryMods) {
@@ -119,7 +128,7 @@ namespace WhistleWind.AbnormalSigils {
             }
             else {
                 evolutionCardInfo = (cloneCardInfo.Clone() as CardInfo);
-                mod.nameReplacement = "False " + cloneCardInfo.DisplayedNameLocalized;
+                mod.nameReplacement = cloneCardInfo.DisplayedNameLocalized;
                 mod.abilities = new(originalCardInfo.DefaultAbilities);
                 mod.abilities.Remove(this.Ability);
             }
@@ -133,6 +142,11 @@ namespace WhistleWind.AbnormalSigils {
 
             if (base.Card.Health == 0)
                 base.Card.Status.damageTaken = 0;
+
+            CardModificationInfo mod = base.Card.TemporaryMods.Find(x => x.singletonId == "wstl:DefaultCopycat");
+            if (mod != null) {
+                base.Card.RemoveTemporaryMod(mod);
+            }
         }
         private bool CanCopyCard(PlayableCard card) => card.Info.HasUniqueCopyCat() || card.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
     }
