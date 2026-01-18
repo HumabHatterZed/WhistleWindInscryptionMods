@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
@@ -14,6 +15,7 @@ namespace WhistleWind.AbnormalSigils {
             NeuteredLatch.ability = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
                 "sigilNeuteredLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
+                .SetAbilityRedirect("Neutered", Neutered.ability, GameColors.Instance.gray)
                 .Id;
         }
     }
