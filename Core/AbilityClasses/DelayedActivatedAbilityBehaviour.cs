@@ -9,7 +9,7 @@ namespace WhistleWind.Core.AbilityClasses {
     /// Extension of the API's activated ability behaviour that adds support for turn delays and opponent-usage.
     /// </summary>
     public abstract class DelayedActivatedAbilityBehaviour : ExtendedActivatedAbilityBehaviour {
-        private int currentTurnDelay = 0;
+        protected int currentTurnDelay = 0;
         public virtual int TurnDelay => -1;// by default, can always activate
 
         public override bool CanActivate() => currentTurnDelay <= 0;
