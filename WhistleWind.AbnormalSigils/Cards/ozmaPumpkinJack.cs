@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
             const string ozmaPumpkin = "ozmaPumpkin";
             Tribe[] tribes = new[] { TribeBotanic };
 
-            CardInfo jack = CardManager.New(pluginPrefix, "ozmaPumpkinJack", "Jack", 3, 2)
+            CardInfo jack = CardManager.New(pluginPrefix, "ozmaPumpkinJack", "Jack", 2, 2)
                 .SetPortraits(Assembly, ozmaPumpkinJack)
                 .AddTribes(tribes);
 
