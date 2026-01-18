@@ -58,9 +58,9 @@ namespace WhistleWind.AbnormalSigils {
             PlayableCardStatus status = new(slot.Card.Status);
             List<CardModificationInfo> tempMods = slot.Card.TemporaryMods;
             CardModificationInfo recallMod = new() {
-                bloodCostAdjustment = -slot.Card.BloodCost(),
+                bloodCostAdjustment = -999,
                 bonesCostAdjustment = GetBonesCost(slot.Card) - slot.Card.BonesCost(),
-                energyCostAdjustment = -slot.Card.EnergyCost,
+                energyCostAdjustment = -999,
                 nullifyGemsCost = true,
                 singletonId = "wstl:Recalled"
             };
