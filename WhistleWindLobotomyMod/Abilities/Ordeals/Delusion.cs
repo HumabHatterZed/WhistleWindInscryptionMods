@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddDelusion() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Delusion";
-            info.rulebookDescription = "At the end of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil then reset the counter to 2~4.";
+            info.rulebookDescription = "At the end of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil then reset the counter to 2~3.";
             info.powerLevel = 0;
 
             Delusion.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Delusion), TextureLoader.LoadTextureFromFile("sigilDelusion.png")).Id;
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
         private GodColourAbilityBehaviour behav = null;
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
-            counter = 4;//SeededRandom.Range(2, 5, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
+            counter = SeededRandom.Range(2, 5, base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod {
                 //yield return behav.Activate();
                 yield return new WaitForSeconds(0.5f);
                 GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
-                counter = SeededRandom.Range(2, 5, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
+                counter = SeededRandom.Range(2, 4, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
                 base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
                 base.Card.RenderCard();
             }
