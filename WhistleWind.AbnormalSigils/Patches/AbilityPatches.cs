@@ -28,6 +28,15 @@ namespace WhistleWind.AbnormalSigils.Patches {
             return true;
         }
 
+        [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveAttackBuffs))]
+        private static bool NeuteredAttacked(PlayableCard __instance, ref int __result) {
+            if (__instance.HasAbility(Neutered.ability)) {
+                __result = -99999;
+                return false;
+            }
+            return true;
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
         private static void DeathTouchImmunetoInstaDeath(ref bool __result, int amount, PlayableCard target) {
             if (__result && target.HasTrait(AbnormalPlugin.ImmuneToInstaDeath))
