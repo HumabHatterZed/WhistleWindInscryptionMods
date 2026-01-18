@@ -19,8 +19,7 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability Ability => ability;
 
         public override bool RespondsToResolveOnBoard() =>
-            base.Card.Info.IsGlobalSpell()
-                && BoardManager.Instance.GetCards(!base.Card.OpponentCard, x => x.LacksAbility(Unyielding.ability)).Count > 0;
+            base.Card.Info.IsGlobalSpell() && BoardManager.Instance.GetCards(!base.Card.OpponentCard, x => !Unyielding.CardCanBeMoved(x)).Count > 0;
 
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
             if (base.Card.Info.IsTargetedSpell() && slot.Card != null) {
