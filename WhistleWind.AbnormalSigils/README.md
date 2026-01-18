@@ -99,9 +99,9 @@ High-Strung			|X|X|2	|At the end of the owner's turn, a card bearing this sigil 
 Binding Strike		|X|X|2	|When a card bearing this sigil strikes an opposing creature, inflict Bind this turn and next turn equal to half this card's power level.
 Persecutor			|X|X|4	|When a card bearing this sigil is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.
 Pebble Giver		|X|X|2	|Choose one of your cards to gain Pebble unless a card with Pebble already exists, then return this card to your hand.
-False Throne		|X|X|4	|Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.
+Magic Trick			|X|X|4	|Once per battle: Remove cards equal to the number of cards in your hand from both draw piles. All cards in your hand gain the Neutered sigil and become free to play.
 Return to Nihil		|X|X|5	|At the end of the owner's turn, all other cards on the board take damage equal to this card's Power.
-Creature Retrieval	|X|X|0	|Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.
+Recall Creature		|X|X|0	|Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.
 Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.
 Damsel				|X|X|3  |Creatures adjacent to a card bearing this sigil will redirect their attacks to any creatures targeting this card.
 Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to deal any damage during combat.

@@ -25,7 +25,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// Once per turn, Pay 3 Health to remove the play cost of a chosen creature in your hand.
+    /// Once per battle: Remove cards equal to the number of cards in your hand from both draw piles. All cards in your hand gain the Neutered sigil and become free to play.
     /// </summary>
     public class FalseThrone : DelayedActivatedAbilityBehaviour {
         public static Ability ability;

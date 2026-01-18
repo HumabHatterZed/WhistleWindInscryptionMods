@@ -12,7 +12,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     /// <summary>
-    /// Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.
+    /// Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.
     /// </summary>
     public class ReturnCard : AbilityBehaviour {
         public static Ability ability;
@@ -111,7 +111,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_ReturnCard() {
             const string rulebookName = "Recall Creature";
-            const string rulebookDescription = "Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.";
+            const string rulebookDescription = "Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.";
             ReturnCard.ability = AbnormalAbilityHelper.CreateAbility<ReturnCard>(
                 "sigilReturnCard", rulebookName, rulebookDescription,
                 null, powerLevel: 0, canStack: false).Id;
