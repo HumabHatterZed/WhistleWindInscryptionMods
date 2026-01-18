@@ -86,11 +86,8 @@ namespace WhistleWindLobotomyMod.Patches {
                 if (SaveManager.SaveFile.IsPart1)
                     LeshyAnimationController.Instance?.ResetEyesTexture();
 
-                if (LobotomySaveManager.OpponentBlessings > 11)
-                    LobotomySaveManager.OpponentBlessings = 0;
-
-                if (LobotomyConfigManager.NumOfBlessings > 11)
-                    LobotomyConfigManager.SetBlessings(0);
+                LobotomySaveManager.OpponentBlessings = 0;
+                LobotomyConfigManager.SetBlessings(0);
 
                 AchievementAPI.Unlock(true, AchievementAPI.Blessing);
                 LobotomySaveManager.TriggeredWhiteNightThisBattle = false;
@@ -100,8 +97,8 @@ namespace WhistleWindLobotomyMod.Patches {
             LobotomySaveManager.BoardEffectsEmerald = false;
             LobotomySaveManager.BoardEffectsEntropy = false;
 
-            if (__instance.opponent != null && __instance.opponent is not PixelOpponent)
-                Singleton<TableVisualEffectsManager>.Instance?.ResetTableColors();
+            if (TableVisualEffectsManager.Instance != null)
+                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
 
             AchievementAPI.Unlock(LobotomySaveManager.UnlockedApocalypseBird, AchievementAPI.TheThreeBirds);
             AchievementAPI.Unlock(LobotomySaveManager.UnlockedJesterOfNihil, AchievementAPI.MagicalGirls);
