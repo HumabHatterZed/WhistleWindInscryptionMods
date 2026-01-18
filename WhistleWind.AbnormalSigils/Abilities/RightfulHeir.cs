@@ -10,9 +10,9 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_RightfulHeir() {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Pay [sigilcost:1 Bone] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone.";
+            const string rulebookDescription = "Pay [sigilcost:2 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone.";
             const string dialogue = "All she has left now are her children.";
-            const string triggerText = "[creature] turns the creature into a pumpkin.";
+            const string triggerText = "[creature] sprinkles cinnamon dust.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
                 "sigilRightfulHeir",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils {
             return "That card is fine as it is.";
         }
 
-        public override int StartingBonesCost => 1;
+        public override int StartingBonesCost => 2;
         public override int OnActivateBonesCostMod => 1;
         public override bool IsValidTarget(CardSlot slot) {
             if (!base.IsValidTarget(slot))

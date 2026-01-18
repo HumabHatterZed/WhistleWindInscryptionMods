@@ -111,6 +111,8 @@
 - Punisher - now activates on card death instead of on taking damage
 - Recall Creature - Recalled Fecundity cards now lose Fecundity in KCM/Ascension mode
 - Refresh Deck/Grand Reopening - now discards the player's current hand and draws additional cards based on how long the battle's gone on
+- Rightful Heir - activation is no longer limited to once per turn
+- Rightful Heir - Increased initial activation cost from 1 Bone -> 2 Bones
 - Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
 - Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
 - Thick Skin - now only reduces damage from cards; null sources no longer trigger damage reduction
