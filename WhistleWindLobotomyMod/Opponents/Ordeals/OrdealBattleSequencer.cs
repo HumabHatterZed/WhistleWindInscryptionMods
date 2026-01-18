@@ -157,26 +157,36 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
 
-        /// <summary>
-        /// Modifies a queued card BEFORE it is fully queued, and AFTER it is modified by the Opponent class.
-        /// </summary>
-        /// <param name="card">The card being queued.</param>
-        public virtual void ModifyQueuedCard(PlayableCard card) {
-            if (UnityEngine.Random.value <= (Opponent.Difficulty * 0.02f)) {
-                if (UnityEngine.Random.value <= 0.2f) {
-                    card.AddTemporaryMod(new(1, 0));
+        public virtual void TryAddOrdealRandomBuff(PlayableCard card) {
+            if (UnityEngine.Random.value <= Opponent.Difficulty * 0.02f) {
+                if (UnityEngine.Random.value <= 0.2f + Opponent.Difficulty * 0.01f) {
+                    // don't give power to cards that should not gain power, eg cards with 0 atk or giants that target multi
+                    // instead give 2 hp
+                    if (card.HasAnyOfTraits(Trait.Terrain, Trait.Giant)) {
+                        card.AddTemporaryMod(new(0, 2) { singletonId = "OrdealRandomBuff" });
+                    }
+                    else {
+                        card.AddTemporaryMod(new(1, 0) { singletonId = "OrdealRandomBuff" });
+                    }
                 }
                 else {
-                    card.AddTemporaryMod(new(0, 1));
+                    card.AddTemporaryMod(new(0, 1) { singletonId = "OrdealRandomBuff" });
                 }
             }
         }
         /// <summary>
-        /// Modifies a spawned card BEFORE it is fully spawned, and AFTER it is modified by the Opponent class.
+        /// Modifies a queued card BEFORE it is fully queued, and AFTER it is modified by the Opponent class.
+        /// By default, adds a random +1/+1 to a card (either or)
         /// </summary>
-        /// <param name="card"></param>
+        public virtual void ModifyQueuedCard(PlayableCard card) {
+            TryAddOrdealRandomBuff(card);
+        }
+        /// <summary>
+        /// Modifies a spawned card BEFORE it is fully spawned, and AFTER it is modified by the Opponent class.
+        /// By default, adds a random +1/+1 to a card (either or)
+        /// </summary>
         public virtual void ModifySpawnedCard(PlayableCard card) {
-
+            TryAddOrdealRandomBuff(card);
         }
 
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
