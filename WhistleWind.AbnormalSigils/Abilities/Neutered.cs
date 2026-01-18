@@ -30,15 +30,20 @@ namespace WhistleWind.AbnormalSigils {
 
         private int TurnPlayed = 0;
         private void Start() => TurnPlayed = TurnManager.Instance.TurnNumber;
+        public override bool RespondsToResolveOnBoard() => true;
+        public override IEnumerator OnResolveOnBoard() {
+            TurnPlayed = TurnManager.Instance.TurnNumber; // override the assignment in Start() if the card was Neutered in the hoof
+            yield return base.OnResolveOnBoard();
+        }
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep && TurnPlayed != TurnManager.Instance.TurnNumber;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.PlayTransformAnimation();
-            for (CardModificationInfo temporaryEvolveMod = GetTemporaryEvolveMod(); temporaryEvolveMod != null; temporaryEvolveMod = GetTemporaryEvolveMod()) {
-                base.Card.RemoveTemporaryMod(temporaryEvolveMod);
+            for (CardModificationInfo temporaryNeuterMod = GetTemporaryNeuterMod(); temporaryNeuterMod != null; temporaryNeuterMod = GetTemporaryNeuterMod()) {
+                base.Card.RemoveTemporaryMod(temporaryNeuterMod);
             }
             yield return new WaitForSeconds(0.5f);
         }
-        private CardModificationInfo GetTemporaryEvolveMod() => base.Card.TemporaryMods.Find((CardModificationInfo x) => x.abilities.Contains(ability));
+        private CardModificationInfo GetTemporaryNeuterMod() => base.Card.TemporaryMods.Find((CardModificationInfo x) => x.abilities.Contains(ability));
     }
 }
