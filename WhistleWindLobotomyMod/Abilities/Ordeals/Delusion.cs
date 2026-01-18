@@ -32,27 +32,32 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnResolveOnBoard() {
             counter = SeededRandom.Range(2, 5, base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
+            base.Card.Anim.StrongNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
-            yield break;
+            yield return new WaitForSeconds(0.4f);
         }
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             counter--;
+            base.Card.Anim.StrongNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
+            yield return new WaitForSeconds(0.4f);
             if (counter == 1) {
                 // play sound to indicate it's about to pop
                 //yield return behav.PreActivate();
                 yield return new WaitForSeconds(0.5f);
             }
-            if (counter < 1) {
+            else if (counter < 1) {
                 //yield return behav.Activate();
                 yield return new WaitForSeconds(0.5f);
                 GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
                 counter = SeededRandom.Range(2, 4, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
+                base.Card.Anim.LightNegationEffect();
                 base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
                 base.Card.RenderCard();
+                yield return new WaitForSeconds(0.2f);
             }
         }
         private Texture GetDelusionOverrideTex() {
