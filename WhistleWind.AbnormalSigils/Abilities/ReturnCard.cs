@@ -76,8 +76,10 @@ namespace WhistleWind.AbnormalSigils {
             yield return CardSpawner.Instance.SpawnCardToHand(copy, tempMods, 0.25f, (PlayableCard x) => {
                 x.Status = status;
                 for (int i = 0; i < behaviours.Count; i++) {
-                    var copy = HelperMethods.CopySpecialCardBehaviour(behaviours[i], x.gameObject);
-                    x.TriggerHandler.permanentlyAttachedBehaviours.Add(copy);
+                    if (!x.TriggerHandler.permanentlyAttachedBehaviours.Contains(behaviours[i])) {
+                        var copy = HelperMethods.CopySpecialCardBehaviour(behaviours[i], x.gameObject);
+                        x.TriggerHandler.permanentlyAttachedBehaviours.Add(copy);
+                    }
                 }
             });
 
