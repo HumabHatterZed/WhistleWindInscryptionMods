@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
@@ -13,6 +14,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
+        public const string REMOVE_ON_REFRESH_ID = "wstl:RemoveOnRefresh";
         public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
         public override IEnumerator OnResolveOnBoard() {
             if (!SaveManager.SaveFile.IsPart2)
@@ -35,6 +37,18 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(0.1f);
 
             yield return DrawImprovedOpeningHoof();
+
+            ViewManager.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.1f);
+
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Concat(PlayerHand.Instance.CardsInHand).Concat(TurnManager.Instance.Opponent.Queue)) {
+                if (card != null) {
+                    CardModificationInfo mod = card.TemporaryMods.Find(x => x.singletonId == REMOVE_ON_REFRESH_ID);
+                    if (mod != null) {
+                        card.RemoveTemporaryMod(mod);
+                    }
+                }
+            }
 
             if (!base.Card.Info.IsSpell()) {
                 yield return base.Card.Die(false, null);

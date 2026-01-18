@@ -315,7 +315,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossCardsExhausted");
             }
 
-            CardModificationInfo mod = new(drawPiles.turnsSinceExhausted, drawPiles.turnsSinceExhausted) { singletonId = "StarvationBird" };
+            CardModificationInfo mod = new(drawPiles.turnsSinceExhausted, drawPiles.turnsSinceExhausted) { singletonId = RefreshDecks.REMOVE_ON_REFRESH_ID };
             if (drawPiles.turnsSinceExhausted >= 8) {
                 mod.abilities.Add(Ethereal.ability);
             }

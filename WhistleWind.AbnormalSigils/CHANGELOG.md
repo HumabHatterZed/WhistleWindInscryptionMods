@@ -137,6 +137,7 @@
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
+- Refresh Decks/Grand Reopening now removes temporary mods with singleton id "wstl:RemoveOnRefresh" from all active cards (board, queue, hand)
 - Added the following sigils:
     - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Unbreakable Defence, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different from previous Gift Giver), Alluring, Deeply Engraved
 - Added the following stat icons:
