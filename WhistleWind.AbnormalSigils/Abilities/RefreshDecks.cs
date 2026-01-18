@@ -73,6 +73,8 @@ namespace WhistleWind.AbnormalSigils {
                     }
                 }
             }
+
+            CardDrawPiles.Instance.turnsSinceExhausted = 0;
         }
     }
 
