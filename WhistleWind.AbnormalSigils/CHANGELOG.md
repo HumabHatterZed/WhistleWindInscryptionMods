@@ -89,6 +89,8 @@
 - Copycat - can now copy the Moon and Limoncello
 - Corrector - modified stat formula to more closely follow Daniel Mullin's (in-game values should be the same or higher)
 - Corrector - Energy cost now follows the vanilla formula outside Act 1 for improved compatibility
+- False Throne - reworked sigil effect completely, see new description for more info
+- False Throne - renamed to Magic Trick
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Gift Giver - increased powerlevel from 3 -> 4
