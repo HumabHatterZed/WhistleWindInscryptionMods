@@ -228,9 +228,9 @@ namespace WhistleWindLobotomyMod.Opponents {
                     queueHighlightColour = queueDefaultColour = GameColors.Instance.darkSeafoam;
                     break;
                 case OrdealType.Violet:
-                    cardLightColour = GameColors.Instance.purple;
-                    mainHighlightColour = mainDefaultColour = GameColors.Instance.lightPurple;
-                    queueHighlightColour = queueDefaultColour = GameColors.Instance.darkFuschia;
+                    cardLightColour = OrdealUtils.GetOrdealColor(OrdealType.Violet); // custom colour, use to sync usages
+                    mainHighlightColour = mainDefaultColour = GameColors.Instance.purple;
+                    queueHighlightColour = queueDefaultColour = GameColors.Instance.darkPurple;
                     break;
                 case OrdealType.Crimson:
                     cardLightColour = GameColors.Instance.orange;
