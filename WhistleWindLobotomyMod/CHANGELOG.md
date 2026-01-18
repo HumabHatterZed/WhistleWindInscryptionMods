@@ -42,6 +42,7 @@
 - Effect now changes during custom boss fights
 ### Cards
 - 1.76 MHz: now belongs to the Mechanical tribe
+- Adult Who Tells Lies: reworked stats from 1/5 -> 3/3
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
 - Adult Who tells Lies: updated artwork
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3

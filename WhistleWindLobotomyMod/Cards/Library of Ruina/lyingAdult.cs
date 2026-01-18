@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod {
         private static void AdultWhoTellsLies_F01117() {
             string textureName = "lyingAdult";
             CardManager.New(LobotomyPlugin.pluginPrefix, lyingAdult, "The Adult Who Tells Lies",
-                attack: 1, health: 5)
+                attack: 3, health: 3)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FalseThrone.ability)
