@@ -30,6 +30,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Trait.Uncuttable)
+                .SetTerrain()
                 .SetOrdealCard(OrdealType.Violet)
                 .Build();
 
@@ -59,51 +60,51 @@ namespace WhistleWindLobotomyMod {
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionR, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 10)
-                 .SetBonesCost(4)
-                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionR")
+                 attack: 0, health: 6)
+                 .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionR")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodRed.ability, Challenging.ability)
-                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                 .AddAppearances(OrdealBackgroundVioletRed.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                 .SetOrdealCard(OrdealType.Violet)
                  .SetTerrain()
+                 .SetOrdealCard(OrdealType.Violet)
+                 .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionW, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 10)
-                 .SetBonesCost(4)
-                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionW")
+                 attack: 0, health: 6)
+                 .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionW")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodWhite.ability, Challenging.ability)
-                 .AddAppearances(ForcedWhiteEmission.appearance)
+                 .AddAppearances(OrdealBackgroundVioletWhite.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                 .SetOrdealCard(OrdealType.Violet)
                  .SetTerrain()
+                 .SetOrdealCard(OrdealType.Violet)
+                 .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionB, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 10)
-                 .SetBonesCost(4)
-                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionB")
+                 attack: 0, health: 6)
+                 .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionB")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodBlack.ability, Challenging.ability)
-                 .AddAppearances(ForcedPurpleEmission.appearance)
+                 .AddAppearances(OrdealBackgroundVioletBlack.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                 .SetOrdealCard(OrdealType.Violet)
                  .SetTerrain()
+                 .SetOrdealCard(OrdealType.Violet)
+                 .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionP, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 10)
-                 .SetBonesCost(4)
-                 //.SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionP")
+                 attack: 0, health: 6)
+                 .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionP")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodPale.ability, Challenging.ability)
-                 .AddAppearances(ForcedEmission.appearance)
+                 .AddAppearances(OrdealBackgroundVioletPale.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                 .SetOrdealCard(OrdealType.Violet)
                  .SetTerrain()
+                 .SetOrdealCard(OrdealType.Violet)
+                 .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
                  .Build();
         }
     }

@@ -100,13 +100,23 @@ namespace WhistleWindLobotomyMod.Core {
         public static CardInfo SetOrdealCard(this CardInfo info, OrdealType type) {
             switch (type) {
                 case OrdealType.Green:
-                    info.AddAppearances(OrdealBackgroundGreen.appearance);
+                    if (info.HasTrait(Trait.Terrain)) {
+                        info.AddAppearances(OrdealBackgroundGreenTerrain.appearance);
+                    }
+                    else {
+                        info.AddAppearances(OrdealBackgroundGreen.appearance);
+                    }
                     break;
                 case OrdealType.Crimson:
                     info.AddAppearances(OrdealBackgroundCrimson.appearance);
                     break;
                 case OrdealType.Violet:
-                    info.AddAppearances(OrdealBackgroundViolet.appearance);
+                    if (info.HasTrait(Trait.Terrain)) {
+                        info.AddAppearances(OrdealBackgroundVioletTerrain.appearance);
+                    }
+                    else {
+                        info.AddAppearances(OrdealBackgroundViolet.appearance);
+                    }
                     break;
                 case OrdealType.Amber:
                     info.AddAppearances(OrdealBackgroundAmber.appearance);

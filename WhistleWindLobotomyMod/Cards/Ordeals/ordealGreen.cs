@@ -105,7 +105,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                .SetTerrain(false)
+                .SetTerrain()
                 .SetOrdealCard(OrdealType.Green)
                 .Build();
 

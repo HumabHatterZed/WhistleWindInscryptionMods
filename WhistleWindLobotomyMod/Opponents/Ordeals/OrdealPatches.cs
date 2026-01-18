@@ -13,13 +13,6 @@ using WhistleWindLobotomyMod.Core;
 namespace WhistleWindLobotomyMod.Opponents {
     [HarmonyPatch]
     internal class OrdealPatches {
-        private static readonly OrdealType[] NonAscensionBossOrder = {
-            OrdealType.Green,
-            OrdealType.Amber,
-            OrdealType.Violet,
-            OrdealType.Indigo
-        };
-
         [HarmonyPrefix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.EmissionEnabledForCard))]
         private static bool ForceEmissionRendering(ref bool __result, CardRenderInfo renderInfo) {
             if (renderInfo != null && renderInfo.baseInfo != null && renderInfo.baseInfo.name.Equals(Cards.lastHelix)) {

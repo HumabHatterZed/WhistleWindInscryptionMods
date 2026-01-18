@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public static Color GetOrdealColor(OrdealType type) {
             return type switch {
                 OrdealType.Green => GameColors.Instance.darkLimeGreen,
-                OrdealType.Violet => GameColors.Instance.purple,
+                OrdealType.Violet => new Color(0.7f, 0f, 1f),
                 OrdealType.Crimson => GameColors.Instance.glowRed,
                 OrdealType.Amber => GameColors.Instance.orange,
                 OrdealType.Indigo => GameColors.Instance.blue,
