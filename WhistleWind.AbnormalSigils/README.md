@@ -87,7 +87,7 @@ Copycat				|X|X|2	|This gains the sigils and stats of the first card to be playe
 Follow the Leader	|X|X|2	|At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.
 Neutered			|X|X|-2	|A card bearing this sigil has its Power reduced to 0. At the start of the owner's next turn, remove this sigil.
 Neutered Latch		|X|X|4	|Once per turn, pay 2 Bones to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 2 Bones.
-Rightful Heir		|X|X|3	|Once per turn, pay 3 Bones to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. A Pumpkin is defined as: 0 Power, 2 Health, Fledgling.
+Rightful Heir		|X|X|3	|Pay [sigilcost:2 Bones] to select any creature on the board and transform them into a Sturdy Pumpkin, then increase this sigil's activation cost by 1 Bone. Opposing Pumpkins will be rotten instead.
 Greedy Healing		|✓|X|2	|At the end of the owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.
 Cycler				|✓|X|1	|At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.
 Barreler			|✓|X|1	|At the end of the owner's turn, this card moves in the sigil's direction through other cards to the furthest empty space.

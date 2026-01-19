@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_RightfulHeir() {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Pay [sigilcost:2 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone.";
+            const string rulebookDescription = "Pay [sigilcost:2 Bones] to select any creature on the board and transform them into a Sturdy Pumpkin, then increase this sigil's activation cost by 1 Bone. Opposing Pumpkins will be rotten instead.";
             const string dialogue = "All she has left now are her children.";
             const string triggerText = "[creature] sprinkles cinnamon dust.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// Once per turn, pay [sigilcost:1 Bone] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1. [define:wstl_ozmaPumpkin]
+    /// Pay [sigilcost:2 Bones] to select any creature on the board and transform them into a Sturdy Pumpkin, then increase this sigil's activation cost by 1 Bone. Opposing Pumpkins will be rotten instead.
     /// </summary>
     public class RightfulHeir : ActivatedSelectSlotBehaviour {
         public static Ability ability;
