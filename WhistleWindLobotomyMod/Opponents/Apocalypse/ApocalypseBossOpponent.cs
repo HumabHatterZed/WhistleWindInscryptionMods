@@ -316,10 +316,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             }
 
             CardModificationInfo mod = new(drawPiles.turnsSinceExhausted, drawPiles.turnsSinceExhausted) { singletonId = RefreshDecks.REMOVE_ON_REFRESH_ID };
-            if (drawPiles.turnsSinceExhausted >= 8) {
-                mod.abilities.Add(Ethereal.ability);
-            }
-            else if (drawPiles.turnsSinceExhausted >= 4) {
+            if (drawPiles.turnsSinceExhausted >= 4) {
                 mod.abilities.Add(Ability.Flying);
             }
 
