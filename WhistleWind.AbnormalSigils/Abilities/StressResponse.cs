@@ -7,17 +7,17 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_StressResponse() {
             const string rulebookName = "Stress Response";
-            const string rulebookDescription = "If this card is at or below half Health after being struck, its next attack gains 1 Power. Also, gain 1 Power when struck by an ally.";
+            const string rulebookDescription = "When this card is struck by an ally or while at or below half Health, its next attack gains 1 Power. These effects stack with each other.";
             const string dialogue = "A final show of force.";
             StressResponse.ability = AbnormalAbilityHelper.CreateAbility<StressResponse>(
                 "sigilStressResponse",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: true, opponent: true, canStack: false)
                 .Id;
         }
     }
     /// <summary>
-    /// If this card is at or below half Health after being struck, its next attack gains 1 Power. Also, gain 1 Power when struck by an ally.
+    /// When this card is struck by an ally or while at or below half Health, its next attack gains 1 Power. These effects stack with each other.
     /// </summary>
     public class StressResponse : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ability;
@@ -30,26 +30,32 @@ namespace WhistleWind.AbnormalSigils {
             if (source.OpponentCard == base.Card.OpponentCard) {
                 attackedByAlly = true;
             }
-            if (attackedByAlly || base.Card.Health <= base.Card.MaxHealth / 2) {
-                empowerNextAttack = true;
+            bool halfHealth = (float)base.Card.Health / base.Card.MaxHealth <= 0.5f;
+
+            yield return base.PreSuccessfulTriggerSequence();
+
+            if ((float)base.Card.Health / base.Card.MaxHealth <= 0.5f) {
                 if (base.Card.Info.name == "wstlWonder_reddenedBuddy") {
                     base.Card.Anim.StrongNegationEffect();
                     base.Card.SwitchToAlternatePortrait();
                 }
-                yield return base.PreSuccessfulTriggerSequence();
                 yield return base.LearnAbility(0.3f);
             }
         }
 
         public override bool RespondsToAttackEnded() => true;
         public override IEnumerator OnAttackEnded() {
-            empowerNextAttack = attackedByAlly = false;
+            attackedByAlly = false;
             yield break;
         }
 
         public int GetPassiveAttackBuff(PlayableCard target) {
-            if (target == base.Card && empowerNextAttack) {
-                return attackedByAlly ? 2 : 1;
+            if (target == base.Card) {
+                int retval = attackedByAlly ? 1 : 0;
+                if ((float)base.Card.Health / base.Card.MaxHealth <= 0.5f) {
+                    retval++;
+                }
+                return retval;
             }
             return 0;
         }
