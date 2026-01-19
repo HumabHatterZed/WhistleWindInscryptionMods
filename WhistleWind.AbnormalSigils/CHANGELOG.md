@@ -143,18 +143,12 @@
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Refresh Decks/Grand Reopening now removes temporary mods with singleton id "wstl:RemoveOnRefresh" from all active cards (board, queue, hand)
-- Added the following sigils:
-    - Damsel, Stress Response, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Elite, Withering, Unbreakable Defence, Explosive Opening, Board Shuffle, Soulbound, Ethereal, Death Penalty, Intense Volley, Gift Giver (different from previous Gift Giver), Alluring, Deeply Engraved
-- Added the following stat icons:
-    - Flower Power
-- Added the following status effects:
-    - Fervent Adoration, Grief, Sinking, Decay
-- Added the following slot modifications:
-    - Flooded, Blooming
-- Added the following Traits:
-    - ImmuneToAilments
-- Added the following card appearances:
-    - ForcedGreenEmission, ForcedPurpleEmission
+- Added X new sigils
+- Added 1 new stat icons
+- Added 4 new status effects
+- Added 2 new slot modifications
+- Added 1 new Traits
+- Added 3 new card appearances
 ### 💣 Removals
 - Removed Volatile sigil
 - Removed unnecessary ability patches

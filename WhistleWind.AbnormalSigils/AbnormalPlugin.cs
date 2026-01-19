@@ -274,6 +274,7 @@ namespace WhistleWind.AbnormalSigils {
             Ability_ActivatedGiftGiver();
             Ability_Alluring();
             Ability_Engraved();
+            Ability_ActivatedSniper();
 
             #endregion
 
