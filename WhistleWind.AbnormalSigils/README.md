@@ -104,13 +104,13 @@ Return to Nihil		|X|X|5	|At the end of the owner's turn, all other cards on the 
 Recall Creature		|X|X|0	|Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.
 Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.
 Damsel				|X|X|3  |Creatures adjacent to a card bearing this sigil will redirect their attacks to any creatures targeting this card.
+Stress Response		|✓|X|3	|When this card is struck by an ally or while at or below half Health, its next attack gains 1 Power. These effects stack with each other.
 Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to deal any damage during combat.
 Shove Aside			|✓|X|2	|Creatures struck by a card bearing this sigil are pushed to an adjacent space.
 Pin Down			|✓|X|1	|Creatures struck by a card bearing this sigil gain Unyielding.
 Mind Strike			|X|X|2	|a card bearing this sigil may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
 Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
-Healing Strike		|X|X|-2	|Creatures struck by a card bearing this sigil take no damage and instead regain Health equal to the damage dealt.
 Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.
 Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 Decay for each stack of this sigil it possesses.
 Understanding		|X|X|1	|If a card bearing this sigil perishes due to self-inflicted damage, deal 4 damage to opposing creatures.
