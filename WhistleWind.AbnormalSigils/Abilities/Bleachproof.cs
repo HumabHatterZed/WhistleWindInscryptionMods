@@ -7,7 +7,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Bleachproof() {
             const string rulebookName = "Bleachproof";
-            const string rulebookDescription = "[creature] cannot have its sigils removed by the Bleach Pot.";
+            const string rulebookDescription = "[creature] cannot have its sigils removed by effects like the Bleach Pot.";
             Bleachproof.ability = AbnormalAbilityHelper.CreateAbility<Bleachproof>(
                 "sigilBleachproof",
                 rulebookName, rulebookDescription, powerLevel: 2,
@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// [creature] cannot have its sigils removed by the Bleach Pot.
+    /// [creature] cannot have its sigils removed by effects like the Bleach Pot.
     /// </summary>
     [HarmonyPatch]
     public class Bleachproof : AbilityBehaviour {
