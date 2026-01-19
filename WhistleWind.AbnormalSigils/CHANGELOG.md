@@ -43,7 +43,7 @@
 - Updated artwork for Jack
 - Updated See More sigil icons
 - Updated Assimilator sigil icon
-- Updated Opportunistic sigil pixel icon
+- Updated Opportunistic sigil icons
 - Updated Flagellation status effect icons
 - Updated Haste and Bind statis effect icons
 - Updated dialogue for Ruler of Frost when there are no valid targets
