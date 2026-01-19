@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Abusive() {
             const string rulebookName = "Abusive";
-            const string rulebookDescription = "At the end of the owner's turn, this card will strike an adjacent creature, prioritising one with the Stress Response sigil.";
+            const string rulebookDescription = "At the end of the owner's turn, this card will strike an ally card, prioritising one with a Stress Response.";
             const string dialogue = "Nothing is good enough.";
             Abusive.ability = AbnormalAbilityHelper.CreateAbility<Abusive>(
                 "sigilAbusive",
@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// At the end of the owner's turn, this card will strike an adjacent creature, prioritising one with the Stress Response sigil.
+    /// At the end of the owner's turn, this card will strike an ally card, prioritising one with a Stress Response.
     /// </summary>
     public class Abusive : AbilityBehaviour {
         public static Ability ability;
@@ -30,14 +30,12 @@ namespace WhistleWind.AbnormalSigils {
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
-            List<PlayableCard> adjacent = base.Card.Slot.GetAdjacentCards();
+            List<PlayableCard> adjacent = BoardManager.Instance.GetCards(!base.Card.OpponentCard);
+            adjacent.Remove(this.Card);
             if (adjacent.Exists(x => x.HasAbility(StressResponse.ability))) {
                 adjacent.RemoveAll(x => !x.HasAbility(StressResponse.ability));
             }
-            if (base.Card.LacksAbility(Persistent.ability)) {
-                adjacent.RemoveAll(x => x.FaceDown);
-            }
-
+            adjacent.RemoveAll(x => base.Card.CanAttackDirectly(x.Slot));
             if (adjacent.Count > 0) {
                 yield return base.PreSuccessfulTriggerSequence();
                 yield return new WaitForSeconds(0.3f);
