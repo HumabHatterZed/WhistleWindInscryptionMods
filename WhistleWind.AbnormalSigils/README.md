@@ -37,7 +37,7 @@ Based on the works of Project Moon
 \*Modular means that the sigil can be found on Totem bases.
 
 |Name|Totem|Stacks|Power|Description
-:-|:-:|:-:|-:|:-
+:-|:-:|:-:|:-:|:-
 Punisher			|X|X|4	|When a card bearing this sigil is struck and killed, the attacker perishes as well.
 Bloodfiend			|✓|✓|2	|When a card bearing this sigil deals damage, it gains 1 Health.
 Martyr				|✓|✓|1	|When a card bearing this sigil dies, all allied creatures gain 2 Health and lose any negative status effects.
@@ -126,6 +126,9 @@ Ethereal			|X|X|0	|A card bearing this sigil cannot take from or deal damage to 
 Volley Strike		|X|X|5	|At the end of the owner's turn, this card will target 2-4 opposing spaces to attack on its next turn.
 Gift Giver			|X|X|3	|Activate: Create a random card in your hand, then deactivate this sigil for 3 turns.
 Alluring			|X|X|2	|At the end of the owner's turn, a card bearing this sigil attracts an opposing adjacent creature to the space across from this card if possible.
+Deeply Engraved		|X|X|-1	|A card bearing this sigil cannot be sacrificed for its sigils at The Stones.
+Gun For Hire		|X|X|2	|Pay 2 Energy to give this card Sniper until the end of its next attack.
+Hair Loss Serum		|X|X|2	|Choose one of your cards and remove all its sigils, then double its Power and Health.
 </details>
 
 ### ⁉️ Stat Icons
