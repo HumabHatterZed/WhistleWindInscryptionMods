@@ -60,7 +60,7 @@ namespace WhistleWindLobotomyMod {
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionR, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 6)
+                 attack: 0, health: 7)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionR")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodRed.ability, Challenging.ability)
                  .AddAppearances(OrdealBackgroundVioletRed.appearance, ForcedWhiteEmission.appearance)
@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod {
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionW, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 6)
+                 attack: 0, health: 7)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionW")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodWhite.ability, Challenging.ability)
                  .AddAppearances(OrdealBackgroundVioletWhite.appearance, ForcedWhiteEmission.appearance)
@@ -84,7 +84,7 @@ namespace WhistleWindLobotomyMod {
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionB, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 6)
+                 attack: 0, health: 7)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionB")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodBlack.ability, Challenging.ability)
                  .AddAppearances(OrdealBackgroundVioletBlack.appearance, ForcedWhiteEmission.appearance)
@@ -96,7 +96,7 @@ namespace WhistleWindLobotomyMod {
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionP, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
-                 attack: 0, health: 6)
+                 attack: 0, health: 7)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionP")
                  .AddAbilities(Ability.Reach, Delusion.ability, GodPale.ability, Challenging.ability)
                  .AddAppearances(OrdealBackgroundVioletPale.appearance, ForcedWhiteEmission.appearance)
