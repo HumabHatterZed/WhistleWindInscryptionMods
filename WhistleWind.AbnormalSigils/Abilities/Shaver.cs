@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Shaver() {
             const string rulebookName = "Hair Loss Serum";
-            const string rulebookDescription = "Choose one of your cards and remove all its sigils then double its Power and Health.";
+            const string rulebookDescription = "Choose one of your cards and remove all its sigils, then double its Power and Health.";
             const string dialogue = "Bald is beautiful.";
             Shaver.ability = AbnormalAbilityHelper.CreateAbility<Shaver>(
                 "sigilShaver",
