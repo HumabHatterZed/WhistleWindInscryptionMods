@@ -17,16 +17,16 @@ namespace WhistleWindLobotomyMod {
             string desc = "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.";
             string textureName = "derFreischutz";
             CardManager.New(LobotomyPlugin.pluginPrefix, derFreischutz, name,
-                attack: 2, health: 2, desc)
+                attack: 3, health: 1, desc)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Sniper, Persistent.ability)
+                .AddAbilities(ActivatedSniper.ability, Persistent.ability)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName("Der Ältere Freischütz")
                 .Build(CardHelper.CardType.Rare, RiskLevel.He);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
-                attack: 2, health: 2, desc)
+                attack: 3, health: 1, desc)
                 .SetGemsCost(GemType.Orange, GemType.Orange)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)

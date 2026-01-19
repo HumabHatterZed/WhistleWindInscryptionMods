@@ -51,12 +51,13 @@
 - <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
 - <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
-- Big and Will Be Bad Wolf: reworked to 3/3; Vendetta, Blood Lust; 3 Blood
+- Big and Will Be Bad Wolf: reworked to 2/2; Blood Lust; 2 Blood
 - <span style='color:#2084A0'>CENSORED: Increased Health from 4 -> 5
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
 - <span style='color:#2084A0'>Dream of a Black Swan: Buffed from 2/5 -> 3/5
 - Dream of a Black Swan: no longer considered Rare
+- Der Freischütz: reworked from 2/2, Sniper -> 3/1, Gun For Hire
 - Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
 - Funeral of the Dead Butterflies: now belongs to the Undead temple (Act 2)
 - <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
@@ -80,7 +81,7 @@
 - <span style='color:#DE6080'>Ppodae Evolution: Reduced Power from 3 -> 2
 - Ppodae & Evolution: now possess unique version of Stinky
 - Ppodae & Evolution: replaced artwork
-- Red Riding Hooded Mercenary: reworked to 1/3; Vendetta, Sniper; 2 Blood
+- Red Riding Hooded Mercenary: reworked to 1/2; Gun For Hire; 1 Blood
 - Sephirah: all cards now blink slower
 - The Dreaming Current: Increased Health from 2 -> 3, now possesses Nimble-Footed and Barreler
 - The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession

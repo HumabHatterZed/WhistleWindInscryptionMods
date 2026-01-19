@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod {
             string textureName = "redHoodedMercenary";
 
             CardManager.New(LobotomyPlugin.pluginPrefix, redHoodedMercenary, name,
-                attack: 2, health: 1, desc)
-                .SetBloodCost(2)
+                attack: 1, health: 2, desc)
+                .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(BitterEnemies.ability, Ability.Sniper)
+                .AddAbilities(ActivatedSniper.ability)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName(name2)
