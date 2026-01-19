@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public IEnumerator UpdateOrdealMonitor(int amountKilled) {
-            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
+            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.4f);
             if (OrdealCounterManager.Instance.Dirty) {
                 OrdealCounterManager.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.8f);
@@ -70,7 +70,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
             if (amountKilledThisTurn != 0) {
                 //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] update amount left");
-
                 yield return UpdateOrdealMonitor(amountKilledThisTurn);
             }
 
@@ -82,7 +81,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
                 }
                 else if (ShouldExtendBattle()) {
-                    //LobotomyPlugin.Log.LogDebug("[OrdealBattle] OpponentTurnEnd: Extend turn plan");
+                    LobotomyPlugin.Log.LogDebug("[OrdealBattle] OpponentTurnEnd: Extend turn plan");
                     Opponent.ReplaceAndAppendTurnPlan(Opponent.ModifyTurnPlan(EncounterBluePrint));
                     yield return Opponent.QueueNewCards();
                 }
@@ -142,7 +141,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnOtherCardDie: dead card:[{card.Info.displayedName}] total killed:[{amountKilledThisTurn}]");
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealCounterManager.Instance.amountLeft}");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn}");
         }
 
         /// <summary>
