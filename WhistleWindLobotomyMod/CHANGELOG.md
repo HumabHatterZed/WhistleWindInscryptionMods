@@ -89,7 +89,7 @@
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - Yin: now belongs to the Divine tribe
 - Yang: now belongs to the Divine tribe
-- You're Bald...: changed evolution name
+- You're Bald...: reworked into Targeted Spell with Hair Loss Serum sigil
 - Modified some portraits
 ### Challenges
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
