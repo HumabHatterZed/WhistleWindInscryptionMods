@@ -111,6 +111,10 @@ Pin Down			|✓|X|1	|Creatures struck by a card bearing this sigil gain Unyieldi
 Unyielding			|✓|✓|1	|[creature] cannot move or be moved from its current space on the board.
 Mind Strike			|X|X|2	|a card bearing this sigil may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
+Fizzy Lifter		|X|X|0	|The selected card will become Airborne for 3 turns.
+Ocean Soda			|X|X|0	|The selected card will become Waterborne for 3 turns.
+Potshot Pop			|X|X|2	|The selected card will gain Sentry for 2 turns.
+Surefire Soda		|X|X|2	|The selected card will gain Sniper for this turn.
 Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
 Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.
 Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 Decay for each stack of this sigil it possesses.
