@@ -8,18 +8,18 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Unyielding() {
             const string rulebookName = "Unyielding";
-            const string rulebookDescription = "[creature] cannot move from its current space on the board.";
+            const string rulebookDescription = "[creature] cannot move or be moved from its current space on the board.";
             const string dialogue = "This beast is stubborn. It refuses to move.";
             const string triggerText = "[creature] digs in its heels!";
             Unyielding.ability = AbnormalAbilityHelper.CreateAbility<Unyielding>(
                 "sigilUnyielding",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
-                modular: false, opponent: false, canStack: false)
+                modular: true, opponent: true, canStack: false)
                 .Id;
         }
     }
     /// <summary>
-    /// [creature] cannot move from its current space on the board.
+    /// [creature] cannot move or be moved from its current space on the board.
     /// </summary>
     public class Unyielding : AbilityBehaviour {
         public static Ability ability;

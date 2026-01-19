@@ -105,9 +105,10 @@ Recall Creature		|X|X|0	|Return the selected card to your hand with its current 
 Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.
 Damsel				|X|X|3  |Creatures adjacent to a card bearing this sigil will redirect their attacks to any creatures targeting this card.
 Stress Response		|✓|X|3	|When this card is struck by an ally or while at or below half Health, its next attack gains 1 Power. These effects stack with each other.
-Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to deal any damage during combat.
+Abusive				|X|X|-3 |At the end of the owner's turn, this card will strike an ally card, prioritising one with a Stress Response.
 Shove Aside			|✓|X|2	|Creatures struck by a card bearing this sigil are pushed to an adjacent space.
 Pin Down			|✓|X|1	|Creatures struck by a card bearing this sigil gain Unyielding.
+Unyielding			|✓|✓|1	|[creature] cannot move or be moved from its current space on the board.
 Mind Strike			|X|X|2	|a card bearing this sigil may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
 Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
