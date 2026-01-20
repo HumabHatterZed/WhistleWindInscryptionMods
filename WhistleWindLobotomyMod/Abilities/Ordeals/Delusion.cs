@@ -50,18 +50,16 @@ namespace WhistleWindLobotomyMod {
             if (counter == 1) {
                 // play sound to indicate it's about to pop
                 yield return behav.OnPreActivate(false);
-                yield return new WaitForSeconds(0.5f);
             }
             else if (counter < 1) {
                 GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
                 yield return behav.OnActivate(false);
-                yield return new WaitForSeconds(0.5f);
-                yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
                 counter = SeededRandom.Range(2, 4, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
                 base.Card.Anim.LightNegationEffect();
                 base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
                 base.Card.RenderCard();
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.75f);
+                yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
             }
         }
 
@@ -87,7 +85,6 @@ namespace WhistleWindLobotomyMod {
         protected abstract IEnumerator Activate(bool halfHealth);
 
         public IEnumerator OnPreActivate(bool halfHealth) {
-            SetUpVisualGameObject();
             yield return PreActivate(halfHealth);
         }
         public IEnumerator OnActivate(bool halfHealth) {
