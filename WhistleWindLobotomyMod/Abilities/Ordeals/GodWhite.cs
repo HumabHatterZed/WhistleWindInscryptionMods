@@ -26,10 +26,10 @@ namespace WhistleWindLobotomyMod {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        protected override IEnumerator PreActivate() {
+        protected override IEnumerator PreActivate(bool halfHealth) {
             yield break;
         }
-        protected override IEnumerator Activate() {
+        protected override IEnumerator Activate(bool halfHealth) {
             yield break;
         }
 

@@ -28,6 +28,8 @@ namespace WhistleWindLobotomyMod {
 
         private int counter;
         private GodColourAbilityBehaviour behav = null;
+        private bool triggerHalfHealth = true;
+
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
             counter = SeededRandom.Range(2, 5, base.GetRandomSeed() + base.Card.Slot.Index);
@@ -47,12 +49,12 @@ namespace WhistleWindLobotomyMod {
             yield return new WaitForSeconds(0.4f);
             if (counter == 1) {
                 // play sound to indicate it's about to pop
-                yield return behav.OnPreActivate();
+                yield return behav.OnPreActivate(false);
                 yield return new WaitForSeconds(0.5f);
             }
             else if (counter < 1) {
                 GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
-                yield return behav.OnActivate();
+                yield return behav.OnActivate(false);
                 yield return new WaitForSeconds(0.5f);
                 yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
                 counter = SeededRandom.Range(2, 4, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
@@ -61,6 +63,13 @@ namespace WhistleWindLobotomyMod {
                 base.Card.RenderCard();
                 yield return new WaitForSeconds(0.2f);
             }
+        }
+
+        public override bool RespondsToTakeDamage(PlayableCard source) => triggerHalfHealth && (float)base.Card.Health / base.Card.MaxHealth <= 0.5f;
+        public override IEnumerator OnTakeDamage(PlayableCard source) {
+            yield return behav.OnPreActivate(true);
+            yield return behav.OnActivate(true);
+            triggerHalfHealth = false;
         }
         private Texture GetDelusionOverrideTex() {
             if (counter > 0) {
@@ -74,15 +83,15 @@ namespace WhistleWindLobotomyMod {
         protected GameObject activateVisualGameObject = null;
 
         public abstract void SetUpVisualGameObject();
-        protected abstract IEnumerator PreActivate();
-        protected abstract IEnumerator Activate();
+        protected abstract IEnumerator PreActivate(bool halfHealth);
+        protected abstract IEnumerator Activate(bool halfHealth);
 
-        public IEnumerator OnPreActivate() {
+        public IEnumerator OnPreActivate(bool halfHealth) {
             SetUpVisualGameObject();
-            yield return PreActivate();
+            yield return PreActivate(halfHealth);
         }
-        public IEnumerator OnActivate() {
-            yield return Activate();
+        public IEnumerator OnActivate(bool halfHealth) {
+            yield return Activate(halfHealth);
         }
 
         public override bool RespondsToResolveOnBoard() => activateVisualGameObject == null;

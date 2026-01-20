@@ -43,7 +43,6 @@ namespace WhistleWindLobotomyMod {
         }
 
         private IEnumerator MoveEyeToSlot() {
-            eyeSlot = DetermineNewSlot();
             Tween.Position(activateVisualGameObject.transform, eyeSlot.transform.position + new Vector3(0, 0.2f, 0), 1f, 0.5f, startCallback: () => ShowEye(true));
             yield return new WaitForSeconds(0.5f);
             AudioController.Instance.PlaySound2D("Violet_pale_move", MixerGroup.TableObjectsSFX);
@@ -61,14 +60,23 @@ namespace WhistleWindLobotomyMod {
             active = show;
         }
 
-        protected override IEnumerator PreActivate() {
+        protected override IEnumerator PreActivate(bool halfHealth) {
             preActivation = true;
-            if (active) {
-                ShowEye(false); // guarantee reprieve
+            if (!halfHealth) {
+                if (active) {
+                    ShowEye(false); // guarantee reprieve
+                }
+                yield return new WaitForSeconds(0.5f);
             }
-            yield return new WaitForSeconds(0.5f);
         }
-        protected override IEnumerator Activate() {
+        protected override IEnumerator Activate(bool halfHealth) {
+            if (!halfHealth) {
+                eyeSlot = DetermineNewSlot();
+            }
+            else if (eyeSlot != base.Card.OpposingSlot()) {
+                eyeSlot = base.Card.OpposingSlot();
+            }
+                
             yield return MoveEyeToSlot(); // move eye to new slot
             preActivation = true;
         }

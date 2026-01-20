@@ -30,12 +30,12 @@ namespace WhistleWindLobotomyMod {
         public override Ability Ability => ability;
 
         private PlayableCard dummyCard = null;
-        protected override IEnumerator PreActivate() {
+        protected override IEnumerator PreActivate(bool halfHealth) {
             // visuals
             SetUpDummyCard();
             yield break;
         }
-        protected override IEnumerator Activate() {
+        protected override IEnumerator Activate(bool halfHealth) {
             // visuals
             foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy) {
                 if (slot.Card != null) {
