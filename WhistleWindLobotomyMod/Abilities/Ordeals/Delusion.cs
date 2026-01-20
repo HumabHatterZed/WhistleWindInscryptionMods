@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddDelusion() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Delusion";
-            info.rulebookDescription = "At the end of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil then reset the counter to 2~3.";
+            info.rulebookDescription = "At the start of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil, deal 1 damage directly to the player, then reset the counter to 2~3.";
             info.powerLevel = 0;
 
             Delusion.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Delusion), TextureLoader.LoadTextureFromFile("sigilDelusion.png")).Id;
@@ -40,19 +40,21 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             counter--;
+            yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
             yield return new WaitForSeconds(0.4f);
             if (counter == 1) {
                 // play sound to indicate it's about to pop
-                //yield return behav.PreActivate();
+                yield return behav.OnPreActivate();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (counter < 1) {
-                //yield return behav.Activate();
-                yield return new WaitForSeconds(0.5f);
                 GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
+                yield return behav.OnActivate();
+                yield return new WaitForSeconds(0.5f);
+                yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
                 counter = SeededRandom.Range(2, 4, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
                 base.Card.Anim.LightNegationEffect();
                 base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
@@ -69,7 +71,31 @@ namespace WhistleWindLobotomyMod {
     }
 
     public abstract class GodColourAbilityBehaviour : AbilityBehaviour {
-        public abstract IEnumerator PreActivate();
-        public abstract IEnumerator Activate();
+        protected GameObject activateVisualGameObject = null;
+
+        public abstract void SetUpVisualGameObject();
+        protected abstract IEnumerator PreActivate();
+        protected abstract IEnumerator Activate();
+
+        public IEnumerator OnPreActivate() {
+            SetUpVisualGameObject();
+            yield return PreActivate();
+        }
+        public IEnumerator OnActivate() {
+            yield return Activate();
+        }
+
+        public override bool RespondsToResolveOnBoard() => activateVisualGameObject == null;
+        public override IEnumerator OnResolveOnBoard() {
+            SetUpVisualGameObject();
+            yield break;
+        }
+
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
+            // clean up visual go
+            Destroy(activateVisualGameObject);
+            yield break;
+        }
     }
 }
