@@ -45,19 +45,43 @@ namespace WhistleWindLobotomyMod {
     #region Midnights of Violet
     public class OrdealBackgroundVioletRed : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_r.png");
+        public override void ApplyAppearance() {
+            base.Card.RenderInfo.hiddenAttack = true;
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_r.png");
+        }
+        public override void OnPreRenderCard() {
+            base.Card.RenderInfo.hiddenAttack = true;
+        }
     }
     public class OrdealBackgroundVioletWhite : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_w.png");
+        public override void ApplyAppearance() {
+            base.Card.RenderInfo.hiddenAttack = true;
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_w.png");
+        }
+        public override void OnPreRenderCard() {
+            base.Card.RenderInfo.hiddenAttack = true;
+        }
     }
     public class OrdealBackgroundVioletBlack : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_b.png");
+        public override void ApplyAppearance() {
+            base.Card.RenderInfo.hiddenAttack = true;
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_b.png");
+        }
+        public override void OnPreRenderCard() {
+            base.Card.RenderInfo.hiddenAttack = true;
+        }
     }
     public class OrdealBackgroundVioletPale : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_p.png");
+        public override void ApplyAppearance() {
+            base.Card.RenderInfo.hiddenAttack = true;
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_p.png");
+        }
+        public override void OnPreRenderCard() {
+            base.Card.RenderInfo.hiddenAttack = true;
+        }
     }
     #endregion
     public class OrdealBackgroundCrimson : CardAppearanceBehaviour {
