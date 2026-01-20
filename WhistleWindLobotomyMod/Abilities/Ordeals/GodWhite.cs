@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodWhite() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God White";
-            info.rulebookDescription = "axe";
+            info.rulebookDescription = "Activate: Inflict Reverence onto a";
             info.powerLevel = 5;
 
             GodWhite.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodWhite), TextureLoader.LoadTextureFromFile("sigilGodWhite.png")).Id;
@@ -26,11 +26,15 @@ namespace WhistleWindLobotomyMod {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override IEnumerator PreActivate() {
-            throw new System.NotImplementedException();
+        protected override IEnumerator PreActivate() {
+            yield break;
         }
-        public override IEnumerator Activate() {
-            throw new System.NotImplementedException();
+        protected override IEnumerator Activate() {
+            yield break;
+        }
+
+        public override void SetUpVisualGameObject() {
+            // stub
         }
     }
 }
