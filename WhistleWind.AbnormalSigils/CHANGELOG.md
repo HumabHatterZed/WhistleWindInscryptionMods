@@ -10,7 +10,7 @@
     - Renamed several fields and methods
     - Improved status effect icon appearances and implementation
     - Status effects now have max trigger priority
-- Added additional functionality for node-related Traits
+- Added Driver.PinDownCard() static method for replicating Pin Down sigil's effect
 - Modified how cards and abilities are created
 - Modified how speed is calculated, read the Speed description for more information
 - Most abilities now have rulebook entries in Act 3, Grimora, and Magnificus's acts - abilities not fully tested for these acts, expect bugs
