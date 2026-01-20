@@ -167,6 +167,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Indigo_end"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("White_start"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("White_end"));
+
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_portal_on"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_portal_off"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_eye_start"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_eye_move"));
         }
 
         internal static RegionData CreateWhiteOrdealRegion() {

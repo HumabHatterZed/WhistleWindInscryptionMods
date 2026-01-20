@@ -12,7 +12,7 @@ using WhistleWindLobotomyMod.Opponents;
 namespace WhistleWindLobotomyMod.Core {
     [HarmonyPatch]
     public static class AssetManager {
-        private static AssetBundle musicBundle;
+        private static AssetBundle musicBundle; // 'streaming music won't play if the bundle is unloaded
 
         internal static GameObject warningTargetPrefab;
         internal static GameObject ordealCounterPrefab;

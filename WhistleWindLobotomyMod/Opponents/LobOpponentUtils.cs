@@ -29,6 +29,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             ApocalypseBossMouthPrefab = bundle.LoadAsset<GameObject>("ApocalypseMouth");
             HelixBossLaserPrefab = bundle.LoadAsset<GameObject>("LastHelixLaser");
 
+            //ShrineBossRedPrefab = bundle.LoadAsset<GameObject>("ShrineHoof");
+            //ShrineBossWhitePrefab = bundle.LoadAsset<GameObject>("ShrineSpike");
+            //ShrineBossBlackPrefab = bundle.LoadAsset<GameObject>("ShrineTentacle");
+            ShrineBossPalePrefab = bundle.LoadAsset<GameObject>("ShrineEye");
+
             ResourceBankManager.Add(LobotomyPlugin.pluginGuid, "Prefabs/Environment/TableEffects/CityTableEffects", bundle.LoadAsset<GameObject>("CityTableEffects"));
 
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_roar"));
@@ -63,5 +68,10 @@ namespace WhistleWindLobotomyMod.Opponents {
         //public static GameObject raptureBossPrefab;
 
         public static GameObject HelixBossLaserPrefab { get; private set; }
+
+        public static GameObject ShrineBossRedPrefab { get; private set; }
+        public static GameObject ShrineBossWhitePrefab { get; private set; }
+        public static GameObject ShrineBossBlackPrefab { get; private set; }
+        public static GameObject ShrineBossPalePrefab { get; private set; }
     }
 }
