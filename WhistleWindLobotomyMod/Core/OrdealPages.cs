@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod {
 
             //CreateNewPage("The Ordeals of Green", "Mechanical beings with piercing weaponry. Can appear at Dawn, Noon, Dusk, or Midnight.", null);
 
-            CreateNewPage("Light of the End", "Split into two pillars, one will remain stationary while the other will move right at the end of the opponent's combat. All cards caught in the light will be destroyed.", TextureLoader.LoadSpriteFromFile("sigilTower.png"));
+            CreateNewPage("Light of the End", "Split into two pillars, one will remain stationary while the other will move right at the end of the opponent's combat. All cards caught in the light will be destroyed.", TextureLoader.LoadSpriteFromFile("sigilTower_rulebook.png", asm: LobotomyPlugin.ModAssembly));
+            CreateNewPage("Pale Eye", "While visible: at the end of every turn, the card under the Eye's gaze will lose a quarter of their current Health, rounded up. This damage does not trigger sigils.", TextureLoader.LoadSpriteFromFile("sigilGodPale_rulebook.png", asm: LobotomyPlugin.ModAssembly));
 
             //CreateNewPage("The Ordeals of Violet", "Divine beings that directly target your mind and body. Can appear at Dawn, Noon, or Midnight.", null);
             //CreateNewPage("The Ordeals of Crimson", "Fae-like beings that multiply as they are struck down. Can appear at Dawn, Noon, or Dusk.", null);
