@@ -6,6 +6,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
@@ -15,10 +16,12 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodRed() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God Red";
-            info.rulebookDescription = "axe";
+            info.rulebookDescription = "Activate: .";
             info.powerLevel = 5;
 
-            GodRed.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodRed), TextureLoader.LoadTextureFromFile("sigilGodRed.png")).Id;
+            GodRed.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodRed), TextureLoader.LoadTextureFromFile("sigilGodRed.png"))
+                .SetAbilityRedirect("Pin Down", Driver.ability, Color.red)
+                .Id;
         }
     }
 
@@ -26,15 +29,35 @@ namespace WhistleWindLobotomyMod {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override IEnumerator PreActivate() {
-            throw new System.NotImplementedException();
+        private PlayableCard dummyCard = null;
+
+        protected override IEnumerator PreActivate() {
+            // visuals
+            yield break;
         }
-        public override IEnumerator Activate() {
-            throw new System.NotImplementedException();
+        protected override IEnumerator Activate() {
+            // visuals
+            foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy) {
+                if (slot.Card != null) {
+                    yield return slot.Card.TakeDamage(3, null);
+                }
+            }
         }
 
-        public void OnDestroy() {
+        public override void SetUpVisualGameObject() {
+            // stub
+        }
 
+        private void SetUpDummyCard() {
+            if (dummyCard != null) return;
+
+            CardInfo info = ScriptableObject.CreateInstance<CardInfo>();
+            info.baseHealth = 9999;
+            info.AddAbilities(Driver.ability, Piercing.ability);
+            info.AddTraits(Trait.Uncuttable, Trait.Structure, AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments);
+            dummyCard = CardSpawner.SpawnPlayableCard(info);
+            dummyCard.transform.position = new Vector3(100f, 100f, 100f); // hide offscreen
+            dummyCard.Dead = true; // prevent this card from triggering various things it shouldn't
         }
     }
 }
