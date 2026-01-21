@@ -273,7 +273,6 @@ namespace WhistleWind.AbnormalSigils {
             Ability_IntenseVolley();
             Ability_ActivatedGiftGiver();
             Ability_Alluring();
-            Ability_Engraved();
             Ability_ActivatedSniper();
             Ability_Shaver();
 

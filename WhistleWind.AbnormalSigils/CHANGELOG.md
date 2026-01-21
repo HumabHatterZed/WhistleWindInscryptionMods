@@ -137,8 +137,11 @@
 - Added dialogue for when first encountering a status effect
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
+- Added CardInfo.SetCannotGainSigils, CardInfo.SetCannotGiveSigils, CardInfo.SetCannotCopyCard, CardInfo.SetCannotGainStats, CardInfo.SetBoneless extension methods
+    - Added card appearance behaviours fore each corresponding trait/metacategory (rare and common variants)
 - Added SetGiftGiverId and SetUniqueCopycat extension methods for CardInfo
-- Added custom rulebook pages 'Mechanics'
+- Added custom rulebook section 'Mechanics'
+    - Can use MechanicPages.CreateMechanicPage method to add additional pages
 - Added custom trigger interfaces IOnStatusEffectAdded, IPlayerTurnEnd, IOpponentTurnEnd
 - Added ability class 'CreateTwoCardsAdjacent'
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
@@ -147,7 +150,7 @@
 - Added 1 new stat icons
 - Added 4 new status effects
 - Added 2 new slot modifications
-- Added 1 new Traits
+- Added 3 new Traits
 - Added 3 new card appearances
 ### 💣 Removals
 - Removed Volatile sigil

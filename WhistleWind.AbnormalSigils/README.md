@@ -131,7 +131,6 @@ Ethereal			|X|X|0	|A card bearing this sigil cannot take from or deal damage to 
 Volley Strike		|X|X|5	|At the end of the owner's turn, this card will target 2-4 opposing spaces to attack on its next turn.
 Gift Giver			|X|X|3	|Activate: Create a random card in your hand, then deactivate this sigil for 3 turns.
 Alluring			|X|X|2	|At the end of the owner's turn, a card bearing this sigil attracts an opposing adjacent creature to the space across from this card if possible.
-Deeply Engraved		|X|X|-1	|A card bearing this sigil cannot be sacrificed for its sigils at The Stones.
 Gun For Hire		|X|X|2	|Pay 2 Energy to give this card Sniper until the end of its next attack.
 Hair Loss Serum		|X|X|2	|Choose one of your cards and remove all its sigils, then double its Power and Health.
 </details>
@@ -197,7 +196,9 @@ Card emissions work identically for mini giant cards as normal cards.
 ### 📕 Traits
 Note that the description is only how they're used in this mod; you can use them for other things if you wanted.
 - Boneless - This card will not drop bones when killed
+- ImmuneToAilments - This card cannot be afflicted with negative status effects
 - ImmunetoInstaDeath - This card is immune to insta-kill abilities Touch of Death and Punisher
+- SodaLover - This card benefits more from the soda sigils
 - SwanBrother - This card will give its first sigil to cards bearing Nettle Clothes
 - NakedSerpent - This card is immune to the Sporogenic ability
 - Orchestral - This card counts as a conductor when determining the power gained via the Conductor sigil and Movement 'X' sigils
@@ -212,8 +213,14 @@ Note that the description is only how they're used in this mod; you can use them
 
 ### 📙 CardAppearanceBehaviours
 - AlternateBattlePortrait - This card will switch to its alternate portrait during card battles (works in Act 2 if an alternate pixel portrait exists)
-- BonelessCardBackground - Card texture appearance, intended for use with the Boneless Trait
+- BonelessCardBackground - Applies a card background that indicates the card does not drop bones on death
 - BonelessCardBackgroundRare - variant of BonelessCardBackground for Rare cards
+- CannotBoostSigilsBackground - Applies a card background that indicates the card cannot be be selected for stat-boosting at the Campfire
+- CannotBoostSigilsBackgroundRare - variant of CannotBoostSigilsBackground for Rare cards
+- CannotGainSigilsBackground - Applies a card background that indicates the card cannot be a host at the Stones and gain sigils
+- CannotGainSigilsBackgroundRare - variant of CannotGainSigilsBackground for Rare cards
+- CannotGiveSigilsBackground - Applies a card background that indicates the card cannot be sacrificed at the Stones for its sigils
+- CannotGiveSigilsBackgroundRare - variant of CannotGiveSigilsBackground for Rare cards
 - ForcedEmission - This card's emission is always on
 - ForcedWhiteEmission - This card's emission is always on and lit using white light
 - ForcedGreenmission - This card's emission is always on and lit using green light
@@ -223,8 +230,8 @@ Note that the description is only how they're used in this mod; you can use them
 - MiniGiantPortrait - Appearance behaviour for mini giant cards, see that section for more info
 
 ### Extended Properties
-- UNIQUE_COPYCAT - used with the Copycat ability to specify how it interacts with certain cards (eg Giant cards)
-- wstl:GiftGiver - used with Gift-Laden and Gift Giver to specify a specific card to draw when those sigils trigger
+- UNIQUE_COPYCAT - used with the Copycat ability to specify how it interacts with certain cards (eg Giant cards) - CardInfo.SetUniqueCopycat
+- wstl:GiftGiver - used with Gift-Laden and Gift Giver to specify a specific card to draw when those sigils trigger - CardInfo.SetGiftGiverId
 
 ## 🛠️ Configuration Options
 

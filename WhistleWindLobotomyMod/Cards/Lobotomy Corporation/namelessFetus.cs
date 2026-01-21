@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -29,11 +30,11 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1, "A neverending supply of blood. Just don't wake it up.")
                 .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(Ability.TripleBlood, Ability.Sacrificial, Engraved.ability)
+                .AddAbilities(Ability.TripleBlood, Ability.Sacrificial)
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)
                 .AddTraits(Trait.Goat)
-                .AddMetaCategories(CannotGiveSigils)
+                .SetCannotGiveSigils()
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, namelessFetusPixel, fetusName,
@@ -45,7 +46,7 @@ namespace WhistleWindLobotomyMod {
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)
                 .AddTraits(Trait.Goat)
-                .AddMetaCategories(CannotGiveSigils)
+                .SetCannotGiveSigils()
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }

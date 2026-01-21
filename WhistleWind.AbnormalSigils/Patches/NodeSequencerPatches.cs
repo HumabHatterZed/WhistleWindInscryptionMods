@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
         // Prevents cards from being sacrificed / transferring their sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result) {
-            __result.RemoveAll(x => x.HasAbility(Engraved.ability) || x.HasCardMetaCategory(AbnormalPlugin.CannotGiveSigils));
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotGiveSigils));
         }
 
         // Prevents card from being merged / gaining sigils

@@ -16,6 +16,52 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
 
         public static CardInfo SetGiftGiverId(this CardInfo info, string id) => info.SetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY, id);
 
+        public static CardInfo SetCannotBoostStats(this CardInfo info) {
+            info.AddMetaCategories(CannotBoostStats);
+            if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
+                info.AddAppearances(CannotBoostStatsBackground.appearance);
+            }
+            else {
+                info.AddAppearances(RareCannotBoostStatsBackground.appearance);
+            }
+
+            return info;
+        }
+        public static CardInfo SetCannotCopyCard(this CardInfo info) {
+            info.AddMetaCategories(CannotCopyCard);
+            if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
+                info.AddAppearances(RareCannotCopyCardBackground.appearance);
+            }
+            else {
+                info.AddAppearances(CannotCopyCardBackground.appearance);
+            }
+
+            return info;
+        }
+        public static CardInfo SetCannotGainSigils(this CardInfo info) {
+            info.AddMetaCategories(CannotGainSigils);
+            if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
+                info.AddAppearances(RareCannotGainSigilsBackground.appearance);
+            }
+            else {
+                info.AddAppearances(CannotGainSigilsBackground.appearance);
+            }
+
+            return info;
+        }
+
+        public static CardInfo SetCannotGiveSigils(this CardInfo info) {
+            info.AddMetaCategories(CannotGiveSigils);
+            if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
+                info.AddAppearances(RareCannotGiveSigilsBackground.appearance);
+            }
+            else {
+                info.AddAppearances(CannotGiveSigilsBackground.appearance);
+            }
+
+            return info;
+        }
+
         public static CardInfo SetBoneless(this CardInfo info) {
             info.AddTraits(Boneless);
             if (info.HasCardMetaCategory(CardMetaCategory.Rare)) {
