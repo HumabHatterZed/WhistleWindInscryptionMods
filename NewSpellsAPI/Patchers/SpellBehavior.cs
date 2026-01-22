@@ -392,6 +392,7 @@ namespace Infiniscryption.Spells.Patchers {
                     card.Anim.SetSelectedToPlay(false);
                     // Now we take care of actually playing the card
                     if (Singleton<PlayerHand>.Instance.CardsInHand.Contains(card)) {
+                        View oldView = ViewManager.Instance.CurrentView;
                         if (card.Info.BonesCost > 0)
                             yield return Singleton<ResourcesManager>.Instance.SpendBones(card.Info.BonesCost);
 
@@ -462,7 +463,7 @@ namespace Infiniscryption.Spells.Patchers {
                         Singleton<InteractionCursor>.Instance.ClearForcedCursorType();
                         yield return new WaitForSeconds(0.6f);
                         UnityEngine.Object.Destroy(card.gameObject, 0.5f);
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+                        Singleton<ViewManager>.Instance.SwitchToView(oldView);
                     }
                 }
             }
