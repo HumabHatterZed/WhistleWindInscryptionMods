@@ -3,7 +3,6 @@ using Infiniscryption.Core.Helpers;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils {

@@ -1,10 +1,6 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
 using Pixelplacement;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -16,7 +12,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         CardSlot nextSlot;
 
         private IEnumerator MoveLaserToNewPosition() {
-            
+
             // if nextSlot is adjacent to currentSlot
             if (Mathf.Abs(nextSlot.Index - currentSlot.Index) == 1) {
                 // slide laser to next position

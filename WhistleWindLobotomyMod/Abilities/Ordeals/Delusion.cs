@@ -1,13 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 
 
 namespace WhistleWindLobotomyMod {
@@ -71,7 +66,7 @@ namespace WhistleWindLobotomyMod {
         }
         private Texture GetDelusionOverrideTex() {
             if (counter > 0) {
-                return ResourceBank.Get<Texture>("Art/Cards/AbilityIcons/sigilDelusion_" +  counter);
+                return ResourceBank.Get<Texture>("Art/Cards/AbilityIcons/sigilDelusion_" + counter);
             }
             return AbilityManager.AllAbilities.AbilityByID(this.Ability).Texture;
         }

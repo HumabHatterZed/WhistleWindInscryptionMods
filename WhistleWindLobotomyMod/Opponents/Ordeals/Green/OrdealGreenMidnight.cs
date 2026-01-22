@@ -1,13 +1,8 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Slots;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -74,7 +69,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
             else {
                 phaseCountdown--;
-                
+
                 if (isActive) {
                     ViewManager.Instance.SwitchToView(View.Default);
                     yield return wanderingLight.UpdateCurrentSlot();
@@ -146,7 +141,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             HelixAnimator.SetFloat("gears", 1f);
             HelixAnimator.SetBool("laser", true);
             HelixAnimator.SetTrigger("lights");
-            
+
             CleanupTargetIcons();
             wanderingLight.gameObject.SetActive(true);
             stationaryLight.gameObject.SetActive(true);
@@ -168,7 +163,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             HelixAnimator.SetBool("laser", false);
             HelixAnimator.SetTrigger("lights");
             HelixAnimator.SetBool("fire", false);
-            
+
             //EndEmissionLoop();
             yield return new WaitForSeconds(3.5f);
             yield return UpdateCounterIcon();
@@ -226,7 +221,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             // get the animator from the actual rendered portrait offscreen, not the animator on the card object on the board
             Transform t = liveRenderCam.transform.GetChild(1).GetChild(0).GetChild(0);
             HelixAnimator = t.GetChild(t.childCount - 1).GetComponentInChildren<Animator>();
-            
+
             int gate = RunState.CurrentRegionTier + RunState.Run.DifficultyModifier - 1;
             if (gate > 0) {
                 Helix.Info.baseAttack = 1;
@@ -243,7 +238,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             HighestPositiveScaleBalance = Mathf.Max(-2, 1 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
             ValidCards.Add(Cards.lastHelix);
             phaseCountdown = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
-            
+
             EncounterData.StartCondition cond = new() {
                 cardsInOpponentSlots = new CardInfo[] { CardLoader.GetCardByName(Cards.lastHelix), null, null, null }
             };

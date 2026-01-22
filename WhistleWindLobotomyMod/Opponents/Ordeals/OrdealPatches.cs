@@ -2,11 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.XR.Tango;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 
@@ -267,9 +263,9 @@ namespace WhistleWindLobotomyMod.Opponents {
                     };
                 }
 
-                    for (int i = 0; i < sprite.textureFrames.Count; i++) {
-                        sprite.textureFrames[i] = nodeAnimation[i];
-                    }
+                for (int i = 0; i < sprite.textureFrames.Count; i++) {
+                    sprite.textureFrames[i] = nodeAnimation[i];
+                }
 
                 if (type != OrdealType.White) {
                     sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)type];

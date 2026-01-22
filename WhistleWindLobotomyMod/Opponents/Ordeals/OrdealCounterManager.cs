@@ -8,7 +8,7 @@ using WhistleWindLobotomyMod.Core;
 namespace WhistleWindLobotomyMod {
     public class OrdealCounterManager : Singleton<OrdealCounterManager> {
         private const string REMAINING_TEXT = "remaining";
-        
+
         public static Sprite dawnSprite;
         public static Sprite noonSprite;
         public static Sprite duskSprite;
@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod {
         private SpriteRenderer leftRenderer;
         private TextMeshPro counterText;
         private TextMeshPro remainingText;
-        
+
         /// <summary>
         /// Whether or not the monitor display's subtitle displays the default 'remaining' subtitle.
         /// </summary>
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod {
                 counterText.text = startingAmount.ToString();
             }
             remainingText.text = text;
-            
+
             leftRenderer.sprite = ordealTier switch {
                 0 => dawnSprite,
                 1 => noonSprite,

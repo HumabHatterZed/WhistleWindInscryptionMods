@@ -1,14 +1,10 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Dialogue;
 using InscryptionAPI.RuleBook;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -39,7 +35,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public override IEnumerator Activate() {
             bool hasSideDeck = Singleton<CardDrawPiles3D>.Instance != null;
-            
+
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.2f);
             foreach (PlayableCard card in PlayerHand.Instance.CardsInHand) {

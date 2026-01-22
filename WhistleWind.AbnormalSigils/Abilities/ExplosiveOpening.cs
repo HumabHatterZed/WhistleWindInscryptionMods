@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilExplosiveOpening",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: false, opponent: true, canStack: false);
-                
+
             ab.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilExplosiveOpening_flipped.png"));
             ExplosiveOpening.ability = ab.Id;
         }

@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod {
     internal class OrdealPages {

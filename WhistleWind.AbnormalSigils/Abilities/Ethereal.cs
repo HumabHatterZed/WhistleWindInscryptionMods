@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using Steamworks;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 

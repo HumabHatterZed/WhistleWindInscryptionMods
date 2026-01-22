@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Saves;
 using WhistleWindLobotomyMod.Challenges;
-using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Core {
     public static class LobotomySaveManager {

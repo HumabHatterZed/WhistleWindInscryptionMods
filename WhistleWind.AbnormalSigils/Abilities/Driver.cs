@@ -31,7 +31,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return base.LearnAbility(0.3f);
         }
 
-        public static void PinDownCard (PlayableCard target) {
+        public static void PinDownCard(PlayableCard target) {
             target.AddTemporaryMod(new(Unyielding.ability) { fromCardMerge = true, negateAbilities = new() { Ability.Flying }, nonCopyable = true });
         }
     }

@@ -826,7 +826,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
             ChangeActiveEggEffect();
             HighestPositiveScaleBalance = 4;
-            
+
             EncounterData data = base.BuildCustomEncounter(nodeData);
             CardInfo startingEgg = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
 

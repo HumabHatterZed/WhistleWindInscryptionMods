@@ -138,7 +138,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             VioletMidnightAnim = NodeHelper.GetNodeTextureList("nodeVioletMidnight1", "nodeVioletMidnight2", "nodeVioletMidnight3", "nodeVioletMidnight4").ToArray();
             AmberMidnightAnim = NodeHelper.GetNodeTextureList("nodeAmberMidnight1", "nodeAmberMidnight2", "nodeAmberMidnight3", "nodeAmberMidnight4").ToArray();
             IndigoMidnightAnim = NodeHelper.GetNodeTextureList("nodeIndigoMidnight1", "nodeIndigoMidnight2", "nodeIndigoMidnight3", "nodeIndigoMidnight4").ToArray();
-            
+
             WhiteOrdealAnim = NodeHelper.GetNodeTextureList("nodeOrdealFinal1", "nodeOrdealFinal2", "nodeOrdealFinal3", "nodeOrdealFinal4").ToArray();
 
             OrdealCounterManager.dawnSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dawn");

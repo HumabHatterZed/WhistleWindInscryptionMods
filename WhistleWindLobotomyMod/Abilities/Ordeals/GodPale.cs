@@ -2,7 +2,6 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +79,7 @@ namespace WhistleWindLobotomyMod {
             else if (eyeSlot != base.Card.OpposingSlot()) {
                 eyeSlot = base.Card.OpposingSlot();
             }
-                
+
             yield return MoveEyeToSlot(); // move eye to new slot
             preActivation = false;
         }
