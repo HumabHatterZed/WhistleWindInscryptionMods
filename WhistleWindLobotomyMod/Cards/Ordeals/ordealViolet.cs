@@ -25,7 +25,6 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "fruitUnderstanding")
-                //.SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
