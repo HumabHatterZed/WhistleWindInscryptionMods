@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is played, it gains 1 Decay for each stack of this sigil it possesses.";
             StartingDecay.ability = AbnormalAbilityHelper.CreateAbility<StartingDecay>(
                 "sigilDecay",
-                rulebookName, rulebookDescription, powerLevel: -3,
+                rulebookName, rulebookDescription, powerLevel: -2,
                 modular: false, opponent: false, canStack: true)
                 .SetAbilityRedirect("Decay", Decay.iconId, GameColors.Instance.darkPurple)
                 .Id;
