@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
@@ -25,7 +26,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard() => base.Card.LacksTrait(AbnormalPlugin.ImmuneToAilments);
+        public override bool RespondsToResolveOnBoard() => !base.Card.Info.IsSpell();
         public override IEnumerator OnResolveOnBoard() {
             yield return ApplyDecayToCard();
         }
@@ -36,7 +37,9 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private IEnumerator ApplyDecayToCard() {
-            yield return base.Card.AddStatusEffect<Decay>(1);
+            if (base.Card.LacksTrait(AbnormalPlugin.ImmuneToAilments)) {
+                yield return base.Card.AddStatusEffect<Decay>(1);
+            }
             base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability } });
         }
     }
