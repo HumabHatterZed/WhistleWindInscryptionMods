@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod {
                 .SetTail(tail)
                 .Build();
 
-            CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 1),
+            CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, "The Harmony\nof Skin",
                 attack: 2, health: 4)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinHarmony")

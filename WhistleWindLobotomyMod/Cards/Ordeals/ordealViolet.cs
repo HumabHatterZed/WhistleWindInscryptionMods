@@ -21,11 +21,11 @@ namespace WhistleWindLobotomyMod {
         public const string godDelusionP = "wstl_godDelusionP";
 
         private static void Cards_VioletOrdeal() {
-            CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 0),
+            CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "The Fruit\nof Understanding",
                 attack: 0, health: 4)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "fruitUnderstanding")
-                .SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
+                //.SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
