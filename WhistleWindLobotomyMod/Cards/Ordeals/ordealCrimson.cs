@@ -24,11 +24,10 @@ namespace WhistleWindLobotomyMod {
                 .SetBoneless()
                 .Build();
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 0),
+            CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, "Cheers for\nthe Beginning",
                 attack: 1, health: 3)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinCheers")
-                .SetTitle(LobotomyPlugin.ModAssembly, "skinCheers_title.png")
                 .AddAbilities(Withering.ability, Ability.ExplodeOnDeath)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)

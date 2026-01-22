@@ -13,8 +13,8 @@ namespace WhistleWindLobotomyMod {
         /// </summary>
         public const string redHoodedMercenary = "wstl_redHoodedMercenary";
         private static void RedHoodedMercenary_F0157() {
-            string name = "Little Red Riding Hooded Mercenary";
-            string name2 = "Red Riding Hooded Mercenary";
+            string name = "Little Red Riding\nHooded Mercenary";
+            string name2 = "Red Riding\nHooded Mercenary";
             string desc = "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.";
             string textureName = "redHoodedMercenary";
 

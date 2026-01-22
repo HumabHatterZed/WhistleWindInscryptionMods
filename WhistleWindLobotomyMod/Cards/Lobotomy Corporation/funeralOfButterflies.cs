@@ -11,8 +11,8 @@ namespace WhistleWindLobotomyMod {
         /// </summary>
         public const string funeralOfButterflies = "wstl_funeralOfButterflies";
         private static void FuneralOfButterflies_T0168() {
-            string name = "Funeral of the Dead Butterflies";
-            string name2 = "2nd Funeral of the Dead Butterflies";
+            string name = "Funeral of the\nDead Butterflies";
+            string name2 = "2nd Funeral of\nthe Dead Butterflies";
             string desc = "The coffin is a tribute to the fallen. A memorial to those who can't return home.";
             string textureName = "funeralOfButterflies";
             CardManager.New(LobotomyPlugin.pluginPrefix, funeralOfButterflies, name,

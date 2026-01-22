@@ -9,8 +9,8 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string notesFromResearcher = "wstl_notesFromResearcher";
         private static void NotesFromResearcher_T0978() {
-            string name = "Notes from a Crazed Researcher";
-            string name2 = "Frantic Notes from a Crazed Researcher";
+            string name = "Notes from a\nCrazed Researcher";
+            string name2 = "Frantic Notes from\na Crazed Researcher";
             string desc = "An insane garble of guilty confessions and incoherent gibberish.";
             string textureName = "notesFromResearcher";
             CardManager.New(LobotomyPlugin.pluginPrefix, notesFromResearcher, name,
