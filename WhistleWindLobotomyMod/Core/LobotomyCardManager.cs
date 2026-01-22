@@ -159,14 +159,14 @@ namespace WhistleWindLobotomyMod.Core {
         public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType) {
             string spellName = spellType.ToString();
             bool isGlobal = spellName.StartsWith("Global");
-            bool isStatSpell = spellName.EndsWith("Stats");
+            bool isStatSpell = spellName.Contains("Stats");
             if (isGlobal)
                 cardInfo.SetGlobalSpell();
             else
                 cardInfo.SetTargetedSpell();
 
             cardInfo.hideAttackAndHealth = !isStatSpell;
-            cardInfo.SetNodeRestrictions(isGlobal, !spellName.EndsWith("Sigils"), !isStatSpell, isGlobal);
+            cardInfo.SetNodeRestrictions(isGlobal, !spellName.Contains("Sigils"), !isStatSpell, isGlobal);
             return cardInfo;
         }
 
@@ -248,7 +248,8 @@ namespace WhistleWindLobotomyMod.Core {
             GlobalSigils,
             Targeted,
             TargetedStats,
-            TargetedSigils
+            TargetedSigils,
+            TargetedStatsSigils
         }
     }
 }
