@@ -10,16 +10,19 @@ namespace Infiniscryption.Spells.Sigils {
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
-        public override IEnumerator OnValidTarget(PlayableCard card) {
-            CardModificationInfo statMod = new(base.Card.Attack, 0);
-            if (base.Card.Health < 0) {
-                card.AddTemporaryMod(statMod);
-                yield return card.TakeDamage(-base.Card.Health, null);
+        public static IEnumerator AddStatsFromHostToTarget(PlayableCard host, PlayableCard target) {
+            CardModificationInfo statMod = new(host.Attack, 0);
+            if (host.Health < 0) {
+                target.AddTemporaryMod(statMod);
+                yield return host.TakeDamage(-host.Health, null);
             }
             else {
-                statMod.healthAdjustment = base.Card.Health;
-                card.AddTemporaryMod(statMod);
+                statMod.healthAdjustment = host.Health;
+                target.AddTemporaryMod(statMod);
             }
+        }
+        public override IEnumerator OnValidTarget(PlayableCard card) {
+            yield return AddStatsFromHostToTarget(base.Card, card);
         }
 
 

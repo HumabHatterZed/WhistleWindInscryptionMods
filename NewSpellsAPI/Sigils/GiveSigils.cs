@@ -13,50 +13,64 @@ namespace Infiniscryption.Spells.Sigils {
 
         public const int MaxSigilsToGive = 4;
 
+        public static IEnumerator AddAbilitiesFromHostToTarget(PlayableCard host, PlayableCard target) {
+            CardModificationInfo abilitiesToAdd = new();
+            CardModificationInfo mergedAbilitiesToAdd = new() { fromCardMerge = true };
+            List<Ability> modAbilities = AbilitiesUtil.GetAbilitiesFromMods(
+                host.TemporaryMods.Concat(host.Info.Mods).Where(x => x.fromCardMerge).ToList()
+                );
+
+            abilitiesToAdd.abilities.AddRange(host.Info.DefaultAbilities);
+
+            foreach (CardModificationInfo info in host.Info.Mods.Where(x => x.abilities.Count > 0)) {
+                foreach (Ability ab in info.abilities) {
+                    bool addToMerge = info.fromCardMerge;
+                    // if can stack or can be added to the appropriate card info
+                    if (AbilitiesUtil.GetInfo(ab).canStack || (addToMerge ? !mergedAbilitiesToAdd.abilities.Contains(ab) : !abilitiesToAdd.abilities.Contains(ab))) {
+                        if (addToMerge) {
+                            mergedAbilitiesToAdd.abilities.Add(ab);
+                        }
+                        else {
+                            abilitiesToAdd.abilities.Add(ab);
+                        }
+                    }
+                }
+            }
+
+            foreach (CardModificationInfo info in host.TemporaryMods.Where(x => x.abilities.Count > 0 && !x.fromTotem && !x.fromLatch && !x.fromOverclock)) {
+                foreach (Ability ab in info.abilities) {
+                    bool addToMerge = info.fromCardMerge;
+                    // if can stack or can be added to the appropriate card info
+                    if (AbilitiesUtil.GetInfo(ab).canStack || (addToMerge ? !mergedAbilitiesToAdd.abilities.Contains(ab) : !abilitiesToAdd.abilities.Contains(ab))) {
+                        if (addToMerge) {
+                            mergedAbilitiesToAdd.abilities.Add(ab);
+                        }
+                        else {
+                            abilitiesToAdd.abilities.Add(ab);
+                        }
+                    }
+                }
+            }
+
+            abilitiesToAdd.abilities.RemoveAll(x => x.GetExtendedPropertyAsBool("Spells:GiveAbility") == true);
+            mergedAbilitiesToAdd.abilities.RemoveAll(x => x.GetExtendedPropertyAsBool("Spells:GiveAbility") == true);
+
+            if (abilitiesToAdd.abilities.Count > MaxSigilsToGive) {
+                abilitiesToAdd.abilities.RemoveRange(MaxSigilsToGive, abilitiesToAdd.abilities.Count - MaxSigilsToGive);
+            }
+
+            if (mergedAbilitiesToAdd.abilities.Count > MaxSigilsToGive) {
+                mergedAbilitiesToAdd.abilities.RemoveRange(MaxSigilsToGive, mergedAbilitiesToAdd.abilities.Count - MaxSigilsToGive);
+            }
+
+            target.Anim.PlayTransformAnimation();
+            target.AddTemporaryMod(abilitiesToAdd);
+            target.AddTemporaryMod(mergedAbilitiesToAdd);
+            yield return new WaitForSeconds(0.15f);
+        }
+
         public override IEnumerator OnValidTarget(PlayableCard card) {
-            List<Ability> shownAbilitiesOnTarget = CardHelpers.GetDistinctShownAbilities(card.Info, card.TemporaryMods, card.Status.hiddenAbilities);
-            if (shownAbilitiesOnTarget.Count > MaxSigilsToGive)
-                yield break;
-
-            List<Ability> abilitiesToAdd = base.Card.AllAbilities();
-            abilitiesToAdd.RemoveAll(ab => ab.GetExtendedPropertyAsBool("Spells:GiveAbility") == true);
-
-            CardModificationInfo defaultAbilities = new();
-            CardModificationInfo mergedAbilities = new() { fromCardMerge = true };
-            List<Ability> stackedAbilities = new();
-
-            // we want to avoid adding more abilities than can be rendered
-            // so we add stackable abilities that already exist
-            // otherwise, check if we can add unique abilities to the base/merged sections
-
-            foreach (Ability abilityToCheck in abilitiesToAdd) {
-                if (shownAbilitiesOnTarget.Count + defaultAbilities.abilities.Count + mergedAbilities.abilities.Count >= MaxSigilsToGive)
-                    break;
-
-                // ignore duplicate abilities that can't stack, add stacks that already exist on the card
-                if (AbilityManager.AllAbilityInfos.AbilityByID(abilityToCheck).canStack) {
-                    stackedAbilities.Add(abilityToCheck);
-                }
-                else if (card.Info.Abilities.Count + defaultAbilities.abilities.Count < 4) {
-                    defaultAbilities.AddAbilities(abilityToCheck);
-                }
-                else if (card.Info.ModAbilities.Count + card.TemporaryMods.Count(tm => tm.fromCardMerge) + mergedAbilities.abilities.Count < 4) {
-                    mergedAbilities.abilities.Add(abilityToCheck);
-                }
-            }
-
-            defaultAbilities.abilities.AddRange(stackedAbilities);
-
-            card.Anim.PlayTransformAnimation();
-            if (card.Info.name == "!DEATHCARD_BASE") {
-                card.AddTemporaryMods(defaultAbilities, mergedAbilities);
-            }
-            else {
-                CardInfo info = card.Info.Clone() as CardInfo;
-                info.Mods.Add(defaultAbilities);
-                info.Mods.Add(mergedAbilities);
-                card.SetInfo(info);
-            }
+            yield return AddAbilitiesFromHostToTarget(base.Card, card);
         }
 
         public static void Register() {

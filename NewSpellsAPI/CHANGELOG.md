@@ -1,8 +1,12 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
-## 1.2.6 (, 2025)
+## 1.2.6 (Jan 21, 2026)
 - Fixed errors related to queued cards
 - Fixed Give Stats and Sigils applying itself to targeted cards
+- Fixed 'Give Stats and Sigils' and 'Give Sigils' not always giving the correct number of sigils
+- Reworked how Give Stats and Sigils works
+- The camera view now resets to the previous position after playing a spell card instead of to the default view
+- Added static methods GiveStats.AddStatsFromHostToTarget and GiveSigils.AddAbilitiesFromHostToTarget
 
 ## 1.2.5 (Aug 11, 2024)
 - Fixed Terrain stat spells being boostable at the campfire
