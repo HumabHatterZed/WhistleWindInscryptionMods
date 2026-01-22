@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinHarmony")
                 .AddAbilities(HarmonyAbility.ability, Challenging.ability)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeFae)
                 .SetOrdealCard(Opponents.OrdealType.Crimson)
                 .AddTraits(Trait.Uncuttable)
