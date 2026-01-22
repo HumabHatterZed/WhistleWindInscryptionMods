@@ -41,6 +41,7 @@
 - Changed how card choices are determined
 - Effect now changes during custom boss fights
 ### Cards
+- Adjusted formatting of certain cards' names to be more legible
 - 1.76 MHz: now belongs to the Mechanical tribe
 - Adult Who Tells Lies: reworked stats from 1/5 -> 3/3
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
@@ -60,7 +61,8 @@
 - Der Freischütz: reworked from 2/2, Sniper -> 3/1, Gun For Hire
 - Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
 - Funeral of the Dead Butterflies: now belongs to the Undead temple (Act 2)
-- <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
+- Giant Tree Sap: reworked into a 0/2; Detonator; Targeted Spell; 1 Bone
+- <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck, Rare
 - Judgement Bird: now considered Rare
 - King of Greed: updated emission
 - Laetitia: replaced Gift-Laden sigil with Gift Giver
