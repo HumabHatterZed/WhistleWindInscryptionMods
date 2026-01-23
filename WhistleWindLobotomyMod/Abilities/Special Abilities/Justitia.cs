@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void Rulebook_Justitia() {
             const string rName = "Justitia";
-            const string rDesc = "Non-Terrain cards targeted by Judgement Bird are killed regardless of Health. Judgement Bird is not affected by abilities like Sharp and Punisher.";
+            const string rDesc = "If Judgement Bird targets a sacrificable creature, kill it ignoring sigil effects.";
             RulebookEntryJustitia.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryJustitia>(rName, rDesc).Id;
         }
     }
