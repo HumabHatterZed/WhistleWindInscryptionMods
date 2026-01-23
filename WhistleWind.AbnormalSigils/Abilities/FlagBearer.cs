@@ -2,7 +2,9 @@
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
+using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -30,11 +32,9 @@ namespace WhistleWind.AbnormalSigils {
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => otherCard.Slot.GetAdjacentCards().Contains(base.Card);
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
-            foreach (PlayableCard card in base.Card.Slot.GetAdjacentCards()) {
-                if (card.Health <= 2)
-                    card.HealDamage(2);
+            foreach (PlayableCard card in base.Card.Slot.GetAdjacentCards().Where(x => x.Health <= 2)) {
+                yield return card.Heal(2);
             }
-            yield break;
         }
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);

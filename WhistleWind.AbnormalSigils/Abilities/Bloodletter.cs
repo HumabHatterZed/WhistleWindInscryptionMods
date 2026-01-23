@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -37,7 +38,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(0.55f);
             yield return source.TakeDamage(1, base.Card);
             if (base.Card.Health < base.Card.MaxHealth + 2) {
-                base.Card.HealDamage(1);
+                yield return base.Card.Heal(1);
             }
             yield return base.LearnAbility(0.3f);
         }

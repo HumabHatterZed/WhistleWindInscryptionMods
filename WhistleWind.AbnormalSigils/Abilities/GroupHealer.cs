@@ -45,11 +45,7 @@ namespace WhistleWind.AbnormalSigils {
 
             foreach (CardSlot slot in cardsToHeal) {
                 bool faceDown = slot.Card.FaceDown;
-                yield return slot.Card.FlipFaceDown(false);
-                slot.Card.Anim.LightNegationEffect();
-                slot.Card.HealDamage(1);
-                yield return new WaitForSeconds(0.2f);
-                yield return slot.Card.FlipFaceDown(faceDown);
+                yield return slot.Card.Heal(1);
             }
             yield return base.LearnAbility(0.4f);
         }

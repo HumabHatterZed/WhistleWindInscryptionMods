@@ -73,6 +73,9 @@ namespace WhistleWind.Core.Helpers {
                 yield return card.Die(false, attacker);
         }
 
+        public static IEnumerator Heal(this PlayableCard card, int amount, float waitAfter = 0.1f, Action<PlayableCard> onHealCallback = null) {
+            yield return HelperMethods.HealCard(amount, card, waitAfter, onHealCallback);
+        }
         public static bool HasFlags(this Enum enumeration, params Enum[] flags) {
             foreach (Enum flag in flags) {
                 if (!enumeration.HasFlag(flag))

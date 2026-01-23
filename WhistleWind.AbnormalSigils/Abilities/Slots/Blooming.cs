@@ -45,11 +45,8 @@ namespace WhistleWind.AbnormalSigils {
             }
 
             if (base.Slot.Card.Health < base.Slot.Card.MaxHealth) {
-                base.Slot.Card.Anim.LightNegationEffect();
-                base.Slot.opposingSlot.Card.Anim.LightNegationEffect();
-
-                base.Slot.opposingSlot.Card.HealDamage(-1);
-                base.Slot.Card.HealDamage(1);
+                yield return base.Slot.opposingSlot.Card.Heal(-1);
+                yield return base.Slot.Card.Heal(1);
 
                 yield return new WaitForSeconds(0.2f);
                 if (base.Slot.opposingSlot.Card.Health == 0) {
