@@ -4,7 +4,7 @@
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
 	"description": "A collection of sigils based on the abnormalities from Project Moon's games. Includes custom Tribes, Traits and more!",
 	"dependencies": [
-		"API_dev-API-2.23.4",
+		"API_dev-API-2.23.6",
 		"WhistleWind-New_Spell_Toolkit-1.2.5"
 	]
 }
