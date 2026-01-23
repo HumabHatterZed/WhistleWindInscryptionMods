@@ -8,9 +8,9 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_ActivatedSniper() {
-            const string rulebookName = "Gun For Hire";
-            const string rulebookDescription = "Pay 2 Energy to give this card Sniper until the end of its next attack.";
-            const string dialogue = "Anything for a price.";
+            const string rulebookName = "Lock On";
+            const string rulebookDescription = "Pay 1 Energy to give this card Sniper until the end of its next attack.";
+            const string dialogue = "Aim for the heart.";
             const string triggerText = "[creature] prepares to fire.";
             ActivatedSniper.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedSniper>(
                 "sigilActivatedSniper",
@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils {
     public class ActivatedSniper : ActivatedAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int EnergyCost => 2;
+        public override int EnergyCost => 1;
         private bool activated = false;
         public override bool CanActivate() => base.CanActivate() && base.Card.LacksAbility(Ability.Sniper);
         public override IEnumerator Activate() {
