@@ -1,5 +1,8 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.2.7 ()
+- 'Give Stats', 'Give Sigils', and 'Give Stats and Sigils' abilities now allow targeting any card on the board
+
 ## 1.2.6 (Jan 21, 2026)
 - Fixed errors related to queued cards
 - Fixed Give Stats and Sigils applying itself to targeted cards

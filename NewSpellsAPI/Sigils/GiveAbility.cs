@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils {
     public abstract class GiveAbility : AbilityBehaviour {
-        public virtual TargetBehaviour TargetMode { get; set; } = TargetBehaviour.TargetFriendlies;
+        public virtual TargetBehaviour TargetMode { get; } = TargetBehaviour.TargetAny;
         private bool ValidTarget(PlayableCard card) {
             return TargetMode switch {
                 TargetBehaviour.TargetFriendlies => card.OpponentCard == base.Card.OpponentCard,
