@@ -42,11 +42,10 @@ namespace Core.Helpers {
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
             List<CardSlot> openSlots = BoardManager.Instance.OpponentSlotsCopy.Where(x => !TurnManager.Instance.Opponent.QueuedSlots.Contains(x)).ToList();
             openSlots.RemoveAll(x => x.Card != null && x.Card.HasTrait(Trait.Giant));
-            // if we cannot add to the queue, add to the turn plan instead
             if (openSlots.Count == 0) {
-                List<List<CardInfo>> turnPlan = new(Singleton<TurnManager>.Instance.Opponent.TurnPlan) {
-                    new() { cardToQueue }
-                };
+                List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;
+                List<CardInfo> addInfo = new() { cardToQueue };
+                turnPlan.Add(addInfo);
                 yield return Singleton<TurnManager>.Instance.Opponent.ModifyTurnPlan(turnPlan);
             }
             else {
