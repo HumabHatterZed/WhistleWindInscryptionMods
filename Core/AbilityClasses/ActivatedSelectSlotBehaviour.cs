@@ -20,10 +20,7 @@ namespace WhistleWind.Core.AbilityClasses {
 
         public virtual bool IsValidTarget(CardSlot slot) {
             if (slot.Card != null && !slot.Card.Dead && slot.Card != base.Card) {
-                if (LatchAbility != Ability.None)
-                    return !slot.Card.TemporaryMods.Exists(m => m.fromLatch);
-
-                return true;
+                return LatchAbility == Ability.None || !slot.Card.TemporaryMods.Exists(m => m.fromLatch);
             }
             return false;
         }
