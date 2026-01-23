@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using Sirenix.Utilities;
 using System;
@@ -300,6 +301,13 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
                     yield return statuses[i].RemoveFromCard(true, false);
 
                 card.RenderCard();
+            }
+        }
+        public static IEnumerator RemoveRandomStatusEffect(this PlayableCard card, bool positiveEffects) {
+            List<StatusEffectBehaviour> statuses = card.GetStatusEffects(positiveEffects);
+            statuses.RemoveAll(x => AllStatusEffects.EffectByID(x.StatusEffect).Irremovable);
+            if (statuses.Count > 0) {
+                yield return statuses.GetRandom().RemoveFromCard(true, true);
             }
         }
     }
