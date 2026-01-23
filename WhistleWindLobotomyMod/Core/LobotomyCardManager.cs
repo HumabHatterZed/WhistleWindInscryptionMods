@@ -166,7 +166,11 @@ namespace WhistleWindLobotomyMod.Core {
                 cardInfo.SetTargetedSpell();
 
             cardInfo.hideAttackAndHealth = !isStatSpell;
-            cardInfo.SetNodeRestrictions(isGlobal, !spellName.Contains("Sigils"), !isStatSpell, isGlobal);
+            cardInfo.SetNodeRestrictions(
+                cannotGiveSigils: isGlobal,
+                cannotGainSigils: !spellName.Contains("Sigils"),
+                cannotBuffStats: !isStatSpell,
+                cannotCopyCard: isGlobal);
             return cardInfo;
         }
 
