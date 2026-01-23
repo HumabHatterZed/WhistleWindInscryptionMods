@@ -4,6 +4,9 @@ using InscryptionAPI.Card;
 using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils {
+    /// <summary>
+    /// Variant of Global Spells that mimics their old behaviour of instantly triggering upon selection.
+    /// </summary>
     public class InstaGlobalSpellAbility : VariableStatBehaviour {
         private static SpecialStatIcon _icon;
         public static SpecialStatIcon Icon => _icon;
