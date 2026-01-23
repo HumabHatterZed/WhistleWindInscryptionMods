@@ -11,13 +11,13 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Martyr() {
             const string rulebookName = "Martyr";
-            const string rulebookDescription = "When [creature] perishes, allied creatures gain 2 Health and lose any negative status effects.";
+            const string rulebookDescription = "When [creature] perishes, allied cards gain 2 Health and are cured of status ailments.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
             const string triggerText = "[creature]'s death cleanses your other creatures!";
             Martyr.ability = AbnormalAbilityHelper.CreateAbility<Martyr>(
                 "sigilMartyr",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
-                modular: true, opponent: false, canStack: true)
+                modular: true, opponent: false, canStack: false)
                 .Id;
         }
     }
