@@ -101,11 +101,14 @@ namespace WhistleWindLobotomyMod.Opponents {
                 return;
             }
 
-            if (__result is BossBattleNodeData bossNode && LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
-                // if no boss ordeals or it's the final region and we are overriding with the white ordeals
-                OrdealBossBattleNodeData bossData = CreateOrdealBossNode(bossNode, nodeData.difficulty);
-                __result = bossData;
-                LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Boss: {bossData.ordealType} | regionTier: {RunState.CurrentRegionTier}");
+            if (__result is BossBattleNodeData bossNode) {
+                // only replace bosses if Boss Ordeals is active
+                if (LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
+                    // if no boss ordeals or it's the final region and we are overriding with the white ordeals
+                    OrdealBossBattleNodeData bossData = CreateOrdealBossNode(bossNode, nodeData.difficulty);
+                    __result = bossData;
+                    LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Boss: {bossData.ordealType} | regionTier: {RunState.CurrentRegionTier}");
+                }
             }
             else if (LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) || Random.value <= 0.39f) {
                 int tier;
