@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
                 attack: 1, health: 2, desc)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .SetEnergyCost(4)
+                .SetEnergyCost(6)
                 .SetCardTemple(CardTemple.Tech)
                 .AddAbilities(Ability.Strafe, Ability.SplitStrike)
                 .SetDefaultEvolutionName(name2)
