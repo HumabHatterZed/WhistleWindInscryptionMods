@@ -14,7 +14,7 @@
 - Fixed certain fight mechanics and effects triggering at incorrect times
 - Fixed incorrect dialogue relating to reactive difficulty
 - Fixed camera not changing to show the scales when collecting direct damage
-- Bones gained from excess direct damage are now capped at 2 per turn
+- Bones gained from excess direct damage are now capped at 2 per turn, and will not be received if the player already has 20 Bone tokens
 - Reduced giant phase health from 40 -> 30
 - Boss is no longer considered Terrain
 - Boss now possesses Challenging sigil
@@ -58,8 +58,7 @@
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
 - <span style='color:#2084A0'>Dream of a Black Swan: Buffed from 2/5 -> 3/5
-- Dream of a Black Swan: no longer considered Rare
-- Der Freischütz: reworked from 2/2, Sniper -> 3/1, Gun For Hire
+- Der Freischütz: reworked from 2/2, Sniper, Persistent, 2 Blood -> 1/2, Gun For Hire, Persistent, 1 Blood
 - Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
 - Funeral of the Dead Butterflies: now belongs to the Undead temple (Act 2)
 - Gebura: rebalanced to from 3/5, 3 Blood -> 2/3, 2 Blood

@@ -31,6 +31,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public bool PlayerCanWinThroughScaleDamage => HighestPositiveScaleBalance > 4;
         public virtual bool DirectDamageGivesBones { get; set; } = true;
         public virtual int MaxExcessBones { get; } = 2;
+        public virtual int MaxOwnedBones { get; } = 20;
 
         public virtual IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
@@ -80,7 +81,9 @@ namespace WhistleWindLobotomyMod.Opponents {
         public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker) => int.MinValue;
         public virtual int OnModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) {
             directDamageCache = 0;
-            if (!PlayerCanWinThroughScaleDamage) {
+            // excess bones are only gained in battles where the player cannot win via scale damage
+            // they also cannot be gained if the player already owns a certain amount of Bones, to prevent excessive token gain
+            if (!PlayerCanWinThroughScaleDamage && ResourcesManager.Instance.PlayerBones < MaxOwnedBones) {
                 int damageToHighestBalance = Mathf.Max(0, HighestPositiveScaleBalance - LifeManager.Instance.Balance - TurnManager.Instance.DamageDealtThisTurn);
                 int excessDamageDealt = damageToHighestBalance - damage;
 
