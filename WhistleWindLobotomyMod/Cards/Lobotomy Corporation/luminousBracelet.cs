@@ -13,20 +13,22 @@ namespace WhistleWindLobotomyMod {
             string desc = "A bracelet that heals it wearer regardless of injury or need.";
             string textureName = "luminousBracelet";
             CardManager.New(LobotomyPlugin.pluginPrefix, luminousBracelet, name,
-                attack: 0, health: 1, desc)
-                .SetEnergyCost(2)
+                attack: 0, health: 0, desc)
+                .SetEnergyCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GreedyHealing.ability, GiveStatsSigils.AbilityID)
-                .SetSpellType(SpellType.TargetedStats)
+                .AddAbilities(GreedyHealing.ability, GiveSigils.AbilityID)
+                .SetSpellType(SpellType.TargetedSigils)
+                .RemoveMetaCategories(AbnormalPlugin.CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
             CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
-                attack: 0, health: 1, desc)
-                .SetEnergyCost(2)
+                attack: 0, health: 0, desc)
+                .SetEnergyCost(1)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GreedyHealing.ability, GiveStatsSigils.AbilityID)
-                .SetSpellType(SpellType.TargetedStats)
+                .AddAbilities(GreedyHealing.ability, GiveSigils.AbilityID)
+                .SetSpellType(SpellType.TargetedSigils)
+                .RemoveMetaCategories(AbnormalPlugin.CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }

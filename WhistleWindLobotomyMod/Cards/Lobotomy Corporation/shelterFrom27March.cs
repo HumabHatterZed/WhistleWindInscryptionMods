@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0, desc)
                 .SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GiveSigils.AbilityID, Ability.PreventAttack, Aggravating.ability)
+                .AddAbilities(GiveSigils.AbilityID, Ethereal.ability, Aggravating.ability)
                 .SetSpellType(SpellType.TargetedSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw);
 
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(3)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GiveSigils.AbilityID, Ability.PreventAttack, Aggravating.ability)
+                .AddAbilities(GiveSigils.AbilityID, Ethereal.ability, Aggravating.ability)
                 .SetSpellType(SpellType.TargetedSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

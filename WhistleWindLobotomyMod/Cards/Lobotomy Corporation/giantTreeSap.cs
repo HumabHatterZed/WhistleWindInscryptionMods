@@ -14,11 +14,11 @@ namespace WhistleWindLobotomyMod {
             string textureName = "giantTreeSap";
             CardManager.New(LobotomyPlugin.pluginPrefix, giantTreeSap, "Giant Tree Sap",
                 attack: 0, health: 4, "Sap from a tree at the end of the world. It is a potent healing agent.")
-                .SetBonesCost(2)
+                .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GiveStatsSigils.AbilityID, StartingDecay.ability, StartingDecay.ability, Ability.ExplodeOnDeath)
+                .AddAbilities(Ability.Morsel, Ability.ExplodeOnDeath, StartingDecay.ability, StartingDecay.ability)
                 .AddTribes(TribeBotanic)
-                .SetSpellType(SpellType.TargetedSigils)
+                //.SetSpellType(SpellType.TargetedStats)
                 .SetDefaultEvolutionName("Giant Elder Tree Sap")
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
