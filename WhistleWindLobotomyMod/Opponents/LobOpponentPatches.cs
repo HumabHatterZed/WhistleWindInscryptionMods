@@ -59,7 +59,7 @@ namespace WhistleWindLobotomyMod.Patches {
                 yield break;
             }
 
-            LobotomyPlugin.Log.LogInfo("[RefreshDeck] check for exhaustion");
+            LobotomyPlugin.Log.LogDebug("[RefreshDeck] check for exhaustion");
             if (!PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS")) {
                 yield return new WaitForSeconds(0.4f);
                 ViewManager.Instance.SwitchToView(View.Hand);
@@ -92,7 +92,7 @@ namespace WhistleWindLobotomyMod.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
         private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result) {
-            if (RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1) {
+            if (RunState.CurrentRegionTier == RegionProgression.Instance.regions.Count - 1) {
                 if (LobotomyConfigManager.ChallengeIsActive(FinalApocalypse.Id)) {
                     __result = LobOpponentUtils.apocalypseRegion;
                 }
