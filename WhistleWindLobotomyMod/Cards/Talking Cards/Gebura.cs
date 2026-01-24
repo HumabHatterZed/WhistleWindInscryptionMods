@@ -76,8 +76,8 @@ namespace WhistleWindLobotomyMod {
         public const string sephirahGebura = "wstl_sephirahGebura";
         private static void Gebura() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahGebura, "Gebura",
-                attack: 3, health: 5, "Though not as strong as she once was, she will still make for a powerful ally.")
-                .SetBloodCost(3)
+                attack: 2, health: 3, "Though not as strong as she once was, she will still make for a powerful ally.")
+                .SetBloodCost(2)
                 .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
