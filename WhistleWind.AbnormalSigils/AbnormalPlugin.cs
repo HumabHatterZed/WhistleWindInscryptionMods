@@ -320,7 +320,7 @@ namespace WhistleWind.AbnormalSigils {
                 }
 
                 bool rulebook = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.ADDTORULEBOOK) == true;
-                bool modular = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.ADDTORULEBOOK) == true;
+                bool modular = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.FORCEMODULAR) == true;
 
                 // abilities marked modular are always modular in Act 1
                 if (validCards.Exists(x => x.temple == CardTemple.Nature) || modular) {
