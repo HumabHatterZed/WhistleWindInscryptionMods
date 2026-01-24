@@ -1,9 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.RuleBook;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod {
@@ -13,7 +15,9 @@ namespace WhistleWindLobotomyMod {
             info.rulebookName = "Harmony";
             info.rulebookDescription = "When [creature] dies, two Cheers for the Beginning are created on the owner's side of the board. [define:wstl_skinCheers]";
             info.powerLevel = 3;
-            HarmonyAbility.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(HarmonyAbility), TextureLoader.LoadTextureFromFile("sigilHarmony.png")).Id;
+            HarmonyAbility.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(HarmonyAbility), TextureLoader.LoadTextureFromFile("sigilHarmony.png"))
+                .SetAbilityRedirect("Withering", Withering.ability, GameColors.Instance.red)
+                .Id;
         }
     }
 
