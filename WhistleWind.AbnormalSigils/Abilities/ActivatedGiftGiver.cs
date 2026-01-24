@@ -4,6 +4,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Saves;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
@@ -49,7 +50,18 @@ namespace WhistleWind.AbnormalSigils {
                 return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }
         }
+
+        public override IEnumerator OnUpkeep(bool playerUpkeep) {
+            if (currentTurnDelay == 1) {
+                base.Card.RenderInfo.overriddenAbilityIcons.Remove(this.Ability);
+                base.Card.RenderCard();
+            }
+            yield return base.OnUpkeep(playerUpkeep);
+        }
+
         public override IEnumerator Activate() {
+            base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, ResourceBank.Get<Texture>("Art/Cards/AbilityIcons/sigilGiftLatch_disabled"));
+            base.Card.RenderCard();
             yield return CombatHelpers.QueueOrCreateDrawnCard(CardToDraw, base.Card.OpponentCard);
             yield return base.LearnAbility(0.4f);
             yield return base.Activate();

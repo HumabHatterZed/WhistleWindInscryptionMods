@@ -125,6 +125,11 @@ namespace WhistleWind.AbnormalSigils {
                     PixelCardManager.AddGBCDecal(pluginGuid, resource, texture);
                 }
             }
+
+            ResourceBankManager.Add(pluginGuid, new() {
+                asset = TextureLoader.LoadTextureFromFile("sigilGiftLatch_disabled.png", Assembly),
+                path = "Art/Cards/AbilityIcons/sigilGiftLatch_disabled"
+            });
         }
 
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
