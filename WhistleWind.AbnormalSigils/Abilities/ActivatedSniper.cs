@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_ActivatedSniper() {
             const string rulebookName = "Gun For Hire";
-            const string rulebookDescription = "Pay 1 Energy to give this card Sniper until the end of its next attack.";
+            const string rulebookDescription = "Pay 2 Energy to give this card Sniper until the end of its next attack.";
             const string dialogue = "Aim for the heart.";
             const string triggerText = "[creature] prepares to fire.";
             ActivatedSniper.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedSniper>(
@@ -23,14 +23,14 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// Create a random card in your hand, then deactivate this sigil for 3 turns.
+    /// Pay 2 Energy to give this card Sniper until the end of its next attack.
     /// </summary>
     [HarmonyPatch]
     public class ActivatedSniper : ActivatedAbilityBehaviour {
         public const string MAGIC_BULLET_ID = "wstl:MagicBullets,";
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int EnergyCost => 1;
+        public override int EnergyCost => 2;
         private bool IsHunter => base.Card.Info.name.Contains("derFreischutz");
         private bool activated = false;
         public override bool CanActivate() => base.CanActivate() && !activated && base.Card.LacksAbility(Ability.Sniper);
