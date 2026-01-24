@@ -6,6 +6,15 @@ namespace WhistleWind.AbnormalSigils.Core {
     {
         public static Dictionary<string, List<CustomLine>> EventNames => new()
         {
+            { "SeventhMagicBullet",
+                new() {
+                    "'The final bullet', said the Devil to the hunter, 'shall puncture the head of your beloved'." }
+            },
+            { "SeventhMagicBullet2",
+                new() {
+                    "It is as they say: this is a bullet that will never miss its target." }
+            },
+
             { "LearnStatusEffects",
                 new() {
                     "Ah, this beast has been afflicted with a [c:bR]status effect[c:].",
