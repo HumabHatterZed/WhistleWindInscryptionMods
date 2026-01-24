@@ -30,7 +30,6 @@
 - Renamed Flagellated status effect to Flagellation
 - Renamed Bitter Enemies sigil to Vendetta
 - Renamed Little Witch's Friend to "Wee Witch's Friend"
-- Renamed Lonely sigil to Pebble Giver
 - Renamed Greedy Healing to Malignant Regeneration
 - Renamed Gift Giver sigil to Gift-Laden
 - Renamed Spore Mold Creature to Spore Mold Beast
@@ -80,7 +79,6 @@
 - Fixed incorrect descriptions, missing words, etc.
 ### ⚖️ Balancing
 - Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
-- Lonely - reduced powerlevel from 3 -> 2
 - Binding Strike - reduced powerlevel from 2 -> 1
 - Bloodfiend - healing is now capped at 2 above the card's max health
 - Bloodfiend - reduced powerlevel from 3 -> 2
@@ -101,10 +99,15 @@
 - Healer - reduced health gained from 2 -> 1
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - now stackable
+- Lonely - reduced powerlevel from 3 -> 2
+- Lonely - reworked
+- Martyr - no longer stackable
 - Nettle Clothes - reduced powerlevel from 5 -> 4
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
 - Nettle Clothes - changed singleton id used for tracking added sigils
 - Opportunistic - reworked to trigger against injured cards
+- Pebble - reworked
+- Pebble - raised powerlevel from 2 -> 3
 - Persecutor - summoned cards are now considered Terrain, have 1 Health
 - Persistent - no longer affects face down cards
 - Piercing - now affects face down cards
