@@ -15,9 +15,10 @@ namespace WhistleWindLobotomyMod {
                 .SetCanStack(full.Info.canStack)
                 .SetFlipYIfOpponent(full.Info.flipYIfOpponent)
                 .SetOpponentUsable(full.Info.opponentUsable)
-                .SetDefaultPart1Ability();
+                .SetDefaultPart1Ability()
+                .SetPassive();
 
-            PpodaeStinky = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, null, full.Texture).Id;
+            PpodaeStinky = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(AbilityBehaviour), full.Texture).Id;
         }
 
         public static Ability PpodaeStinky;
