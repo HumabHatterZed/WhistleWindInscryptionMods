@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod {
                 .SetOpponentUsable(full.Info.opponentUsable)
                 .SetDefaultPart1Ability();
 
-            SteelTrapSweetHome = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, null, full.Texture).Id;
+            SteelTrapSweetHome = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SteelTrapSweetHome), full.Texture).Id;
         }
 
         public static Ability SteelTrapSweetHome;
