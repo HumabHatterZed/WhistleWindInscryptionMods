@@ -53,11 +53,12 @@ namespace WhistleWind.AbnormalSigils {
                 }
 
                 magicBullets--;
-                
+                mod.attackAdjustment += 2;
+
                 if (magicBullets == 0) {
                     magicBullets = 7;
                     triggerSeventhBullet = true;
-                    mod.attackAdjustment++;
+                    //mod.attackAdjustment++;
                     mod.abilities.Add(Piercing.ability);
                 }
 
