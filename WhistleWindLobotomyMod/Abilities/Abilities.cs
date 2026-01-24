@@ -48,6 +48,9 @@ namespace WhistleWindLobotomyMod {
                     abilities.AbilityByID(SurefireDrinkEffect.iconId)
                         .Info.rulebookDescription.Replace("Sniper", "Marksman");
 
+                    abilities.AbilityByID(ActivatedSniper.ability)
+                        .Info.rulebookDescription.Replace("Sniper", "Marksman");
+
                     abilities.AbilityByID(Ability.Transformer).Info
                         .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.")
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
