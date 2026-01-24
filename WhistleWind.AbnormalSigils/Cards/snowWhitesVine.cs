@@ -1,4 +1,5 @@
-﻿using InscryptionAPI.Card;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
 
 using WhistleWind.Core.Helpers;
 
@@ -8,6 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string snowWhitesVine = "snowWhitesVine";
             CardManager.New(pluginPrefix, snowWhitesVine, "Thorny Vines", 0, 1)
                 .SetPortraits(Assembly, snowWhitesVine)
+                .AddAbilities(Ability.Sharp)
                 .AddTribes(TribeBotanic)
                 .SetTerrain();
         }
