@@ -63,7 +63,7 @@
 - Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
 - Funeral of the Dead Butterflies: now belongs to the Undead temple (Act 2)
 - Gebura: rebalanced to from 3/5, 3 Blood -> 2/3, 2 Blood
-- Giant Tree Sap: reworked into a 0/2; Detonator; Targeted Spell; 1 Bone
+- Giant Tree Sap: reworked into 0/4; Morsel, Imminent Decay x2, Detonator; 3 Bones
 - <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck, Rare
 - Judgement Bird: now considered Rare
 - King of Greed: updated emission
