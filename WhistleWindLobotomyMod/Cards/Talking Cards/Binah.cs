@@ -76,7 +76,7 @@ namespace WhistleWindLobotomyMod {
         public const string sephirahBinah = "wstl_sephirahBinah";
         private static void Binah() {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahBinah, "Binah",
-                attack: 3, health: 5, "Callous and sadistic, she seems keen on seeing your struggles in person.")
+                attack: 3, health: 3, "Callous and sadistic, she seems keen on seeing your struggles in person.")
                 .SetBloodCost(3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
                 .AddTraits(Sephirah)

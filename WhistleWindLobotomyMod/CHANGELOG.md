@@ -53,6 +53,7 @@
 - <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
 - Big and Will Be Bad Wolf: reworked to 2/2; Blood Lust; 2 Blood
+- <span style='color:#DE6080'>Binah: Reduced Health from 5 -> 3
 - <span style='color:#2084A0'>CENSORED: Increased Health from 4 -> 5
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
@@ -66,8 +67,8 @@
 - Judgement Bird: now considered Rare
 - King of Greed: updated emission
 - Laetitia: replaced Gift-Laden sigil with Gift Giver
-- <span style='color:#DE6080'>Luminous Bracelet: reduced Health from 2 -> 1
-- <span style='color:#2084A0'>Luminous Bracelet: reduced play cost from 3 Energy -> 2 Energy
+- <span style='color:#DE6080'>Luminous Bracelet: reduced Health from 2 -> 0
+- <span style='color:#2084A0'>Luminous Bracelet: reduced play cost from 3 Energy -> 1 Energy
 - Magical Girl: now requires more cards to die before transforming into Queen of Hatred
 - Meat Lantern: updated artwork
 - Meat Lantern: rebalanced from 1/2; Punisher to 1/3; Reflector
