@@ -29,14 +29,14 @@ namespace WhistleWindLobotomyMod.Opponents {
                 encounterData.Blueprint.AddTurn();
             }
             encounterData.Blueprint.AddTurn(turn);
+            encounterData.Blueprint.AddTurn();
+            encounterData.Blueprint.AddTurn();
 
-            if (RunState.CurrentRegionTier < 2) {
+            if (difficulty > 12) {
                 encounterData.Blueprint.AddTurn();
+                encounterData.Blueprint.AddTurn(turn);
             }
-            if (difficulty < 13) {
-                encounterData.Blueprint.AddTurn();
-            }
-            encounterData.Blueprint.AddTurn(turn);
+            
             return 8;
         }
     }
