@@ -16,13 +16,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         private int fruitToSpawn = 0;
 
         public override void ModifyQueuedCard(PlayableCard card) {
-            base.ModifyQueuedCard(card);
             if (card.Info.name != Cards.fruitUnderstanding) {
                 return;
             }
 
             CardModificationInfo mod = new();
-            int decayStacks = 3;
+            int decayStacks = 6;
 
             // first fruit has higher timer
             if (maxFruit == fruitToSpawn) {
