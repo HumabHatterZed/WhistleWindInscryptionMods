@@ -37,7 +37,13 @@ namespace WhistleWindLobotomyMod {
 
         public override List<CardSlot> GetValidTargets() {
             List<CardSlot> allSlotsCopy = Singleton<BoardManager>.Instance.AllSlotsCopy;
-            allSlotsCopy.RemoveAll(x => x.Card == null || x.Card.Info.HasTrait(Trait.Uncuttable));
+            allSlotsCopy.RemoveAll(x => x.Card == null);
+            if (AbilityToAdd == Ability.Sniper) {
+                allSlotsCopy.RemoveAll(x => x.Card.HasAbility(ActivatedSniper.ability));
+            }
+            if (!AbilitiesUtil.GetInfo(AbilityToAdd).canStack) {
+                allSlotsCopy.RemoveAll(x => x.Card.HasAbility(AbilityToAdd));
+            }
             return allSlotsCopy;
         }
     }
