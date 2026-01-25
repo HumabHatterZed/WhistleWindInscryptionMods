@@ -104,7 +104,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         }
 
         public IEnumerator RemoveFromCard(bool triggerOnRemoved, bool updateDisplay = true) {
-            foreach (CardModificationInfo mod in base.PlayableCard.TemporaryMods.Where(x => x.specialAbilities.Contains(this.StatusEffect))) {
+            List<CardModificationInfo> mods = base.PlayableCard.TemporaryMods.Where(x => x.specialAbilities.Contains(this.StatusEffect)).ToList();
+            foreach (CardModificationInfo mod in mods) {
                 base.PlayableCard.RemoveTemporaryMod(mod, false);
             }
             if (updateDisplay)
