@@ -111,6 +111,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
             }
             else if (LobotomyConfigManager.ChallengeIsActive(AllOrdeals.Id) || Random.value <= 0.39f) {
+                //LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Normal | regionTier: {RunState.CurrentRegionTier}");
                 int tier;
                 float randomValue = UnityEngine.Random.value;
                 OrdealBattleNodeData data = new() {
