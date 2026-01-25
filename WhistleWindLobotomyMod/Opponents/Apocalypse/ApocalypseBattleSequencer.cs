@@ -74,7 +74,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 possibleTargetSlots = BoardManager.Instance.AllSlotsCopy;
                 maxCount = 2 + PhaseDifficulty;
             }
-            possibleTargetSlots.RemoveAll(x => x.Card == null || x.Card == BossCard);
+            possibleTargetSlots.RemoveAll(x => x.Card == null || x.Card.Attack == 0);
+            possibleTargetSlots.Remove(BossCard.Slot);
 
             while (possibleTargetSlots.Count > 0) {
                 if (specialTargetSlots.Count == maxCount)
@@ -98,7 +99,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             else {
                 foreach (CardSlot slot in specialTargetSlots) {
                     yield return new WaitForSeconds(0.05f);
-                    CreateTargetIcon(slot, GameColors.Instance.yellow);
+                    CreateTargetIcon(slot, GameColors.Instance.yellow); // adds to targetIcons
                 }
                 yield return new WaitForSeconds(0.5f);
 
@@ -118,11 +119,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                             source = rightSources[UnityEngine.Random.Range(0, rightSources.Count)];
                             rightSources.Remove(source);
                         }
+                        
                         FireLaser(source.gameObject, specialTargetSlots[i], specialTargetSlots[i].IsPlayerSlot);
                     }
+
                     yield return new WaitForSeconds(0.1f);
                     specialTargetSlots[i].Card.Anim.StrongNegationEffect();
-
                     yield return specialTargetSlots[i].Card.AddStatusEffectToFaceDown<Enchanted>(enchantCount, modifyTurnGained: (int turn) => turn + 1); // increase the turn gained by 1 so it disappears at the correct time
                     CleanUpTargetIcon(targetIcons[i]);
                 }
@@ -426,7 +428,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                 if (BossOpponent.TurnPlan.Last().Count == 4 && ReactiveDifficulty < 11)
                     cardNum = 0;
                 else
-                    cardNum -= ReactiveDifficulty > 7 ? 1 : (ReactiveDifficulty > 4 ? 2 : 2);
+                    cardNum -= 2;
             }
 
             for (int i = 0; i < cardNum; i++) {
@@ -437,7 +439,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                     continue;
                 }
 
-                int attack = 0, health = ReactiveDifficulty / 5;
+                int attack = 0, health = ReactiveDifficulty / 8;
 
                 if (ReactiveDifficulty > 3) {
                     health++;
@@ -663,7 +665,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             List<ActiveEggEffect> possiblePhases = AllBossPhases.Keys.Where(x => !DisabledEggEffects.Contains(x)).ToList();
             possiblePhases.Remove(ActiveEggEffect);
 
-            ActiveEggEffect = possiblePhases[SeededRandom.Range(0, possiblePhases.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
+            ActiveEggEffect = ActiveEggEffect.BigEyes;//possiblePhases[SeededRandom.Range(0, possiblePhases.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
             ActiveEggMinion = AllBossPhases[ActiveEggEffect][0];
         }
 
