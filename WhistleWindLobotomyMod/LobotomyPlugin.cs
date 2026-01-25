@@ -127,6 +127,11 @@ namespace WhistleWindLobotomyMod {
             Cards.AddCustomDeathCards();
             CreateTalkingCards();
 
+            CardManager.ModifyCardList += delegate (List<CardInfo> infos) {
+                infos.Find(x => x.name == "TrapFrog").AddTribes(AbnormalPlugin.TribeMechanical);
+                return infos;
+            };
+
             if (AllCardsDisabled) {
                 Log.LogInfo("All mod cards are disabled, adding [Standard Training-Dummy Rabbit] as a fallback card.");
             }

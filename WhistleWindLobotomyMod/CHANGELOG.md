@@ -9,6 +9,7 @@
 - PlayableCard.DieTriggerless now triggers non-card receivers
 - Massive refactoring of basically everything
 - Removed unused asset files
+- Vanilla card Strange Frog now part of Mechanical Tribe
 ### Apocalypse Boss
 - Fixed boss not losing its damage reduction
 - Fixed certain fight mechanics and effects triggering at incorrect times
