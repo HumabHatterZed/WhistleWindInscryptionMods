@@ -2,11 +2,13 @@
 using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using Sirenix.Serialization.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 
@@ -19,7 +21,7 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability Ability => ability;
 
         public override bool RespondsToResolveOnBoard() =>
-            base.Card.Info.IsGlobalSpell() && BoardManager.Instance.GetCards(!base.Card.OpponentCard, x => !Unyielding.CardCanBeMoved(x)).Count > 0;
+            base.Card.Info.IsGlobalSpell() && BoardManager.Instance.GetCards(!base.Card.OpponentCard, x => Unyielding.CardCanBeMoved(x)).Count > 0;
 
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
             if (base.Card.Info.IsTargetedSpell() && slot.Card != null) {
@@ -69,13 +71,15 @@ namespace WhistleWind.AbnormalSigils {
             tempMods.Add(recallMod);
 
             List<SpecialCardBehaviour> behaviours = slot.Card.GetComponents<SpecialCardBehaviour>()?.ToList() ?? new();
-
+            //Debug.Log($"HElp {behaviours.Count}");
+            behaviours.RemoveAll(x => !x.GetType().InheritsFrom(typeof(StatusEffectBehaviour)));
+            //Debug.Log($"HElp2 {behaviours.Count}");
             slot.Card.RemoveFromBoard(false);
             yield return HelperMethods.ChangeCurrentView(View.Default);
             yield return CardSpawner.Instance.SpawnCardToHand(copy, tempMods, 0.25f, (PlayableCard x) => {
                 x.Status = status;
                 for (int i = 0; i < behaviours.Count; i++) {
-                    if (!x.TriggerHandler.permanentlyAttachedBehaviours.Contains(behaviours[i])) {
+                    if (!x.TriggerHandler.permanentlyAttachedBehaviours.Exists(x => x.GetType() == behaviours[i].GetType())) {
                         var copy = HelperMethods.CopySpecialCardBehaviour(behaviours[i], x.gameObject);
                         x.TriggerHandler.permanentlyAttachedBehaviours.Add(copy);
                     }
@@ -100,7 +104,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return RecallCard(slot, 0.4f);
         }
         public override IEnumerator OnResolveOnBoard() {
-            foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.Card.OpponentCard)) {
+            foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.Card.OpponentCard, Unyielding.CardCanBeMoved)) {
                 yield return RecallCard(card.Slot, 0.1f);
             }
         }
