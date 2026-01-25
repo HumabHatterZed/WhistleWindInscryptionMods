@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     public class OrdealGreenNoon : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int minCards = 3;
-            int oneAboveBase = baseDifficulty + 2;
+            //int oneAboveBase = baseDifficulty + 2;
             List<CardInfo> startingCard = new() { null, null, null, null };
 
             switch (baseDifficulty) {
@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             if (encounterData.Difficulty > 8) {
-                startingCard[0].Mods.Add(new(0, 1));
+                startingCard[0] = CardLoader.GetCardByName(Cards.doubtProcessDown);
                 minCards++;
             }
 
