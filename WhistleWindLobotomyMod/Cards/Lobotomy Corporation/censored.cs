@@ -22,7 +22,8 @@ namespace WhistleWindLobotomyMod {
                 .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
 
             CardManager.New(LobotomyPlugin.pluginPrefix, censoredMinion, name,
-                attack: 0, health: 0)
+                attack: 1, health: 1)
+                .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .SetDefaultEvolutionName("CENSORED CENSORED")
                 .Build();
