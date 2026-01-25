@@ -56,6 +56,11 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
             }
         }
+
+        public override void TryAddOrdealRandomBuff(PlayableCard card) {
+            
+        }
+
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             if (encounterData.Difficulty > 5) {
                 minTurnToForceNoon--;
