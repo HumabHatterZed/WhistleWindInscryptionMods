@@ -25,7 +25,7 @@ namespace WhistleWind.Core.Helpers {
             where T : AbilityBehaviour {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.SetBasic(rulebookName, rulebookDescription, dialogue, triggerText, powerLevel)
-                .SetCanStack(canStack)
+                .SetCanStack(canStack, true)
                 .SetOpponentUsable(opponent);
 
             if (foundInRulebook) info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
