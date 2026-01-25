@@ -6,8 +6,8 @@ namespace WhistleWindLobotomyMod {
     public class StarterDecks {
         public const int NUM_DECKS = 13;
         public static readonly List<string> firstDay = new() {
-            Cards.oneSin,
             Cards.fairyFestival,
+            Cards.oneSin,
             Cards.oldLady
         };
         public static readonly List<string> lonelyFriends = new() {
@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod {
             Cards.childOfTheGalaxy
         };
         public static readonly List<string> bloodMechs = new() {
-            Cards.weCanChangeAnything,
             Cards.singingMachine,
+            Cards.trainingDummy,
             Cards.allAroundHelper
         };
         public static readonly List<string> peoplePleasers = new() {

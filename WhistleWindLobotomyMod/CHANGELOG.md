@@ -116,6 +116,7 @@
     - Tier 2: Unchanged
 - 'Random' starter deck now unlocks at challenge level 12
 - 'Keter' starter deck now contains Heart of Aspiration instead of Bloodbath
+- 'Blood Machine' starter deck now contains Standard Training Dummy instead of We Can Change Anything
 - Removed dynamic rulebook descriptions for certain sigils
 ### Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
