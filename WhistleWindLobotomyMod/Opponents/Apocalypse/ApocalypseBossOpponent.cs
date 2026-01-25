@@ -222,20 +222,20 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             LeftEyes[2] = eyes.Find("Eye3");
             LeftEyes[3] = eyes.Find("Eye4");
             eyes = bossObjectAnimation.transform.Find("Wing1").Find("OuterWing").Find("Eyes");
-            LeftEyes[0] = eyes.Find("Eye1");
-            LeftEyes[1] = eyes.Find("Eye2");
-            LeftEyes[2] = eyes.Find("Eye3");
-            LeftEyes[3] = eyes.Find("Eye4");
+            LeftEyes[4] = eyes.Find("Eye1");
+            LeftEyes[5] = eyes.Find("Eye2");
+            LeftEyes[6] = eyes.Find("Eye3");
+            LeftEyes[7] = eyes.Find("Eye4");
             eyes = bossObjectAnimation.transform.Find("Wing2").Find("Eyes");
             RightEyes[0] = eyes.Find("Eye1");
             RightEyes[1] = eyes.Find("Eye2");
             RightEyes[2] = eyes.Find("Eye3");
             RightEyes[3] = eyes.Find("Eye4");
             eyes = bossObjectAnimation.transform.Find("Wing2").Find("OuterWing").Find("Eyes");
-            RightEyes[0] = eyes.Find("Eye1");
-            RightEyes[1] = eyes.Find("Eye2");
-            RightEyes[2] = eyes.Find("Eye3");
-            RightEyes[3] = eyes.Find("Eye4");
+            RightEyes[4] = eyes.Find("Eye1");
+            RightEyes[5] = eyes.Find("Eye2");
+            RightEyes[6] = eyes.Find("Eye3");
+            RightEyes[7] = eyes.Find("Eye4");
 
             this.SetSceneEffectsShown(true);
             Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
