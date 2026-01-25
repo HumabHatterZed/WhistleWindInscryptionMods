@@ -73,10 +73,11 @@ namespace WhistleWindLobotomyMod.Patches {
         /// Prevents the camera from panning to the scales if direct damage has been modified to be 0.
         /// </summary>
         [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
-        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, bool toPlayer, ref bool changeView) {
+        private static bool DontChangeViewOnZeroDamage(ref int damage, int numWeights, bool toPlayer, ref bool changeView) {
             if (!toPlayer && TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq
                     && seq.HighestPositiveScaleBalance == LifeManager.Instance.Balance) {
                 changeView = false;
+                damage = 0;
             }
 
             return true;
