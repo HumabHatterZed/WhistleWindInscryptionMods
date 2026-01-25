@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod {
             AbilityManager.FullAbility full = AbilityManager.AllAbilities.AbilityByID(Ability.SteelTrap);
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.SetRulebookName("Sweet Trap")
-                .SetRulebookDescription(full.BaseRulebookDescription)
+                .SetRulebookDescription("When [creature] perishes, the creature opposing it perishes as well. My Sweet Home is returned to your hand.")
                 .SetPowerlevel(full.Info.powerLevel)
                 .SetPixelAbilityIcon(full.Info.pixelIcon.texture)
                 .SetCanStack(full.Info.canStack)
