@@ -134,6 +134,7 @@ namespace WhistleWind.AbnormalSigils.Core {
                 for (int j = 0; j < icons.Count; j++) {
                     Renderer iconRenderer = icons[j].GetComponent<Renderer>();
                     iconRenderer.sortingOrder = 15;
+                    iconRenderer.gameObject.layer = 14; // CardOffscreenEmission layer
                     if (iconRenderer.gameObject.GetComponent<SetSortingLayer>() != null) {
                         iconRenderer.gameObject.GetComponent<SetSortingLayer>().sortingOrder = iconRenderer.sortingOrder;
                     }
@@ -151,13 +152,22 @@ namespace WhistleWind.AbnormalSigils.Core {
                         backRenderer.material.mainTexture = StatusEffectManager.StatusEffectPatch;
 
                         backRenderer.sortingLayerID = iconRenderer.sortingLayerID;
-                        backRenderer.sortingOrder = iconRenderer.sortingOrder;
-                        if (backRenderer.gameObject.GetComponent<SetSortingLayer>() != null) {
-                            backRenderer.gameObject.GetComponent<SetSortingLayer>().sortingOrder = iconRenderer.sortingOrder;
+                        backRenderer.sortingOrder = 13;
+                        if (back.GetComponent<SetSortingLayer>() != null) {
+                            back.GetComponent<SetSortingLayer>().sortingOrder = 13;
                         }
 
                         GameObject.Destroy(back.GetComponent<AbilityIconInteractable>());
                         GameObject.Destroy(back.GetComponent<BoxCollider>());
+
+                        GameObject backMask = back.transform.GetChild(0).gameObject;
+                        Renderer backMaskRenderer = backMask.GetComponent<Renderer>();
+
+                        backMaskRenderer.sortingLayerID = iconRenderer.sortingLayerID;
+                        backMaskRenderer.sortingOrder = 14;
+                        if (backMask.GetComponent<SetSortingLayer>() != null) {
+                            backMask.GetComponent<SetSortingLayer>().sortingOrder = 14;
+                        }
                     }
                     else if (SaveManager.SaveFile.IsGrimora) {
                         icons[j].localPosition = new(-0.475f + 0.1875f * j, 0.3f, -0.1f);
