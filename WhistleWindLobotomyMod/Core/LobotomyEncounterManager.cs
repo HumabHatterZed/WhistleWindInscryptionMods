@@ -42,9 +42,9 @@ namespace WhistleWindLobotomyMod.Core {
             Build(New("StrangeFlock")
                 .SetDifficulty(1, 4)
                 .AddDominantTribes(Tribe.Bird)
-                .AddRandomReplacementCards(Cards.oldLady, Cards.eyeballChick_mook, Cards.voidDreamRooster)
+                .AddRandomReplacementCards(Cards.forestKeeper_mook, Cards.eyeballChick_mook, Cards.voidDreamRooster)
                 .AddTurns(
-                    CreateTurn(NewCardBlueprint(Cards.punishingBird, 30), NewCardBlueprint(Cards.judgementBird, 30)),
+                    CreateTurn(NewCardBlueprint(Cards.punishingBird, 30), NewCardBlueprint(Cards.runawayBird_mook, difficultyReplace: true, difficultyReplaceReq: 3, replacement: Cards.judgementBird)),
                     CreateTurn(EmptyBlueprint(Cards.todaysShyLookHappy, 4)),
                     CreateTurn(NewCardBlueprint(Cards.theFirebird, 30))
                     ), regions: 0);
@@ -328,15 +328,15 @@ namespace WhistleWindLobotomyMod.Core {
             ProspectorAbnormalBossP2 = Build(New("ProspectorAbnormalBossP2")
                .SetDifficulty(4, 7)
                .AddDominantTribes(AbnormalPlugin.TribeBotanic)
-               .AddRandomReplacementCards(Cards.beautyAndBeast, Cards.porccubus, Cards.wisdomScarecrow)
+               .AddRandomReplacementCards(Cards.beautyAndBeast, Cards.porccubus, Cards.wisdomScarecrow, Cards.fragmentOfUniverse)
                .AddTurns(
-                    CreateTurn(NewCardBlueprint(Cards.willBeBadWolf)),
+                    CreateTurn(NewCardBlueprint(Cards.ppodaeBuff)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint(Cards.redHoodedMercenary, 40)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint(Cards.warmHeartedWoodsman, 25)),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint(Cards.graveOfBlossoms, 7), EmptyBlueprint(Cards.fragmentOfUniverse, 6)),
+                    CreateTurn(NewCardBlueprint(Cards.graveOfBlossoms, 7), EmptyBlueprint(Cards.alriune, 6)),
                     CreateTurn()
                 ), 3);
             AnglerAbnormalBossP1 = Build(New("AnglerAbnormalBossP1")
@@ -345,9 +345,9 @@ namespace WhistleWindLobotomyMod.Core {
                .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.canOfWellCheers)),
                     CreateTurn(NewCardBlueprint(Cards.theFirebird)),
-                    CreateTurn(),
+                    CreateTurn(EmptyBlueprint(Cards.bottleOfTears, 10)),
                     CreateTurn(NewCardBlueprint(Cards.fairyFestival)),
-                    CreateTurn(NewCardBlueprint(Cards.fairyFestival).SetReplacement(Cards.nosferatu, 11)),
+                    CreateTurn(NewCardBlueprint(Cards.fairyFestival).SetReplacement(Cards.knightOfDespair, 11)),
                     CreateTurn()
                 ), 3);
             AnglerAbnormalBossP2 = Build(New("AnglerAbnormalBossP2")
@@ -357,22 +357,22 @@ namespace WhistleWindLobotomyMod.Core {
                .AddTurns(
                    CreateTurn(),
                    CreateTurn(NewCardBlueprint("BaitBucket", 25)),
-                   CreateTurn(),
+                   CreateTurn(NewCardBlueprint(Cards.bottleOfTears)),
                    CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint(Cards.theRoadHome, 10)),
                    CreateTurn(),
                    CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint("BaitBucket", 10))
                 ), 3);
             TrapperTraderAbnormalBossP1 = Build(New("TrapperTraderAbnormalBossP1")
                .SetDifficulty(14, 16)
-               .AddDominantTribes(Tribe.Bird)
-               .AddRandomReplacementCards(Cards.bigBird, Cards.forestKeeper_mook, Cards.voidDreamRooster, Cards.porccubus)
+               .AddDominantTribes(AbnormalPlugin.TribeMechanical)
+               .AddRandomReplacementCards(Cards.mySweetHomeM, Cards.doubtB, Cards.mhz176, Cards.porccubus)
                .AddTurns(
                     CreateTurn(NewCardBlueprint("TrapFrog")),
-                    CreateTurn(NewCardBlueprint(Cards.trainingDummy, 30).SetReplacement(Cards.eyeballChick_mook, 15)),
+                    CreateTurn(NewCardBlueprint(Cards.trainingDummy, 30).SetReplacement(Cards.dontTouchMe, 15)),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint(Cards.theFirebird, 25)),
+                    CreateTurn(NewCardBlueprint(Cards.allAroundHelper, 25)),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint(Cards.meatLantern, 25)),
+                    CreateTurn(NewCardBlueprint(Cards.schadenfreude, 25)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint(Cards.judgementBird, 25))
                 ), 3);
