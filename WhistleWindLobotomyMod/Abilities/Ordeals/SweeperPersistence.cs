@@ -30,6 +30,7 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             List<PlayableCard> corpses = base.Card.Slot.GetAdjacentCards().Where(x => x.Info.DisplayedNameEnglish != "Sweeper").ToList();
             if (corpses.Count > 0) {
+                yield return HelperMethods.ChangeCurrentView(View.Board);
                 yield return DialogueHelper.PlayDialogueEvent("OrdealPersistence");
                 foreach (PlayableCard card in corpses) {
                     yield return Singleton<CombatPhaseManager3D>.Instance.SlotAttackSlot(base.Card.Slot, card.Slot);
@@ -43,6 +44,7 @@ namespace WhistleWindLobotomyMod {
                 base.Card.Info.Mods.Add(new(Persistent.ability) { singletonId = "wstl:Sweeper" });
             }
             base.Card.TriggerHandler.AddAbility(Persistent.ability);
+            base.Card.Status.hiddenAbilities.Add(Persistent.ability);
             yield break;
         }
 
