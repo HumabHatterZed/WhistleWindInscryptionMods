@@ -34,8 +34,8 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
-            forcedFaceUp = true;
-            yield return slot.Card.FlipFaceUp(true);
+            forcedFaceUp = slot.Card.FaceDown;
+            yield return slot.Card.FlipFaceUp(forcedFaceUp);
         }
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => forcedFaceUp || CardTriggersPiercingDialogue(target);
