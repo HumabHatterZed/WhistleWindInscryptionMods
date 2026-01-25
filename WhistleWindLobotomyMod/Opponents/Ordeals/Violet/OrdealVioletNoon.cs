@@ -82,9 +82,19 @@ namespace WhistleWindLobotomyMod.Opponents {
         public IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();
 
-            if (loveSlots[0].Card != null) yield return loveSlots[0].Card.DieTriggerless();
+            if (loveSlots[0].Card != null) {
+                if (CardIsValidOrdeal(loveSlots[0].Card)) {
+                    amountKilledThisTurn++;
+                }
+                yield return loveSlots[0].Card.DieTriggerless();
+            }
 
-            if (loveSlots[1].Card != null) yield return loveSlots[1].Card.DieTriggerless();
+            if (loveSlots[1].Card != null) {
+                if (CardIsValidOrdeal(loveSlots[1].Card)) {
+                    amountKilledThisTurn++;
+                }
+                yield return loveSlots[1].Card.DieTriggerless();
+            }
 
             yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.grantUsLove), loveSlots[0]);
