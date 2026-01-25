@@ -665,7 +665,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             List<ActiveEggEffect> possiblePhases = AllBossPhases.Keys.Where(x => !DisabledEggEffects.Contains(x)).ToList();
             possiblePhases.Remove(ActiveEggEffect);
 
-            ActiveEggEffect = ActiveEggEffect.BigEyes;//possiblePhases[SeededRandom.Range(0, possiblePhases.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
+            ActiveEggEffect = possiblePhases[SeededRandom.Range(0, possiblePhases.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
             ActiveEggMinion = AllBossPhases[ActiveEggEffect][0];
         }
 
