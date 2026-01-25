@@ -203,6 +203,10 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
             return playableCard.GetStatusEffect<T>()?.EffectPotency ?? 0;
         }
 
+        public static bool HasStatusEffect(this PlayableCard card) {
+            return card.GetStatusEffects().Count > 0;
+        }
+
         public static bool HasStatusEffect<T>(this PlayableCard card, bool atLeastOneStack = false) where T : StatusEffectBehaviour {
             foreach (StatusEffectBehaviour effect in card.GetStatusEffects()) {
                 if (effect is T) {
