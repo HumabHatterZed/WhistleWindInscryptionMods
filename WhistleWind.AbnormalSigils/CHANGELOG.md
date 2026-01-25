@@ -21,6 +21,7 @@
 - Overhauled Barreler sigil
 - Overhauled Bitter Enemies (Vendetta) sigil
 - Overhauled Pebble status effect
+- Status effects now glow to make them easier to see
 - Return Card to Hand now works when used by the opponent
 - Replaced dialogue for when a Brother card dies while a card with Nettle Clothes is on the board
 - Changed how Gift-Laden determines unique cards to give

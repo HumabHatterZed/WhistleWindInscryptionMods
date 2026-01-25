@@ -16,7 +16,7 @@
 - Fixed incorrect dialogue relating to reactive difficulty
 - Fixed camera not changing to show the scales when collecting direct damage
 - Bones gained from excess direct damage are now capped at 2 per turn, and will not be received if the player already has 20 Bone tokens
-- Reduced giant phase health from 40 -> 30
+- Reduced giant phase health from 40 -> 30 and overall boss Health from 100 -> 90
 - Boss is no longer considered Terrain
 - Boss now possesses Challenging sigil
 - Clarified description of Unjust Scales sigil
@@ -26,6 +26,7 @@
 - Hourglass item can no longer be used unless Long Arms is defeated
 - Sin can no longer be removed by Martyr and similar effects
 - Sin is now removed from all cards when Long Arms phase is defeated
+- Enchanted is no longer afflicted onto cards with 0 Power
 - Time Machine can no longer be activated unless Long Arms phase is defeated
 - Time Machine now has a different effect when used during the battle
 - Overhauled reactive difficulty system
