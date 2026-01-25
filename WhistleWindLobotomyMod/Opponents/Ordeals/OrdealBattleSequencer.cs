@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using EncounterBuilder = DiskCardGame.EncounterBuilder;
@@ -111,7 +112,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// <returns>True if the given card's death is counted towards the kill requirement.</returns>
         protected bool CardIsValidOrdeal(PlayableCard card) {
             //LobotomyPlugin.Log.LogInfo($"Ordeal: {card.HasTrait(LobotomyCardManager.Ordeal)} Valid: {ValidCards.Count == 0} || {ValidCards.Contains(card.Info.name)}");
-            return card.HasTrait(LobotomyCardManager.Ordeal) && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
+            return card.HasTrait(LobotomyCardManager.Ordeal) && !card.IsCopycatImpostor() && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
         }
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns></returns>
         public override IEnumerator PreCleanUp() {
-            if (TotalExcessDamageDealt > 0) {
+            if (TotalExcessDamageDealt > 0 && TurnManager.Instance.PlayerIsWinner()) {
                 ViewManager.Instance.SwitchToView(View.Default);
                 RunState.Run.currency += TotalExcessDamageDealt;
                 yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(TotalExcessDamageDealt, this);
@@ -157,11 +158,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public virtual void TryAddOrdealRandomBuff(PlayableCard card) {
-            if (UnityEngine.Random.value <= Opponent.Difficulty * 0.02f) {
-                if (UnityEngine.Random.value <= 0.2f + Opponent.Difficulty * 0.01f) {
+            int rand = base.GetRandomSeed();
+            if (SeededRandom.Value(rand++) <= Opponent.Difficulty * 0.02f) {
+                if (SeededRandom.Value(rand) <= 0.2f + Opponent.Difficulty * 0.01f) {
                     // don't give power to cards that should not gain power, eg cards with 0 atk or giants that target multi
                     // instead give 2 hp
-                    if (card.HasAnyOfTraits(Trait.Terrain, Trait.Giant)) {
+                    if (card.Attack == 0 || card.HasAnyOfTraits(Trait.Terrain, Trait.Giant, Trait.Structure)) {
                         card.AddTemporaryMod(new(0, 2) { singletonId = "OrdealRandomBuff" });
                     }
                     else {
