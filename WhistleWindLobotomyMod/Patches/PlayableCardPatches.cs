@@ -3,6 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -10,6 +11,22 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod.Patches {
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches {
+        [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
+        private static bool SweepersHaveDifferentAttackColour(PlayableCard __instance) {
+            if (__instance.Info.appearanceBehaviour.Contains(OrdealBackgroundIndigo.appearance) || __instance.Info.appearanceBehaviour.Contains(OrdealBackgroundIndigoTerrain.appearance)) {
+                __instance.UpdateStatsText();
+                __instance.RenderInfo.attackTextColor = ((__instance.GetPassiveAttackBuffs() + __instance.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.limeGreen : Color.black);
+                __instance.RenderInfo.temporaryMods = __instance.temporaryMods;
+                __instance.RenderCard();
+                if (__instance.OnBoard) {
+                    __instance.UpdateFaceUpOnBoardEffects();
+                }
+                return false;
+            }
+            return true;
+        }
+
+
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
         private static void CannotSacrificeApostles(PlayableCard __instance, ref bool __result) {
             if (__instance.HasTrait(Apostle))
@@ -28,7 +45,7 @@ namespace WhistleWindLobotomyMod.Patches {
                 if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                     return true;
 
-                bool friendlySaviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
+                bool friendlySaviour = BoardManager.Instance.GetCards(!__instance.OpponentCard).Exists(x => x.HasAbility(TrueSaviour.ability));
 
                 // Downed Apostles die normally without an ally WhiteNight
                 // Active Apostles always perform the special death
