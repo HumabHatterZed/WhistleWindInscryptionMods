@@ -11,6 +11,21 @@ namespace WhistleWind.AbnormalSigils.Core {
     [HarmonyPatch]
     internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
+        [HarmonyPrefix, HarmonyPatch(typeof(RenderStatsLayer), nameof(RenderStatsLayer.DisableEmission))]
+        private static bool AlwaysEmitForStatusEffects(RenderStatsLayer __instance) {
+            if (__instance.PlayableCard != null && __instance.PlayableCard.HasStatusEffect()) {
+                return false;
+            }
+            return true;
+        }
+        [HarmonyPrefix, HarmonyPatch(typeof(CardRenderCamera), nameof(CardRenderCamera.QueueStatsLayerForRender))]
+        private static bool AlwaysEmitForStatusEffects(PlayableCard playableCard, ref bool updateEmission) {
+            if (playableCard != null && playableCard.HasStatusEffect()) {
+                updateEmission = true;
+            }
+            return true;
+        }
+
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookController), nameof(RuleBookController.OpenToAbilityPage))]
         private static bool FixOpenToStatusEffectsPage(ref string abilityName) {
             if (int.TryParse(abilityName, out int ability) && StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)ability) != null) {
