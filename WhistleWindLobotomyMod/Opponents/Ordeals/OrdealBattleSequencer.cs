@@ -150,7 +150,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns></returns>
         public override IEnumerator PreCleanUp() {
-            if (TotalExcessDamageDealt > 0 && TurnManager.Instance.PlayerIsWinner()) {
+            if (Opponent.GiveCurrencyOnDefeat && TotalExcessDamageDealt > 0 && TurnManager.Instance.PlayerIsWinner()) {
                 ViewManager.Instance.SwitchToView(View.Default);
                 RunState.Run.currency += TotalExcessDamageDealt;
                 yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(TotalExcessDamageDealt, this);
