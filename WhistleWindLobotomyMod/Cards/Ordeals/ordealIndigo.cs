@@ -36,6 +36,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
                 .SetIceCube(info)
                 .Build();
 
@@ -47,6 +48,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
                 .SetIceCube(info)
                 .Build();
 
@@ -58,6 +60,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
                 .SetIceCube(info)
                 .Build();
 
@@ -69,6 +72,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
                 .SetIceCube(info)
                 .Build();
 
@@ -80,6 +84,7 @@ namespace WhistleWindLobotomyMod {
             //    .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
             //    .AddTribes(TribeAnthropoid)
             //    .SetOrdealCard(OrdealType.Indigo)
+            //    .AddTraits(PriorityMovement)
             //    .SetIceCube(info)
             //    .Build();
 
@@ -91,6 +96,7 @@ namespace WhistleWindLobotomyMod {
             //    .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
             //    .AddTribes(TribeAnthropoid)
             //    .SetOrdealCard(OrdealType.Indigo)
+            //    .AddTraits(PriorityMovement)
             //    .SetIceCube(info)
             //    .Build();
 
@@ -102,6 +108,7 @@ namespace WhistleWindLobotomyMod {
             //    .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
             //    .AddTribes(TribeAnthropoid)
             //    .SetOrdealCard(OrdealType.Indigo)
+            //    .AddTraits(PriorityMovement)
             //    .SetIceCube(info)
             //    .Build();
         }
