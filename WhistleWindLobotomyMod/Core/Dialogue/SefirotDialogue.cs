@@ -604,10 +604,10 @@ namespace WhistleWindLobotomyMod {
             });
             CreateDialogueEvents("HodOrdeal", new()
             {
-                NewLine("How did they get outside?", Emotion.Neutral) },
+                NewLine("How did they get outside?", Emotion.Curious) },
                 new() {
                     new() { NewLine("Did they follow us?", Emotion.Curious) },
-                    new() { NewLine("Hurry, before more come.", Emotion.Neutral) }
+                    new() { NewLine("Hurry, before more come.", Emotion.Anger) }
             });
             #endregion
 
