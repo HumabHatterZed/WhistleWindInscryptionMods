@@ -134,7 +134,7 @@ namespace WhistleWind.Core.Helpers {
         }
         public static IEnumerator FlipFaceDown(this PlayableCard card, bool setFaceDown, float wait = 0.3f) {
             // if set down and we're down OR set up and we're up
-            if ((setFaceDown && card.FaceDown) || (!setFaceDown && !card.FaceDown))
+            if (setFaceDown == card.FaceDown)
                 yield break;
 
             if (setFaceDown)
