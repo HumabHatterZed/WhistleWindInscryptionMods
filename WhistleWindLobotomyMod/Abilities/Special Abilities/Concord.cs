@@ -14,13 +14,14 @@ namespace WhistleWindLobotomyMod {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Concord";
-        public const string rDesc = "When Yang is adjacent to Yin, invert the scales.";
+        public const string rDesc = "When Yang is adjacent to Yin, kill all cards on the board then invert the scales.";
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Info.name == Cards.yin;
         public override IEnumerator OnResolveOnBoard() {
-            PlayableCard card = base.PlayableCard.Slot.GetAdjacentCards().First(x => x.Info.name == Cards.yin);
-            if (card != null) {
-                yield return DragonSequence(card);
+            List<PlayableCard> cards = base.PlayableCard.Slot.GetAdjacentCards();
+            PlayableCard yin = cards.Find(x => x.Info.name == Cards.yin);
+            if (yin != null) {
+                yield return DragonSequence(yin);
             }
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
