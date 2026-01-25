@@ -36,6 +36,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             switch (BattleSequencer.ActiveEggEffect) {
                 case ActiveEggEffect.BigEyes:
                     yield return BreakEggSequence("DefeatEyes", "ApocalypseBossBrokenEggBig");
+                    foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Concat(PlayerHand.Instance.CardsInHand)) {
+                        yield return card.RemoveStatusEffect<Enchanted>();
+                    }
                     break;
                 case ActiveEggEffect.SmallBeak:
                     yield return BreakEggSequence("DefeatBeak", "ApocalypseBossBrokenEggSmall");
