@@ -11,8 +11,8 @@ namespace WhistleWindLobotomyMod {
             Cards.oldLady
         };
         public static readonly List<string> lonelyFriends = new() {
-            Cards.scorchedGirl,
             Cards.laetitia,
+            Cards.scorchedGirl,
             Cards.childOfTheGalaxy
         };
         public static readonly List<string> bloodMechs = new() {
@@ -32,12 +32,12 @@ namespace WhistleWindLobotomyMod {
         };
         public static readonly List<string> apocrypha = new() {
             Cards.fragmentOfUniverse,
-            Cards.skinProphecy,
+            Cards.fleshIdol,
             LobotomyConfigManager.NoRuina ? Cards.mhz176 : Cards.priceOfSilence
         };
         public static readonly List<string> keter = new() {
-            Cards.burrowingHeaven,
             Cards.heartOfAspiration,
+            Cards.burrowingHeaven,
             Cards.snowQueen
         };
         public static readonly List<string> deathLovers = new() {
