@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     public class OrdealIndigoNoon : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int num = 0;
-            int numTurns = 5 + encounterData.Difficulty / 7;
+            int numTurns = 3 + encounterData.Difficulty / 6;
             int seed = base.GetRandomSeed();
 
             for (int i = 0; i < numTurns; i++) {
