@@ -57,14 +57,14 @@ namespace WhistleWind.AbnormalSigils {
             bool hasFecundity = slot.Card.HasAbility(Ability.DrawCopy);
             CardInfo copy = slot.Card.Info.Clone() as CardInfo;
             PlayableCardStatus status = new(slot.Card.Status);
-            List<CardModificationInfo> tempMods = slot.Card.TemporaryMods;
-            CardModificationInfo recallMod = new() {
-                bloodCostAdjustment = -999,
-                bonesCostAdjustment = GetBonesCost(slot.Card) - slot.Card.BonesCost(),
-                energyCostAdjustment = -999,
-                nullifyGemsCost = true,
-                singletonId = "wstl:Recalled"
-            };
+            List<CardModificationInfo> tempMods = new(slot.Card.TemporaryMods);
+            CardModificationInfo recallMod = tempMods.Find(x => x.singletonId == "wstl:Recalled") ?? new();
+            recallMod.bloodCostAdjustment = -999;
+            recallMod.bonesCostAdjustment = GetBonesCost(slot.Card) - slot.Card.BonesCost();
+            recallMod.energyCostAdjustment = -999;
+            recallMod.nullifyGemsCost = true;
+            recallMod.singletonId = "wstl:Recalled";
+
             if (hasFecundity && SaveFile.IsAscension) {
                 recallMod.AddNegateAbilities(Ability.DrawCopy);
             }
