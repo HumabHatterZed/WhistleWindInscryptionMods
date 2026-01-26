@@ -50,7 +50,7 @@ namespace WhistleWind.AbnormalSigils {
             if (!this.Card.OnBoard || target.OpponentCard != this.Card.OpponentCard || target == base.Card)
                 return 0;
 
-            return base.Card.GetAbilityStacks(Ability);
+            return 1;
         }
     }
 }

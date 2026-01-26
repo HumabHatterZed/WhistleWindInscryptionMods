@@ -31,8 +31,8 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.5f);
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.5f);
         public int GetPassiveAttackBuff(PlayableCard target) {
-            if (this.Card.OnBoard && target.OpponentCard != base.Card.OpponentCard)
-                return target.LacksAbility(Ability.MadeOfStone) ? -base.Card.GetAbilityStacks(Ability) : 0;
+            if (this.Card.OnBoard && target.OpponentCard != base.Card.OpponentCard && target.LacksAbility(Ability.MadeOfStone))
+                return -1;
 
             return 0;
         }

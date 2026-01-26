@@ -65,6 +65,7 @@
 ### 🩹 Bug fixes
 - Fixed CardMetaCategories not working
 - Fixed status effects not rendering above merged sigils
+- Fixed Team Leader and Idol applying more Power gain/loss than intended when stacked with themselves
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
 - Fixed Witness not working
