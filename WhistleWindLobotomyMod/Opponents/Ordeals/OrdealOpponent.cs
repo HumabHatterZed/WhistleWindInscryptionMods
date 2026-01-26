@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod.Opponents {
         public bool hasTotem;
         private Color totemGlowColour;
 
-        public override Color InteractablesGlowColor => OrdealUtils.GetOrdealColor(BattleSequencer.ordealType);
+        // Override Sweeper totem light so they light up correctly
+        public override Color InteractablesGlowColor => BattleSequencer.ordealType == OrdealType.Indigo ? GameColors.Instance.glowRed : OrdealUtils.GetOrdealColor(BattleSequencer.ordealType);
 
         public bool IsBoss() => BattleSequencer.ordealTier == 3 || BattleSequencer.ordealType == OrdealType.White;
 
@@ -72,11 +73,16 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
-            if (BattleSequencer.ordealType == OrdealType.White) {
-                this.NumLives = 4; // add this here since we can't do it in the sequencer
+            // change NumLives here since we can't do it in the sequencer
+            if (RunState.CurrentRegionTier == 3) {
+                this.NumLives = 3;
+                if (BattleSequencer.ordealType == OrdealType.White) {
+                    this.NumLives = 4;
+                }
                 base.SpawnScenery("CityTableEffects");
                 yield return new WaitForSeconds(2f);
             }
+
             yield return base.IntroSequence(encounter);
             AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
             if (IsBoss()) {
@@ -260,23 +266,24 @@ namespace WhistleWindLobotomyMod.Opponents {
                     break;
             }
     ;
-
+            Color ordealCol = OrdealUtils.GetOrdealColor(BattleSequencer.ordealType);
             mainDefaultColour.a = 0.5f;
             queueDefaultColour.a = 0.5f;
             Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(
-                totemGlowColour,
+                ordealCol,
                 cardLightColour,
                 totemGlowColour,
                 mainDefaultColour,
                 mainHighlightColour,
-                totemGlowColour,
+                ordealCol,
                 queueDefaultColour,
                 queueHighlightColour,
-                totemGlowColour);
+                ordealCol);
         }
         public override void InitialiseOpponent(EncounterData encounter) {
             base.InitialiseOpponent(encounter);
             hasTotem = encounter.opponentTotem != null;
+            
             totemGlowColour = InteractablesGlowColor;
             OrdealBannerManager.Instance.UpdateBanner(BattleSequencer.ordealType, BattleSequencer.ordealTier);
             OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
