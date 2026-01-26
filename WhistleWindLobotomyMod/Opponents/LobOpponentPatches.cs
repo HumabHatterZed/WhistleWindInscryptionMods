@@ -93,12 +93,15 @@ namespace WhistleWindLobotomyMod.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
         private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result) {
-            if (RunState.CurrentRegionTier == RegionProgression.Instance.regions.Count - 1) {
+            if (RunState.CurrentRegionTier == 3) {
                 if (LobotomyConfigManager.ChallengeIsActive(FinalApocalypse.Id)) {
                     __result = LobOpponentUtils.apocalypseRegion;
                 }
                 else if (LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id)) {
                     __result = LobOpponentUtils.whiteOrdealRegion;
+                }
+                else if (LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
+                    __result = LobOpponentUtils.indigoOrdealRegion;
                 }
             }
         }

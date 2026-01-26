@@ -52,6 +52,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             apocalypseRegion = ApocalypseBossUtils.CreateRegion();
             whiteOrdealRegion = OrdealUtils.CreateWhiteOrdealRegion();
+            indigoOrdealRegion = OrdealUtils.CreateSweeperRegion(whiteOrdealRegion);
         }
 
         public static RegionData apocalypseRegion;
@@ -59,6 +60,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         //public static RegionData adultRegion;
         //public static RegionData jesterRegion;
         public static RegionData whiteOrdealRegion;
+        public static RegionData indigoOrdealRegion;
 
         public static Opponent.Type ApocalypseBossID { get; private set; }
         //public static Opponent.Type SaviourBossID { get; private set; }

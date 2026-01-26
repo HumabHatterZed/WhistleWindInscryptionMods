@@ -174,6 +174,50 @@ namespace WhistleWindLobotomyMod.Opponents {
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_eye_move"));
         }
 
+        internal static RegionData CreateSweeperRegion(RegionData whiteOrdeal) {
+            RegionData retval = RegionManager.New("wstl_backstreets", 3, false)
+                .SetBoardColor(new(0f, 0.2f, 0.4f, 1f))
+                .SetCardsColor(new(0f, 0.2f, 0.4f, 1f))
+                .SetFogEnabled(true).SetFogAlpha(1f)
+                .SetMapAlbedo(TextureLoader.LoadTextureFromFile("mapScroll_Albedo_TrueDarkness.png", LobotomyPlugin.ModAssembly));
+
+            retval.dominantTribes = whiteOrdeal.dominantTribes;
+
+            retval.fogProfile = ScriptableObject.CreateInstance<VolumetricFogAndMist.VolumetricFogProfile>();
+            retval.fogProfile.color = new(0f, 0.2f, 0.25f, 1f);
+            retval.fogProfile.lightColor = new(0f, 0.2f, 0.25f, 1f);
+            retval.fogProfile.specularColor = new(0f, 0.2f, 0.25f, 1f);
+
+            retval.fillerScenery = whiteOrdeal.fillerScenery;
+            retval.predefinedNodes = ScriptableObject.CreateInstance<PredefinedNodes>();
+            retval.predefinedNodes.nodeRows = new(whiteOrdeal.predefinedNodes.nodeRows);
+            retval.predefinedNodes.nodeRows[2] = new() {
+                new OrdealBossBattleNodeData {
+                    bossType = OpponentID,
+                    specialBattleId = IndigoMidnight,
+                    ordealType = OrdealType.Indigo,
+                    tier = 3,
+                    difficulty = 20,
+                    position = new(0.5f, 0.86f)
+                }
+            };
+
+            DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, retval, new() {
+                "You arrive at an unfamiliar city. It looks like you took a wrong turn somewhere.",
+                "Distant skyscrapers crowd out the moon with their artificial light. The air is still, but not for long.",
+                "Countless eyes, hooks and blades gleam red in the darkness as creatures emerge from every crack and corner of the alleys around you.",
+                "You quickly find yourself in the middle of an ocean of unstoppable death.",
+                "You cannot stop the waves from crashing into you, but you can still weather the storm.",
+                "Night has fallen in [c:bR]the Backstreets[c:]. And the day may never come."
+            },
+            new() {
+                new() {
+                    "Here they come again." }
+            });
+
+            return retval;
+        }
+
         internal static RegionData CreateWhiteOrdealRegion() {
             RegionData trapper = RegionProgression.Instance.regions[2];
             RegionData angler = RegionProgression.Instance.regions[1];

@@ -25,7 +25,7 @@
 - Movement order of opponent cards is now randomised each turn
 - Hourglass item can no longer be used unless Long Arms is defeated
 - Sin can no longer be removed by Martyr and similar effects
-- Sin is now removed from all cards when Long Arms phase is defeated
+- Sin and Enchanted are now removed from all cards when the appropriate phase is defeated
 - Enchanted is no longer afflicted onto cards with 0 Power
 - Time Machine can no longer be activated unless Long Arms phase is defeated
 - Time Machine now has a different effect when used during the battle
@@ -120,6 +120,7 @@
 - 'Random' starter deck now unlocks at challenge level 12
 - 'Keter' starter deck now contains Heart of Aspiration instead of Bloodbath
 - 'Blood Machine' starter deck now contains Standard Training Dummy instead of We Can Change Anything
+- 'Apocrypha' starter deck now contains Flesh Idol instead of Skin Prophecy
 - Removed dynamic rulebook descriptions for certain sigils
 ### Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
