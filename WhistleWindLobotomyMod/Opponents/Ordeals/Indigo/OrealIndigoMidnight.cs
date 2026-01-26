@@ -1,6 +1,10 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -10,75 +14,160 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// Cards required: 5
     /// Valid regions: 0, 1, 2
     /// </summary>
-    public class OrdealIndigoMidnight : OrdealBattleSequencer {
+    public class OrdealIndigoMidnight : OrdealIndigoNoon {
+        private int numWavesLeft = 3;
+        private int numTurnsLeft = 5;
+        private bool newWave = true;
+
+        public override IEnumerator PlayerUpkeep() {
+            numTurnsLeft--;
+            if (numTurnsLeft == 0) {
+                Opponent.NumLives--;
+                yield return OpponentLifeLost();
+            }
+            yield return UpdateCounterIcon(newWave);
+        }
+
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
+            if (!CardIsValidOrdeal(card)) {
+                if (card.OpponentCard) {
+                    yield return DialogueHelper.PlayDialogueEvent("OrdealNonOrdealKilled");
+                }
+                yield break;
+            }
+            amountKilledThisTurn++;
+            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
+
+            LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] OnOtherCardDie: dead card:[{card.Info.displayedName}] total killed:[{amountKilledThisTurn}]");
+            LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] Cards left: {OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn}");
+        }
+
+        public override IEnumerator OpponentLifeLost() {
+            LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] OpponentLifeLost: numLives: {Opponent.NumLives}");
+
+            if (Opponent.NumLives == 0) {
+                yield return HelperMethods.ChangeCurrentView(View.Default);
+                OrdealCounterManager.Instance.EnableConsole(false);
+                yield return new WaitForSeconds(0.25f);
+                OrdealCounterManager.Instance.SetShown(false);
+                yield return new WaitForSeconds(1.5f);
+                yield return Opponent.DefeatedFinalBossSequence();
+                yield break;
+            }
+
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
+            yield return Opponent.ClearBoard();
+
+            defeated = false;
+            numTurnsLeft = 5;
+            numWavesLeft--;
+
+            MinNumCardsRequired = ConstructWaveBlueprint();
+            yield return Opponent.QueueNewCards();
+
+            yield return new WaitForSeconds(0.75f);
+            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter);
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.3f);
+            OrdealCounterManager.Instance.SetTextColour(Color.black);
+            OrdealCounterManager.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(0.3f);
+        }
+
+        private IEnumerator UpdateCounterIcon(bool updateNumWaves) {
+            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
+            if (updateNumWaves) {
+                newWave = false;
+                OrdealCounterManager.Instance.EnableConsole(false);
+                yield return new WaitForSeconds(0.8f);
+                OrdealCounterManager.Instance.UpdateConsole(ordealTier, numWavesLeft, "waves left");
+                OrdealCounterManager.Instance.EnableConsole(true);
+                yield return new WaitForSeconds(2f);
+            }
+
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.8f);
+            OrdealCounterManager.Instance.UpdateConsole(ordealTier, numTurnsLeft, "turns left");
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(1.5f);
+
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.8f);
+            OrdealCounterManager.Instance.UpdateConsole(ordealTier, OrdealCounterManager.Instance.amountLeft);
+            OrdealCounterManager.Instance.EnableConsole(true);
+
+            yield return new WaitForSeconds(0.75f);
+        }
+
+        private int ConstructWaveBlueprint() {
+            int numTurns = 5 + Opponent.Difficulty / 6;
+            int numCards = 6 + RunState.Run.DifficultyModifier;
+            int seed = base.GetRandomSeed();
+            List<List<CardInfo>> newPlan = new();
+
+            for (int i = 0; i < numTurns; i++) {
+                List<CardInfo> turn = new() {
+                    CardLoader.GetCardByName(GetRandomSweeper(seed++, 7))
+                };
+
+                // extra sweeper every third turn
+                if (i % 3 == 0) {
+                    // UPDATE RANGE ONCE ALL SWEEPERS ARE MADE
+                    turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                    if (i % 6 == 0) {
+                        // UPDATE RANGE ONCE ALL SWEEPERS ARE MADE
+                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                    }
+                }
+
+                if (i > 0) {
+                    if (i % 7 == 0) {
+                        // UPDATE RANGE ONCE ALL SWEEPERS ARE MADE
+                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                    }
+
+                    if (i % 4 == 0) {
+                        newPlan.Add(new());
+                    }
+                }
+
+                newPlan.Add(turn);
+            }
+
+            EncounterBluePrint = newPlan;
+            Opponent.ReplaceAndAppendTurnPlan(newPlan);
+            return numCards;
+        }
+
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            int num = 0;
-            int numTurns = 5 + encounterData.Difficulty / 7;
+            int numTurns = 5 + baseDifficulty / 6;
+            int numCards = 6 + RunState.Run.DifficultyModifier;
             int seed = base.GetRandomSeed();
 
             for (int i = 0; i < numTurns; i++) {
-                List<EncounterBlueprintData.CardBlueprint> turn = new();
+                List<EncounterBlueprintData.CardBlueprint> turn = new() {
+                    EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7))
+                };
 
-                switch (SeededRandom.Range(0, 4, seed++)) {
-                    case 0:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperA));
-                        break;
-                    case 1:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperB));
-                        break;
-                    case 2:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
-                        break;
-                    case 3:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
-                        break;
-                    case 4:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperE));
-                        break;
-                    case 5:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperF));
-                        break;
-                    default:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperG));
-                        break;
-                }
-                num++;
-
-                if (i % 3 == 0) {
-                    switch (SeededRandom.Range(0, 4, seed++)) {
-                        case 0:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperA));
-                            break;
-                        case 1:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperB));
-                            break;
-                        case 2:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
-                            break;
-                        case 3:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
-                            break;
-                        case 4:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperE));
-                            break;
-                        case 5:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperF));
-                            break;
-                        default:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperG));
-                            break;
+                if (i > 0) {
+                    // extra sweeper every third turn
+                    if (i % 3 == 0) {
+                        turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7)));
                     }
-                    num++;
-                }
-                else if (i % 2 == 0 && (RunState.Run.DifficultyModifier < 2 || encounterData.Blueprint.turns.Count < 6 - RunState.Run.DifficultyModifier)) {
-                    // create empty turns before turns with cards
-                    // if the difficulty modifier is not 1, stop adding buffer turns after X num of turns have been added
-                    encounterData.Blueprint.AddTurn();
+
+                    if (i % 7 == 0) {
+                        turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7)));
+                    }
+
+                    if (i % 2 == 0) {
+                        encounterData.Blueprint.AddTurn();
+                    }
                 }
 
                 encounterData.Blueprint.AddTurn(turn);
             }
-            return num;
+            return numCards;
         }
     }
 }
