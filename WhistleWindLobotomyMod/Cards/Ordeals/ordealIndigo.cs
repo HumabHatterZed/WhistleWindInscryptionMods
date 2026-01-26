@@ -76,41 +76,41 @@ namespace WhistleWindLobotomyMod {
                 .SetIceCube(info)
                 .Build();
 
-            //CardManager.New(LobotomyPlugin.pluginPrefix, sweeperE, cardName,
-            //    attack: 1, health: 2)
-            //    .SetBloodCost(2).SetEnergyCost(2)
-            //    .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperE")
-            //    .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, OneSided.ability)
-            //    .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-            //    .AddTribes(TribeAnthropoid)
-            //    .SetOrdealCard(OrdealType.Indigo)
-            //    .AddTraits(PriorityMovement)
-            //    .SetIceCube(info)
-            //    .Build();
+            CardManager.New(LobotomyPlugin.pluginPrefix, sweeperE, cardName,
+                attack: 1, health: 2)
+                .SetBloodCost(2).SetEnergyCost(2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperE")
+                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, OneSided.ability)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
+                .SetIceCube(info)
+                .Build();
 
-            //CardManager.New(LobotomyPlugin.pluginPrefix, sweeperF, cardName,
-            //    attack: 1, health: 2)
-            //    .SetBloodCost(2).SetEnergyCost(2)
-            //    .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperF")
-            //    .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.Sentry)
-            //    .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-            //    .AddTribes(TribeAnthropoid)
-            //    .SetOrdealCard(OrdealType.Indigo)
-            //    .AddTraits(PriorityMovement)
-            //    .SetIceCube(info)
-            //    .Build();
+            CardManager.New(LobotomyPlugin.pluginPrefix, sweeperF, cardName,
+                attack: 1, health: 2)
+                .SetBloodCost(2).SetEnergyCost(2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperF")
+                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.Sentry)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
+                .SetIceCube(info)
+                .Build();
 
-            //CardManager.New(LobotomyPlugin.pluginPrefix, sweeperG, cardName,
-            //    attack: 2, health: 1)
-            //    .SetBloodCost(2).SetEnergyCost(2)
-            //    .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperG")
-            //    .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, GreedyHealing.ability)
-            //    .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-            //    .AddTribes(TribeAnthropoid)
-            //    .SetOrdealCard(OrdealType.Indigo)
-            //    .AddTraits(PriorityMovement)
-            //    .SetIceCube(info)
-            //    .Build();
+            CardManager.New(LobotomyPlugin.pluginPrefix, sweeperG, cardName,
+                attack: 2, health: 1)
+                .SetBloodCost(2).SetEnergyCost(2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperG")
+                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, GreedyHealing.ability)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddTribes(TribeAnthropoid)
+                .SetOrdealCard(OrdealType.Indigo)
+                .AddTraits(PriorityMovement)
+                .SetIceCube(info)
+                .Build();
         }
     }
 }
