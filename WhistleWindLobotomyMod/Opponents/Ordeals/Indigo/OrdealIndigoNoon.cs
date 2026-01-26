@@ -10,45 +10,30 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// Valid regions: 0, 1, 2
     /// </summary>
     public class OrdealIndigoNoon : OrdealBattleSequencer {
+        protected string GetRandomSweeper(int randomSeed, int rangeMaxExclusive = 4) {
+            return SeededRandom.Range(0, rangeMaxExclusive, randomSeed) switch {
+                0 => Cards.sweeperA,
+                1 => Cards.sweeperB,
+                2 => Cards.sweeperC,
+                3 => Cards.sweeperD,
+                4 => Cards.sweeperE,
+                5 => Cards.sweeperF,
+                _ => Cards.sweeperG
+            };
+        }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int num = 0;
             int numTurns = 3 + encounterData.Difficulty / 6;
             int seed = base.GetRandomSeed();
 
             for (int i = 0; i < numTurns; i++) {
-                List<EncounterBlueprintData.CardBlueprint> turn = new();
-
-                switch (SeededRandom.Range(0, 4, seed++)) {
-                    case 0:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperA));
-                        break;
-                    case 1:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperB));
-                        break;
-                    case 2:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
-                        break;
-                    default:
-                        turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
-                        break;
-                }
+                List<EncounterBlueprintData.CardBlueprint> turn = new() {
+                    EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++))
+                };
                 num++;
 
                 if (i % 3 == 0) {
-                    switch (SeededRandom.Range(0, 4, seed++)) {
-                        case 0:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperA));
-                            break;
-                        case 1:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperB));
-                            break;
-                        case 2:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperC));
-                            break;
-                        default:
-                            turn.Add(EncounterManager.NewCardBlueprint(Cards.sweeperD));
-                            break;
-                    }
+                    turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++)));
                     num++;
                 }
                 else if (i % 2 == 0 && (RunState.Run.DifficultyModifier < 2 || encounterData.Blueprint.turns.Count < 6 - RunState.Run.DifficultyModifier)) {
