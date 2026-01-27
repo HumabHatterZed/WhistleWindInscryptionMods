@@ -77,9 +77,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             amountKilledThisTurn = 0; // reset here so we can modify it in MoveOpponentCards (see Amber Dusk for ex)
             if (!defeated) {
                 if (OrdealCounterManager.Instance.amountLeft == 0) {
-                    defeated = true;
-                    OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
-                    OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
+                    DefeatOrdealAndDisplayOutroBanner();
                 }
                 else if (ShouldExtendBattle()) {
                     LobotomyPlugin.Log.LogDebug("[OrdealBattle] OpponentTurnEnd: Extend turn plan");
@@ -119,7 +117,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// Only valid Ordeal cards will trigger 'this.OnOtherCardDie'.
         /// By default, any card with the Ordeal trait is valid.
         /// </summary>
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => true;
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => fromCombat;
 
         /// <remarks>
         /// By default, only triggers when an opponent-owned Ordeal card dies.
@@ -132,17 +130,20 @@ namespace WhistleWindLobotomyMod.Opponents {
                 yield break;
             }
             amountKilledThisTurn++;
-            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
 
             // Ordeal has been defeated
             if (!defeated && OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn < 1) {
-                defeated = true;
-                OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
-                OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
+                DefeatOrdealAndDisplayOutroBanner();
             }
 
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnOtherCardDie: dead card:[{card.Info.displayedName}] total killed:[{amountKilledThisTurn}]");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnOtherCardDie: dead card:[{card.Info.displayedName}] killer: {killer?.Info.name} total killed:[{amountKilledThisTurn}]");
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn}");
+        }
+
+        public virtual void DefeatOrdealAndDisplayOutroBanner() {
+            defeated = true;
+            OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
+            OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
         }
 
         /// <summary>
