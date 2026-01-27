@@ -75,6 +75,14 @@ namespace WhistleWindLobotomyMod {
             }
         }
 
+        public IEnumerator FlickerConsole(int ordealTier, int numValue, string text = REMAINING_TEXT, float preWait = 0.8f, float postWait = 0.8f) {
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.5f);
+            OrdealCounterManager.Instance.UpdateConsole(ordealTier, numValue, text);
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(1f);
+        }
+
         public IEnumerator UpdateAmountLeft(int amountKilled, float waitTime = 0.125f) {
             if (this.amountLeft == 0)
                 yield break;
