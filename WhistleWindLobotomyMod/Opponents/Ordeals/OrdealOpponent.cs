@@ -80,6 +80,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     this.NumLives = 4;
                 }
                 base.SpawnScenery("CityTableEffects");
+                AudioController.Instance.PlaySound2D("giant_head_rising", MixerGroup.TableObjectsSFX, 0.2f);
                 yield return new WaitForSeconds(2f);
             }
 
