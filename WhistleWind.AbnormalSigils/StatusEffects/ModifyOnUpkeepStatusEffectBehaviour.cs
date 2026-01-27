@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         public IEnumerator OnUpkeepInHand(bool playerUpkeep) => OnModifyOnUpkeep();
 
         public virtual bool CanModifyOnUpkeep(bool playerUpkeep) {
-            return base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained;
+            return !base.PlayableCard.Dead && base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained;
         }
         public virtual IEnumerator OnModifyOnUpkeep() {
             //Debug.Log($"Modify: {EffectPotency} | {EffectPotency + PotencyModification}");
