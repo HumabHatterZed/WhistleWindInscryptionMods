@@ -19,7 +19,8 @@ namespace WhistleWind.AbnormalSigils.Patches {
             if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Ethereal.ability)) {
                 return false;
             }
-            if (opposingSlot.Card != null && opposingSlot.Card.HasAnyOfAbilities(Ethereal.ability, Shadowed.ability)) {
+            PlayableCard card = BoardManager.Instance.GetCardQueuedForSlot(opposingSlot);
+            if (card != null && card.HasAnyOfAbilities(Ethereal.ability, Shadowed.ability)) {
                 return false;
             }
             return true;
