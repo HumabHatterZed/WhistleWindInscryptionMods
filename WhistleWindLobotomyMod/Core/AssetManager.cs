@@ -44,10 +44,6 @@ namespace WhistleWindLobotomyMod.Core {
                 asset = TextureLoader.LoadTextureFromFile("sigilDelusion3.png", LobotomyPlugin.ModAssembly),
                 path = "Art/Cards/AbilityIcons/sigilDelusion_3"
             });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadTextureFromFile("sigilDelusion4.png", LobotomyPlugin.ModAssembly),
-                path = "Art/Cards/AbilityIcons/sigilDelusion_4"
-            });
 
             assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets");
             assetBundle = AssetBundle.LoadFromStream(assetBundleStream);
