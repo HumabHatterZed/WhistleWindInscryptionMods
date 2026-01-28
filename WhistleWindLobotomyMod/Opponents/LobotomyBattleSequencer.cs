@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public virtual int MaxBonesPerAttack { get; } = 2;
         public virtual int MaxBonesPerTurn { get; } = 8;
-        public virtual int MaxBonesOwned { get; } = 20;
+        public virtual int MaxBonesOwned { get; } = 15;
 
         public virtual IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
