@@ -12,6 +12,10 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         public const string ADDTORULEBOOK = "wstl_ADDTORULEBOOK";
         public const string FORCEMODULAR = "wstl_FORCEMODULAR";
 
+        public static bool CanBeInstaKilled(this PlayableCard card) {
+            return card.LacksAbility(Ability.MadeOfStone) && card.LacksTrait(ImmuneToInstaDeath);
+        }
+
         public static CardInfo SetUniqueCopycat(this CardInfo info, string id) => info.SetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID, id);
 
         public static CardInfo SetGiftGiverId(this CardInfo info, string id) => info.SetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY, id);
