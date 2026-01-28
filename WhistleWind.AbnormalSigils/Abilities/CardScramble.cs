@@ -122,36 +122,86 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(transitionDuration);
         }
 
-        public static IEnumerator RandomiseCardsInSlots(List<CardSlot> slots, int randomSeed, float waitAfter = 0.5f, Func<CardSlot, int> sortPredicate = null) {
+        public static bool OpposingCardCanKill(PlayableCard current, PlayableCard opposing) {
+            if (opposing == null) return false;
+
+            bool weakToInstaDeath = current.CanBeInstaKilled();
+            // opposing can attack (not counting multistrike sigils)
+            if (opposing.Attack > 0) {
+                if (current.HasShield() && current.LacksAbility(Piercing.ability)) {
+                    return false;
+                }
+
+                // if we can regular die
+                if (opposing.Attack >= current.Health) {
+                    return true;
+                }
+
+                if (weakToInstaDeath && opposing.HasAbility(Ability.Deathtouch)) {
+                    return true;
+                }
+            }
+            
+            // if we can attack (not counting multistrike sigils)
+            if (current.Attack > 0) {
+                // if we will trigger Punisher
+                if (weakToInstaDeath && opposing.HasAbility(Punisher.ability) && current.Attack >= opposing.Health) {
+                    return true;
+                }
+
+                // if reflector will murk us
+                if (opposing.HasAbility(Reflector.ability) && current.Attack >= current.Health) {
+                    return true;
+                }
+
+                int sharpStacks = opposing.GetAbilityStacks(Ability.Sharp) + opposing.GetAbilityStacks(Bloodletter.ability);
+                if (sharpStacks > 0) {
+                    return current.Health <= sharpStacks;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Randomly moves the cards in the given slots around on their owner's side of the board.
+        /// </summary>
+        /// <param name="slots">Slots whose cards need to be randomised</param>
+        /// <param name="randomSeed">Random seed to base new slots on.</param>
+        /// <param name="opponent">If true, be more discerning where cards are placed.</param>
+        public static IEnumerator RandomiseCardsInSlots(List<CardSlot> slots, int randomSeed, bool opponent, float waitAfter = 0.5f, Func<CardSlot, int> sortPredicate = null) {
             //AbnormalPlugin.Log.LogDebug("[CardScramble.RandomiseCardsInSlots] Start");
             if (slots.Count == 0)
                 yield break;
 
+            List<CardSlot> openSlots = BoardManager.Instance.GetOpenSlots(!opponent);
             if (sortPredicate != null)
                 slots.Sort((CardSlot a, CardSlot b) => sortPredicate(b) - sortPredicate(a));
 
-            List<PlayableCard> cards = UnassignCardsFromSlots(slots);
-            List<CardSlot> openSlots = BoardManager.Instance.GetOpenSlots(!cards[0].OpponentCard);
             //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
+            List<PlayableCard> cards = UnassignCardsFromSlots(slots);
             foreach (PlayableCard card in cards) {
-                if (openSlots.Count == 0)
-                    break;
+                CardSlot slot;
+                if (openSlots.Count > 0) {
+                    List<CardSlot> bestSlots = new(openSlots);
 
-                CardSlot slot = openSlots.GetSeededRandom(randomSeed++);
-                if (openSlots.Count == 1 && openSlots[0] == card.Slot) {
-                    // assign back to its original slot
-                    slot.Card = card;
-                    card.Slot = slot;
-                    break;
+                    bestSlots.RemoveAll(x => OpposingCardCanKill(card, x.Card));
+
+                    if (bestSlots.Count > 0) {
+                        slot = openSlots.GetSeededRandom(randomSeed++);
+                    }
+                    else {
+                        slot = card.Slot;
+                    }
+
+                    //AbnormalPlugin.Log.LogDebug("Move to new slot");
+
+                    openSlots.Remove(slot);
                 }
-
-                while (slot == card.Slot) {
-                    slot = openSlots.GetSeededRandom(randomSeed++);
+                else {
+                    slot = card.Slot;
                 }
-
-                //AbnormalPlugin.Log.LogDebug("Move to new slot");
                 card.Slot = null;
-                openSlots.Remove(slot);
                 CustomCoroutine.Instance.StartCoroutine(MoveToNewSlot(card, slot, 0.1f));
                 yield return new WaitForSeconds(0.1f);
             }
