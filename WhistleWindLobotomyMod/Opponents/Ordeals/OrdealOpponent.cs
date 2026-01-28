@@ -103,7 +103,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
-            if (!LobotomySaveManager.LearnedOrdeals) {
+
+            bool firstOrdeal = !LobotomySaveManager.LearnedOrdeals;
+            if (firstOrdeal) {
                 yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
                 ViewManager.Instance.SwitchToView(View.Default);
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("OrdealFirstIntro", TextDisplayer.MessageAdvanceMode.Input);
@@ -112,6 +114,20 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             ViewManager.Instance.SwitchToView(OrdealUtils.ViewCounter);
             yield return new WaitForSeconds(0.2f);
+
+            if (firstOrdeal || BattleSequencer.HighestPositiveScaleBalance < 4) {
+                OrdealCounterManager.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
+                OrdealCounterManager.Instance.UpdateConsole(-1, BattleSequencer.HighestPositiveScaleBalance, "scale lock");
+                OrdealCounterManager.Instance.EnableConsole(true);
+                yield return new WaitForSeconds(0.8f);
+                if (firstOrdeal) {
+                    yield return new WaitForSeconds(0.7f);
+                }
+                OrdealCounterManager.Instance.EnableConsole(false);
+                yield return new WaitForSeconds(0.5f);
+                OrdealCounterManager.Instance.ResetToDisplayRemaining(BattleSequencer.ordealTier);
+            }
+
             OrdealCounterManager.Instance.EnableConsole(true);
             yield return new WaitForSeconds(0.8f);
             ViewManager.Instance.SwitchToView(View.Default);

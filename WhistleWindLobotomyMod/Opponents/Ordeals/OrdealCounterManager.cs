@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using Pixelplacement;
 using System.Collections;
+using System.Data;
 using TMPro;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
@@ -15,9 +16,10 @@ namespace WhistleWindLobotomyMod {
         public static Sprite midnightSprite;
 
         private Animator anim;
+
         private SpriteRenderer leftRenderer;
         private TextMeshPro counterText;
-        private TextMeshPro remainingText;
+        private TextMeshPro subtitleText;
 
         /// <summary>
         /// Whether or not the monitor display's subtitle displays the default 'remaining' subtitle.
@@ -25,6 +27,14 @@ namespace WhistleWindLobotomyMod {
         public bool Dirty { get; private set; }
 
         public int amountLeft;
+
+        public void UpdateIconRenderer(Sprite sp) {
+            leftRenderer.sprite = sp;
+        }
+
+        public void ResetToDisplayRemaining(int ordealTier) {
+            UpdateConsole(ordealTier, amountLeft);
+        }
 
         public void UpdateConsole(int ordealTier, int startingAmount, string text = REMAINING_TEXT) {
             Dirty = text != REMAINING_TEXT;
@@ -35,15 +45,18 @@ namespace WhistleWindLobotomyMod {
             else {
                 counterText.text = startingAmount.ToString();
             }
-            remainingText.text = text;
+            subtitleText.text = text;
 
-            leftRenderer.sprite = ordealTier switch {
-                0 => dawnSprite,
-                1 => noonSprite,
-                2 => duskSprite,
-                3 => midnightSprite,
-                _ => null
-            };
+            // allow for setting a custom sprite before updating the console
+            if (ordealTier != -1) {
+                UpdateIconRenderer(ordealTier switch {
+                    0 => dawnSprite,
+                    1 => noonSprite,
+                    2 => duskSprite,
+                    3 => midnightSprite,
+                    _ => null
+                });
+            }
         }
         public void SetShown(bool shown) {
             if (shown) {
@@ -110,7 +123,7 @@ namespace WhistleWindLobotomyMod {
             anim = Instance.transform.GetChild(0).GetComponent<Animator>();
             leftRenderer = anim.transform.GetChild(0).GetComponent<SpriteRenderer>();
             counterText = anim.transform.GetChild(1).GetComponent<TextMeshPro>();
-            remainingText = counterText.transform.GetChild(0).GetComponent<TextMeshPro>();
+            subtitleText = counterText.transform.GetChild(0).GetComponent<TextMeshPro>();
             anim.transform.position = new(0f, -4.5f, 5f);
         }
 

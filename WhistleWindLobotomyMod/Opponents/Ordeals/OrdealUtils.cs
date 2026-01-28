@@ -3,6 +3,7 @@ using InscryptionAPI.Dialogue;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Guid;
 using InscryptionAPI.Regions;
+using InscryptionAPI.Resource;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -62,6 +63,18 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         private const string ORDEAL_SUBTITLE = "The {0} of {1}";
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
+
+        public static Sprite GetScaleLockSprite(int highestBalance) {
+            return highestBalance switch {
+                4 => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock4"),
+                3 => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock3"),
+                2 => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock2"),
+                1 => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock1"),
+                -1 => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock1m"),
+                -2 => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock2m"),
+                _ => ResourceBank.Get<Sprite>("Custom/Sprites/ScaleLock/scaleLock0")
+            };
+        }
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length)];
 
         public static Color GetOrdealColor(OrdealType type) {
@@ -154,6 +167,35 @@ namespace WhistleWindLobotomyMod.Opponents {
                 TextureLoader.LoadTextureFromFile("scratched_blue.png", LobotomyPlugin.ModAssembly),
                 TextureLoader.LoadTextureFromFile("scratched_white.png", LobotomyPlugin.ModAssembly)
             ];
+
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock4.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock4"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock3.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock3"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock2.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock2"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock1.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock1"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock0.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock0"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock1m.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock1m"
+            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
+                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock2m.png", asm: LobotomyPlugin.ModAssembly),
+                path = "Custom/Sprites/ScaleLock/scaleLock2m"
+            });
 
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Green_start"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Green_end"));
