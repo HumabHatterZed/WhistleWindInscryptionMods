@@ -107,6 +107,7 @@
 - Fixed True Saviour sigil activating certain effects when it shouldn't
 - Fixed Nothing There not disguising when played by Leshy
 - Fixed camera looking at opponent queue when player draws Scaredy Cat
+- Added 3 Lobotomy Corporation tracks to the Gramophone
 - Overhauled encounters
 - Modified some dialogue
 - Modified some pixel artwork

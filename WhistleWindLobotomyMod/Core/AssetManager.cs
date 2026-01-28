@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Resource;
+using InscryptionAPI.Sound;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -75,14 +76,20 @@ namespace WhistleWindLobotomyMod.Core {
             LobOpponentUtils.InitBossObjects(assetBundle);
 
             using (Stream musicStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodmusic")) {
+                // streamed audio won't play if the bundle is unloaded
                 musicBundle = AssetBundle.LoadFromStream(musicStream);
 
+                AudioClip firstTrumpet = musicBundle.LoadAsset<AudioClip>("first_trumpet");
+                musicLoops.Add(firstTrumpet);
                 musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_intro"));
                 musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_intro_loop"));
                 musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_main"));
                 musicLoops.Add(musicBundle.LoadAsset<AudioClip>("second_trumpet_main_loop"));
 
-                // streamed audio won't play if the bundle is unloaded
+
+                GramophoneManager.AddTrack(LobotomyPlugin.pluginGuid, musicBundle.LoadAsset<AudioClip>("lobcorp_bg"));
+                GramophoneManager.AddTrack(LobotomyPlugin.pluginGuid, firstTrumpet);
+                GramophoneManager.AddTrack(LobotomyPlugin.pluginGuid, musicBundle.LoadAsset<AudioClip>("second_trumpet"));
             }
         }
 
