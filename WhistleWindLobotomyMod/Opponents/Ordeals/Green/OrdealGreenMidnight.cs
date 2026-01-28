@@ -135,7 +135,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitForSeconds(0.75f);
             ViewManager.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
-            //BeginEmissionLoop();
+
             // return gears to normal speed+rot
             // enable laser + light emissions (lights blink periodically)
             HelixAnimator.SetFloat("gears", 1f);
@@ -235,7 +235,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            HighestPositiveScaleBalance = Mathf.Max(-2, 1 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
+            HighestPositiveScaleBalance = Mathf.Max(-2, 4 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
             ValidCards.Add(Cards.lastHelix);
             phaseCountdown = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
 
