@@ -89,8 +89,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                     yield return MoveOpponentCards();
                 }
             }
-            currentExcessBones = 0;
+            ResetPerRoundVariables();
             //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd: [{OrdealCounterManager.Instance.amountLeft}] left");
+
+            // if we killed more Ordeal cards after they were moved
             if (amountKilledThisTurn != 0) {
                 yield return OnOpponentTurnEnd(true);
             }
