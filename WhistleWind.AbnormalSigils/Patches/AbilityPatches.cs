@@ -14,6 +14,16 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
+        [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
+        private static bool PreventOverkillDamage(CardSlot attackingSlot, CardSlot opposingSlot) {
+            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Ethereal.ability)) {
+                return false;
+            }
+            if (opposingSlot.Card != null && opposingSlot.Card.HasAnyOfAbilities(Ethereal.ability, Shadowed.ability)) {
+                return false;
+            }
+            return true;
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.CardsOnBoard), MethodType.Getter)]
         private static void FixGiantDuplicateTriggers(ref List<PlayableCard> __result) {
             __result = __result.Distinct().ToList();
