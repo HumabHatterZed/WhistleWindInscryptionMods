@@ -743,7 +743,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             }
             else if (base.RespondsToCardDealtDamageDirectly(attacker, opposingSlot, damage)) {
                 yield return base.OnCardDealtDamageDirectly(attacker, opposingSlot, damage);
-                if (!DialogueEventsData.EventIsPlayed("ApocalypseBossBoneGain") && currentExcessBones > 0) {
+                if (!DialogueEventsData.EventIsPlayed("ApocalypseBossBoneGain") && bonesDugUpThisTurn > 0) {
                     yield return new WaitForSeconds(0.5f);
                     yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBoneGain", TextDisplayer.MessageAdvanceMode.Input);
                 }

@@ -17,9 +17,13 @@ namespace WhistleWindLobotomyMod.Opponents {
     public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IModifyDirectDamage {
         public bool drewInitialHand = false;
 
-        protected int bonesToGive;
+
+        // use to track how much excess damage has been dealt past the maximum allowed scale balance
+        // reset every round end/direct attack dealt
         protected int directDamageCache;
-        public int currentExcessBones;
+
+        protected int bonesToGive; // use to determine how many bones should be given for excess damage
+        protected int bonesDugUpThisTurn = 0; // keep track of num of bones dug up each turn
 
         public GameObject targetIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
         public readonly List<GameObject> targetIcons = new();
@@ -30,8 +34,10 @@ namespace WhistleWindLobotomyMod.Opponents {
         public int HighestPositiveScaleBalance { get; set; } = 5;
         public bool PlayerCanWinThroughScaleDamage => HighestPositiveScaleBalance > 4;
         public virtual bool DirectDamageGivesBones { get; set; } = true;
-        public virtual int MaxExcessBones { get; } = 2;
-        public virtual int MaxOwnedBones { get; } = 20;
+
+        public virtual int MaxBonesPerAttack { get; } = 2;
+        public virtual int MaxBonesPerTurn { get; } = 8;
+        public virtual int MaxBonesOwned { get; } = 20;
 
         public virtual IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
@@ -47,17 +53,20 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             if (slots.Count > 0) {
                 ViewManager.Instance.SwitchToView(View.Board);
-                yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
+                yield return CardScramble.RandomiseCardsInSlots(slots, rand, true, sortPredicate: delegate (CardSlot s) {
                     return s.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
                 });
             }
         }
 
+        protected void ResetPerRoundVariables() {
+            bonesDugUpThisTurn = directDamageCache = 0;
+        }
         #region Triggers
         public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => true;
         public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
         public virtual IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            currentExcessBones = 0;
+            ResetPerRoundVariables();
             yield break;
         }
         public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) => !toPlayer && !PlayerCanWinThroughScaleDamage;
@@ -81,32 +90,41 @@ namespace WhistleWindLobotomyMod.Opponents {
         public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker) => int.MinValue;
         public virtual int OnModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) {
             directDamageCache = 0;
-            // excess bones are only gained in battles where the player cannot win via scale damage
-            // they also cannot be gained if the player already owns a certain amount of Bones, to prevent excessive token gain
-            if (!PlayerCanWinThroughScaleDamage && ResourcesManager.Instance.PlayerBones < MaxOwnedBones) {
-                int damageToHighestBalance = Mathf.Max(0, HighestPositiveScaleBalance - LifeManager.Instance.Balance - TurnManager.Instance.DamageDealtThisTurn);
-                int excessDamageDealt = damageToHighestBalance - damage;
 
-                LobotomyPlugin.Log.LogInfo($"[LobotomyBattle] Dmg:{damage} ToBal:{damageToHighestBalance} Ex:{excessDamageDealt} {TurnManager.Instance.CombatPhaseManager.DamageDealtThisPhase}");
-                // if damage will exceed the highest balance, only deal enough damage to reach it
-                if (excessDamageDealt < 1) {
-                    if (DirectDamageGivesBones && currentExcessBones < MaxExcessBones) {
-                        bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, -excessDamageDealt);
-                    }
-
-                    directDamageCache = damage - damageToHighestBalance;
-                    TurnManager.Instance.CombatPhaseManager.DamageDealtThisPhase += directDamageCache;
-                    return damageToHighestBalance;
-                }
+            if (PlayerCanWinThroughScaleDamage) {
+                return damage;
             }
-            return damage;
+            return CalculateExcessDirectDamage(damage);
+        }
+
+        public int CalculateExcessDirectDamage(int directDamage) {
+            int damageToHighestBalance = Mathf.Max(0, HighestPositiveScaleBalance - LifeManager.Instance.Balance - TurnManager.Instance.DamageDealtThisTurn);
+            int excessDamageDealt = directDamage - damageToHighestBalance;
+
+            LobotomyPlugin.Log.LogInfo($"[CalculateExcessDirectDamage] Dmg:{directDamage} ToBal:{damageToHighestBalance} Ex:{excessDamageDealt} {Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase}");
+
+            // if damage will exceed the highest balance, only deal enough damage to reach it
+            if (excessDamageDealt > 0) {
+                // excess bones are only gained in battles where the player cannot win via scale damage
+                // they also cannot be gained if the player already owns a certain amount of Bones, to prevent excessive token gain
+                if (DirectDamageGivesBones && ResourcesManager.Instance.PlayerBones < MaxBonesOwned && bonesDugUpThisTurn < MaxBonesPerTurn) {
+                    int maxToGive = Mathf.Min(MaxBonesPerAttack, MaxBonesOwned - ResourcesManager.Instance.PlayerBones);
+                    bonesToGive = Mathf.Min(maxToGive, directDamage);
+                }
+
+                directDamageCache = excessDamageDealt;
+                TurnManager.Instance.CombatPhaseManager.DamageDealtThisPhase += directDamageCache;
+                return damageToHighestBalance;
+            }
+
+            return directDamage;
         }
 
         public virtual bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => bonesToGive > 0;
         public virtual IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
             yield return new WaitForSeconds(0.01f);
             DigUpBones(damage, bonesToGive, opposingSlot);
-            currentExcessBones += bonesToGive;
+            bonesDugUpThisTurn += bonesToGive;
             bonesToGive = 0;
         }
 

@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
-            yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s) {
+            yield return CardScramble.RandomiseCardsInSlots(slots, rand, true, sortPredicate: delegate (CardSlot s) {
                 if (s == BossCard.Slot)
                     return 1000;
 
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             LobotomyPlugin.Log.LogDebug($"[IncrementStats] {timesHitThisTurn} (+{timesHit}) {damageTakenThisTurn} (+{damageTaken})");
         }
         public void ResetVariablesTurnEnd() {
-            timesHitThisTurn = damageTakenThisTurn = currentExcessBones = 0;
+            timesHitThisTurn = damageTakenThisTurn = bonesDugUpThisTurn = 0;
         }
 
         /// <summary>
