@@ -18,50 +18,58 @@ namespace WhistleWindLobotomyMod {
         /// Register this mod's abilities with the API.
         /// </summary>
         internal static void AddAbilities(LobotomyPlugin plugin) {
+
+
             if (LobotomyConfigManager.ReskinSigils) {
                 AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
-                    abilities.AbilityByID(Ability.Sniper).Info
-                        .SetRulebookName("Marksman")
-                        .SetAbilityLearnedDialogue("Your beast strikes with precision.")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman.png"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel.png"))
+                    AbilityManager.AllAbilities.AbilityByID(Shadowed.ability).Info
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-                    abilities.AbilityByID(Ability.Sentry).Info
-                        .SetRulebookName("Quick Draw")
-                        .SetAbilityLearnedDialogue("The early bird gets the worm.")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw.png"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel.png"))
-                        .SetCanStack()
-                        .SetFlipYIfOpponent()
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+                    if (LobotomyConfigManager.ReskinSigils) {
+                        AbilityInfo info;
+                        abilities.AbilityByID(Ability.Sniper).Info
+                            .SetRulebookName("Marksman")
+                            .SetAbilityLearnedDialogue("Your beast strikes with precision.")
+                            .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman.png"))
+                            .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel.png"))
+                            .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-                    abilities.AbilityByID(PotshotPop.ability)
-                        .Info.rulebookDescription.Replace("Sentry", "Quick Draw");
+                        abilities.AbilityByID(Ability.Sentry).Info
+                            .SetRulebookName("Quick Draw")
+                            .SetAbilityLearnedDialogue("The early bird gets the worm.")
+                            .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw.png"))
+                            .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel.png"))
+                            .SetCanStack()
+                            .SetFlipYIfOpponent()
+                            .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-                    abilities.AbilityByID(PotshotPopEffect.iconId)
-                        .Info.rulebookDescription.Replace("Sentry", "Quick Draw");
+                        info = abilities.AbilityByID(PotshotPop.ability).Info;
+                        info.rulebookDescription = info.rulebookDescription.Replace("Sentry", "Quick Draw");
 
-                    abilities.AbilityByID(SurefireDrink.ability)
-                        .Info.rulebookDescription.Replace("Sniper", "Marksman");
+                        info = abilities.AbilityByID(PotshotPopEffect.iconId).Info;
+                        info.rulebookDescription = info.rulebookDescription.Replace("Sentry", "Quick Draw");
 
-                    abilities.AbilityByID(SurefireDrinkEffect.iconId)
-                        .Info.rulebookDescription.Replace("Sniper", "Marksman");
+                        info = abilities.AbilityByID(SurefireDrink.ability).Info;
+                        info.rulebookDescription = info.rulebookDescription.Replace("Sniper", "Marksman");
 
-                    abilities.AbilityByID(ActivatedSniper.ability)
-                        .Info.rulebookDescription.Replace("Sniper", "Marksman");
+                        info = abilities.AbilityByID(SurefireDrinkEffect.iconId).Info;
+                        info.rulebookDescription = info.rulebookDescription.Replace("Sniper", "Marksman");
 
-                    abilities.AbilityByID(Ability.Transformer).Info
-                        .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.")
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+                        info = abilities.AbilityByID(ActivatedSniper.ability).Info;
+                        info.rulebookDescription = info.rulebookDescription.Replace("Sniper", "Marksman");
 
-                    abilities.AbilityByID(Ability.ExplodeOnDeath).Info
-                        .SetRulebookName("Volatile")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilVolatile.png"))
-                        .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", LobotomyPlugin.ModAssembly))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilVolatile_pixel.png"))
-                        .SetFlipYIfOpponent(false)
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+                        abilities.AbilityByID(Ability.Transformer).Info
+                            .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.")
+                            .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+
+                        abilities.AbilityByID(Ability.ExplodeOnDeath).Info
+                            .SetRulebookName("Volatile")
+                            .SetIcon(TextureLoader.LoadTextureFromFile("sigilVolatile.png"))
+                            .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", LobotomyPlugin.ModAssembly))
+                            .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilVolatile_pixel.png"))
+                            .SetFlipYIfOpponent(false)
+                            .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+                    }
 
                     return abilities;
                 };
