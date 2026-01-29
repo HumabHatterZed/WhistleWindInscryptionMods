@@ -34,7 +34,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             //ShrineBossBlackPrefab = bundle.LoadAsset<GameObject>("ShrineTentacle");
             ShrineBossPalePrefab = bundle.LoadAsset<GameObject>("ShrineEye");
 
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, "Prefabs/Environment/TableEffects/CityTableEffects", bundle.LoadAsset<GameObject>("CityTableEffects"));
+            ResourceBankManager.AddTableEffect(LobotomyPlugin.pluginGuid, "CityTableEffects", bundle.LoadAsset<GameObject>("CityTableEffects"));
+            ResourceBankManager.AddTableEffect(LobotomyPlugin.pluginGuid, "SweeperTableEffects", bundle.LoadAsset<GameObject>("SweeperTableEffects"));
 
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_roar"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("bird_mouth"));
