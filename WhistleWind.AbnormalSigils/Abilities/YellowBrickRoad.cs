@@ -163,7 +163,7 @@ namespace WhistleWind.AbnormalSigils {
                     bool atEndOfBoardSlot = destination == boardSlots.First() || destination == boardSlots.Last();
                     bool atEndOfBoardSlotToCheck = slotToCheck == boardSlots.First() || slotToCheck == boardSlots.Last();
 
-                    if (slotToCheck != base.Card.Slot && slotToCheck.Card != null && slotToCheck.Card.LacksAbility(Unyielding.ability) && destination != base.Card.Slot && destination.Card == null) {
+                    if (slotToCheck != base.Card.Slot && slotToCheck.Card != null && Unyielding.CardCanBeMoved(slotToCheck.Card) && slotToCheck.Card.LacksAllTraits(Trait.Terrain, Trait.Pelt) && destination != base.Card.Slot && destination.Card == null) {
                         if (atEndOfBoardSlot && atEndOfBoardSlotToCheck)
                             yield return MoveToEndOfBoard(slotToCheck.Card, destination, slotToCheck.Card.Slot, destination != null && destination.Card == null);
                         else

@@ -69,6 +69,7 @@
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
 - Fixed Witness not working
+- Fixed Follow the Leader affecting Pelt and Terrain cards
 - Fixed Right-Veering Strike behaving like Left-Veering Strike
 - Fixed interaction with Recall Creature where Nettles would retain sigils when replayed
 - Fixed Worms status effect not letting Infested cards attack the right-most ally card
