@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.RuleBook;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace WhistleWindLobotomyMod {
         private static void AddSweeperPersistence() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Persistent Sweeping";
-            info.rulebookDescription = "Opposing creatures cannot avoid or redirect attacks from this card. At the end of the owner's turn, this card will attack adjacent non-Sweeper cards.";
-            SweeperPersistence.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SweeperPersistence), AbilityManager.AllAbilities.AbilityByID(Persistent.ability).Texture).Id;
+            info.rulebookDescription = "This card is considered Persistent. At the end of the owner's turn, this card will attack adjacent cards that aren't Sweepers. Once per battle, switch places with a queued Sweeper at low Health.";
+            SweeperPersistence.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SweeperPersistence), TextureLoader.LoadTextureFromFile("sigilSweeper.png", LobotomyPlugin.ModAssembly))
+                .SetAbilityRedirect("Persistent", Persistent.ability, GameColors.Instance.red)
+                .Id;
         }
     }
 
@@ -25,6 +28,7 @@ namespace WhistleWindLobotomyMod {
     public class SweeperPersistence : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
+        private bool canReturnToQueue = true;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
@@ -35,6 +39,25 @@ namespace WhistleWindLobotomyMod {
                 foreach (PlayableCard card in corpses) {
                     yield return Singleton<CombatPhaseManager3D>.Instance.SlotAttackSlot(base.Card.Slot, card.Slot);
                 }
+            }
+            
+            if (canReturnToQueue && TurnManager.Instance.Opponent.Queue.Count > 0 && base.Card.Health == 1 & base.Card.MaxHealth != 1) {
+                CardSlot slot = base.Card.Slot;
+                PlayableCard queuedCard = TurnManager.Instance.Opponent.Queue.Find(x => x.QueuedSlot == slot);
+                queuedCard ??= TurnManager.Instance.Opponent.Queue.GetSeededRandom(base.GetRandomSeed());
+
+                base.Card.UnassignFromSlot();
+                slot.Card = null;
+
+                ViewManager.Instance.SwitchToView(View.OpponentQueue);
+                yield return new WaitForSeconds(0.3f);
+                queuedCard.QueuedSlot = null;
+                queuedCard.OnPlayedFromOpponentQueue();
+                base.Card.AddTemporaryMod(new(Shadowed.ability));
+                base.StartCoroutine(TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f));
+                yield return BoardManager.Instance.ResolveCardOnBoard(queuedCard, slot);
+                TurnManager.Instance.Opponent.Queue.Remove(queuedCard);
+                canReturnToQueue = false;
             }
         }
 
