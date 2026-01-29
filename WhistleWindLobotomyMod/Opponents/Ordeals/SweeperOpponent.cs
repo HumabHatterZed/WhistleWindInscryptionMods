@@ -15,7 +15,31 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override Type ID => OrdealUtils.SweeperOpponentID;
         public override string DefeatedPlayerDialogue => "The streets have been cleaned.";
         public override int StartingLives => 3;
-
+        private ParticleSystem left;
+        private ParticleSystem right;
+        private ParticleSystem middle;
+        public void StopEmissions() {
+            var leftEmission = left.emission;
+            var rightEmission = right.emission;
+            leftEmission.rateOverTime = 0;
+            rightEmission.rateOverTime = 0;
+        }
+        public void EmitCentre() {
+            base.StartCoroutine(TheRumbling());
+            middle.Play(); // 1.5s emission
+        }
+        private IEnumerator TheRumbling() {
+            TableVisualEffectsManager.Instance.ThumpTable(0.2f);
+            yield return new WaitForSeconds(0.01f);
+            TableVisualEffectsManager.Instance.ThumpTable(0.3f);
+            yield return new WaitForSeconds(0.01f);
+            TableVisualEffectsManager.Instance.ThumpTable(0.2f);
+            yield return new WaitForSeconds(0.01f);
+            TableVisualEffectsManager.Instance.ThumpTable(0.3f);
+            yield return new WaitForSeconds(0.01f);
+            TableVisualEffectsManager.Instance.ThumpTable(0.2f);
+            yield return new WaitForSeconds(0.01f);
+        }
         public override IEnumerator PostResetScalesSequence() {
             if (NumLives == 0) {
                 Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
@@ -27,11 +51,14 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
 
-            Debug.Log("effects");
             base.SpawnScenery("SweeperTableEffects");
             AudioController.Instance.PlaySound2D("giant_head_rising", MixerGroup.TableObjectsSFX, 0.2f);
+            Transform child = sceneryObject.transform.GetChild(1);
+            left = child.GetChild(0).GetComponent<ParticleSystem>();
+            right = child.GetChild(1).GetComponent<ParticleSystem>();
+            middle = child.GetChild(2).GetComponent<ParticleSystem>();
             yield return new WaitForSeconds(2f);
-            Debug.Log("posteffects");
+
             InitialiseOpponent(encounter);
 
             AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
@@ -39,8 +66,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitForSeconds(0.25f);
             yield return DialogueHelper.PlayDialogueEvent("SweeperOrdealIntro");
 
+            ViewManager.Instance.SwitchToView(View.Default);
             OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, true);
             this.SetSceneEffectsShown(true);
+            EmitCentre();
+            left.Play();
+            right.Play();
             AudioController.Instance.SetLoopAndPlay("first_trumpet", 1); // sweeper music???
             AudioController.Instance.SetLoopVolumeImmediate(0.8f, 1);
             OrdealCounterManager.Instance.SetShown(true);
@@ -58,7 +89,13 @@ namespace WhistleWindLobotomyMod.Opponents {
                 OrdealCounterManager.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
                 OrdealCounterManager.Instance.UpdateConsole(-1, BattleSequencer.HighestPositiveScaleBalance, "scale lock");
                 OrdealCounterManager.Instance.EnableConsole(true);
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(1.5f);
+
+                if (BattleSequencer.HighestPositiveScaleBalance < 0 && LifeManager.Instance.Balance > BattleSequencer.HighestPositiveScaleBalance) {
+                    yield return LifeManager.Instance.ShowDamageSequence(-BattleSequencer.HighestPositiveScaleBalance, 1, toPlayer: true);
+                    yield return new WaitForSeconds(0.5f);
+                }
+
                 OrdealCounterManager.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.5f);
                 OrdealCounterManager.Instance.ResetToDisplayRemaining(BattleSequencer.ordealTier);
@@ -93,42 +130,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             OrdealCounterManager.Instance.SetShown(false);
             yield return new WaitForSeconds(1.5f);
 
-            // if this is a boss ordeal, restore life and setup a rare card sequence
             yield return DefeatedFinalBossSequence();
 
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
-
-        //public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => true;
-        //public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles) {
-        //    if (drawPiles.turnsSinceExhausted == 0) {
-        //        yield return DialogueHelper.PlayDialogueEvent("OrdealExhausted");
-        //    }
-
-        //    Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
-        //    yield return new WaitForSeconds(0.1f);
-
-        //    if (drawPiles.turnsSinceExhausted > 7) {
-        //        yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true);
-        //        BattleSequencer.HighestPositiveScaleBalance--; // really show the player i hate them
-        //    }
-
-        //    List<PlayableCard> opponentCards = BoardManager.Instance.GetOpponentCards().Concat(Queue).ToList();
-        //    if (opponentCards.Count > 0) {
-        //        for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
-        //            PlayableCard card = opponentCards.GetRandom();
-        //            if (card.HasTrait(Trait.Terrain)) {
-        //                card.AddTemporaryMod(new(Withering.ability) { fromCardMerge = true });
-        //            }
-        //            else {
-        //                card.AddTemporaryMod(new(1, 0));
-        //            }
-        //            card.Anim.LightNegationEffect();
-        //        }
-        //    }
-        //    yield return new WaitForSeconds(0.2f);
-        //}
     }
 }

@@ -1,10 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Sound;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -15,37 +18,54 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// Valid regions: 0, 1, 2
     /// </summary>
     public class OrdealIndigoMidnight : OrdealIndigoNoon {
+        public override Opponent.Type BossType => OrdealUtils.SweeperOpponentID;
+        public SweeperOpponent SweeperOpponent => Opponent as SweeperOpponent;
+        private const int NUM_TURNS = 5;
         private int numWavesLeft = 3;
-        private int numTurnsLeft = 5;
+        private int numTurnsLeft = NUM_TURNS;
         private bool newWave = true;
 
         public override IEnumerator PlayerUpkeep() {
-            numTurnsLeft--;
+            yield return UpdateCounterIcon(newWave, !newWave);
             if (numTurnsLeft == 0) {
                 Opponent.NumLives--;
                 yield return OpponentLifeLost();
             }
-            yield return UpdateCounterIcon(newWave);
         }
 
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
-            if (!CardIsValidOrdeal(card)) {
-                if (card.OpponentCard) {
-                    yield return DialogueHelper.PlayDialogueEvent("OrdealNonOrdealKilled");
-                }
-                yield break;
+        public override void DefeatOrdealAndDisplayOutroBanner() {
+            defeated = true; // don't play the outro banner until the end
+            if (Opponent.NumLives == 0) {
+                SweeperOpponent.StopEmissions();
+                base.DefeatOrdealAndDisplayOutroBanner();
             }
-            amountKilledThisTurn++;
-            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
+        }
 
-            LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] OnOtherCardDie: dead card:[{card.Info.displayedName}] total killed:[{amountKilledThisTurn}]");
-            LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] Cards left: {OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn}");
+        public override void TryAddOrdealRandomBuff(PlayableCard card) {
+            if (card.Info.displayedName == "Sweeper") {
+                CardModificationInfo mod;
+                int rand = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
+                mod = new(Shadowed.ability) { fromCardMerge = true, singletonId = "OrdealRandomBuff" };
+                if (SeededRandom.Value(rand++) <= (7 + RunState.Run.DifficultyModifier) * 0.1f) {
+                    mod.healthAdjustment++;
+                }
+                if (SeededRandom.Value(rand++) <= (4 + RunState.Run.DifficultyModifier) * 0.1f) {
+                    mod.healthAdjustment++;
+                }
+                if (SeededRandom.Value(rand++) <= (TurnManager.Instance.TurnNumber + RunState.Run.DifficultyModifier - 2) * 0.1f) {
+                    mod.attackAdjustment++;
+                }
+                card.AddTemporaryMod(mod);
+            }
         }
 
         public override IEnumerator OpponentLifeLost() {
             LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] OpponentLifeLost: numLives: {Opponent.NumLives}");
 
             if (Opponent.NumLives == 0) {
+                defeated = true;
+                OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
+                OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
                 yield return HelperMethods.ChangeCurrentView(View.Default);
                 OrdealCounterManager.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.25f);
@@ -55,55 +75,42 @@ namespace WhistleWindLobotomyMod.Opponents {
                 yield break;
             }
 
-            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
-            yield return Opponent.ClearBoard();
-
-            defeated = false;
-            numTurnsLeft = 5;
             numWavesLeft--;
+            defeated = false;
+            numTurnsLeft = NUM_TURNS;
+            amountKilledThisTurn = 0;
 
-            MinNumCardsRequired = ConstructWaveBlueprint();
-            yield return Opponent.QueueNewCards();
+            OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint();
+            yield return HelperMethods.ChangeCurrentView(View.Default);
+            SweeperOpponent.EmitCentre();
+            yield return new WaitForSeconds(0.5f);
+            base.StartCoroutine(TurnManager.Instance.Opponent.ClearBoard());
+            yield return TurnManager.Instance.Opponent.ClearQueue();
+            yield return TurnManager.Instance.Opponent.QueueNewCards(changeView: false);
 
-            yield return new WaitForSeconds(0.75f);
-            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter);
-            OrdealCounterManager.Instance.EnableConsole(false);
-            yield return new WaitForSeconds(0.3f);
-            OrdealCounterManager.Instance.SetTextColour(Color.black);
-            OrdealCounterManager.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
-            OrdealCounterManager.Instance.EnableConsole(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return UpdateCounterIcon(true, false);
         }
 
-        private IEnumerator UpdateCounterIcon(bool updateNumWaves) {
+        private IEnumerator UpdateCounterIcon(bool updateNumWaves, bool reduceTurn) {
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
             if (updateNumWaves) {
                 newWave = false;
-                OrdealCounterManager.Instance.EnableConsole(false);
-                yield return new WaitForSeconds(0.8f);
-                OrdealCounterManager.Instance.UpdateConsole(ordealTier, numWavesLeft, "waves left");
-                OrdealCounterManager.Instance.EnableConsole(true);
-                yield return new WaitForSeconds(2f);
+                yield return OrdealCounterManager.Instance.FlickerConsole(3, numWavesLeft, "waves left", 0.5f);
             }
 
-            OrdealCounterManager.Instance.EnableConsole(false);
-            yield return new WaitForSeconds(0.8f);
-            OrdealCounterManager.Instance.UpdateConsole(ordealTier, numTurnsLeft, "turns left");
-            OrdealCounterManager.Instance.EnableConsole(true);
-            yield return new WaitForSeconds(1.5f);
+            if (reduceTurn) {
+                numTurnsLeft--;
+            }
 
-            OrdealCounterManager.Instance.EnableConsole(false);
-            yield return new WaitForSeconds(0.8f);
-            OrdealCounterManager.Instance.UpdateConsole(ordealTier, OrdealCounterManager.Instance.amountLeft);
-            OrdealCounterManager.Instance.EnableConsole(true);
-
-            yield return new WaitForSeconds(0.75f);
+            yield return OrdealCounterManager.Instance.FlickerConsole(3, numTurnsLeft, "turns left", 0.5f);
+            base.StartCoroutine(OrdealCounterManager.Instance.FlickerConsole(3, OrdealCounterManager.Instance.amountLeft, preWait: 0.5f));
+            yield return new WaitForSeconds(0.5f);
         }
 
         private int ConstructWaveBlueprint() {
-            int numTurns = 5 + Opponent.Difficulty / 6;
-            int numCards = 6 + RunState.Run.DifficultyModifier;
-            int seed = base.GetRandomSeed();
+            int numTurns = NUM_TURNS + RunState.Run.DifficultyModifier; // [6, 8]
+            int numCards = 6 + RunState.Run.DifficultyModifier; // [7, 9]
+            int seed = base.GetRandomSeed() + TurnNumber;
             List<List<CardInfo>> newPlan = new();
 
             for (int i = 0; i < numTurns; i++) {
@@ -111,25 +118,14 @@ namespace WhistleWindLobotomyMod.Opponents {
                     CardLoader.GetCardByName(GetRandomSweeper(seed++, 7))
                 };
 
-                // extra sweeper every third turn
-                if (i % 3 == 0) {
-                    // UPDATE RANGE ONCE ALL SWEEPERS ARE MADE
+                if (SeededRandom.Range(0, 4, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
                     turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
-                    if (i % 6 == 0) {
-                        // UPDATE RANGE ONCE ALL SWEEPERS ARE MADE
-                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
-                    }
                 }
-
-                if (i > 0) {
-                    if (i % 7 == 0) {
-                        // UPDATE RANGE ONCE ALL SWEEPERS ARE MADE
-                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
-                    }
-
-                    if (i % 4 == 0) {
-                        newPlan.Add(new());
-                    }
+                if (SeededRandom.Range(0, 6, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
+                    turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                }
+                if (SeededRandom.Range(0, 10, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
+                    turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
                 }
 
                 newPlan.Add(turn);
@@ -137,36 +133,35 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             EncounterBluePrint = newPlan;
             Opponent.ReplaceAndAppendTurnPlan(newPlan);
+            Opponent.TurnPlan[TurnManager.Instance.TurnNumber] = new(newPlan[newPlan.Count - 1]);
             return numCards;
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            int numTurns = 5 + baseDifficulty / 6;
-            int numCards = 6 + RunState.Run.DifficultyModifier;
-            int seed = base.GetRandomSeed();
+            int numTurns = NUM_TURNS + RunState.Run.DifficultyModifier; // [6, 8]
+            int numCards = 6 + RunState.Run.DifficultyModifier; // [7, 9]
+            int seed = base.GetRandomSeed() + RunState.Run.DifficultyModifier;
 
             for (int i = 0; i < numTurns; i++) {
                 List<EncounterBlueprintData.CardBlueprint> turn = new() {
                     EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7))
                 };
-
+                
+                if (SeededRandom.Range(0, 4, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
+                    turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7)));
+                }
                 if (i > 0) {
-                    // extra sweeper every third turn
-                    if (i % 3 == 0) {
+                    if (SeededRandom.Range(0, 7, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
                         turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7)));
                     }
-
-                    if (i % 7 == 0) {
+                    if (SeededRandom.Range(0, 12, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
                         turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7)));
-                    }
-
-                    if (i % 2 == 0) {
-                        encounterData.Blueprint.AddTurn();
                     }
                 }
-
                 encounterData.Blueprint.AddTurn(turn);
             }
+
+            encounterData.opponentType = OrdealUtils.SweeperOpponentID;
             return numCards;
         }
     }

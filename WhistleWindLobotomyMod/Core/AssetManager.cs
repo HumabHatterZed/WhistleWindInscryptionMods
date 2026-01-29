@@ -33,18 +33,10 @@ namespace WhistleWindLobotomyMod.Core {
         internal static void Initialise() {
             CardOffscreenLayer = CardLoader.GetCardByName("!GIANTCARD_MOON").AnimatedPortrait.transform.GetChild(0).gameObject.layer;
 
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadTextureFromFile("sigilDelusion1.png", LobotomyPlugin.ModAssembly),
-                path = "Art/Cards/AbilityIcons/sigilDelusion_1"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadTextureFromFile("sigilDelusion2.png", LobotomyPlugin.ModAssembly),
-                path = "Art/Cards/AbilityIcons/sigilDelusion_2"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadTextureFromFile("sigilDelusion3.png", LobotomyPlugin.ModAssembly),
-                path = "Art/Cards/AbilityIcons/sigilDelusion_3"
-            });
+            ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_1", TextureLoader.LoadTextureFromFile("sigilDelusion1.png", LobotomyPlugin.ModAssembly));
+            ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_2", TextureLoader.LoadTextureFromFile("sigilDelusion2.png", LobotomyPlugin.ModAssembly));
+            ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_3", TextureLoader.LoadTextureFromFile("sigilDelusion3.png", LobotomyPlugin.ModAssembly));
+            ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_4", TextureLoader.LoadTextureFromFile("sigilDelusion4.png", LobotomyPlugin.ModAssembly));
 
             assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets");
             assetBundle = AssetBundle.LoadFromStream(assetBundleStream);
@@ -60,8 +52,17 @@ namespace WhistleWindLobotomyMod.Core {
             GameObject obj2 = assetBundle.LoadAsset<GameObject>("twisted_building_2");
             obj2.AddComponent<MapElement>().Data = new MapElementData();
 
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, SceneryData.PREFABS_ROOT + "twisted_building", obj);
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, SceneryData.PREFABS_ROOT + "twisted_building_2", obj2);
+            GameObject obj3 = assetBundle.LoadAsset<GameObject>("sweeper_nest");
+            obj3.AddComponent<MapElement>().Data = new MapElementData();
+
+            GameObject obj4 = assetBundle.LoadAsset<GameObject>("sweeper_nest_2");
+            obj4.AddComponent<MapElement>().Data = new MapElementData();
+
+            ResourceBankManager.AddMapScenery(LobotomyPlugin.pluginGuid, "twisted_building", obj);
+            ResourceBankManager.AddMapScenery(LobotomyPlugin.pluginGuid, "twisted_building_2", obj2);
+            ResourceBankManager.AddMapScenery(LobotomyPlugin.pluginGuid, "sweeper_nest", obj3);
+            ResourceBankManager.AddMapScenery(LobotomyPlugin.pluginGuid, "sweeper_nest_2", obj4);
+
             List<SceneryData> twistedBuildings = new() { ScriptableObject.CreateInstance<SceneryData>() };
             twistedBuildings[0].radius = 0.096f;
             twistedBuildings[0].minScale = new(6f, 6f);
@@ -71,6 +72,16 @@ namespace WhistleWindLobotomyMod.Core {
             twistedBuildings[0].baseEulers = new(266f, 0f, 0f);
 
             CustomSceneryData.Add("twisted_building", twistedBuildings);
+
+            List<SceneryData> sweeperNests = new() { ScriptableObject.CreateInstance<SceneryData>() };
+            sweeperNests[0].radius = 0.096f;
+            sweeperNests[0].minScale = new(6f, 6f);
+            sweeperNests[0].maxScale = new(8f, 8f);
+
+            sweeperNests[0].prefabNames = new() { "sweeper_nest", "sweeper_nest_2" };
+            sweeperNests[0].baseEulers = new(266f, 0f, 0f);
+
+            CustomSceneryData.Add("sweeper_nest", sweeperNests);
 
             OrdealUtils.InitOrdeals(assetBundle);
             LobOpponentUtils.InitBossObjects(assetBundle);
@@ -93,7 +104,7 @@ namespace WhistleWindLobotomyMod.Core {
             }
         }
 
-        public static void UnloadAssetBundle() {
+        internal static void UnloadAssetBundle() {
             assetBundle.Unload(false);
             assetBundleStream.Dispose();
         }
