@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -25,7 +26,7 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && base.Card.Health > 0 && !base.Card.Dead;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && base.Card.Health > 0 && !base.Card.Dead && target.LacksAllTraits(Trait.Terrain, Trait.Pelt);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.3f);

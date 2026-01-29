@@ -1,8 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
+using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
@@ -27,7 +29,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public override bool RespondsToTakeDamage(PlayableCard source) {
             if (source != null)
-                return source.Health > 0 && !base.Card.Dead && base.Card.Health > 0;
+                return source.Health > 0 && !base.Card.Dead && base.Card.Health > 0 && source.LacksAllTraits(Trait.Terrain, Trait.Pelt);
 
             return false;
         }
