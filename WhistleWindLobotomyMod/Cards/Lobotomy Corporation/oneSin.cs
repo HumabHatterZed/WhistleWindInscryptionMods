@@ -18,6 +18,7 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Martyr.ability)
                 .AddTribes(TribeDivine)
+                .AddTraits(DiskCardGame.Trait.Goat)
                 .SetDefaultEvolutionName(oneSinName)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
 
@@ -28,6 +29,7 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Martyr.ability)
                 .AddTribes(TribeDivine)
+                .AddTraits(DiskCardGame.Trait.Goat)
                 .SetDefaultEvolutionName(oneSinName)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
