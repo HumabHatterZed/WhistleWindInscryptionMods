@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod {
         private void Dialogue_FirstOrdeal() {
             CreateDialogueEvents("SweeperOrdealIntro", new() {
                 "Here they come."
-            });
+            }, new() { new() { "Here they come." }, new() { "The ground trembles." }, new() { "Prepare yourself." } });
 
             CreateDialogueEvents("DefeatedSweeperOpponent", new() {
                 "An eternity passes before the unyielding tide of Sweepers finally passes you over. You managed to survive.",
@@ -152,8 +152,8 @@ namespace WhistleWindLobotomyMod {
                     null,
                     new string[] {
                         "Night in the Backstreets",
-                        "From the borders of the Nest they emerge, sweeping away everything in their path.",
-                        "For eighty minutes they appear to clean the Backstreets. Dead bodies, unauthorised constructions, anything and everything the City doesn't need."
+                        "From the borders of the Nests they emerge, sweeping away everything in their path.",
+                        "For 80 minutes they appear to clean the Backstreets. Dead bodies, unauthorised constructions, anything and everything the City doesn't need."
                     }
                 }
             },
