@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     // Ordeals require you to defeat a certain number of opponent cards; they utilise card repositioning, deck renewal, and bone harvesting
     public static class OrdealUtils {
         public static Opponent.Type OpponentID { get; internal set; }
+        public static Opponent.Type SweeperOpponentID { get; internal set; }
 
         public static ViewInfo OrdealViewInfo;
         public static readonly View ViewCounter = GuidManager.GetEnumValue<View>(LobotomyPlugin.pluginGuid, "ViewCounter");
@@ -129,6 +130,8 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             WhiteOrdeal = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealWhite", typeof(OrdealWhite)).Id;
             OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
+            SweeperOpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "SweeperOpponent", IndigoMidnight, typeof(SweeperOpponent), null).Id;
+
             OrdealViewInfo = new() {
                 camPosition = new Vector3(0f, 7.65f, -5.15f),
                 fov = 35f
@@ -168,34 +171,34 @@ namespace WhistleWindLobotomyMod.Opponents {
                 TextureLoader.LoadTextureFromFile("scratched_white.png", LobotomyPlugin.ModAssembly)
             ];
 
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock4.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock4"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock3.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock3"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock2.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock2"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock1.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock1"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock0.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock0"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock1m.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock1m"
-            });
-            ResourceBankManager.Add(LobotomyPlugin.pluginGuid, new() {
-                asset = TextureLoader.LoadSpriteFromFile("ordealScaleLock2m.png", asm: LobotomyPlugin.ModAssembly),
-                path = "Custom/Sprites/ScaleLock/scaleLock2m"
-            });
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock4",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock4.png", asm: LobotomyPlugin.ModAssembly)
+                );
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock3",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock3.png", asm: LobotomyPlugin.ModAssembly)
+                );
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock2",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock2.png", asm: LobotomyPlugin.ModAssembly)
+                );
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock1",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock1.png", asm: LobotomyPlugin.ModAssembly)
+                );
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock0",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock0.png", asm: LobotomyPlugin.ModAssembly)
+                );
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock1m",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock1m.png", asm: LobotomyPlugin.ModAssembly)
+                );
+            ResourceBankManager.Add(LobotomyPlugin.pluginGuid,
+                "Custom/Sprites/ScaleLock/scaleLock2m",
+                TextureLoader.LoadSpriteFromFile("ordealScaleLock2m.png", asm: LobotomyPlugin.ModAssembly)
+                );
 
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Green_start"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Green_end"));
@@ -221,7 +224,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 .SetBoardColor(new(0f, 0.2f, 0.4f, 1f))
                 .SetCardsColor(new(0f, 0.2f, 0.4f, 1f))
                 .SetFogEnabled(true).SetFogAlpha(1f)
-                .SetMapAlbedo(TextureLoader.LoadTextureFromFile("mapScroll_Albedo_TrueDarkness.png", LobotomyPlugin.ModAssembly));
+                .SetMapAlbedo(TextureLoader.LoadTextureFromFile("mapScroll_Albedo_Sweepers.png", LobotomyPlugin.ModAssembly));
 
             retval.dominantTribes = whiteOrdeal.dominantTribes;
 
@@ -230,12 +233,21 @@ namespace WhistleWindLobotomyMod.Opponents {
             retval.fogProfile.lightColor = new(0f, 0.2f, 0.25f, 1f);
             retval.fogProfile.specularColor = new(0f, 0.2f, 0.25f, 1f);
 
-            retval.fillerScenery = whiteOrdeal.fillerScenery;
+            //retval.fillerScenery = whiteOrdeal.fillerScenery;
+
+            if (AssetManager.CustomSceneryData.TryGetValue("sweeper_nest", out List<SceneryData> data)) {
+                retval.fillerScenery = data.Select(x => new FillerSceneryEntry() { data = x }).ToList();
+                //retval.scarceScenery = data.Select(x => new ScarceSceneryEntry() { data = x, minInstances = 5, maxInstances = 10, minDensity = 1f }).ToList();
+            }
+            else {
+                LobotomyPlugin.Log.LogError("Could not get sweeper_nest scenery data");
+            }
+
             retval.predefinedNodes = ScriptableObject.CreateInstance<PredefinedNodes>();
             retval.predefinedNodes.nodeRows = new(whiteOrdeal.predefinedNodes.nodeRows);
             retval.predefinedNodes.nodeRows[2] = new() {
                 new OrdealBossBattleNodeData {
-                    bossType = OpponentID,
+                    bossType = SweeperOpponentID,
                     specialBattleId = IndigoMidnight,
                     ordealType = OrdealType.Indigo,
                     tier = 3,
@@ -250,7 +262,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 "Countless eyes, hooks and blades gleam red in the darkness as creatures emerge from every crack and corner of the alleys around you.",
                 "You quickly find yourself in the middle of an ocean of unstoppable death.",
                 "You cannot stop the waves from crashing into you, but you can still weather the storm.",
-                "Night has fallen in [c:bR]the Backstreets[c:]. And the day may never come."
+                "Night has fallen in [c:bB]the Backstreets[c:]. And the day may never come."
             },
             new() {
                 new() {
@@ -282,7 +294,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 whiteOrdealRegion.fillerScenery = data.Select(x => new FillerSceneryEntry() { data = x }).ToList();
             }
             else {
-                LobotomyPlugin.Log.LogWarning("Could not get twisted_building scenery data");
+                LobotomyPlugin.Log.LogError("Could not get twisted_building scenery data");
             }
 
 
