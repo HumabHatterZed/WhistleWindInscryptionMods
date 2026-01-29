@@ -116,10 +116,13 @@ namespace WhistleWindLobotomyMod.Opponents {
                 OrdealCounterManager.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
                 OrdealCounterManager.Instance.UpdateConsole(-1, BattleSequencer.HighestPositiveScaleBalance, "scale lock");
                 OrdealCounterManager.Instance.EnableConsole(true);
-                yield return new WaitForSeconds(0.8f);
-                if (firstOrdeal) {
-                    yield return new WaitForSeconds(0.7f);
+                yield return new WaitForSeconds(1.5f);
+
+                if (BattleSequencer.HighestPositiveScaleBalance < 0 && LifeManager.Instance.Balance > BattleSequencer.HighestPositiveScaleBalance) {
+                    yield return LifeManager.Instance.ShowDamageSequence(-BattleSequencer.HighestPositiveScaleBalance, 1, toPlayer: true);
+                    yield return new WaitForSeconds(0.5f);
                 }
+
                 OrdealCounterManager.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.5f);
                 OrdealCounterManager.Instance.ResetToDisplayRemaining(BattleSequencer.ordealTier);
