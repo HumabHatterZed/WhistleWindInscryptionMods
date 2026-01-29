@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public OrdealBattleSequencer BattleSequencer => TurnManager.Instance.SpecialSequencer as OrdealBattleSequencer;
 
         public bool hasTotem;
-        private Color totemGlowColour;
+        protected Color totemGlowColour;
 
         // Override Sweeper totem light so they light up correctly
         public override Color InteractablesGlowColor => BattleSequencer.ordealType == OrdealType.Indigo ? GameColors.Instance.glowRed : OrdealUtils.GetOrdealColor(BattleSequencer.ordealType);
@@ -74,11 +74,8 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
             // change NumLives here since we can't do it in the sequencer
-            if (RunState.CurrentRegionTier == 3) {
-                this.NumLives = 3;
-                if (BattleSequencer.ordealType == OrdealType.White) {
-                    this.NumLives = 4;
-                }
+            if (BattleSequencer.ordealType == OrdealType.White) {
+                this.NumLives = 4;
                 base.SpawnScenery("CityTableEffects");
                 AudioController.Instance.PlaySound2D("giant_head_rising", MixerGroup.TableObjectsSFX, 0.2f);
                 yield return new WaitForSeconds(2f);
