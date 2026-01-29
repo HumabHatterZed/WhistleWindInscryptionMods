@@ -5,6 +5,16 @@ using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
         private void Dialogue_FirstOrdeal() {
+            CreateDialogueEvents("SweeperOrdealIntro", new() {
+                "Here they come."
+            });
+
+            CreateDialogueEvents("DefeatedSweeperOpponent", new() {
+                "An eternity passes before the unyielding tide of Sweepers finally passes you over. You managed to survive.",
+                "They will return tomorrow to clean what accumulated over the day, and what they left behind tonight.",
+                "Tired and aching, you seek out a place you and your beasts can rest and recover. Your journey has ended, for now."
+            });
+
             CreateDialogueEvents("OrdealPersistence", new() {
                 "The streets will be swept clean." });
 
