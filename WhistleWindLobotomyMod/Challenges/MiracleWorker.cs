@@ -31,7 +31,8 @@ namespace WhistleWindLobotomyMod.Challenges {
         private static readonly Opponent.Type[] BLACKLISTED_OPPONENTS = new Opponent.Type[] {
             //LobOpponentUtils.SaviourBossID,
             LobOpponentUtils.ApocalypseBossID,
-            OrdealUtils.OpponentID
+            OrdealUtils.OpponentID,
+            OrdealUtils.SweeperOpponentID
         };
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]

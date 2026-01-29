@@ -78,6 +78,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 default:
                     retval.ordealType = OrdealType.Indigo;
                     retval.specialBattleId = OrdealUtils.IndigoMidnight;
+                    retval.bossType = OrdealUtils.SweeperOpponentID;
                     break;
             }
 
@@ -203,12 +204,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (data is OrdealBossBattleNodeData bossNodeData) {
                 type = bossNodeData.ordealType;
                 totemOpponent = bossNodeData.totemOpponent;
-                if (type != OrdealType.White) {
-                    tier = 3;
-                }
-                else {
-                    tier = 0;
-                }
+                tier = type != OrdealType.White ? 3 : 0;
             }
             else if (data is OrdealBattleNodeData ordealNodeData) {
                 tier = ordealNodeData.tier;

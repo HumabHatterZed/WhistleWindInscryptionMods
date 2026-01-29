@@ -75,7 +75,8 @@ namespace WhistleWindLobotomyMod {
             { Opponent.Type.LeshyBoss, "TipherethALeshy" },
             { Opponent.Type.RoyalBoss, "TipherethARoyal" },
             { LobOpponentUtils.ApocalypseBossID, "TipherethAApocalypse" },
-            { OrdealUtils.OpponentID, "TipherethAOrdeal" }
+            { OrdealUtils.OpponentID, "TipherethAOrdeal" },
+            { OrdealUtils.SweeperOpponentID, "TipherethSweeper" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
