@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         private bool isActive = false;
         private bool justActivated = false;
-
+        private bool gainPower = false;
         private HelixLight wanderingLight;
         private HelixLight stationaryLight;
 
@@ -75,10 +75,22 @@ namespace WhistleWindLobotomyMod.Opponents {
                     yield return wanderingLight.UpdateCurrentSlot();
                     yield return UpdateCounterIcon();
 
+                    // when the countdown hits 0 and if we have a cooldown period, deactivate the helix
                     if (phaseCountdown == 0) {
-                        LobotomyPlugin.Log.LogDebug("Deactivate Helix");
-                        phaseCountdown = maxCooldownPeriod;
-                        yield return CleanUpActivePhase();
+                        
+                        if (gainPower) {
+                            Helix.AddTemporaryMod(new(1, 0));
+                        }
+                        gainPower = !gainPower;
+
+                        if (maxCooldownPeriod > 0) {
+                            LobotomyPlugin.Log.LogDebug("Deactivate Helix");
+                            phaseCountdown = maxCooldownPeriod;
+                            yield return CleanUpActivePhase();
+                        }
+                        else {
+                            phaseCountdown = MaxActivePeriod;
+                        }
                     }
                 }
                 else if (phaseCountdown == 1) {
@@ -171,29 +183,26 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         private IEnumerator UpdateCounterIcon() {
-            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-            if (OrdealCounterManager.Instance.Dirty) {
-                yield return OrdealCounterManager.Instance.UpdateDisplayedValue(phaseCountdown);
-            }
-            else {
-                OrdealCounterManager.Instance.EnableConsole(false);
-                yield return new WaitForSeconds(0.8f);
-                OrdealCounterManager.Instance.UpdateConsole(ordealTier, phaseCountdown, "turns left");
-                OrdealCounterManager.Instance.EnableConsole(true);
-            }
+            if (maxCooldownPeriod > 0) {
+                yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
+                if (OrdealCounterManager.Instance.Dirty) {
+                    yield return OrdealCounterManager.Instance.UpdateDisplayedValue(phaseCountdown);
+                }
+                else {
+                    OrdealCounterManager.Instance.EnableConsole(false);
+                    yield return new WaitForSeconds(0.8f);
+                    OrdealCounterManager.Instance.UpdateConsole(ordealTier, phaseCountdown, "turns left");
+                    OrdealCounterManager.Instance.EnableConsole(true);
+                }
 
-            yield return new WaitForSeconds(0.75f);
+                yield return new WaitForSeconds(0.75f);
+            }
         }
 
         /// <summary>
         /// Display the turns left counter on the monitor at the start of the encounter, after the intro and deck piles have been setup.
         /// </summary>
         public override IEnumerator PreHandDraw() {
-            if (HighestPositiveScaleBalance < 0) {
-                yield return LifeManager.Instance.ShowDamageSequence(HighestPositiveScaleBalance, 1, toPlayer: true);
-                yield return new WaitForSeconds(0.5f);
-            }
-
             if (phaseCountdown > 1) {
                 maxCooldownPeriod = 2;
             }
@@ -235,10 +244,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            HighestPositiveScaleBalance = Mathf.Max(-2, 4 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
+            HighestPositiveScaleBalance = Mathf.Max(-2, 1 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
             ValidCards.Add(Cards.lastHelix);
             phaseCountdown = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
-
+            if (phaseCountdown < 2) {
+                maxCooldownPeriod = 0;
+            }
             EncounterData.StartCondition cond = new() {
                 cardsInOpponentSlots = new CardInfo[] { CardLoader.GetCardByName(Cards.lastHelix), null, null, null }
             };
