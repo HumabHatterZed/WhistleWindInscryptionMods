@@ -174,7 +174,9 @@ namespace WhistleWind.AbnormalSigils {
             if (slots.Count == 0)
                 yield break;
 
-            List<CardSlot> openSlots = BoardManager.Instance.GetOpenSlots(!opponent);
+            List<CardSlot> openSlots = BoardManager.Instance.GetSlotsCopy(!opponent);
+            openSlots.RemoveAll(x => x.Card != null && !Unyielding.CardCanBeMoved(x.Card));
+
             if (sortPredicate != null)
                 slots.Sort((CardSlot a, CardSlot b) => sortPredicate(b) - sortPredicate(a));
 
@@ -188,13 +190,16 @@ namespace WhistleWind.AbnormalSigils {
                     bestSlots.RemoveAll(x => OpposingCardCanKill(card, x.Card));
 
                     if (bestSlots.Count > 0) {
-                        slot = openSlots.GetSeededRandom(randomSeed++);
+                        slot = bestSlots.GetSeededRandom(randomSeed++);
                     }
-                    else {
+                    else if (openSlots.Contains(card.Slot)) {
                         slot = card.Slot;
                     }
+                    else {
+                        slot = openSlots.GetSeededRandom(randomSeed++);
+                    }
 
-                    //AbnormalPlugin.Log.LogDebug("Move to new slot");
+                        AbnormalPlugin.Log.LogDebug("Move to new slot");
 
                     openSlots.Remove(slot);
                 }
