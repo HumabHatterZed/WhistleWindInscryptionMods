@@ -84,8 +84,10 @@
 - Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
 - Binding Strike - reduced powerlevel from 2 -> 1
 - Bloodfiend - healing is now capped at 2 above the card's max health
+- Bloodfiend - no longer triggers against Terrain and Pelt cards
 - Bloodfiend - reduced powerlevel from 3 -> 2
 - Bloodletter - healing is now capped at 2 above the card's max health
+- Bloodletter - no longer triggers against Terrain and Pelt cards
 - Bloodletter - reduced powerlevel from 4 -> 3
 - Copycat - can now copy the Moon and Limoncello
 - Copycat - now gains +1 Power when it fails to copy a card - this is removed when it successfully copies a card

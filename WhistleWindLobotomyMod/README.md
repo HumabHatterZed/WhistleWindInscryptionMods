@@ -31,7 +31,7 @@ If you have [Achievements API](https://inscryption.thunderstore.io/package/Infin
 you will be able to unlock 11 different achievements.
 
 ## 💌 Credits/Acknowledgements
-**Audio, music, and some artwork taken from Lobotomy Corporation; all ownership goes to Project Moon.**
+**Audio, music, and some assets taken from Lobotomy Corporation and Limbus Company; all ownership goes to Project Moon.**
 
 Artwork and coding:
 - WhistleWind

@@ -82,6 +82,7 @@
 - <span style='color:#2084A0'>Netzach: increased Health from 3 -> 4
 - Nothing There: now guaranteed to reveal itself when on the board long enough without dying
 - Nothing There: now disguises as regular cards instead of death cards outside the Leshy fight
+- One Sin: Now has the Goat Trait
 - One Sin EX: fixed missing textures
 - <span style='color:#DE6080'>Ppodae Evolution: Reduced Power from 3 -> 2
 - Ppodae & Evolution: now possess unique version of Stinky
