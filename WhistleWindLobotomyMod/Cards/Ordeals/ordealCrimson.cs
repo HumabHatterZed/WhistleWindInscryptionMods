@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeFae)
                 .SetOrdealCard(Opponents.OrdealType.Crimson)
-                .AddTraits(Trait.Uncuttable)
+                .AddTraits(Trait.Uncuttable, PriorityMovement)
                 .SetTail(tail)
                 .Build();
 
@@ -51,11 +51,11 @@ namespace WhistleWindLobotomyMod {
                 attack: 3, health: 5)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinClimax")
-                .AddAbilities(Ability.IceCube, Challenging.ability)
+                .AddAbilities(Ability.IceCube, NimbleFoot.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .SetOrdealCard(Opponents.OrdealType.Crimson)
-                .AddTraits(Trait.Uncuttable, PriorityMovement)
+                .AddTraits(Trait.Uncuttable)
                 .SetIceCube(harmony)
                 .SetTail(tail)
                 .Build();
