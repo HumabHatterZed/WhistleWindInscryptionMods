@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 .SetCanStack(full.Info.canStack)
                 .SetFlipYIfOpponent(full.Info.flipYIfOpponent)
                 .SetOpponentUsable(full.Info.opponentUsable)
-                .SetDefaultPart1Ability();
+                .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
             SteelTrapSweetHome = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SteelTrapSweetHome), full.Texture).Id;
         }
