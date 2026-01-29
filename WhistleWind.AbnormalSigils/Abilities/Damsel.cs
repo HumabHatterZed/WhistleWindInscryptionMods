@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Damsel() {
             const string rulebookName = "Damsel";
-            const string rulebookDescription = "Attacks from creatures adjacent to [creature] are redirected to creatures targeting this card.";
+            const string rulebookDescription = "If [creature] is being targeted by opposing cards, cards adjacent to it will strike those cards instead.";
             const string dialogue = "The damsel demands warriors to destroy its tormentor.";
             Damsel.ability = AbnormalAbilityHelper.CreateAbility<Damsel>(
                 "sigilDamsel",
