@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             EmitCentre();
             left.Play();
             right.Play();
-            AudioController.Instance.SetLoopAndPlay("first_trumpet", 1); // sweeper music???
+            AudioController.Instance.SetLoopAndPlay("sweeper_theme", 1); // sweeper music???
             AudioController.Instance.SetLoopVolumeImmediate(0.8f, 1);
             OrdealCounterManager.Instance.SetShown(true);
             yield return new WaitForSeconds(1.5f);
