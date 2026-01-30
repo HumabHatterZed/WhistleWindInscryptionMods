@@ -74,6 +74,15 @@ namespace WhistleWindLobotomyMod {
                     new() { NewLine("Do take care of this, yes?", Emotion.Neutral) },
                     new() { NewLine("They are the chaos factor.", Emotion.Neutral) }
             });
+
+            CreateDialogueEvents("AngelaSweeper", new()
+            {
+                NewLine("An unfortunate turn", Emotion.Neutral),
+                NewLine("of events, manager.", Emotion.Neutral),
+                NewLine("Handle it quickly.", Emotion.Laughter)},
+                new() {
+                    new() { NewLine("Another Night, manager?", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -211,6 +220,17 @@ namespace WhistleWindLobotomyMod {
                     new() { NewLine("Every action has consequences.", Emotion.Laughter) },
                     new() { NewLine("They appear wherever they please, huh?", Emotion.Neutral) }
             });
+            CreateDialogueEvents("BinahSweeper", new()
+            {
+                NewLine("Ah, the Sweepers.", Emotion.Neutral),
+                NewLine("Whereever there is trash, they will always", Emotion.Neutral),
+                NewLine("appear to clean it up.", Emotion.Neutral),
+                NewLine("We had a symbiotic relationship. After all,", Emotion.Neutral),
+                NewLine("we were too busy to take care of all the dregs.", Emotion.Laughter)},
+                new() {
+                    new() { NewLine("Someone must take care of the dregs.", Emotion.Neutral) },
+                    new() { NewLine("I wonder if you'll survive this time.", Emotion.Laughter) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -341,7 +361,17 @@ namespace WhistleWindLobotomyMod {
                 NewLine("Guess they came here too, huh?", Emotion.Neutral)},
                 new() {
                     new() { NewLine("Be careful now~", Emotion.Laughter) },
-                    new() { NewLine("Don't get overwhelmed", Emotion.Neutral) }
+                    new() { NewLine("Don't get overwhelmed.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("ChesedSweeper", new()
+            {
+                NewLine("The Night in the Backstreets, huh?", Emotion.Neutral),
+                NewLine("I've heard quite a few tales of it", Emotion.Neutral),
+                NewLine("back at the Nest.", Emotion.Neutral),
+                NewLine("Unfortunate that I get to experience it.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Keep your wits, now~", Emotion.Laughter) },
+                    new() { NewLine("Don't get overwhelmed.", Emotion.Neutral) }
             });
             #endregion
 
@@ -479,6 +509,15 @@ namespace WhistleWindLobotomyMod {
                     new() { NewLine("Let's hurry up and smash 'em.", Emotion.Neutral) },
                     new() { NewLine("Nothing I can't handle myself.", Emotion.Neutral) }
             });
+            CreateDialogueEvents("GeburaSweeper", new()
+            {
+                NewLine("Guess you got caught up in the Night.", Emotion.Neutral),
+                NewLine("Whatever, just keep your head", Emotion.Anger),
+                NewLine("above the waves and let me work.", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Nights were always the worst.", Emotion.Anger) },
+                    new() { NewLine("Cut 'em down faster than they come.", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -608,6 +647,14 @@ namespace WhistleWindLobotomyMod {
                 new() {
                     new() { NewLine("Did they follow us?", Emotion.Curious) },
                     new() { NewLine("Hurry, before more come.", Emotion.Anger) }
+            });
+            CreateDialogueEvents("HodSweeper", new()
+            {
+                NewLine("Sweepers?", Emotion.Curious),
+                NewLine("It's okay, just remember your training!", Emotion.Curious) },
+                new() {
+                    new() { NewLine("They never end...", Emotion.Curious) },
+                    new() { NewLine("They just keep coming...", Emotion.Curious) }
             });
             #endregion
 
@@ -745,6 +792,14 @@ namespace WhistleWindLobotomyMod {
                 new() {
                     new() { NewLine("We must prove ourselves once more.", Emotion.Neutral) },
                     new() { NewLine("Some things cannot be controlled.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("HokmaSweeper", new()
+            {
+                NewLine("The Night cannot last forever.", Emotion.Neutral),
+                NewLine("We must simply survive until day breaks.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("The Night will give way to day.", Emotion.Neutral) },
+                    new() { NewLine("We will make it through.", Emotion.Curious) }
             });
             #endregion
 
@@ -884,6 +939,15 @@ namespace WhistleWindLobotomyMod {
                     new() { NewLine("You can't control the unknown.", Emotion.Neutral) },
                     new() { NewLine("Nothing we can't handle!", Emotion.Laughter) }
             });
+            CreateDialogueEvents("MalkuthSweeper", new()
+            {
+                NewLine("Don't worry!", Emotion.Laughter),
+                NewLine("We've survived worse before!", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Someone must take care of the trash.", Emotion.Neutral) },
+                    new() { NewLine("Don't worry, manager!", Emotion.Laughter) },
+                    new() { NewLine("Nothing we can't handle!", Emotion.Laughter) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1012,6 +1076,13 @@ namespace WhistleWindLobotomyMod {
                     new() { NewLine("They never stop...", Emotion.Neutral) },
                     new() { NewLine("Part of the routine.", Emotion.Neutral) }
             });
+            CreateDialogueEvents("NetzachSweeper", new()
+            {
+                NewLine("You really messed up, huh?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("They never stop...", Emotion.Neutral) },
+                    new() { NewLine("The smell...", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1097,7 +1168,7 @@ namespace WhistleWindLobotomyMod {
             });
             CreateDialogueEvents("TipherethAAngler", new()
             {
-                NewLine("It smells like the Backstreets here.", Emotion.Neutral) },
+                NewLine("It smells like the Outskirts here.", Emotion.Neutral) },
                 new() {
                     new() { NewLine("At least his actions are predictable.", Emotion.Neutral) },
                     new() { NewLine("Quickly now.", Emotion.Neutral) }
@@ -1138,6 +1209,13 @@ namespace WhistleWindLobotomyMod {
                 new() {
                     new() { NewLine("Let's finish this quickly.", Emotion.Neutral) },
                     new() { NewLine("Such a pain.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("TipherethASweeper", new()
+            {
+                NewLine("How could you forget to get inside?!", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Not again...", Emotion.Neutral) },
+                    new() { NewLine("Is it so hard to just stay inside?", Emotion.Neutral) }
             });
             #endregion
 
@@ -1296,7 +1374,16 @@ namespace WhistleWindLobotomyMod {
                 NewLine("I trust you have what it takes.", Emotion.Neutral)},
                 new() {
                     new() { NewLine("Be efficient.", Emotion.Neutral) },
-                    new() { NewLine("Little more than a nuisance", Emotion.Neutral) }
+                    new() { NewLine("Little more than a nuisance.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("YesodSweeper", new()
+            {
+                NewLine("I didn't think you'd be foolish", Emotion.Neutral),
+                NewLine("enough to be in the Backstreets", Emotion.Neutral),
+                NewLine("at night.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("You just need to survive.", Emotion.Neutral) },
+                    new() { NewLine("Why are we out here again?", Emotion.Anger) }
             });
             #endregion
 
