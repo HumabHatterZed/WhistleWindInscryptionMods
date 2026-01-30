@@ -57,7 +57,7 @@ Roots				|✓|X|3	|When a card bearing this sigil is played, create Thorny Vines
 Broodmother			|X|X|3	|When a card bearing this sigil is struck, create a Spiderling in your hand. A spiderling is defined as: 0 Power, 1 Health, Fledgling.
 Cursed				|✓|X|0	|When a card bearing this sigil dies, the killer transforms into a copy of this card.
 Healer				|X|X|2	|At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.
-Queen Nest			|X|X|4	|While a card bearing this sigil is on the board, create a Worker Bee in your hand whenever another card perishes. A Worker Bee is defined as: 1 Power, 1 Health.
+Queen Nest			|X|X|4	|While a card bearing this sigil is on the board, create a Worker Bee in your hand whenever another creature perishes. A Worker Bee is defined as: 1 Power, 1 Health.
 Vendetta			|✓|X|2	|A card bearing this sigil gains 1 Power for every opposing creature that also bears this sigil.
 Courageous			|X|X|3	|Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.
 Serpent's Nest		|✓|X|2	|When a card bearing this sigil is struck, the striker gains 1 Worms.

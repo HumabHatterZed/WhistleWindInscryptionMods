@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -9,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_QueenNest() {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "While [creature] is on the board, create a Worker Bee in your hand whenever another card perishes. [define:wstl_queenBeeWorker]";
+            const string rulebookDescription = "While [creature] is on the board, create a Worker Bee in your hand whenever another creature perishes. [define:wstl_queenBeeWorker]";
             const string dialogue = "For the hive.";
             const string triggerText = "Another worker is born to serve [creature].";
             QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(
@@ -20,7 +21,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// While [creature] is on the board, create a Worker Bee in your hand whenever another card perishes. [define:wstl_queenBeeWorker]
+    /// While [creature] is on the board, create a Worker Bee in your hand whenever another creature perishes. [define:wstl_queenBeeWorker]
     /// </summary>
     public class QueenNest : OpponentDrawCreatedCard {
         public static Ability ability;
@@ -29,7 +30,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             if (card != base.Card)
-                return base.Card.OnBoard && fromCombat && killer != null;
+                return base.Card.OnBoard && fromCombat && killer != null && card.LacksAllTraits(Trait.Terrain, Trait.Pelt);
 
             return false;
         }
