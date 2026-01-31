@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, "Cheers for\nthe Beginning",
-                attack: 1, health: 3)
+                attack: 1, health: 2)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinCheers")
                 .AddAbilities(Withering.ability, Ability.ExplodeOnDeath)
@@ -47,17 +47,18 @@ namespace WhistleWindLobotomyMod {
                 .SetTail(tail)
                 .Build();
 
-            CardInfo struggle = CardManager.New(LobotomyPlugin.pluginPrefix, skinClimax, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 2),
-                attack: 3, health: 5)
+            CardManager.New(LobotomyPlugin.pluginPrefix, skinClimax, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 2),
+                attack: 3, health: 6)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinClimax")
                 .AddAbilities(Ability.IceCube, NimbleFoot.ability, Challenging.ability)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddAppearances(OrdealBackgroundCrimsonClimax.appearance, CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .SetOrdealCard(Opponents.OrdealType.Crimson)
                 .AddTraits(Trait.Uncuttable)
                 .SetIceCube(harmony)
                 .SetTail(tail)
+                .RemoveAppearances(OrdealBackgroundCrimson.appearance)
                 .Build();
         }
     }

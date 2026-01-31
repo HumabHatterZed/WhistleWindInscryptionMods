@@ -15,6 +15,7 @@ namespace WhistleWindLobotomyMod {
             OrdealBackgroundVioletBlack.appearance = CardHelper.CreateAppearance<OrdealBackgroundVioletBlack>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundVioletBlack").Id;
             OrdealBackgroundVioletPale.appearance = CardHelper.CreateAppearance<OrdealBackgroundVioletPale>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundVioletPale").Id;
             OrdealBackgroundCrimson.appearance = CardHelper.CreateAppearance<OrdealBackgroundCrimson>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundCrimson").Id;
+            OrdealBackgroundCrimsonClimax.appearance = CardHelper.CreateAppearance<OrdealBackgroundCrimsonClimax>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundCrimsonClimax").Id;
             OrdealBackgroundIndigo.appearance = CardHelper.CreateAppearance<OrdealBackgroundIndigo>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundIndigo").Id;
             OrdealBackgroundIndigoTerrain.appearance = CardHelper.CreateAppearance<OrdealBackgroundIndigoTerrain>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundIndigoTerrain").Id;
             OrdealBackgroundWhite.appearance = CardHelper.CreateAppearance<OrdealBackgroundWhite>(LobotomyPlugin.pluginGuid, "OrdealCardBackgroundWhite").Id;
@@ -85,6 +86,10 @@ namespace WhistleWindLobotomyMod {
     public class OrdealBackgroundCrimson : CardAppearanceBehaviour {
         public static Appearance appearance;
         public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_c.png");
+    }
+    public class OrdealBackgroundCrimsonClimax : CardAppearanceBehaviour {
+        public static Appearance appearance;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_climax.png");
     }
     public class OrdealBackgroundIndigo : CardAppearanceBehaviour {
         public static Appearance appearance;
