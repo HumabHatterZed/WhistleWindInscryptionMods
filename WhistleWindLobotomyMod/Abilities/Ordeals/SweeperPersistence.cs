@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
     }
 
     /// <summary>
-    /// Whenever [creature] moves to a new space, create a Perfect SweeperPersistence in the old space. [define:wstl_foodPerfect]
+    /// This card is considered Persistent. After attacking, this card will strike adjacent cards that aren't Sweepers. Once per battle at low Health, switch places with a queued Sweeper.
     /// </summary>
     public class SweeperPersistence : AbilityBehaviour {
         public static Ability ability;
