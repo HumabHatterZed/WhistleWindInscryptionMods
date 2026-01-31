@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
             CardInfo info = CardManager.New(LobotomyPlugin.pluginPrefix, sweeperCorpse, "Corpse",
                 attack: 0, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperCorpse")
-                .AddAbilities(StartingDecay.ability, StartingDecay.ability)
+                .AddAbilities(StartingDecay.ability)
                 .SetTerrain()
                 .SetOrdealCard(OrdealType.Indigo)
                 .RemoveTraits(Ordeal, Trait.Terrain)
