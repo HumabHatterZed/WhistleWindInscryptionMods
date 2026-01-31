@@ -22,8 +22,8 @@ namespace WhistleWindLobotomyMod {
 
         private static void Cards_VioletOrdeal() {
             CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "The Fruit\nof Understanding",
-                attack: 0, health: 4)
-                .SetBonesCost(4)
+                attack: 0, health: 3)
+                .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "fruitUnderstanding")
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
