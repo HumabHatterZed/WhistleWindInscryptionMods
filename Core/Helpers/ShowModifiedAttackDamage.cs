@@ -20,7 +20,9 @@ namespace Core.Helpers {
                 attacker.RenderInfo.attackTextColor = GameColors.Instance.darkFuschia;
             }
             else {
+                // if the damage dealt is equal to the attacker's attack, don't update the display
                 attacker.RenderInfo.attackTextColor = Color.black;
+                yield break;
             }
 
             attacker.RenderInfo.attack = damage;
