@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddSweeperPersistence() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Persistent Sweeping";
-            info.rulebookDescription = "This card is considered Persistent. At the end of the owner's turn, this card will attack adjacent cards that aren't Sweepers. Once per battle, switch places with a queued Sweeper at low Health.";
+            info.rulebookDescription = "This card is considered Persistent. After attacking, this card will strike adjacent cards that aren't Sweepers. Once per battle at low Health, switch places with a queued Sweeper.";
             SweeperPersistence.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SweeperPersistence), TextureLoader.LoadTextureFromFile("sigilSweeper.png", LobotomyPlugin.ModAssembly))
                 .SetAbilityRedirect("Persistent", Persistent.ability, GameColors.Instance.red)
                 .Id;
@@ -30,8 +30,8 @@ namespace WhistleWindLobotomyMod {
         public override Ability Ability => ability;
         private bool canReturnToQueue = true;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+        public override bool RespondsToAttackEnded() => true;
+        public override IEnumerator OnAttackEnded() {
             List<PlayableCard> corpses = base.Card.Slot.GetAdjacentCards().Where(x => x.Info.DisplayedNameEnglish != "Sweeper").ToList();
             if (corpses.Count > 0) {
                 yield return HelperMethods.ChangeCurrentView(View.Board);
@@ -40,7 +40,9 @@ namespace WhistleWindLobotomyMod {
                     yield return Singleton<CombatPhaseManager3D>.Instance.SlotAttackSlot(base.Card.Slot, card.Slot);
                 }
             }
-            
+        }
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             if (canReturnToQueue && TurnManager.Instance.Opponent.Queue.Count > 0 && base.Card.Health == 1 & base.Card.MaxHealth != 1) {
                 CardSlot slot = base.Card.Slot;
                 PlayableCard queuedCard = TurnManager.Instance.Opponent.Queue.Find(x => x.QueuedSlot == slot);
