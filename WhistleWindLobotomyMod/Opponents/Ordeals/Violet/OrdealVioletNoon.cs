@@ -44,7 +44,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             return false;
         }
 
-        public override void ModifySpawnedCard(PlayableCard card) {
+        public override void TryAddOrdealRandomBuff(PlayableCard card) {
+            base.TryAddOrdealRandomBuff(card);
             if (card.Info.name == Cards.grantUsLove) {
                 int tier = RunState.CurrentRegionTier;
                 if (tier > 0) {
@@ -55,10 +56,6 @@ namespace WhistleWindLobotomyMod.Opponents {
                     card.Info.Mods.Add(mod);
                 }
             }
-        }
-
-        public override void TryAddOrdealRandomBuff(PlayableCard card) {
-            
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {

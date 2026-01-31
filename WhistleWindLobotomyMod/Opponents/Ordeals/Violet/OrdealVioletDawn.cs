@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
+using UnityEngine;
 using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -15,52 +16,59 @@ namespace WhistleWindLobotomyMod.Opponents {
         private int maxFruit = 0;
         private int fruitToSpawn = 0;
 
-        public override void ModifyQueuedCard(PlayableCard card) {
-            if (card.Info.name != Cards.fruitUnderstanding) {
-                return;
-            }
+        public override void TryAddOrdealRandomBuff(PlayableCard card) {
+            if (card.Info.name == Cards.fruitUnderstanding) {
+                CardModificationInfo mod = new();
+                int decayStacks = 5;
 
-            CardModificationInfo mod = new();
-            int decayStacks = 6;
+                // first fruit has higher timer
+                if (maxFruit == fruitToSpawn) {
+                    decayStacks++;
+                }
+                if (Opponent.Difficulty > 7) {
+                    decayStacks--;
+                    if (Opponent.Difficulty > 13) {
+                        decayStacks--;
+                    }
+                }
 
-            // first fruit has higher timer
-            if (maxFruit == fruitToSpawn) {
-                decayStacks++;
-            }
-            if (Opponent.Difficulty > 7) {
-                decayStacks--;
-                if (Opponent.Difficulty > 13) {
+                // last fruit has reduced timer
+                if (fruitToSpawn == 1) {
                     decayStacks--;
                 }
+                for (int i = 0; i < decayStacks; i++) {
+                    mod.abilities.Add(StartingDecay.ability);
+                }
+                card.AddTemporaryMod(mod);
+                card.OnStatsChanged();
+                fruitToSpawn--;
             }
-
-            // last fruit has reduced timer
-            if (fruitToSpawn == 1) {
-                decayStacks--;
-            }
-            for (int i = 0; i < decayStacks; i++) {
-                mod.abilities.Add(StartingDecay.ability);
-                //card.TriggerHandler.AddAbility(StartingDecay.ability);
-            }
-            card.AddTemporaryMod(mod);
-            card.OnStatsChanged();
-            fruitToSpawn--;
         }
-
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int minCards = 2;
+            HighestPositiveScaleBalance = Mathf.Min(4, 5 - RunState.Run.DifficultyModifier - 2 * RunState.CurrentRegionTier);
             List<EncounterBlueprintData.CardBlueprint> turn = new() {
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding),
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
 
-            if (encounterData.Difficulty > 3) {
-                turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
-                minCards++;
-            }
             if (encounterData.Difficulty > 8) {
-                turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
-                minCards++;
+                EncounterData.StartCondition cond = new() {
+                    cardsInOpponentSlots = new CardInfo[] {
+                        CardLoader.GetCardByName(Cards.fruitUnderstanding),
+                        CardLoader.GetCardByName(Cards.fruitUnderstanding)
+                    }
+                };
+            }
+            else {
+                if (encounterData.Difficulty > 3) {
+                    turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
+                    minCards++;
+                }
+                if (encounterData.Difficulty > 5) {
+                    turn.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
+                    minCards++;
+                }
             }
 
             fruitToSpawn = maxFruit = minCards;
