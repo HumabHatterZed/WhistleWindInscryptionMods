@@ -30,15 +30,15 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
         private IEnumerator TheRumbling() {
             TableVisualEffectsManager.Instance.ThumpTable(0.2f);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.2f);
             TableVisualEffectsManager.Instance.ThumpTable(0.3f);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.1f);
             TableVisualEffectsManager.Instance.ThumpTable(0.2f);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.15f);
             TableVisualEffectsManager.Instance.ThumpTable(0.3f);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.1f);
             TableVisualEffectsManager.Instance.ThumpTable(0.2f);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.2f);
         }
         public override IEnumerator PostResetScalesSequence() {
             if (NumLives == 0) {
@@ -110,6 +110,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override IEnumerator OutroSequence(bool wasDefeated) {
+            
             if (!BattleSequencer.defeated) {
                 OrdealBannerManager.Instance.UpdateBannerOutro(BattleSequencer.ordealType, BattleSequencer.ordealTier);
                 OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, false);
