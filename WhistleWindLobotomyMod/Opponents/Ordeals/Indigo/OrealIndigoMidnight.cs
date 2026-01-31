@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override Opponent.Type BossType => OrdealUtils.SweeperOpponentID;
         public SweeperOpponent SweeperOpponent => Opponent as SweeperOpponent;
         private const int NUM_TURNS = 5;
-        private int numWavesLeft = 3;
+        private int numWavesLeft = 1;
         private int numTurnsLeft = NUM_TURNS;
         private bool newWave = true;
 
@@ -63,23 +63,22 @@ namespace WhistleWindLobotomyMod.Opponents {
             LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] OpponentLifeLost: numLives: {Opponent.NumLives}");
 
             if (Opponent.NumLives == 0) {
-                defeated = true;
-                OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
-                OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
-                yield return HelperMethods.ChangeCurrentView(View.Default);
-                OrdealCounterManager.Instance.EnableConsole(false);
-                yield return new WaitForSeconds(0.25f);
-                OrdealCounterManager.Instance.SetShown(false);
-                yield return new WaitForSeconds(1.5f);
-                yield return Opponent.DefeatedFinalBossSequence();
+                defeated = false;
+                yield return Opponent.OutroSequence(true);
                 yield break;
             }
 
-            numWavesLeft--;
-            defeated = false;
-            numTurnsLeft = NUM_TURNS;
-            amountKilledThisTurn = 0;
+            bool wonByKill = OrdealCounterManager.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
 
+            numWavesLeft++;
+            defeated = false;
+            amountKilledThisTurn = 0;
+            numTurnsLeft = NUM_TURNS;
+
+            if (wonByKill) {
+                numTurnsLeft++;
+            }
+            
             OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint();
             yield return HelperMethods.ChangeCurrentView(View.Default);
             SweeperOpponent.EmitCentre();
@@ -88,14 +87,18 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return TurnManager.Instance.Opponent.ClearQueue();
             yield return TurnManager.Instance.Opponent.QueueNewCards(changeView: false);
 
-            yield return UpdateCounterIcon(true, false);
+            
+            if (!wonByKill) {
+                yield return UpdateCounterIcon(true, false);
+            }
         }
 
         private IEnumerator UpdateCounterIcon(bool updateNumWaves, bool reduceTurn) {
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
+            OrdealCounterManager.Instance.SetTextColour(Color.black);
             if (updateNumWaves) {
                 newWave = false;
-                yield return OrdealCounterManager.Instance.FlickerConsole(3, numWavesLeft, "waves left", 0.5f);
+                yield return OrdealCounterManager.Instance.FlickerConsole(3, numWavesLeft, "wave", 0.5f);
             }
 
             if (reduceTurn) {
