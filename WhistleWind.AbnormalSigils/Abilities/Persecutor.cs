@@ -4,6 +4,8 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Persecutor() {
+            // [creature] deals 1 additional damage to cards that are Unyielding or belong to the Mechanical tribe. These effects stack with each other.
+            // When [creature] is played, create a Nail and Hammer in the adjacent left and right spaces respectively if they are empty.
             const string rulebookName = "Persecutor";
             const string rulebookDescription = "When [creature] is played, create a Nail and Hammer in the adjacent left and right spaces respectively if they are empty.";
             const string dialogue = "Are you guilty of having a closed heart?";
