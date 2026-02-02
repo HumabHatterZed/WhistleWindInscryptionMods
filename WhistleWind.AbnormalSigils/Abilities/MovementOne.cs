@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using System.Linq;
-
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
@@ -17,6 +17,7 @@ namespace WhistleWind.AbnormalSigils {
                 .SetPart3Rulebook()
                 .SetMagnificusRulebook()
                 .SetGrimoraRulebook()
+                .SetAbilityRedirect("Sostenuto", MovementTwo.ability, Color.red)
                 .Info.SetAbilityLearnedDialogue(triggerText)
                 .SetGBCTriggerText(triggerText)
                 .SetPassive(false)

@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
@@ -13,17 +15,19 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is played, begin Movement 1: Adagio.";
             const string dialogue = "The conductor begins to direct the apocalypse.";
             const string triggerText = "[creature] begins to direct the apocalypse.";
+
+            Ability_Conductor5();
+            Ability_Conductor4();
+            Ability_Conductor3();
+            Ability_Conductor2();
+            Ability_Conductor1();
+
             Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
                 "sigilConductor",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
+                .SetAbilityRedirect("Adagio", MovementOne.ability, Color.red)
                 .Id;
-
-            Ability_Conductor1();
-            Ability_Conductor2();
-            Ability_Conductor3();
-            Ability_Conductor4();
-            Ability_Conductor5();
         }
     }
     /// <summary>

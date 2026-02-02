@@ -1,6 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using System.Collections;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -15,6 +17,7 @@ namespace WhistleWind.AbnormalSigils {
                 .SetPart3Rulebook()
                 .SetMagnificusRulebook()
                 .SetGrimoraRulebook()
+                .SetAbilityRedirect("Stringendo", MovementFour.ability, Color.red)
                 .Info.SetAbilityLearnedDialogue(triggerText)
                 .SetGBCTriggerText(triggerText)
                 .SetPassive(false)
