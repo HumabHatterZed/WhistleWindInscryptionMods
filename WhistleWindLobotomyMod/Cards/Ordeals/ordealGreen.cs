@@ -121,7 +121,7 @@ namespace WhistleWindLobotomyMod {
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, string.Empty,
                 attack: 0, health: 30)
-                .AddAbilities(Ability.Reach, Tower.ability, Challenging.ability)
+                .AddAbilities(Ability.Reach, Tower.ability, Ability.AllStrike, Challenging.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Giant, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
                 .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("LastHelixPortrait"))
