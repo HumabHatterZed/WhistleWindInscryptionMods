@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Conductor4() {
             const string rulebookName = "Fourth Movement: Stringendo";
-            const string rulebookDescription = "All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.";
+            const string rulebookDescription = "All other creatures on the board gain 1 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.";
             const string triggerText = "The music shall perforate your entire being.";
             MovementFour.ability = AbilityHelper.NewFiller<MovementFour>(
                 pluginGuid, "sigilMovementFour", rulebookName, rulebookDescription)
@@ -56,11 +56,7 @@ namespace WhistleWind.AbnormalSigils {
         }
         public override int GetPassiveAttackBuff(PlayableCard target) {
             if (base.Card.OnBoard && target.OnBoard && target != base.Card) {
-                /*if (!target.HasStatusEffect<Fervent>())
-                {
-                    target.AddStatusEffect<Fervent>(1);
-                }*/
-                return 2;
+                return 1;
             }
             return 0;
         }
