@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_FrostRuler() {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, choose a space on the board. If it is empty, pay 2 Bones to create a Block of Ice, otherwise pay 4 Bones to create a Frozen Heart.";
+            const string rulebookDescription = "Once per turn, pay 2 Bones choose a space on the board. If it is empty, create a Block of Ice. If occupied, pay 2 more Bones to kill the occupying card and create a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             const string triggerText = "[creature] freezes the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
@@ -32,6 +32,10 @@ namespace WhistleWind.AbnormalSigils {
 
             if (slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt))
                 return "The cold cannot turn one without a heart. Choose another.";
+
+            if (!base.Card.OpponentCard && ResourcesManager.Instance.PlayerBones < 2) {
+                return "You don't have enough Bones.";
+            }
 
             return "Frost cannot penetrate this one. Choose another.";
         }
@@ -68,8 +72,9 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnValidTargetSelected(CardSlot slot) {
             yield return HelperMethods.ChangeCurrentView(View.Board);
             if (slot.Card != null) {
-                if (!slot.Card.OpponentCard)
+                if (!slot.Card.OpponentCard) {
                     yield return ResourcesManager.Instance.SpendBones(2);
+                }
 
                 yield return slot.Card.Die(false, base.Card);
                 if (slot.Card == null)
@@ -91,7 +96,9 @@ namespace WhistleWind.AbnormalSigils {
                 return false;
 
             if (slot.Card != null) {
-                if (base.Card.OpponentCard || ResourcesManager.Instance.PlayerBones > 3)
+                // opponents don't spend bones
+                // player needs to spend 2 to activate the sigil, so only check if they have 2 more
+                if (base.Card.OpponentCard || ResourcesManager.Instance.PlayerBones > 1)
                     return slot.Card.LacksAllTraits(Trait.Uncuttable, Trait.Terrain, Trait.Pelt, Trait.Giant) && slot.Card.LacksAbility(Scorching.ability);
 
                 return false;
