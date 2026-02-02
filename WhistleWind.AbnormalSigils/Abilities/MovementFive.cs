@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Conductor5() {
             const string rulebookName = "Finale";
-            const string rulebookDescription = "All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, this card will perish.";
+            const string rulebookDescription = "All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, remove this card from the board.";
             const string triggerText = "The performance does not end. And Da capo. And Da capo al Fine.";
             MovementFive.ability = AbilityHelper.NewFiller<MovementFive>(
                 pluginGuid, "sigilMovementFive", rulebookName, rulebookDescription)
@@ -49,9 +49,9 @@ namespace WhistleWind.AbnormalSigils {
             }
         }
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
-            yield return new WaitForSeconds(0.5f);
-            yield return base.Card.Die(false, null);
             yield return base.PreSuccessfulTriggerSequence();
+            base.Card.RemoveFromBoard();
+            yield return new WaitForSeconds(0.5f);
             yield return base.LearnAbility();
         }
 
