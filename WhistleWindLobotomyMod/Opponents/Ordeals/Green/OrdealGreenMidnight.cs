@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         private bool isActive = false;
         private bool justActivated = false;
-        private bool gainPower = false;
+        private int turnsToGainPower;
         private HelixLight wanderingLight;
         private HelixLight stationaryLight;
 
@@ -77,12 +77,6 @@ namespace WhistleWindLobotomyMod.Opponents {
 
                     // when the countdown hits 0 and if we have a cooldown period, deactivate the helix
                     if (phaseCountdown == 0) {
-                        
-                        if (gainPower) {
-                            Helix.AddTemporaryMod(new(1, 0));
-                        }
-                        gainPower = !gainPower;
-
                         if (maxCooldownPeriod > 0) {
                             LobotomyPlugin.Log.LogDebug("Deactivate Helix");
                             phaseCountdown = maxCooldownPeriod;
@@ -98,6 +92,11 @@ namespace WhistleWindLobotomyMod.Opponents {
                     yield return UpdateCounterIcon();
                     yield return PreActivePhase();
                 }
+            }
+
+            // every X turns, gain 1 Power
+            if (Helix.Attack < 3 && TurnNumber % turnsToGainPower == 0) {
+                Helix.AddTemporaryMod(new(1, 0));
             }
         }
 
@@ -231,15 +230,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             Transform t = liveRenderCam.transform.GetChild(1).GetChild(0).GetChild(0);
             HelixAnimator = t.GetChild(t.childCount - 1).GetComponentInChildren<Animator>();
 
-            int gate = RunState.CurrentRegionTier + RunState.Run.DifficultyModifier - 1;
-            if (gate > 0) {
+            // determine whether or not Helix should be able to attack
+            // for the first map, cannot attack unless difficulty has been increased via challenges
+            if (RunState.CurrentRegionTier + RunState.Run.DifficultyModifier > 1) {
                 Helix.Info.baseAttack = 1;
-                Helix.Info.Mods.Add(new(Ability.AllStrike));
-                Helix.TriggerHandler.AddAbility(Ability.AllStrike);
-                if (gate > 2) {
-                    Helix.Info.baseAttack++;
-                }
             }
+            turnsToGainPower = Mathf.Max(2, 4 - RunState.CurrentRegionTier + RunState.Run.DifficultyModifier);
             Helix.Info.baseHealth += RunState.CurrentRegionTier * 10;
         }
 
