@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             switch (baseDifficulty) {
                 case 6:
                     encounterData.Blueprint
-                        .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcessDown))
+                        .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcessDown2))
                         .AddTurn()
                         .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcess))
                         .AddTurn()
@@ -34,25 +35,26 @@ namespace WhistleWindLobotomyMod.Opponents {
                     break;
                 default:
                     encounterData.Blueprint
-                        .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcessDown))
-                        .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcessDown))
+                        .AddTurn(EncounterManager.NewCardBlueprint(encounterData.Difficulty < 13 ? Cards.doubtProcessDown2 : Cards.doubtProcessDown))
+                        .AddTurn(EncounterManager.NewCardBlueprint(encounterData.Difficulty < 10 ? Cards.doubtProcessDown2 : Cards.doubtProcessDown))
                         .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcess))
                         .AddTurn(EncounterManager.NewCardBlueprint(Cards.doubtProcess));
                     minCards = 4;
+
+                    if (encounterData.Difficulty > 9) {
+                        startingCard[0] = CardLoader.GetCardByName(Cards.doubtProcessDown2);
+                        minCards++;
+                    }
+
                     break;
             }
 
-            if (encounterData.Difficulty > 8) {
-                startingCard[0] = CardLoader.GetCardByName(Cards.doubtProcessDown);
-                minCards++;
-            }
-
             EncounterData.StartCondition cond = new();
-            startingCard.Randomize();
+            startingCard = startingCard.Randomize().ToList();
             cond.cardsInOpponentSlots = startingCard.ToArray();
             encounterData.startConditions.Add(cond);
 
-            LobotomyPlugin.Log.LogInfo($"[Green Noon] Base: {baseDifficulty} Diff: {encounterData.Difficulty}");
+            //LobotomyPlugin.Log.LogInfo($"[Green Noon] Base: {baseDifficulty} Diff: {encounterData.Difficulty}");
             return minCards;
         }
     }

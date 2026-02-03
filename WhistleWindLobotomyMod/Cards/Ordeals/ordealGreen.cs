@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod {
         public const string doubtO = "wstl_doubtO";
         public const string doubtProcess = "wstl_doubtProcess";
         public const string doubtProcessDown = "wstl_doubtProcess_down";
+        public const string doubtProcessDown2 = "wstl_doubtProcess_down2";
         public const string whereWeReach = "wstl_doubtReach";
         public const string lastHelix = "wstl_doubtHelix";
         public const string lilHelix = "wstl_lilHelix";
@@ -84,6 +85,16 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(OrdealType.Green)
                 .Build();
 
+            CardInfo down2 = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcessDown2, "Process of Understanding",
+                attack: 0, health: 4)
+                .SetEnergyCost(4)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName51)
+                .AddAbilities(Piercing.ability, Ability.Transformer)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddTribes(TribeMechanical)
+                .SetOrdealCard(OrdealType.Green)
+                .Build();
+
             CardInfo pro = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, OrdealUtils.GetOrdealTitle(OrdealType.Green, 1),
                 attack: 3, health: 4)
                 .SetEnergyCost(4)
@@ -96,7 +107,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             down.SetEvolve(pro, 1);
-
+            down2.SetEvolve(pro, 2);
             CardManager.New(LobotomyPlugin.pluginPrefix, whereWeReach, OrdealUtils.GetOrdealTitle(OrdealType.Green, 2),
                 attack: 0, health: 7)
                 .SetEnergyCost(5)
