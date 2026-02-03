@@ -71,7 +71,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
             if (amountKilledThisTurn != 0) {
                 //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] update amount left");
-                yield return UpdateOrdealMonitor(amountKilledThisTurn);
+                if (amountKilledThisTurn > OrdealCounterManager.Instance.amountLeft) {
+                    yield return UpdateOrdealMonitor(OrdealCounterManager.Instance.amountLeft);
+                }
+                else {
+                    yield return UpdateOrdealMonitor(amountKilledThisTurn);
+                }
             }
 
             amountKilledThisTurn = 0; // reset here so we can modify it in MoveOpponentCards (see Amber Dusk for ex)
@@ -103,10 +108,8 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns>True if the player runs out of Ordeal cards before meeting the kill requirement.</returns>
         public virtual bool ShouldExtendBattle() {
-            //LobotomyPlugin.Log.LogDebug($"[ShouldExtendOrdeal] {Opponent.NumTurnsTaken} {Opponent.TurnPlan.Count}");
-            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count
-                && BoardManager.Instance.GetOpponentCards(CardIsValidOrdeal).Count == 0
-                && Opponent.Queue.Count(CardIsValidOrdeal) == 0;
+            int numOfOrdeals = BoardManager.Instance.CardsOnBoard.Count(CardIsValidOrdeal) + Opponent.Queue.Count(CardIsValidOrdeal);
+            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count && numOfOrdeals < OrdealCounterManager.Instance.amountLeft;
         }
 
         /// <returns>True if the given card's death is counted towards the kill requirement.</returns>
