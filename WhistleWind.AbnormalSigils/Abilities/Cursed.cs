@@ -46,11 +46,14 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(0.2f);
             killer.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            yield return killer.TransformIntoCard(this.Card.Info);
-            killer.Status.damageTaken = 0;
-            killer.TemporaryMods.RemoveAll(x => x.nonCopyable || !x.fromTotem);
+            yield return killer.TransformIntoCard(this.Card.Info, () => TransformKiller(killer));
             yield return new WaitForSeconds(0.4f);
             yield return LearnAbility();
+        }
+
+        private void TransformKiller(PlayableCard killer) {
+            killer.Status.damageTaken = 0;
+            killer.UpdateAppearanceBehaviours();
         }
     }
 }
