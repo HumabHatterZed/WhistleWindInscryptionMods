@@ -175,7 +175,7 @@ namespace WhistleWind.AbnormalSigils {
                 yield break;
 
             List<CardSlot> openSlots = BoardManager.Instance.GetSlotsCopy(!opponent);
-            openSlots.RemoveAll(x => x.Card != null && !Unyielding.CardCanBeMoved(x.Card));
+            openSlots.RemoveAll(x => x.Card != null && !slots.Contains(x)); // remove occupied slots that aren't being randomised
 
             if (sortPredicate != null)
                 slots.Sort((CardSlot a, CardSlot b) => sortPredicate(b) - sortPredicate(a));
