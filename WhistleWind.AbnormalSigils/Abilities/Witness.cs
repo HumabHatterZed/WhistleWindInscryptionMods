@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Witness() {
             const string rulebookName = "Witness";
-            const string rulebookDescription = "Pay 1 Bone to inflict 1 Flagellation and increase the selected creature's Health by 2. This effect stacks up to 3 times.";
+            const string rulebookDescription = "Pay 1 Bone to inflict 1 Flagellation and increase a chosen card's Health by 2. This effect can stack up to 3 times.";
             const string dialogue = "The truth will set you free.";
             const string triggerText = "Behold [creature] and be reborn.";
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// Pay 1 Bone to inflict 1 Flagellation and increase the selected creature's Health by 2. This effect stacks up to 3 times.
+    /// Pay 1 Bone to inflict 1 Flagellation and increase a chosen card's Health by 2. This effect can stack up to 3 times.
     /// </summary>
     public class Witness : ActivatedSelectSlotBehaviour {
         public static Ability ability;
@@ -29,22 +29,17 @@ namespace WhistleWind.AbnormalSigils {
         public override string InvalidTargetDialogue(CardSlot slot) => "You must choose one of your other cards to proselytise.";
         public override int StartingBonesCost => 1;
         public override bool IsValidTarget(CardSlot slot) {
-            if (!base.IsValidTarget(slot))
-                return false;
-
-            // card is on same side of board and has less than 3 Prudence
-            return slot.Card.OpponentCard == base.Card.OpponentCard && (slot.Card.GetStatusEffect<Prudence>()?.EffectPotency ?? 0) < 3;
+            // card has less than 3 Prudence
+            return base.IsValidTarget(slot) && slot.Card.GetStatusEffectPotency<Prudence>() < 3;
         }
 
-        public override bool CanActivate() => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(IsValidTarget);
+        public override bool CanActivate() => BoardManager.Instance.CardsOnBoard.Exists(x => IsValidTarget(x.Slot));
         public override IEnumerator OnValidTargetSelected(CardSlot slot) {
             if (!slot.Card.FaceDown)
                 slot.Card.Anim.StrongNegationEffect();
 
-            yield return slot.Card.AddStatusEffectToFaceDown<Prudence>(1, false, delegate (int i) {
-                slot.Card.HealDamage(2);
-                return i;
-            });
+            slot.Card.HealDamage(2);
+            yield return slot.Card.AddStatusEffectToFaceDown<Prudence>(1, false);
             yield return base.LearnAbility(0.4f);
         }
     }

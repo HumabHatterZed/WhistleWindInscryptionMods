@@ -68,7 +68,8 @@
 - Fixed Team Leader and Idol applying more Power gain/loss than intended when stacked with themselves
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
-- Fixed Witness not working
+- Fixed Witness not working as intended
+- Fixed Witness not working at all
 - Fixed Follow the Leader affecting Pelt and Terrain cards
 - Fixed Queen Nest triggering from Pelt and Terrain cards
 - Fixed Right-Veering Strike behaving like Left-Veering Strike

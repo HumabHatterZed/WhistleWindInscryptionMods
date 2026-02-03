@@ -78,7 +78,7 @@ Protector			|X|✓|3	|Creatures adjacent to a card bearing this sigil take 1 les
 Alchemist			|X|X|3	|Activate: Pay 2 Energy to discard your current hand and draw cards equal to the amount discarded. If the main pile is exhausted, draw from the side pile.
 Nettle Clothes		|X|X|5	|When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains sigils based on allied Brothers.
 Sporogenic			|X|✓|2	|Creatures adjacent to this card gain 1 Spores at the end of the owner's turn. This sigil activates before other sigils.
-Witness				|X|X|2	|Pay 1 Bone to inflict 1 Flagellation and increase the selected creature's Health by 2. This effect stacks up to 3 times.
+Witness				|X|X|2	|Pay 1 Bone to inflict 1 Flagellation and increase a chosen card's Health by 2. This effect can stack up to 3 times.
 Corrector			|✓|X|2	|When a card bearing this sigil is drawn, randomly change its stats according to its total play cost.
 Thick Skin			|✓|✓|2	|Whenever a card bearing this sigil is struck by a creature, reduce the damage taken by 1.
 Opportunistic		|✓|✓|2	|A card bearing this sigil deals 1 additional damage when striking creatures that cannot attack it.
