@@ -70,7 +70,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rName = "Fervent Adoration";
             const string rDesc = "While there is a Movement, a card bearing this effect will strike at random, with priority to other Fervent cards. If there is no Movement, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Fervent>(
-                pluginGuid, rName, rDesc, -1, GameColors.Instance.nearBlack,
+                pluginGuid, rName, rDesc, -1, GameColors.Instance.glowSeafoam,
                 TextureLoader.LoadTextureFromFile("sigilFervent.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilFervent_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
