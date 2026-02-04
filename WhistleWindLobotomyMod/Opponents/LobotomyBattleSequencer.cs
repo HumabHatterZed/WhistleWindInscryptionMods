@@ -41,19 +41,17 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public virtual IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;
-            int numRemoved = 0;
-            List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
-            for (int i = 0; i < slots.Count; i++) {
-                if (!slots[i].Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) && SeededRandom.Value(rand++) <= (0.75f - numRemoved * 0.15f)) {
-                    slots.Remove(slots[i]);
-                    numRemoved++;
-                    i--;
+            List<CardSlot> validSlots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
+            List<CardSlot> slotsToRandomise = new();
+            for (int i = 0; i < validSlots.Count; i++) {
+                if (validSlots[i].Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) || SeededRandom.Value(rand++) <= (0.95f - slotsToRandomise.Count * 0.15f)) {
+                    slotsToRandomise.Add(validSlots[i]);
                 }
             }
-
-            if (slots.Count > 0) {
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBattle.MoveOpponentCards] # to move: {slotsToRandomise.Count}");
+            if (slotsToRandomise.Count > 0) {
                 ViewManager.Instance.SwitchToView(View.Board);
-                yield return CardScramble.RandomiseCardsInSlots(slots, rand, true, sortPredicate: delegate (CardSlot s) {
+                yield return CardScramble.RandomiseCardsInSlots(slotsToRandomise, rand, true, sortPredicate: delegate (CardSlot s) {
                     return s.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
                 });
             }
