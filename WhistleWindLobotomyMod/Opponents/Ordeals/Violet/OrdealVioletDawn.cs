@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 
@@ -53,11 +54,15 @@ namespace WhistleWindLobotomyMod.Opponents {
             };
 
             if (encounterData.Difficulty > 8) {
-                EncounterData.StartCondition cond = new() {
-                    cardsInOpponentSlots = new CardInfo[] {
+                CardInfo[] startOnBoard = new CardInfo[] {
                         CardLoader.GetCardByName(Cards.fruitUnderstanding),
-                        CardLoader.GetCardByName(Cards.fruitUnderstanding)
-                    }
+                        CardLoader.GetCardByName(Cards.fruitUnderstanding),
+                        null,
+                        null
+                };
+                startOnBoard = startOnBoard.Randomize().ToArray();
+                EncounterData.StartCondition cond = new() {
+                    cardsInOpponentSlots = startOnBoard
                 };
                 encounterData.startConditions.Add(cond);
                 minCards++;
