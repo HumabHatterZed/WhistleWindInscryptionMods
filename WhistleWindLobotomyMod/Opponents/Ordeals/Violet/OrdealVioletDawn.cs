@@ -59,6 +59,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                         CardLoader.GetCardByName(Cards.fruitUnderstanding)
                     }
                 };
+                encounterData.startConditions.Add(cond);
+                minCards++;
             }
             else {
                 if (encounterData.Difficulty > 3) {
