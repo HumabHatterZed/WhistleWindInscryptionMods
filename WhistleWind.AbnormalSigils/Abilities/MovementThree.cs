@@ -34,12 +34,12 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability NextMovement => MovementFour.ability;
 
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
-            yield return base.OnUpkeep(onPlayerUpkeep);
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
-                if (slot.Card != null && !slot.Card.HasStatusEffect<Fervent>() && slot.Card != base.Card) {
-                    yield return slot.Card.AddStatusEffect<Fervent>(1);
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {
+                if (card != null && card != base.Card && !card.HasStatusEffect<Fervent>()) {
+                    yield return card.AddStatusEffect<Fervent>(1);
                 }
             }
+            yield return base.OnUpkeep(onPlayerUpkeep);
         }
         public override int GetPassiveAttackBuff(PlayableCard target) {
             if (base.Card.OnBoard && target.OnBoard && target != base.Card) {
