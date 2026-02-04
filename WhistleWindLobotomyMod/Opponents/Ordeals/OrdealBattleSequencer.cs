@@ -222,7 +222,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             ordealTier = tier;
             EncounterData encounterData = new() {
                 opponentType = OrdealUtils.OpponentID,
-                Blueprint = EncounterManager.New("", false).SetDifficulty(0, 20),
+                Blueprint = EncounterManager.New("OrdealBlueprint", false).SetDifficulty(0, 20),
                 Difficulty = Mathf.Min(20, nodeData.difficulty + RunState.Run.DifficultyModifier)
             };
 
@@ -256,7 +256,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 AssignTotemAbility(encounterData);
             }
 
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}] {encounterData.opponentTurnPlan.Count} {encounterData.opponentTurnPlan.FirstOrDefault()?.Count}");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}] turns: {encounterData.opponentTurnPlan.Count} first turn #: {encounterData.opponentTurnPlan.FirstOrDefault()?.Count}");
             EncounterBluePrint = new(encounterData.opponentTurnPlan);
             return encounterData;
         }

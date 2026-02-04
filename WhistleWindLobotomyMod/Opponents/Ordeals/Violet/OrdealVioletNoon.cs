@@ -59,7 +59,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
-            if (encounterData.Difficulty > 5) {
+            if (encounterData.Difficulty > 7) {
                 minTurnToForceNoon--;
             }
             targetIconPrefab = AssetManager.warningTargetPrefab;

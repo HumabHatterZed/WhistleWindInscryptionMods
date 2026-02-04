@@ -164,6 +164,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 encounterData.Blueprint.AddTurn(turn);
             }
 
+            // override the opponent type or else it'll be the default generic ordeal opponent
             encounterData.opponentType = OrdealUtils.SweeperOpponentID;
             return numCards;
         }
