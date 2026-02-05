@@ -66,28 +66,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             List<CardInfo> nextTurn = CreateNextTurnPlan(base.GetRandomSeed() + TurnManager.Instance.TurnNumber, LifeManager.Instance.Balance < 0);
             TurnManager.Instance.Opponent.TurnPlan.Add(nextTurn);
         }
-        public override IEnumerator MoveOpponentCards() {
-            int rand = base.GetRandomSeed() + TurnNumber;
-            List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
 
-            for (int i = 0; i < slots.Count; i++) {
-                if (SeededRandom.Value(rand++) <= 0.75f) {
-                    slots.Remove(slots[i]);
-                }
+        public override int MoveOpponentCardsSortFunc(CardSlot slot) {
+            if (slot.Card == BossCard) {
+                return 1000;
             }
-
-            // guarantee boss moves under certain conditions
-            if (!slots.Contains(BossCard.Slot) && (damageTakenThisTurn > 3 || changeToNextPhase || SeededRandom.Bool(rand++))) {
-                slots.Add(BossCard.Slot);
-            }
-
-            yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
-            yield return CardScramble.RandomiseCardsInSlots(slots, rand, true, sortPredicate: delegate (CardSlot s) {
-                if (s == BossCard.Slot)
-                    return 1000;
-
-                return s.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
-            });
+            return base.MoveOpponentCardsSortFunc(slot);
         }
         #endregion
 

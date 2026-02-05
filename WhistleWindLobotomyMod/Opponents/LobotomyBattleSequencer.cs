@@ -51,12 +51,13 @@ namespace WhistleWindLobotomyMod.Opponents {
             LobotomyPlugin.Log.LogDebug($"[LobotomyBattle.MoveOpponentCards] # to move: {slotsToRandomise.Count}");
             if (slotsToRandomise.Count > 0) {
                 ViewManager.Instance.SwitchToView(View.Board);
-                yield return CardScramble.RandomiseCardsInSlots(slotsToRandomise, rand, true, sortPredicate: delegate (CardSlot s) {
-                    return s.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
-                });
+                yield return CardScramble.RandomiseCardsInSlots(slotsToRandomise, BoardManager.Instance.OpponentSlotsCopy, rand, sortPredicate: MoveOpponentCardsSortFunc);
             }
         }
 
+        public virtual int MoveOpponentCardsSortFunc(CardSlot slot) {
+            return slot.Card.Info.HasTrait(LobotomyCardManager.PriorityMovement) ? 100 : 0;
+        }
         protected void ResetPerRoundVariables() {
             bonesDugUpThisTurn = directDamageCache = 0;
         }

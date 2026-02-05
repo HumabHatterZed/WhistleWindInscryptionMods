@@ -32,52 +32,23 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability Ability => ability;
         public override int StartingEnergyCost => 3;
 
+        public override bool CanActivate() {
+            return base.CanActivate() && GetOccupiedSlotsMovable(BoardManager.Instance.AllSlotsCopy).Count > 0;
+        }
         public override IEnumerator Activate() {
-            int rand = base.GetRandomSeed();
-            List<Tuple<PlayableCard, CardSlot>> cardAndNewSlot = new();
-            List<CardSlot> allSlots = GetOccupiedSlotsMovable(BoardManager.Instance.AllSlotsCopy)
-                .Concat(BoardManager.Instance.GetPlayerOpenSlots())
-                .Concat(BoardManager.Instance.GetOpponentOpenSlots())
-                .ToList();
-
-            List<CardSlot> allSlotsCopy = new(allSlots);
-            foreach (PlayableCard card in UnassignCardsFromSlots(allSlotsCopy)) {
-                CardSlot newSlot = allSlotsCopy.GetSeededRandom(rand++);
-                cardAndNewSlot.Add(new(card, newSlot));
-                allSlotsCopy.Remove(newSlot);
-            }
-
-            for (int i = 0; i < 2; i++) {
-                allSlotsCopy = new(allSlots);
-                foreach (Tuple<PlayableCard, CardSlot> pair in cardAndNewSlot) {
-                    CardSlot slot = allSlotsCopy.GetSeededRandom(rand++);
-                    allSlotsCopy.Remove(slot);
-
-                    CustomCoroutine.Instance.StartCoroutine(RelocateCardToSlot(pair.Item1, slot, 0.1f));
-                    yield return new WaitForSeconds(0.1f);
-                }
-            }
-
-            foreach (CardSlot slot in allSlotsCopy.Where(x => x.Card != null)) {
-                slot.Card.Slot = null;
-                slot.Card = null;
-            }
-            foreach (Tuple<PlayableCard, CardSlot> pair in cardAndNewSlot.Where(x => x.Item1.Slot != null)) {
-                pair.Item1.Slot.Card = null;
-                pair.Item1.Slot = null;
-            }
-
-            foreach (Tuple<PlayableCard, CardSlot> pair in cardAndNewSlot) {
-                CustomCoroutine.Instance.StartCoroutine(MoveToNewSlot(pair.Item1, pair.Item2, 0.1f));
-                yield return new WaitForSeconds(0.1f);
-            }
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return RandomiseCardsInSlots(
+                GetOccupiedSlotsMovable(BoardManager.Instance.AllSlotsCopy),
+                BoardManager.Instance.AllSlotsCopy,
+                base.GetRandomSeed()
+                );
 
             yield return new WaitForSeconds(0.5f);
             yield return base.LearnAbility();
         }
 
-        public override bool CanActivateOpponent() // make opponent activation rarer
-        {
+        // make opponent activation rarer
+        public override bool CanActivateOpponent() {
             return base.CanActivateOpponent() && SeededRandom.Bool((base.GetRandomSeed() + 1) * 2);
         }
 
@@ -169,44 +140,46 @@ namespace WhistleWind.AbnormalSigils {
         /// <param name="slots">Slots whose cards need to be randomised</param>
         /// <param name="randomSeed">Random seed to base new slots on.</param>
         /// <param name="opponent">If true, be more discerning where cards are placed.</param>
-        public static IEnumerator RandomiseCardsInSlots(List<CardSlot> slots, int randomSeed, bool opponent, float waitAfter = 0.5f, Func<CardSlot, int> sortPredicate = null) {
+        public static IEnumerator RandomiseCardsInSlots(List<CardSlot> slots, List<CardSlot> allOpenSlots, int randomSeed, bool smartCheck = false, float waitAfter = 0.5f, Func<CardSlot, int> sortPredicate = null) {
             //AbnormalPlugin.Log.LogDebug("[CardScramble.RandomiseCardsInSlots] Start");
             if (slots.Count == 0)
                 yield break;
 
-            List<CardSlot> openSlots = BoardManager.Instance.GetSlotsCopy(!opponent);
-            openSlots.RemoveAll(x => x.Card != null && !slots.Contains(x)); // remove occupied slots that aren't being randomised
+            allOpenSlots.RemoveAll(x => x.Card != null && !slots.Contains(x)); // remove occupied slots that aren't being randomised
 
             if (sortPredicate != null)
                 slots.Sort((CardSlot a, CardSlot b) => sortPredicate(b) - sortPredicate(a));
 
-            //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
             List<PlayableCard> cards = UnassignCardsFromSlots(slots);
+            //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
             foreach (PlayableCard card in cards) {
                 CardSlot slot;
-                if (openSlots.Count > 0) {
-                    List<CardSlot> bestSlots = new(openSlots);
+                if (allOpenSlots.Count > 0) {
+                    List<CardSlot> bestSlots = new(allOpenSlots);
 
-                    bestSlots.RemoveAll(x => OpposingCardCanKill(card, x.Card));
+                    if (smartCheck) {
+                        bestSlots.RemoveAll(x => OpposingCardCanKill(card, x.Card));
+                    }
 
                     if (bestSlots.Count > 0) {
                         slot = bestSlots.GetSeededRandom(randomSeed++);
                     }
-                    else if (openSlots.Contains(card.Slot)) {
+                    else if (allOpenSlots.Contains(card.Slot)) {
                         slot = card.Slot;
                     }
                     else {
-                        slot = openSlots.GetSeededRandom(randomSeed++);
+                        slot = allOpenSlots.GetSeededRandom(randomSeed++);
                     }
 
                         AbnormalPlugin.Log.LogDebug("Move to new slot");
 
-                    openSlots.Remove(slot);
+                    allOpenSlots.Remove(slot);
                 }
                 else {
                     slot = card.Slot;
                 }
                 card.Slot = null;
+                slot.Card = card; // prevent new cards being created when moving to a new slot (Bone Elk, etc.)
                 CustomCoroutine.Instance.StartCoroutine(MoveToNewSlot(card, slot, 0.1f));
                 yield return new WaitForSeconds(0.1f);
             }
