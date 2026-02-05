@@ -23,27 +23,13 @@ namespace WhistleWindLobotomyMod.Opponents {
                 List<EncounterBlueprintData.CardBlueprint> turn = new() {
                     EncounterManager.NewCardBlueprint(Cards.foodChain)
                 };
-                if (i > 2 && i % 2 != 0) {
-                    turn.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
-                }
-                if (encounterData.Difficulty > 11) {
-                    turn.Add(EncounterManager.NewCardBlueprint(Cards.perfectFood));
-                }
+
                 encounterData.Blueprint.AddTurn(turn).AddTurn();
-                if (i % 3 == 0) {
-                    encounterData.Blueprint.AddTurn();
-                }
             }
             return num;
         }
-        public override void ModifySpawnedCard(PlayableCard card) {
-            base.ModifySpawnedCard(card);
-            if (card.Info.name == Cards.perfectFood) {
-                amountKilledThisTurn--;
-            }
-        }
-        public override void ModifyQueuedCard(PlayableCard card) {
-            base.ModifyQueuedCard(card);
+        public override void TryAddOrdealRandomBuff(PlayableCard card) {
+            base.TryAddOrdealRandomBuff(card);
             if (card.Info.name == Cards.perfectFood) {
                 amountKilledThisTurn--;
             }
