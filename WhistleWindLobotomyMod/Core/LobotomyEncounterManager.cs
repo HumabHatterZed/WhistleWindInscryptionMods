@@ -415,16 +415,15 @@ namespace WhistleWindLobotomyMod.Core {
                     CreateTurn()
                 ), 3);
 
-            return;
             #endregion
 
             #region Rapture
-            Build(New("RaptureEncounter1")
-               .SetDifficulty(20, 20)
-               .AddDominantTribes(AbnormalPlugin.TribeDivine)
-               .AddTurns(
-                    CreateTurn()
-               ), 3);
+            //Build(New("RaptureEncounter1")
+            //   .SetDifficulty(20, 20)
+            //   .AddDominantTribes(AbnormalPlugin.TribeDivine)
+            //   .AddTurns(
+            //        CreateTurn()
+            //   ), 3);
             #endregion
         }
 

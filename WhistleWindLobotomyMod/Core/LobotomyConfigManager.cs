@@ -85,9 +85,9 @@ namespace WhistleWindLobotomyMod.Core {
 
         private static ConfigEntry<bool> _configFinalOrdeal;
         private static ConfigEntry<bool> _configFinalBird;
-        private static ConfigEntry<bool> _configFinalLiar;
-        private static ConfigEntry<bool> _configFinalFool;
-        private static ConfigEntry<bool> _configFinalGod;
+        //private static ConfigEntry<bool> _configFinalLiar;
+        //private static ConfigEntry<bool> _configFinalFool;
+        //private static ConfigEntry<bool> _configFinalGod;
 
         private static ConfigEntry<bool> _configStartBird;
         private static ConfigEntry<bool> _configStartLiar;
@@ -108,9 +108,9 @@ namespace WhistleWindLobotomyMod.Core {
 
         private static bool ConfigFinalOrdeal => _configFinalOrdeal.Value;
         private static bool ConfigFinalBird => _configFinalBird.Value;
-        private static bool ConfigFinalLiar => _configFinalLiar.Value;
-        private static bool ConfigFinalFool => _configFinalFool.Value;
-        private static bool ConfigFinalGod => _configFinalGod.Value;
+        //private static bool ConfigFinalLiar => _configFinalLiar.Value;
+        //private static bool ConfigFinalFool => _configFinalFool.Value;
+        //private static bool ConfigFinalGod => _configFinalGod.Value;
 
         private static bool ConfigStartBird => _configStartBird.Value;
         private static bool ConfigStartLiar => _configStartLiar.Value;
