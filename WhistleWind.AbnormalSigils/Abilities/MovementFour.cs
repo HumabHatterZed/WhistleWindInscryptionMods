@@ -31,9 +31,17 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     public class MovementFour : ConductorMovementBase {
         public static Ability ability;
-        public override Ability Ability => ability;
+        public override Ability Ability => MovementFour.ability;
         public override Ability NextMovement => MovementFive.ability;
 
+        public override bool RespondsToDrawn() => true;
+        public override IEnumerator OnDrawn() {
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {
+                if (card != null && card.HasStatusEffect<Fervent>()) {
+                    yield return card.RemoveStatusEffect<Fervent>();
+                }
+            }
+        }
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
             return otherCard != null && otherCard.Slot != base.Card.Slot && !otherCard.HasStatusEffect<Fervent>();
         }
@@ -42,17 +50,17 @@ namespace WhistleWind.AbnormalSigils {
         }
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
-                if (slot.Card != null && !slot.Card.HasStatusEffect<Fervent>() && slot.Card != base.Card) {
-                    yield return slot.Card.AddStatusEffect<Fervent>(1);
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {
+                if (card != null && card != base.Card && !card.HasStatusEffect<Fervent>()) {
+                    yield return card.AddStatusEffect<Fervent>(1);
                 }
             }
         }
 
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
-                if (slot.Card != null && !slot.Card.HasStatusEffect<Fervent>() && slot.Card != base.Card) {
-                    yield return slot.Card.AddStatusEffect<Fervent>(1);
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {
+                if (card != null && card != base.Card && !card.HasStatusEffect<Fervent>()) {
+                    yield return card.AddStatusEffect<Fervent>(1);
                 }
             }
             yield return base.OnUpkeep(onPlayerUpkeep);

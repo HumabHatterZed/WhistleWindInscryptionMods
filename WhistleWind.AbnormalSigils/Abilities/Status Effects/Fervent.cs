@@ -64,6 +64,10 @@ namespace WhistleWind.AbnormalSigils {
         public IEnumerator OnOtherCardDieInHand(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             yield return OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
+        public override bool RespondsToDrawn() => true;
+        public override IEnumerator OnDrawn() {
+            yield return base.RemoveFromCard(true);
+        }
     }
     public partial class AbnormalPlugin {
         private void StatusEffect_Fervent() {

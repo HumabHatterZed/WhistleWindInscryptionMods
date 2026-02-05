@@ -28,26 +28,10 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// All other creatures on the board gain 3 Power and Fervent Adoration. At the start of the owner's next turn, this card will perish.
     /// </summary>
-    public class MovementFive : ConductorMovementBase {
-        public static Ability ability;
+    public class MovementFive : MovementFour {
+        public new static Ability ability;
         public override Ability Ability => ability;
         public override Ability NextMovement => Ability.None;
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
-            return otherCard != null && otherCard.Slot != base.Card.Slot && !otherCard.HasStatusEffect<Fervent>();
-        }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
-            yield return otherCard.AddStatusEffect<Fervent>(1);
-        }
-        public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard() {
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy) {
-                if (slot.Card != null && !slot.Card.HasStatusEffect<Fervent>() && slot.Card != base.Card) {
-                    if (slot.Card.LacksTrait(Trait.Giant)) {
-                        yield return slot.Card.AddStatusEffect<Fervent>(1);
-                    }
-                }
-            }
-        }
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.RemoveFromBoard();
