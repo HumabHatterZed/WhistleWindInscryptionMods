@@ -17,6 +17,9 @@ namespace WhistleWind.AbnormalSigils {
                 if (host.HasAbility(ActivatedSniper.ability)) {
                     __result.RemoveAll(x => x.HasAbility(Ability.Sniper));
                 }
+                if (host.HasAbility(Lonely.ability)) {
+                    __result.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
+                }
             }
         }
 
@@ -30,6 +33,9 @@ namespace WhistleWind.AbnormalSigils {
                 }
                 if (sacrifice.HasAbility(ActivatedSniper.ability)) {
                     __result.RemoveAll(x => x.HasAbility(Ability.Sniper));
+                }
+                if (sacrifice.HasAbility(Lonely.ability)) {
+                    __result.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
                 }
             }
         }
