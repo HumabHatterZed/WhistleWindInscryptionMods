@@ -58,10 +58,10 @@
 - Sigil Power stat icon no longer gives a minimum of 1 Health
 - Changed tje order in which cards are damaged by Return to Nihil sigil
 - Frozen Heart sigil will now give double Health to any card with Woodcutter, not just cards with a specific name
-- Barreler sigil now displaces moved cards randomly
+- Barreler sigil no longer displaces cards
 - Piercing sigil now implements IShieldPreventedDamage
 - Haste gained from High Strung is now applied on each player's turn rather than on round's end
-- Pin Down can now affect Uncuttable cards, no longer affects cards marked Giant or NonInstaKill
+- Creature Retrieval now only uses a card's base Bones cost without accounting for cost modifiers due to intended consequences
 ### 🩹 Bug fixes
 - Fixed CardMetaCategories not working
 - Fixed status effects not rendering above merged sigils
@@ -77,6 +77,7 @@
 - Fixed Worms status effect not letting Infested cards attack the right-most ally card
 - Fixed Bitter Enemies sigil using an incorrect description
 - Fixed Alchemist sigil breaking in Act 2 when trying to activate after the deck is exhausted
+- Fixed Creature Retrieval interacting strangely with recalled cards that cost Bones
 - Fixed False Throne altering persistent CardModificationInfos
 - Fixed Haste gained from High Strung being inconsistent on when it's removed from the card
 - Fixed learned ability dialogue not triggering
