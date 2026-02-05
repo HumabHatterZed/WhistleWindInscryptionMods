@@ -29,12 +29,15 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
             oldSlot = base.Card.Slot;
-            return base.OnResolveOnBoard();
+            yield break;
         }
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard == base.Card && oldSlot != null;
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
             if (oldSlot.Card == null)
                 yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName(Cards.perfectFood));
+
+            // update old slot to be the card's current slot after checking
+            oldSlot = base.Card.Slot;
         }
     }
 }
