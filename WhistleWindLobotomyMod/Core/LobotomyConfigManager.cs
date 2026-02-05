@@ -224,6 +224,8 @@ namespace WhistleWindLobotomyMod.Core {
             _configAbnormalBosses = WstlConfigFile.Bind(challenges, AbnormalBosses.title, false, new ConfigDescription(AbnormalBosses.description));
             _configAbnormalBattles = WstlConfigFile.Bind(challenges, AbnormalEncounters.title, false, new ConfigDescription(AbnormalEncounters.description));
 
+            _configSoulbound = WstlConfigFile.Bind(challenges, SoulboundCards.title, false, new ConfigDescription(SoulboundCards.description));
+            _configApostleBears = WstlConfigFile.Bind(challenges, ApostleGrizzlies.title, false, new ConfigDescription(ApostleGrizzlies.description));
             _configMeltdown = WstlConfigFile.Bind(challenges, QlippothMeltdown.title, false, new ConfigDescription(QlippothMeltdown.description));
             _configMiracleWorker = WstlConfigFile.Bind(challenges, MiracleWorker.title, false, new ConfigDescription(MiracleWorker.description));
 
