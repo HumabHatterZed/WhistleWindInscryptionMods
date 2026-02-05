@@ -44,48 +44,34 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter) {
+            PlayableCard card = slot.Card;
+
             if (base.Card.OpponentCard) {
                 ViewManager.Instance.SwitchToView(View.OpponentQueue);
-                slot.Card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
-                yield return TurnManager.Instance.Opponent.ReturnCardToQueue(slot.Card, 0.2f);
-                slot.Card.UnassignFromSlot();
-                slot.Card = null;
+                card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
+                yield return TurnManager.Instance.Opponent.ReturnCardToQueue(card, 0.2f);
+                card.UnassignFromSlot();
+                card.Slot = null;
                 yield return new WaitForSeconds(opponentWaitAfter);
                 yield break;
             }
 
-            bool hasFecundity = slot.Card.HasAbility(Ability.DrawCopy);
-            CardInfo copy = slot.Card.Info.Clone() as CardInfo;
-            PlayableCardStatus status = new(slot.Card.Status);
-            List<CardModificationInfo> tempMods = new(slot.Card.TemporaryMods);
-            CardModificationInfo recallMod = tempMods.Find(x => x.singletonId == "wstl:Recalled") ?? new();
-            recallMod.bloodCostAdjustment = -999;
-            recallMod.bonesCostAdjustment = GetBonesCost(slot.Card) - slot.Card.BonesCost();
-            recallMod.energyCostAdjustment = -999;
-            recallMod.nullifyGemsCost = true;
-            recallMod.singletonId = "wstl:Recalled";
+            bool hasFecundity = card.HasAbility(Ability.DrawCopy);
+            CardModificationInfo recallMod = new() {
+                bloodCostAdjustment = -999,
+                bonesCostAdjustment = GetBonesCost(slot.Card) - slot.Card.Info.bonesCost,
+                energyCostAdjustment = -999,
+                nullifyGemsCost = true,
+                singletonId = "wstl:Recalled",
+                negateAbilities = new() { Ability.DrawCopy }
+            };
 
-            if (hasFecundity && SaveFile.IsAscension) {
-                recallMod.AddNegateAbilities(Ability.DrawCopy);
-            }
-            tempMods.Add(recallMod);
-
-            List<SpecialCardBehaviour> behaviours = slot.Card.GetComponents<SpecialCardBehaviour>()?.ToList() ?? new();
-            //Debug.Log($"HElp {behaviours.Count}");
-            behaviours.RemoveAll(x => !x.GetType().InheritsFrom(typeof(StatusEffectBehaviour)));
-            //Debug.Log($"HElp2 {behaviours.Count}");
-            slot.Card.RemoveFromBoard(false);
+            card.UnassignFromSlot();
+            card.Slot = null;
+            
             yield return HelperMethods.ChangeCurrentView(View.Default);
-            yield return CardSpawner.Instance.SpawnCardToHand(copy, tempMods, 0.25f, (PlayableCard x) => {
-                x.Status = status;
-                for (int i = 0; i < behaviours.Count; i++) {
-                    if (!x.TriggerHandler.permanentlyAttachedBehaviours.Exists(x => x.GetType() == behaviours[i].GetType())) {
-                        var copy = HelperMethods.CopySpecialCardBehaviour(behaviours[i], x.gameObject);
-                        x.TriggerHandler.permanentlyAttachedBehaviours.Add(copy);
-                    }
-                }
-            });
-
+            yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
+            card.AddTemporaryMod(recallMod);
             yield return new WaitForSeconds(0.2f);
 
             if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
