@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System;
 using System.Collections;
@@ -151,6 +152,7 @@ namespace WhistleWind.AbnormalSigils {
                 slots.Sort((CardSlot a, CardSlot b) => sortPredicate(b) - sortPredicate(a));
 
             List<PlayableCard> cards = UnassignCardsFromSlots(slots);
+            List<CardSlot> oldSlots = new();
             //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
             foreach (PlayableCard card in cards) {
                 CardSlot slot;
@@ -177,10 +179,25 @@ namespace WhistleWind.AbnormalSigils {
                 else {
                     slot = card.Slot;
                 }
+                oldSlots.Add(card.Slot);
                 card.Slot = null;
                 slot.Card = card; // prevent new cards being created when moving to a new slot (Bone Elk, etc.)
                 CustomCoroutine.Instance.StartCoroutine(MoveToNewSlot(card, slot, 0.1f));
                 yield return new WaitForSeconds(0.1f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+
+            // manually trigger assign to slot triggers after all cards have been moved
+            for (int i = 0; i < cards.Count; i++) {
+                PlayableCard card = cards[i];
+                CardSlot slot = oldSlots[i];
+                if (slot != card.Slot) {
+                    yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.OtherCardAssignedToSlot, false, card);
+                    yield return CustomTriggerFinder.TriggerAll(triggerFacedown: false, (IOnCardAssignedToSlotContext x) => x.RespondsToCardAssignedToSlotContext(card, slot, card.Slot), (IOnCardAssignedToSlotContext x) => x.OnCardAssignedToSlotContext(card, slot, card.Slot));
+                    yield return CustomTriggerFinder.TriggerInHand((IOnOtherCardAssignedToSlotInHand x) => x.RespondsToOtherCardAssignedToSlotInHand(card), (IOnOtherCardAssignedToSlotInHand x) => x.OnOtherCardAssignedToSlotInHand(card));
+                    yield return CustomTriggerFinder.TriggerAll(triggerFacedown: false, (IOnCardAssignedToSlotNoResolve x) => x.RespondsToCardAssignedToSlotNoResolve(card), (IOnCardAssignedToSlotNoResolve x) => x.OnCardAssignedToSlotNoResolve(card));
+                }
             }
 
             yield return new WaitForSeconds(waitAfter);
@@ -209,7 +226,7 @@ namespace WhistleWind.AbnormalSigils {
             if (targetIcon != null)
                 TargetIconHelper.CleanUpTargetIcon(targetIcon);
 
-            yield return Singleton<BoardManager>.Instance.AssignCardToSlot(card, slot);
+            yield return Singleton<BoardManager>.Instance.AssignCardToSlot(card, slot, resolveTriggers: false);
             yield return new WaitForSeconds(waitAfter);
         }
     }
