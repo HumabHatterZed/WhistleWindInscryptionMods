@@ -171,8 +171,7 @@ namespace WhistleWind.AbnormalSigils {
                         slot = allOpenSlots.GetSeededRandom(randomSeed++);
                     }
 
-                        AbnormalPlugin.Log.LogDebug("Move to new slot");
-
+                    //AbnormalPlugin.Log.LogDebug("Move to new slot");
                     allOpenSlots.Remove(slot);
                 }
                 else {

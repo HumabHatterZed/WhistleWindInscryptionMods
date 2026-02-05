@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     slotsToRandomise.Add(validSlots[i]);
                 }
             }
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBattle.MoveOpponentCards] # to move: {slotsToRandomise.Count}");
+            //LobotomyPlugin.Log.LogDebug($"[LobotomyBattle.MoveOpponentCards] # to move: {slotsToRandomise.Count}");
             if (slotsToRandomise.Count > 0) {
                 ViewManager.Instance.SwitchToView(View.Board);
                 yield return CardScramble.RandomiseCardsInSlots(slotsToRandomise, BoardManager.Instance.OpponentSlotsCopy, rand, sortPredicate: MoveOpponentCardsSortFunc);

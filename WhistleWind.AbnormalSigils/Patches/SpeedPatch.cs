@@ -121,7 +121,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
                     AttackedThisRound.AddRange(__result);
                 }
 
-                AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Old: {or} New: {__result.Count}");
+                //AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Old: {or} New: {__result.Count}");
             }
             return;
         }
