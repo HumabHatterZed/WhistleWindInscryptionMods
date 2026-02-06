@@ -20,13 +20,13 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override void TryAddOrdealRandomBuff(PlayableCard card) {
             if (card.Info.name == Cards.fruitUnderstanding) {
                 CardModificationInfo mod = new();
-                int decayStacks = 5;
+                int decayStacks = 5 - RunState.CurrentRegionTier;
 
                 // first fruit has higher timer
                 if (maxFruit == fruitToSpawn) {
                     decayStacks++;
                 }
-                if (Opponent.Difficulty > 7) {
+                if (Opponent.Difficulty > 4) {
                     decayStacks--;
                     if (Opponent.Difficulty > 13) {
                         decayStacks--;
