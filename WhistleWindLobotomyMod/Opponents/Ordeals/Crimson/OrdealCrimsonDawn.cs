@@ -16,19 +16,25 @@ namespace WhistleWindLobotomyMod.Opponents {
             int numTurns = 1 + difficulty / 3;
             if (difficulty > 3) {
                 EncounterData.StartCondition cond = new();
-                List<CardInfo> infos = new() { CardLoader.GetCardByName(Cards.skinCheers), CardLoader.GetCardByName(Cards.skinCheers), null, null };
+                List<CardInfo> infos = new() { CardLoader.GetCardByName(Cards.skinCheers), null, null, null };
+                if (difficulty > 7) {
+                    infos[1] = CardLoader.GetCardByName(Cards.skinCheers);
+                    num++;
+                }
                 infos.Randomize();
                 cond.cardsInOpponentSlots = infos.ToArray();
                 encounterData.startConditions.Add(cond);
-                num += 2;
+                num ++;
             }
 
             for (int i = 0; i < numTurns; i++) {
                 List<EncounterBlueprintData.CardBlueprint> turn = new() {
-                    EncounterManager.NewCardBlueprint(Cards.skinCheers),
                     EncounterManager.NewCardBlueprint(Cards.skinCheers)
                 };
-                encounterData.Blueprint.AddTurn(turn).AddTurn().AddTurn();
+                List<EncounterBlueprintData.CardBlueprint> turn2 = new() {
+                    EncounterManager.NewCardBlueprint(Cards.skinCheers)
+                };
+                encounterData.Blueprint.AddTurn(turn).AddTurn(turn2).AddTurn();
                 num += 2;
             }
 
