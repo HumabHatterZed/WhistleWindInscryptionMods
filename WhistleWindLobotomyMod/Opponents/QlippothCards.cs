@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 { Cards.oneSin, new() { fromCardMerge = true, abilities = new() { Idol.ability } } },
                 { Cards.ozma, new(Protector.ability) { fromCardMerge = true } },
                 { Cards.punishingBird, new(1, 0) },
-                { Cards.redHoodedMercenary, new(1, 1) },
+                { Cards.redHoodedMercenary, new(1, 0) },
                 { Cards.redShoes, new(Ability.WhackAMole) { fromCardMerge = true, negateAbilities = new() { Ability.GuardDog } } },
                 { Cards.runawayBird_mook, new(0, 1) { fromCardMerge = true, abilities = new() { Persistent.ability } } },
                 { Cards.schadenfreude, new() { fromCardMerge = true, abilities = new() { Ability.Sentry, NimbleFoot.ability } } },
@@ -71,10 +71,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                 { Cards.youMustBeHappy, new(0, 2) }
             };
 
-            ORDEAL_QLIPPOTH_CARDS.Add("Mechanical", new() { Cards.allAroundHelper, Cards.canOfWellCheers, Cards.schadenfreude, Cards.singingMachine, Cards.trainingDummy, Cards.weCanChangeAnything });
-            ORDEAL_QLIPPOTH_CARDS.Add("Divine", new() { Cards.burrowingHeaven, Cards.fleshIdol, Cards.fragmentOfUniverse, Cards.oneSin, Cards.yin, Cards.yang, Cards.dontTouchMe });
-            ORDEAL_QLIPPOTH_CARDS.Add("Fae", new() { Cards.fairyFestival, Cards.laetitia, Cards.magicalGirlHeart, Cards.magicalGirlSpade, Cards.ozma, Cards.snowQueen, Cards.redShoes });
-            ORDEAL_QLIPPOTH_CARDS.Add("Insect", new() { Cards.funeralOfButterflies, Cards.theNakedNest, Cards.dontTouchMe, Cards.forestKeeper_mook, Cards.wisdomScarecrow });
+            ORDEAL_QLIPPOTH_CARDS.Add("Mechanical", new() { Cards.allAroundHelper, Cards.canOfWellCheers, Cards.schadenfreude, Cards.singingMachine, Cards.youMustBeHappy, Cards.weCanChangeAnything });
+            ORDEAL_QLIPPOTH_CARDS.Add("Divine", new() { Cards.burrowingHeaven, Cards.fleshIdol, Cards.fragmentOfUniverse, Cards.oneSin, Cards.yin, Cards.yang });
+            ORDEAL_QLIPPOTH_CARDS.Add("Fae", new() { Cards.fairyFestival, Cards.laetitia, Cards.magicalGirlHeart, Cards.magicalGirlSpade, Cards.ozma, Cards.redShoes, Cards.snowQueen });
+            ORDEAL_QLIPPOTH_CARDS.Add("Insect", new() { Cards.funeralOfButterflies, Cards.theNakedNest, Cards.dontTouchMe, Cards.forestKeeper_mook, Cards.wisdomScarecrow, Cards.youMustBeHappy });
             ORDEAL_QLIPPOTH_CARDS.Add("Anthropoid", new() { Cards.oldLady, Cards.redHoodedMercenary, Cards.honouredMonk, Cards.dingleDangle, Cards.runawayBird_mook, Cards.redShoes });
 
             QLIPPOTH_CARDS = retval;
