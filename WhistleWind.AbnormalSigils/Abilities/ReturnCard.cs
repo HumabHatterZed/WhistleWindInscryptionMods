@@ -20,6 +20,51 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
+        private IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter) {
+            PlayableCard card = slot.Card;
+
+            if (base.Card.OpponentCard) {
+                ViewManager.Instance.SwitchToView(View.OpponentQueue);
+                card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
+                yield return TurnManager.Instance.Opponent.ReturnCardToQueue(card, 0.2f);
+                card.UnassignFromSlot();
+                card.Slot = null;
+                yield return new WaitForSeconds(opponentWaitAfter);
+                yield break;
+            }
+
+            bool hasFecundity = card.HasAbility(Ability.DrawCopy);
+            CardModificationInfo recallMod = new() {
+                bloodCostAdjustment = -999,
+                bonesCostAdjustment = GetBonesCost(card), // use to store new modified cost
+                energyCostAdjustment = -999,
+                nullifyGemsCost = true,
+                singletonId = "wstl:Recalled"
+            };
+            if (hasFecundity && SaveFile.IsAscension) {
+                recallMod.negateAbilities = new() { Ability.DrawCopy };
+            }
+
+            card.UnassignFromSlot();
+            card.Slot = null;
+
+            yield return HelperMethods.ChangeCurrentView(View.Default);
+            yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
+            card.AddTemporaryMod(recallMod);
+            yield return new WaitForSeconds(0.2f);
+
+            if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
+                Singleton<ChallengeActivationUI>.Instance.ShowTextLines(new string[3] {
+                        Localization.Translate("DEPLOY SIGIL NERF: FECUNDITY"),
+                        Localization.Translate("RemoveSigilFromCopy()"),
+                        Localization.Translate("// It had to be done.")
+                    });
+                yield return new WaitForSeconds(0.5f);
+                yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("AscensionFecundityNerf", TextDisplayer.MessageAdvanceMode.Input);
+                DialogueEventsData.MarkEventPlayed("AscensionFecundityNerfRecall");
+            }
+        }
+
         public override bool RespondsToResolveOnBoard() =>
             base.Card.Info.IsGlobalSpell() && BoardManager.Instance.GetCards(!base.Card.OpponentCard, x => Unyielding.CardCanBeMoved(x)).Count > 0;
 
@@ -40,55 +85,6 @@ namespace WhistleWind.AbnormalSigils {
                 card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.3f);
                 yield return DialogueHelper.ShowUntilInput("It refuses to move.");
-            }
-        }
-
-        private IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter) {
-            PlayableCard card = slot.Card;
-
-            if (base.Card.OpponentCard) {
-                ViewManager.Instance.SwitchToView(View.OpponentQueue);
-                card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
-                yield return TurnManager.Instance.Opponent.ReturnCardToQueue(card, 0.2f);
-                card.UnassignFromSlot();
-                card.Slot = null;
-                yield return new WaitForSeconds(opponentWaitAfter);
-                yield break;
-            }
-
-            bool hasFecundity = card.HasAbility(Ability.DrawCopy);
-            CardModificationInfo recallMod = card.Info.Mods.Find(x => x.singletonId == "wstl:Recalled");
-            if (recallMod != null) {
-                card.Info.Mods.Remove(recallMod);
-            }
-            recallMod = new() {
-                bloodCostAdjustment = -999,
-                bonesCostAdjustment = GetBonesCost(card), // use to store new modified cost
-                energyCostAdjustment = -999,
-                nullifyGemsCost = true,
-                singletonId = "wstl:Recalled"
-            };
-
-            card.Info.Mods.Add(recallMod);
-            card.UnassignFromSlot();
-            card.Slot = null;
-            
-            yield return HelperMethods.ChangeCurrentView(View.Default);
-            yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
-            if (hasFecundity && SaveFile.IsAscension) {
-                card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
-            }
-            yield return new WaitForSeconds(0.2f);
-
-            if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
-                Singleton<ChallengeActivationUI>.Instance.ShowTextLines(new string[3] {
-                        Localization.Translate("DEPLOY SIGIL NERF: FECUNDITY"),
-                        Localization.Translate("RemoveSigilFromCopy()"),
-                        Localization.Translate("// It had to be done.")
-                    });
-                yield return new WaitForSeconds(0.5f);
-                yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("AscensionFecundityNerf", TextDisplayer.MessageAdvanceMode.Input);
-                DialogueEventsData.MarkEventPlayed("AscensionFecundityNerfRecall");
             }
         }
 
