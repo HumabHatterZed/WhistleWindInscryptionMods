@@ -58,7 +58,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 { Cards.theFirebird, new() { fromCardMerge = true, abilities = new() { Scorching.ability } } },
                 { Cards.theNakedNest, new(0, 2) { fromCardMerge = true, abilities = new() { Ability.WhackAMole } } },
                 { Cards.theresia, new(Healer.ability) { fromCardMerge = true } },
-                { Cards.theRoadHome, new(0, 2) { fromCardMerge = true, abilities = new() { NimbleFoot.ability } } },
+                { Cards.theRoadHome, new(0, 1) { fromCardMerge = true, abilities = new() { NimbleFoot.ability } } },
                 { Cards.trainingDummy, new(1, 0) },
                 { Cards.voidDream, new(1, 1) },
                 { Cards.wallLady, new(0, 1) { fromCardMerge = true, abilities = new() { Ability.Sharp } } },
@@ -73,9 +73,9 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             ORDEAL_QLIPPOTH_CARDS.Add("Mechanical", new() { Cards.allAroundHelper, Cards.canOfWellCheers, Cards.schadenfreude, Cards.singingMachine, Cards.trainingDummy, Cards.weCanChangeAnything });
             ORDEAL_QLIPPOTH_CARDS.Add("Divine", new() { Cards.burrowingHeaven, Cards.fleshIdol, Cards.fragmentOfUniverse, Cards.oneSin, Cards.yin, Cards.yang, Cards.dontTouchMe });
-            ORDEAL_QLIPPOTH_CARDS.Add("Fae", new() { Cards.fairyFestival, Cards.laetitia, Cards.magicalGirlHeart, Cards.magicalGirlSpade, Cards.snowQueen, Cards.theRoadHome });
+            ORDEAL_QLIPPOTH_CARDS.Add("Fae", new() { Cards.fairyFestival, Cards.laetitia, Cards.magicalGirlHeart, Cards.magicalGirlSpade, Cards.ozma, Cards.snowQueen, Cards.redShoes });
             ORDEAL_QLIPPOTH_CARDS.Add("Insect", new() { Cards.funeralOfButterflies, Cards.theNakedNest, Cards.dontTouchMe, Cards.forestKeeper_mook, Cards.wisdomScarecrow });
-            ORDEAL_QLIPPOTH_CARDS.Add("Anthropoid", new() { Cards.oldLady, Cards.redHoodedMercenary, Cards.forsakenMurderer, Cards.dingleDangle, Cards.runawayBird_mook });
+            ORDEAL_QLIPPOTH_CARDS.Add("Anthropoid", new() { Cards.oldLady, Cards.redHoodedMercenary, Cards.honouredMonk, Cards.dingleDangle, Cards.runawayBird_mook, Cards.redShoes });
 
             QLIPPOTH_CARDS = retval;
         }
@@ -94,7 +94,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 List<CardInfo> infos = turnPlan[i].Randomize().ToList();
                 CardInfo infoToReplace = infos.Find(x => QLIPPOTH_CARDS.ContainsKey(x.name));
                 if (infoToReplace == null) {
-                    string name = keyOverride != null ? ORDEAL_QLIPPOTH_CARDS[keyOverride].GetRandom() : QLIPPOTH_CARDS.Keys.ToList().GetRandom();
+                    List<string> possibilities = keyOverride != null ? ORDEAL_QLIPPOTH_CARDS[keyOverride] : QLIPPOTH_CARDS.Keys.ToList();
+                    string name = possibilities.GetSeededRandom(SaveManager.SaveFile.GetCurrentRandomSeed() + GlobalTriggerHandler.Instance.NumTriggersThisBattle);
                     CardInfo card = CardLoader.GetCardByName(name);
                     card.Mods.Add(QLIPPOTH_CARDS[name]);
                     card.Mods.Add(new() { singletonId = QLIPPOTH_ID });
