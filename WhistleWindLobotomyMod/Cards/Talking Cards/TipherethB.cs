@@ -5,6 +5,9 @@ using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -58,12 +61,22 @@ namespace WhistleWindLobotomyMod {
     }
     public partial class Cards {
         public const string sephirahTipherethB = "wstl_sephirahTipherethB";
+        public const string sephirahTipherethB_final = "wstl_sephirahTipherethB_final";
         private static void TipherethB() {
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethB_final, "Tiphereth",
+                attack: 0, health: 1)
+                .SetEnergyCost(3)
+                .SetPortrait(TextureLoader.LoadTextureFromFile("talkingTipherethB_final.png", LobotomyPlugin.ModAssembly))
+                .AddAbilities(Ability.LatchDeathShield)
+                .SetOnePerDeck()
+                .Build();
+
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethB, "Tiphereth",
                 attack: 0, health: 1)
                 .SetEnergyCost(3)
-                .AddAbilities(Ability.DrawCopyOnDeath, Ability.LatchDeathShield)
+                .AddAbilities(UnkillableWeak.ability, Ability.LatchDeathShield)
                 .SetOnePerDeck()
+                .SetFinalSamsara(sephirahTipherethB_final)
                 .Build();
         }
     }
