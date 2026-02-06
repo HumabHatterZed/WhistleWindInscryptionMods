@@ -133,6 +133,7 @@ Gift Giver			|X|X|3	|Activate: Create a random card in your hand, then deactivat
 Alluring			|X|X|2	|At the end of the owner's turn, a card bearing this sigil attracts an opposing adjacent creature to the space across from this card if possible.
 Gun For Hire		|X|X|2	|Pay 2 Energy to give this card Sniper until the end of its next attack.
 Hair Loss Serum		|X|X|2	|Choose one of your cards and remove all its sigils, then double its Power and Health.
+Broken Samsara		|✓|X|2	|When [creature] perishes, a copy of it may be created in your hand.
 </details>
 
 ### ⁉️ Stat Icons
@@ -231,6 +232,7 @@ Note that the description is only how they're used in this mod; you can use them
 
 ### Extended Properties
 - UNIQUE_COPYCAT - used with the Copycat ability to specify how it interacts with certain cards (eg Giant cards) - CardInfo.SetUniqueCopycat
+- UNKILLABLE_WEAK_FINAL_DRAW - used with Corroded Samsara sigil to determine what CardInfo to draw when the sigil's final activation triggers - CardInfo.SetFinalSamsara
 - wstl:GiftGiver - used with Gift-Laden and Gift Giver to specify a specific card to draw when those sigils trigger - CardInfo.SetGiftGiverId
 
 ## 🛠️ Configuration Options

@@ -281,6 +281,7 @@ namespace WhistleWind.AbnormalSigils {
             Ability_ActivatedSniper();
             Ability_Shaver();
             Ability_Shadowed();
+            Ability_UnkillableWeak();
 
             #endregion
 

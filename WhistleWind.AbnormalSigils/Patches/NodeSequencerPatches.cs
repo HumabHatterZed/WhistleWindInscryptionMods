@@ -11,15 +11,7 @@ namespace WhistleWind.AbnormalSigils {
         private static void RemoveFromValidCardsForSacrifice(CardInfo host, ref List<CardInfo> __result) {
             __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotGiveSigils));
             if (host != null) {
-                if (host.HasAbility(Ability.Sniper)) {
-                    __result.RemoveAll(x => x.HasAbility(ActivatedSniper.ability));
-                }
-                if (host.HasAbility(ActivatedSniper.ability)) {
-                    __result.RemoveAll(x => x.HasAbility(Ability.Sniper));
-                }
-                if (host.HasAbility(Lonely.ability)) {
-                    __result.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
-                }
+                RemoveIncompatibleMergeCandidates(host, __result);
             }
         }
 
@@ -28,15 +20,25 @@ namespace WhistleWind.AbnormalSigils {
         private static void RemoveFromValidCardsForHost(CardInfo sacrifice, ref List<CardInfo> __result) {
             __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotGainSigils));
             if (sacrifice != null) {
-                if (sacrifice.HasAbility(Ability.Sniper)) {
-                    __result.RemoveAll(x => x.HasAbility(ActivatedSniper.ability));
-                }
-                if (sacrifice.HasAbility(ActivatedSniper.ability)) {
-                    __result.RemoveAll(x => x.HasAbility(Ability.Sniper));
-                }
-                if (sacrifice.HasAbility(Lonely.ability)) {
-                    __result.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
-                }
+                RemoveIncompatibleMergeCandidates(sacrifice, __result);
+            }
+        }
+
+        private static void RemoveIncompatibleMergeCandidates(CardInfo candidate, List<CardInfo> results) {
+            if (candidate.HasAbility(Ability.Sniper)) {
+                results.RemoveAll(x => x.HasAbility(ActivatedSniper.ability));
+            }
+            if (candidate.HasAbility(ActivatedSniper.ability)) {
+                results.RemoveAll(x => x.HasAbility(Ability.Sniper));
+            }
+            if (candidate.HasAbility(Lonely.ability)) {
+                results.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
+            }
+            if (candidate.HasAbility(Ability.DrawCopyOnDeath)) {
+                results.RemoveAll(x => x.HasAbility(UnkillableWeak.ability));
+            }
+            if (candidate.HasAbility(UnkillableWeak.ability)) {
+                results.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
             }
         }
     }

@@ -16,6 +16,8 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
             return card.LacksAbility(Ability.MadeOfStone) && card.LacksTrait(ImmuneToInstaDeath);
         }
 
+        public static CardInfo SetFinalSamsara(this CardInfo info, string id) => info.SetExtendedProperty(UnkillableWeak.UNKILLABLE_WEAK_FINAL_DRAW, id);
+
         public static CardInfo SetUniqueCopycat(this CardInfo info, string id) => info.SetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID, id);
 
         public static CardInfo SetGiftGiverId(this CardInfo info, string id) => info.SetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY, id);
@@ -83,6 +85,10 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         public static CardInfo SetMiniGiantEmission(this CardInfo info, Texture2D emissionTex) {
             return info.SetPortrait(emissionTex);
         }
+
+        public static bool HasFinalSamsara(this CardInfo info) => info.GetExtendedProperty(UnkillableWeak.UNKILLABLE_WEAK_FINAL_DRAW) != null;
+        public static string GetFinalSamsara(this CardInfo info) => info.GetExtendedProperty(UnkillableWeak.UNKILLABLE_WEAK_FINAL_DRAW);
+
 
         public static bool HasUniqueCopyCat(this CardInfo info) => info.GetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID) != null;
         public static string GetUniqueCopyCat(this CardInfo info) => info.GetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID);
