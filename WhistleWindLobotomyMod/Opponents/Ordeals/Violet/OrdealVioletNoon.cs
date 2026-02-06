@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
@@ -22,7 +23,10 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (loveSlots != null || spawnedNoon) {
                 return false;
             }
-            return base.ShouldExtendBattle();
+
+            // if the current Ordeals wouldn't take us to Noon phase
+            int numOfOrdeals = BoardManager.Instance.CardsOnBoard.Count(CardIsValidOrdeal) + Opponent.Queue.Count(CardIsValidOrdeal);
+            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count && (OrdealCounterManager.Instance.amountLeft - numOfOrdeals) > 1;
         }
 
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
