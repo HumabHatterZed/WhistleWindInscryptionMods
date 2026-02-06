@@ -54,10 +54,6 @@ namespace WhistleWindLobotomyMod {
                     yield return DialogueHelper.PlayDialogueEvent("Bloodbath3");
                     break;
             }
-            if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard != base.PlayableCard)
-                yield return new WaitForSeconds(0.3f);
-
-            yield return HelperMethods.ChangeCurrentView(View.Default);
         }
     }
     public class RulebookEntryWristCutter : AbilityBehaviour {
