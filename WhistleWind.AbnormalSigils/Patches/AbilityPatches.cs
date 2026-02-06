@@ -2,6 +2,7 @@
 using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Card.CostProperties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,22 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(CardExtensions), nameof(CardExtensions.BonesCost))]
+        private static void GuaranteeCorrectBonesCost(ref int __result, PlayableCard card) {
+            CardModificationInfo recallMod = card.Info.Mods.Find(x => x.singletonId == "wstl:Recalled");
+            if (recallMod != null) {
+                __result = recallMod.bonesCostAdjustment;
+            }
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.BonesCost), MethodType.Getter)]
+        private static void GuaranteeCorrectBonesCost(ref int __result, CardInfo __instance) {
+            CardModificationInfo recallMod = __instance.Mods.Find(x => x.singletonId == "wstl:Recalled");
+            if (recallMod != null) {
+                __result = recallMod.bonesCostAdjustment;
+            }
+        }
+
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
         private static bool PreventOverkillDamage(CardSlot attackingSlot, CardSlot opposingSlot) {
             if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Ethereal.ability)) {

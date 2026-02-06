@@ -57,21 +57,27 @@ namespace WhistleWind.AbnormalSigils {
             }
 
             bool hasFecundity = card.HasAbility(Ability.DrawCopy);
-            CardModificationInfo recallMod = new() {
+            CardModificationInfo recallMod = card.Info.Mods.Find(x => x.singletonId == "wstl:Recalled");
+            if (recallMod != null) {
+                card.Info.Mods.Remove(recallMod);
+            }
+            recallMod = new() {
                 bloodCostAdjustment = -999,
-                bonesCostAdjustment = GetBonesCost(slot.Card) - slot.Card.Info.bonesCost,
+                bonesCostAdjustment = GetBonesCost(card), // use to store new modified cost
                 energyCostAdjustment = -999,
                 nullifyGemsCost = true,
-                singletonId = "wstl:Recalled",
-                negateAbilities = new() { Ability.DrawCopy }
+                singletonId = "wstl:Recalled"
             };
 
+            card.Info.Mods.Add(recallMod);
             card.UnassignFromSlot();
             card.Slot = null;
             
             yield return HelperMethods.ChangeCurrentView(View.Default);
             yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
-            card.AddTemporaryMod(recallMod);
+            if (hasFecundity && SaveFile.IsAscension) {
+                card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
+            }
             yield return new WaitForSeconds(0.2f);
 
             if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
@@ -95,7 +101,7 @@ namespace WhistleWind.AbnormalSigils {
             }
         }
 
-        private int GetBonesCost(PlayableCard card) => Mathf.Max(0, 2 - (TurnManager.Instance.TurnNumber - card.TurnPlayed));
+        public static int GetBonesCost(PlayableCard card) => Mathf.Max(0, 2 - (TurnManager.Instance.TurnNumber - card.TurnPlayed));
     }
 
     public partial class AbnormalPlugin {
