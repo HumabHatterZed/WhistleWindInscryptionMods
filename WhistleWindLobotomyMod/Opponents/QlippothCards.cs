@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 { Cards.weCanChangeAnything, new(1, 2) },
                 { Cards.whiteLake, new(1, 1) { fromCardMerge = true, abilities = new() { Alluring.ability } } },
                 { Cards.willBeBadWolf, new(0, 2) },
-                { Cards.wisdomScarecrow, new(0, 2) { fromCardMerge = true, abilities = new() { MindStrike.ability } } },
+                { Cards.wisdomScarecrow, new(0, 2) { fromCardMerge = true, bonesCostAdjustment = -1, abilities = new() { MindStrike.ability } } },
                 { Cards.yang, new(Ability.MoveBeside) { fromCardMerge = true } },
                 { Cards.youMustBeHappy, new(0, 2) }
             };

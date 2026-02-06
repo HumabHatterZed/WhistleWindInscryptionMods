@@ -10,6 +10,7 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod {
     public class YellowBrick : SpecialCardBehaviour, IOnOtherCardResolveInHand, IOnOtherCardAddedToHand {
@@ -127,7 +128,7 @@ namespace WhistleWindLobotomyMod {
 
             yield return LookAtCard(ozma); // ozma removal sequence
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultOzma");
-            yield return ModifyCard(ozma, new(1, 0));
+            yield return ModifyCard(ozma, QlippothCards.QLIPPOTH_CARDS[Cards.ozma]);
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
@@ -140,11 +141,11 @@ namespace WhistleWindLobotomyMod {
             // modify friend cards
             yield return LookAtCard(scarecrow);
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultScarecrow");
-            yield return ModifyCard(scarecrow, new() { bonesCostAdjustment = -1 });
+            yield return ModifyCard(scarecrow, QlippothCards.QLIPPOTH_CARDS[Cards.wisdomScarecrow]);
 
             yield return LookAtCard(woodsman);
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultWoodsman");
-            yield return ModifyCard(woodsman, new(0, 1));
+            yield return ModifyCard(woodsman, QlippothCards.QLIPPOTH_CARDS[Cards.warmHeartedWoodsman]);
 
             yield return LookAtCard(scaredyCat);
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultScaredyCat");
@@ -156,7 +157,7 @@ namespace WhistleWindLobotomyMod {
 
             yield return LookAtCard(roadHome);
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultRoadHome");
-            yield return ModifyCard(roadHome, new(0, 2));
+            yield return ModifyCard(roadHome, QlippothCards.QLIPPOTH_CARDS[Cards.theRoadHome]);
 
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro4");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);

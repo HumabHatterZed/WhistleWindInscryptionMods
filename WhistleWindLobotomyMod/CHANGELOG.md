@@ -90,8 +90,9 @@
 - Red Riding Hooded Mercenary: reworked to 1/2; Gun For Hire; 1 Blood
 - Sephirah: all cards now blink slower
 - Shelter from the 27th of March: Replaced Repulsive with Ethereal
+- The Adult Who Tells Lies: changed upgrades given to requisite summoning cards during special event
 - The Dreaming Current: Increased Health from 2 -> 3, now possesses Nimble-Footed and Barreler
-- - The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession
+- The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession
 - The Servant of Wrath: special ability now triggers when 2 adjacent allies die instead of 1
 - Tiphereth B: replaced Unkillable with Broken Samsara
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
