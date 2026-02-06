@@ -25,6 +25,9 @@ namespace WhistleWindLobotomyMod {
                     AbilityManager.AllAbilities.AbilityByID(Shadowed.ability).Info
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
+                    AbilityManager.AllAbilities.AbilityByID(Ability.MoveBeside).Info
+                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+
                     if (LobotomyConfigManager.ReskinSigils) {
                         AbilityInfo info;
                         abilities.AbilityByID(Ability.Sniper).Info
