@@ -53,10 +53,10 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperC, cardName,
-                attack: 2, health: 3)
+                attack: 1, health: 2)
                 .SetBloodCost(2).SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperC")
-                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability)
+                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Regenerator.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
@@ -104,7 +104,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 1)
                 .SetBloodCost(2).SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperG")
-                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, GreedyHealing.ability)
+                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.Sniper)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
