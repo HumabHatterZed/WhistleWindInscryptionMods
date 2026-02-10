@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// </summary>
     public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IModifyDirectDamage {
         public bool drewInitialHand = false;
-
+        public bool allowReset = false;
 
         // use to track how much excess damage has been dealt past the maximum allowed scale balance
         // reset every round end/direct attack dealt
@@ -38,6 +38,19 @@ namespace WhistleWindLobotomyMod.Opponents {
         public virtual int MaxBonesPerAttack { get; } = 2;
         public virtual int MaxBonesPerTurn { get; } = 8;
         public virtual int MaxBonesOwned { get; } = 15;
+
+        /// <summary>
+        /// Resets the scales to 0 or below if HighestPositiveScaleBalance is negative.
+        /// Must use this for LobotomyOpponent's since they otherwise prevent the skip sequence from playing
+        /// </summary>
+        public IEnumerator ShowResetSequence() {
+            allowReset = true;
+            yield return LifeManager.Instance.ShowResetSequence();
+            if (HighestPositiveScaleBalance < 0) {
+                yield return LifeManager.Instance.ShowDamageSequence(-HighestPositiveScaleBalance, 1, true);
+            }
+            allowReset = false;
+        }
 
         public virtual IEnumerator MoveOpponentCards() {
             int rand = base.GetRandomSeed() + TurnNumber;

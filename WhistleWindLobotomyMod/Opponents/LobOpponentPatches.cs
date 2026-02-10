@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator) {
-            if (LobOpponentUtils.FightingCustomOpponent())
+            if (TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && !seq.allowReset)
                 yield break;
 
             yield return enumerator;
