@@ -110,13 +110,13 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override IEnumerator OutroSequence(bool wasDefeated) {
-            
+            StopEmissions();
             if (!BattleSequencer.defeated) {
                 OrdealBannerManager.Instance.UpdateBannerOutro(BattleSequencer.ordealType, BattleSequencer.ordealTier);
                 OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, false);
                 yield return new WaitForSeconds(2f);
             }
-
+            
             if (hasTotem) {
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem, immediate: false, lockAfter: true);
                 yield return new WaitForSeconds(0.5f);
