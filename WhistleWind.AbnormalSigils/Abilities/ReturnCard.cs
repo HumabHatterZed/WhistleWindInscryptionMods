@@ -49,8 +49,8 @@ namespace WhistleWind.AbnormalSigils {
             card.Slot = null;
 
             yield return HelperMethods.ChangeCurrentView(View.Default);
-            yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
             card.AddTemporaryMod(recallMod);
+            yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
             yield return new WaitForSeconds(0.2f);
 
             if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
