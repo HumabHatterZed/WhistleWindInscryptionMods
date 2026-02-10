@@ -48,14 +48,18 @@ namespace WhistleWindLobotomyMod.Opponents {
                 CardModificationInfo mod;
                 int rand = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
                 mod = new(Shadowed.ability) { fromCardMerge = true, singletonId = "OrdealRandomBuff" };
-                if (SeededRandom.Value(rand++) <= 0.075f * (7 + RunState.Run.DifficultyModifier)) {
+                if (SeededRandom.Value(rand++) <= 0.1f * (8 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
                     mod.healthAdjustment++;
                 }
-                if (SeededRandom.Value(rand++) <= (4 + RunState.Run.DifficultyModifier) * 0.1f) {
+                if (SeededRandom.Value(rand++) <= 0.1f * (5 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
                     mod.healthAdjustment++;
                 }
-                if (SeededRandom.Value(rand++) <= (TurnManager.Instance.TurnNumber + RunState.Run.DifficultyModifier - 2) * 0.1f) {
+                if (SeededRandom.Value(rand++) <= 0.1f * (3 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
                     mod.attackAdjustment++;
+                }
+                if (RunState.Run.DifficultyModifier > 2 || Opponent.NumLives == 1) {
+                    mod.abilities.Add(Ability.Sniper);
+                    mod.fromCardMerge = true;
                 }
                 card.AddTemporaryMod(mod);
             }
@@ -71,34 +75,27 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             bool wonByKill = OrdealCounterManager.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
-            int reactiveDifficulty = Mathf.Max(0, 5 - LifeManager.Instance.DamageUntilPlayerWin) + numTurnsLeft;
-            reactiveDifficulty += BoardManager.Instance.GetOpponentOpenSlots().Count;
+            int reactiveDifficulty = numTurnsLeft + RunState.Run.DifficultyModifier + Mathf.Max(0, 5 - LifeManager.Instance.DamageUntilPlayerWin) + BoardManager.Instance.GetOpponentOpenSlots().Count;
+            if (Opponent.NumLives == 1) {
+                reactiveDifficulty += 5;
+            }
             numWavesLeft++;
             defeated = false;
             amountKilledThisTurn = 0;
             numTurnsLeft = NUM_TURNS;
 
             if (wonByKill) {
-                numTurnsLeft++;
+                numTurnsLeft++; // buffer to account to how turns work
             }
             
             OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint(reactiveDifficulty);
-            if (RunState.Run.DifficultyModifier > 2) {
-                yield return ShowResetSequence();
-            }
-            else if (RunState.Run.DifficultyModifier > 1 && LifeManager.Instance.DamageUntilPlayerWin < 4) {
-                yield return LifeManager.Instance.ShowDamageSequence(2, 1, true);
-            }
-
-                yield return HelperMethods.ChangeCurrentView(View.Default);
-            
+            base.StartCoroutine(ShowResetSequence());
             SweeperOpponent.EmitCentre();
             yield return new WaitForSeconds(0.5f);
             //base.StartCoroutine(TurnManager.Instance.Opponent.ClearBoard());
             yield return TurnManager.Instance.Opponent.ClearQueue();
             yield return TurnManager.Instance.Opponent.QueueNewCards(changeView: false);
 
-            
             if (!wonByKill) {
                 yield return UpdateCounterIcon(true, false);
             }
@@ -130,7 +127,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             Debug.Log($"[IndigoMidnight.ConstructWaveBlueprint] Reactive Difficulty: {reactiveDifficulty}");
 
             for (int i = 0; i < numTurns; i++) {
-                int numPasses = 1 + reactiveDifficulty / 7;
+                int numPasses = 1 + reactiveDifficulty / 4;
                 List<CardInfo> turn = new() {
                     CardLoader.GetCardByName(GetRandomSweeper(seed++, 7))
                 };
