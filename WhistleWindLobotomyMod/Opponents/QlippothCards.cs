@@ -83,11 +83,11 @@ namespace WhistleWindLobotomyMod.Opponents {
         public static List<List<CardInfo>> AddEmpoweredCardsToTurnPlan(List<List<CardInfo>> turnPlan, string keyOverride = null) {
             int empoweredCards = 0;
             int seed = SaveManager.SaveFile.GetCurrentRandomSeed() + GlobalTriggerHandler.Instance.NumTriggersThisBattle + TurnManager.Instance.TurnNumber;
-            bool addEmpoweredCard = SeededRandom.Value(seed) <= 0.21f;
+            bool addEmpoweredCard = SeededRandom.Value(seed++) <= 0.21f;
             seed += 1000;
             for (int i = 0; i < turnPlan.Count; i++) {
                 if (!addEmpoweredCard) {
-                    addEmpoweredCard = SeededRandom.Value(seed) <= (0.21f - empoweredCards * 0.05f);
+                    addEmpoweredCard = SeededRandom.Value(seed++) <= (0.21f - empoweredCards * 0.05f);
                     seed += 1000;
                     continue;
                 }
@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 CardInfo infoToReplace = infos.Find(x => QLIPPOTH_CARDS.ContainsKey(x.name));
                 if (infoToReplace == null) {
                     List<string> possibilities = keyOverride != null ? ORDEAL_QLIPPOTH_CARDS[keyOverride] : QLIPPOTH_CARDS.Keys.ToList();
-                    string name = possibilities.GetSeededRandom(SaveManager.SaveFile.GetCurrentRandomSeed() + GlobalTriggerHandler.Instance.NumTriggersThisBattle);
+                    string name = possibilities.GetSeededRandom(seed++);
                     CardInfo card = CardLoader.GetCardByName(name);
                     card.Mods.Add(QLIPPOTH_CARDS[name]);
                     card.Mods.Add(new() { singletonId = QLIPPOTH_ID });
@@ -104,8 +104,10 @@ namespace WhistleWindLobotomyMod.Opponents {
                     }
                     else if (infos.Exists(x => x.LacksTrait(LobotomyCardManager.Ordeal))) {
                         infos.RemoveAll(x => x.HasTrait(LobotomyCardManager.Ordeal));
-                        infoToReplace = infos.GetRandom();
-                        turnPlan[i][turnPlan[i].IndexOf(infoToReplace)] = card;
+                        if (infos.Count > 0) {
+                            infoToReplace = infos.GetRandom();
+                            turnPlan[i][turnPlan[i].IndexOf(infoToReplace)] = card;
+                        }
                     }
                     else {
                         continue;
@@ -116,8 +118,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     infoToReplace.Mods.Add(new() { singletonId = QLIPPOTH_ID });
                 }
                 empoweredCards++;
-                addEmpoweredCard = SeededRandom.Value(seed) <= (0.21f - empoweredCards * 0.05f);
-                seed += 1000;
+                addEmpoweredCard = SeededRandom.Value(seed++) <= (0.21f - empoweredCards * 0.05f);
             }
             return turnPlan;
         }
