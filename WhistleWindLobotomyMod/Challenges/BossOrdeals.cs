@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Challenges {
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
-                20,
+                40,
                 TextureLoader.LoadTextureFromFile("ascensionBossOrdeals.png"),
                 TextureLoader.LoadTextureFromFile("ascensionBossOrdeals_activated.png")
                 );
