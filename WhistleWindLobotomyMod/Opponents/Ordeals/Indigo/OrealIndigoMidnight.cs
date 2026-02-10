@@ -54,13 +54,13 @@ namespace WhistleWindLobotomyMod.Opponents {
                 if (SeededRandom.Value(rand++) <= 0.1f * (5 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
                     mod.healthAdjustment++;
                 }
-                if (SeededRandom.Value(rand++) <= 0.1f * (3 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
+                if (SeededRandom.Value(rand++) <= 0.1f * (5 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
                     mod.attackAdjustment++;
                 }
-                if (RunState.Run.DifficultyModifier > 2 || Opponent.NumLives == 1) {
-                    mod.abilities.Add(Ability.Sniper);
-                    mod.fromCardMerge = true;
-                }
+                //if (RunState.Run.DifficultyModifier > 2 || Opponent.NumLives == 1) {
+                //    mod.abilities.Add(Ability.Sniper);
+                //    mod.fromCardMerge = true;
+                //}
                 card.AddTemporaryMod(mod);
             }
         }
