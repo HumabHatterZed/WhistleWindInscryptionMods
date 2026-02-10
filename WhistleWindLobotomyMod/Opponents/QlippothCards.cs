@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 { Cards.oneSin, new() { fromCardMerge = true, abilities = new() { Idol.ability } } },
                 { Cards.ozma, new(Protector.ability) { fromCardMerge = true } },
                 { Cards.punishingBird, new(1, 0) },
-                { Cards.redHoodedMercenary, new(1, 0) },
+                { Cards.redHoodedMercenary, new(1, 0) { fromCardMerge = true, abilities = new() { Ability.Sniper}, negateAbilities = new() { ActivatedSniper.ability } } },
                 { Cards.redShoes, new(Ability.WhackAMole) { fromCardMerge = true, negateAbilities = new() { Ability.GuardDog } } },
                 { Cards.runawayBird_mook, new(0, 1) { fromCardMerge = true, abilities = new() { Persistent.ability } } },
                 { Cards.schadenfreude, new() { fromCardMerge = true, abilities = new() { Ability.Sentry, NimbleFoot.ability } } },
@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public static List<List<CardInfo>> AddEmpoweredCardsToTurnPlan(List<List<CardInfo>> turnPlan, string keyOverride = null) {
             int empoweredCards = 0;
-            int seed = SaveManager.SaveFile.GetCurrentRandomSeed() + 1000;
+            int seed = SaveManager.SaveFile.GetCurrentRandomSeed() + GlobalTriggerHandler.Instance.NumTriggersThisBattle + TurnManager.Instance.TurnNumber;
             bool addEmpoweredCard = SeededRandom.Value(seed) <= 0.21f;
             seed += 1000;
             for (int i = 0; i < turnPlan.Count; i++) {
