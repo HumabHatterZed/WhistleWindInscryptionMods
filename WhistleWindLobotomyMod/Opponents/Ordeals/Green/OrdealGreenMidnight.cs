@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             // every X turns, gain 1 Power
-            if (Helix.Attack < 3 && TurnNumber % turnsToGainPower == 0) {
+            if (Helix.Attack < 3 && TurnNumber > 0 && TurnNumber % turnsToGainPower == 0) {
                 Helix.AddTemporaryMod(new(1, 0));
             }
         }
@@ -235,12 +235,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (RunState.CurrentRegionTier + RunState.Run.DifficultyModifier > 1) {
                 Helix.Info.baseAttack = 1;
             }
-            turnsToGainPower = Mathf.Max(2, 4 - RunState.CurrentRegionTier + RunState.Run.DifficultyModifier);
+            turnsToGainPower = Mathf.Max(3, 7 - RunState.CurrentRegionTier + RunState.Run.DifficultyModifier);
             Helix.Info.baseHealth += RunState.CurrentRegionTier * 10;
         }
 
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            HighestPositiveScaleBalance = Mathf.Max(-2, 1 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
+            HighestPositiveScaleBalance = Mathf.Max(-2, 2 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
             ValidCards.Add(Cards.lastHelix);
             phaseCountdown = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
             if (phaseCountdown < 2) {
