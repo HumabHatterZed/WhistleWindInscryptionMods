@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Sound;
 using System;
 using System.Collections;
@@ -19,6 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// </summary>
     public class OrdealIndigoMidnight : OrdealIndigoNoon {
         public override Opponent.Type BossType => OrdealUtils.SweeperOpponentID;
+        public override int MaxBonesOwned => 10;
         public SweeperOpponent SweeperOpponent => Opponent as SweeperOpponent;
         private const int NUM_TURNS = 5;
         private int numWavesLeft = 1;
@@ -69,7 +71,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
 
             bool wonByKill = OrdealCounterManager.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
-
+            int reactiveDifficulty = Mathf.Max(0, 5 - LifeManager.Instance.DamageUntilPlayerWin) + numTurnsLeft;
+            reactiveDifficulty += BoardManager.Instance.GetOpponentOpenSlots().Count;
             numWavesLeft++;
             defeated = false;
             amountKilledThisTurn = 0;
@@ -79,11 +82,19 @@ namespace WhistleWindLobotomyMod.Opponents {
                 numTurnsLeft++;
             }
             
-            OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint();
-            yield return HelperMethods.ChangeCurrentView(View.Default);
+            OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint(reactiveDifficulty);
+            if (RunState.Run.DifficultyModifier > 2) {
+                yield return ShowResetSequence();
+            }
+            else if (RunState.Run.DifficultyModifier > 1 && LifeManager.Instance.DamageUntilPlayerWin < 4) {
+                yield return LifeManager.Instance.ShowDamageSequence(2, 1, true);
+            }
+
+                yield return HelperMethods.ChangeCurrentView(View.Default);
+            
             SweeperOpponent.EmitCentre();
             yield return new WaitForSeconds(0.5f);
-            base.StartCoroutine(TurnManager.Instance.Opponent.ClearBoard());
+            //base.StartCoroutine(TurnManager.Instance.Opponent.ClearBoard());
             yield return TurnManager.Instance.Opponent.ClearQueue();
             yield return TurnManager.Instance.Opponent.QueueNewCards(changeView: false);
 
@@ -110,25 +121,30 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitForSeconds(0.5f);
         }
 
-        private int ConstructWaveBlueprint() {
+        private int ConstructWaveBlueprint(int reactiveDifficulty) {
             int numTurns = NUM_TURNS + RunState.Run.DifficultyModifier; // [6, 8]
             int numCards = 6 + RunState.Run.DifficultyModifier; // [7, 9]
             int seed = base.GetRandomSeed() + TurnNumber;
             List<List<CardInfo>> newPlan = new();
 
+            Debug.Log($"[IndigoMidnight.ConstructWaveBlueprint] Reactive Difficulty: {reactiveDifficulty}");
+
             for (int i = 0; i < numTurns; i++) {
+                int numPasses = 1 + reactiveDifficulty / 7;
                 List<CardInfo> turn = new() {
                     CardLoader.GetCardByName(GetRandomSweeper(seed++, 7))
                 };
 
-                if (SeededRandom.Range(0, 4, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
-                    turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
-                }
-                if (SeededRandom.Range(0, 6, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
-                    turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
-                }
-                if (SeededRandom.Range(0, 10, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
-                    turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                for (int j = 0; j < numPasses; j++) {
+                    if (SeededRandom.Range(0, 4, seed++) <= (RunState.Run.DifficultyModifier)) {
+                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                    }
+                    if (SeededRandom.Range(0, 6, seed++) <= (RunState.Run.DifficultyModifier)) {
+                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                    }
+                    if (SeededRandom.Range(0, 10, seed++) <= (RunState.Run.DifficultyModifier)) {
+                        turn.Add(CardLoader.GetCardByName(GetRandomSweeper(seed++, 7)));
+                    }
                 }
 
                 newPlan.Add(turn);
