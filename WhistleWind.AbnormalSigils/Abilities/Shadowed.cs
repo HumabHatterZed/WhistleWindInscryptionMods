@@ -1,16 +1,11 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.RuleBook;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Shadowed() {
-            const string rulebookName = "Shadowy Presence";
+            const string rulebookName = "Obscured Presence";
             const string rulebookDescription = "[creature] cannot take overkill damage. When this card is played, remove this sigil.";
             const string dialogue = "The beast steps out from the shadows.";
             string trigger = "[creature] emerges from the darkness!";
