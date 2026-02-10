@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 CardModificationInfo mod;
                 int rand = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
                 mod = new(Shadowed.ability) { fromCardMerge = true, singletonId = "OrdealRandomBuff" };
-                if (SeededRandom.Value(rand++) <= (7 + RunState.Run.DifficultyModifier) * 0.1f) {
+                if (SeededRandom.Value(rand++) <= 0.075f * (7 + RunState.Run.DifficultyModifier)) {
                     mod.healthAdjustment++;
                 }
                 if (SeededRandom.Value(rand++) <= (4 + RunState.Run.DifficultyModifier) * 0.1f) {
