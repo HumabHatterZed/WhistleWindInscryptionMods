@@ -121,6 +121,7 @@
 - Piercing - now affects face down cards
 - Punisher - now activates on card death instead of on taking damage
 - Recall Creature - Recalled Fecundity cards now lose Fecundity in KCM/Ascension mode
+- Recall Creature - Totem no longer triggers on recalled cards
 - Refresh Deck/Grand Reopening - now discards the player's current hand and draws additional cards based on how long the battle's gone on
 - Rightful Heir - activation is no longer limited to once per turn
 - Rightful Heir - Increased initial activation cost from 1 Bone -> 2 Bones

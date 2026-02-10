@@ -2,7 +2,6 @@
 using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Card.CostProperties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +14,12 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(CardGainAbility), nameof(CardGainAbility.RespondsToOtherCardDrawn))]
+        private static void RecalledCardsDontTriggerTotems(ref bool __result, PlayableCard card) {
+            if (__result && card.TemporaryMods.Find(x => x.singletonId == "wstl:Recalled") != null) {
+                __result = false;
+            }
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(CardExtensions), nameof(CardExtensions.BonesCost))]
         private static void GuaranteeCorrectBonesCost(ref int __result, PlayableCard card) {
             CardModificationInfo recallMod = card.TemporaryMods.Find(x => x.singletonId == "wstl:Recalled");
