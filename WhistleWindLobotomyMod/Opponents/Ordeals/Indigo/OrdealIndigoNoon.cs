@@ -10,15 +10,15 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// Valid regions: 0, 1, 2
     /// </summary>
     public class OrdealIndigoNoon : OrdealBattleSequencer {
-        protected string GetRandomSweeper(int randomSeed, int rangeMaxExclusive = 4) {
+        protected string GetRandomSweeper(int randomSeed, int rangeMaxExclusive = 3) {
             return SeededRandom.Range(0, rangeMaxExclusive, randomSeed) switch {
-                0 => Cards.sweeperA,
-                1 => Cards.sweeperB,
-                2 => Cards.sweeperC,
-                3 => Cards.sweeperD,
-                4 => Cards.sweeperE,
-                5 => Cards.sweeperF,
-                _ => Cards.sweeperG
+                0 => Cards.sweeperE,
+                1 => Cards.sweeperF,
+                2 => Cards.sweeperG,
+                3 => Cards.sweeperA,
+                4 => Cards.sweeperB,
+                5 => Cards.sweeperC,
+                _ => Cards.sweeperD
             };
         }
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
