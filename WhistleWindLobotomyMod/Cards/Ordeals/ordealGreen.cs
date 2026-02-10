@@ -131,7 +131,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, string.Empty,
-                attack: 0, health: 30)
+                attack: 0, health: 20)
                 .AddAbilities(Ability.Reach, Tower.ability, Ability.AllStrike, Challenging.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Giant, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
