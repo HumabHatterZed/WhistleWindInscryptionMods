@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
+using System.Linq;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents {
@@ -14,22 +15,22 @@ namespace WhistleWindLobotomyMod.Opponents {
     public class OrdealGreenDawn : OrdealBattleSequencer {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty) {
             int minCards = 4;
-            int oneAboveBase = baseDifficulty + 2, twoAboveBase = baseDifficulty + 3; // account for innate modifier
+
             List<CardInfo> startingCard = new() { null, null, null };
             List<EncounterBlueprintData.CardBlueprint> turn1 = new(), turn2 = new();
 
             switch (baseDifficulty) {
                 case 0:
-                    startingCard.Add(CardLoader.GetCardByName(encounterData.Difficulty > oneAboveBase ? Cards.doubtB : Cards.doubtA));
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, oneAboveBase));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoAboveBase));
+                    startingCard.Add(CardLoader.GetCardByName(encounterData.Difficulty > 2 ? Cards.doubtB : Cards.doubtA));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, 2));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 3));
                     minCards = 3;
                     break;
                 case 1:
-                    startingCard.Add(CardLoader.GetCardByName(encounterData.Difficulty > oneAboveBase ? Cards.doubtB : Cards.doubtA));
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoAboveBase));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, oneAboveBase));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, twoAboveBase));
+                    startingCard.Add(CardLoader.GetCardByName(encounterData.Difficulty > 3 ? Cards.doubtB : Cards.doubtA));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 4));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 3));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 4));
                     break;
                 default:
                     startingCard.Add(CardLoader.GetCardByName(Cards.doubtB));
@@ -41,11 +42,10 @@ namespace WhistleWindLobotomyMod.Opponents {
             encounterData.Blueprint.AddTurns(turn1, turn2);
 
             EncounterData.StartCondition cond = new();
-            startingCard.Randomize();
-            cond.cardsInOpponentSlots = startingCard.ToArray();
+            cond.cardsInOpponentSlots = startingCard.Randomize().ToArray();
             encounterData.startConditions.Add(cond);
 
-            if (encounterData.Difficulty > oneAboveBase) {
+            if (encounterData.Difficulty > 9) {
                 encounterData.Blueprint.AddTurn(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 3));
                 minCards++;
             }
