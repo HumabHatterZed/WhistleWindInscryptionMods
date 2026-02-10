@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, skinCheers, "Cheers for\nthe Beginning",
-                attack: 1, health: 2)
+                attack: 0, health: 2)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinCheers")
                 .AddAbilities(Withering.ability, Ability.ExplodeOnDeath)
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardInfo harmony = CardManager.New(LobotomyPlugin.pluginPrefix, skinHarmony, "The Harmony\nof Skin",
-                attack: 2, health: 4)
+                attack: 1, health: 3)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinHarmony")
                 .AddAbilities(HarmonyAbility.ability, Challenging.ability)
@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, skinClimax, OrdealUtils.GetOrdealTitle(OrdealType.Crimson, 2),
-                attack: 3, health: 6)
+                attack: 3, health: 5)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "skinClimax")
                 .AddAbilities(Ability.IceCube, NimbleFoot.ability, Challenging.ability)
