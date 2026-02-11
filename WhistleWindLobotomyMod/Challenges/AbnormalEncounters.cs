@@ -12,18 +12,18 @@ namespace WhistleWindLobotomyMod.Challenges {
         internal const string description = "Regular and totem battles will only use Abnormality cards.";
 
         public static AscensionChallenge Id { get; private set; }
-
+        internal static ChallengeManager.FullChallenge Info { get; private set; }
         // Creates the challenge then calls the relevant patches
         public static void Register(Harmony harmony) {
-            Id = ChallengeManager.Add(
+            Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
                 10,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png")
-                )
-                .Challenge.challengeType;
+                );
+            Id = Info.Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalEncounters));
         }

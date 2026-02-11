@@ -10,20 +10,17 @@ namespace WhistleWindLobotomyMod.Challenges {
         internal const string description = "All non-boss battles are replaced with Ordeals.";
 
         public static AscensionChallenge Id { get; private set; }
-        internal static ChallengeManager.FullChallenge Info { get; private set; }
-
+        
         // Creates the challenge then calls the relevant patches
         internal static void Register(Harmony harmony) {
-            Info = ChallengeManager.Add(
+            Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
                 15,
                 TextureLoader.LoadTextureFromFile("ascensionOrdeals.png"),
                 TextureLoader.LoadTextureFromFile("ascensionOrdeals_activated.png")
-                );
-
-            Id = Info.Challenge.challengeType;
+                ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AllOrdeals));
         }

@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator) {
-            if (TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && !seq.allowReset)
+            if (TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer)
                 yield break;
 
             yield return enumerator;
@@ -100,7 +100,7 @@ namespace WhistleWindLobotomyMod.Patches {
                 else if (LobotomyConfigManager.ChallengeIsActive(FinalOrdeal.Id)) {
                     __result = LobOpponentUtils.whiteOrdealRegion;
                 }
-                else if (LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
+                else if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.FinalBoss) && LobotomyConfigManager.ChallengeIsActive(BossOrdeals.Id)) {
                     __result = LobOpponentUtils.indigoOrdealRegion;
                 }
             }

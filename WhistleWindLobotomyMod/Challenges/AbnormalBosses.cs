@@ -21,16 +21,18 @@ namespace WhistleWindLobotomyMod.Challenges {
         internal const string description = "Boss battles will only use Abnormality cards.";
 
         public static AscensionChallenge Id { get; private set; }
-
+        internal static ChallengeManager.FullChallenge Info { get; private set; }
         internal static void Register(Harmony harmony) {
-            Id = ChallengeManager.Add(
+            Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
                 15,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
-                ).Challenge.challengeType;
+                );
+
+            Id = Info.Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalBosses));
         }

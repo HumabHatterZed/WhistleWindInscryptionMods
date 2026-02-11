@@ -16,8 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// </summary>
     public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IModifyDirectDamage {
         public bool drewInitialHand = false;
-        public bool allowReset = false;
-
+        
         // use to track how much excess damage has been dealt past the maximum allowed scale balance
         // reset every round end/direct attack dealt
         protected int directDamageCache;
@@ -43,13 +42,32 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// Resets the scales to 0 or below if HighestPositiveScaleBalance is negative.
         /// Must use this for LobotomyOpponent's since they otherwise prevent the skip sequence from playing
         /// </summary>
-        public IEnumerator ShowResetSequence() {
-            allowReset = true;
-            yield return LifeManager.Instance.ShowResetSequence();
+        public IEnumerator ShowResetSequence(bool changeView = true) {
+            //allowReset = true;
+            // recreate ShowResetSequence with optional view change
+            if (Singleton<PlayerHand>.Instance != null) {
+                Singleton<PlayerHand>.Instance.PlayingLocked = true;
+            }
+            if (LifeManager.Instance.scales != null) {
+                if (changeView) {
+                    Singleton<ViewManager>.Instance.SwitchToView(LifeManager.Instance.scalesView);
+                }
+                yield return new WaitForSeconds(0.75f);
+                yield return LifeManager.Instance.scales.ClearDamage();
+            }
+            LifeManager.Instance.Reset();
+            yield return new WaitForSeconds(0.75f);
+            if (changeView) {
+                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);
+            }
+            
+            if (Singleton<PlayerHand>.Instance != null) {
+                Singleton<PlayerHand>.Instance.PlayingLocked = false;
+            }
+
             if (HighestPositiveScaleBalance < 0) {
                 yield return LifeManager.Instance.ShowDamageSequence(-HighestPositiveScaleBalance, 1, true);
             }
-            allowReset = false;
         }
 
         public virtual IEnumerator MoveOpponentCards() {

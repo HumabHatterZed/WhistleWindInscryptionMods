@@ -183,8 +183,8 @@ namespace WhistleWindLobotomyMod {
             NoTime.Register(HarmonyInstance);
 
             BetterRareChances.Info.SetIncompatibleChallengeGetterStatic(NoRares.Id);
-            AllOrdeals.Info.SetIncompatibleChallengeGetterStatic(AbnormalEncounters.Id);
-            BossOrdeals.Info.SetIncompatibleChallengeGetterStatic(AbnormalBosses.Id);
+            AbnormalEncounters.Info.SetIncompatibleChallengeGetterStatic(AllOrdeals.Id);
+            AbnormalBosses.Info.SetIncompatibleChallengeGetterStatic(BossOrdeals.Id);
         }
 
         private void AddEncounters() {
