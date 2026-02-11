@@ -26,11 +26,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         private int numWavesLeft = 1;
         private int numTurnsLeft = NUM_TURNS;
         private bool newWave = true;
-
+        private bool startNextWaveUpkeep = false;
         public override IEnumerator PlayerUpkeep() {
             yield return UpdateCounterIcon(newWave, !newWave);
             if (numTurnsLeft == 0) {
                 Opponent.NumLives--;
+                startNextWaveUpkeep = true;
                 yield return OpponentLifeLost();
             }
         }
@@ -74,7 +75,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 yield break;
             }
 
-            bool wonByKill = OrdealCounterManager.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
+            //bool wonByKill = OrdealCounterManager.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
             int reactiveDifficulty = numTurnsLeft + RunState.Run.DifficultyModifier + Mathf.Max(0, 5 - LifeManager.Instance.DamageUntilPlayerWin) + BoardManager.Instance.GetOpponentOpenSlots().Count;
             if (Opponent.NumLives == 1) {
                 reactiveDifficulty += 5;
@@ -84,21 +85,22 @@ namespace WhistleWindLobotomyMod.Opponents {
             amountKilledThisTurn = 0;
             numTurnsLeft = NUM_TURNS;
 
-            if (wonByKill) {
+            if (!startNextWaveUpkeep) {
                 numTurnsLeft++; // buffer to account to how turns work
             }
             
             OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint(reactiveDifficulty);
-            base.StartCoroutine(ShowResetSequence());
+            base.StartCoroutine(ShowResetSequence(false));
             SweeperOpponent.EmitCentre();
             yield return new WaitForSeconds(0.5f);
             //base.StartCoroutine(TurnManager.Instance.Opponent.ClearBoard());
             yield return TurnManager.Instance.Opponent.ClearQueue();
             yield return TurnManager.Instance.Opponent.QueueNewCards(changeView: false);
 
-            if (!wonByKill) {
+            if (startNextWaveUpkeep) {
                 yield return UpdateCounterIcon(true, false);
             }
+            startNextWaveUpkeep = false;
         }
 
         private IEnumerator UpdateCounterIcon(bool updateNumWaves, bool reduceTurn) {
