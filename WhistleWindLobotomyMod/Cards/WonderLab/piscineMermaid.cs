@@ -10,8 +10,8 @@ namespace WhistleWindLobotomyMod {
             string textureName = "piscineMermaid";
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, piscineMermaid, "Piscine Mermaid",
-                attack: 2, health: 1, "Its love always ends poorly, yet it cannot help itself all the same.")
-                .SetBloodCost(1).SetEnergyCost(2)
+                attack: 3, health: 1, "Its love always ends poorly, yet it cannot help itself all the same.")
+                .SetBloodCost(1).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.MoveBeside, Ability.Submerge)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
