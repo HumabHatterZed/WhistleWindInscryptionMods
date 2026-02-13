@@ -37,6 +37,7 @@ namespace WhistleWindLobotomyMod.Core {
             ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_2", TextureLoader.LoadTextureFromFile("sigilDelusion2.png", LobotomyPlugin.ModAssembly));
             ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_3", TextureLoader.LoadTextureFromFile("sigilDelusion3.png", LobotomyPlugin.ModAssembly));
             ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_4", TextureLoader.LoadTextureFromFile("sigilDelusion4.png", LobotomyPlugin.ModAssembly));
+            ResourceBankManager.AddAbilityIcon(LobotomyPlugin.pluginGuid, "sigilDelusion_5", TextureLoader.LoadTextureFromFile("sigilDelusion5.png", LobotomyPlugin.ModAssembly));
 
             assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWindLobotomyMod.lobmodassets");
             assetBundle = AssetBundle.LoadFromStream(assetBundleStream);

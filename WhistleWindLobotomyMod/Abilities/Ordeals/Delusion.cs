@@ -2,7 +2,9 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Bindings;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 
 
 namespace WhistleWindLobotomyMod {
@@ -27,7 +29,7 @@ namespace WhistleWindLobotomyMod {
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
-            counter = SeededRandom.Range(2, 5, base.GetRandomSeed() + base.Card.Slot.Index);
+            counter = SeededRandom.Range(2, Mathf.Max(4, 7 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier), base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
@@ -53,9 +55,31 @@ namespace WhistleWindLobotomyMod {
                 base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
                 base.Card.RenderCard();
                 yield return new WaitForSeconds(0.75f);
-                yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
-                ViewManager.Instance.SwitchToView(View.Board);
+                yield return ReduceHighestBalance();
             }
+        }
+
+        private IEnumerator ReduceHighestBalance() {
+            yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
+            yield return new WaitForSeconds(0.5f);
+
+            ViewManager.Instance.SwitchToView(OrdealUtils.ViewCounter);
+            yield return new WaitForSeconds(0.2f);
+
+            OrdealBattleSequencer seq = TurnManager.Instance.SpecialSequencer as OrdealBattleSequencer;
+            seq.HighestPositiveScaleBalance--;
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.3f);
+            OrdealCounterManager.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(seq.HighestPositiveScaleBalance));
+            OrdealCounterManager.Instance.UpdateConsole(-1, seq.HighestPositiveScaleBalance, "scale lock");
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(1f);
+
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.3f);
+            ViewManager.Instance.SwitchToView(View.Board);
+            OrdealCounterManager.Instance.ResetToDisplayRemaining(seq.ordealTier);
+            OrdealCounterManager.Instance.EnableConsole(true);
         }
 
         public override bool RespondsToTakeDamage(PlayableCard source) => triggerHalfHealth && (float)base.Card.Health / base.Card.MaxHealth <= 0.5f;
