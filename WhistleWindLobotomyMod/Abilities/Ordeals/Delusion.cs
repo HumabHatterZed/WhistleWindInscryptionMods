@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddDelusion() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Delusion";
-            info.rulebookDescription = "At the start of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil, deal 1 damage directly to the player, then reset the counter to 2~3.";
+            info.rulebookDescription = "At the start of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil, reduce the max scale balance by 1, then reset the counter to 2~3.";
             info.powerLevel = 0;
 
             Delusion.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Delusion), TextureLoader.LoadTextureFromFile("sigilDelusion.png")).Id;
@@ -98,6 +98,7 @@ namespace WhistleWindLobotomyMod {
 
     public abstract class GodColourAbilityBehaviour : AbilityBehaviour {
         protected GameObject activateVisualGameObject = null;
+        protected bool preActivated = false;
 
         protected abstract IEnumerator PreActivate(bool halfHealth);
         protected abstract IEnumerator Activate(bool halfHealth);
@@ -105,10 +106,17 @@ namespace WhistleWindLobotomyMod {
         protected abstract IEnumerator CleanUpVisuals();
 
         public IEnumerator OnPreActivate(bool halfHealth) {
-            yield return PreActivate(halfHealth);
+            if (!preActivated) {
+                preActivated = true;
+                yield return PreActivate(halfHealth);
+            }
         }
         public IEnumerator OnActivate(bool halfHealth) {
+            if (!preActivated) {
+                yield return PreActivate(halfHealth);
+            }
             yield return Activate(halfHealth);
+            preActivated = false;
         }
 
         public override bool RespondsToResolveOnBoard() => activateVisualGameObject == null;
