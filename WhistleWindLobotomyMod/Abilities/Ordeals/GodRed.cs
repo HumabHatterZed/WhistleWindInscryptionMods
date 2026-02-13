@@ -44,6 +44,15 @@ namespace WhistleWindLobotomyMod {
             // stub
         }
 
+        protected override IEnumerator CleanUpVisuals() {
+            //if (spikesOpen) {
+            //    HideSpikes(true);
+            //}
+
+            yield return new WaitForSeconds(0.5f);
+            Destroy(activateVisualGameObject);
+        }
+
         private void SetUpDummyCard() {
             if (dummyCard != null) return;
 

@@ -31,5 +31,11 @@ namespace WhistleWindLobotomyMod {
         public override void SetUpVisualGameObject() {
             // stub
         }
+
+        protected override IEnumerator CleanUpVisuals() {
+            //ShowEye(false);
+            yield return new WaitForSeconds(0.5f);
+            Destroy(activateVisualGameObject);
+        }
     }
 }

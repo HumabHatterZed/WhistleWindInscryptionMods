@@ -33,13 +33,6 @@ namespace WhistleWindLobotomyMod {
         private Animator eyeAnim;
         private bool active = true;
         private bool preActivation = false;
-        private CardSlot DetermineNewSlot() {
-            List<CardSlot> slots = BoardManager.Instance.PlayerSlotsCopy;
-            if (eyeSlot != null) {
-                slots.Remove(eyeSlot);
-            }
-            return slots.GetRandom();
-        }
 
         private IEnumerator MoveEyeToSlot() {
             LobotomyPlugin.Log.LogDebug("[PaleEye] Move to slot");
@@ -63,25 +56,12 @@ namespace WhistleWindLobotomyMod {
             active = show;
         }
 
-        protected override IEnumerator PreActivate(bool halfHealth) {
-            preActivation = true;
-            if (!halfHealth) {
-                if (active) {
-                    ShowEye(false); // guarantee reprieve
-                }
-                yield return new WaitForSeconds(0.5f);
+        private CardSlot DetermineNewSlot() {
+            List<CardSlot> slots = BoardManager.Instance.PlayerSlotsCopy;
+            if (eyeSlot != null) {
+                slots.Remove(eyeSlot);
             }
-        }
-        protected override IEnumerator Activate(bool halfHealth) {
-            if (!halfHealth) {
-                eyeSlot = DetermineNewSlot();
-            }
-            else if (eyeSlot != base.Card.OpposingSlot()) {
-                eyeSlot = base.Card.OpposingSlot();
-            }
-
-            yield return MoveEyeToSlot(); // move eye to new slot
-            preActivation = false;
+            return slots.GetRandom();
         }
 
         public override IEnumerator OnResolveOnBoard() {
@@ -93,13 +73,6 @@ namespace WhistleWindLobotomyMod {
             activateVisualGameObject.transform.GetChild(0).gameObject.SetActive(true);
             active = true;
             yield return new WaitForSeconds(0.5f);
-        }
-
-        public override void SetUpVisualGameObject() {
-            if (activateVisualGameObject == null) {
-                activateVisualGameObject = GameObject.Instantiate(LobOpponentUtils.ShrineBossPalePrefab);
-                eyeAnim = activateVisualGameObject.GetComponent<Animator>();
-            }
         }
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => !preActivation;
@@ -125,6 +98,39 @@ namespace WhistleWindLobotomyMod {
                     yield return eyeSlot.Card.Die(false, null, false);
                 }
             }
+        }
+
+        protected override IEnumerator PreActivate(bool halfHealth) {
+            preActivation = true;
+            if (!halfHealth) {
+                if (active) {
+                    ShowEye(false); // guarantee reprieve
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        protected override IEnumerator Activate(bool halfHealth) {
+            if (!halfHealth) {
+                eyeSlot = DetermineNewSlot();
+            }
+            else if (eyeSlot != base.Card.OpposingSlot()) {
+                eyeSlot = base.Card.OpposingSlot();
+            }
+
+            yield return MoveEyeToSlot(); // move eye to new slot
+            preActivation = false;
+        }
+
+        public override void SetUpVisualGameObject() {
+            if (activateVisualGameObject == null) {
+                activateVisualGameObject = GameObject.Instantiate(LobOpponentUtils.ShrineBossPalePrefab);
+                eyeAnim = activateVisualGameObject.GetComponent<Animator>();
+            }
+        }
+        protected override IEnumerator CleanUpVisuals() {
+            ShowEye(false);
+            yield return new WaitForSeconds(0.5f);
+            Destroy(activateVisualGameObject);
         }
     }
 }

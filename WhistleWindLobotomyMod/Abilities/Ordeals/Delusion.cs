@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             counter--;
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.StrongNegationEffect();
+            base.Card.Anim.LightNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
             yield return new WaitForSeconds(0.4f);
@@ -54,6 +54,7 @@ namespace WhistleWindLobotomyMod {
                 base.Card.RenderCard();
                 yield return new WaitForSeconds(0.75f);
                 yield return LifeManager.Instance.ShowDamageSequence(1, 1, true);
+                ViewManager.Instance.SwitchToView(View.Board);
             }
         }
 
