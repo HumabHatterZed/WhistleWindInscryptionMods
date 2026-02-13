@@ -29,7 +29,6 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnResolveOnBoard() {
             counter = SeededRandom.Range(2, 5, base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
-            base.Card.Anim.StrongNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
             yield return new WaitForSeconds(0.4f);
@@ -75,9 +74,10 @@ namespace WhistleWindLobotomyMod {
     public abstract class GodColourAbilityBehaviour : AbilityBehaviour {
         protected GameObject activateVisualGameObject = null;
 
-        public abstract void SetUpVisualGameObject();
         protected abstract IEnumerator PreActivate(bool halfHealth);
         protected abstract IEnumerator Activate(bool halfHealth);
+        public abstract void SetUpVisualGameObject();
+        protected abstract IEnumerator CleanUpVisuals();
 
         public IEnumerator OnPreActivate(bool halfHealth) {
             yield return PreActivate(halfHealth);
@@ -92,11 +92,8 @@ namespace WhistleWindLobotomyMod {
             yield break;
         }
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
-            // clean up visual go
-            Destroy(activateVisualGameObject);
-            yield break;
+        private void OnDestroy() {
+            base.StartCoroutine(CleanUpVisuals());
         }
     }
 }
