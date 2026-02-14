@@ -1,10 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
+using Microsoft.Win32.SafeHandles;
+using Pixelplacement;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 
 
 namespace WhistleWindLobotomyMod {
@@ -12,11 +15,11 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodRed() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God Red";
-            info.rulebookDescription = "Activate: .";
+            info.rulebookDescription = "Activate: Crush one of the player's draw piles with the Red Hand. At half Health (once): Crush both of the player's draw piles with the Red Hand.";
             info.powerLevel = 5;
 
             GodRed.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodRed), TextureLoader.LoadTextureFromFile("sigilGodRed.png"))
-                .SetAbilityRedirect("Pin Down", Driver.ability, Color.red)
+                .SetUniqueRedirect("Red Hand", "wstl:Ordeals_Red Hand", GameColors.Instance.glowRed)
                 .Id;
         }
     }
@@ -25,44 +28,155 @@ namespace WhistleWindLobotomyMod {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private PlayableCard dummyCard = null;
+        private Animator handMainDeck;
+        private Animator handSideDeck;
+
+        private bool attackMainDeck = false;
 
         protected override IEnumerator PreActivate(bool halfHealth) {
-            // visuals
-            yield break;
-        }
-        protected override IEnumerator Activate(bool halfHealth) {
-            // visuals
-            foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy) {
-                if (slot.Card != null) {
-                    yield return slot.Card.TakeDamage(3, null);
+            ViewManager.Instance.SwitchToView(View.CardPiles);
+            yield return new WaitForSeconds(0.2f);
+            AudioController.Instance.PlaySound2D("Violet_portal_on", MixerGroup.TableObjectsSFX);
+            if (halfHealth) {
+                handMainDeck.SetTrigger("Show");
+                handSideDeck.SetTrigger("Show");
+            }
+            else {
+                attackMainDeck = AttackMainDeck();
+                if (attackMainDeck) {
+                    handMainDeck.SetTrigger("Show");
+                }
+                else {
+                    handSideDeck.SetTrigger("Show");
                 }
             }
+            handMainDeck.SetLayerWeight(1, 1f);
+            handSideDeck.SetLayerWeight(1, 1f);
+        }
+        protected override IEnumerator Activate(bool halfHealth) {
+            int numToRemove = 2 + Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
+
+            ViewManager.Instance.SwitchToView(View.CardPiles);
+            yield return new WaitForSeconds(0.2f);
+            AudioController.Instance.PlaySound2D("Violet_attack", MixerGroup.TableObjectsSFX);
+
+            if (halfHealth) {
+                handMainDeck.SetTrigger("Extend");
+                handSideDeck.SetTrigger("Extend");
+
+                yield return new WaitForSeconds(0.5f);
+
+                base.StartCoroutine(AttackMainDeck(numToRemove));
+                yield return AttackSideDeck(numToRemove);
+
+                yield return new WaitForSeconds(1f);
+                handMainDeck.SetTrigger("Hide");
+                handSideDeck.SetTrigger("Hide");
+            }
+            else if (attackMainDeck) {
+                handMainDeck.SetTrigger("Extend");
+                yield return new WaitForSeconds(0.5f);
+                yield return AttackMainDeck(numToRemove);
+                yield return new WaitForSeconds(1f);
+                handMainDeck.SetTrigger("Hide");
+            }
+            else {
+                handSideDeck.SetTrigger("Extend");
+                yield return new WaitForSeconds(1f);
+                yield return AttackSideDeck(numToRemove);
+                yield return new WaitForSeconds(1f);
+                handSideDeck.SetTrigger("Hide");
+            }
+            handMainDeck.SetLayerWeight(1, 0f);
+            handSideDeck.SetLayerWeight(1, 0f);
+            AudioController.Instance.PlaySound2D("Violet_portal_off", MixerGroup.TableObjectsSFX);
+        }
+
+        private IEnumerator AttackMainDeck(int cardsToDestroy) {
+            if (CardDrawPiles3D.Instance.Deck.CardsInDeck == 0) {
+                yield break;
+            }
+            yield return new WaitUntil(() => !CardDrawPiles3D.Instance.Pile.DoingCardOperation);
+            CardDrawPiles3D.Instance.Pile.DoingCardOperation = true;
+            AudioController.Instance.PlaySound3D("card_death", MixerGroup.TableObjectsSFX, CardDrawPiles3D.Instance.Pile.transform.position, 1f, 0f, new AudioParams.Pitch(AudioParams.Pitch.Variation.VerySmall), new AudioParams.Repetition(0.05f));
+            for (int i = 0; i < cardsToDestroy; i++) {
+                if (CardDrawPiles3D.Instance.Deck.CardsInDeck == 0) {
+                    yield break;
+                }
+                Transform topCard = CardDrawPiles3D.Instance.Pile.cards[CardDrawPiles3D.Instance.Pile.NumCards - 1];
+                CardDrawPiles3D.Instance.Pile.cards.Remove(topCard);
+                Tween.LocalScale(topCard, new Vector3(1.5f, 0f, 1.5f), 0.1f, 0f, completeCallback: delegate {
+                    Destroy(topCard.gameObject);
+                });
+
+                CardDrawPiles3D.Instance.Deck.Draw(null); // mull the actual deck of CardInfos
+
+                // disable the pile's shadow if we've removed the last card from it
+                if (CardDrawPiles3D.Instance.Pile.cards.IndexOf(topCard) == CardDrawPiles3D.Instance.Pile.cards.Count - 1) {
+                    CardDrawPiles3D.Instance.Pile.shadow.SetActive(false);
+                }
+            }
+
+            CardDrawPiles3D.Instance.Pile.DoingCardOperation = false;
+        }
+        private IEnumerator AttackSideDeck(int cardsToDestroy) {
+            if (CardDrawPiles3D.Instance.SideDeck.CardsInDeck == 0) {
+                yield break;
+            }
+            yield return new WaitUntil(() => !CardDrawPiles3D.Instance.SidePile.DoingCardOperation);
+            CardDrawPiles3D.Instance.SidePile.DoingCardOperation = true;
+            AudioController.Instance.PlaySound3D("card_death", MixerGroup.TableObjectsSFX, CardDrawPiles3D.Instance.SidePile.transform.position, 1f, 0f, new AudioParams.Pitch(AudioParams.Pitch.Variation.VerySmall), new AudioParams.Repetition(0.05f));
+            for (int i = 0; i < cardsToDestroy; i++) {
+                if (CardDrawPiles3D.Instance.SideDeck.CardsInDeck == 0) {
+                    yield break;
+                }
+                Transform topCard = CardDrawPiles3D.Instance.SidePile.cards[CardDrawPiles3D.Instance.SidePile.NumCards - 1];
+                CardDrawPiles3D.Instance.SidePile.cards.Remove(topCard);
+                Tween.LocalScale(topCard, new Vector3(1.5f, 0f, 1.5f), 0.1f, 0f, completeCallback: delegate {
+                    Destroy(topCard.gameObject);
+                });
+
+                CardDrawPiles3D.Instance.SideDeck.Draw(null); // mull the actual deck of CardInfos
+
+                // disable the pile's shadow if we've removed the last card from it
+                if (CardDrawPiles3D.Instance.SidePile.cards.IndexOf(topCard) == CardDrawPiles3D.Instance.SidePile.cards.Count - 1) {
+                    CardDrawPiles3D.Instance.SidePile.shadow.SetActive(false);
+                }
+            }
+
+            CardDrawPiles3D.Instance.SidePile.DoingCardOperation = false;
         }
 
         public override void SetUpVisualGameObject() {
-            // stub
+            activateVisualGameObject = new("RedHand_pool");
+            GameObject obj = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
+            obj.transform.position = CardDrawPiles3D.Instance.Pile.transform.position + Vector3.up;
+            handMainDeck = obj.GetComponent<Animator>();
+            
+            GameObject obj2 = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
+            obj2.transform.position = CardDrawPiles3D.Instance.SidePile.transform.position + Vector3.up;
+            handSideDeck = obj2.GetComponent<Animator>();
         }
 
+        private bool AttackMainDeck() {
+            // if both decks can be drawn from or we have exhausted both decks,
+            // choose randomly
+            if (CardDrawPiles3D.Instance.Deck.CardsInDeck > 0 && CardDrawPiles3D.Instance.SideDeck.CardsInDeck > 0 ||
+                (CardDrawPiles3D.Instance.Deck.CardsInDeck == 0 && CardDrawPiles3D.Instance.SideDeck.CardsInDeck == 0)) {
+                return SeededRandom.Bool(base.GetRandomSeed() + TurnManager.Instance.TurnNumber);
+            }
+
+            // if only one deck can be drawn from, return which one can be drawn from
+            return CardDrawPiles3D.Instance.Deck.CardsInDeck > 0;
+        }
         protected override IEnumerator CleanUpVisuals() {
-            //if (spikesOpen) {
-            //    HideSpikes(true);
-            //}
+            if (preActivated) {
+                //handMainDeck.SetTrigger("Hide");
+                //handSideDeck.SetTrigger("Hide");
+            }
 
             yield return new WaitForSeconds(0.5f);
             Destroy(activateVisualGameObject);
-        }
-
-        private void SetUpDummyCard() {
-            if (dummyCard != null) return;
-
-            CardInfo info = ScriptableObject.CreateInstance<CardInfo>();
-            info.baseHealth = 9999;
-            info.AddAbilities(Driver.ability, Piercing.ability);
-            info.AddTraits(Trait.Uncuttable, Trait.Structure, AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments);
-            dummyCard = CardSpawner.SpawnPlayableCard(info);
-            dummyCard.transform.position = new Vector3(100f, 100f, 100f); // hide offscreen
-            dummyCard.Dead = true; // prevent this card from triggering various things it shouldn't
         }
     }
 }
