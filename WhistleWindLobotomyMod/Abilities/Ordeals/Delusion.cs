@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod {
             else if (counter < 1) {
                 GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
                 yield return behav.OnActivate(false);
-                counter = SeededRandom.Range(2, 4, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
+                counter = SeededRandom.Range(3, 5, base.GetRandomSeed() + TurnManager.Instance.TurnNumber + base.Card.Slot.Index);
                 base.Card.Anim.LightNegationEffect();
                 base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
                 base.Card.RenderCard();

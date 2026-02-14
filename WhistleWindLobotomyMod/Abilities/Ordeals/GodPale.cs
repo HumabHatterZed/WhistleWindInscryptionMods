@@ -16,11 +16,11 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodPale() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God Pale";
-            info.rulebookDescription = "When this card is played, the Pale Eye appears in the opposing space. Activate: Move the Eye to a new opposing space.";
+            info.rulebookDescription = "When this card is played, the Pale Eye appears in the opposing space. At half health or on activate: Move the Eye to a new opposing space.";
             info.powerLevel = 5;
 
             GodPale.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodPale), TextureLoader.LoadTextureFromFile("sigilGodPale.png"))
-                .SetUniqueRedirect("Pale Eye", "wstl:Ordeals_Pale Eye", GameColors.Instance.fuschia)
+                .SetUniqueRedirect("Pale Eye", "wstl:Ordeals_Pale Eye", GameColors.Instance.glowSeafoam)
                 .Id;
         }
     }
@@ -32,7 +32,6 @@ namespace WhistleWindLobotomyMod {
         private CardSlot eyeSlot = null;
         private Animator eyeAnim;
         private bool active = true;
-        private bool preActivation = false;
 
         private IEnumerator MoveEyeToSlot() {
             LobotomyPlugin.Log.LogDebug("[PaleEye] Move to slot");
@@ -75,7 +74,7 @@ namespace WhistleWindLobotomyMod {
             yield return new WaitForSeconds(0.5f);
         }
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => !preActivation;
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => !preActivated;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             if (active) {
                 // higher chance of eye disappearing when other shrines are active
@@ -101,7 +100,6 @@ namespace WhistleWindLobotomyMod {
         }
 
         protected override IEnumerator PreActivate(bool halfHealth) {
-            preActivation = true;
             if (!halfHealth) {
                 if (active) {
                     ShowEye(false); // guarantee reprieve
@@ -118,7 +116,6 @@ namespace WhistleWindLobotomyMod {
             }
 
             yield return MoveEyeToSlot(); // move eye to new slot
-            preActivation = false;
         }
 
         public override void SetUpVisualGameObject() {
