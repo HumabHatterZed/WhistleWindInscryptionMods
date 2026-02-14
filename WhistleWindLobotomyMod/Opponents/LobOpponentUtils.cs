@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             ApocalypseBossMouthPrefab = bundle.LoadAsset<GameObject>("ApocalypseMouth");
             HelixBossLaserPrefab = bundle.LoadAsset<GameObject>("LastHelixLaser");
 
-            //ShrineBossRedPrefab = bundle.LoadAsset<GameObject>("ShrineClaw");
+            ShrineBossRedPrefab = bundle.LoadAsset<GameObject>("ShrineClaw");
             //ShrineBossWhitePrefab = bundle.LoadAsset<GameObject>("ShrineTentacle");
             ShrineBossBlackPrefab = bundle.LoadAsset<GameObject>("ShrineSpike");
             ShrineBossPalePrefab = bundle.LoadAsset<GameObject>("ShrineEye");
