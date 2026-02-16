@@ -92,7 +92,7 @@ namespace WhistleWindLobotomyMod {
 
             if (active && eyeSlot.Card != null) {
                 AudioController.Instance.PlaySound2D("Violet_eye_start", MixerGroup.TableObjectsSFX);
-                eyeSlot.Card.Status.damageTaken += Mathf.CeilToInt(eyeSlot.Card.Health / 4f);
+                eyeSlot.Card.Status.damageTaken += Mathf.CeilToInt(eyeSlot.Card.Health / (float)PaleEyePercentage());
                 if (eyeSlot.Card.Health <= 0) {
                     yield return eyeSlot.Card.Die(false, null, false);
                 }
@@ -116,6 +116,10 @@ namespace WhistleWindLobotomyMod {
             }
 
             yield return MoveEyeToSlot(); // move eye to new slot
+        }
+
+        public static int PaleEyePercentage() {
+            return 4 - Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
         }
 
         public override void SetUpVisualGameObject() {

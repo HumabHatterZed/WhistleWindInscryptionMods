@@ -52,6 +52,7 @@ namespace WhistleWindLobotomyMod {
             yield return new WaitForSeconds(1f);
         }
         protected override IEnumerator Activate(bool halfHealth) {
+            int damage = BlackSpikeDamage();
             ViewManager.Instance.SwitchToView(View.Default);
             if (halfHealth) {
                 defenceSpike.SetTrigger("Extend");
@@ -59,7 +60,7 @@ namespace WhistleWindLobotomyMod {
                 AudioController.Instance.PlaySound2D("Violet_attack", MixerGroup.TableObjectsSFX);
                 if (base.Card.OpposingCard() != null) {
                     SetUpDummyCard();
-                    yield return base.Card.OpposingCard().TakeDamage(3, dummyCard);
+                    yield return base.Card.OpposingCard().TakeDamage(damage, dummyCard);
                 }
 
                 yield return new WaitForSeconds(0.45f);
@@ -76,7 +77,7 @@ namespace WhistleWindLobotomyMod {
                     AudioController.Instance.PlaySound2D("Violet_attack", MixerGroup.TableObjectsSFX);
                     if (slot.Card != null) {
                         SetUpDummyCard();
-                        yield return slot.Card.TakeDamage(3, dummyCard);
+                        yield return slot.Card.TakeDamage(damage, dummyCard);
                     }
                 }
 
@@ -126,8 +127,12 @@ namespace WhistleWindLobotomyMod {
                 GameObject obj2 = GameObject.Instantiate(LobOpponentUtils.ShrineBossBlackPrefab, activateVisualGameObject.transform);
                 Animator anim2 = obj2.GetComponent<Animator>();
                 defenceSpike = anim2;
-                obj2.transform.position = base.Card.Slot.transform.position + Vector3.up * 1.5f + Vector3.forward * 2f;
+                obj2.transform.position = base.Card.Slot.transform.position + Vector3.up * 2f + Vector3.forward * 2f;
             }
+        }
+
+        public static int BlackSpikeDamage() {
+            return 2 + Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
         }
 
         protected override IEnumerator CleanUpVisuals() {
