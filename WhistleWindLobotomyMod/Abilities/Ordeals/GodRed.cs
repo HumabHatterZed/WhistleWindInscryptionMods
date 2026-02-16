@@ -40,18 +40,21 @@ namespace WhistleWindLobotomyMod {
             if (halfHealth) {
                 handMainDeck.SetTrigger("Show");
                 handSideDeck.SetTrigger("Show");
+                handMainDeck.SetLayerWeight(1, 1f);
+                handSideDeck.SetLayerWeight(1, 1f);
             }
             else {
                 attackMainDeck = AttackMainDeck();
                 if (attackMainDeck) {
                     handMainDeck.SetTrigger("Show");
+                    handMainDeck.SetLayerWeight(1, 1f);
                 }
                 else {
                     handSideDeck.SetTrigger("Show");
+                    handSideDeck.SetLayerWeight(1, 1f);
                 }
             }
-            handMainDeck.SetLayerWeight(1, 1f);
-            handSideDeck.SetLayerWeight(1, 1f);
+
         }
         protected override IEnumerator Activate(bool halfHealth) {
             int numToRemove = 2 + Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
@@ -82,7 +85,7 @@ namespace WhistleWindLobotomyMod {
             }
             else {
                 handSideDeck.SetTrigger("Extend");
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
                 yield return AttackSideDeck(numToRemove);
                 yield return new WaitForSeconds(1f);
                 handSideDeck.SetTrigger("Hide");
@@ -147,17 +150,9 @@ namespace WhistleWindLobotomyMod {
             CardDrawPiles3D.Instance.SidePile.DoingCardOperation = false;
         }
 
-        public override void SetUpVisualGameObject() {
-            activateVisualGameObject = new("RedHand_pool");
-            GameObject obj = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
-            obj.transform.position = CardDrawPiles3D.Instance.Pile.transform.position + Vector3.up;
-            handMainDeck = obj.GetComponent<Animator>();
-            
-            GameObject obj2 = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
-            obj2.transform.position = CardDrawPiles3D.Instance.SidePile.transform.position + Vector3.up;
-            handSideDeck = obj2.GetComponent<Animator>();
+        public static int RedHoofCards() {
+            return 2 + Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
         }
-
         private bool AttackMainDeck() {
             // if both decks can be drawn from or we have exhausted both decks,
             // choose randomly
@@ -169,10 +164,24 @@ namespace WhistleWindLobotomyMod {
             // if only one deck can be drawn from, return which one can be drawn from
             return CardDrawPiles3D.Instance.Deck.CardsInDeck > 0;
         }
+
+        public override void SetUpVisualGameObject() {
+            activateVisualGameObject = new("RedHand_pool");
+            GameObject obj = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
+            obj.transform.position = CardDrawPiles3D.Instance.Pile.transform.position + 3 * Vector3.up + 3 * Vector3.forward;
+            handMainDeck = obj.GetComponent<Animator>();
+            
+            GameObject obj2 = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
+            obj2.transform.position = CardDrawPiles3D.Instance.SidePile.transform.position + 3 * Vector3.up + 3 * Vector3.forward;
+            handSideDeck = obj2.GetComponent<Animator>();
+        }
+
         protected override IEnumerator CleanUpVisuals() {
             if (preActivated) {
-                //handMainDeck.SetTrigger("Hide");
-                //handSideDeck.SetTrigger("Hide");
+                handMainDeck.Play("Hide");
+                handSideDeck.Play("Hide");
+                handMainDeck.SetLayerWeight(1, 0f);
+                handSideDeck.SetLayerWeight(1, 0f);
             }
 
             yield return new WaitForSeconds(0.5f);

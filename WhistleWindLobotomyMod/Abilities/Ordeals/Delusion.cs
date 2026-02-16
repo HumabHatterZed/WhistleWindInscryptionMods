@@ -31,6 +31,8 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnResolveOnBoard() {
             counter = SeededRandom.Range(2, Mathf.Max(4, 7 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier), base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
+
+            base.Card.Anim.LightNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
             yield return new WaitForSeconds(0.4f);
@@ -85,6 +87,7 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToTakeDamage(PlayableCard source) => triggerHalfHealth && (float)base.Card.Health / base.Card.MaxHealth <= 0.5f;
         public override IEnumerator OnTakeDamage(PlayableCard source) {
             yield return behav.OnPreActivate(true);
+            yield return new WaitForSeconds(1f);
             yield return behav.OnActivate(true);
             triggerHalfHealth = false;
         }
@@ -107,14 +110,15 @@ namespace WhistleWindLobotomyMod {
 
         public IEnumerator OnPreActivate(bool halfHealth) {
             if (!preActivated) {
-                preActivated = true;
-                yield return PreActivate(halfHealth);
+
             }
+            preActivated = true;
+            yield return PreActivate(halfHealth);
         }
         public IEnumerator OnActivate(bool halfHealth) {
-            if (!preActivated) {
-                yield return PreActivate(halfHealth);
-            }
+            //if (!preActivated) {
+            //    yield return PreActivate(halfHealth);
+            //}
             yield return Activate(halfHealth);
             preActivated = false;
         }
