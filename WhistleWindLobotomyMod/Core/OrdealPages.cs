@@ -77,16 +77,16 @@ namespace WhistleWindLobotomyMod {
             // [0, 2]
             int difficulty = Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
             if (pageId == "Red Hand") {
-                return (2 + difficulty).ToString();
+                return GodRed.RedHoofCards().ToString();
             }
             else if (pageId == "White Tentacle") {
                 return (0 * difficulty).ToString();
             }
             else if (pageId == "Purple Spike") {
-                return (3 + difficulty).ToString();
+                return GodBlack.BlackSpikeDamage().ToString();
             }
             else if (pageId == "Pale Eye") {
-                return (4 - difficulty).ToString();
+                return GodPale.PaleEyePercentage().ToString();
             }
 
             return "";
