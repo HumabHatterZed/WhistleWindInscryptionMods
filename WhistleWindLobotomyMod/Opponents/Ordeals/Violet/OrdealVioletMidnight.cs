@@ -7,6 +7,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod.Opponents {
     public class OrdealVioletMidnight : OrdealBattleSequencer {
         private bool forceToMax = true;
+        public override bool ShouldExtendBattle() => false;
         public override IEnumerator PlayerUpkeep() {
             if (forceToMax && HighestPositiveScaleBalance > 0) {
                 yield return LifeManager.Instance.ShowDamageSequence(HighestPositiveScaleBalance - LifeManager.Instance.Balance, 1, false);
