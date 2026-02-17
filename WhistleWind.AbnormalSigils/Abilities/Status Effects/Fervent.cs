@@ -72,7 +72,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void StatusEffect_Fervent() {
             const string rName = "Fervent Adoration";
-            const string rDesc = "While there is a Movement, a card bearing this effect will strike at random, with priority to other Fervent cards. If there is no Movement, remove this effect.";
+            const string rDesc = "While there is a Movement, a card bearing this effect will strike at random spaces, prioritising those occupied by Fervent cards. If there is no Movement, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Fervent>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.glowSeafoam,
                 TextureLoader.LoadTextureFromFile("sigilFervent.png", Assembly),
