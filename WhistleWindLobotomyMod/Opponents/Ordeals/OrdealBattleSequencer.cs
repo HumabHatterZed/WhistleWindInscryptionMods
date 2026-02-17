@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     DefeatOrdealAndDisplayOutroBanner();
                 }
                 else if (ShouldExtendBattle()) {
-                    LobotomyPlugin.Log.LogDebug("[OrdealBattle] OpponentTurnEnd: Extend turn plan");
+                    //LobotomyPlugin.Log.LogDebug("[OrdealBattle] OpponentTurnEnd: Extend turn plan");
                     Opponent.ReplaceAndAppendTurnPlan(Opponent.ModifyTurnPlan(EncounterBluePrint));
                     yield return Opponent.QueueNewCards();
                 }
