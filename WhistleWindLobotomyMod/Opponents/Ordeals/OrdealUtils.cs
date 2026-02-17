@@ -218,6 +218,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_eye_start"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_eye_move"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_spike"));
+            AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_tentacle"));
             AssetManager.sfxClips.Add(bundle.LoadAsset<AudioClip>("Violet_attack"));
         }
 
