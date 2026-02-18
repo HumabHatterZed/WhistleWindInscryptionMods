@@ -6,6 +6,10 @@ namespace WhistleWind.AbnormalSigils.Core {
     {
         public static Dictionary<string, List<CustomLine>> EventNames => new()
         {
+            { "BloomedSlotRazed",
+                new() {
+                    "The blooming flowers burn away in the scorching heat." }
+            },
             { "FinalSamsara",
                 new() {
                     "The cycle of reincarnation is broken." }

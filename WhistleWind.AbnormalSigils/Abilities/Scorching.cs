@@ -28,22 +28,31 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
-            if (otherCard == base.Card && base.Card.Slot.GetSlotModification() != SlotModificationManager.ModificationType.NoModification)
-                return FloodedSlot.CardIsGrounded(base.Card);
+        private IEnumerator CheckClearSlotModifications(CardSlot slot) {
+            SlotModificationManager.ModificationType mod = slot.GetSlotModification();
+            
+            if (mod == FloodedSlotShallow.Id) {
+                yield return base.Card.Slot.ClearSlotModification();
+                yield return new WaitForSeconds(0.3f);
+                yield return DialogueHelper.PlayDialogueEvent("FloodedSlotDried", card: base.Card);
+            }
+            else if (mod == BloomingSlot.Id) {
+                yield return base.Card.Slot.ClearSlotModification();
+                yield return new WaitForSeconds(0.3f);
+                yield return DialogueHelper.PlayDialogueEvent("BloomedSlotRazed", card: base.Card);
+            }
+        }
 
-            return false;
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
+            return otherCard == base.Card;
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
             SlotModificationManager.ModificationType mod = base.Card.Slot.GetSlotModification();
             if (mod == FloodedSlot.Id) {
                 yield return ExtinguishCard(base.Card, true);
-
             }
-            else if (mod == FloodedSlotShallow.Id) {
-                yield return base.Card.Slot.SetSlotModification(SlotModificationManager.ModificationType.NoModification);
-                yield return new WaitForSeconds(0.3f);
-                yield return DialogueHelper.PlayDialogueEvent("FloodedSlotDried", card: base.Card);
+            else {
+                yield return CheckClearSlotModifications(base.Card.Slot);
             }
         }
 
@@ -51,21 +60,12 @@ namespace WhistleWind.AbnormalSigils {
             return base.Card.OpponentCard != playerTurnEnd && base.Card.OpposingCard() != null;
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
-            PlayableCard opposingCard = base.Card.OpposingCard();
-            SlotModificationManager.ModificationType modType = opposingCard.Slot.GetSlotModification();
+            SlotModificationManager.ModificationType modType = base.Card.OpposingSlot().GetSlotModification();
+            
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return opposingCard.TakeDamage(1, null);
-            if (modType == FloodedSlot.Id) {
-                yield return base.Card.OpposingSlot().SetSlotModification(FloodedSlotShallow.Id);
-                yield return new WaitForSeconds(0.3f);
-                yield return DialogueHelper.PlayDialogueEvent("FloodedSlotDried", card: base.Card);
-            }
-            else if (modType == FloodedSlot.Id) {
-                yield return base.Card.OpposingSlot().SetSlotModification(SlotModificationManager.ModificationType.NoModification);
-                yield return new WaitForSeconds(0.3f);
-                yield return DialogueHelper.PlayDialogueEvent("FloodedSlotDried", card: base.Card);
-            }
+            yield return base.Card.OpposingSlot().Card.TakeDamage(1, null);
+
             yield return base.LearnAbility();
         }
 

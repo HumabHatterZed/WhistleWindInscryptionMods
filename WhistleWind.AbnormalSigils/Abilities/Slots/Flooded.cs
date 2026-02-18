@@ -80,7 +80,7 @@ namespace WhistleWind.AbnormalSigils {
         public static SlotModificationManager.ModificationType Id;
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.SetSlotModification(SlotModificationManager.ModificationType.NoModification);
+        public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.ClearSlotModification();
 
         public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Slot.Card != null && FloodedSlot.CardIsGrounded(base.Slot.Card);
         public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
