@@ -53,10 +53,10 @@ namespace WhistleWind.AbnormalSigils.Patches {
             return true;
         }
 
-        [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveAttackBuffs))]
+        [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Attack), MethodType.Getter)]
         private static bool NeuteredAttacked(PlayableCard __instance, ref int __result) {
             if (__instance.HasAbility(Neutered.ability)) {
-                __result = -99999;
+                __result = 0;
                 return false;
             }
             return true;
