@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddGodPale() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The God Pale";
-            info.rulebookDescription = "When this card is played, the Pale Eye appears in the opposing space. At half health or on activate: Move the Eye to a new opposing space.";
+            info.rulebookDescription = "When this card is played, summon the Pale Eye in the opposing space. Activate: Move the Eye to a new space. At half Health (once): Move the Eye to the opposing space then trigger it.";
             info.powerLevel = 5;
 
             GodPale.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodPale), TextureLoader.LoadTextureFromFile("sigilGodPale.png"))
@@ -116,6 +116,14 @@ namespace WhistleWindLobotomyMod {
             }
 
             yield return MoveEyeToSlot(); // move eye to new slot
+
+            if (halfHealth && eyeSlot.Card != null) {
+                AudioController.Instance.PlaySound2D("Violet_eye_start", MixerGroup.TableObjectsSFX);
+                eyeSlot.Card.Status.damageTaken += Mathf.CeilToInt(eyeSlot.Card.Health / (float)PaleEyePercentage());
+                if (eyeSlot.Card.Health <= 0) {
+                    yield return eyeSlot.Card.Die(false, null, false);
+                }
+            }
         }
 
         public static int PaleEyePercentage() {
