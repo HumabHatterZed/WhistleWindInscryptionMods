@@ -12,7 +12,6 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.wonderlabPrefix, titania, "Titania",
                 attack: 2, health: 4, "The queen of faeries, searching always for her traitorous husband.")
                 .SetBloodCost(2)
-                //.SetStatIcon(FlowerPower.Icon)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FlowerQueen.ability, Ability.StrafeSwap)
                 .AddTribes(AbnormalPlugin.TribeFae)

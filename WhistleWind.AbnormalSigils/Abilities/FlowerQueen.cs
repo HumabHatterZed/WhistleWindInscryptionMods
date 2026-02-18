@@ -31,10 +31,7 @@ namespace WhistleWind.AbnormalSigils {
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
             foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(base.Card.OpponentCard)) {
-                if (slot.Card != null && slot.Card.HasAbility(Scorching.ability) && slot.Card.LacksAbility(Ability.Flying)) {
-
-                }
-                else {
+                if (slot.Card == null || slot.Card.LacksAbility(Scorching.ability) || slot.Card.HasAbility(Ability.Flying)) {
                     yield return slot.SetSlotModification(BloomingSlot.Id);
                 }
             }
