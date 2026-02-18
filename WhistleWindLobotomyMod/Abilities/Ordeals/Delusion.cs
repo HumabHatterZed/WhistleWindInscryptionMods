@@ -2,7 +2,6 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Bindings;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnResolveOnBoard() {
             counter = SeededRandom.Range(2, Mathf.Max(4, 7 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier), base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
-
+            
             base.Card.Anim.LightNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();
@@ -130,7 +129,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         private void OnDestroy() {
-            base.StartCoroutine(CleanUpVisuals());
+            CustomCoroutine.Instance.StartCoroutine(CleanUpVisuals());
         }
     }
 }
