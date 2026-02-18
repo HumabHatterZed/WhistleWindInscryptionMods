@@ -14,28 +14,17 @@ namespace WhistleWindLobotomyMod {
     internal class OrdealPages {
         // 008b02
         internal static void AddPages() {
-            //MechanicPages.CreateNewMechanicPage("Ordeal Battle", "An encounter wherein you must kill all of Leshy's cards in order to win. Direct damage you deal above the maximum scale value is converted into a maximum of 8 Bones at the end of the combat phase.", OrdealUtils.NoonAnim[0]);
-
-            //CreateNewPage("The Ordeals of Green", "Mechanical beings with piercing weaponry. Can appear at Dawn, Noon, Dusk, or Midnight.", null);
-
-            CreateNewPage("Light of the End", "Split into two pillars, one will remain stationary while the other will move right at the end of the opponent's combat. All cards caught in the light will be destroyed.", TextureLoader.LoadSpriteFromFile("sigilTower_rulebook.png", asm: LobotomyPlugin.ModAssembly));
+            CreateNewPage("Light of the End", "Destroy any card caught in the light. At the end of combat, move one pillar to the right, looping to the other side. The other pillar remains stationary.", TextureLoader.LoadSpriteFromFile("sigilTower_rulebook.png", asm: LobotomyPlugin.ModAssembly));
             
-            // 2/3/4
             CreateNewPage("Red Hand", "Destroy the top [X] cards in the targeted draw pile. The number of cards destroyed increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodRed_rulebook.png", asm: LobotomyPlugin.ModAssembly));
 
-            //CreateNewPage("White Tentacle", "Destroy the top [X] cards in the targeted draw pile. The number of cards destroyed increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodRed_rulebook.png", asm: LobotomyPlugin.ModAssembly));
+            CreateNewPage("White Tentacle", "Apply [X] Sinking to affected cards. The amount of Sinking applied increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodRed_rulebook.png", asm: LobotomyPlugin.ModAssembly))
+                .SetAbilityRedirect("Sinking", Sinking.iconId, GameColors.Instance.seafoam);
 
-            // 3/4/5
-            RuleBookPageInfo spike = CreateNewPage("Purple Spike", "Pierce through the player-owned space in this lane, dealing [X] damage to any occupying card. Damage dealt increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodBlack_rulebook.png", asm: LobotomyPlugin.ModAssembly));
-            spike.SetAbilityRedirect("Pierce", Piercing.ability, GameColors.Instance.fuschia);
+            RuleBookPageInfo spike = CreateNewPage("Purple Spike", "Pierce through the opposing space in this lane, dealing [X] damage to any occupying card. Damage dealt increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodBlack_rulebook.png", asm: LobotomyPlugin.ModAssembly))
+                .SetAbilityRedirect("Pierce", Piercing.ability, GameColors.Instance.fuschia);
 
-            // 4/3/2
             CreateNewPage("Pale Eye", "While visible: at the end of every turn, the card under the Eye's gaze will lose 1/[X] their current Health, rounded up and ignoring sigils. Health lost increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodPale_rulebook.png", asm: LobotomyPlugin.ModAssembly));
-
-            //CreateNewPage("The Ordeals of Violet", "Divine beings that directly target your mind and body. Can appear at Dawn, Noon, or Midnight.", null);
-            //CreateNewPage("The Ordeals of Crimson", "Fae-like beings that multiply as they are struck down. Can appear at Dawn, Noon, or Dusk.", null);
-            //CreateNewPage("The Ordeals of Amber", "Insectoid creatures that burrow and consume endlessly. Can appear at Dawn, Dusk, or Midnight.", null);
-            //CreateNewPage("The Ordeal of Indigo", "Humanoid beings that persistently hunt for replenishing meat. Can appear at Noon.", null);
 
             RuleBookManager.New(
                 modGuid: LobotomyPlugin.pluginGuid,
@@ -73,14 +62,11 @@ namespace WhistleWindLobotomyMod {
         private static ObservableCollection<Tuple<RuleBookPageInfo, string, string, Sprite>> NewOrdealPages = new();
 
         private static string UpdateDynamicOrdealPages(string pageId) {
-            Debug.Log($"{pageId}");
-            // [0, 2]
-            int difficulty = Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
             if (pageId == "Red Hand") {
                 return GodRed.RedHoofCards().ToString();
             }
             else if (pageId == "White Tentacle") {
-                return (0 * difficulty).ToString();
+                return GodWhite.SinkingStacks().ToString();
             }
             else if (pageId == "Purple Spike") {
                 return GodBlack.BlackSpikeDamage().ToString();
