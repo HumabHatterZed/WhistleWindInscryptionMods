@@ -63,7 +63,7 @@ namespace WhistleWindLobotomyMod {
                     yield return base.Card.OpposingCard().TakeDamage(damage, dummyCard);
                 }
 
-                yield return new WaitForSeconds(0.45f);
+                yield return new WaitForSeconds(1f);
                 ViewManager.Instance.SwitchToView(View.Default);
                 defenceSpike.SetTrigger("Hide");
                 defenceSpike.SetLayerWeight(1, 0f);
@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod {
                     }
                 }
 
-                yield return new WaitForSeconds(0.45f);
+                yield return new WaitForSeconds(1f);
                 HideSpikes(false);
             }
         }
@@ -91,7 +91,7 @@ namespace WhistleWindLobotomyMod {
             AudioController.Instance.PlaySound2D("Violet_portal_off", MixerGroup.TableObjectsSFX);
             foreach (Animator anim in spikeAnims) {
                 if (force) {
-                    anim.Play("spike_hide", 0);
+                    anim.Play("Hide", 0);
                 }
                 else {
                     anim.SetTrigger("Hide");
@@ -109,6 +109,7 @@ namespace WhistleWindLobotomyMod {
             info.AddAbilities(Driver.ability, Piercing.ability);
             info.AddTraits(Trait.Uncuttable, Trait.Structure, AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments);
             dummyCard = CardSpawner.SpawnPlayableCard(info);
+            dummyCard.name = "BlackSpikeDummyCard";
             dummyCard.transform.position = new Vector3(100f, 100f, 100f); // hide offscreen
             dummyCard.Dead = true; // prevent this card from triggering various things it shouldn't
         }
@@ -116,7 +117,7 @@ namespace WhistleWindLobotomyMod {
         public override void SetUpVisualGameObject() {
             SetUpDummyCard();
             if (activateVisualGameObject == null) {
-                activateVisualGameObject = new("ShrineSpike_pool");
+                activateVisualGameObject = new("ShrineSpikePool");
                 foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
                     GameObject obj = GameObject.Instantiate(LobOpponentUtils.ShrineBossBlackPrefab, activateVisualGameObject.transform);
                     Animator anim = obj.GetComponent<Animator>();
@@ -142,6 +143,7 @@ namespace WhistleWindLobotomyMod {
 
             yield return new WaitForSeconds(0.5f);
             Destroy(activateVisualGameObject);
+            Destroy(dummyCard.gameObject);
         }
     }
 }
