@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod {
         private bool attackMainDeck = false;
 
         protected override IEnumerator PreActivate(bool halfHealth) {
-            ViewManager.Instance.SwitchToView(View.CardPiles);
+            ViewManager.Instance.SwitchToView(View.Consumables);
             yield return new WaitForSeconds(0.2f);
             AudioController.Instance.PlaySound2D("Violet_portal_on", MixerGroup.TableObjectsSFX);
             if (halfHealth) {
@@ -54,6 +54,10 @@ namespace WhistleWindLobotomyMod {
                     handSideDeck.SetLayerWeight(1, 1f);
                 }
             }
+            yield return new WaitForSeconds(0.5f);
+            if (!halfHealth) {
+                ViewManager.Instance.SwitchToView(View.Board);
+            }
 
         }
         protected override IEnumerator Activate(bool halfHealth) {
@@ -67,7 +71,7 @@ namespace WhistleWindLobotomyMod {
                 handMainDeck.SetTrigger("Extend");
                 handSideDeck.SetTrigger("Extend");
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.51f);
 
                 base.StartCoroutine(AttackMainDeck(numToRemove));
                 yield return AttackSideDeck(numToRemove);
@@ -78,14 +82,14 @@ namespace WhistleWindLobotomyMod {
             }
             else if (attackMainDeck) {
                 handMainDeck.SetTrigger("Extend");
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.51f);
                 yield return AttackMainDeck(numToRemove);
                 yield return new WaitForSeconds(1f);
                 handMainDeck.SetTrigger("Hide");
             }
             else {
                 handSideDeck.SetTrigger("Extend");
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.51f);
                 yield return AttackSideDeck(numToRemove);
                 yield return new WaitForSeconds(1f);
                 handSideDeck.SetTrigger("Hide");
@@ -151,7 +155,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         public static int RedHoofCards() {
-            return 2 + Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
+            return 1 + Mathf.Min(2, RunState.CurrentRegionTier + Mathf.Max(0, RunState.Run.DifficultyModifier - 1));
         }
         private bool AttackMainDeck() {
             // if both decks can be drawn from or we have exhausted both decks,
@@ -166,13 +170,13 @@ namespace WhistleWindLobotomyMod {
         }
 
         public override void SetUpVisualGameObject() {
-            activateVisualGameObject = new("RedHand_pool");
+            activateVisualGameObject = new("RedHandPool");
             GameObject obj = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
-            obj.transform.position = CardDrawPiles3D.Instance.Pile.transform.position + 3 * Vector3.up + 3 * Vector3.forward;
+            obj.transform.position = CardDrawPiles3D.Instance.Pile.transform.position + 3 * Vector3.up + 1.5f * Vector3.forward;
             handMainDeck = obj.GetComponent<Animator>();
             
             GameObject obj2 = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
-            obj2.transform.position = CardDrawPiles3D.Instance.SidePile.transform.position + 3 * Vector3.up + 3 * Vector3.forward;
+            obj2.transform.position = CardDrawPiles3D.Instance.SidePile.transform.position + 3 * Vector3.up + 1.5f * Vector3.forward;
             handSideDeck = obj2.GetComponent<Animator>();
         }
 
