@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Slots;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Slot_Blooming() {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card to the occupying card.";
+            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the card in this space and heal the opposing card. If this space is struck directly, remove this effect.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
@@ -34,30 +35,32 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card to the occupying card.
     /// </summary>
-    public class BloomingSlot : SlotModificationBehaviour {
+    public class BloomingSlot : SlotModificationBehaviour, IOnCardDealtDamageDirectly {
         public static SlotModificationManager.ModificationType Id;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
-            => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.Card != null && base.Slot.Card.OpposingCard() != null;
+            => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.Card != null;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             if (ViewManager.Instance.CurrentView != View.Board) {
                 ViewManager.Instance.SwitchToView(View.Board);
             }
 
-            if (base.Slot.Card.Health < base.Slot.Card.MaxHealth) {
-                yield return base.Slot.opposingSlot.Card.Heal(-1);
-                yield return base.Slot.Card.Heal(1);
+            yield return base.Slot.Card.Heal(-1);
+            if (base.Slot.Card.Health == 0) {
+                yield return base.Slot.Card.Die(false, null);
+            }
 
-                yield return new WaitForSeconds(0.2f);
-                if (base.Slot.opposingSlot.Card.Health == 0) {
-                    yield return base.Slot.opposingSlot.Card.Die(false, null);
-                    yield return new WaitForSeconds(0.4f);
-                }
+            if (base.Slot.opposingSlot.Card != null && base.Slot.opposingSlot.Card.Health < base.Slot.opposingSlot.Card.MaxHealth) {
+                yield return base.Slot.opposingSlot.Card.Heal(1);
             }
-            else {
-                base.Slot.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.25f);
-            }
+        }
+
+        public bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
+            return opposingSlot == base.Slot;
+        }
+
+        public IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
+            yield return base.Slot.ClearSlotModification();
         }
     }
 }
