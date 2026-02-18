@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string triggerText = "Sharp thorns shoot out around [creature]!";
             FingerTapping.ability = AbnormalAbilityHelper.CreateAbility<FingerTapping>(
                 "sigilFingerTapping",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false)
                 .Id;
         }
