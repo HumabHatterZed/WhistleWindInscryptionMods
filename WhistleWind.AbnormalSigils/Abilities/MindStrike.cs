@@ -1,7 +1,7 @@
-﻿using DiskCardGame;
+﻿using Core.AbilityClasses;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_MindStrike() {
             const string rulebookName = "Mind Strike";
-            const string rulebookDescription = "[creature] may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.";
+            const string rulebookDescription = "When [creature] strikes another creature, cap the damage dealt to 1 then inflict Sinking equal to half this card's Health, rounded up.";
             const string dialogue = "Why destroy the flesh when you can destroy the mind?";
             const string triggerText = "[creature] deals emotional damage!";
             MindStrike.ability = AbnormalAbilityHelper.CreateAbility<MindStrike>(
@@ -25,7 +25,7 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// [creature] may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.
     /// </summary>
-    public class MindStrike : AbilityBehaviour, IModifyDamageTaken {
+    public class MindStrike : ModifyDamageDealtAbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && target.LacksAbility(Ability.MadeOfStone) && target.LacksTrait(AbnormalPlugin.ImmuneToAilments);
@@ -34,18 +34,15 @@ namespace WhistleWind.AbnormalSigils {
             yield return base.LearnAbility(0.3f);
         }
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
-            return attacker == base.Card;
+        public override bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
+            return attacker == base.Card && damage > 1;
         }
 
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
-            if (damage > 1) {
-                return 1;
-            }
-            return damage;
+        public override int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
+            return 1;
         }
 
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) {
+        public override int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) {
             return -9001;
         }
     }
