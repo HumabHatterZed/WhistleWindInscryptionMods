@@ -71,10 +71,6 @@ namespace WhistleWind.AbnormalSigils {
         public virtual IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) => OnPlayerTurnEnd();
         public virtual IEnumerator OnPlayerTurnEnd() {
             CleanupTargetIcons();
-            if (base.Card.Attack == 0) {
-                yield break;
-            }
-
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
             int maxTargets = BoardManager.Instance.OpponentSlotsCopy.Count;
             if (SeededRandom.Value(randomSeed++) <= (base.Card.Health / (float)(base.Card.MaxHealth + 1))) {
