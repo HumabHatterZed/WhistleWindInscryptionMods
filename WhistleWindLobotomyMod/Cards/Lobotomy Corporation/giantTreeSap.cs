@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
@@ -18,7 +17,6 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Morsel, Ability.ExplodeOnDeath, StartingDecay.ability, StartingDecay.ability)
                 .AddTribes(TribeBotanic)
-                //.SetSpellType(SpellType.TargetedStats)
                 .SetDefaultEvolutionName("Giant Elder Tree Sap")
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

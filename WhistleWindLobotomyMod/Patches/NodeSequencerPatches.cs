@@ -35,11 +35,10 @@ namespace WhistleWindLobotomyMod.Patches {
         private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result) {
             RemoveInvalidCards(__result);
         }
-        [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
-        private static void AddSapSpecialAbility(CardInfo hostCardInfo, CardInfo sacrificeCardInfo) {
-            if (sacrificeCardInfo.HasSpecialAbility(Sap.specialAbility))
-                RunState.Run.playerDeck.ModifyCard(hostCardInfo, new() { specialAbilities = { Sap.specialAbility } });
-        }
+        //[HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
+        //private static void AddSapSpecialAbility(CardInfo hostCardInfo, CardInfo sacrificeCardInfo) {
+
+        //}
 
         internal static void RemoveInvalidCards(List<CardInfo> result) {
             result.RemoveAll(x => x.HasSpecialAbility(Mimicry.specialAbility)
