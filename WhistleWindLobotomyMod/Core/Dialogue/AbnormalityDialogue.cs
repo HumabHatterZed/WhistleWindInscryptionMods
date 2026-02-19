@@ -31,6 +31,10 @@ namespace WhistleWindLobotomyMod {
                 });
         }
         private void Dialogue_Abnormalities() {
+            CreateDialogueEvents("SilentGirlResolve", new() {
+                "Are you guilty of having a closed heart?"
+                });
+
             CreateDialogueEvents("ArmyInBlackTransform", new() {
                 "The human heart is black, and must be cleaned."
                 });

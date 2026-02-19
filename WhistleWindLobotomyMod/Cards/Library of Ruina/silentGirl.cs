@@ -14,6 +14,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Persecutor.ability)
+                .AddSpecialAbilities(Remorse.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .AddMetaCategories(RuinaCard)
                 .Build(CardHelper.CardType.Rare, RiskLevel.Teth, true);
