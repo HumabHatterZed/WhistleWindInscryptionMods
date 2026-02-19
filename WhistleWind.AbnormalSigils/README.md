@@ -81,7 +81,7 @@ Sporogenic			|X|✓|2	|Creatures adjacent to this card gain 1 Spores at the end 
 Witness				|X|X|2	|Pay 1 Bone to inflict 1 Flagellation and increase a chosen card's Health by 2. This effect can stack up to 3 times.
 Corrector			|✓|X|2	|When a card bearing this sigil is drawn, randomly change its stats according to its total play cost.
 Thick Skin			|✓|✓|2	|Whenever a card bearing this sigil is struck by a creature, reduce the damage taken by 1.
-Opportunistic		|✓|✓|2	|A card bearing this sigil deals 1 additional damage when striking creatures that cannot attack it.
+Opportunistic		|✓|✓|2	|A card bearing this sigil deals 1 more damage when striking creatures that cannot attack it.
 Persistent			|✓|X|2	|Attacks by this card cannot be avoided or redirected by sigils like Loose Tail or Waterborne.
 Copycat				|X|X|2	|This gains the sigils and stats of the first card to be played in the opposing space.
 Follow the Leader	|X|X|2	|At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.
@@ -162,7 +162,7 @@ This library adds several of these on its own, but you can create your own using
 Fervent Adoration|-2|If there is an ongoing Movement, this card will strike at a random space, prioritising cards with this effect and ignoring cards performing a Movement. Otherwise, lose this effect.
 Worms|-2|At the start of the owner's turn, this card gains 1 Worms. At 5+ Worms, target allied cards with a chance to inflict 1 Worms with each strike.
 Spores|-1|At the end of the owner's turn, this card takes damage equal to its Spores. When this card perishes, create a Spore Mold Beast in its place with stats equal to its Spores.
-Flagellation|-1|When this card is struck, receive additional damage equal to its Flagellation.
+Flagellation|-1|When this card is struck, receive more damage equal to its Flagellation.
 Haste|1|This card's Speed is raised by this effect's Potency. At the start of the owner's next turn, remove this effect.
 Bind|-1|This card's Speed is reduced by this effect's Potency. At the start of the owner's next turn, remove this effect.
 Pebble|2|At the start and end of the owner's turn, this card regains 1 Health. When this card perishes, inflict Grief on all allied creatures.

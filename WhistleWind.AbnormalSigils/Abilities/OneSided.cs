@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_OneSided() {
             const string rulebookName = "Opportunistic";
-            const string rulebookDescription = "[creature] deals 1 additional damage when striking injured cards.";
+            const string rulebookDescription = "[creature] deals 1 more damage when striking injured cards.";
             const string dialogue = "Blood in the water.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 "sigilOneSided",
@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// [creature] deals 1 additional damage when striking injured cards.
+    /// [creature] deals 1 more damage when striking injured cards.
     /// </summary>
     public class OneSided : ModifyDamageDealtAbilityBehaviour {
         public static Ability ability;

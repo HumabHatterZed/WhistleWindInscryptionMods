@@ -7,7 +7,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Persecutor() {
             const string rulebookName = "Persecutor";
-            const string rulebookDescription = "[creature] deals 1 additional damage to cards that are Unyielding or belong to the Mechanical tribe. These effects stack with each other.";
+            const string rulebookDescription = "[creature] deals 1 more damage to cards that are Unyielding or belong to the Mechanical tribe. These effects stack with each other.";
             const string dialogue = "These abominations must be purged.";
             Persecutor.ability = AbnormalAbilityHelper.CreateAbility<Persecutor>(
                 "sigilPersecutor",

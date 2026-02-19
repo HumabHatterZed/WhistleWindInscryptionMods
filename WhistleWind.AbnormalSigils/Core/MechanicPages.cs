@@ -12,7 +12,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Core {
     public static class MechanicPages {
-        public const string VENDETTA_FORMAT = "This card deals 1 additional damage when striking cards similar to {0}{1}";
+        public const string VENDETTA_FORMAT = "This card deals 1 more damage when striking cards similar to {0}{1}";
 
         internal static void AddMechanicEntries() {
             CreateNewMechanicPage(
@@ -23,7 +23,7 @@ namespace WhistleWind.AbnormalSigils.Core {
 
             CreateNewMechanicPage(
                 "Bitter Vendetta",
-                "This card deals 1 additional damage when striking cards similar to its vendetta target. In battles, this description will be updated with information on this card's vendetta.",
+                "This card deals 1 more damage when striking cards similar to its vendetta target. In battles, this description will be updated with information on this card's vendetta.",
                 TextureLoader.LoadTextureFromFile("sigilBitterEnemies.png", AbnormalPlugin.Assembly)
             );
 
