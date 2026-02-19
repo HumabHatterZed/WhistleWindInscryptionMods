@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod {
         private static void Pygmalion() {
             string textureName = "pygmalion";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, pygmalion, "Pygmalion",
-                attack: 2, health: 5)
+                attack: 1, health: 7)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FingerTapping.ability)
