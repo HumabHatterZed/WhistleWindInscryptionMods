@@ -19,7 +19,8 @@
 ### 🔧 Tweaks
 - Overhauled Conductor sigil
 - Overhauled Barreler sigil
-- Overhauled Bitter Enemies (Vendetta) sigil
+- Overhauled Bitter Enemies/Vendetta sigil
+- Overhauled Persecutor sigil
 - Overhauled Pebble status effect
 - Status effects now glow to make them easier to see
 - Return Card to Hand now works when used by the opponent
