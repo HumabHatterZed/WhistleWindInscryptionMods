@@ -14,6 +14,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     public class SweeperOpponent : OrdealOpponent {
         public override Type ID => OrdealUtils.SweeperOpponentID;
         public override string DefeatedPlayerDialogue => "The streets have been cleaned.";
+        public override bool GiveCurrencyOnDefeat => false;
         public override int StartingLives => 3;
         private ParticleSystem left;
         private ParticleSystem right;

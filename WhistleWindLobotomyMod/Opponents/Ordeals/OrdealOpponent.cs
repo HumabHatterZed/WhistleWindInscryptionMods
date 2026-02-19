@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override string DefeatedPlayerDialogue => "Not good enough.";
         public override int StartingLives => 1;
         public OrdealBattleSequencer BattleSequencer => TurnManager.Instance.SpecialSequencer as OrdealBattleSequencer;
+        public override bool GiveCurrencyOnDefeat => true;
 
         public bool hasTotem;
         protected Color totemGlowColour;
