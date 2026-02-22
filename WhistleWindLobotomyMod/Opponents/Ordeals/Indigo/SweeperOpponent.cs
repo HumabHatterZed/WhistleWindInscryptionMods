@@ -30,16 +30,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             middle.Play(); // 1.5s emission
         }
         private IEnumerator TheRumbling() {
-            TableVisualEffectsManager.Instance.ThumpTable(0.2f);
-            yield return new WaitForSeconds(0.2f);
-            TableVisualEffectsManager.Instance.ThumpTable(0.3f);
-            yield return new WaitForSeconds(0.1f);
-            TableVisualEffectsManager.Instance.ThumpTable(0.2f);
-            yield return new WaitForSeconds(0.15f);
-            TableVisualEffectsManager.Instance.ThumpTable(0.3f);
-            yield return new WaitForSeconds(0.1f);
-            TableVisualEffectsManager.Instance.ThumpTable(0.2f);
-            yield return new WaitForSeconds(0.2f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.3f);
+            yield return new WaitForSeconds(0.5f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(0.25f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.05f);
         }
         public override IEnumerator PostResetScalesSequence() {
             if (NumLives == 0) {
