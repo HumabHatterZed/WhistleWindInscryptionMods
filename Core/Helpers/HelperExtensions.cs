@@ -33,9 +33,9 @@ namespace WhistleWind.Core.Helpers {
         }
         /// <summary>
         /// Kills this card without triggering OnDie or OnOtherCardDie for cards.
-        /// Non-card triggers will still be activated to 
+        /// Non-card triggers will still be activated to prevent screwiness
         /// </summary>
-        public static IEnumerator DieTriggerless(this PlayableCard card) {
+        public static IEnumerator DieTriggerless(this PlayableCard card, bool playDeathAnimation = true) {
             if (!card.Dead) {
                 card.Dead = true;
                 CardSlot slotBeforeDeath = card.Slot;
@@ -44,12 +44,14 @@ namespace WhistleWind.Core.Helpers {
 
                 card.Anim.SetShielded(shielded: false);
                 yield return card.Anim.ClearLatchAbility();
-                if (card.HasAbility(Ability.PermaDeath)) {
-                    card.Anim.PlayPermaDeathAnimation();
-                    yield return new WaitForSeconds(1.25f);
+                if (playDeathAnimation) {
+                    if (card.HasAbility(Ability.PermaDeath)) {
+                        card.Anim.PlayPermaDeathAnimation();
+                        yield return new WaitForSeconds(1.25f);
+                    }
+                    else
+                        card.Anim.PlayDeathAnimation();
                 }
-                else
-                    card.Anim.PlayDeathAnimation();
 
                 if (!card.HasAbility(Ability.QuadrupleBones) && slotBeforeDeath.IsPlayerSlot)
                     yield return Singleton<ResourcesManager>.Instance.AddBones(1, slotBeforeDeath);
