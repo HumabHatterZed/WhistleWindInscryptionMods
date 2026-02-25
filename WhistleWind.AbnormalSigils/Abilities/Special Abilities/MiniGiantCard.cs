@@ -19,14 +19,20 @@ namespace WhistleWind.AbnormalSigils {
         private const int _max = int.MaxValue;
 
         private CardSlot secondSlot = null;
-        public override bool RespondsToResolveOnBoard() => true;
-        public override IEnumerator OnResolveOnBoard() {
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
+            return otherCard == base.Card;
+        }
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
+            if (secondSlot != null) {
+                secondSlot.Card = null;
+            }
             secondSlot = base.PlayableCard.Slot.GetAdjacent(false) ?? base.PlayableCard.Slot.GetAdjacent(true);
             if (secondSlot != null) {
                 secondSlot.Card = base.PlayableCard;
             }
             yield break;
         }
+
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             secondSlot.Card = null;
@@ -88,6 +94,8 @@ namespace WhistleWind.AbnormalSigils {
 
             return codes;
         }
+
+        // TODO --> find hard-codes card positions on board
 
         private static Vector3 ModifyFinalLocalPosition(BoardManager instance, PlayableCard card) {
             if (!card.Info.HasSpecialAbility(MiniGiantCard.Id))
