@@ -31,11 +31,12 @@ namespace WhistleWindLobotomyMod {
             oldSlot = base.Card.Slot;
             yield break;
         }
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard == base.Card && oldSlot != null;
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard == base.Card;
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
-            if (oldSlot.Card == null)
+            if (oldSlot != null && oldSlot.Card == null) {
+                AudioController.Instance.PlaySound3D("mushroom_large_hit", MixerGroup.CardPaperSFX, base.transform.position);
                 yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName(Cards.perfectFood));
-
+            }
             // update old slot to be the card's current slot after checking
             oldSlot = base.Card.Slot;
         }
