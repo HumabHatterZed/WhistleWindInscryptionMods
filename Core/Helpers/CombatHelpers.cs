@@ -70,7 +70,7 @@ namespace Core.Helpers {
         public static IEnumerator CreateCardInRandomSlot(CardInfo info, List<CardSlot> validSlots) {
             if (validSlots.Count > 0) {
                 yield return HelperMethods.ChangeCurrentView(View.Board, 0.4f);
-                yield return BoardManager.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
+                yield return BoardManager.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)]);
             }
             else {
                 yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
