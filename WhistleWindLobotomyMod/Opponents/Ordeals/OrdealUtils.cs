@@ -4,6 +4,7 @@ using InscryptionAPI.Encounters;
 using InscryptionAPI.Guid;
 using InscryptionAPI.Regions;
 using InscryptionAPI.Resource;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -324,6 +325,17 @@ namespace WhistleWindLobotomyMod.Opponents {
             });
 
             return whiteOrdealRegion;
+        }
+
+        public static IEnumerator ShakeBoard() {
+            for (int i = 0; i < 2; i++) {
+                Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.3f);
+                yield return new WaitForSeconds(0.15f);
+                Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+                yield return new WaitForSeconds(0.10f);
+                Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.2f);
+                yield return new WaitForSeconds(0.15f);
+            }
         }
     }
 
