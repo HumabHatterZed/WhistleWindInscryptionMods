@@ -65,12 +65,12 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(Tribe.Hooved)
                 .Build();
 
-            //CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeR, cardName,
-            //    attack: 2, health: 1)
-            //    .SetPortraits(LobotomyPlugin.ModAssembly, textureNameR)
-            //    .AddAbilities(Ability.TailOnHit)
-            //    .AddTribes(Tribe.Reptile)
-            //    .Build();
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeR, cardName,
+                attack: 2, health: 1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureNameR)
+                .AddAbilities(Ability.TailOnHit)
+                .AddTribes(Tribe.Reptile)
+                .Build();
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeI, cardName,
                 attack: 1, health: 3)
@@ -100,12 +100,12 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build();
 
-            //CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeM, cardName,
-            //    attack: 2, health: 1)
-            //    .SetPortraits(LobotomyPlugin.ModAssembly, textureNameM)
-            //    .AddAbilities(Grinder.ability)
-            //    .AddTribes(AbnormalPlugin.TribeMechanical)
-            //    .Build();
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeM, cardName,
+                attack: 2, health: 1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureNameM)
+                .AddAbilities(Grinder.ability)
+                .AddTribes(AbnormalPlugin.TribeMechanical)
+                .Build();
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeA, cardName,
                 attack: 1, health: 3)
