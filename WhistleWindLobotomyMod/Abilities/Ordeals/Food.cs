@@ -28,11 +28,12 @@ namespace WhistleWindLobotomyMod {
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
+            yield return base.PreSuccessfulTriggerSequence();
             oldSlot = base.Card.Slot;
-            yield break;
         }
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard == base.Card;
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
+            yield return base.PreSuccessfulTriggerSequence();
             if (oldSlot != null && oldSlot.Card == null) {
                 AudioController.Instance.PlaySound3D("mushroom_large_hit", MixerGroup.CardPaperSFX, base.transform.position);
                 yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName(Cards.perfectFood));
