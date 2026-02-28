@@ -33,10 +33,9 @@ namespace WhistleWindLobotomyMod.Opponents {
         public int HighestPositiveScaleBalance { get; set; } = 5;
         public bool PlayerCanWinThroughScaleDamage => HighestPositiveScaleBalance > 4;
         public virtual bool DirectDamageGivesBones { get; set; } = true;
-
         public virtual int MaxBonesPerAttack { get; } = 2;
         public virtual int MaxBonesPerTurn { get; } = 8;
-        public virtual int MaxBonesOwned { get; } = 15;
+        public virtual int MaxBonesOwned { get; } = 10;
 
         /// <summary>
         /// Resets the scales to 0 or below if HighestPositiveScaleBalance is negative.
@@ -142,8 +141,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     bonesToGive = Mathf.Min(maxToGive, directDamage);
                 }
 
-                directDamageCache = excessDamageDealt;
-                TurnManager.Instance.CombatPhaseManager.DamageDealtThisPhase += directDamageCache;
+                directDamageCache += excessDamageDealt;
                 return damageToHighestBalance;
             }
 
@@ -184,6 +182,13 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
         #endregion
+
+        public override IEnumerator PreCleanUp() {
+            if (TurnManager.Instance.PlayerWon && TurnManager.Instance.Opponent.GiveCurrencyOnDefeat) {
+                RunState.Run.currency += directDamageCache;
+                yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(directDamageCache, this);
+            }
+        }
 
         #region Targets
         public void CreateTargetIcon(CardSlot targetSlot, GameObject prefab, Color materialColour = default) {
