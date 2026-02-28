@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         public OrdealType ordealType;
         public int ordealTier;
         public int amountKilledThisTurn = 0;
-        protected int TotalExcessDamageDealt = 0;
+        //protected int TotalExcessDamageDealt = 0;
 
         /// <summary>
         /// Abstract method for constructing the battle blueprint for the current Ordeal.
@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// Tracks excess damage dealt then calls the base DigUpBones method.
         /// </summary>
         public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
-            TotalExcessDamageDealt += damage - bonesToGive;
+            //TotalExcessDamageDealt += damage - bonesToGive;
             base.DigUpBones(damage, bonesToGive, targetSlot);
         }
 
@@ -156,10 +156,16 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns></returns>
         public override IEnumerator PreCleanUp() {
-            if (Opponent.GiveCurrencyOnDefeat && TotalExcessDamageDealt > 0 && TurnManager.Instance.PlayerIsWinner()) {
+            if (Opponent.GiveCurrencyOnDefeat && TurnManager.Instance.PlayerWon) {
+                int currencyToGive = ordealTier switch {
+                    3 => 10,
+                    2 => 7,
+                    1 => 5,
+                    _ => 2
+                };
                 ViewManager.Instance.SwitchToView(View.Default);
-                RunState.Run.currency += TotalExcessDamageDealt;
-                yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(TotalExcessDamageDealt, this);
+                RunState.Run.currency += currencyToGive;
+                yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(currencyToGive, this);
             }
         }
 
