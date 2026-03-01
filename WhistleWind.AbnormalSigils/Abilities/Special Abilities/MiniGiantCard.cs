@@ -20,13 +20,14 @@ namespace WhistleWind.AbnormalSigils {
 
         private CardSlot secondSlot = null;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
-            return otherCard == base.Card;
+            return otherCard == base.PlayableCard;
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
-            if (secondSlot != null) {
+            //AbnormalPlugin.Log.LogDebug($"{base.PlayableCard.Slot.Index} {secondSlot != null}");
+            if (secondSlot != null && secondSlot.Card == base.PlayableCard) {
                 secondSlot.Card = null;
             }
-            secondSlot = base.PlayableCard.Slot.GetAdjacent(false) ?? base.PlayableCard.Slot.GetAdjacent(true);
+            secondSlot = base.PlayableCard.Slot.GetAdjacent(false);
             if (secondSlot != null) {
                 secondSlot.Card = base.PlayableCard;
             }
