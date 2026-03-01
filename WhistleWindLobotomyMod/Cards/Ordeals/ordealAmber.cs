@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod {
 
             CardManager.New(LobotomyPlugin.pluginPrefix, foodChain, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 2),
                 attack: 0, health: 4)
-                .SetBonesCost(18)
+                .SetBonesCost(10)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Challenging.ability, Food.ability)
                 .AddAppearances(ForcedOrangeEmission.appearance)
@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod {
 
             CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 3),
                 attack: 0, health: 8)
-                .SetBonesCost(40)
+                .SetBonesCost(20)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(Ability.AllStrike, Ability.Reach, Challenging.ability, Survival.ability)
                 .AddAppearances(ForcedOrangeEmission.appearance)
