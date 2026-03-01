@@ -20,6 +20,8 @@ namespace WhistleWindLobotomyMod {
         public const string godDelusionB = "wstl_godDelusionB";
         public const string godDelusionP = "wstl_godDelusionP";
 
+        public const string godDelusionDelusion = "wstl_godDelusionDelusion";
+
         private static void Cards_VioletOrdeal() {
             CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "The Fruit\nof Understanding",
                 attack: 0, health: 3)
@@ -54,9 +56,18 @@ namespace WhistleWindLobotomyMod {
                 .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("GrantUsLovePortrait"))
                 .SetMiniGiant()
                 .SetMiniGiantEmission(TextureLoader.LoadTextureFromFile("grantUsLove_emission.png", LobotomyPlugin.ModAssembly))
-                .SetUniqueCopycat(grantMeSize)
+                .SetUniqueCopycat(Cards.grantMeSize)
                 .Build();
             love.SetEvolve(love, 2, new List<CardModificationInfo>() { new(1, 0) });
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionDelusion, "The God Delusion Delusion",
+                attack: 0, health: 4)
+                .SetBonesCost(8)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionDelusion")
+                .AddAbilities(TeamLeader.ability, Protector.ability, Unyielding.ability)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .AddTribes(TribeDivine)
+                .Build(overrideCardChoice: true);
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionR, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
                  attack: 0, health: 6)
@@ -68,6 +79,7 @@ namespace WhistleWindLobotomyMod {
                  .SetTerrain()
                  .SetOrdealCard(OrdealType.Violet)
                  .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
+                 .SetUniqueCopycat(Cards.godDelusionDelusion)
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionW, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
@@ -80,6 +92,7 @@ namespace WhistleWindLobotomyMod {
                  .SetTerrain()
                  .SetOrdealCard(OrdealType.Violet)
                  .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
+                 .SetUniqueCopycat(Cards.godDelusionDelusion)
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionB, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
@@ -92,6 +105,7 @@ namespace WhistleWindLobotomyMod {
                  .SetTerrain()
                  .SetOrdealCard(OrdealType.Violet)
                  .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
+                 .SetUniqueCopycat(Cards.godDelusionDelusion)
                  .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionP, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
@@ -104,6 +118,7 @@ namespace WhistleWindLobotomyMod {
                  .SetTerrain()
                  .SetOrdealCard(OrdealType.Violet)
                  .RemoveAppearances(OrdealBackgroundVioletTerrain.appearance)
+                 .SetUniqueCopycat(Cards.godDelusionDelusion)
                  .Build();
         }
     }
