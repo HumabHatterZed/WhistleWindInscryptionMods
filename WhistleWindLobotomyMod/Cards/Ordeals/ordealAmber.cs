@@ -12,11 +12,13 @@ namespace WhistleWindLobotomyMod {
         public const string perfectFood = "wstl_foodPerfect";
         public const string foodChain = "wstl_foodChain";
         public const string eternalMeal = "wstl_foodEternal";
+        public const string eternalSnack = "wstl_eternalSnack";
+
         private static void Cards_AmberOrdeal() {
             string textureName = "perfectFood";
             string textureName2 = "foodChain";
             string textureName3 = "eternalMeal";
-            CardInfo food = CardManager.New(LobotomyPlugin.pluginPrefix, perfectFood, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 0),
+            CardManager.New(LobotomyPlugin.pluginPrefix, perfectFood, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 0),
                 attack: 1, health: 1)
                 .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
@@ -39,6 +41,17 @@ namespace WhistleWindLobotomyMod {
                 .SetOrdealCard(Opponents.OrdealType.Amber)
                 .Build();
 
+            CardManager.New(LobotomyPlugin.pluginPrefix, eternalSnack, "Eternal Snack",
+                attack: 0, health: 2)
+                .SetBonesCost(8)
+                .SetPortraits(LobotomyPlugin.ModAssembly, "eternalSnack")
+                .AddAbilities(Ability.TriStrike)
+                .AddAppearances(ForcedOrangeEmission.appearance)
+                .AddTribes(Tribe.Insect)
+                .SetStatIcon(SpecialStatIcon.Ants)
+                .AddTraits(Trait.Ant)
+                .Build();
+
             CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, OrdealUtils.GetOrdealTitle(OrdealType.Amber, 3),
                 attack: 0, health: 8)
                 .SetBonesCost(20)
@@ -50,6 +63,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTraits(Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement, Trait.Ant)
                 .SetMiniGiant()
                 .SetOrdealCard(Opponents.OrdealType.Amber)
+                .SetUniqueCopycat(Cards.eternalSnack)
                 .Build();
         }
     }
