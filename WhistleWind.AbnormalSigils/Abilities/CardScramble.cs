@@ -153,7 +153,7 @@ namespace WhistleWind.AbnormalSigils {
 
             List<PlayableCard> cards = UnassignCardsFromSlots(slots);
             List<CardSlot> oldSlots = new();
-            //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
+            //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {allOpenSlots.Count} Cards: {cards.Count}");
             foreach (PlayableCard card in cards) {
                 CardSlot slot;
                 if (allOpenSlots.Count > 0) {
@@ -164,12 +164,14 @@ namespace WhistleWind.AbnormalSigils {
                     }
 
                     if (bestSlots.Count > 0) {
+                        //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] select best slot");
                         slot = bestSlots.GetSeededRandom(randomSeed++);
                     }
-                    else if (allOpenSlots.Contains(card.Slot)) {
-                        slot = card.Slot;
-                    }
+                    //else if (allOpenSlots.Contains(card.Slot)) {
+                    //    slot = card.Slot;
+                    //}
                     else {
+                        //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] random open");
                         slot = allOpenSlots.GetSeededRandom(randomSeed++);
                     }
 
@@ -177,6 +179,7 @@ namespace WhistleWind.AbnormalSigils {
                     allOpenSlots.Remove(slot);
                 }
                 else {
+                    //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] same slot");
                     slot = card.Slot;
                 }
                 oldSlots.Add(card.Slot);
@@ -227,6 +230,7 @@ namespace WhistleWind.AbnormalSigils {
                 TargetIconHelper.CleanUpTargetIcon(targetIcon);
 
             yield return Singleton<BoardManager>.Instance.AssignCardToSlot(card, slot, resolveTriggers: false);
+            //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] assign to slot {card} {slot.Index}");
             yield return new WaitForSeconds(waitAfter);
         }
     }
