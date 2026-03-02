@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod {
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperA, cardName,
                 attack: 2, health: 2)
-                .SetBloodCost(2).SetEnergyCost(2)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperA")
                 .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
@@ -42,8 +42,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperB, cardName,
-                attack: 1, health: 2)
-                .SetBloodCost(2).SetEnergyCost(2)
+                attack: 1, health: 3)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperB")
                 .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.BuffNeighbours)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
@@ -54,8 +54,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperC, cardName,
-                attack: 1, health: 2)
-                .SetBloodCost(2).SetEnergyCost(2)
+                attack: 1, health: 3)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperC")
                 .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Regenerator.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
@@ -66,8 +66,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperD, cardName,
-                attack: 1, health: 1)
-                .SetBloodCost(2).SetEnergyCost(2)
+                attack: 1, health: 2)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperD")
                 .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.DoubleStrike)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
@@ -78,8 +78,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperE, cardName,
-                attack: 1, health: 2)
-                .SetBloodCost(2).SetEnergyCost(2)
+                attack: 2, health: 2)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperE")
                 .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, OneSided.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
@@ -90,8 +90,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperF, cardName,
-                attack: 1, health: 2)
-                .SetBloodCost(2).SetEnergyCost(2)
+                attack: 2, health: 2)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperF")
                 .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.Sentry)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
@@ -102,10 +102,10 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, sweeperG, cardName,
-                attack: 2, health: 1)
-                .SetBloodCost(2).SetEnergyCost(2)
+                attack: 1, health: 2)
+                .SetBloodCost(2).SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "sweeperG")
-                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.Sniper)
+                .AddAbilities(Bloodfiend.ability, SweeperPersistence.ability, Ability.SplitStrike)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeAnthropoid)
                 .SetOrdealCard(OrdealType.Indigo)
