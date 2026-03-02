@@ -184,14 +184,15 @@ namespace WhistleWindLobotomyMod.Opponents {
         private IEnumerator UpdateCounterIcon() {
             if (maxCooldownPeriod > 0) {
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-                if (OrdealCounterManager.Instance.Dirty) {
-                    yield return OrdealCounterManager.Instance.UpdateDisplayedValue(phaseCountdown);
+                if (OrdealDisplayConsole.Instance.Dirty) {
+                    yield return OrdealDisplayConsole.Instance.UpdateCounterDisplayValue(phaseCountdown.ToString(), phaseCountdown == 0);
                 }
                 else {
-                    OrdealCounterManager.Instance.EnableConsole(false);
-                    yield return new WaitForSeconds(0.8f);
-                    OrdealCounterManager.Instance.UpdateConsole(ordealTier, phaseCountdown, "turns left");
-                    OrdealCounterManager.Instance.EnableConsole(true);
+                    yield return OrdealDisplayConsole.Instance.UpdateConsoleDisplay(phaseCountdown.ToString(), "turns left", false, 0.8f, 0f);
+                    //OrdealDisplayConsole.Instance.EnableConsole(false);
+                    //yield return new WaitForSeconds(0.8f);
+                    //OrdealDisplayConsole.Instance.UpdateConsoleDisplay(phaseCountdown.ToString(), "turns left", false);
+                    //OrdealDisplayConsole.Instance.EnableConsole(true);
                 }
 
                 yield return new WaitForSeconds(0.75f);

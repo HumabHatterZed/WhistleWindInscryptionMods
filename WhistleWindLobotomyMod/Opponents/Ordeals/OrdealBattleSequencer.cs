@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns>True if no Ordeal cards remain and have all been killed.</returns>
         public virtual bool PlayerHasDefeatedOrdeal() {
-            return defeated || OrdealCounterManager.Instance.amountLeft == 0;
+            return defeated || OrdealDisplayConsole.Instance.amountLeft == 0;
         }
 
         /// <summary>
@@ -54,16 +54,17 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public IEnumerator UpdateOrdealMonitor(int amountKilled) {
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.4f);
-            if (OrdealCounterManager.Instance.Dirty) {
-                OrdealCounterManager.Instance.EnableConsole(false);
-                yield return new WaitForSeconds(0.8f);
-                OrdealCounterManager.Instance.UpdateConsole(ordealTier, OrdealCounterManager.Instance.amountLeft);
-                OrdealCounterManager.Instance.EnableConsole(true);
-                if (!defeated) {
-                    yield return new WaitForSeconds(0.8f);
-                }
-            }
-            yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilled);
+            //if (OrdealDisplayConsole.Instance.Dirty) {
+            //    yield return OrdealDisplayConsole.Instance.ResetConsoleDisplay(0.8f, defeated ? 0f : 0.8f);
+            //    //OrdealDisplayConsole.Instance.EnableConsole(false);
+            //    //yield return new WaitForSeconds(0.8f);
+            //    //OrdealDisplayConsole.Instance.UpdateConsole(ordealTier, OrdealDisplayConsole.Instance.amountLeft);
+            //    //OrdealDisplayConsole.Instance.EnableConsole(true);
+            //    //if (!defeated) {
+            //    //    yield return new WaitForSeconds(0.8f);
+            //    //}
+            //}
+            yield return OrdealDisplayConsole.Instance.UpdateAmountLeft(amountKilled);
             yield return new WaitForSeconds(0.75f);
         }
 
@@ -71,8 +72,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd skipped: {opponentTurnSkipped} | amountKilled: {amountKilledThisTurn}");
             if (amountKilledThisTurn != 0) {
                 //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] update amount left");
-                if (amountKilledThisTurn > OrdealCounterManager.Instance.amountLeft) {
-                    yield return UpdateOrdealMonitor(OrdealCounterManager.Instance.amountLeft);
+                if (amountKilledThisTurn > OrdealDisplayConsole.Instance.amountLeft) {
+                    yield return UpdateOrdealMonitor(OrdealDisplayConsole.Instance.amountLeft);
                 }
                 else {
                     yield return UpdateOrdealMonitor(amountKilledThisTurn);
@@ -81,7 +82,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             amountKilledThisTurn = 0; // reset here so we can modify it in MoveOpponentCards (see Amber Dusk for ex)
             if (!defeated) {
-                if (OrdealCounterManager.Instance.amountLeft == 0) {
+                if (OrdealDisplayConsole.Instance.amountLeft == 0) {
                     DefeatOrdealAndDisplayOutroBanner();
                 }
                 else if (ShouldExtendBattle()) {
@@ -95,7 +96,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
             }
             ResetPerRoundVariables();
-            //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd: [{OrdealCounterManager.Instance.amountLeft}] left");
+            //LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentTurnEnd: [{OrdealDisplayConsole.Instance.amountLeft}] left");
 
             // if we killed more Ordeal cards after they were moved
             if (amountKilledThisTurn != 0) {
@@ -109,7 +110,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// <returns>True if the player runs out of Ordeal cards before meeting the kill requirement.</returns>
         public virtual bool ShouldExtendBattle() {
             int numOfOrdeals = BoardManager.Instance.CardsOnBoard.Count(CardIsValidOrdeal) + Opponent.Queue.Count(CardIsValidOrdeal);
-            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count && numOfOrdeals < OrdealCounterManager.Instance.amountLeft;
+            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count && numOfOrdeals < OrdealDisplayConsole.Instance.amountLeft;
         }
 
         /// <returns>True if the given card's death is counted towards the kill requirement.</returns>
@@ -137,12 +138,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             amountKilledThisTurn++;
 
             // Ordeal has been defeated
-            if (!defeated && OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn < 1) {
+            if (!defeated && OrdealDisplayConsole.Instance.amountLeft - amountKilledThisTurn < 1) {
                 DefeatOrdealAndDisplayOutroBanner();
             }
 
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnOtherCardDie: dead card:[{card.Info.displayedName}] killer: {killer?.Info.name} total killed:[{amountKilledThisTurn}]");
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn}");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealDisplayConsole.Instance.amountLeft - amountKilledThisTurn}");
         }
 
         public virtual void DefeatOrdealAndDisplayOutroBanner() {
@@ -203,7 +204,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
-            OrdealCounterManager.ValidateOrdealManagers();
+            OrdealDisplayConsole.ValidateOrdealManagers();
             HighestPositiveScaleBalance = 4;
             int tier = -1;
             OrdealType type = OrdealType.Green;

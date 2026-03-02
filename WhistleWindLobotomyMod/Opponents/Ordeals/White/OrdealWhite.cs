@@ -37,17 +37,21 @@ namespace WhistleWindLobotomyMod.Opponents {
             CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.claw), clawSlot);
             yield return new WaitForSeconds(0.2f);
+            
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             OrdealBannerManager.Instance.DisplayBanner(ordealType, true);
             ViewManager.Instance.SwitchToView(View.Default);
             yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
+
+            OrdealDisplayConsole.Instance.SetStartingVariables(3, MinNumCardsRequired);
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-            OrdealCounterManager.Instance.EnableConsole(false);
-            yield return new WaitForSeconds(0.3f);
-            OrdealCounterManager.Instance.SetTextColour(Color.black);
-            OrdealCounterManager.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
-            OrdealCounterManager.Instance.EnableConsole(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return OrdealDisplayConsole.Instance.ResetConsoleDisplay(0.5f, 0.8f);
+            //OrdealDisplayConsole.Instance.EnableConsole(false);
+            //yield return new WaitForSeconds(0.3f);
+            //OrdealDisplayConsole.Instance.SetCounterTextColour(Color.black);
+            //OrdealDisplayConsole.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
+            //OrdealDisplayConsole.Instance.EnableConsole(true);
+            //yield return new WaitForSeconds(0.3f);
             playedTheClaw = true;
         }
 
@@ -76,9 +80,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
             if (Opponent.NumLives == 0) {
                 yield return HelperMethods.ChangeCurrentView(View.Default);
-                OrdealCounterManager.Instance.EnableConsole(false);
+                OrdealDisplayConsole.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.25f);
-                OrdealCounterManager.Instance.SetShown(false);
+                OrdealDisplayConsole.Instance.SetShown(false);
                 yield return new WaitForSeconds(1.5f);
                 yield return Opponent.DefeatedFinalBossSequence();
                 yield break;
@@ -105,18 +109,19 @@ namespace WhistleWindLobotomyMod.Opponents {
                     break;
                 case 1:
                     ValidCards.Add(Cards.claw);
-                    OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = 1;
+                    OrdealDisplayConsole.Instance.amountLeft = MinNumCardsRequired = 1;
                     EncounterBluePrint = new();
                     InitiateWhiteMidnight();
                     yield break;
             }
             yield return new WaitForSeconds(0.75f);
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter);
-            OrdealCounterManager.Instance.EnableConsole(false);
+            OrdealDisplayConsole.Instance.EnableConsole(false);
             yield return new WaitForSeconds(0.3f);
-            OrdealCounterManager.Instance.SetTextColour(Color.black);
-            OrdealCounterManager.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
-            OrdealCounterManager.Instance.EnableConsole(true);
+            OrdealDisplayConsole.Instance.SetStartingVariables(ordealTier, MinNumCardsRequired);
+            //OrdealDisplayConsole.Instance.SetTextColour(Color.black);
+            //OrdealDisplayConsole.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
+            OrdealDisplayConsole.Instance.EnableConsole(true);
             yield return new WaitForSeconds(0.3f);
         }
 

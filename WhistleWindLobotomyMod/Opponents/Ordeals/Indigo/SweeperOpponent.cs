@@ -37,9 +37,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
 
-        public override IEnumerator IntroSequence(EncounterData encounter) {
-            OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
-
+        public override IEnumerator PreIntroBannerSequence(EncounterData encounter) {
             base.SpawnScenery("SweeperTableEffects");
             AudioController.Instance.PlaySound2D("giant_head_rising", MixerGroup.TableObjectsSFX, 0.2f);
             Transform child = sceneryObject.transform.GetChild(1);
@@ -56,75 +54,88 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return DialogueHelper.PlayDialogueEvent("SweeperOrdealIntro");
 
             ViewManager.Instance.SwitchToView(View.Default);
-            OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, true);
-            this.SetSceneEffectsShown(true);
+        }
+        public override void SetSceneEffectsShown(bool shown) {
+            base.SetSceneEffectsShown(shown);
             EmitCentre();
             left.Play();
             right.Play();
-            AudioController.Instance.SetLoopAndPlay("sweeper_theme", 1); // sweeper music???
-            AudioController.Instance.SetLoopVolumeImmediate(0.8f, 1);
-            OrdealCounterManager.Instance.SetShown(true);
-            yield return new WaitForSeconds(1.5f);
-
-            if (hasTotem) {
-                yield return base.AssembleTotem(encounter.opponentTotem, Vector3.zero, Vector3.zero, totemGlowColour, true);
-            }
-
-            Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
-            ViewManager.Instance.SwitchToView(OrdealUtils.ViewCounter);
-            yield return new WaitForSeconds(0.2f);
-
-            if (BattleSequencer.HighestPositiveScaleBalance < 4) {
-                OrdealCounterManager.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
-                OrdealCounterManager.Instance.UpdateConsole(-1, BattleSequencer.HighestPositiveScaleBalance, "scale lock");
-                OrdealCounterManager.Instance.EnableConsole(true);
-                yield return new WaitForSeconds(1.5f);
-
-                if (BattleSequencer.HighestPositiveScaleBalance < 0 && LifeManager.Instance.Balance > BattleSequencer.HighestPositiveScaleBalance) {
-                    yield return LifeManager.Instance.ShowDamageSequence(-BattleSequencer.HighestPositiveScaleBalance, 1, toPlayer: true);
-                    yield return new WaitForSeconds(0.5f);
-                }
-
-                OrdealCounterManager.Instance.EnableConsole(false);
-                yield return new WaitForSeconds(0.5f);
-                OrdealCounterManager.Instance.ResetToDisplayRemaining(BattleSequencer.ordealTier);
-            }
-
-            OrdealCounterManager.Instance.EnableConsole(true);
-            yield return new WaitForSeconds(0.8f);
-            ViewManager.Instance.SwitchToView(View.Default);
-            yield return new WaitForSeconds(0.2f);
-
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
+        public override void SetMusicLoop() {
+            AudioController.Instance.SetLoopAndPlay("sweeper_theme", 1);
+        }
+        //public override IEnumerator IntroSequence(EncounterData encounter) {
+        //    //OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
+
+
+        //    //OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, true);
+        //    //this.SetSceneEffectsShown(true);
+
+        //    //AudioController.Instance.SetLoopAndPlay("sweeper_theme", 1); // sweeper music???
+        //    //AudioController.Instance.SetLoopVolumeImmediate(0.8f, 1);
+        //    //OrdealDisplayConsole.Instance.SetShown(true);
+        //    //yield return new WaitForSeconds(1.5f);
+
+        //    //if (hasTotem) {
+        //    //    yield return base.AssembleTotem(encounter.opponentTotem, Vector3.zero, Vector3.zero, totemGlowColour, true);
+        //    //}
+
+        //    //Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+        //    //ViewManager.Instance.SwitchToView(OrdealUtils.ViewCounter);
+        //    //yield return new WaitForSeconds(0.2f);
+
+        //    //if (BattleSequencer.HighestPositiveScaleBalance < 4) {
+        //    //    OrdealDisplayConsole.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
+        //    //    OrdealDisplayConsole.Instance.UpdateConsole(-1, BattleSequencer.HighestPositiveScaleBalance, "scale lock");
+        //    //    OrdealDisplayConsole.Instance.EnableConsole(true);
+        //    //    yield return new WaitForSeconds(1.5f);
+
+        //    //    if (BattleSequencer.HighestPositiveScaleBalance < 0 && LifeManager.Instance.Balance > BattleSequencer.HighestPositiveScaleBalance) {
+        //    //        yield return LifeManager.Instance.ShowDamageSequence(-BattleSequencer.HighestPositiveScaleBalance, 1, toPlayer: true);
+        //    //        yield return new WaitForSeconds(0.5f);
+        //    //    }
+
+        //    //    OrdealDisplayConsole.Instance.EnableConsole(false);
+        //    //    yield return new WaitForSeconds(0.5f);
+        //    //    OrdealDisplayConsole.Instance.ResetToDisplayRemaining(BattleSequencer.ordealTier);
+        //    //}
+
+        //    OrdealDisplayConsole.Instance.EnableConsole(true);
+        //    yield return new WaitForSeconds(0.8f);
+        //    ViewManager.Instance.SwitchToView(View.Default);
+        //    yield return new WaitForSeconds(0.2f);
+
+        //    Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+        //}
 
         public override IEnumerator OutroSequence(bool wasDefeated) {
             StopEmissions();
-            if (!BattleSequencer.defeated) {
-                OrdealBannerManager.Instance.UpdateBannerOutro(BattleSequencer.ordealType, BattleSequencer.ordealTier);
-                OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, false);
-                yield return new WaitForSeconds(2f);
-            }
+            yield return base.OutroSequence(wasDefeated);
+            //if (!BattleSequencer.defeated) {
+            //    OrdealBannerManager.Instance.UpdateBannerOutro(BattleSequencer.ordealType, BattleSequencer.ordealTier);
+            //    OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, false);
+            //    yield return new WaitForSeconds(2f);
+            //}
             
-            if (hasTotem) {
-                Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem, immediate: false, lockAfter: true);
-                yield return new WaitForSeconds(0.5f);
-                Singleton<OpponentAnimationController>.Instance.SetLookTarget(base.totem.transform, Vector3.up * 2f + Vector3.back * 2f);
-                yield return base.DisassembleTotem();
-            }
-            AudioController.Instance.FadeOutLoop(0.5f, 0, 1);
-            this.SetSceneEffectsShown(false);
-            yield return HelperMethods.ChangeCurrentView(View.Default, 0.7f);
-            OrdealCounterManager.Instance.EnableConsole(false);
-            yield return new WaitForSeconds(0.25f);
-            OrdealCounterManager.Instance.SetShown(false);
-            yield return new WaitForSeconds(1.5f);
+            //if (hasTotem) {
+            //    Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem, immediate: false, lockAfter: true);
+            //    yield return new WaitForSeconds(0.5f);
+            //    Singleton<OpponentAnimationController>.Instance.SetLookTarget(base.totem.transform, Vector3.up * 2f + Vector3.back * 2f);
+            //    yield return base.DisassembleTotem();
+            //}
+            //AudioController.Instance.FadeOutLoop(0.5f, 0, 1);
+            //this.SetSceneEffectsShown(false);
+            //yield return HelperMethods.ChangeCurrentView(View.Default, 0.7f);
+            //OrdealDisplayConsole.Instance.EnableConsole(false);
+            //yield return new WaitForSeconds(0.25f);
+            //OrdealDisplayConsole.Instance.SetShown(false);
+            //yield return new WaitForSeconds(1.5f);
 
-            yield return DefeatedFinalBossSequence();
+            //yield return DefeatedFinalBossSequence();
 
-            Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
+            //Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+            //Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            //Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
     }
 }

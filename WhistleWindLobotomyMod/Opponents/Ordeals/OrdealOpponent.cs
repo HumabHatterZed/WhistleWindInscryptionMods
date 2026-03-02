@@ -72,10 +72,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
 
-        public override IEnumerator IntroSequence(EncounterData encounter) {
-            OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
-            // change NumLives here since we can't do it in the sequencer
+        public virtual IEnumerator PreIntroBannerSequence(EncounterData encounter) {
             if (BattleSequencer.ordealType == OrdealType.White) {
+                // change NumLives here since we can't do it in the sequencer
                 this.NumLives = 4;
                 base.SpawnScenery("CityTableEffects");
                 AudioController.Instance.PlaySound2D("giant_head_rising", MixerGroup.TableObjectsSFX, 0.2f);
@@ -88,12 +87,22 @@ namespace WhistleWindLobotomyMod.Opponents {
                 yield return this.ReducePlayerLivesSequence();
                 yield return new WaitForSeconds(0.25f);
             }
+        }
+        public virtual void SetMusicLoop() {
+            AudioController.Instance.SetLoopAndPlay("first_trumpet", 1);
+
+        }
+        public override IEnumerator IntroSequence(EncounterData encounter) {
+            OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
+            
+            yield return PreIntroBannerSequence(encounter);
 
             OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, true);
             this.SetSceneEffectsShown(true);
-            AudioController.Instance.SetLoopAndPlay("first_trumpet", 1);
+            
+            SetMusicLoop();
             AudioController.Instance.SetLoopVolumeImmediate(0.8f, 1);
-            OrdealCounterManager.Instance.SetShown(true);
+            OrdealDisplayConsole.Instance.SetShown(true);
             yield return new WaitForSeconds(1.5f);
 
             if (hasTotem) {
@@ -114,9 +123,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitForSeconds(0.2f);
 
             if (firstOrdeal || BattleSequencer.HighestPositiveScaleBalance < 4) {
-                OrdealCounterManager.Instance.UpdateIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
-                OrdealCounterManager.Instance.UpdateConsole(-1, BattleSequencer.HighestPositiveScaleBalance, "scale lock");
-                OrdealCounterManager.Instance.EnableConsole(true);
+                OrdealDisplayConsole.Instance.SetIconRenderer(OrdealUtils.GetScaleLockSprite(BattleSequencer.HighestPositiveScaleBalance));
+                OrdealDisplayConsole.Instance.UpdateConsoleDisplay(BattleSequencer.HighestPositiveScaleBalance.ToString(), "scale lock", false);
+                OrdealDisplayConsole.Instance.EnableConsole(true);
                 yield return new WaitForSeconds(1.5f);
 
                 if (BattleSequencer.HighestPositiveScaleBalance < 0 && LifeManager.Instance.Balance > BattleSequencer.HighestPositiveScaleBalance) {
@@ -124,12 +133,12 @@ namespace WhistleWindLobotomyMod.Opponents {
                     yield return new WaitForSeconds(0.5f);
                 }
 
-                OrdealCounterManager.Instance.EnableConsole(false);
+                OrdealDisplayConsole.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.5f);
-                OrdealCounterManager.Instance.ResetToDisplayRemaining(BattleSequencer.ordealTier);
+                OrdealDisplayConsole.Instance.ResetConsoleDisplay();
             }
 
-            OrdealCounterManager.Instance.EnableConsole(true);
+            OrdealDisplayConsole.Instance.EnableConsole(true);
             yield return new WaitForSeconds(0.8f);
             ViewManager.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
@@ -153,9 +162,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             AudioController.Instance.FadeOutLoop(0.5f, 0, 1);
             this.SetSceneEffectsShown(false);
             yield return HelperMethods.ChangeCurrentView(View.Default, 0.7f);
-            OrdealCounterManager.Instance.EnableConsole(false);
+            OrdealDisplayConsole.Instance.EnableConsole(false);
             yield return new WaitForSeconds(0.25f);
-            OrdealCounterManager.Instance.SetShown(false);
+            OrdealDisplayConsole.Instance.SetShown(false);
             yield return new WaitForSeconds(1.5f);
 
             // if this is a boss ordeal, restore life and setup a rare card sequence
@@ -301,10 +310,10 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override void InitialiseOpponent(EncounterData encounter) {
             base.InitialiseOpponent(encounter);
             hasTotem = encounter.opponentTotem != null;
-            
             totemGlowColour = InteractablesGlowColor;
+
             OrdealBannerManager.Instance.UpdateBanner(BattleSequencer.ordealType, BattleSequencer.ordealTier);
-            OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
+            OrdealDisplayConsole.Instance.SetStartingVariables(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
         }
     }
 }
