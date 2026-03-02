@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             // if the current Ordeals wouldn't take us to Noon phase
             int numOfOrdeals = BoardManager.Instance.CardsOnBoard.Count(CardIsValidOrdeal) + Opponent.Queue.Count(CardIsValidOrdeal);
-            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count && (OrdealCounterManager.Instance.amountLeft - numOfOrdeals) > 1;
+            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count && (OrdealDisplayConsole.Instance.amountLeft - numOfOrdeals) > 1;
         }
 
         public override IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
-            if (OrdealCounterManager.Instance.amountLeft - amountKilledThisTurn == 1) {
+            if (OrdealDisplayConsole.Instance.amountLeft - amountKilledThisTurn == 1) {
                 ValidCards.Add(Cards.grantUsLove); // prevent Ordeal from ending before Noon is killed
                 minTurnToForceNoon = Opponent.NumTurnsTaken;
             }

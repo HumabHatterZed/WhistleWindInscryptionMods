@@ -158,10 +158,10 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             WhiteOrdealAnim = NodeHelper.GetNodeTextureList("nodeOrdealFinal1", "nodeOrdealFinal2", "nodeOrdealFinal3", "nodeOrdealFinal4").ToArray();
 
-            OrdealCounterManager.dawnSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dawn");
-            OrdealCounterManager.noonSprite = bundle.LoadAsset<Sprite>("ordeal_counter_noon");
-            OrdealCounterManager.duskSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dusk");
-            OrdealCounterManager.midnightSprite = bundle.LoadAsset<Sprite>("ordeal_counter_midnight");
+            OrdealDisplayConsole.dawnSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dawn");
+            OrdealDisplayConsole.noonSprite = bundle.LoadAsset<Sprite>("ordeal_counter_noon");
+            OrdealDisplayConsole.duskSprite = bundle.LoadAsset<Sprite>("ordeal_counter_dusk");
+            OrdealDisplayConsole.midnightSprite = bundle.LoadAsset<Sprite>("ordeal_counter_midnight");
 
             OrdealNodeMats = [
                 TextureLoader.LoadTextureFromFile("scratched_green.png", LobotomyPlugin.ModAssembly),
