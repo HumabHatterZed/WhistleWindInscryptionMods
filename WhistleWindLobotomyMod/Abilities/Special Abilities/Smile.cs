@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
-            return !wasSacrifice && base.PlayableCard.Info.LacksCardMetaCategory(CardMetaCategory.Rare);
+            return !wasSacrifice && base.PlayableCard.Info.name != Cards.mountainOfBodies;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
