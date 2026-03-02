@@ -6,8 +6,8 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_FingerTapping() {
             const string rulebookName = "Finger Tapping";
             const string rulebookDescription = "When [creature] is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.";
-            const string dialogue = "Resentment bursts forth like a weed.";
-            const string triggerText = "Sharp thorns shoot out around [creature]!";
+            const string dialogue = "Here comes the bride.";
+            const string triggerText = "Floating fingers appear beside [creature]!";
             FingerTapping.ability = AbnormalAbilityHelper.CreateAbility<FingerTapping>(
                 "sigilFingerTapping",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
