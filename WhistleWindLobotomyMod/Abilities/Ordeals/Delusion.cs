@@ -70,20 +70,9 @@ namespace WhistleWindLobotomyMod {
             OrdealBattleSequencer seq = TurnManager.Instance.SpecialSequencer as OrdealBattleSequencer;
             seq.HighestPositiveScaleBalance--;
             yield return OrdealDisplayConsole.Instance.DisplayScaleLock(seq.HighestPositiveScaleBalance, 0.3f, 1f);
-            //OrdealDisplayConsole.Instance.EnableConsole(false);
-            //yield return new WaitForSeconds(0.3f);
-            //OrdealDisplayConsole.Instance.SetIconRenderer(OrdealUtils.GetScaleLockSprite(seq.HighestPositiveScaleBalance));
-            //OrdealDisplayConsole.Instance.UpdateConsoleDisplay(-1, seq.HighestPositiveScaleBalance, "scale lock");
-            //OrdealDisplayConsole.Instance.EnableConsole(true);
-            //yield return new WaitForSeconds(1f);
 
             ViewManager.Instance.SwitchToView(View.Default);
             yield return OrdealDisplayConsole.Instance.ResetConsoleDisplay(0.3f, 0f);
-            //OrdealDisplayConsole.Instance.EnableConsole(false);
-            //yield return new WaitForSeconds(0.3f);
-            //ViewManager.Instance.SwitchToView(View.Board);
-            //OrdealDisplayConsole.Instance.ResetToDisplayRemaining(seq.ordealTier);
-            //OrdealDisplayConsole.Instance.EnableConsole(true);
         }
 
         public override bool RespondsToTakeDamage(PlayableCard source) => triggerHalfHealth && (float)base.Card.Health / base.Card.MaxHealth <= 0.5f;

@@ -54,16 +54,6 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         public IEnumerator UpdateOrdealMonitor(int amountKilled) {
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.4f);
-            //if (OrdealDisplayConsole.Instance.Dirty) {
-            //    yield return OrdealDisplayConsole.Instance.ResetConsoleDisplay(0.8f, defeated ? 0f : 0.8f);
-            //    //OrdealDisplayConsole.Instance.EnableConsole(false);
-            //    //yield return new WaitForSeconds(0.8f);
-            //    //OrdealDisplayConsole.Instance.UpdateConsole(ordealTier, OrdealDisplayConsole.Instance.amountLeft);
-            //    //OrdealDisplayConsole.Instance.EnableConsole(true);
-            //    //if (!defeated) {
-            //    //    yield return new WaitForSeconds(0.8f);
-            //    //}
-            //}
             yield return OrdealDisplayConsole.Instance.UpdateAmountLeft(amountKilled);
             yield return new WaitForSeconds(0.75f);
         }

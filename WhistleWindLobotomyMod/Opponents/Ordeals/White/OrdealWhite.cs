@@ -46,12 +46,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             OrdealDisplayConsole.Instance.SetStartingVariables(3, MinNumCardsRequired);
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
             yield return OrdealDisplayConsole.Instance.ResetConsoleDisplay(0.5f, 0.8f);
-            //OrdealDisplayConsole.Instance.EnableConsole(false);
-            //yield return new WaitForSeconds(0.3f);
-            //OrdealDisplayConsole.Instance.SetCounterTextColour(Color.black);
-            //OrdealDisplayConsole.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
-            //OrdealDisplayConsole.Instance.EnableConsole(true);
-            //yield return new WaitForSeconds(0.3f);
             playedTheClaw = true;
         }
 
@@ -119,8 +113,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             OrdealDisplayConsole.Instance.EnableConsole(false);
             yield return new WaitForSeconds(0.3f);
             OrdealDisplayConsole.Instance.SetStartingVariables(ordealTier, MinNumCardsRequired);
-            //OrdealDisplayConsole.Instance.SetTextColour(Color.black);
-            //OrdealDisplayConsole.Instance.UpdateConsole(ordealTier, MinNumCardsRequired);
             OrdealDisplayConsole.Instance.EnableConsole(true);
             yield return new WaitForSeconds(0.3f);
         }

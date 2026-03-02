@@ -175,7 +175,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             HelixAnimator.SetTrigger("lights");
             HelixAnimator.SetBool("fire", false);
 
-            //EndEmissionLoop();
             yield return new WaitForSeconds(3.5f);
             yield return UpdateCounterIcon();
             isActive = false;
@@ -189,10 +188,6 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
                 else {
                     yield return OrdealDisplayConsole.Instance.UpdateConsoleDisplay(phaseCountdown.ToString(), "turns left", false, 0.8f, 0f);
-                    //OrdealDisplayConsole.Instance.EnableConsole(false);
-                    //yield return new WaitForSeconds(0.8f);
-                    //OrdealDisplayConsole.Instance.UpdateConsoleDisplay(phaseCountdown.ToString(), "turns left", false);
-                    //OrdealDisplayConsole.Instance.EnableConsole(true);
                 }
 
                 yield return new WaitForSeconds(0.75f);
