@@ -67,12 +67,15 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (bossCard == null) {
                 LobotomyPlugin.Log.LogDebug("[AmberMidnight] Create boss card");
                 bossCard = CreateEternalMealCard();
+                bossCard.SetIsOpponentCard(true);
             }
 
             // move the boss card to be directly below the slot it will initially emerge from
             bossCard.transform.parent = resolveSlots[2].transform;
             bossCard.transform.localPosition = new Vector3(0.7f, -0.025f, 1.05f);
             bossCard.transform.rotation = resolveSlots[2].transform.GetChild(0).rotation;
+            // since we're parented to a player slot, unflip the card renderer so it doesn't
+            // appear upside down when it emerges from below the board
             bossCard.Anim.SetCardRendererFlipped(false);
             bossCard.RenderCard();
 
@@ -128,6 +131,8 @@ namespace WhistleWindLobotomyMod.Opponents {
             Tween.LocalPosition(bossCard.transform, new Vector3(0.7f, 0.025f, 1.05f), 0.3f, 0.05f, Tween.EaseOut, Tween.LoopType.None, null, bossCard.Anim.PlayRiffleSound);
 
             yield return new WaitForSeconds(1f);
+            // once we're above the board, pre-emptively parent it to its actual slot
+            // this will prevent it from doing a spin once we properly assign it
             bossCard.transform.parent = resolveSlots[0].transform;
             bossCard.transform.rotation = resolveSlots[0].transform.GetChild(0).rotation;
             bossCard.Anim.SetCardRendererFlipped(true);
@@ -158,6 +163,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             turnsOffBoard = Mathf.Max(1, 4 - tierDifficulty);
 
             if (tierDifficulty > 2) {
+                // on the final region (default diff) have one worm already present on the board
                 List<CardInfo> infos = new() { null, null, CardLoader.GetCardByName(Cards.eternalMeal) };
                 infos = new(infos.Randomize()) {
                     null
