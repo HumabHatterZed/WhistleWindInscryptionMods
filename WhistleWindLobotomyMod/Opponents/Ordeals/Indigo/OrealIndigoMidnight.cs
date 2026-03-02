@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         private bool newWave = true;
         private bool startNextWaveUpkeep = false;
         public override IEnumerator PlayerUpkeep() {
-            yield return UpdateCounterIcon(newWave, !newWave);
+            yield return UpdateConsoleDisplay(newWave, !newWave);
             if (numTurnsLeft == 0) {
                 Opponent.NumLives--;
                 startNextWaveUpkeep = true;
@@ -70,12 +70,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             LobotomyPlugin.Log.LogDebug($"[IndigoMidnight] OpponentLifeLost: numLives: {Opponent.NumLives}");
 
             if (Opponent.NumLives == 0) {
-                defeated = false;
+                defeated = false; // prevent end ordeal logic from running
                 yield return Opponent.OutroSequence(true);
                 yield break;
             }
 
-            //bool wonByKill = OrdealCounterManager.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
+            //bool wonByKill = OrdealDisplayConsole.Instance.amountLeft == 0 && TurnManager.Instance.IsPlayerTurn;
             int reactiveDifficulty = numTurnsLeft + RunState.Run.DifficultyModifier + Mathf.Max(0, 5 - LifeManager.Instance.DamageUntilPlayerWin) + BoardManager.Instance.GetOpponentOpenSlots().Count;
             if (Opponent.NumLives == 1) {
                 reactiveDifficulty += 5;
@@ -89,7 +89,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 numTurnsLeft++; // buffer to account to how turns work
             }
             
-            OrdealCounterManager.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint(reactiveDifficulty);
+            OrdealDisplayConsole.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint(reactiveDifficulty);
+            ViewManager.Instance.SwitchToView(View.Default);
             base.StartCoroutine(ShowResetSequence(false));
             SweeperOpponent.EmitCentre();
             yield return new WaitForSeconds(0.5f);
@@ -98,25 +99,26 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return TurnManager.Instance.Opponent.QueueNewCards(changeView: false);
 
             if (startNextWaveUpkeep) {
-                yield return UpdateCounterIcon(true, false);
+                yield return UpdateConsoleDisplay(true, false);
             }
             startNextWaveUpkeep = false;
         }
 
-        private IEnumerator UpdateCounterIcon(bool updateNumWaves, bool reduceTurn) {
+        private IEnumerator UpdateConsoleDisplay(bool updateNumWaves, bool reduceTurn) {
             yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-            OrdealCounterManager.Instance.SetTextColour(Color.black);
+            OrdealDisplayConsole.Instance.SetCounterTextColour(Color.black);
             if (updateNumWaves) {
                 newWave = false;
-                yield return OrdealCounterManager.Instance.FlickerConsole(3, numWavesLeft, "wave", 0.5f);
+                yield return OrdealDisplayConsole.Instance.UpdateConsoleDisplay(numWavesLeft.ToString(), "wave", false, 0.5f, 0.8f);
             }
 
             if (reduceTurn) {
                 numTurnsLeft--;
             }
 
-            yield return OrdealCounterManager.Instance.FlickerConsole(3, numTurnsLeft, "turns left", 0.5f);
-            base.StartCoroutine(OrdealCounterManager.Instance.FlickerConsole(3, OrdealCounterManager.Instance.amountLeft, preWait: 0.5f));
+            yield return OrdealDisplayConsole.Instance.UpdateConsoleDisplay(numTurnsLeft.ToString(), "turns left", false, 0.5f, 0.8f);
+
+            base.StartCoroutine(OrdealDisplayConsole.Instance.ResetConsoleDisplay(0.5f, 0f));
             yield return new WaitForSeconds(0.5f);
         }
 
