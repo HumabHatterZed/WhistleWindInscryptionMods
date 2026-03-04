@@ -74,7 +74,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahHokma, "Hokma",
                 attack: 1, health: 4, "All things will happen in time. Just have faith.")
                 .SetBloodCost(2)
-                .AddAbilities(NeuteredLatch.ability)
+                .AddAbilities(NeuteredLatch.ID)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();

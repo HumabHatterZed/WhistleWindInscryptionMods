@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Board Shuffle";
             const string rulebookDescription = "Pay 3 Energy to shuffle the position of all creatures on the board.";
             const string dialogue = "What a mess.";
-            CardScramble.ability = AbnormalAbilityHelper.CreateAbility<CardScramble>(
+            CardScramble.ID = AbnormalAbilityHelper.CreateAbility<CardScramble>(
                 "sigilCardScramble",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 modular: false, opponent: false)
@@ -29,8 +29,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Pay 3 Energy to shuffle the position of all creatures on the board.
     /// </summary>
     public class CardScramble : DelayedActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int StartingEnergyCost => 3;
 
         public override bool CanActivate() {
@@ -58,7 +58,7 @@ namespace WhistleWind.AbnormalSigils {
          * <param name="slots" List of CardSlots to filter
          */
         public static List<CardSlot> GetOccupiedSlotsMovable(List<CardSlot> slots) {
-            slots.RemoveAll(x => x.Card == null || x.Card.HasAbility(Unyielding.ability) || x.Card.HasAnyOfTraits(Trait.Giant, Trait.Structure));
+            slots.RemoveAll(x => x.Card == null || x.Card.HasAbility(Unyielding.ID) || x.Card.HasAnyOfTraits(Trait.Giant, Trait.Structure));
             return slots;
         }
 
@@ -100,7 +100,7 @@ namespace WhistleWind.AbnormalSigils {
             bool weakToInstaDeath = current.CanBeInstaKilled();
             // opposing can attack (not counting multistrike sigils)
             if (opposing.Attack > 0) {
-                if (current.HasShield() && current.LacksAbility(Piercing.ability)) {
+                if (current.HasShield() && current.LacksAbility(Piercing.ID)) {
                     return false;
                 }
 
@@ -117,16 +117,16 @@ namespace WhistleWind.AbnormalSigils {
             // if we can attack (not counting multistrike sigils)
             if (current.Attack > 0) {
                 // if we will trigger Punisher
-                if (weakToInstaDeath && opposing.HasAbility(Punisher.ability) && current.Attack >= opposing.Health) {
+                if (weakToInstaDeath && opposing.HasAbility(Punisher.ID) && current.Attack >= opposing.Health) {
                     return true;
                 }
 
                 // if reflector will murk us
-                if (opposing.HasAbility(Reflector.ability) && current.Attack >= current.Health) {
+                if (opposing.HasAbility(Reflector.ID) && current.Attack >= current.Health) {
                     return true;
                 }
 
-                int sharpStacks = opposing.GetAbilityStacks(Ability.Sharp) + opposing.GetAbilityStacks(Bloodletter.ability);
+                int sharpStacks = opposing.GetAbilityStacks(Ability.Sharp) + opposing.GetAbilityStacks(Bloodletter.ID);
                 if (sharpStacks > 0) {
                     return current.Health <= sharpStacks;
                 }

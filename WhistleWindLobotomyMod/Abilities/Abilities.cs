@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
 
             if (LobotomyConfigManager.ReskinSigils) {
                 AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities) {
-                    AbilityManager.AllAbilities.AbilityByID(Shadowed.ability).Info
+                    AbilityManager.AllAbilities.AbilityByID(Shadowed.ID).Info
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     AbilityManager.AllAbilities.AbilityByID(Ability.MoveBeside).Info
@@ -46,19 +46,19 @@ namespace WhistleWindLobotomyMod {
                             .SetFlipYIfOpponent()
                             .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-                        info = abilities.AbilityByID(PotshotPop.ability).Info;
+                        info = abilities.AbilityByID(PotshotPop.ID).Info;
                         info.rulebookDescription = info.rulebookDescription.Replace("Sentry", "Quick Draw");
 
                         info = abilities.AbilityByID(PotshotPopEffect.iconId).Info;
                         info.rulebookDescription = info.rulebookDescription.Replace("Sentry", "Quick Draw");
 
-                        info = abilities.AbilityByID(SurefireDrink.ability).Info;
+                        info = abilities.AbilityByID(SurefireDrink.ID).Info;
                         info.rulebookDescription = info.rulebookDescription.Replace("Sniper", "Marksman");
 
                         info = abilities.AbilityByID(SurefireDrinkEffect.iconId).Info;
                         info.rulebookDescription = info.rulebookDescription.Replace("Sniper", "Marksman");
 
-                        info = abilities.AbilityByID(ActivatedSniper.ability).Info;
+                        info = abilities.AbilityByID(ActivatedSniper.ID).Info;
                         info.rulebookDescription = info.rulebookDescription.Replace("Sniper", "Marksman");
 
                         abilities.AbilityByID(Ability.Transformer).Info

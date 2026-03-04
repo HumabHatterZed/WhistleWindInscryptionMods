@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 2, desc)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(FrostRuler.ability)
+                .AddAbilities(FrostRuler.ID)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod {
                 .SetGemsCost(GemType.Blue, GemType.Green)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(FrostRuler.ability)
+                .AddAbilities(FrostRuler.ID)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

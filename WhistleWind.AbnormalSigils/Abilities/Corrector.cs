@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is drawn, its stats are randomly changed according to its total play cost.";
             const string dialogue = "How balanced.";
             const string triggerText = "[creature] stats are forcefully 'corrected'.";
-            Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
+            Corrector.ID = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 "sigilCorrector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is drawn, its stats are randomly changed according to its total play cost.
     /// </summary>
     public class Corrector : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToResolveOnBoard() => base.Card.OpponentCard;
         public override bool RespondsToDrawn() => true;

@@ -22,11 +22,11 @@ namespace WhistleWind.AbnormalSigils {
             Ability_Conductor2();
             Ability_Conductor1();
 
-            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
+            Conductor.ID = AbnormalAbilityHelper.CreateAbility<Conductor>(
                 "sigilConductor",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
-                .SetAbilityRedirect("Adagio", MovementOne.ability, Color.red)
+                .SetAbilityRedirect("Adagio", MovementOne.ID, Color.red)
                 .Id;
         }
     }
@@ -34,8 +34,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is played, begin Movement 1: Adagio.
     /// </summary>
     public class Conductor : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public const string CONDUCTOR_ID = "wstl:Conductor";
         public override bool RespondsToResolveOnBoard() => true;
@@ -45,7 +45,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return base.LearnAbility();
 
             base.Card.Anim.StrongNegationEffect();
-            base.Card.AddTemporaryMod(CreateConductorMod(MovementOne.ability));
+            base.Card.AddTemporaryMod(CreateConductorMod(MovementOne.ID));
             yield return new WaitForSeconds(0.4f);
 
         }
@@ -53,7 +53,7 @@ namespace WhistleWind.AbnormalSigils {
         public static CardModificationInfo CreateConductorMod(Ability newMovement) {
             return new(newMovement) {
                 singletonId = CONDUCTOR_ID,
-                negateAbilities = new() { Conductor.ability }
+                negateAbilities = new() { Conductor.ID }
             };
         }
     }

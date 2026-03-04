@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, [creature] attracts an opposing adjacent creature to the space across from this card if possible.";
             const string dialogue = "A sweet scent.";
 
-            Alluring.ability = AbnormalAbilityHelper.CreateAbility<Alluring>(
+            Alluring.ID = AbnormalAbilityHelper.CreateAbility<Alluring>(
                 "sigilAlluring",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
@@ -22,8 +22,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, [creature] attracts an opposing adjacent creature to the space across from this card if possible.
     /// </summary>
     public class Alluring : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd && base.Card.OpposingCard() == null;
 
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils {
 
         private bool IsValid(CardSlot slot) {
             if (slot != null && slot.Card != null) {
-                return slot.Card.LacksAllAbilities(Ability.MadeOfStone, Unyielding.ability) && slot.Card.LacksTrait(Trait.Giant);
+                return slot.Card.LacksAllAbilities(Ability.MadeOfStone, Unyielding.ID) && slot.Card.LacksTrait(Trait.Giant);
             }
             return false;
         }

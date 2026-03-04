@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void AddLongArms() {
             const string rulebookName = "Long Arms";
-            LongArms.ability = AbilityHelper.New<LongArms>(LobotomyPlugin.pluginGuid, "sigilLongArms", rulebookName,
+            LongArms.ID = AbilityHelper.New<LongArms>(LobotomyPlugin.pluginGuid, "sigilLongArms", rulebookName,
                 "[creature] is immune to status ailments. While this card is on the board, time cannot be altered.",
                 0, true)
                 .SetItemRedirect("time cannot be altered", "Hourglass", GameColors.Instance.red).Id;
@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
     }
 
     public class LongArms : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
 }

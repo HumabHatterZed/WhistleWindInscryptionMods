@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is played, create Thorny Vines on adjacent empty spaces. [define:wstl_snowWhitesVine]";
             const string dialogue = "Resentment bursts forth like a weed.";
             const string triggerText = "Sharp thorns shoot out around [creature]!";
-            Roots.ability = AbnormalAbilityHelper.CreateAbility<Roots>(
+            Roots.ID = AbnormalAbilityHelper.CreateAbility<Roots>(
                 "sigilRoots",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: true, canStack: false)
@@ -19,8 +19,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is played, create Thorny Vines on adjacent empty spaces. [define:wstl_snowWhitesVine]
     /// </summary>
     public class Roots : CreateCardsAdjacent {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override string SpawnedCardId => "wstl_snowWhitesVine";
         public override string CannotSpawnDialogue => "Not enough space for the vines to grow.";
     }

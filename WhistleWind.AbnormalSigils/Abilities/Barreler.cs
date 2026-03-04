@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction through other cards to the furthest empty space.";
             const string dialogue = "This beast is in quite the rush.";
             const string triggerText = "[creature] barrels on through!";
-            Barreler.ability = AbnormalAbilityHelper.CreateAbility<Barreler>(
+            Barreler.ID = AbnormalAbilityHelper.CreateAbility<Barreler>(
                 "sigilBarreler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: true)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, this card moves in the sigil's direction through other cards to the furthest empty space.
     /// </summary>
     public class Barreler : Strafe {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight) {
             // if this card can move at least one slot in either direction
@@ -77,7 +77,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return this.PostSuccessfulMoveSequence(oldSlot);
             yield return new WaitForSeconds(0.25f);
         }
-        private bool CardCanBePassedThrough(PlayableCard card) => card != null && card.LacksAbility(Unyielding.ability);
+        private bool CardCanBePassedThrough(PlayableCard card) => card != null && card.LacksAbility(Unyielding.ID);
         private CardSlot GetFurthestEmptySlot(bool movingLeft, CardSlot slotToCheck, List<CardSlot> possibleValidSlots = null) {
             possibleValidSlots ??= new();
             if (slotToCheck.Card == null) {

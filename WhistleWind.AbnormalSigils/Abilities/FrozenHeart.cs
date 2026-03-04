@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] perishes, the killer gains 1 Power and 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
             const string triggerText = "[creature] releases warm life.";
-            FrozenHeart.ability = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
+            FrozenHeart.ID = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
                 "sigilFrozenHeart",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] perishes, the killer gains 1 Power and 1 Health.
     /// </summary>
     public class FrozenHeart : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private readonly string altDialogue = "The Woodcutter stuffs the melted heart into its chest.";
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
             killer.Anim.LightNegationEffect();
-            if (killer.HasAbility(Woodcutter.ability)) {
+            if (killer.HasAbility(Woodcutter.ID)) {
                 killer.AddTemporaryMod(new(2, 2));
                 if (!base.HasLearned) {
                     base.SetLearned();

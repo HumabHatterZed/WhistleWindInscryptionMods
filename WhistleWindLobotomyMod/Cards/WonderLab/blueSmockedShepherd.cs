@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 2, "A cruel shepherd with a penchant for lying.")
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Abusive.ability, Ability.SplitStrike)
+                .AddAbilities(Abusive.ID, Ability.SplitStrike)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

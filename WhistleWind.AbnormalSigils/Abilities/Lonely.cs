@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Lonely";
             const string rulebookDescription = "Give Pebble to a chosen creature, then return this card to your hand. When a card with Pebble perishes, kill all ally cards with Pebble and inflict Grief on the remaining allies.";
             const string dialogue = "A friend to stay.";
-            Lonely.ability = AbnormalAbilityHelper.CreateAbility<Lonely>(
+            Lonely.ID = AbnormalAbilityHelper.CreateAbility<Lonely>(
                 "sigilLonely",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2)
                 .SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray)
@@ -32,8 +32,8 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class Lonely : AbilityBehaviour, IOnOtherCardDieInHand {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public bool IsValidTarget(CardSlot slot) {
             if (slot.Card != null && !slot.Card.HasStatusEffect<Pebble>() && slot.Card.LacksAllTraits(Trait.Terrain, Trait.Pelt)) {
                 return base.Card.OpponentCard == slot.Card.OpponentCard || (slot.Card.OpponentCard && base.Card.OriginatedFromQueue);
@@ -73,7 +73,7 @@ namespace WhistleWind.AbnormalSigils {
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
         private static void DontPlayLonelyIfAllPebbles(PlayableCard queuedCard, ref bool __result) {
-            if (!__result && queuedCard.HasAbility(Lonely.ability)) {
+            if (!__result && queuedCard.HasAbility(Lonely.ID)) {
                 // don't play Lonely cards from the queue if the opponent doesn't have any valid target cards
                 __result = BoardManager.Instance.GetOpponentCards(x => x.LacksAllTraits(Trait.Terrain, Trait.Pelt) && !x.HasStatusEffect<Pebble>()).Count == 0;
             }

@@ -53,7 +53,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             // increase Worms 
-            if (target.HasAbility(SerpentsNest.ability)) {
+            if (target.HasAbility(SerpentsNest.ID)) {
                 // since OnDealDamage triggers after OnTakeDamage, we need to account for when Worms is first dealt
                 if (accountForInitialHit)
                     accountForInitialHit = false;

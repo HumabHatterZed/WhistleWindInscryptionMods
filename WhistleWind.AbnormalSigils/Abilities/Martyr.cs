@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] perishes, allied cards gain 2 Health and are cured of status ailments.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
             const string triggerText = "[creature]'s death cleanses your other creatures!";
-            Martyr.ability = AbnormalAbilityHelper.CreateAbility<Martyr>(
+            Martyr.ID = AbnormalAbilityHelper.CreateAbility<Martyr>(
                 "sigilMartyr",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: false, canStack: false)
@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     public class Martyr : AbilityBehaviour // original code taken from SigilADay - julianperge
     {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {

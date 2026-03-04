@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Whenever [creature] is struck by a creature, reduce the damage taken by 1.";
             const string dialogue = "Your creature's hide absorbs the blow.";
             const string triggerText = "[creature] absorbs the blow.";
-            ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
+            ThickSkin.ID = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
                 "sigilThickSkin",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: false, canStack: true)
@@ -22,8 +22,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Whenever [creature] is struck by a creature, reduce the damage taken by 1.
     /// </summary>
     public class ThickSkin : AbilityBehaviour, IModifyDamageTaken {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTakeDamage(PlayableCard source) => source != null;
         public override IEnumerator OnTakeDamage(PlayableCard source) {
@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
             if (base.Card == target && damage > 0)
-                return attacker != null && attacker.LacksAbility(Piercing.ability);
+                return attacker != null && attacker.LacksAbility(Piercing.ID);
 
             return false;
         }

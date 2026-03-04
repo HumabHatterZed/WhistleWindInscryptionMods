@@ -6,7 +6,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void AddApocalypse() {
             const string rulebookName = "Black Forest Guardians";
-            ApocalypseAbility.ability = AbilityHelper.New<ApocalypseAbility>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
+            ApocalypseAbility.ID = AbilityHelper.New<ApocalypseAbility>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
                 "This card will change its combat pattern every three turns. At 80/60/40 Health, change pattern and the previous pattern cannot used again.", 0, true)
             .SetPassive()
             .Id;
@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
     }
 
     public class ApocalypseAbility : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
 }

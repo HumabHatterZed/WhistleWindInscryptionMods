@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Persistent Sweeping";
             info.rulebookDescription = "This card is considered Persistent. After attacking, this card will strike adjacent cards that aren't Sweepers. Once per battle at low Health, switch places with a queued Sweeper.";
-            SweeperPersistence.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SweeperPersistence), TextureLoader.LoadTextureFromFile("sigilSweeper.png", LobotomyPlugin.ModAssembly))
-                .SetAbilityRedirect("Persistent", Persistent.ability, GameColors.Instance.red)
+            SweeperPersistence.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SweeperPersistence), TextureLoader.LoadTextureFromFile("sigilSweeper.png", LobotomyPlugin.ModAssembly))
+                .SetAbilityRedirect("Persistent", Persistent.ID, GameColors.Instance.red)
                 .Id;
         }
     }
@@ -26,8 +26,8 @@ namespace WhistleWindLobotomyMod {
     /// This card is considered Persistent. After attacking, this card will strike adjacent cards that aren't Sweepers. Once per battle at low Health, switch places with a queued Sweeper.
     /// </summary>
     public class SweeperPersistence : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         private bool canReturnToQueue = true;
 
         public override bool RespondsToAttackEnded() => true;
@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod {
                 yield return new WaitForSeconds(0.3f);
                 queuedCard.QueuedSlot = null;
                 queuedCard.OnPlayedFromOpponentQueue();
-                base.Card.AddTemporaryMod(new(Shadowed.ability));
+                base.Card.AddTemporaryMod(new(Shadowed.ID));
                 base.StartCoroutine(TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f));
                 yield return BoardManager.Instance.ResolveCardOnBoard(queuedCard, slot);
                 TurnManager.Instance.Opponent.Queue.Remove(queuedCard);
@@ -66,10 +66,10 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
             if (!base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:Sweeper")) {
-                base.Card.Info.Mods.Add(new(Persistent.ability) { singletonId = "wstl:Sweeper" });
+                base.Card.Info.Mods.Add(new(Persistent.ID) { singletonId = "wstl:Sweeper" });
             }
-            base.Card.TriggerHandler.AddAbility(Persistent.ability);
-            base.Card.Status.hiddenAbilities.Add(Persistent.ability);
+            base.Card.TriggerHandler.AddAbility(Persistent.ID);
+            base.Card.Status.hiddenAbilities.Add(Persistent.ID);
             yield break;
         }
 

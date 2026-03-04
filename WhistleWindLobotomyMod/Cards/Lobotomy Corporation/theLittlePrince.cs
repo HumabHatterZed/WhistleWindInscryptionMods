@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 4, "A giant mushroom chunk. A mist of spores surrounds it.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Sporogenic.ability)
+                .AddAbilities(Sporogenic.ID)
                 .AddTribes(TribeBotanic)
                 .AddTraits(SporeFriend)
                 .SetDefaultEvolutionName("The Little King")

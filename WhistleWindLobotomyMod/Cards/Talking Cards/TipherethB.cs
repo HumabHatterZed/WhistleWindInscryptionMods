@@ -74,7 +74,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethB, "Tiphereth",
                 attack: 0, health: 1)
                 .SetEnergyCost(3)
-                .AddAbilities(UnkillableWeak.ability, Ability.LatchDeathShield)
+                .AddAbilities(UnkillableWeak.ID, Ability.LatchDeathShield)
                 .SetOnePerDeck()
                 .SetFinalSamsara(sephirahTipherethB_final)
                 .Build();

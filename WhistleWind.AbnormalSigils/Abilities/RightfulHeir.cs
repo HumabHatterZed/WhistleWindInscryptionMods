@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Pay [sigilcost:2 Bones] to select any creature on the board and transform them into a Sturdy Pumpkin, then increase this sigil's activation cost by 1 Bone. Opposing Pumpkins will be rotten instead.";
             const string dialogue = "All she has left now are her children.";
             const string triggerText = "[creature] sprinkles cinnamon dust.";
-            RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
+            RightfulHeir.ID = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
                 "sigilRightfulHeir",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
                 .Id;
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Pay [sigilcost:2 Bones] to select any creature on the board and transform them into a Sturdy Pumpkin, then increase this sigil's activation cost by 1 Bone. Opposing Pumpkins will be rotten instead.
     /// </summary>
     public class RightfulHeir : ActivatedSelectSlotBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool CanActivate() => base.CanActivate() && ValidTargets.Count > 0;
         public override string InvalidTargetDialogue(CardSlot slot) {

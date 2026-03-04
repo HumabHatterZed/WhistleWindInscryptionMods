@@ -24,12 +24,12 @@ namespace WhistleWind.AbnormalSigils {
                 .AddAbilities(Ability.Evolve, Ability.IceCube)
                 .AddTribes(tribes)
                 .SetTerrain()
-                .SetIceCube(jack2, new List<CardModificationInfo>() { new(-1, 0) { abilities = new() { StartingDecay.ability } } })
+                .SetIceCube(jack2, new List<CardModificationInfo>() { new(-1, 0) { abilities = new() { StartingDecay.ID } } })
                 .SetEvolve(jack, 2, new List<CardModificationInfo>() { new(-1, -1) { abilities = new() { Ability.Brittle } } });
 
             CardManager.New(pluginPrefix, ozmaPumpkin, "Sturdy Pumpkin", 0, 2)
                 .SetPortraits(Assembly, ozmaPumpkin)
-                .AddAbilities(ThickSkin.ability, Ability.IceCube, Ability.Evolve)
+                .AddAbilities(ThickSkin.ID, Ability.IceCube, Ability.Evolve)
                 .AddTribes(tribes)
                 .SetTerrain()
                 .SetIceCube(jack2)

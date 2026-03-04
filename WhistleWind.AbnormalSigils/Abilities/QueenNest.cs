@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "While [creature] is on the board, create a Worker Bee in your hand whenever another creature perishes. [define:wstl_queenBeeWorker]";
             const string dialogue = "For the hive.";
             const string triggerText = "Another worker is born to serve [creature].";
-            QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(
+            QueenNest.ID = AbnormalAbilityHelper.CreateAbility<QueenNest>(
                 "sigilQueenNest",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// While [creature] is on the board, create a Worker Bee in your hand whenever another creature perishes. [define:wstl_queenBeeWorker]
     /// </summary>
     public class QueenNest : OpponentDrawCreatedCard {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override CardInfo CardToDraw => CardLoader.GetCardByName("wstl_queenBeeWorker");
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {

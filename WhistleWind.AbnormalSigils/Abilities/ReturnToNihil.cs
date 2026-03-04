@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, all other cards on the board take damage equal to this card's Power.";
             const string dialogue = "One step closer to oblivion.";
             const string triggerText = "The void calls.";
-            ReturnToNihil.ability = AbnormalAbilityHelper.CreateAbility<ReturnToNihil>(
+            ReturnToNihil.ID = AbnormalAbilityHelper.CreateAbility<ReturnToNihil>(
                 "sigilReturnToNihil",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, special: true, opponent: false, canStack: false)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, all other cards on the board take damage equal to this card's Power.
     /// </summary>
     public class ReturnToNihil : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd && base.Card.Attack > 0;
 

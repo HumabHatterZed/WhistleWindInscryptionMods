@@ -36,7 +36,7 @@ namespace WhistleWind.AbnormalSigils {
                 yield break;
 
             int newSpore = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
-                .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ability)).Count;
+                .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ID)).Count;
 
             if (newSpore == 0)
                 yield break;

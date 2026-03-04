@@ -321,29 +321,32 @@ namespace WhistleWind.AbnormalSigils {
                     continue;
                 }
 
-                bool rulebook = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.ADDTORULEBOOK) == true;
-                bool modular = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.FORCEMODULAR) == true;
+                bool forceRulebook = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.FORCE_ADD_TO_RULEBOOK) == true;
+                bool rulebook = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.ADD_TO_RULEBOOK) == true;
+                bool modular = ability.Info.GetExtendedPropertyAsBool(AbnormalAbilityHelper.FORCE_MODULAR) == true;
 
                 // abilities marked modular are always modular in Act 1
-                if (validCards.Exists(x => x.temple == CardTemple.Nature) || modular) {
-                    if (rulebook) {
+                if (modular) {
+                    ability.Info.metaCategories.Add(AbilityMetaCategory.Part1Modular);
+                    ability.Info.metaCategories.Add(AbilityMetaCategory.Part3Modular);
+                }
+
+                if (rulebook) {
+                    if (forceRulebook || validCards.Exists(x => x.temple == CardTemple.Nature)) {
                         ability.Info.metaCategories.Add(AbilityMetaCategory.Part1Rulebook);
                     }
-                    if (modular) {
-                        ability.Info.metaCategories.Add(AbilityMetaCategory.Part1Modular);
+
+                    if (forceRulebook || validCards.Exists(x => x.temple == CardTemple.Tech)) {
+                        ability.Info.metaCategories.Add(AbilityMetaCategory.Part3Rulebook);
                     }
-                }
 
-                if (validCards.Exists(x => x.temple == CardTemple.Tech) && rulebook) {
-                    ability.Info.metaCategories.Add(AbilityMetaCategory.Part3Rulebook);
-                }
+                    if (forceRulebook || validCards.Exists(x => x.temple == CardTemple.Undead)) {
+                        ability.Info.metaCategories.Add(AbilityMetaCategory.GrimoraRulebook);
+                    }
 
-                if (validCards.Exists(x => x.temple == CardTemple.Undead) && rulebook) {
-                    ability.Info.metaCategories.Add(AbilityMetaCategory.GrimoraRulebook);
-                }
-
-                if (validCards.Exists(x => x.temple == CardTemple.Wizard) && rulebook) {
-                    ability.Info.metaCategories.Add(AbilityMetaCategory.MagnificusRulebook);
+                    if (forceRulebook || validCards.Exists(x => x.temple == CardTemple.Wizard)) {
+                        ability.Info.metaCategories.Add(AbilityMetaCategory.MagnificusRulebook);
+                    }
                 }
             }
         }

@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is struck, the striker gains 1 Worms.";
             const string dialogue = "It can enter your body through any aperture.";
 
-            SerpentsNest.ability = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
+            SerpentsNest.ID = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
                 "sigilSerpentsNest",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: true)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is struck, the striker gains 1 Worms.
     /// </summary>
     public class SerpentsNest : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToTakeDamage(PlayableCard source) {
             if (source != null)
                 return source.LacksAllTraits(AbnormalPlugin.NakedSerpent, AbnormalPlugin.ImmuneToAilments) && source.LacksAbility(Ability.MadeOfStone);

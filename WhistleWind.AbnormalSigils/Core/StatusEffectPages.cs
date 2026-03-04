@@ -35,7 +35,7 @@ namespace WhistleWind.AbnormalSigils.Core {
             }
 
             RuleBookPageInfo page3 = new();
-            instance.FillAbilityPage(page3, currentRange, (int)SeeMore.ability);
+            instance.FillAbilityPage(page3, currentRange, (int)SeeMore.ID);
             retval.Add(page3);
 
             return retval;

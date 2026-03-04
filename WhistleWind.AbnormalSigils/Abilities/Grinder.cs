@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Grinder";
             const string rulebookDescription = "[creature] gains the stats of the creatures sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
-            Grinder.ability = AbnormalAbilityHelper.CreateAbility<Grinder>(
+            Grinder.ID = AbnormalAbilityHelper.CreateAbility<Grinder>(
                 "sigilGrinder",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false)
@@ -19,8 +19,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] gains the stats of the creatures sacrificed to play it.
     /// </summary>
     public class Grinder : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             return !fromCombat && Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard == base.Card;
         }

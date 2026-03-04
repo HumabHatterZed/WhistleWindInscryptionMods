@@ -19,16 +19,16 @@ namespace WhistleWindLobotomyMod {
                 .SetOpponentUsable(full.Info.opponentUsable)
                 .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-            SteelTrapSweetHome = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SteelTrapSweetHome), full.Texture).Id;
+            SteelTrapSweetHome.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(SteelTrapSweetHome), full.Texture).Id;
         }
-
-        public static Ability SteelTrapSweetHome;
     }
 
     public class SteelTrapSweetHome : SteelTrap {
-        Tribe t = Tribe.None;
-        public override Ability Ability => Abilities.SteelTrapSweetHome;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override CardInfo CardToDraw => DetermineCardToDraw();
+
+        Tribe t = Tribe.None;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             if (killer != null && killer.Info.tribes.Count > 0) {
                 t = killer.Info.tribes[0];

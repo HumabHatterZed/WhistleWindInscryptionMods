@@ -13,10 +13,10 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Once per battle: Remove cards equal to the number of cards in your hand from both draw piles. All cards in your hand gain the Neutered sigil and become free to play.";
             const string dialogue = "A simple little magic trick to deceive the people.";
             const string triggerText = "[creature] gives a false present to the chosen creature.";
-            FalseThrone.ability = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
+            FalseThrone.ID = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
                 "sigilFalseThrone",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4, special: true)
-                .SetAbilityRedirect("Neutered", Neutered.ability, GameColors.Instance.gray)
+                .SetAbilityRedirect("Neutered", Neutered.ID, GameColors.Instance.gray)
                 .Id;
         }
     }
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Once per battle: Remove cards equal to the number of cards in your hand from both draw piles. All cards in your hand gain the Neutered sigil and become free to play.
     /// </summary>
     public class FalseThrone : DelayedActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int TurnDelay => 9999;
 
         public override bool CanActivate() {
@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils {
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.2f);
             foreach (PlayableCard card in PlayerHand.Instance.CardsInHand) {
-                card.AddTemporaryMod(new(Neutered.ability) {
+                card.AddTemporaryMod(new(Neutered.ID) {
                     bloodCostAdjustment = -999,
                     bonesCostAdjustment = -999,
                     energyCostAdjustment = -999,

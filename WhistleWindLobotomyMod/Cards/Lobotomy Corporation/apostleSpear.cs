@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleSpear, spearName,
                 attack: 4, health: 6)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Piercing.ability, ApostleSigil.ability)
+                .AddAbilities(Piercing.ID, ApostleSigil.ID)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleSpearDown, spearName,
                 attack: 0, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(ApostleSigil.ability)
+                .AddAbilities(ApostleSigil.ID)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)

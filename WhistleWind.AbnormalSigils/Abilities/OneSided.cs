@@ -10,19 +10,20 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Opportunistic";
             const string rulebookDescription = "[creature] deals 1 more damage when striking injured cards.";
             const string dialogue = "Blood in the water.";
-            OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
+            OneSided.ID = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 "sigilOneSided",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: true, opponent: true, canStack: true)
-                .Info.SetFlipYIfOpponent().ability;
+                .Info.SetFlipYIfOpponent()
+                .ability;
         }
     }
     /// <summary>
     /// [creature] deals 1 more damage when striking injured cards.
     /// </summary>
     public class OneSided : ModifyDamageDealtAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private bool activate = false;
 

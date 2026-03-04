@@ -16,12 +16,12 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] perishes, Flood all spaces on the board and extinguish grounded Scorching cards.";
             const string dialogue = "Don't worry, it will dry soon enough.";
             const string triggerText = "[creature]'s insides flood the board!";
-            Spilling.ability = AbnormalAbilityHelper.CreateAbility<Spilling>(
+            Spilling.ID = AbnormalAbilityHelper.CreateAbility<Spilling>(
                 "sigilSpilling",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
                 .SetSlotRedirect("Flood", FloodedSlot.Id, GameColors.Instance.brightSeafoam)
-                .SetAbilityRedirect("Scorching", Scorching.ability, GameColors.Instance.red)
+                .SetAbilityRedirect("Scorching", Scorching.ID, GameColors.Instance.red)
                 .Id;
         }
     }
@@ -29,8 +29,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
     /// </summary>
     public class Spilling : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !base.Card.Info.IsSpell();
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) => Sequence(base.Card.Slot);
@@ -50,7 +50,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++) {
                 int distance = GetSlotDistance(startingSlot, slots[i]);
-                if (slots[i].Card != null && slots[i].Card.HasAbility(Scorching.ability) && slots[i].Card.LacksAbility(Ability.Flying)) {
+                if (slots[i].Card != null && slots[i].Card.HasAbility(Scorching.ID) && slots[i].Card.LacksAbility(Ability.Flying)) {
                     extinguishedCard = true;
                     yield return Scorching.ExtinguishCard(slots[i].Card, false);
                 }

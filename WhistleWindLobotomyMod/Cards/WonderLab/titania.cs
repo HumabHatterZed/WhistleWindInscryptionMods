@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 4, "The queen of faeries, searching always for her traitorous husband.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(FlowerQueen.ability, Ability.StrafeSwap)
+                .AddAbilities(FlowerQueen.ID, Ability.StrafeSwap)
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
         }

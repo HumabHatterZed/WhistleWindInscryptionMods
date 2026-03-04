@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Hair Loss Serum";
             const string rulebookDescription = "Choose one of your cards and remove all its sigils, then double its Power and Health.";
             const string dialogue = "Bald is beautiful.";
-            Shaver.ability = AbnormalAbilityHelper.CreateAbility<Shaver>(
+            Shaver.ID = AbnormalAbilityHelper.CreateAbility<Shaver>(
                 "sigilShaver",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
@@ -28,8 +28,8 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class Shaver : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
         public override IEnumerator OnResolveOnBoard() {
             List<CardSlot> slots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
@@ -58,7 +58,7 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private bool CheckValid(CardSlot target) {
-            if (target.IsOpponentSlot() == base.Card.OpponentCard && target.Card != null && target.Card.LacksAbility(Bleachproof.ability)) {
+            if (target.IsOpponentSlot() == base.Card.OpponentCard && target.Card != null && target.Card.LacksAbility(Bleachproof.ID)) {
                 return target.Card.LacksAllTraits(Trait.Giant, Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath) && target.Card.AllAbilities().Count > 0;
             }
             return false;

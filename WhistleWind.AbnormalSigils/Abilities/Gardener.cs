@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "While [creature] is on the board, whenever an ally card perishes, create a Sapling in their place. [define:wstl_parasiteTreeSapling]";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
             const string triggerText = "A sapling grows out of the dead card's corpse.";
-            Gardener.ability = AbnormalAbilityHelper.CreateAbility<Gardener>(
+            Gardener.ID = AbnormalAbilityHelper.CreateAbility<Gardener>(
                 "sigilGardener",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// While [creature] is on the board, whenever an ally card perishes, create a Sapling in their place. [define:wstl_parasiteTreeSapling]
     /// </summary>
     public class Gardener : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             if (fromCombat && card.OpponentCard == base.Card.OpponentCard && (deathSlot.Card == null || deathSlot.Card.Dead))
                 return card != base.Card && base.Card.OnBoard && !card.Info.name.Equals("wstl_parasiteTreeSapling");

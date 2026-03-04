@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is struck, the striker is dealt damage equal to its own Power.";
             const string dialogue = "What goes around comes around.";
             const string triggerText = "[creature] returns the damage.";
-            Reflector.ability = AbnormalAbilityHelper.CreateAbility<Reflector>(
+            Reflector.ID = AbnormalAbilityHelper.CreateAbility<Reflector>(
                 "sigilReflector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is struck, the striker is dealt damage equal to its own Power.
     /// </summary>
     public class Reflector : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTakeDamage(PlayableCard source) {
             if (source != null)

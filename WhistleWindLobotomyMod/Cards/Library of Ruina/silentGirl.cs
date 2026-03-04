@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 2, "A girl hiding a hammer and nail behind her back.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Persecutor.ability)
+                .AddAbilities(Persecutor.ID)
                 .AddSpecialAbilities(Remorse.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .AddMetaCategories(RuinaCard)

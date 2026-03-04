@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
                 .SetBonesCost(3)
                 .SetPortraits(Assembly, meltingLoveMinion)
                 .SetStatIcon(SlimeIcon.Icon)
-                .AddAbilities(Slime.ability)
+                .AddAbilities(Slime.ID)
                 .AddTraits(LovingSlime);
         }
     }

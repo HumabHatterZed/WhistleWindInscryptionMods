@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 7)
                 .SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(ReturnToNihil.ability)
+                .AddAbilities(ReturnToNihil.ID)
                 .AddSpecialAbilities(BoardEffects.specialAbility)
                 .SetStatIcon(Nihil.Icon)
                 .AddTribes(TribeFae)

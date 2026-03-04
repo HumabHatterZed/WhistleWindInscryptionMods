@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is played, kill all creatures on the board. Creatures killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
             const string triggerText = "The train blows its mighty horn.";
-            TheTrain.ability = AbnormalAbilityHelper.CreateAbility<TheTrain>(
+            TheTrain.ID = AbnormalAbilityHelper.CreateAbility<TheTrain>(
                 "sigilTheTrain",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 special: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is played, kill all creatures on the board. Creatures killed this way do not drop bones.
     /// </summary>
     public class TheTrain : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);

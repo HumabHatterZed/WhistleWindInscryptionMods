@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, "A once-vain child, now prostrating on bloody stumps.")
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Bloodletter.ability)
+                .AddAbilities(Bloodletter.ID)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
 
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, "A once-vain child, now prostrating on bloody stumps.")
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Bloodletter.ability)
+                .AddAbilities(Bloodletter.ID)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .SetCardTemple(CardTemple.Undead)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);

@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetAltPortraits(LobotomyPlugin.ModAssembly, "redBuddy_alt")
-                .AddAbilities(StressResponse.ability)
+                .AddAbilities(StressResponse.ID)
                 .AddTribes(DiskCardGame.Tribe.Canine)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1, "A pitiable creature. Death would be a mercy for it.")
                 .SetBonesCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Cursed.ability)
+                .AddAbilities(Cursed.ID)
                 .AddTribes(Tribe.Hooved, Tribe.Insect)
                 .AddTraits(Trait.KillsSurvivors)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

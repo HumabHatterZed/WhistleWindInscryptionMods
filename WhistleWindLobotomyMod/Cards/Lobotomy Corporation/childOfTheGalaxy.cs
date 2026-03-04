@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0, desc)
                 .SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Lonely.ability)
+                .AddAbilities(Lonely.ID)
                 .SetSpellType(SpellType.Targeted)
                 .AddMetaCategories(CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod {
                 .SetGemsCost(DiskCardGame.GemType.Blue)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Lonely.ability)
+                .AddAbilities(Lonely.ID)
                 .SetSpellType(SpellType.Targeted)
                 .AddMetaCategories(CannotGiveSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

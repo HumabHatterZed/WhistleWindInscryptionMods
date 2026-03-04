@@ -4,6 +4,7 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
@@ -12,27 +13,26 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "First Movement: Adagio";
             const string rulebookDescription = "Creatures adjacent to [creature] gain 1 Power. At the start of the owner's next turn, begin the Second Movement: Sostenuto.";
             const string triggerText = "The beasts start to forget everything for the symphony.";
-            MovementOne.ability = AbilityHelper.NewFiller<MovementOne>(
+            MovementOne.ID = AbilityHelper.NewFiller<MovementOne>(
                 pluginGuid, "sigilMovementOne", rulebookName, rulebookDescription)
-                .SetPart3Rulebook()
-                .SetMagnificusRulebook()
-                .SetGrimoraRulebook()
-                .SetAbilityRedirect("Sostenuto", MovementTwo.ability, Color.red)
+                .SetAbilityRedirect("Sostenuto", MovementTwo.ID, Color.red)
+                .SetPassive(false)
+                .SetPowerlevel(3)
+                .ForceAddToRulebook()
                 .Info.SetAbilityLearnedDialogue(triggerText)
                 .SetGBCTriggerText(triggerText)
-                .SetPassive(false)
-                .SetPowerlevel(3).ability;
+                .ability;
 
-            Fervent.data.IconInfo.SetAbilityRedirect("Movement", MovementOne.ability, GameColors.Instance.gray);
+            Fervent.data.IconInfo.SetAbilityRedirect("Movement", MovementOne.ID, GameColors.Instance.gray);
         }
     }
     /// <summary>
     /// Creatures adjacent to [creature] gain 1 Power. At the start of the owner's next turn, begin the Second Movement: Sostenuto.
     /// </summary>
     public class MovementOne : ConductorMovementBase {
-        public static Ability ability;
-        public override Ability Ability => ability;
-        public override Ability NextMovement => MovementTwo.ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
+        public override Ability NextMovement => MovementTwo.ID;
         public override int GetPassiveAttackBuff(PlayableCard target) {
             if (base.Card.OnBoard && target.OnBoard) {
                 return target.Slot.GetAdjacentCards().Count(x => x.HasAbility(this.Ability));

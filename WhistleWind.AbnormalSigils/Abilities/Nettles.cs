@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When this card is played, Brothers are created on adjacent empty spaces. This card gains the first sigil of each adjacent Brother while they are on the board.";
             const string dialogue = "These clothes will restore our happy days.";
             const string triggerText = "[creature] brings out its family!";
-            Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
+            Nettles.ID = AbnormalAbilityHelper.CreateAbility<Nettles>(
                 "sigilNettles",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
@@ -27,8 +27,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When this card is played, Brothers are created on adjacent empty spaces. This card gains the first sigil of each adjacent Brother while they are on the board.
     /// </summary>
     public class Nettles : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int Priority => 1000;
 
         PlayableCard leftCard = null;

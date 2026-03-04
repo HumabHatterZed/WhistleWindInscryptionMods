@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod.Patches {
 
         internal static void RemoveInvalidCards(List<CardInfo> result) {
             result.RemoveAll(x => x.HasSpecialAbility(Mimicry.specialAbility)
-            || x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
+            || x.HasAnyOfAbilities(TheTrain.ID, TimeMachine.ID));
         }
     }
 

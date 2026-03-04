@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.WillDieFromSharp))]
         private static void AddExtraChecks(PlayableCard pc, CardSlot slot, ref bool __result) {
             if (!__result) {
-                __result = slot.Card.HasAbility(Punisher.ability) || (slot.Card.HasAbility(Reflector.ability) && pc.Attack >= pc.Health);
+                __result = slot.Card.HasAbility(Punisher.ID) || (slot.Card.HasAbility(Reflector.ID) && pc.Attack >= pc.Health);
             }
         }
     }

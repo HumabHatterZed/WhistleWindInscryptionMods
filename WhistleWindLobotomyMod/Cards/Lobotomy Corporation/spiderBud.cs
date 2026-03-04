@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 2, "A grotesque mother of spiders. Its children are small but grow quickly.")
                 .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(BroodMother.ability)
+                .AddAbilities(BroodMother.ID)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

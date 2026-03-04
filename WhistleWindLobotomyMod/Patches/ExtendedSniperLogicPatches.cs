@@ -102,7 +102,7 @@ namespace WhistleWindLobotomyMod.Patches {
         private static void CustomSniperTargets(ref List<CardSlot> __result, bool playerIsAttacker, CardSlot attackingSlot) {
             if (attackingSlot.Card.HasStatusEffect<Enchanted>(true)) // ensure Sniper cards are affected by Enchanted
             {
-                List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ability));
+                List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ID));
                 // if there's a target card that this card can hit
                 if (slots.Count > 0 && slots.Exists(x => !attackingSlot.Card.CanAttackDirectly(x))) {
                     __result = slots.FindAll(x => !attackingSlot.Card.CanAttackDirectly(x));
@@ -153,7 +153,7 @@ namespace WhistleWindLobotomyMod.Patches {
         }
         private static bool CanTargetFaceDown(CardSlot target, PlayableCard attackingCard) {
             if (target.Card != null && target.Card.FaceDown)
-                return attackingCard.HasAbility(Persistent.ability);
+                return attackingCard.HasAbility(Persistent.ID);
 
             return true;
         }

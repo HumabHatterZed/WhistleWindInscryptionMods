@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "[creature] cannot move or be moved from its current space on the board.";
             const string dialogue = "This beast is stubborn. It refuses to move.";
             const string triggerText = "[creature] digs in its heels!";
-            Unyielding.ability = AbnormalAbilityHelper.CreateAbility<Unyielding>(
+            Unyielding.ID = AbnormalAbilityHelper.CreateAbility<Unyielding>(
                 "sigilUnyielding",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: true, canStack: false)
@@ -22,8 +22,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] cannot move or be moved from its current space on the board.
     /// </summary>
     public class Unyielding : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public CardSlot homeSlot = null;
         public bool indicateStubbornness = true;
@@ -48,7 +48,7 @@ namespace WhistleWind.AbnormalSigils {
                 ability.Card.Anim.StrongNegationEffect();
             }
             else {
-                Unyielding behav = ability.Card.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == Unyielding.ability)?.Item2 as Unyielding;
+                Unyielding behav = ability.Card.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == Unyielding.ID)?.Item2 as Unyielding;
                 if (behav != null && behav.indicateStubbornness) {
                     behav.indicateStubbornness = false;
                     ability.Card.Anim.StrongNegationEffect();
@@ -65,7 +65,7 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public static bool CardCanBeMoved(PlayableCard card) {
-            return card.LacksAbility(Unyielding.ability) && card.LacksTrait(Trait.Giant);
+            return card.LacksAbility(Unyielding.ID) && card.LacksTrait(Trait.Giant);
         }
     }
 }

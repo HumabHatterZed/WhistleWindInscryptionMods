@@ -5,6 +5,7 @@
 
 ## v2.0.0 - Fear and Wonder: Termina ()
 ### 🧱 Structural
+- Ability classes now store Ability enum in variable 'ID' instead of 'ability' (eg. Assimilator.ability -> Assimilator.ID)
 - New Spell Card Toolkit is now a required dependency
 - Overhauled status effects
     - Renamed several fields and methods

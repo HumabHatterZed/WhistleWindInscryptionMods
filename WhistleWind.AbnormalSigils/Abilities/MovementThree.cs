@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -12,16 +13,14 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Third Movement: Accelerando";
             const string rulebookDescription = "All other creatures on the board gain 1 Power. At the start of the owner's next turn, begin the Fourth Movement: Stringendo.";
             const string triggerText = "The orchestra gives impetus to the music, bringing the entire world to its demise.";
-            MovementThree.ability = AbilityHelper.NewFiller<MovementThree>(
+            MovementThree.ID = AbilityHelper.NewFiller<MovementThree>(
                 pluginGuid, "sigilMovementThree", rulebookName, rulebookDescription)
-                .SetPart3Rulebook()
-                .SetMagnificusRulebook()
-                .SetGrimoraRulebook()
-                .SetAbilityRedirect("Stringendo", MovementFour.ability, Color.red)
-                .Info.SetAbilityLearnedDialogue(triggerText)
-                .SetGBCTriggerText(triggerText)
+                .SetAbilityRedirect("Stringendo", MovementFour.ID, Color.red)
                 .SetPassive(false)
                 .SetPowerlevel(5)
+                .ForceAddToRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
                 .ability;
         }
     }
@@ -29,9 +28,9 @@ namespace WhistleWind.AbnormalSigils {
     /// All other creatures on the board gain 1 Power. At the start of the owner's next turn, begin the Fourth Movement: Stringendo.
     /// </summary>
     public class MovementThree : ConductorMovementBase {
-        public static Ability ability;
-        public override Ability Ability => ability;
-        public override Ability NextMovement => MovementFour.ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
+        public override Ability NextMovement => MovementFour.ID;
 
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
             foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {

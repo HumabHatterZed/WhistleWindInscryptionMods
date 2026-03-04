@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] strikes a creature, it gains 1 Health, up to 2 above its maximum Health.";
             const string dialogue = "Accursed fiend.";
             const string triggerText = "[creature] satiates its thirst!";
-            Bloodfiend.ability = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
+            Bloodfiend.ID = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
                 "sigilBloodfiend",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] strikes a creature, it gains 1 Health, up to 2 above its maximum Health.
     /// </summary>
     public class Bloodfiend : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && base.Card.Health > 0 && !base.Card.Dead && target.LacksAllTraits(Trait.Terrain, Trait.Pelt);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {

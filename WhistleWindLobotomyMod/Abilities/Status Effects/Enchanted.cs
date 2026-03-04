@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 TextureLoader.LoadTextureFromFile("sigilEnchanted_pixel.png", LobotomyPlugin.ModAssembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
 
-            data.IconInfo.SetAbilityRedirect("Dazzling", Dazzling.ability, GameColors.Instance.gold);
+            data.IconInfo.SetAbilityRedirect("Dazzling", Dazzling.ID, GameColors.Instance.gold);
             Enchanted.specialAbility = data.Id;
             Enchanted.iconId = data.IconInfo.ability;
         }
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod {
         public override List<string> EffectDecalIds() => new();
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
-            return IsEnchanted && attacker == base.Card && target != null && target.HasAbility(Dazzling.ability);
+            return IsEnchanted && attacker == base.Card && target != null && target.HasAbility(Dazzling.ID);
         }
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => 0;
@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
-            List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ability));
+            List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ID));
 
             if (slots.Count <= 1)
                 return slots;

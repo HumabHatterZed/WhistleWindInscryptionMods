@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 3, desc)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Witness.ability)
+                .AddAbilities(Witness.ID)
                 .AddTribes(TribeDivine)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
 
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod {
                 .SetGemsCost(GemType.Orange)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Witness.ability)
+                .AddAbilities(Witness.ID)
                 .AddTribes(TribeDivine)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

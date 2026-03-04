@@ -29,12 +29,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntrySyrinx : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_Syrinx()
-            => RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
+            => RulebookEntrySyrinx.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
         private static void AddSpecial_Syrinx()
             => Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(LobotomyPlugin.pluginGuid, Syrinx.rName).Id;
     }

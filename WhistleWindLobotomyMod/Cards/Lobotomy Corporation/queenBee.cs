@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4, "A monstrous amalgam of a hive and a bee.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(QueenNest.ability)
+                .AddAbilities(QueenNest.ID)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

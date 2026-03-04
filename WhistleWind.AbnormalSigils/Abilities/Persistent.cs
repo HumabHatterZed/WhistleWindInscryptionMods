@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Opposing creatures cannot avoid or redirect attacks from this card.";
             const string dialogue = "Prey cannot hide so easily.";
             const string triggerText = "[creature] chases its prey down.";
-            Persistent.ability = AbnormalAbilityHelper.CreateAbility<Persistent>(
+            Persistent.ID = AbnormalAbilityHelper.CreateAbility<Persistent>(
                 "sigilPersistent",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Opposing creatures cannot avoid or redirect attacks from this card.
     /// </summary>
     public class Persistent : AbilityBehaviour, IOnPreSlotAttackSequence, IOnPostSlotAttackSequence {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public List<PlayableCard> previousTargets = new();
         public List<PlayableCard> currentTargets = new();

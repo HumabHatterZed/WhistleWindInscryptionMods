@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Damsel";
             const string rulebookDescription = "Cards adjacent to [creature] will redirect themselves to strike at the first card targeting this card.";
             const string dialogue = "The damsel demands warriors to destroy its tormentor.";
-            Damsel.ability = AbnormalAbilityHelper.CreateAbility<Damsel>(
+            Damsel.ID = AbnormalAbilityHelper.CreateAbility<Damsel>(
                 "sigilDamsel",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class Damsel : AbilityBehaviour, IOnPostSlotAttackSequence {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) {
             return base.Card.Slot.GetAdjacentSlots(true).Contains(attackingSlot);
@@ -52,7 +52,7 @@ namespace WhistleWind.AbnormalSigils {
         [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetOpposingSlots))]
         [HarmonyPriority(HarmonyLib.Priority.High)]
         private static void DamselOverrideOpposingSlot(PlayableCard __instance) {
-            PlayableCard damselCard = __instance.Slot.GetAdjacentCards().Find(x => x.HasAbility(Damsel.ability));
+            PlayableCard damselCard = __instance.Slot.GetAdjacentCards().Find(x => x.HasAbility(Damsel.ID));
             if (damselCard != null) {
                 AbnormalPlugin.Log.LogDebug("[DamselOverrideOpposingSlot] Damsel exists");
                 List<CardSlot> slots = Damsel.GetTormentorSlots(damselCard);

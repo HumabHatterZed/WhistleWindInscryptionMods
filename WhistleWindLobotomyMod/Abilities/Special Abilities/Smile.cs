@@ -51,12 +51,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntrySmile : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_Smile()
-            => RulebookEntrySmile.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
+            => RulebookEntrySmile.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
         private static void AddSpecial_Smile()
             => Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(LobotomyPlugin.pluginGuid, Smile.rName).Id;
     }

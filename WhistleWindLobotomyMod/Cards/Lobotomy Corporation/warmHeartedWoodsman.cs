@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 3, "A tin woodsman in search of a heart. Perhaps you can give him yours.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Woodcutter.ability)
+                .AddAbilities(Woodcutter.ID)
                 .AddTribes(TribeMechanical)
                 .AddTraits(EmeraldCity)
                 .SetOnePerDeck()

@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     decayStacks--;
                 }
                 for (int i = 0; i < decayStacks; i++) {
-                    mod.abilities.Add(StartingDecay.ability);
+                    mod.abilities.Add(StartingDecay.ID);
                 }
                 card.AddTemporaryMod(mod);
                 card.OnStatsChanged();

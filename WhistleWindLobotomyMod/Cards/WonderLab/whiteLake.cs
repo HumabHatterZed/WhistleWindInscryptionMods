@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 2, "A beautiful avian with a distate for those with great fortitude.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Damsel.ability)
+                .AddAbilities(Damsel.ID)
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

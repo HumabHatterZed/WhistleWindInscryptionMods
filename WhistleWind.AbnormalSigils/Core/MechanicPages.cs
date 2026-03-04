@@ -55,8 +55,8 @@ namespace WhistleWind.AbnormalSigils.Core {
 
         public static string ModifyMechanicDescription(string pageName, string originalDesc) {
             if (RuleBookPatches.CardForRuleBook != null) {
-                if (RuleBookPatches.CardForRuleBook.HasAbility(BitterEnemies.ability) && pageName == "Bitter Vendetta") {
-                    BitterEnemies com = RuleBookPatches.CardForRuleBook.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == BitterEnemies.ability)?.Item2 as BitterEnemies;
+                if (RuleBookPatches.CardForRuleBook.HasAbility(BitterEnemies.ID) && pageName == "Bitter Vendetta") {
+                    BitterEnemies com = RuleBookPatches.CardForRuleBook.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == BitterEnemies.ID)?.Item2 as BitterEnemies;
                     if (com != null && !string.IsNullOrEmpty(com.TargetName)) {
                         string displayName = com.TargetDisplayedName ?? "[nameless]";
                         string ending;

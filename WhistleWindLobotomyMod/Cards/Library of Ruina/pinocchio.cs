@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1, "A wooden doll that mimics the beasts it encounters. Can you see through its lie?")
                 .SetBonesCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Copycat.ability)
+                .AddAbilities(Copycat.ID)
                 .AddTribes(TribeBotanic)
                 .AddMetaCategories(RuinaCard)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

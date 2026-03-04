@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Stress Response";
             const string rulebookDescription = "When this card is struck by an ally or while at or below half Health, its next attack gains 1 Power. These effects stack with each other.";
             const string dialogue = "A final show of force.";
-            StressResponse.ability = AbnormalAbilityHelper.CreateAbility<StressResponse>(
+            StressResponse.ID = AbnormalAbilityHelper.CreateAbility<StressResponse>(
                 "sigilStressResponse",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: true, opponent: true, canStack: false)
@@ -20,9 +20,9 @@ namespace WhistleWind.AbnormalSigils {
     /// When this card is struck by an ally or while at or below half Health, its next attack gains 1 Power. These effects stack with each other.
     /// </summary>
     public class StressResponse : AbilityBehaviour, IPassiveAttackBuff {
-        public static Ability ability;
-        public override Ability Ability => ability;
-        private bool empowerNextAttack;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
+
         private bool attackedByAlly;
 
         public override bool RespondsToTakeDamage(PlayableCard source) => source != null && base.Card.Health > 0 && !base.Card.Dead;
@@ -30,7 +30,6 @@ namespace WhistleWind.AbnormalSigils {
             if (source.OpponentCard == base.Card.OpponentCard) {
                 attackedByAlly = true;
             }
-            bool halfHealth = (float)base.Card.Health / base.Card.MaxHealth <= 0.5f;
 
             yield return base.PreSuccessfulTriggerSequence();
 

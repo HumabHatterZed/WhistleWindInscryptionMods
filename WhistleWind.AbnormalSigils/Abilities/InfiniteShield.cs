@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_InfiniteShield() {
             const string rulebookName = "Unbreakable Defence";
             const string rulebookDescription = "[creature] cannot be damaged. When this card is struck, all cards behave as if this card took damage.";
-            InfiniteShield.ability = AbnormalAbilityHelper.CreateAbility<InfiniteShield>(
+            InfiniteShield.ID = AbnormalAbilityHelper.CreateAbility<InfiniteShield>(
                 "sigilInfiniteShield",
                 rulebookName, rulebookDescription, powerLevel: 5,
                 modular: false, opponent: false, canStack: false)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class InfiniteShield : AbilityBehaviour, IShieldPreventedDamage {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => target == base.Card;
         public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
@@ -47,7 +47,7 @@ namespace WhistleWind.AbnormalSigils {
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.HasShield))]
         private static void InfiniteShields(PlayableCard __instance, ref bool __result) {
-            if (__instance != null && __instance.HasAbility(ability)) {
+            if (__instance != null && __instance.HasAbility(ID)) {
                 __result = true;
             }
         }

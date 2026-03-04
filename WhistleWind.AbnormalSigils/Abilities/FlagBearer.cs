@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "While this card is on the board, adjacent creatures gain 2 Health.";
             const string dialogue = "Morale runs high.";
 
-            FlagBearer.ability = AbnormalAbilityHelper.CreateAbility<FlagBearer>(
+            FlagBearer.ID = AbnormalAbilityHelper.CreateAbility<FlagBearer>(
                 "sigilFlagBearer",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: true)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// While this card is on the board, adjacent creatures gain 2 Health.
     /// </summary>
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
         public override bool RespondsToResolveOnBoard() => base.Card.Slot.GetAdjacentCards().Count > 0;
@@ -40,8 +40,8 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);
 
         public int GetPassiveHealthBuff(PlayableCard target) {
-            if (this.Card.OnBoard)
-                return target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(ability)) ? 2 : 0;
+            if (base.Card.OnBoard && target.OpponentCard == base.Card.OpponentCard)
+                return target.Slot.GetAdjacentCards().Contains(base.Card) ? 2 : 0;
 
             return 0;
         }

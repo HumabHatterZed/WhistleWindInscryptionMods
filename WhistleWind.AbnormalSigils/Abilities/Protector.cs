@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Creatures adjacent to [creature] take 1 less damage when struck.";
             const string dialogue = "Your beast shields its ally against the blow.";
             const string triggerText = "[creature] shields its friend!";
-            Protector.ability = AbnormalAbilityHelper.CreateAbility<Protector>(
+            Protector.ID = AbnormalAbilityHelper.CreateAbility<Protector>(
                 "sigilProtector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Creatures adjacent to [creature] take 1 less damage when struck.
     /// </summary>
     public class Protector : AbilityBehaviour, IModifyDamageTaken {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target) {
             // only respond if the target hasn't died
@@ -41,7 +41,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
             if (base.Card.OnBoard && damage > 0 && base.Card.Slot.GetAdjacentCards().Contains(target))
-                return attacker == null || attacker.LacksAbility(Piercing.ability);
+                return attacker == null || attacker.LacksAbility(Piercing.ID);
 
             return false;
         }

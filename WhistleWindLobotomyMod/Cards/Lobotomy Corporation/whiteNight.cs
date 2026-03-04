@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 66, "The time has come.")
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTitle(LobotomyPlugin.ModAssembly, "whiteNight_title.png")
-                .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
+                .AddAbilities(Ability.Flying, Idol.ID, TrueSaviour.ID)
                 .AddTribes(TribeDivine)
                 .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable)
                 .AddAppearances(ForcedWhiteEmission.appearance, CardAppearanceBehaviour.Appearance.TerrainLayout)

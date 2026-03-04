@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 2, desc)
                 .SetBonesCost(7)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Persistent.ability, ActivatedSniper.ability)
+                .AddAbilities(Persistent.ID, ActivatedSniper.ID)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName("Der Ältere Freischütz")
                 .SetOnePerDeck()
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod {
                 .SetGemsCost(GemType.Orange, GemType.Orange)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(ActivatedSniper.ability)
+                .AddAbilities(ActivatedSniper.ID)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName("Der Ältere Freischütz")
                 .Build(CardHelper.CardType.Rare, RiskLevel.He, true);

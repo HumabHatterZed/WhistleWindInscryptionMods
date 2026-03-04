@@ -79,7 +79,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahGebura, "Gebura",
                 attack: 2, health: 3, "Though not as strong as she once was, she will still make for a powerful ally.")
                 .SetBloodCost(2)
-                .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
+                .AddAbilities(Ability.GainAttackOnKill, Persistent.ID)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 4, "Its eyes light up the darkness like stars.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Cycler.ability)
+                .AddAbilities(Cycler.ID)
                 .AddSpecialAbilities(ThreeBirds.specialAbility)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest)

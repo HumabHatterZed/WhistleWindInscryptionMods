@@ -14,13 +14,13 @@ namespace WhistleWindLobotomyMod {
             info.powerLevel = 5;
             info.passive = true;
 
-            Tower.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Tower), TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
+            Tower.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Tower), TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
             info.SetUniqueRedirect("Light of the End", "wstl:Ordeals_Light of the End", Color.green);
         }
     }
 
     public class Tower : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
 }

@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -12,16 +13,14 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Finale";
             const string rulebookDescription = "All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, remove this card from the board.";
             const string triggerText = "The performance does not end. And Da capo. And Da capo al Fine.";
-            MovementFive.ability = AbilityHelper.NewFiller<MovementFive>(
+            MovementFive.ID = AbilityHelper.NewFiller<MovementFive>(
                 pluginGuid, "sigilMovementFive", rulebookName, rulebookDescription)
-                .SetPart3Rulebook()
-                .SetMagnificusRulebook()
-                .SetGrimoraRulebook()
+                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed)
+                .SetPassive(false)
+                .SetPowerlevel(3)
+                .ForceAddToRulebook()
                 .Info.SetAbilityLearnedDialogue(triggerText)
                 .SetGBCTriggerText(triggerText)
-                .SetPassive(false)
-                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed)
-                .SetPowerlevel(5)
                 .ability;
         }
     }
@@ -29,8 +28,8 @@ namespace WhistleWind.AbnormalSigils {
     /// All other creatures on the board gain 3 Power and Fervent Adoration. At the start of the owner's next turn, this card will perish.
     /// </summary>
     public class MovementFive : MovementFour {
-        public new static Ability ability;
-        public override Ability Ability => ability;
+        public new static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override Ability NextMovement => Ability.None;
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
             yield return base.PreSuccessfulTriggerSequence();

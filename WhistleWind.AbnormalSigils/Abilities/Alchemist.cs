@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Pay 2 Energy to discard your current hand and draw cards equal to the amount discarded. If the main pile is exhausted, draw from the side pile.";
             const string dialogue = "The unending faith of countless promises.";
             const string triggerText = "[creature] replaces your hand with a new one!";
-            Alchemist.ability = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
+            Alchemist.ID = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
                 "sigilAlchemist",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
                 .Id;
@@ -22,8 +22,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Pay 2 Energy to discard your current hand and draw cards equal to the amount discarded. If the main pile is exhausted, draw from the side pile.
     /// </summary>
     public class Alchemist : ExtendedActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int StartingEnergyCost => 2;
 
         public override bool CanActivate() {

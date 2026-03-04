@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 3, "A bird that longs for the thrill of being hunted.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Scorching.ability, Ability.Flying)
+                .AddAbilities(Scorching.ID, Ability.Flying)
                 .AddTribes(Tribe.Bird)
                 .SetDefaultEvolutionName("The Grand Firebird")
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

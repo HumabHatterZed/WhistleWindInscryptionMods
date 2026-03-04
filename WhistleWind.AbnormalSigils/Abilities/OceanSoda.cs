@@ -6,7 +6,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_OceanSoda() {
             const string rulebookName = "Ocean Soda";
             const string rulebookDescription = "The selected card will become Waterborne for 3 turns.";
-            OceanSoda.ability = AbnormalAbilityHelper.CreateAbility<OceanSoda>(
+            OceanSoda.ID = AbnormalAbilityHelper.CreateAbility<OceanSoda>(
                 "sigilOceanSoda",
                 rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
@@ -20,8 +20,8 @@ namespace WhistleWind.AbnormalSigils {
         public const Ability abilityToAdd = Ability.Submerge;
         public const string id = "OceanSoda";
 
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override string SingletonId => id;
         public override Ability AbilityToAdd => abilityToAdd;
         public override SpecialTriggeredAbility StatusEffectId => OceanSodaEffect.specialAbility;

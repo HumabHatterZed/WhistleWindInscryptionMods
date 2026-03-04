@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4, "This portrait captures a moment, one we're destined to lose.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Reflector.ability)
+                .AddAbilities(Reflector.ID)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }

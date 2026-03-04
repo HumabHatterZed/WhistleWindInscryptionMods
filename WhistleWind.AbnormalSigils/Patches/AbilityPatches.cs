@@ -32,11 +32,11 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
         private static bool PreventOverkillDamage(CardSlot attackingSlot, CardSlot opposingSlot) {
-            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Ethereal.ability)) {
+            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Ethereal.ID)) {
                 return false;
             }
             PlayableCard card = BoardManager.Instance.GetCardQueuedForSlot(opposingSlot);
-            if (card != null && card.HasAnyOfAbilities(Ethereal.ability, Shadowed.ability)) {
+            if (card != null && card.HasAnyOfAbilities(Ethereal.ID, Shadowed.ID)) {
                 return false;
             }
             return true;
@@ -57,7 +57,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
         [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Attack), MethodType.Getter)]
         private static bool NeuteredAttacked(PlayableCard __instance, ref int __result) {
-            if (__instance.HasAbility(Neutered.ability)) {
+            if (__instance.HasAbility(Neutered.ID)) {
                 __result = 0;
                 return false;
             }
@@ -76,7 +76,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
                 return;
             }
 
-            __result[0].abilities.Remove(DeathPenalty.ability);
+            __result[0].abilities.Remove(DeathPenalty.ID);
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(ExplodeOnDeath), nameof(ExplodeOnDeath.BombCard))]

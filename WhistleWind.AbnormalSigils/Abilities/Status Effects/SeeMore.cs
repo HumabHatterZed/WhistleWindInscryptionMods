@@ -13,12 +13,12 @@ namespace WhistleWind.AbnormalSigils {
                 .Info.SetPassive(false).SetActivated().SetCanStack().SetHasColorOverride(true, GameColors.Instance.nearBlack);
             info.metaCategories.Clear();
 
-            SeeMore.ability = info.ability;
+            SeeMore.ID = info.ability;
         }
     }
     public class SeeMore : ActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public List<Ability> RunOffAbilities = new();
 

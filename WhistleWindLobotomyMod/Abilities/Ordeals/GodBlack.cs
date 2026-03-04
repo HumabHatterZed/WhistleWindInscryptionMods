@@ -17,15 +17,15 @@ namespace WhistleWindLobotomyMod {
             info.rulebookDescription = "Activate: Launch a Spike through each lane. At half Health (once): Launch a Purple Spike through this card's lane.";
             info.powerLevel = 5;
 
-            GodBlack.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodBlack), TextureLoader.LoadTextureFromFile("sigilGodBlack.png"))
+            GodBlack.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodBlack), TextureLoader.LoadTextureFromFile("sigilGodBlack.png"))
                 .SetUniqueRedirect("Spike", "wstl:Ordeals_Purple Spike", GameColors.Instance.purple)
                 .Id;
         }
     }
 
     public class GodBlack : GodColourAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private PlayableCard dummyCard = null;
         private readonly List<Animator> spikeAnims = new();
@@ -106,7 +106,7 @@ namespace WhistleWindLobotomyMod {
 
             CardInfo info = ScriptableObject.CreateInstance<CardInfo>();
             info.baseHealth = 9999;
-            info.AddAbilities(Driver.ability, Piercing.ability);
+            info.AddAbilities(Driver.ID, Piercing.ID);
             info.AddTraits(Trait.Uncuttable, Trait.Structure, AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments);
             dummyCard = CardSpawner.SpawnPlayableCard(info);
             dummyCard.name = "BlackSpikeDummyCard";

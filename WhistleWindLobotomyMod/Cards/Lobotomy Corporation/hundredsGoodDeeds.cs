@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, hundredsGoodDeeds, oneSinName,
                 attack: 0, health: 77)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName, "hundredsGoodDeeds_emission.png", "hundredsGoodDeeds_pixel.png")
-                .AddAbilities(Confession.ability)
+                .AddAbilities(Confession.ID)
                 .AddTraits(Trait.Uncuttable, Apostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .SetHideStats()

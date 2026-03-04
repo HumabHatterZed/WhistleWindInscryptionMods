@@ -22,15 +22,15 @@ namespace WhistleWind.AbnormalSigils {
                 modular: false, opponent: true, canStack: false);
 
             ab.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilExplosiveOpening_flipped.png"));
-            ExplosiveOpening.ability = ab.Id;
+            ExplosiveOpening.ID = ab.Id;
         }
     }
     /// <summary>
     /// When this card is played, adjacent and opposing cards are dealt 10 damage.
     /// </summary>
     public class ExplosiveOpening : ExplodeOnDeath {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToPreDeathAnimation(bool wasSacrifice) => false;

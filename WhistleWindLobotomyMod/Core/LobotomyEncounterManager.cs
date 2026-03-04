@@ -87,7 +87,7 @@ namespace WhistleWindLobotomyMod.Core {
                 .SetDifficulty(5, 10)
                 .AddDominantTribes(Tribe.Insect)
                 .AddRandomReplacementCards(Cards.meatLantern, Cards.youMustBeHappy)
-                .SetRedundantAbilities(QueenNest.ability)
+                .SetRedundantAbilities(QueenNest.ID)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.queenBee), workerBee),
                     CreateTurn(workerBee),
@@ -101,7 +101,7 @@ namespace WhistleWindLobotomyMod.Core {
             Build(New("StrangeCreatures1")
                 .SetDifficulty(5, 10)
                 .AddDominantTribes(AbnormalPlugin.TribeFae)
-                .SetRedundantAbilities(Ability.Flying, Punisher.ability)
+                .SetRedundantAbilities(Ability.Flying, Punisher.ID)
                 .AddRandomReplacementCards(Cards.voidDream, Cards.heartOfAspiration, Cards.fairyFestival)
                 .AddTurns(
                 CreateTurn(EmptyBlueprint(Cards.magicalGirlHeart, 8)),
@@ -114,7 +114,7 @@ namespace WhistleWindLobotomyMod.Core {
                 ), regions: 1);
             Build(New("WormsNest")
                 .SetDifficulty(6, 10)
-                .SetRedundantAbilities(SerpentsNest.ability)
+                .SetRedundantAbilities(SerpentsNest.ID)
                 .AddDominantTribes(Tribe.Insect)
                 .AddRandomReplacementCards(Cards.voidDream, Cards.burrowingHeaven, Cards.oldLady, Cards.heartOfAspiration)
                 .AddTurns(
@@ -147,7 +147,7 @@ namespace WhistleWindLobotomyMod.Core {
             Build(New("StrangeFish")
                 .SetDifficulty(6, 14)
                 .AddDominantTribes(Tribe.Bird)
-                .SetRedundantAbilities(Ability.Submerge, Ability.WhackAMole, Ability.TailOnHit, Ability.Sharp, Punisher.ability)
+                .SetRedundantAbilities(Ability.Submerge, Ability.WhackAMole, Ability.TailOnHit, Ability.Sharp, Punisher.ID)
                 .AddRandomReplacementCards(Cards.voidDream, Cards.punishingBird, Cards.runawayBird_mook)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.canOfWellCheers, 25), NewCardBlueprint(Cards.magicalGirlDiamond)),
@@ -203,7 +203,7 @@ namespace WhistleWindLobotomyMod.Core {
             Build(New("SpidersNest")
                 .SetDifficulty(11, 14)
                 .AddDominantTribes(Tribe.Insect)
-                .SetRedundantAbilities(BroodMother.ability)
+                .SetRedundantAbilities(BroodMother.ID)
                 .AddRandomReplacementCards(Cards.redShoes, Cards.fleshIdol, Cards.ppodaeBuff, Cards.voidDream)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.spiderBud), spiderBrood),
@@ -243,7 +243,7 @@ namespace WhistleWindLobotomyMod.Core {
                 ), regions: 2);
             Build(New("SwanJuggernaut")
                 .SetDifficulty(11, 14)
-                .SetRedundantAbilities(Ability.WhackAMole, Ability.Sharp, Reflector.ability, Nettles.ability)
+                .SetRedundantAbilities(Ability.WhackAMole, Ability.Sharp, Reflector.ID, Nettles.ID)
                 .AddDominantTribes(Tribe.Bird)
                 .AddRandomReplacementCards(Cards.forestKeeper_mook, Cards.runawayBird_mook, Cards.allAroundHelper)
                 .AddTurns(
@@ -278,7 +278,7 @@ namespace WhistleWindLobotomyMod.Core {
                 .SetDifficulty(1, 20)
                 .AddDominantTribes(AbnormalPlugin.TribeFae)
                 .AddRandomReplacementCards(Cards.fairyFestival, Cards.wisdomScarecrow)
-                .SetRedundantAbilities(Bloodfiend.ability, OneSided.ability)
+                .SetRedundantAbilities(Bloodfiend.ID, OneSided.ID)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.nosferatu, 10, true, 15, Cards.nosferatuBeast)),
                     CreateTurn(NewCardBlueprint(Cards.magicalGirlDiamond, 40, true, 11, null)),
@@ -294,7 +294,7 @@ namespace WhistleWindLobotomyMod.Core {
                 .SetDifficulty(1, 20)
                 .AddDominantTribes(AbnormalPlugin.TribeMechanical)
                 .AddRandomReplacementCards(Cards.schadenfreude, Cards.doubtA, Cards.doubtB)
-                .SetRedundantAbilities(Ability.Sentry, Ability.Strafe, Punisher.ability, Woodcutter.ability)
+                .SetRedundantAbilities(Ability.Sentry, Ability.Strafe, Punisher.ID, Woodcutter.ID)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.schadenfreude, 10, true, 14, Cards.warmHeartedWoodsman)),
                     CreateTurn(),
@@ -313,7 +313,7 @@ namespace WhistleWindLobotomyMod.Core {
                 .SetDifficulty(4, 7)
                 .AddDominantTribes(AbnormalPlugin.TribeBotanic)
                 .AddRandomReplacementCards(Cards.porccubus, Cards.fragmentOfUniverse, Cards.ppodae)
-                .SetRedundantAbilities(Bloodfiend.ability, Roots.ability, Ability.Sharp, Ability.Deathtouch)
+                .SetRedundantAbilities(Bloodfiend.ID, Roots.ID, Ability.Sharp, Ability.Deathtouch)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint(Cards.rudoltaSleigh_mule), NewCardBlueprint(Cards.wisdomScarecrow)),
                     CreateTurn(),

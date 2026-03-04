@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 3, desc)
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Courageous.ability)
+                .AddAbilities(Courageous.ID)
                 .SetTerrain(true)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
 
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(4)
                 .SetCardTemple(CardTemple.Undead)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Courageous.ability)
+                .AddAbilities(Courageous.ID)
                 .SetTerrain(true)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth);
         }

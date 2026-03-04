@@ -78,7 +78,7 @@ namespace WhistleWindLobotomyMod.Patches {
 
             foreach (CardInfo card in RunState.Run.playerDeck.Cards) {
                 if (card.DefaultAbilities.Count < 5) {
-                    RunState.Run.playerDeck.ModifyCard(card, new(DeathPenalty.ability));
+                    RunState.Run.playerDeck.ModifyCard(card, new(DeathPenalty.ID));
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace WhistleWindLobotomyMod.Patches {
                 }
 
                 if (SaveFile.IsAscension && AscensionSaveData.Data.ChallengeIsActive(SoulboundCards.Id) && card.DefaultAbilities.Count < 4) {
-                    card.Mods.Add(new(DeathPenalty.ability));
+                    card.Mods.Add(new(DeathPenalty.ID));
                 }
             }
 

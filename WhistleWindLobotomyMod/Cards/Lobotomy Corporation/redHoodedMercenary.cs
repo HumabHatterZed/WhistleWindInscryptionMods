@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, desc)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(ActivatedSniper.ability)
+                .AddAbilities(ActivatedSniper.ID)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName(name2)

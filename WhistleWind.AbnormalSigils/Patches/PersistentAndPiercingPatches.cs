@@ -16,14 +16,14 @@ namespace WhistleWind.AbnormalSigils.Patches {
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanAttackDirectly))]
         private static void CanAttackDirectlyPatch(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
             // Ethereal cards always hit directly
-            if (__instance.HasAbility(Ethereal.ability)) {
+            if (__instance.HasAbility(Ethereal.ID)) {
                 __result = true;
                 return;
             }
 
             if (opposingSlot.Card != null) {
                 // Ethereal cards cannot be hit
-                if (opposingSlot.Card.HasAbility(Ethereal.ability)) {
+                if (opposingSlot.Card.HasAbility(Ethereal.ID)) {
                     __result = true;
                     return;
                 }
@@ -32,11 +32,11 @@ namespace WhistleWind.AbnormalSigils.Patches {
                 if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach)) {
                     // piercing can always hit face down cards
                     if (opposingSlot.Card.FaceDown) {
-                        if (__instance.HasAbility(Piercing.ability)) {
+                        if (__instance.HasAbility(Piercing.ID)) {
                             __result = false;
                         }
                     }
-                    else if (__instance.HasAbility(Persistent.ability)) {
+                    else if (__instance.HasAbility(Persistent.ID)) {
                         __result = false;
                     }
                 }
@@ -45,14 +45,14 @@ namespace WhistleWind.AbnormalSigils.Patches {
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.AttackIsBlocked))]
         private static void PersistentIgnoresRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result) {
-            if (__instance.HasAbility(Persistent.ability))
+            if (__instance.HasAbility(Persistent.ID))
                 __result = false;
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
         private static bool PerformPersistenceAttack(CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot, float waitAfter, ref IEnumerator __result) {
             // both opposing and attacker cards must exist
-            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Persistent.ability)
+            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Persistent.ID)
                 && AbnormalAbilityHelper.SimulatePersistentAttack(attackingSlot.Card, opposingSlot.Card)) {
                 __result = PersistentSlotAttackSlot(__instance, attackingSlot, opposingSlot, waitAfter);
                 return false;

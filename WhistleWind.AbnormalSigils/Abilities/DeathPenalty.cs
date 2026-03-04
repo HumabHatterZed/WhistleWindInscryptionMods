@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Death Penalty";
             const string rulebookDescription = "When [creature] is killed, its owner takes 1 damage.";
             const string dialogue = "Pay better care to your beasts.";
-            DeathPenalty.ability = AbnormalAbilityHelper.CreateAbility<DeathPenalty>(
+            DeathPenalty.ID = AbnormalAbilityHelper.CreateAbility<DeathPenalty>(
                 "sigilDeathPenalty",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: true)
@@ -20,8 +20,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is killed, its owner takes 1 damage.
     /// </summary>
     public class DeathPenalty : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {

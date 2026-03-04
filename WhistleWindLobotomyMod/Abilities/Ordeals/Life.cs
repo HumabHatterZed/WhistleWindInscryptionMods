@@ -13,21 +13,21 @@ namespace WhistleWindLobotomyMod {
             info.rulebookName = "Life";
             info.rulebookDescription = "When this card is played, create 2 random Doubts or Processes of Understanding on the owner's side of the board. After two turns, return to the queue.";
             info.powerLevel = 4;
-            Life.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
+            Life.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
         }
     }
     /// <summary>
     /// When this card is played, create 2 random Doubts or Processes of Understanding on the owner's side of the board. After two turns, return to the queue.
     /// </summary>
     public class Life : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private Texture life2 = null;
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
             life2 ??= TextureLoader.LoadTextureFromFile("sigilLife_2.png");
-            base.Card.RenderInfo.OverrideAbilityIcon(Life.ability, life2);
+            base.Card.RenderInfo.OverrideAbilityIcon(Life.ID, life2);
             base.Card.RenderCard();
             yield return SummonCards();
 
@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod {
                 yield return TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f);
             }
             else {
-                base.Card.RenderInfo.OverrideAbilityIcon(Life.ability, AbilityManager.AllAbilities.AbilityByID(ability).Texture);
+                base.Card.RenderInfo.OverrideAbilityIcon(Life.ID, AbilityManager.AllAbilities.AbilityByID(ID).Texture);
                 base.Card.RenderCard();
             }
             yield return new WaitForSeconds(0.5f);

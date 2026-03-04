@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 1)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(BindingStrike.ability, Piercing.ability)
+                .AddAbilities(BindingStrike.ID, Piercing.ID)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 1)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(BindingStrike.ability)
+                .AddAbilities(BindingStrike.ID)
                 .AddTribes(Tribe.Bird)
                 .Build();
 
@@ -64,7 +64,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
-                .AddAbilities(HighStrung.ability, Persistent.ability)
+                .AddAbilities(HighStrung.ID, Persistent.ID)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .AddTraits(PriorityMovement)
@@ -73,7 +73,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
-                .AddAbilities(HighStrung.ability)
+                .AddAbilities(HighStrung.ID)
                 .AddTribes(Tribe.Bird)
                 .Build();
         }

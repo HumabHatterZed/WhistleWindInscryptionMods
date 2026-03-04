@@ -17,8 +17,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.
     /// </summary>
     public class ReturnCard : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter) {
             PlayableCard card = slot.Card;
@@ -104,7 +104,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_ReturnCard() {
             const string rulebookName = "Recall Creature";
             const string rulebookDescription = "Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.";
-            ReturnCard.ability = AbnormalAbilityHelper.CreateAbility<ReturnCard>(
+            ReturnCard.ID = AbnormalAbilityHelper.CreateAbility<ReturnCard>(
                 "sigilReturnCard", rulebookName, rulebookDescription,
                 null, powerLevel: 0, canStack: false).Id;
         }

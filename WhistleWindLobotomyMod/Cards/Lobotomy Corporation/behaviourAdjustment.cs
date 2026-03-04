@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1, "A device that corrects errant beasts, though not always how you expect.")
                 .SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Corrector.ability)
+                .AddAbilities(Corrector.ID)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(3)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Corrector.ability)
+                .AddAbilities(Corrector.ID)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

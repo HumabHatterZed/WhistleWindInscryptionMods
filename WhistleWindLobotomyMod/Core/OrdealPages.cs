@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
                 .SetAbilityRedirect("Sinking", Sinking.iconId, GameColors.Instance.seafoam);
 
             RuleBookPageInfo spike = CreateNewPage("Purple Spike", "Pierce through the opposing space in this lane, dealing [X] damage to any occupying card. Damage dealt increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodBlack_rulebook.png", asm: LobotomyPlugin.ModAssembly))
-                .SetAbilityRedirect("Pierce", Piercing.ability, GameColors.Instance.fuschia);
+                .SetAbilityRedirect("Pierce", Piercing.ID, GameColors.Instance.fuschia);
 
             CreateNewPage("Pale Eye", "While visible: at the end of every turn, the card under the Eye's gaze will lose 1/[X] their current Health, rounded up and ignoring sigils. Health lost increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodPale_rulebook.png", asm: LobotomyPlugin.ModAssembly));
 

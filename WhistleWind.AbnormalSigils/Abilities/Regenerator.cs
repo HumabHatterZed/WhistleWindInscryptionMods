@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the start of the owner's turn, creatures adjacent to [creature] regain 1 Health.";
             const string dialogue = "Wounds heal, but the scars remain.";
             const string triggerText = "[creature] heals adjacent creatures.";
-            Regenerator.ability = AbnormalAbilityHelper.CreateAbility<Regenerator>(
+            Regenerator.ID = AbnormalAbilityHelper.CreateAbility<Regenerator>(
                 "sigilRegenerator",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: false, canStack: true)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the start of the owner's turn, creatures adjacent to [creature] regain 1 Health.
     /// </summary>
     public class Regenerator : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             yield return HelperMethods.ChangeCurrentView(View.Board);

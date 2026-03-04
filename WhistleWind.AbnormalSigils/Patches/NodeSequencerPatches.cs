@@ -26,18 +26,18 @@ namespace WhistleWind.AbnormalSigils {
 
         private static void RemoveIncompatibleMergeCandidates(CardInfo candidate, List<CardInfo> results) {
             if (candidate.HasAbility(Ability.Sniper)) {
-                results.RemoveAll(x => x.HasAbility(ActivatedSniper.ability));
+                results.RemoveAll(x => x.HasAbility(ActivatedSniper.ID));
             }
-            if (candidate.HasAbility(ActivatedSniper.ability)) {
+            if (candidate.HasAbility(ActivatedSniper.ID)) {
                 results.RemoveAll(x => x.HasAbility(Ability.Sniper));
             }
-            if (candidate.HasAbility(Lonely.ability)) {
+            if (candidate.HasAbility(Lonely.ID)) {
                 results.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
             }
             if (candidate.HasAbility(Ability.DrawCopyOnDeath)) {
-                results.RemoveAll(x => x.HasAbility(UnkillableWeak.ability));
+                results.RemoveAll(x => x.HasAbility(UnkillableWeak.ID));
             }
-            if (candidate.HasAbility(UnkillableWeak.ability)) {
+            if (candidate.HasAbility(UnkillableWeak.ID)) {
                 results.RemoveAll(x => x.HasAbility(Ability.DrawCopyOnDeath));
             }
         }

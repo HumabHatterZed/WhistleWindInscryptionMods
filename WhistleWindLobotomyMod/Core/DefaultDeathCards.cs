@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.Chief, 5, 2),
                 new CardModificationInfo(3, 2)
                     .SetNameReplacement("Noah").SetSingletonId("wstl_noah")
-                    .SetBonesCost(3).AddAbilities(Bloodfiend.ability)
+                    .SetBonesCost(3).AddAbilities(Bloodfiend.ID)
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.Prospector, 1, 4)
             };
             List<CardModificationInfo> ascensionMods = new()
@@ -45,11 +45,11 @@ namespace WhistleWindLobotomyMod {
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.SettlerWoman, 2, 2),
                 new CardModificationInfo(2, 5)
                     .SetNameReplacement("Genie").SetSingletonId("wstl_genie")
-                    .SetBloodCost(3).AddAbilities(Assimilator.ability)
+                    .SetBloodCost(3).AddAbilities(Assimilator.ID)
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.Robot, 2, 5),
                 new CardModificationInfo(4, 2)
                     .SetNameReplacement("Mao").SetSingletonId("wstl_mao")
-                    .SetBloodCost(3).AddAbilities(Woodcutter.ability)
+                    .SetBloodCost(3).AddAbilities(Woodcutter.ID)
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.Gravedigger, 0, 3),
                 new CardModificationInfo(1, 2)
                     .SetNameReplacement("Evangeline").SetSingletonId("wstl_evangeline")
@@ -57,7 +57,7 @@ namespace WhistleWindLobotomyMod {
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.Wildling, 3, 0),
                 new CardModificationInfo(1, 1)
                     .SetNameReplacement("Ttungsil").SetSingletonId("wstl_ttungsil")
-                    .SetBonesCost(2).AddAbilities(BitterEnemies.ability)
+                    .SetBonesCost(2).AddAbilities(BitterEnemies.ID)
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.SettlerMan, 4, 4),
                 new CardModificationInfo(2, 2)
                     .SetNameReplacement("Mabel").SetSingletonId("wstl_mabel")

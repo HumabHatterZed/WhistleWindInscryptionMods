@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Understanding";
             const string rulebookDescription = "If [creature] perishes due to self-inflicted damage, deal 4 damage to opposing cards and directly to their owner.";
             const string dialogue = "Too slow.";
-            Understanding.ability = AbnormalAbilityHelper.CreateAbility<Understanding>(
+            Understanding.ID = AbnormalAbilityHelper.CreateAbility<Understanding>(
                 "sigilUnderstanding",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
@@ -20,8 +20,8 @@ namespace WhistleWind.AbnormalSigils {
     /// If [creature] perishes due to self-inflicted damage, deal 4 damage to opposing cards and directly to their owner.
     /// </summary>
     public class Understanding : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => killer == base.Card;
 

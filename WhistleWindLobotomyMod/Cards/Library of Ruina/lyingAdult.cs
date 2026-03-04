@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 3, health: 3)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(FalseThrone.ability)
+                .AddAbilities(FalseThrone.ID)
                 .AddSpecialAbilities(BoardEffects.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .AddAppearances(ForcedWhiteEmission.appearance)

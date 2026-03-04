@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "mountainOfBodies3";
             string textureName2 = "mountainOfBodies2";
             string textureName3 = "mountainOfBodies";
-            Ability[] abilities = new[] { Assimilator.ability };
+            Ability[] abilities = new[] { Assimilator.ID };
             SpecialTriggeredAbility[] specialAbilities = new[] { Smile.specialAbility };
 
             CardManager.New(LobotomyPlugin.pluginPrefix, mountainOfBodies3, displayName: mountainName,

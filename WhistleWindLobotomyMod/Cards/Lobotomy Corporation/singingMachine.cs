@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4, desc)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(TeamLeader.ability, Aggravating.ability)
+                .AddAbilities(TeamLeader.ID, Aggravating.ID)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Orchestral)
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(1)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(TeamLeader.ability, Aggravating.ability)
+                .AddAbilities(TeamLeader.ID, Aggravating.ID)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Orchestral)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

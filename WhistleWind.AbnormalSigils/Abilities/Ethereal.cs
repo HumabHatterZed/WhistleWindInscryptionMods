@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_Ethereal() {
             const string rulebookName = "Ethereal";
             const string rulebookDescription = "[creature] cannot be damaged indirectly, and attacks from or towards this card will always strike directly instead.";
-            Ethereal.ability = AbnormalAbilityHelper.CreateAbility<Ethereal>(
+            Ethereal.ID = AbnormalAbilityHelper.CreateAbility<Ethereal>(
                 "sigilEthereal",
                 rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
@@ -21,16 +21,16 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class Ethereal : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
         private static IEnumerator PreventDamageFromIndirectSources(IEnumerator result, PlayableCard __instance, int damage, PlayableCard attacker) {
             // allow for hammer usage (hammer deals 100 damage flat, but we want to account for damage reduction
-            if (__instance.HasAbility(ability) && (attacker != null || damage < 90)) {
+            if (__instance.HasAbility(ID) && (attacker != null || damage < 90)) {
                 yield break;
             }
-            if (attacker != null && attacker.HasAbility(ability)) {
+            if (attacker != null && attacker.HasAbility(ID)) {
                 yield break;
             }
             yield return result;

@@ -12,11 +12,11 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Abusive";
             const string rulebookDescription = "At the end of the owner's turn, this card will strike an ally card, prioritising one with a Stress Response.";
             const string dialogue = "Nothing is good enough.";
-            Abusive.ability = AbnormalAbilityHelper.CreateAbility<Abusive>(
+            Abusive.ID = AbnormalAbilityHelper.CreateAbility<Abusive>(
                 "sigilAbusive",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
-                .SetAbilityRedirect("Stress Response", StressResponse.ability, GameColors.instance.glowRed)
+                .SetAbilityRedirect("Stress Response", StressResponse.ID, GameColors.instance.glowRed)
                 .Id;
         }
     }
@@ -24,15 +24,15 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, this card will strike an ally card, prioritising one with a Stress Response.
     /// </summary>
     public class Abusive : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             List<PlayableCard> adjacent = BoardManager.Instance.GetCards(!base.Card.OpponentCard);
             adjacent.Remove(this.Card);
-            if (adjacent.Exists(x => x.HasAbility(StressResponse.ability))) {
-                adjacent.RemoveAll(x => !x.HasAbility(StressResponse.ability));
+            if (adjacent.Exists(x => x.HasAbility(StressResponse.ID))) {
+                adjacent.RemoveAll(x => !x.HasAbility(StressResponse.ID));
             }
             adjacent.RemoveAll(x => base.Card.CanAttackDirectly(x.Slot));
             if (adjacent.Count > 0) {

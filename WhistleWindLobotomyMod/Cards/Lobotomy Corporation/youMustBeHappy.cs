@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(2)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Scrambler.ability)
+                .AddAbilities(Scrambler.ID)
                 .SetSpellType(SpellType.TargetedStats)
                 .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(2)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Scrambler.ability)
+                .AddAbilities(Scrambler.ID)
                 .SetSpellType(SpellType.TargetedStats)
                 .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);

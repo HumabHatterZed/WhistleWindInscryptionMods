@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
                 .SetPortrait(PlagueDoctorCreator.PlagueDoctorPortraits.FirstOrDefault())
                 .SetEmissivePortrait(PlagueDoctorCreator.UpdateDoctorEmission(0))
                 .SetPixelPortrait(PlagueDoctorCreator.UpdateDoctorPixelPortrait(0))
-                .AddAbilities(Ability.Flying, Healer.ability)
+                .AddAbilities(Ability.Flying, Healer.ID)
                 .AddSpecialAbilities(Bless.specialAbility)
                 .AddTribes(TribeDivine)
                 .AddAppearances(MiracleWorkerAppearance.appearance)

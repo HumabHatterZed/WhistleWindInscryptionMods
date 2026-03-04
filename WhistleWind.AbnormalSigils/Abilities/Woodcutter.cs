@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When a creature moves into the space opposite this card, they take damage equal to this card's Power.";
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
             const string triggerText = "[creature] takes a free swing.";
-            Woodcutter.ability = AbnormalAbilityHelper.CreateAbility<Woodcutter>(
+            Woodcutter.ID = AbnormalAbilityHelper.CreateAbility<Woodcutter>(
                 "sigilWoodcutter",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When a creature moves into the space opposite this card, they take damage equal to this card's Power.
     /// </summary>
     public class Woodcutter : Sentry, IModifyDamageTaken {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => RespondsToTrigger(otherCard);
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => RespondsToTrigger(otherCard);

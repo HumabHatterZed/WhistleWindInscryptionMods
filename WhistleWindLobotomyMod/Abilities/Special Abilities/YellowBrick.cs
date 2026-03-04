@@ -211,12 +211,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryYellowBrick : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_YellowBrick()
-            => RulebookEntryYellowBrick.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
+            => RulebookEntryYellowBrick.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
         private static void AddSpecial_YellowBrick()
             => YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(LobotomyPlugin.pluginGuid, YellowBrick.rName).Id;
     }

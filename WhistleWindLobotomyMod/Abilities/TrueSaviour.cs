@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
             const string rulebookName = "True Saviour";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
-            TrueSaviour.ability = AbilityHelper.New<TrueSaviour>(LobotomyPlugin.pluginGuid,
+            TrueSaviour.ID = AbilityHelper.New<TrueSaviour>(LobotomyPlugin.pluginGuid,
                 "sigilTrueSaviour", rulebookName, "While this card is on the board, it will transform allies into Apostles.", powerLevel: -3, true, dialogue).Id;
         }
     }
@@ -24,8 +24,8 @@ namespace WhistleWindLobotomyMod {
     /// While this card is on the board, it will transform allies into Apostles.
     /// </summary>
     public class TrueSaviour : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private readonly string sternDialogue = "[c:bR]Do not deny me.[c:]";
 
@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod {
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) {
             if (otherCard != null && otherCard != base.Card) {
-                if (otherCard.Info.name != SaviourBossUtils.ONESIN_NAME && otherCard.LacksAllAbilities(ApostleSigil.ability, Confession.ability))
+                if (otherCard.Info.name != SaviourBossUtils.ONESIN_NAME && otherCard.LacksAllAbilities(ApostleSigil.ID, Confession.ID))
                     return base.Card.OnBoard && base.Card.OpponentCard == otherCard.OpponentCard;
             }
             return false;
@@ -65,9 +65,9 @@ namespace WhistleWindLobotomyMod {
             Singleton<UIManager>.Instance?.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
 
             // if not killed by Hundreds of Good Deeds
-            if (killer.LacksAbility(Confession.ability)) {
+            if (killer.LacksAbility(Confession.ID)) {
                 // kill all Apostles
-                foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard, x => x.HasAbility(ApostleSigil.ability))) {
+                foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard, x => x.HasAbility(ApostleSigil.ID))) {
                     yield return card.Die(false, base.Card);
                 }
             }
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod {
                     RunState.Run.currency += excessDamage;
             }
 
-            if (killer.LacksAbility(Confession.ability)) {
+            if (killer.LacksAbility(Confession.ID)) {
                 foreach (CardInfo card in RunState.Run.playerDeck.CardInfos) {
                     RunState.Run.playerDeck.ModifyCard(card, new(1, 2));
                 }
@@ -134,7 +134,7 @@ namespace WhistleWindLobotomyMod {
             PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, cardsToKill.Count, base.GetRandomSeed() + 1)];
 
             ViewManager.Instance.SwitchToView(View.Hand);
-            foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.HasAbility(Confession.ability)))
+            foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.HasAbility(Confession.ID)))
                 card.Anim.StrongNegationEffect();
 
             yield return new WaitForSeconds(0.4f);

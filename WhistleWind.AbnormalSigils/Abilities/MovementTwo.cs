@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
@@ -10,16 +11,14 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Second Movement: Sostenuto";
             const string rulebookDescription = "Allied creatures gain 1 Power. At the start of the owner's next turn, begin the Third Movement: Accelerando.";
             const string triggerText = "The orchestra gives impetus to the music, bringing the entire world to its demise.";
-            MovementTwo.ability = AbilityHelper.NewFiller<MovementTwo>(
+            MovementTwo.ID = AbilityHelper.NewFiller<MovementTwo>(
                 pluginGuid, "sigilMovementTwo", rulebookName, rulebookDescription)
-                .SetPart3Rulebook()
-                .SetMagnificusRulebook()
-                .SetGrimoraRulebook()
-                .SetAbilityRedirect("Accelerando", MovementThree.ability, Color.red)
-                .Info.SetAbilityLearnedDialogue(triggerText)
-                .SetGBCTriggerText(triggerText)
+                .SetAbilityRedirect("Accelerando", MovementThree.ID, Color.red)
                 .SetPassive(false)
                 .SetPowerlevel(5)
+                .ForceAddToRulebook()
+                .Info.SetAbilityLearnedDialogue(triggerText)
+                .SetGBCTriggerText(triggerText)
                 .ability;
         }
     }
@@ -27,9 +26,9 @@ namespace WhistleWind.AbnormalSigils {
     /// Allied creatures gain 1 Power. At the start of the owner's next turn, begin the Third Movement: Accelerando.
     /// </summary>
     public class MovementTwo : ConductorMovementBase {
-        public static Ability ability;
-        public override Ability Ability => ability;
-        public override Ability NextMovement => MovementThree.ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
+        public override Ability NextMovement => MovementThree.ID;
         public override int GetPassiveAttackBuff(PlayableCard target) {
             if (base.Card.OnBoard && target.OnBoard && target.OpponentCard == base.Card.OpponentCard && target != base.Card) {
                 return 1;

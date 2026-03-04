@@ -90,7 +90,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahHod, "Hod",
                 attack: 1, health: 2, "Timid she may be, she will still try her hardest.")
                 .SetBonesCost(3)
-                .AddAbilities(Protector.ability)
+                .AddAbilities(Protector.ID)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();

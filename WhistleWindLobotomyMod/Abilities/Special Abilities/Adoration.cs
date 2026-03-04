@@ -77,12 +77,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryAdoration : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_Adoration()
-            => RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
+            => RulebookEntryAdoration.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
         private static void AddSpecial_Adoration()
             => Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(LobotomyPlugin.pluginGuid, Adoration.rName).Id;
     }

@@ -703,7 +703,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                     };
                 }
                 for (int i = 0; i < amount / 5; i++)
-                    skinMod.AddAbilities(ThickSkin.ability);
+                    skinMod.AddAbilities(ThickSkin.ID);
 
                 if (alreadyReacted)
                     BossCard.OnStatsChanged();
@@ -813,10 +813,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         /// </summary>
         public void UpdateCounter() {
             if (turnsToNextPhase < 1 || DisabledEggEffects.Count == 3) {
-                BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, AbilityManager.AllAbilities.AbilityByID(ApocalypseAbility.ability).Texture);
+                BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ID, AbilityManager.AllAbilities.AbilityByID(ApocalypseAbility.ID).Texture);
             }
             else {
-                BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, TextureLoader.LoadTextureFromFile($"sigilApocalypse_{turnsToNextPhase}.png", LobotomyPlugin.ModAssembly));
+                BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ID, TextureLoader.LoadTextureFromFile($"sigilApocalypse_{turnsToNextPhase}.png", LobotomyPlugin.ModAssembly));
             }
 
             BossCard.RenderCard();

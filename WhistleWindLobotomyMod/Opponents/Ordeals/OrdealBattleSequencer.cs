@@ -265,19 +265,19 @@ namespace WhistleWindLobotomyMod.Opponents {
                     totemAbility = (Ability.Sentry);
                     break;
                 case OrdealType.Crimson:
-                    totemAbility = (Ability.TailOnHit); // HighStrung.ability
+                    totemAbility = (Ability.TailOnHit); // HighStrung.ID
                     break;
                 case OrdealType.Violet:
-                    totemAbility = (Scorching.ability);
+                    totemAbility = (Scorching.ID);
                     break;
                 case OrdealType.Amber:
-                    totemAbility = (OneSided.ability);
+                    totemAbility = (OneSided.ID);
                     break;
                 case OrdealType.Indigo: // infinite corpses
                     totemAbility = (Ability.IceCube);
                     break;
                 case OrdealType.White:
-                    totemAbility = (StressResponse.ability);
+                    totemAbility = (StressResponse.ID);
                     break;
             }
 

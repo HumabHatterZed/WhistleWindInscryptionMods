@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0, "Sorrow stoppered by sweets, fragile and overflowing.")
                 .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(FizzyLifter.ability, Spilling.ability)
+                .AddAbilities(FizzyLifter.ID, Spilling.ID)
                 .SetTargetedSpell()
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

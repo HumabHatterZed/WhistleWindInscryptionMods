@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, this card gains 1 Health. If its Health exceeds its maximum by 3, it will perish.";
             const string dialogue = "Your beast has Health in excess.";
             const string triggerText = "[creature] gives itself more Health!";
-            GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
+            GreedyHealing.ID = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
                 "sigilGreedyHealing",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, this card gains 1 Health. If its Health exceeds its maximum by 3, it will perish.
     /// </summary>
     public class GreedyHealing : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {

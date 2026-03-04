@@ -84,7 +84,7 @@ namespace WhistleWind.AbnormalSigils {
                 TextureLoader.LoadTextureFromFile("sigilPebble_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
-            Pebble.data.IconInfo.SetAbilityRedirect("Lonely", Lonely.ability, GameColors.Instance.limeGreen);
+            Pebble.data.IconInfo.SetAbilityRedirect("Lonely", Lonely.ID, GameColors.Instance.limeGreen);
             Pebble.specialAbility = Pebble.data.Id;
             Pebble.iconId = Pebble.data.IconInfo.ability;
         }

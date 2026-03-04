@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetAltPortraits(LobotomyPlugin.ModAssembly, "yangAlt")
-                .AddAbilities(Regenerator.ability)
+                .AddAbilities(Regenerator.ID)
                 .AddSpecialAbilities(Concord.specialAbility)
                 .AddAppearances(AlternateBattlePortrait.appearance)
                 .AddTribes(AbnormalPlugin.TribeDivine)

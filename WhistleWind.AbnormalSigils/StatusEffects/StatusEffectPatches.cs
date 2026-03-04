@@ -38,7 +38,7 @@ namespace WhistleWind.AbnormalSigils.Core {
         [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
         private static void StatusEffectsDontRenderNormally(List<Ability> __result) {
             __result.RemoveAll(x => AbilitiesUtil.GetInfo(x).IsStatusEffect());
-            __result.Remove(SeeMore.ability);
+            __result.Remove(SeeMore.ID);
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.SpecialAbilities), MethodType.Getter)]
@@ -93,18 +93,18 @@ namespace WhistleWind.AbnormalSigils.Core {
                 return null;
 
             List<Ability> abilities = card.GetDisplayedStatusEffects(false);
-            card.TemporaryMods.RemoveAll(x => x.abilities.Contains(SeeMore.ability));
+            card.TemporaryMods.RemoveAll(x => x.abilities.Contains(SeeMore.ID));
 
             if (abilities.Count < 6) {
-                card.TriggerHandler.RemoveAbility(SeeMore.ability);
+                card.TriggerHandler.RemoveAbility(SeeMore.ID);
                 if (abilities.Count == 0)
                     return null;
             }
 
             abilities.Sort((a, b) => Mathf.Abs(AbilitiesUtil.GetInfo(b).powerLevel) - Mathf.Abs(AbilitiesUtil.GetInfo(a).powerLevel));
             if (abilities.Count > 5) {
-                if (!card.TriggerHandler.triggeredAbilities.Exists(x => x.Item1 == SeeMore.ability)) {
-                    card.TriggerHandler.AddAbility(SeeMore.ability);
+                if (!card.TriggerHandler.triggeredAbilities.Exists(x => x.Item1 == SeeMore.ID)) {
+                    card.TriggerHandler.AddAbility(SeeMore.ID);
                 }
                 SeeMore behav = card.transform.GetComponent<SeeMore>();
 
@@ -130,10 +130,10 @@ namespace WhistleWind.AbnormalSigils.Core {
                 behav.switchingPages = false;
                 abilities = new(behav.AllPages[behav.currentPage])
                 {
-                    SeeMore.ability
+                    SeeMore.ID
                 };
 
-                card.TemporaryMods.Add(new(SeeMore.ability) { singletonId = SEEMORE });
+                card.TemporaryMods.Add(new(SeeMore.ID) { singletonId = SEEMORE });
             }
 
             //Debug.Log($"First shown: {AbilitiesUtil.GetInfo(abilities[0]).rulebookName}");

@@ -60,7 +60,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.AssignCardToSlot))]
         private static IEnumerator PreventNewAssignments(IEnumerator enumerator, PlayableCard card, CardSlot slot) {
             if (!Unyielding.CardCanBeMoved(card)) {
-                Unyielding behav = card.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == Unyielding.ability)?.Item2 as Unyielding;
+                Unyielding behav = card.TriggerHandler.triggeredAbilities.Find(x => x.Item1 == Unyielding.ID)?.Item2 as Unyielding;
                 if (behav?.homeSlot != null && slot != behav.homeSlot) // if the card has already resolved and is being assigned to a different slot
                 {
                     yield return Unyielding.OnPreventMovement(behav, behav.homeSlot);

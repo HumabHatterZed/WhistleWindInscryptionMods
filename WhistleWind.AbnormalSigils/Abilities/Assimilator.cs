@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
             const string triggerText = "[creature] makes its victim a part of itself.";
-            Assimilator.ability = AbnormalAbilityHelper.CreateAbility<Assimilator>(
+            Assimilator.ID = AbnormalAbilityHelper.CreateAbility<Assimilator>(
                 "sigilAssimilator",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: true)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.
     /// </summary>
     public class Assimilator : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
             return killer == base.Card && !base.Card.Dead;

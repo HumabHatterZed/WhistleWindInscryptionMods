@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod.Core {
             }
 
             cardInfo.SetExtendedProperty("wstl:RiskLevel", riskLevel.ToString());
-            if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch)) {
+            if (cardInfo.HasAnyOfAbilities(Punisher.ID, Ability.Deathtouch)) {
                 cardInfo.AddTraits(Trait.KillsSurvivors);
             }
 

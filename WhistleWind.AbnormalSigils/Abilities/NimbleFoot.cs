@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_NimbleFoot() {
             const string rulebookName = "Nimble-Footed";
             const string rulebookDescription = "At the start of the owner's turn, [creature] gains Haste equal to 1 plus the number of times it has moved on the board.";
-            NimbleFoot.ability = AbnormalAbilityHelper.CreateAbility<NimbleFoot>(
+            NimbleFoot.ID = AbnormalAbilityHelper.CreateAbility<NimbleFoot>(
                 "sigilNimbleFoot",
                 rulebookName, rulebookDescription, powerLevel: 1,
                 modular: true, opponent: true, canStack: false)
@@ -22,8 +22,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the start of the owner's turn, [creature] gains Haste equal to 1 plus the number of times it has moved on the board.
     /// </summary>
     public class NimbleFoot : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         int extraHaste = 0;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;

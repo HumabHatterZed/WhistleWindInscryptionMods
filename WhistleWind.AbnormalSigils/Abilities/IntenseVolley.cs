@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_IntenseVolley() {
             const string rulebookName = "Volley Strike";
             const string rulebookDescription = "At the end of the owner's turn, this card will target 2-4 opposing spaces to attack on its next turn.";
-            IntenseVolley.ability = AbnormalAbilityHelper.CreateAbility<IntenseVolley>(
+            IntenseVolley.ID = AbnormalAbilityHelper.CreateAbility<IntenseVolley>(
                 "sigilVolley",
                 rulebookName, rulebookDescription, powerLevel: 5,
                 modular: false, opponent: true, canStack: false)
@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, this card will target at 2-4 opposing spaces to attack on its next turn.
     /// </summary>
     public class IntenseVolley : AbilityBehaviour, IPlayerTurnEnd, IOpponentTurnEnd, ISetupAttackSequence, IOnPostSingularSlotAttackSlot {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public readonly Dictionary<CardSlot, GameObject> currentTargets = new();
 

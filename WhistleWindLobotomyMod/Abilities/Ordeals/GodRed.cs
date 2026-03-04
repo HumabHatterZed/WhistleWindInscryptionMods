@@ -18,15 +18,15 @@ namespace WhistleWindLobotomyMod {
             info.rulebookDescription = "Activate: Crush one of the player's draw piles with the Red Hand. At half Health (once): Crush both of the player's draw piles with the Red Hand.";
             info.powerLevel = 5;
 
-            GodRed.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodRed), TextureLoader.LoadTextureFromFile("sigilGodRed.png"))
+            GodRed.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodRed), TextureLoader.LoadTextureFromFile("sigilGodRed.png"))
                 .SetUniqueRedirect("Red Hand", "wstl:Ordeals_Red Hand", GameColors.Instance.glowRed)
                 .Id;
         }
     }
 
     public class GodRed : GodColourAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private Animator handMainDeck;
         private Animator handSideDeck;

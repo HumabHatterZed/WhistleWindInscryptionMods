@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker, up to 2 above this card's maximum Health.";
             const string dialogue = "The blood runs warm with sweet vitality.";
             const string triggerText = "[creature] absorbs nutrients!";
-            Bloodletter.ability = AbnormalAbilityHelper.CreateAbility<Bloodletter>(
+            Bloodletter.ID = AbnormalAbilityHelper.CreateAbility<Bloodletter>(
                 "sigilBloodletter",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: true)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker, up to 2 above this card's maximum Health.
     /// </summary>
     public class Bloodletter : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTakeDamage(PlayableCard source) {
             if (source != null)

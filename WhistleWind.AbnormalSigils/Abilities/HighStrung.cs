@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_HighStrung() {
             const string rulebookName = "High-Strung";
             const string rulebookDescription = "At the start of the player's turn, [creature] gains Haste equal to the opposing creature's Attack.";
-            HighStrung.ability = AbnormalAbilityHelper.CreateAbility<HighStrung>(
+            HighStrung.ID = AbnormalAbilityHelper.CreateAbility<HighStrung>(
                 "sigilHighStrung",
                 rulebookName, rulebookDescription, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the start of the player's turn, [creature] gains Haste equal to the opposing creature's Attack.
     /// </summary>
     public class HighStrung : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {

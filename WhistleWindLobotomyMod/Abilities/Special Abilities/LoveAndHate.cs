@@ -87,12 +87,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryLoveAndHate : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_LoveAndHate()
-            => RulebookEntryLoveAndHate.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
+            => RulebookEntryLoveAndHate.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
         private static void AddSpecial_LoveAndHate()
             => LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(LobotomyPlugin.pluginGuid, LoveAndHate.rName).Id;
     }

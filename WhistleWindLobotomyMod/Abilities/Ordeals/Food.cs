@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
             info.rulebookName = "Food";
             info.rulebookDescription = "Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_foodPerfect]";
             info.powerLevel = 3;
-            Food.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Food), TextureLoader.LoadTextureFromFile("sigilFood.png")).Id;
+            Food.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Food), TextureLoader.LoadTextureFromFile("sigilFood.png")).Id;
         }
     }
 
@@ -21,8 +21,8 @@ namespace WhistleWindLobotomyMod {
     /// Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_foodPerfect]
     /// </summary>
     public class Food : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private CardSlot oldSlot;
 

@@ -94,7 +94,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         public static bool HasUniqueCopyCat(this CardInfo info) => info.GetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID) != null;
         public static string GetUniqueCopyCat(this CardInfo info) => info.GetExtendedProperty(Copycat.UNIQUE_COPYCAT_ID);
         public static bool IsConductor(this PlayableCard card) {
-            return card.HasTrait(Orchestral) || card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);
+            return card.HasTrait(Orchestral) || card.HasAnyOfAbilities(Conductor.ID, MovementOne.ID, MovementTwo.ID, MovementThree.ID, MovementFour.ID, MovementFive.ID);
         }
         public static bool IsCopycatImpostor(this PlayableCard card) {
             return card.Info.Mods.Exists(x => x.singletonId == "wstl:Copycat");
@@ -107,7 +107,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         /// <param name="target">The card being targeted.</param>
         [Obsolete("Opportunistic has been reworked, method no longer used.")]
         public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target) {
-            if (target == null || target.Attack > 0 || target.HasAbility(Neutered.ability))
+            if (target == null || target.Attack > 0 || target.HasAbility(Neutered.ID))
                 return false;
 
             if (target.GetOpposingSlots().Contains(attacker.Slot)) {
@@ -123,7 +123,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
         /// <param name="target">The card being targeted.</param>
         public static bool SimulatePersistentAttack(PlayableCard attacker, PlayableCard target) {
             // Damsel ally override Persistent behaviour
-            if (target == null || attacker.Slot.GetAdjacentCards().Exists(x => x != null && x.HasAbility(Damsel.ability)))
+            if (target == null || attacker.Slot.GetAdjacentCards().Exists(x => x != null && x.HasAbility(Damsel.ID)))
                 return false;
 
             // if attacker can hit the target

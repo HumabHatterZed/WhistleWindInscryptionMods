@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, bigEgg, "Aspect of Big Bird",
                 attack: 1, health: 90)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "bigBird", "bigBird_emission.png", "")
-                .AddAbilities(ApocalypseAbility.ability, BigEyes.ability, Dazzling.ability, Challenging.ability)
+                .AddAbilities(ApocalypseAbility.ID, BigEyes.ID, Dazzling.ID, Challenging.ID)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, littleEgg, "Aspect of Small Bird",
                 attack: 1, health: 90)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "punishingBird", "punishingBird_boss_emission.png", "")
-                .AddAbilities(ApocalypseAbility.ability, SmallBeak.ability, Misdeeds.ability, Challenging.ability)
+                .AddAbilities(ApocalypseAbility.ID, SmallBeak.ID, Misdeeds.ID, Challenging.ID)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, longEgg, "Aspect of Long Bird",
                 attack: 1, health: 90)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "judgementBird", "judgementBird_boss_emission.png", "")
-                .AddAbilities(ApocalypseAbility.ability, LongArms.ability, UnjustScale.ability, Challenging.ability)
+                .AddAbilities(ApocalypseAbility.ID, LongArms.ID, UnjustScale.ID, Challenging.ID)
                 .AddTraits(traits).AddTraits(AbnormalPlugin.ImmuneToAilments)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
@@ -48,13 +48,13 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, crisisChick, "Crisis Chick",
                 attack: 1, health: 3)
                 .SetBloodCost(3)
-                .AddAbilities(IntenseVolley.ability)
+                .AddAbilities(IntenseVolley.ID)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "apocalypseBird")
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, giantApocalypse, "",
                 attack: 2, health: 30)
-                .AddAbilities(ApocalypseGiant.ability, Soulbound.ability, Ability.Reach, Challenging.ability)
+                .AddAbilities(ApocalypseGiant.ID, Soulbound.ID, Ability.Reach, Challenging.ID)
                 .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)
                 .AddSpecialAbilities(SpecialTriggeredAbility.GiantCard)
                 .AddAppearances(GiantBirdAppearance.appearance)

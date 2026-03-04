@@ -59,11 +59,11 @@ namespace WhistleWindLobotomyMod {
     }
 
     public class RulebookEntryRemorse : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
-        private static void Rulebook_Remorse() => RulebookEntryRemorse.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryRemorse>(Remorse.rName, Remorse.rDesc).Id;
+        private static void Rulebook_Remorse() => RulebookEntryRemorse.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryRemorse>(Remorse.rName, Remorse.rDesc).Id;
         private static void AddSpecial_Remorse() {
             Remorse.specialAbility = AbilityHelper.CreateSpecialAbility<Remorse>(LobotomyPlugin.pluginGuid, Remorse.rName).Id;
         }

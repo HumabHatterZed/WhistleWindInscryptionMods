@@ -78,7 +78,7 @@ namespace WhistleWind.AbnormalSigils {
                 TextureLoader.LoadTextureFromFile("sigilFervent.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilFervent_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
-            data.IconInfo.SetAbilityRedirect("Movement", Conductor.ability, Color.red);
+            data.IconInfo.SetAbilityRedirect("Movement", Conductor.ID, Color.red);
 
             Fervent.specialAbility = data.Id;
             Fervent.iconId = data.IconInfo.ability;

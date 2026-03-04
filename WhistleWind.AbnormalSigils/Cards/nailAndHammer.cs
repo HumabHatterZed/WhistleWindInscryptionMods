@@ -11,12 +11,12 @@ namespace WhistleWind.AbnormalSigils {
             CardManager.New(pluginPrefix, nail, "Nail", 1, 1)
                 .SetPortraits(Assembly, nail)
                 .SetTerrain(false)
-                .AddAbilities(Piercing.ability, RightStrike.ability);
+                .AddAbilities(Piercing.ID, RightStrike.ID);
 
             CardManager.New(pluginPrefix, hammer, "Hammer", 1, 1)
                 .SetPortraits(Assembly, hammer)
                 .SetTerrain(false)
-                .AddAbilities(Driver.ability, LeftStrike.ability);
+                .AddAbilities(Driver.ID, LeftStrike.ID);
         }
     }
 }

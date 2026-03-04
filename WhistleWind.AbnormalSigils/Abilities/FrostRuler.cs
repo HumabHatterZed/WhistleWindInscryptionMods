@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Once per turn, pay 2 Bones choose a space on the board. If it is empty, create a Block of Ice. If occupied, pay 2 more Bones to kill the occupying card and create a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             const string triggerText = "[creature] freezes the path.";
-            FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
+            FrostRuler.ID = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
                 "sigilFrostRuler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
                 .Id;
@@ -24,10 +24,10 @@ namespace WhistleWind.AbnormalSigils {
     /// Once per turn, choose a space on the board. If it is empty, pay 2 Bones to create a Block of Ice, otherwise pay 4 Bones to create a Frozen Heart.
     /// </summary>
     public class FrostRuler : ActivatedSelectSlotBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override string InvalidTargetDialogue(CardSlot slot) {
-            if (slot.Card.HasAbility(Scorching.ability))
+            if (slot.Card.HasAbility(Scorching.ID))
                 return "This creature burns with passion. It cannot freeze.";
 
             if (slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt))
@@ -99,7 +99,7 @@ namespace WhistleWind.AbnormalSigils {
                 // opponents don't spend bones
                 // player needs to spend 2 to activate the sigil, so only check if they have 2 more
                 if (base.Card.OpponentCard || ResourcesManager.Instance.PlayerBones > 1)
-                    return slot.Card.LacksAllTraits(Trait.Uncuttable, Trait.Terrain, Trait.Pelt, Trait.Giant) && slot.Card.LacksAbility(Scorching.ability);
+                    return slot.Card.LacksAllTraits(Trait.Uncuttable, Trait.Terrain, Trait.Pelt, Trait.Giant) && slot.Card.LacksAbility(Scorching.ID);
 
                 return false;
             }

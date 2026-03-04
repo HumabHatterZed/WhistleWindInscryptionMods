@@ -14,14 +14,14 @@ namespace WhistleWind.AbnormalSigils {
 
             CardManager.New(pluginPrefix, brother1, "First Brother", 0, 1)
                 .SetPortraits(Assembly, brother1)
-                .AddAbilities(Persistent.ability)
+                .AddAbilities(Persistent.ID)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
                 .SetTerrain();
 
             CardManager.New(pluginPrefix, brother2, "Second Brother", 0, 1)
                 .SetPortraits(Assembly, brother2)
-                .AddAbilities(Piercing.ability)
+                .AddAbilities(Piercing.ID)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
                 .SetTerrain();
@@ -42,14 +42,14 @@ namespace WhistleWind.AbnormalSigils {
 
             CardManager.New(pluginPrefix, brother5, "Fifth Brother", 0, 1)
                 .SetPortraits(Assembly, brother5)
-                .AddAbilities(BindingStrike.ability)
+                .AddAbilities(BindingStrike.ID)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
                 .SetTerrain();
 
             CardManager.New(pluginPrefix, brother6, "Sixth Brother", 0, 1)
                 .SetPortraits(Assembly, brother6)
-                .AddAbilities(ThickSkin.ability)
+                .AddAbilities(ThickSkin.ID)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
                 .SetTerrain();

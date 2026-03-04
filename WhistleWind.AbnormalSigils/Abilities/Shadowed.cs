@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "[creature] cannot take overkill damage. When this card is played, remove this sigil.";
             const string dialogue = "The beast steps out from the shadows.";
             string trigger = "[creature] emerges from the darkness!";
-            Shadowed.ability = AbnormalAbilityHelper.CreateAbility<Shadowed>(
+            Shadowed.ID = AbnormalAbilityHelper.CreateAbility<Shadowed>(
                 "sigilShadowed",
                 rulebookName, rulebookDescription, dialogue, trigger, powerLevel: 0,
                 modular: false, opponent: true, canStack: false)
@@ -20,8 +20,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] cannot take overkill damage. On play, remove this sigil.
     /// </summary>
     public class Shadowed : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {

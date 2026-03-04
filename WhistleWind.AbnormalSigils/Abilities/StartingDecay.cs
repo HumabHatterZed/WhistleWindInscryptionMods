@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_StartingDecay() {
             const string rulebookName = "Imminent Decay";
             const string rulebookDescription = "When [creature] is played, gain 1 Decay for every stack of this sigil it has, then remove this sigil.";
-            StartingDecay.ability = AbnormalAbilityHelper.CreateAbility<StartingDecay>(
+            StartingDecay.ID = AbnormalAbilityHelper.CreateAbility<StartingDecay>(
                 "sigilDecay",
                 rulebookName, rulebookDescription, powerLevel: -2,
                 modular: false, opponent: false, canStack: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is played, gain 1 Decay for every stack of this sigil it has then remove this sigil.
     /// </summary>
     public class StartingDecay : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToResolveOnBoard() => !base.Card.Info.IsSpell();
         public override IEnumerator OnResolveOnBoard() {

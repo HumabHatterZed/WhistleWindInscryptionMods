@@ -21,13 +21,13 @@ namespace WhistleWindLobotomyMod {
             const string rulebookDescription = "Choose a card from your deck, then remove it and this card from your deck. End the current battle; some opponents have alternate effects.";
             const string dialogue = "Close your eyes and count to ten.";
 
-            TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
+            TimeMachine.ID = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
                 "sigilTimeMachine", rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class TimeMachine : ActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private CardInfo chosenCardInfo = null;
         private PlayableCard chosenCard = null;

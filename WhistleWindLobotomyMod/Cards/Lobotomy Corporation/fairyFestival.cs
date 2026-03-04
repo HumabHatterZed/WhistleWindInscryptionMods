@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 1, "Everything will be peaceful while you're under the fairies' care.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Bloodfiend.ability)
+                .AddAbilities(Bloodfiend.ID)
                 .AddTribes(TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

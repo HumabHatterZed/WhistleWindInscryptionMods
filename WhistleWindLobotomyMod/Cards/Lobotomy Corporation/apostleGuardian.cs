@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
             string guardianName = "Guardian Apostle";
             string textureName = "apostleGuardian";
             string textureName2 = "apostleGuardianDown";
-            Ability[] abilities = new[] { ApostleSigil.ability };
+            Ability[] abilities = new[] { ApostleSigil.ID };
             Tribe[] tribes = new[] { TribeDivine };
             Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };

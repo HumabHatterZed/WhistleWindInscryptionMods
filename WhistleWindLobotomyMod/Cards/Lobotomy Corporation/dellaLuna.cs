@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 7, "In reality, man despairs at [c:bR]the moon[c:].")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(GroupHealer.ability)
+                .AddAbilities(GroupHealer.ID)
                 .AddTribes(Tribe.Bird)
                 .AddMetaCategories(DonatorCard)
                 .SetDefaultEvolutionName("Il Pianto della Luna Maggiore")

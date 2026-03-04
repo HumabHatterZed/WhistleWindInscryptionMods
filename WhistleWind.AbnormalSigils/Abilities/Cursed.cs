@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "If [creature] is struck and perishes, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
             const string triggerText = "[creature] passes the curse on.";
-            Cursed.ability = AbnormalAbilityHelper.CreateAbility<Cursed>(
+            Cursed.ID = AbnormalAbilityHelper.CreateAbility<Cursed>(
                 "sigilCursed",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: true, opponent: false, canStack: false)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// If [creature] is struck and perishes, the killer transforms into a copy of this card.
     /// </summary>
     public class Cursed : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
             if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)

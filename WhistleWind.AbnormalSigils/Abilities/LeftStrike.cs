@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_LeftStrike() {
             const string rulebookName = "Left-Veering Strike";
             const string rulebookDescription = "[creature] will strike the opposing space to the left of the space across from it.";
-            LeftStrike.ability = AbnormalAbilityHelper.CreateAbility<LeftStrike>(
+            LeftStrike.ID = AbnormalAbilityHelper.CreateAbility<LeftStrike>(
                 "sigilLeftStrike",
                 rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
@@ -22,8 +22,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] will strike the opposing space to the left of the space across from it.
     /// </summary>
     public class LeftStrike : AbilityBehaviour, IGetOpposingSlots {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public bool RemoveDefaultAttackSlot() => true;
         public bool RespondsToGetOpposingSlots() => true;

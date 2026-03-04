@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Soulbound";
             const string rulebookDescription = "Whenever [creature] takes damage, its owner takes an equal amount of damage.";
             const string dialogue = "So this is what they feel...";
-            Soulbound.ability = AbnormalAbilityHelper.CreateAbility<Soulbound>(
+            Soulbound.ID = AbnormalAbilityHelper.CreateAbility<Soulbound>(
                 "sigilSoulboundFlesh",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -5,
                 modular: false, opponent: false, canStack: false)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Whenever [creature] takes damage, its owner takes an equal amount of damage.
     /// </summary>
     public class Soulbound : AbilityBehaviour, IPreTakeDamage {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         int damageTaken = 0;
 
         public bool RespondsToPreTakeDamage(PlayableCard source, int damage) => damage > 0;

@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "While this card is on the board, all opposing creatures lose 1 Power.";
             const string dialogue = "My beasts defer to you.";
 
-            Idol.ability = AbnormalAbilityHelper.CreateAbility<Idol>(
+            Idol.ID = AbnormalAbilityHelper.CreateAbility<Idol>(
                 "sigilIdol",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 modular: false, opponent: false, canStack: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// While this card is on the board, all opposing creatures lose 1 Power.
     /// </summary>
     public class Idol : AbilityBehaviour, IPassiveAttackBuff {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToResolveOnBoard() => ActivateOnPlay();
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => otherCard.OpponentCard != base.Card.OpponentCard;
 

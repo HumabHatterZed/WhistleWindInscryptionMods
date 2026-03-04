@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
 
             CardManager.New(pluginPrefix, snowQueenIceHeart, "Frozen Heart", 0, 1)
                 .SetPortraits(Assembly, snowQueenIceHeart)
-                .AddAbilities(FrozenHeart.ability)
+                .AddAbilities(FrozenHeart.ID)
                 .SetTerrain();
         }
     }

@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1)
                 .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Aggravating.ability, Ability.PreventAttack, Ability.Sacrificial)
+                .AddAbilities(Aggravating.ID, Ability.PreventAttack, Ability.Sacrificial)
                 .AddTribes(tribes)
                 .Build();
 

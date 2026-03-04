@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 4, health: 1, "It's best you never learn what it looks like.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Bloodfiend.ability)
+                .AddAbilities(Bloodfiend.ID)
                 .AddSpecialAbilities(CensoredSpecial.specialAbility)
                 .SetDefaultEvolutionName("CENSORED CENSORED")
                 .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);

@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             AbilityInfo info = AbilitiesUtil.GetInfo(Ability.DrawCopyOnDeath);
             const string rulebookName = "Broken Samsara";
             const string rulebookDescription = "When [creature] perishes, a copy of it may be created in your hand.";
-            UnkillableWeak.ability = AbnormalAbilityHelper.CreateAbility<UnkillableWeak>(
+            UnkillableWeak.ID = AbnormalAbilityHelper.CreateAbility<UnkillableWeak>(
                 "sigilUnkillableWeak",
                 rulebookName, rulebookDescription, info.abilityLearnedDialogue.lines[0].text, info.triggerText, powerLevel: info.powerLevel,
                 modular: true, opponent: info.opponentUsable, canStack: info.canStack)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.
     /// </summary>
     public class UnkillableWeak : OpponentDrawCreatedCard {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         private bool finalSamsara = false;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
@@ -59,7 +59,7 @@ namespace WhistleWind.AbnormalSigils {
         private List<CardModificationInfo> GetTempMods() {
             // always guaranteed to draw a new card once
             if (finalSamsara) {
-                return new() { new() { negateAbilities = new() { UnkillableWeak.ability, Ability.DrawCopyOnDeath } } };
+                return new() { new() { negateAbilities = new() { UnkillableWeak.ID, Ability.DrawCopyOnDeath } } };
             }
 
             return null;

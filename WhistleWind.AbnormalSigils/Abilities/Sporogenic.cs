@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.";
             const string dialogue = "They will love this curse like a blessing.";
             const string triggerText = "[creature] scatters spores on the adjacent cards!";
-            Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
+            Sporogenic.ID = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
                 "sigilSporogenic",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: false, opponent: true, canStack: false)
@@ -27,8 +27,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.
     /// </summary>
     public class Sporogenic : AbilityBehaviour, IPreTurnEnd {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int Priority => int.MaxValue;
         private bool CheckValid(PlayableCard card) {
             return card != null && card.LacksAllTraits(AbnormalPlugin.SporeFriend, AbnormalPlugin.ImmuneToAilments);
@@ -56,7 +56,7 @@ namespace WhistleWind.AbnormalSigils {
         }
         private IEnumerator AddSporesToCard(PlayableCard card) {
             // apply extra Spore if this ability has stacks
-            int stacks = base.Card.GetAbilityStacks(ability);
+            int stacks = base.Card.GetAbilityStacks(ID);
             card.Anim.LightNegationEffect();
 
             // add the status effect to the card and update the turn played

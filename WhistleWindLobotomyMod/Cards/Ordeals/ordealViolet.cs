@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 3)
                 .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "fruitUnderstanding")
-                .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
+                .AddAbilities(StartingDecay.ID, StartingDecay.ID, Understanding.ID, Bleachproof.ID)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Trait.Uncuttable)
@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod {
             CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 1),
                 attack: 0, health: 8)
                 .SetBonesCost(16)
-                .AddAbilities(IntenseVolley.ability, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
+                .AddAbilities(IntenseVolley.ID, ExplosiveOpening.ID, Ability.Evolve, Challenging.ID)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
@@ -64,7 +64,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4)
                 .SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionDelusion")
-                .AddAbilities(TeamLeader.ability, Protector.ability, Unyielding.ability)
+                .AddAbilities(TeamLeader.ID, Protector.ID, Unyielding.ID)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeDivine)
                 .Build(overrideCardChoice: true);
@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionR, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
                  attack: 0, health: 6)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionR")
-                 .AddAbilities(Ability.Reach, Delusion.ability, GodRed.ability, Challenging.ability)
+                 .AddAbilities(Ability.Reach, Delusion.ID, GodRed.ID, Challenging.ID)
                  .AddAppearances(OrdealBackgroundVioletRed.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionW, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
                  attack: 0, health: 6)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionW")
-                 .AddAbilities(Ability.Reach, Delusion.ability, GodWhite.ability, Challenging.ability)
+                 .AddAbilities(Ability.Reach, Delusion.ID, GodWhite.ID, Challenging.ID)
                  .AddAppearances(OrdealBackgroundVioletWhite.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionB, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
                  attack: 0, health: 6)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionB")
-                 .AddAbilities(Ability.Reach, Delusion.ability, GodBlack.ability, Challenging.ability)
+                 .AddAbilities(Ability.Reach, Delusion.ID, GodBlack.ID, Challenging.ID)
                  .AddAppearances(OrdealBackgroundVioletBlack.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
@@ -111,7 +111,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, godDelusionP, OrdealUtils.GetOrdealTitle(OrdealType.Violet, 3),
                  attack: 0, health: 6)
                  .SetPortraits(LobotomyPlugin.ModAssembly, "godDelusionP")
-                 .AddAbilities(Ability.Reach, Delusion.ability, GodPale.ability, Challenging.ability)
+                 .AddAbilities(Ability.Reach, Delusion.ID, GodPale.ID, Challenging.ID)
                  .AddAppearances(OrdealBackgroundVioletPale.appearance, ForcedWhiteEmission.appearance)
                  .AddTribes(TribeDivine)
                  .AddTraits(Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)

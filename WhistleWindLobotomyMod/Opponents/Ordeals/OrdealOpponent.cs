@@ -240,7 +240,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 for (int i = 0; i < 1 + drawPiles.turnsSinceExhausted; i++) {
                     PlayableCard card = opponentCards.GetRandom();
                     if (card.HasTrait(Trait.Terrain)) {
-                        card.AddTemporaryMod(new(Withering.ability) { fromCardMerge = true });
+                        card.AddTemporaryMod(new(Withering.ID) { fromCardMerge = true });
                     }
                     else {
                         card.AddTemporaryMod(new(1, 0));

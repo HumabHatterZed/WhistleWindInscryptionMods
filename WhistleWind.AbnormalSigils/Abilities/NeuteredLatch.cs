@@ -12,10 +12,10 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Pay 3 Energy to choose a creature to gain the Neutered sigil.";
             const string dialogue = "The will to fight has been lost.";
             const string triggerText = "[creature] prevents the chosen creature from attacking.";
-            NeuteredLatch.ability = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
+            NeuteredLatch.ID = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
                 "sigilNeuteredLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
-                .SetAbilityRedirect("Neutered", Neutered.ability, GameColors.Instance.gray)
+                .SetAbilityRedirect("Neutered", Neutered.ID, GameColors.Instance.gray)
                 .Id;
         }
     }
@@ -23,16 +23,16 @@ namespace WhistleWind.AbnormalSigils {
     /// Pay 3 Energy to choose a creature to gain the Neutered sigil.
     /// </summary>
     public class NeuteredLatch : ActivatedSelectSlotBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
-        public override Ability LatchAbility => Neutered.ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
+        public override Ability LatchAbility => Neutered.ID;
         public override int StartingEnergyCost => 3;
 
         public override bool IsValidTarget(CardSlot slot) {
             if (!base.IsValidTarget(slot))
                 return false;
 
-            return slot.Card.LacksAbility(Neutered.ability) && slot.Card.Attack > 0;
+            return slot.Card.LacksAbility(Neutered.ID) && slot.Card.Attack > 0;
         }
     }
 }

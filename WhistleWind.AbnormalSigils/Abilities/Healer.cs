@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.";
             const string dialogue = "Never underestimate the importance of a healer.";
             const string triggerText = "[creature] heals the chosen creature!";
-            Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
+            Healer.ID = AbnormalAbilityHelper.CreateAbility<Healer>(
                 "sigilHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: false, canStack: true)
@@ -29,8 +29,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.
     /// </summary>
     public class Healer : SniperSelectSlot {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override string NoTargetsDialogue => "No one to heal.";
         public override bool IsPositiveEffect => true;

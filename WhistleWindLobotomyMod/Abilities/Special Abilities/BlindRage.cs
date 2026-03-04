@@ -57,12 +57,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryBlindRage : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_BlindRage()
-            => RulebookEntryBlindRage.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBlindRage>(BlindRage.rName, BlindRage.rDesc).Id;
+            => RulebookEntryBlindRage.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBlindRage>(BlindRage.rName, BlindRage.rDesc).Id;
         private static void AddSpecial_BlindRage()
             => BlindRage.specialAbility = AbilityHelper.CreateSpecialAbility<BlindRage>(LobotomyPlugin.pluginGuid, BlindRage.rName).Id;
     }

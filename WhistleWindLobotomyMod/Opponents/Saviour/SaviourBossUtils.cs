@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         #region WhiteNight event
         public static IEnumerator ConvertCardsOnBoard(bool getPlayerCards, PlayableCard thisCard, int randomSeed) {
             foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(getPlayerCards, x => x != thisCard)) {
-                if (card.Info.name != ONESIN_NAME && card.LacksAllAbilities(ApostleSigil.ability, Confession.ability))
+                if (card.Info.name != ONESIN_NAME && card.LacksAllAbilities(ApostleSigil.ID, Confession.ID))
                     yield return ConvertCardToApostle(card, randomSeed++);
             }
         }
@@ -79,7 +79,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 if (PlayerHand.m_Instance == null || BoardManager.m_Instance == null)
                     return false;
 
-                return PlayerHand.Instance.CardsInHand.Exists(c => c.HasAbility(Confession.ability)) || BoardManager.Instance.CardsOnBoard.Exists(c => c.HasAbility(Confession.ability));
+                return PlayerHand.Instance.CardsInHand.Exists(c => c.HasAbility(Confession.ID)) || BoardManager.Instance.CardsOnBoard.Exists(c => c.HasAbility(Confession.ID));
             }
         }
 

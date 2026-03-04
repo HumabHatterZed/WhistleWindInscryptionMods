@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
-            Courageous.ability = AbnormalAbilityHelper.CreateAbility<Courageous>(
+            Courageous.ID = AbnormalAbilityHelper.CreateAbility<Courageous>(
                 "sigilCourageous",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.
     /// </summary>
     public class Courageous : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToResolveOnBoard() {
             return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Exists(slot => slot.Card != null);

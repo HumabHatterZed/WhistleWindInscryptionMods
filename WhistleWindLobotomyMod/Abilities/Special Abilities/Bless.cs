@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod {
             if (LobotomyConfigManager.NoEvents || (blessings >= 0 && blessings < 12)) // [0, 12)
                 yield break;
 
-            if (LobotomySaveManager.TriggeredWhiteNightThisBattle || BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(TrueSaviour.ability))) {
+            if (LobotomySaveManager.TriggeredWhiteNightThisBattle || BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(TrueSaviour.ID))) {
                 yield return base.PlayableCard.DieTriggerless();
                 yield return new WaitForSeconds(0.5f);
                 yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou shalt have no other gods before me.[c:]");
@@ -153,12 +153,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryBless : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_Bless()
-            => RulebookEntryBless.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
+            => RulebookEntryBless.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
         private static void AddSpecial_Bless()
             => Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(LobotomyPlugin.pluginGuid, Bless.rName).Id;
     }

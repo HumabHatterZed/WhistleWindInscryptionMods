@@ -65,12 +65,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryCowardly : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_Cowardly()
-            => RulebookEntryCowardly.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCowardly>(Cowardly.rName, Cowardly.rDesc).Id;
+            => RulebookEntryCowardly.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCowardly>(Cowardly.rName, Cowardly.rDesc).Id;
         private static void AddSpecial_Cowardly()
             => Cowardly.specialAbility = AbilityHelper.CreateSpecialAbility<Cowardly>(LobotomyPlugin.pluginGuid, Cowardly.rName).Id;
     }

@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 7)
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(FingerTapping.ability)
+                .AddAbilities(FingerTapping.ID)
                 .AddTribes(AbnormalPlugin.TribeBotanic, AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

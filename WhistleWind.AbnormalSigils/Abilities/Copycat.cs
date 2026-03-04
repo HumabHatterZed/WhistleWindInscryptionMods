@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "[creature] will transform into a copy of the first creature that opposes it.";
             const string dialogue = "A near perfect impersonation.";
             const string triggerText = "[creature] tries to mimick the opposing creature.";
-            Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
+            Copycat.ID = AbnormalAbilityHelper.CreateAbility<Copycat>(
                 "sigilCopycat",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] will transform into a copy of the first creature that opposes it.
     /// </summary>
     public class Copycat : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int Priority => -1;
         public const string UNIQUE_COPYCAT_ID = "UNIQUE_COPYCAT";
         bool copiedCard = false;

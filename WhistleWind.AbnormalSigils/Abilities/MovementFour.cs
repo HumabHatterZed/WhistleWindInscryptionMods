@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -12,17 +13,15 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Fourth Movement: Stringendo";
             const string rulebookDescription = "All other creatures on the board gain 1 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.";
             const string triggerText = "The music shall perforate your entire being.";
-            MovementFour.ability = AbilityHelper.NewFiller<MovementFour>(
+            MovementFour.ID = AbilityHelper.NewFiller<MovementFour>(
                 pluginGuid, "sigilMovementFour", rulebookName, rulebookDescription)
-                .SetPart3Rulebook()
-                .SetMagnificusRulebook()
-                .SetGrimoraRulebook()
-                .SetAbilityRedirect("Finale", MovementFive.ability, Color.red)
+                .SetAbilityRedirect("Finale", MovementFive.ID, Color.red)
+                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed)
+                .SetPassive(false)
+                .SetPowerlevel(3)
+                .ForceAddToRulebook()
                 .Info.SetAbilityLearnedDialogue(triggerText)
                 .SetGBCTriggerText(triggerText)
-                .SetPassive(false)
-                .SetPowerlevel(5)
-                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed)
                 .ability;
         }
     }
@@ -30,9 +29,9 @@ namespace WhistleWind.AbnormalSigils {
     /// All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.
     /// </summary>
     public class MovementFour : ConductorMovementBase {
-        public static Ability ability;
-        public override Ability Ability => MovementFour.ability;
-        public override Ability NextMovement => MovementFive.ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
+        public override Ability NextMovement => MovementFive.ID;
 
         public override bool RespondsToDrawn() => true;
         public override IEnumerator OnDrawn() {

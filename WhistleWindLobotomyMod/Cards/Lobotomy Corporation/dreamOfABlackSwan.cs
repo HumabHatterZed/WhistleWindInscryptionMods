@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 4, health: 4, "Sister of six brothers. Tirelessly she worked to protect them, all for naught.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Nettles.ability)
+                .AddAbilities(Nettles.ID)
                 .AddTribes(Tribe.Bird)
                 .SetDefaultEvolutionName("Dream of an Elder Swan")
                 .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);

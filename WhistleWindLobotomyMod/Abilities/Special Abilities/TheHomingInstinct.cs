@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod {
             foreach (CardModificationInfo temporaryMod in base.PlayableCard.TemporaryMods)
                 abilities.AddRange(temporaryMod.abilities);
 
-            abilities.RemoveAll((Ability x) => x == YellowBrickRoad.ability);
+            abilities.RemoveAll((Ability x) => x == YellowBrickRoad.ID);
             if (abilities.Count > 0) {
                 if (abilities.Count > 4)
                     abilities.RemoveRange(3, abilities.Count - 4);
@@ -62,12 +62,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryTheHomingInstinct : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_TheHomingInstinct()
-            => RulebookEntryTheHomingInstinct.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTheHomingInstinct>(TheHomingInstinct.rName, TheHomingInstinct.rDesc).Id;
+            => RulebookEntryTheHomingInstinct.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTheHomingInstinct>(TheHomingInstinct.rName, TheHomingInstinct.rDesc).Id;
         private static void AddSpecial_TheHomingInstinct()
             => TheHomingInstinct.specialAbility = AbilityHelper.CreateSpecialAbility<TheHomingInstinct>(LobotomyPlugin.pluginGuid, TheHomingInstinct.rName).Id;
     }

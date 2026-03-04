@@ -57,12 +57,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryWristCutter : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_WristCutter()
-            => RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
+            => RulebookEntryWristCutter.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
         private static void AddSpecial_WristCutter()
             => WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(LobotomyPlugin.pluginGuid, WristCutter.rName).Id;
     }

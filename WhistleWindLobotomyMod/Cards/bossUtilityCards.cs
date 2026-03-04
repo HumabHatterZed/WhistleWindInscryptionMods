@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0)
                 .SetEnergyCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName, "", "")
-                .AddAbilities(ReturnCard.ability, Ability.DrawCopyOnDeath)
+                .AddAbilities(ReturnCard.ID, Ability.DrawCopyOnDeath)
                 .SetTargetedSpell()
                 .Build();
 
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0)
                 .SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2, "", "")
-                .AddAbilities(ReturnCard.ability, Ability.DrawCopyOnDeath)
+                .AddAbilities(ReturnCard.ID, Ability.DrawCopyOnDeath)
                 .SetGlobalSpell()
                 .Build();
 
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0)
                 .SetEnergyCost(6)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3, "", "")
-                .AddAbilities(RefreshDecks.ability)
+                .AddAbilities(RefreshDecks.ID)
                 .SetGlobalSpell()
                 .Build();
 
@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0)
                 .SetEnergyCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName, "", "")
-                .AddAbilities(ReturnCard.ability)
+                .AddAbilities(ReturnCard.ID)
                 .SetTargetedSpell()
                 .Build();
 
@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0)
                 .SetEnergyCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2, "", "")
-                .AddAbilities(ReturnCard.ability)
+                .AddAbilities(ReturnCard.ID)
                 .SetGlobalSpell()
                 .Build();
         }

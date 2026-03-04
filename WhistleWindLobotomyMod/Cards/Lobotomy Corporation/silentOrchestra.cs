@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 6, "Soon, the song none can hear but all can listen to will begin.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(Conductor.ability)
+                .AddAbilities(Conductor.ID)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Orchestral)
                 .SetDefaultEvolutionName("The Grand Silent Orchestra")

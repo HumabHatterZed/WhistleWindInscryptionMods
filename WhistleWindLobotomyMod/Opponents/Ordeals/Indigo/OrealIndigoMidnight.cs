@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (card.Info.displayedName == "Sweeper") {
                 CardModificationInfo mod;
                 int rand = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-                mod = new(Shadowed.ability) { fromCardMerge = true, singletonId = "OrdealRandomBuff" };
+                mod = new(Shadowed.ID) { fromCardMerge = true, singletonId = "OrdealRandomBuff" };
                 if (SeededRandom.Value(rand++) <= 0.1f * (8 + RunState.Run.DifficultyModifier - Opponent.NumLives)) {
                     mod.healthAdjustment++;
                 }

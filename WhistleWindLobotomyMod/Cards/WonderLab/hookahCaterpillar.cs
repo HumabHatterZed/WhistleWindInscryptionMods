@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 3)
                 .SetEnergyCost(4).SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(ReturnToNihil.ability)
+                .AddAbilities(ReturnToNihil.ID)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 3)
                 .SetEnergyCost(3).SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, "hookahPupa")
-                .AddAbilities(Scorching.ability, Ability.Evolve)
+                .AddAbilities(Scorching.ID, Ability.Evolve)
                 .SetEvolve(butterfly, 1)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
@@ -33,7 +33,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 3, "A gluttonous worm, it fattens itself on doubt and despair.")
                 .SetEnergyCost(2).SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(Scorching.ability, Ability.Evolve)
+                .AddAbilities(Scorching.ID, Ability.Evolve)
                 .SetEvolve(pupa, 1)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);

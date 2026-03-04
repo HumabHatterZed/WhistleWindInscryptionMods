@@ -43,10 +43,10 @@ namespace WhistleWindLobotomyMod.Patches {
 
                 if (__instance.HasTrait(Apostle)) {
                     // if killed by WhiteNight or One Sin, die normally
-                    if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
+                    if (killer != null && killer.HasAnyOfAbilities(Confession.ID, TrueSaviour.ID))
                         return true;
 
-                    bool friendlySaviour = BoardManager.Instance.GetCards(!__instance.OpponentCard).Exists(x => x.HasAbility(TrueSaviour.ability));
+                    bool friendlySaviour = BoardManager.Instance.GetCards(!__instance.OpponentCard).Exists(x => x.HasAbility(TrueSaviour.ID));
 
                     // Downed Apostles die normally without an ally WhiteNight
                     // Active Apostles always perform the special death

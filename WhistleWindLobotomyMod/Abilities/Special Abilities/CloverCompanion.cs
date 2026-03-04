@@ -16,12 +16,12 @@ namespace WhistleWindLobotomyMod {
         public override int NumDeathsTillEvolve => 2;
     }
     public class RulebookEntryCloverCompanion : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_CloverCompanion()
-            => RulebookEntryCloverCompanion.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCloverCompanion>(CloverCompanion.rName, CloverCompanion.rDesc).Id;
+            => RulebookEntryCloverCompanion.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCloverCompanion>(CloverCompanion.rName, CloverCompanion.rDesc).Id;
         private static void AddSpecial_CloverCompanion()
             => CloverCompanion.specialAbility = AbilityHelper.CreateSpecialAbility<CloverCompanion>(LobotomyPlugin.pluginGuid, CloverCompanion.rName).Id;
     }

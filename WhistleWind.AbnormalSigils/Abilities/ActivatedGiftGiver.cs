@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Create a random card in your hand, then deactivate this sigil for 3 turns.";
             const string dialogue = "A gift for you.";
             const string triggerText = "[creature] has a gift for you!";
-            ActivatedGiftGiver.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedGiftGiver>(
+            ActivatedGiftGiver.ID = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedGiftGiver>(
                 "sigilGiftLatch",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3)
                 .Id;
@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Create a random card in your hand, then deactivate this sigil for 3 turns.
     /// </summary>
     public class ActivatedGiftGiver : DelayedActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int TurnDelay => 3;
         private string CustomCardToDraw => base.Card.Info.GetExtendedProperty(GiftGiver.CUSTOM_CARD_PROPERTY);
         private CardInfo CardToDraw {

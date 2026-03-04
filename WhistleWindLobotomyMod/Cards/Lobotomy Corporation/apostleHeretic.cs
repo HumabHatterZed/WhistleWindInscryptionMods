@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleHeretic, "Heretic",
                 attack: 0, health: 7)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Confession.ability)
+                .AddAbilities(Confession.ID)
                 .AddTraits(Trait.Uncuttable, Apostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .SetEventCard(false)

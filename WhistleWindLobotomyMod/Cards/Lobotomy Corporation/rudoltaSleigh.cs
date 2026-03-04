@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
         private static void Rudolta_F0249() {
             string sleighName = "Rudolta of the Sleigh";
             string textureName = "rudoltaSleigh";
-            Ability[] abilities = new[] { Ability.Strafe, GiftGiver.ability };
+            Ability[] abilities = new[] { Ability.Strafe, GiftGiver.ID };
             Tribe[] tribes = new[] { Tribe.Hooved };
 
             CardManager.New(LobotomyPlugin.pluginPrefix, rudoltaSleigh, sleighName,

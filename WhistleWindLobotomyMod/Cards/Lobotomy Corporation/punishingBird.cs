@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 1, "A small bird on a mission to punish evildoers.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Flying, Punisher.ability)
+                .AddAbilities(Ability.Flying, Punisher.ID)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest)
                 .SetOnePerDeck()

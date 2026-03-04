@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Pay 2 Energy to give this card Sniper until the end of its next attack.";
             const string dialogue = "Aim for the heart.";
             const string triggerText = "[creature] prepares to fire.";
-            ActivatedSniper.ability = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedSniper>(
+            ActivatedSniper.ID = AbnormalAbilityHelper.CreateActivatedAbility<ActivatedSniper>(
                 "sigilActivatedSniper",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2)
                 .Id;
@@ -28,8 +28,8 @@ namespace WhistleWind.AbnormalSigils {
     [HarmonyPatch]
     public class ActivatedSniper : ActivatedAbilityBehaviour {
         public const string MAGIC_BULLET_ID = "wstl:MagicBullets,";
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override int EnergyCost => 2;
         private bool IsHunter => base.Card.Info.name.Contains("derFreischutz");
         private bool activated = false;
@@ -59,7 +59,7 @@ namespace WhistleWind.AbnormalSigils {
                     magicBullets = 7;
                     triggerSeventhBullet = true;
                     //mod.attackAdjustment++;
-                    mod.abilities.Add(Piercing.ability);
+                    mod.abilities.Add(Piercing.ID);
                 }
 
                 bulletMod.singletonId = bulletMod.singletonId.Replace(bulletMod.singletonId.Substring(bulletMod.singletonId.Length - 1, 1), magicBullets.ToString());
@@ -70,8 +70,8 @@ namespace WhistleWind.AbnormalSigils {
             base.Card.Anim.PlayTransformAnimation();
             yield return new WaitForSeconds(0.15f);
             base.Card.Status.hiddenAbilities.Add(this.Ability);
-            if (triggerSeventhBullet && !base.Card.HasAbility(Piercing.ability)) {
-                base.Card.Status.hiddenAbilities.Add(Piercing.ability);
+            if (triggerSeventhBullet && !base.Card.HasAbility(Piercing.ID)) {
+                base.Card.Status.hiddenAbilities.Add(Piercing.ID);
             }
             base.Card.AddTemporaryMod(mod);
 
@@ -89,7 +89,7 @@ namespace WhistleWind.AbnormalSigils {
                 base.Card.Anim.PlayTransformAnimation();
                 yield return new WaitForSeconds(0.15f);
                 base.Card.Status.hiddenAbilities.Remove(this.Ability);
-                base.Card.Status.hiddenAbilities.Remove(Piercing.ability);
+                base.Card.Status.hiddenAbilities.Remove(Piercing.ID);
                 base.Card.RemoveTemporaryMod(mod);
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("SeventhMagicBullet2");
@@ -116,7 +116,7 @@ namespace WhistleWind.AbnormalSigils {
         private static void ActivatedSniperCannotBeInherited(ref List<CardModificationInfo> __result) {
             if (__result.Count > 0) {
                 CardModificationInfo mod = __result[0];
-                mod.abilities.Remove(ActivatedSniper.ability);
+                mod.abilities.Remove(ActivatedSniper.ID);
             }
         }
     }

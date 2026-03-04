@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is struck and killed, the attacker perishes as well.";
             const string dialogue = "Retaliation is switft and brutal.";
             const string triggerText = "[creature] swiftly retaliates!";
-            Punisher.ability = AbnormalAbilityHelper.CreateAbility<Punisher>(
+            Punisher.ID = AbnormalAbilityHelper.CreateAbility<Punisher>(
                 "sigilPunisher",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is struck and killed, the attacker perishes as well.
     /// </summary>
     public class Punisher : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) {
             if (!wasSacrifice && killer != null) {
                 return !killer.HasAbility(Ability.MadeOfStone) && !killer.HasTrait(AbnormalPlugin.ImmuneToInstaDeath);

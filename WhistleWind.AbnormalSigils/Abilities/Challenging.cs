@@ -7,7 +7,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_Challenging() {
             const string rulebookName = "Elite";
             const string rulebookDescription = "[creature] is considered Made of Stone and Bleachproof.";
-            Challenging.ability = AbnormalAbilityHelper.CreateAbility<Challenging>(
+            Challenging.ID = AbnormalAbilityHelper.CreateAbility<Challenging>(
                 "sigilChallenging",
                 rulebookName, rulebookDescription, powerLevel: 4,
                 modular: false, opponent: false, canStack: false)
@@ -19,16 +19,16 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class Challenging : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.HasAbility))]
         private static void CountsAsStoneAndBleachproof(PlayableCard __instance, Ability ability, ref bool __result) {
             if (__result)
                 return;
 
-            if (ability == Ability.MadeOfStone || ability == Bleachproof.ability) {
-                if (__instance.HasAbility(Challenging.ability)) {
+            if (ability == Ability.MadeOfStone || ability == Bleachproof.ID) {
+                if (__instance.HasAbility(Challenging.ID)) {
                     __result = true;
                 }
             }
@@ -38,8 +38,8 @@ namespace WhistleWind.AbnormalSigils {
             if (__result)
                 return;
 
-            if (ability == Ability.MadeOfStone || ability == Bleachproof.ability) {
-                __result = __instance.HasAbility(Challenging.ability);
+            if (ability == Ability.MadeOfStone || ability == Bleachproof.ID) {
+                __result = __instance.HasAbility(Challenging.ID);
             }
         }
     }

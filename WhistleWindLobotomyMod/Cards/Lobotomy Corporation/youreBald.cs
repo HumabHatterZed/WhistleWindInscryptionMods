@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 0, "I've always wondered what it's like to be bald.")
                 .SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Shaver.ability)
+                .AddAbilities(Shaver.ID)
                 .SetSpellType(SpellType.Targeted)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

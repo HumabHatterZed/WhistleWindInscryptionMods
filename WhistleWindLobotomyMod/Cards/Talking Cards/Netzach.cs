@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahNetzach, "Netzach",
                 attack: 0, health: 4, "Unmotivated and unwilling. Surely there are others you can choose?")
                 .SetBloodCost(1)
-                .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
+                .AddAbilities(GreedyHealing.ID, Ability.WhackAMole)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();

@@ -21,15 +21,15 @@ namespace WhistleWindLobotomyMod {
             info.rulebookDescription = "Activate or at half Health (once): Swipe a Tentacle across the player's side of the board, affecting three spaces on the board based on which side of the board the Tentacle is on.";
             info.powerLevel = 5;
 
-            GodWhite.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodWhite), TextureLoader.LoadTextureFromFile("sigilGodWhite.png"))
+            GodWhite.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodWhite), TextureLoader.LoadTextureFromFile("sigilGodWhite.png"))
                 .SetUniqueRedirect("Tentacle", "wstl:Ordeals_White Tentacle", GameColors.Instance.purple)
                 .Id;
         }
     }
 
     public class GodWhite : GodColourAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         private Animator anim;
         private Animator defendAnim;
 

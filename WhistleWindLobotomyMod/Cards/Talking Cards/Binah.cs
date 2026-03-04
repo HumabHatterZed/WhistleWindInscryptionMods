@@ -79,7 +79,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahBinah, "Binah",
                 attack: 3, health: 3, "Callous and sadistic, she seems keen on seeing your struggles in person.")
                 .SetBloodCost(3)
-                .AddAbilities(Ability.Sniper, Piercing.ability)
+                .AddAbilities(Ability.Sniper, Piercing.ID)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();

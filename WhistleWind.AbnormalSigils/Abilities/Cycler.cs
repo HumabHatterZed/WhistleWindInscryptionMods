@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.";
             const string dialogue = "A never-ending cycle.";
             const string triggerText = "[creature] moves to a new space, going around its side of the board.";
-            Cycler.ability = AbnormalAbilityHelper.CreateAbility<Cycler>(
+            Cycler.ID = AbnormalAbilityHelper.CreateAbility<Cycler>(
                 "sigilCycler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: true)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.
     /// </summary>
     public class Cycler : Strafe {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight) {
             if (!Unyielding.CardCanBeMoved(base.Card)) // do nothing for giant cards
                 yield break;

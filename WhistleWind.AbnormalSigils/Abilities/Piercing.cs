@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "[creature] can strike face down cards and through shields. Opposing cards cannot reduce damage dealt by this card.";
             const string dialogue = "Even the thickest hide can be run through.";
 
-            Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
+            Piercing.ID = AbnormalAbilityHelper.CreateAbility<Piercing>(
                 "sigilPiercing",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] can strike face down cards and through shields. Opposing cards cannot reduce damage dealt by this card.
     /// </summary>
     public class Piercing : AbilityBehaviour, IModifyDamageTaken, IShieldPreventedDamage {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private bool forcedFaceUp = false;
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
@@ -57,7 +57,7 @@ namespace WhistleWind.AbnormalSigils {
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -9000;
 
         public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) =>
-            attacker == base.Card && target.LacksAbility(InfiniteShield.ability);
+            attacker == base.Card && target.LacksAbility(InfiniteShield.ID);
 
         public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) {
             // recreate TakeDamage logic
@@ -90,8 +90,8 @@ namespace WhistleWind.AbnormalSigils {
         public static bool CardTriggersPiercingDialogue(PlayableCard card) {
             if (card != null) {
                 return card.FaceDown
-                    || card.HasAnyOfAbilities(Ability.DeathShield, ThickSkin.ability)
-                    || card.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability));
+                    || card.HasAnyOfAbilities(Ability.DeathShield, ThickSkin.ID)
+                    || card.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ID));
             }
             return false;
         }

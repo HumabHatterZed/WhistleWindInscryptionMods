@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleMoleman, molemanName,
                 attack: 1, health: 8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Reach, Ability.WhackAMole, ApostleSigil.ability)
+                .AddAbilities(Ability.Reach, Ability.WhackAMole, ApostleSigil.ID)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleMolemanDown, molemanName,
                 attack: 0, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(ApostleSigil.ability)
+                .AddAbilities(ApostleSigil.ID)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)

@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "Pay 1 Bone to inflict 1 Flagellation and increase a chosen card's Health by 2. This effect can stack up to 3 times.";
             const string dialogue = "The truth will set you free.";
             const string triggerText = "Behold [creature] and be reborn.";
-            Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
+            Witness.ID = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
                 "sigilWitness",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2)
                 .SetAbilityRedirect("Flagellation", Prudence.iconId, GameColors.Instance.red)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Pay 1 Bone to inflict 1 Flagellation and increase a chosen card's Health by 2. This effect can stack up to 3 times.
     /// </summary>
     public class Witness : ActivatedSelectSlotBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override string InvalidTargetDialogue(CardSlot slot) => "You must choose one of your other cards to proselytise.";
         public override int StartingBonesCost => 1;
         public override bool IsValidTarget(CardSlot slot) {

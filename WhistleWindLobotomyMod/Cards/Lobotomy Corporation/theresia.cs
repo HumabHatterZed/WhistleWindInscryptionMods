@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 2, desc)
                 .SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Healer.ability)
+                .AddAbilities(Healer.ID)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod {
                 .SetEnergyCost(2)
                 .SetCardTemple(CardTemple.Tech)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Healer.ability)
+                .AddAbilities(Healer.ID)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

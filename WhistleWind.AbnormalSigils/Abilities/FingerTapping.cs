@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.";
             const string dialogue = "Here comes the bride.";
             const string triggerText = "Floating fingers appear beside [creature]!";
-            FingerTapping.ability = AbnormalAbilityHelper.CreateAbility<FingerTapping>(
+            FingerTapping.ID = AbnormalAbilityHelper.CreateAbility<FingerTapping>(
                 "sigilFingerTapping",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false)
@@ -19,8 +19,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike.
     /// </summary>
     public class FingerTapping : CreateTwoCardsAdjacent {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         protected override string LeftSpawnedCardId => "wstl_finger_left";
         protected override string RightSpawnedCardId => "wstl_finger_right";
         protected override string CannotSpawnDialogue => "Not enough hands to go around.";

@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "While this card is on the board, all opposing creatures gain 1 Power.";
             const string dialogue = "My beasts are incensed by your creature's presence.";
 
-            Aggravating.ability = AbnormalAbilityHelper.CreateAbility<Aggravating>(
+            Aggravating.ID = AbnormalAbilityHelper.CreateAbility<Aggravating>(
                 "sigilAggravating",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: true, canStack: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// While this card is on the board, all opposing creatures gain 1 Power.
     /// </summary>
     public class Aggravating : AbilityBehaviour, IPassiveAttackBuff {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToResolveOnBoard() => ActivateOnPlay();
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => ActivateOnPlay();

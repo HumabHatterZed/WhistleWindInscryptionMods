@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Shove Aside";
             const string rulebookDescription = "Creatures struck by [creature] are pushed to an adjacent space.";
             const string dialogue = "How rude.";
-            Wedge.ability = AbnormalAbilityHelper.CreateAbility<Wedge>(
+            Wedge.ID = AbnormalAbilityHelper.CreateAbility<Wedge>(
                 "sigilWedge",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -21,8 +21,8 @@ namespace WhistleWind.AbnormalSigils {
     /// Creatures struck by [creature] are pushed to an adjacent space.
     /// </summary>
     public class Wedge : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && Unyielding.CardCanBeMoved(target);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {

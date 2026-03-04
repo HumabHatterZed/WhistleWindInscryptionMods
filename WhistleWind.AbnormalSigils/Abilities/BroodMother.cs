@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is struck, create a Spiderling in your hand. [define:wstl_spiderling]";
             const string dialogue = "A small spider takes refuge in your hand.";
             const string triggerText = "[creature] drops a spiderling!";
-            BroodMother.ability = AbnormalAbilityHelper.CreateAbility<BroodMother>(
+            BroodMother.ID = AbnormalAbilityHelper.CreateAbility<BroodMother>(
                 "sigilBroodMother",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: false, canStack: false)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is struck, create a Spiderling in your hand. [define:wstl_spiderling]
     /// </summary>
     public class BroodMother : OpponentDrawCreatedCard {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override CardInfo CardToDraw {
             get {
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_spiderling");

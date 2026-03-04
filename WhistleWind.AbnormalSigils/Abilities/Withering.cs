@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Withering";
             const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 damage directly to the opponent.";
             const string dialogue = "Tick tock.";
-            Withering.ability = AbnormalAbilityHelper.CreateAbility<Withering>(
+            Withering.ID = AbnormalAbilityHelper.CreateAbility<Withering>(
                 "sigilPleasure",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: true)
@@ -20,8 +20,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, [creature] deals 1 damage directly to the opponent.
     /// </summary>
     public class Withering : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.Card.OpponentCard;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {

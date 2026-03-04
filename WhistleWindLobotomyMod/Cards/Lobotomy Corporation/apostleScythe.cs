@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleScythe, scytheName,
                 attack: 2, health: 6)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.DoubleStrike, ApostleSigil.ability)
+                .AddAbilities(Ability.DoubleStrike, ApostleSigil.ID)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, apostleScytheDown, scytheName,
                 attack: 0, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(ApostleSigil.ability)
+                .AddAbilities(ApostleSigil.ID)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)

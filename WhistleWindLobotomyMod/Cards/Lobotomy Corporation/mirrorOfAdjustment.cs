@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 1, "A mirror that reflects nothing on its surface.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Woodcutter.ability)
+                .AddAbilities(Woodcutter.ID)
                 .SetStatIcon(SpecialStatIcon.Mirror)
                 .SetTerrain(false)
                 .SetDefaultEvolutionName("The Grand Mirror of Adjustment")

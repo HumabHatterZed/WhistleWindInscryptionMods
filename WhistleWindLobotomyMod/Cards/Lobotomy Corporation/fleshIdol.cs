@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(2)
                 .SetCardTemple(CardTemple.Undead)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(TeamLeader.ability, TeamLeader.ability, Ability.Transformer)
+                .AddAbilities(TeamLeader.ID, TeamLeader.ID, Ability.Transformer)
                 .AddTribes(tribes)
                 .Build();
 
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4, desc)
                 .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Aggravating.ability, Ability.Transformer)
+                .AddAbilities(Aggravating.ID, Ability.Transformer)
                 .AddTribes(tribes)
                 .SetEvolve(fleshIdolGoodCard, 2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw);
@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(2)
                 .SetCardTemple(CardTemple.Undead)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(TeamLeader.ability, TeamLeader.ability, Ability.Transformer)
+                .AddAbilities(TeamLeader.ID, TeamLeader.ID, Ability.Transformer)
                 .AddTribes(tribes)
                 .Build();
 
@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBonesCost(2)
                 .SetCardTemple(CardTemple.Undead)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Aggravating.ability, Ability.Transformer)
+                .AddAbilities(Aggravating.ID, Ability.Transformer)
                 .AddTribes(tribes)
                 .SetEvolve(fleshIdolGoodCard, 2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

@@ -90,7 +90,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahChesed, "Chesed",
                 attack: 1, health: 4, "Nothing like a fresh cup of coffee to start your day.")
                 .SetEnergyCost(4)
-                .AddAbilities(Healer.ability, Regenerator.ability)
+                .AddAbilities(Healer.ID, Regenerator.ID)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();

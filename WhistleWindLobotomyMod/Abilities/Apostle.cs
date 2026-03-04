@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void AddApostle() {
             const string rulebookName = "Apostle";
-            ApostleSigil.ability = AbilityHelper.New<ApostleSigil>(LobotomyPlugin.pluginGuid,
+            ApostleSigil.ID = AbilityHelper.New<ApostleSigil>(LobotomyPlugin.pluginGuid,
                 "sigilApostle", rulebookName, "This card enters a downed state instead of perishing unless already downed. Downed cards cannot be killed while an ally card is the True Saviour.", -3, true).Id;
         }
     }
@@ -20,12 +20,12 @@ namespace WhistleWindLobotomyMod {
     /// This card enters a downed state instead of perishing unless already downed. Downed cards cannot be killed while an ally card is the True Saviour.
     /// </summary>
     public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private int downCount = 0;
 
-        private bool Saviour => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(s => s.Card != null && s.Card.HasAbility(TrueSaviour.ability));
+        private bool Saviour => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(s => s.Card != null && s.Card.HasAbility(TrueSaviour.ID));
         private bool Downed => base.Card.Info.name.EndsWith("Down");
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => Downed && base.Card.OpponentCard != playerUpkeep;
@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod {
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
             // if killed by WhiteNight or One Sin, die normally
-            if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
+            if (killer != null && killer.HasAnyOfAbilities(Confession.ID, TrueSaviour.ID))
                 yield break;
 
             if (Downed) {

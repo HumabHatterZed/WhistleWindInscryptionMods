@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Binding Strike";
             const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to this card's Attack.";
             const string dialogue = "The creature has been slowed, if only temporarily.";
-            BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
+            BindingStrike.ID = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: false, opponent: true, canStack: false)
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to this card's Attack.
     /// </summary>
     public class BindingStrike : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         // only apply Bind if target isn't null/dead
         public override bool RespondsToDealDamage(int amount, PlayableCard target)

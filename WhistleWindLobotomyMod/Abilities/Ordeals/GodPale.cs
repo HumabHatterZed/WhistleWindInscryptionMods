@@ -19,15 +19,15 @@ namespace WhistleWindLobotomyMod {
             info.rulebookDescription = "When this card is played, summon the Pale Eye in the opposing space. Activate: Move the Eye to a new space. At half Health (once): Move the Eye to the opposing space then trigger it.";
             info.powerLevel = 5;
 
-            GodPale.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodPale), TextureLoader.LoadTextureFromFile("sigilGodPale.png"))
+            GodPale.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(GodPale), TextureLoader.LoadTextureFromFile("sigilGodPale.png"))
                 .SetUniqueRedirect("Pale Eye", "wstl:Ordeals_Pale Eye", GameColors.Instance.glowSeafoam)
                 .Id;
         }
     }
 
     public class GodPale : GodColourAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private CardSlot eyeSlot = null;
         private Animator eyeAnim;

@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 3, "A beautiful tree. It wants only to help you and your beasts.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Gardener.ability)
+                .AddAbilities(Gardener.ID)
                 .AddTribes(TribeBotanic)
                 .AddMetaCategories(DonatorCard)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

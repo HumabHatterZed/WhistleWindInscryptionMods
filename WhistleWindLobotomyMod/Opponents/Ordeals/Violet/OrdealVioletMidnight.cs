@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             }
         }
         public override void TryAddOrdealRandomBuff(PlayableCard card) {
-            if (card.HasAbility(Delusion.ability)) {
+            if (card.HasAbility(Delusion.ID)) {
                 card.Info.Mods.Add(new(0, 3 * RunState.CurrentRegionTier + 2 * (RunState.Run.DifficultyModifier - 1)));
             }
         }

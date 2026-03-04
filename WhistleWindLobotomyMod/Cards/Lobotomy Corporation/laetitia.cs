@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, desc)
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(ActivatedGiftGiver.ability)
+                .AddAbilities(ActivatedGiftGiver.ID)
                 .AddTribes(TribeFae)
                 .SetGiftGiverId("wstl_laetitiaFriend")
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod {
                 .SetGemsCost(GemType.Orange)
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(ActivatedGiftGiver.ability)
+                .AddAbilities(ActivatedGiftGiver.ID)
                 .AddTribes(TribeFae)
                 .SetGiftGiverId("wstl_laetitiaFriend")
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

@@ -165,12 +165,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryMagicalGirls : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_MagicalGirls()
-            => RulebookEntryMagicalGirls.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
+            => RulebookEntryMagicalGirls.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
         private static void AddSpecial_MagicalGirls()
             => MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(LobotomyPlugin.pluginGuid, MagicalGirls.rName).Id;
     }

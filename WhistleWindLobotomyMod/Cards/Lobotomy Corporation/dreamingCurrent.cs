@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 4, health: 3, "A sickly child fed candy that let it see the ocean.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Barreler.ability, NimbleFoot.ability)
+                .AddAbilities(Barreler.ID, NimbleFoot.ID)
                 .SetDefaultEvolutionName("The Elder Dreaming Current")
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

@@ -97,9 +97,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems)) {
                 if (finalPhase) {
                     TotemAbilitiesWhitelist.Clear();
-                    TotemAbilitiesWhitelist.Add(Persistent.ability);
-                    TotemAbilitiesWhitelist.Add(Piercing.ability);
-                    TotemAbilitiesWhitelist.Add(Scorching.ability);
+                    TotemAbilitiesWhitelist.Add(Persistent.ID);
+                    TotemAbilitiesWhitelist.Add(Piercing.ID);
+                    TotemAbilitiesWhitelist.Add(Scorching.ID);
                 }
 
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
@@ -349,9 +349,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             TotemAbilitiesWhitelist.Add(Ability.GuardDog);
             TotemAbilitiesWhitelist.Add(Ability.Sentry);
             TotemAbilitiesWhitelist.Add(Ability.Strafe);
-            TotemAbilitiesWhitelist.Add(NimbleFoot.ability);
-            TotemAbilitiesWhitelist.Add(Scorching.ability);
-            TotemAbilitiesWhitelist.Add(ThickSkin.ability);
+            TotemAbilitiesWhitelist.Add(NimbleFoot.ID);
+            TotemAbilitiesWhitelist.Add(Scorching.ID);
+            TotemAbilitiesWhitelist.Add(ThickSkin.ID);
         }
         public override void SetSceneEffectsShown(bool showEffects) {
             if (showEffects) {

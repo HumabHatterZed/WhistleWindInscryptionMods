@@ -3,30 +3,26 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Neutered() {
             const string rulebookName = "Neutered";
             const string rulebookDescription = "[creature] has its Power reduced to 0. At the start of the owner's next turn, remove this sigil.";
-            Neutered.ability = AbnormalAbilityHelper.CreateAbility<Neutered>(
+            Neutered.ID = AbnormalAbilityHelper.CreateAbility<Neutered>(
                 "sigilNeutered",
                 rulebookName, rulebookDescription, powerLevel: -2,
-                modular: false, opponent: false, canStack: false)
-                .SetGrimoraRulebook()
-                .SetMagnificusRulebook()
-                .SetPart3Rulebook()
-                .Info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook)
-                .ability;
+                modular: false, opponent: false, canStack: false, unobtainable: true)
+                .ForceAddToRulebook()
+                .Id;
         }
     }
     /// <summary>
     /// [creature] has its Power reduced to 0. At the start of the owner's next turn, remove this sigil.
     /// </summary>
     public class Neutered : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private int TurnPlayed = 0;
         private void Start() => TurnPlayed = TurnManager.Instance.TurnNumber;
@@ -44,6 +40,6 @@ namespace WhistleWind.AbnormalSigils {
             }
             yield return new WaitForSeconds(0.5f);
         }
-        private CardModificationInfo GetTemporaryNeuterMod() => base.Card.TemporaryMods.Find((CardModificationInfo x) => x.abilities.Contains(ability));
+        private CardModificationInfo GetTemporaryNeuterMod() => base.Card.TemporaryMods.Find((CardModificationInfo x) => x.abilities.Contains(ID));
     }
 }

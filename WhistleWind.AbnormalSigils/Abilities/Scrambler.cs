@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Scrambler";
             const string dialogue = "Do you love your city?";
 
-            Scrambler.ability = AbnormalAbilityHelper.CreateAbility<Scrambler>(
+            Scrambler.ID = AbnormalAbilityHelper.CreateAbility<Scrambler>(
                 "sigilScrambler",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false)
@@ -27,8 +27,8 @@ namespace WhistleWind.AbnormalSigils {
     /// This card gives its stats to the target card then randomises its new stats. For non-spells, activate when sacrificed.
     /// </summary>
     public class Scrambler : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToSacrifice() => true;
         public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();

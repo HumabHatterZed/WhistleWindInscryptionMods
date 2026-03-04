@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, "A ribbon that binds despairing hearts, those ripest of dangling fruit.")
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(BindingStrike.ability)
+                .AddAbilities(BindingStrike.ID)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }

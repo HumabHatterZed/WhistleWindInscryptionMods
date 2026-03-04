@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the start of the owner's turn, [creature] will heal all injured allies by 1 Health.";
             const string dialogue = "You only delay the inevitable.";
             const string triggerText = "[creature] heals all its friends.";
-            GroupHealer.ability = AbnormalAbilityHelper.CreateAbility<GroupHealer>(
+            GroupHealer.ID = AbnormalAbilityHelper.CreateAbility<GroupHealer>(
                 "sigilGroupHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: true)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the start of the owner's turn, [creature] will heal all injured allies by 1 Health.
     /// </summary>
     public class GroupHealer : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {

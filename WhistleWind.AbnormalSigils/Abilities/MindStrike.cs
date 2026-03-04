@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] strikes another creature, cap the damage dealt to 1 then inflict Sinking equal to half this card's Health, rounded up.";
             const string dialogue = "Why destroy the flesh when you can destroy the mind?";
             const string triggerText = "[creature] deals emotional damage!";
-            MindStrike.ability = AbnormalAbilityHelper.CreateAbility<MindStrike>(
+            MindStrike.ID = AbnormalAbilityHelper.CreateAbility<MindStrike>(
                 "sigilMindFlayer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] may only deal 1 damage to creatures. When striking another creature, inflict Sinking equal to half this card's Health, rounded up.
     /// </summary>
     public class MindStrike : ModifyDamageDealtAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && target.LacksAbility(Ability.MadeOfStone) && target.LacksTrait(AbnormalPlugin.ImmuneToAilments);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
             yield return target.AddStatusEffect<Sinking>((base.Card.Health + 1) / 2);

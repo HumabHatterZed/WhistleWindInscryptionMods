@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 8, health: 8)
                 .SetBloodCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Piercing.ability, Persistent.ability)
+                .AddAbilities(Piercing.ID, Persistent.ID)
                 .AddSpecialAbilities(MimicryCombat.specialAbility)
                 .SetDefaultEvolutionName(nothingName)
                 .AddAppearances(ForcedEmission.appearance)

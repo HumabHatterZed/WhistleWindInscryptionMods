@@ -12,13 +12,13 @@ namespace WhistleWindLobotomyMod {
             const string rulebookName = "Confession and Pentinence";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
-            Confession.ability = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
+            Confession.ID = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
                 "sigilConfession", rulebookName, "Keep faith with unwavering resolve.", dialogue, powerLevel: -3).Id;
         }
     }
     public class Confession : ActivatedAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool CanActivate() => base.Card.Info.name != Cards.hundredsGoodDeeds;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod {
             yield return new WaitForSeconds(0.5f);
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardInfo, thisSlot, 0.15f);
 
-            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAnyOfAbilities(ApostleSigil.ability, TrueSaviour.ability))) {
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAnyOfAbilities(ApostleSigil.ID, TrueSaviour.ID))) {
                 card.Anim.SetShaking(true);
             }
 
@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod {
             yield return base.LearnAbility();
             yield return new WaitForSeconds(0.4f);
 
-            PlayableCard whiteNight = BoardManager.Instance.CardsOnBoard.Find(x => x.HasAbility(TrueSaviour.ability));
+            PlayableCard whiteNight = BoardManager.Instance.CardsOnBoard.Find(x => x.HasAbility(TrueSaviour.ID));
             if (whiteNight != null) {
                 int dmgToDeal = whiteNight.Health / 6; // kill WhiteNight in 6 hits
                 while (whiteNight != null && whiteNight.Health > 0) {
@@ -54,7 +54,7 @@ namespace WhistleWindLobotomyMod {
             }
             else {
                 for (int i = 0; i < 3; i++) {
-                    foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ability))) {
+                    foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ID))) {
                         int damageToDeal = card.MaxHealth / 3;
                         yield return card.TakeDamage(damageToDeal, base.Card);
                         yield return new WaitForSeconds(0.2f);
@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod {
             ViewManager.Instance.SwitchToView(BoardManager.Instance.DefaultView);
         }
         private IEnumerator DamageApostles() {
-            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ability))) {
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ID))) {
                 int damageToDeal = card.MaxHealth / 3; // kill each Apostle in 3 hits max
                 yield return card.TakeDamage(damageToDeal, base.Card);
             }

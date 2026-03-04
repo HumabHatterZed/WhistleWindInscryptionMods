@@ -15,12 +15,12 @@ namespace WhistleWindLobotomyMod {
         public override string PostEvolveDialogueId => "KnightOfDespairTransform";
     }
     public class RulebookEntrySwordWithTears : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_SwordWithTears()
-            => RulebookEntrySwordWithTears.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySwordWithTears>(SwordWithTears.rName, SwordWithTears.rDesc).Id;
+            => RulebookEntrySwordWithTears.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySwordWithTears>(SwordWithTears.rName, SwordWithTears.rDesc).Id;
         private static void AddSpecial_SwordWithTears()
             => SwordWithTears.specialAbility = AbilityHelper.CreateSpecialAbility<SwordWithTears>(LobotomyPlugin.pluginGuid, SwordWithTears.rName).Id;
     }

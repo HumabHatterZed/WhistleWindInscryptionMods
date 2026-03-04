@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "[creature] remembers the first card that kills it. In all future battles, this card will carry a vendetta against similar cards.";
             const string dialogue = "A bitter grudge laid bare.";
 
-            BitterEnemies.ability = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
+            BitterEnemies.ID = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
                 "sigilBitterEnemies",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
@@ -30,8 +30,8 @@ namespace WhistleWind.AbnormalSigils {
     /// [creature] remembers the first card that kills it. In all future battles, this card will carry a vendetta against similar cards.
     /// </summary>
     public class BitterEnemies : ModifyDamageDealtAbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public const string VENDETTA_TARGET = "VendettaTarget";
         public const char GROUP_DELIMITER = ':';

@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod {
                 .SetBloodCost(1)
                 .SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Alluring.ability, Abilities.SteelTrapSweetHome)
+                .AddAbilities(Alluring.ID, SteelTrapSweetHome.ID)
                 .SetTerrain()
                 .AddTraits(Trait.Structure)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
@@ -89,28 +89,28 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeD, cardName,
                 attack: 2, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureNameD)
-                .AddAbilities(Piercing.ability)
+                .AddAbilities(Piercing.ID)
                 .AddTribes(AbnormalPlugin.TribeDivine)
                 .Build();
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeF, cardName,
                 attack: 2, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureNameF)
-                .AddAbilities(Bloodfiend.ability)
+                .AddAbilities(Bloodfiend.ID)
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build();
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeM, cardName,
                 attack: 2, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureNameM)
-                .AddAbilities(Grinder.ability)
+                .AddAbilities(Grinder.ID)
                 .AddTribes(AbnormalPlugin.TribeMechanical)
                 .Build();
 
             CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHomeA, cardName,
                 attack: 1, health: 3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureNameA)
-                .AddAbilities(Persistent.ability)
+                .AddAbilities(Persistent.ID)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build();
         }

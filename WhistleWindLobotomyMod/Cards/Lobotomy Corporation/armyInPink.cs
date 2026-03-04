@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 3, health: 3, "A friendly pink soldier. It will protect you wherever you go.")
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.MoveBeside, Protector.ability)
+                .AddAbilities(Ability.MoveBeside, Protector.ID)
                 .AddSpecialAbilities(Pink.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .AddMetaCategories(DonatorCard)

@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of the owner's turn, the creature opposing [creature] will take 1 damage. This card cannot be frozen.";
             const string dialogue = "A slow and painful death.";
             const string triggerText = "The creature opposing [creature] is burned!";
-            Scorching.ability = AbnormalAbilityHelper.CreateAbility<Scorching>(
+            Scorching.ID = AbnormalAbilityHelper.CreateAbility<Scorching>(
                 "sigilScorching",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: true)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the owner's turn, the creature opposing [creature] will take 1 damage. This card cannot be frozen.
     /// </summary>
     public class Scorching : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private IEnumerator CheckClearSlotModifications(CardSlot slot) {
             SlotModificationManager.ModificationType mod = slot.GetSlotModification();
@@ -71,7 +71,7 @@ namespace WhistleWind.AbnormalSigils {
 
         public static IEnumerator ExtinguishCard(PlayableCard card, bool playEvent) {
             card.Anim.StrongNegationEffect();
-            card.AddTemporaryMod(new() { negateAbilities = new() { Scorching.ability }, singletonId = "ScorchingExtinguished" });
+            card.AddTemporaryMod(new() { negateAbilities = new() { Scorching.ID }, singletonId = "ScorchingExtinguished" });
             yield return card.Slot.SetSlotModification(FloodedSlotShallow.Id);
             if (playEvent) {
                 yield return new WaitForSeconds(0.3f);

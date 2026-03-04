@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod {
             List<CardSlot> allSlotsCopy = Singleton<BoardManager>.Instance.AllSlotsCopy;
             allSlotsCopy.RemoveAll(x => x.Card == null);
             if (AbilityToAdd == Ability.Sniper) {
-                allSlotsCopy.RemoveAll(x => x.Card.HasAbility(ActivatedSniper.ability));
+                allSlotsCopy.RemoveAll(x => x.Card.HasAbility(ActivatedSniper.ID));
             }
             if (!AbilitiesUtil.GetInfo(AbilityToAdd).canStack) {
                 allSlotsCopy.RemoveAll(x => x.Card.HasAbility(AbilityToAdd));

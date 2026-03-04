@@ -38,9 +38,9 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
         {
             Ability.Sentry,
             Ability.Strafe,
-            NimbleFoot.ability,
-            Scorching.ability,
-            ThickSkin.ability
+            NimbleFoot.ID,
+            Scorching.ID,
+            ThickSkin.ID
         };
 
         public override IEnumerator OutroSequence(bool wasDefeated)
@@ -130,8 +130,8 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
                 if (finalPhase)
                 {
                     possibleAbilities.Clear();
-                    possibleAbilities.Add(Piercing.ability);
-                    possibleAbilities.Add(OneSided.ability);
+                    possibleAbilities.Add(Piercing.ID);
+                    possibleAbilities.Add(OneSided.ID);
                 }
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
                 yield return new WaitForSeconds(0.25f);

@@ -16,13 +16,13 @@ namespace WhistleWindLobotomyMod {
             info.rulebookName = "Survival";
             info.rulebookDescription = "At the start of every other turn for the owner, this card creates a Food Chain in empty adjacent spaces. [define:wstl_foodChain]";
             info.powerLevel = 4;
-            Survival.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Survival), TextureLoader.LoadTextureFromFile("sigilSurvival.png")).Id;
+            Survival.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Survival), TextureLoader.LoadTextureFromFile("sigilSurvival.png")).Id;
         }
     }
 
     public class Survival : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         private int turnsOnBoard;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) {
             return otherCard == base.Card;

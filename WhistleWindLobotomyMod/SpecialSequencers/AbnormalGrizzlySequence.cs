@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers {
         private static void GiveCardReach(PlayableCard card) {
             CardModificationInfo cardModificationInfo = new(Ability.Reach);
             cardModificationInfo.fromTotem = true;
-            if (!card.HasAbility(ApostleSigil.ability)) {
+            if (!card.HasAbility(ApostleSigil.ID)) {
                 cardModificationInfo.healthAdjustment = 1;
             }
             card.AddTemporaryMod(cardModificationInfo);

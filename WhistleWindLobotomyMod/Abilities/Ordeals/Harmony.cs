@@ -15,15 +15,15 @@ namespace WhistleWindLobotomyMod {
             info.rulebookName = "Harmony";
             info.rulebookDescription = "When [creature] dies, two Cheers for the Beginning are created on the owner's side of the board. [define:wstl_skinCheers]";
             info.powerLevel = 3;
-            HarmonyAbility.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(HarmonyAbility), TextureLoader.LoadTextureFromFile("sigilHarmony.png"))
-                .SetAbilityRedirect("Withering", Withering.ability, GameColors.Instance.red)
+            HarmonyAbility.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(HarmonyAbility), TextureLoader.LoadTextureFromFile("sigilHarmony.png"))
+                .SetAbilityRedirect("Withering", Withering.ID, GameColors.Instance.red)
                 .Id;
         }
     }
 
     public class HarmonyAbility : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {

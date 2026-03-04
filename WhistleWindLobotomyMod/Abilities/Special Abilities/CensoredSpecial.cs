@@ -41,12 +41,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryCensoredSpecial : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_CensoredSpecial()
-            => RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
+            => RulebookEntryCensoredSpecial.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
         private static void AddSpecial_CensoredSpecial()
             => CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(LobotomyPlugin.pluginGuid, CensoredSpecial.rName).Id;
     }

@@ -8,14 +8,14 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void AddApocalypseGiant() {
             const string rulebookName = "The Monster";
-            ApocalypseGiant.ability = AbilityHelper.New<ApocalypseGiant>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
+            ApocalypseGiant.ID = AbilityHelper.New<ApocalypseGiant>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
                 "This card will attack marked spaces. Red spaces will take double damage, and white spaces will take half damage then heal this card equal to its Power.", 0, true).Id;
         }
     }
 
     public class ApocalypseGiant : AbilityBehaviour, ISetupAttackSequence {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
             return card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;

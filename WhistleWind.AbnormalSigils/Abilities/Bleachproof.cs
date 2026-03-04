@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_Bleachproof() {
             const string rulebookName = "Bleachproof";
             const string rulebookDescription = "[creature] cannot have its sigils removed by effects like the Bleach Pot.";
-            Bleachproof.ability = AbnormalAbilityHelper.CreateAbility<Bleachproof>(
+            Bleachproof.ID = AbnormalAbilityHelper.CreateAbility<Bleachproof>(
                 "sigilBleachproof",
                 rulebookName, rulebookDescription, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
@@ -20,12 +20,12 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     [HarmonyPatch]
     public class Bleachproof : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         [HarmonyPostfix, HarmonyPatch(typeof(BleachPotItem), nameof(BleachPotItem.GetValidOpponentSlots))]
         private static void RemoveImmuneCards(ref List<CardSlot> __result) {
-            __result.RemoveAll(x => x.Card.HasAbility(Bleachproof.ability));
+            __result.RemoveAll(x => x.Card.HasAbility(Bleachproof.ID));
         }
     }
 }

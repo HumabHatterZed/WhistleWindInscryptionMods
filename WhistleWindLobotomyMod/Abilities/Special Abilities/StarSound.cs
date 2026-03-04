@@ -31,12 +31,12 @@ namespace WhistleWindLobotomyMod {
         }
     }
     public class RulebookEntryStarSound : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
     }
     public partial class Abilities {
         private static void Rulebook_StarSound()
-            => RulebookEntryStarSound.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryStarSound>(StarSound.rName, StarSound.rDesc).Id;
+            => RulebookEntryStarSound.ID = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryStarSound>(StarSound.rName, StarSound.rDesc).Id;
         private static void AddSpecial_StarSound()
             => StarSound.specialAbility = AbilityHelper.CreateSpecialAbility<StarSound>(LobotomyPlugin.pluginGuid, StarSound.rName).Id;
     }

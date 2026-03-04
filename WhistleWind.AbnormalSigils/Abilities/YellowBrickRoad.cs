@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures move towards this card in the sigil's direction as far as possible.";
             const string dialogue = "Let's go, together.";
             const string triggerText = "[creature] leads your creatures forward.";
-            YellowBrickRoad.ability = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
+            YellowBrickRoad.ID = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
                 "sigilYellowBrickRoad", rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2, special: true)
                 .Id;
         }
@@ -24,8 +24,8 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures move towards this card in the sigil's direction as far as possible.
     /// </summary>
     public class YellowBrickRoad : Strafe {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
             CardSlot toRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
@@ -40,7 +40,7 @@ namespace WhistleWind.AbnormalSigils {
             List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
             CardSlot oldSlot = base.Card.Slot;
 
-            if (base.Card.LacksAbility(Unyielding.ability)) {
+            if (base.Card.LacksAbility(Unyielding.ID)) {
                 CardSlot destination;
                 bool destinationValid;
                 bool atEndOfBoard = base.Card.Slot == allySlots.First() || base.Card.Slot == allySlots.Last();
@@ -99,7 +99,7 @@ namespace WhistleWind.AbnormalSigils {
             }
 
             // if there are other cards to move
-            if (allySlots.Count(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ability)) > 0) {
+            if (allySlots.Count(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ID)) > 0) {
                 yield return base.LearnAbility();
                 yield return MoveFollowingCards(oldSlot, allySlots);
             }

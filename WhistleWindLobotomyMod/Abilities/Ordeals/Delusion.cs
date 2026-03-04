@@ -14,13 +14,13 @@ namespace WhistleWindLobotomyMod {
             info.rulebookDescription = "At the start of the owner's turn, reduce this sigil's counter by 1. If the counter is 0, activate this card's God sigil, reduce the max scale balance by 1, then reset the counter to 2~3.";
             info.powerLevel = 0;
 
-            Delusion.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Delusion), TextureLoader.LoadTextureFromFile("sigilDelusion.png")).Id;
+            Delusion.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Delusion), TextureLoader.LoadTextureFromFile("sigilDelusion.png")).Id;
         }
     }
 
     public class Delusion : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         private int counter;
         private GodColourAbilityBehaviour behav = null;

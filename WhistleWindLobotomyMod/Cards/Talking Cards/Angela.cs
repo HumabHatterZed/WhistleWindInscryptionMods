@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, angela, "Angela",
                 attack: 2, health: 3)
                 .SetEnergyCost(6)
-                .AddAbilities(FrostRuler.ability, Persecutor.ability)
+                .AddAbilities(FrostRuler.ID, Persecutor.ID)
                 .AddTraits()
                 .SetOnePerDeck()
                 .Build();

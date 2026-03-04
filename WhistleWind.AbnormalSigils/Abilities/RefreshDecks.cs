@@ -11,8 +11,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.
     /// </summary>
     public class RefreshDecks : AbilityBehaviour {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         public const string REMOVE_ON_REFRESH_ID = "wstl:RemoveOnRefresh";
         public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
@@ -95,7 +95,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_RefreshDecks() {
             const string rulebookName = "Grand Reopening";
-            RefreshDecks.ability = AbnormalAbilityHelper.CreateAbility<RefreshDecks>(
+            RefreshDecks.ID = AbnormalAbilityHelper.CreateAbility<RefreshDecks>(
                 "sigilRefreshDecks", rulebookName, "When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand based on the number of turns that have passed.",
                 null, powerLevel: 0, canStack: false).Id;
         }

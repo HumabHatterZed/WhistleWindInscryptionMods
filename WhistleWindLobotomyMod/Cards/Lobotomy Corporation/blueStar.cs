@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4)
                 .SetBloodCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Transformer, Idol.ability)
+                .AddAbilities(Ability.Transformer, Idol.ID)
                 .AddTribes(tribes)
                 .SetEvolve(star3, 1)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);

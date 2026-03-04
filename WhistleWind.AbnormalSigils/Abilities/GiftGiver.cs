@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "When [creature] is first played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
             const string triggerText = "[creature] has a gift for you!";
-            GiftGiver.ability = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
+            GiftGiver.ID = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
                 "sigilGiftGiver",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
@@ -25,8 +25,8 @@ namespace WhistleWind.AbnormalSigils {
     /// When [creature] is first played, create a random card in your hand.
     /// </summary>
     public class GiftGiver : OpponentDrawCreatedCard {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
         public const string CUSTOM_CARD_PROPERTY = "wstl:GiftGiver";
         private string CustomCardToDraw => base.Card.Info.GetExtendedProperty(CUSTOM_CARD_PROPERTY);
         public override CardInfo CardToDraw {

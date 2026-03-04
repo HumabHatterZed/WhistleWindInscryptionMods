@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookDescription = "While this card is on the board, all allied creatures gain 1 Power.";
             const string dialogue = "Your beast emboldens its allies.";
 
-            TeamLeader.ability = AbnormalAbilityHelper.CreateAbility<TeamLeader>(
+            TeamLeader.ID = AbnormalAbilityHelper.CreateAbility<TeamLeader>(
                 "sigilTeamLeader",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 modular: false, opponent: true, canStack: true)
@@ -23,8 +23,8 @@ namespace WhistleWind.AbnormalSigils {
     /// While this card is on the board, all allied creatures gain 1 Power.
     /// </summary>
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff {
-        public static Ability ability;
-        public override Ability Ability => ability;
+        public static Ability ID { get; internal set; }
+        public override Ability Ability => ID;
 
         // Check if there are already other cards on the board
         // Used for LearnAbility dialogue

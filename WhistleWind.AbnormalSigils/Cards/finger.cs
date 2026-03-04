@@ -8,12 +8,12 @@ namespace WhistleWind.AbnormalSigils {
             const string finger = "finger";
             CardManager.New(pluginPrefix, "finger_left", "Finger", 1, 1)
                 .SetPortraits(Assembly, finger)
-                .AddAbilities(RightStrike.ability, MindStrike.ability)
+                .AddAbilities(RightStrike.ID, MindStrike.ID)
                 .SetTerrain(false);
 
             CardManager.New(pluginPrefix, "finger_right", "Finger", 1, 1)
                 .SetPortraits(Assembly, finger)
-                .AddAbilities(LeftStrike.ability, MindStrike.ability)
+                .AddAbilities(LeftStrike.ID, MindStrike.ID)
                 .SetTerrain(false);
         }
     }

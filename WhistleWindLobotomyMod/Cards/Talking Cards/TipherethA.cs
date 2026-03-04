@@ -86,7 +86,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethA, "Tiphereth",
                 attack: 1, health: 2, "A foul-mouthed child. She's never seen without her brother.")
                 .SetEnergyCost(3)
-                .AddAbilities(GiftGiver.ability)
+                .AddAbilities(GiftGiver.ID)
                 .AddTraits(Sephirah)
                 .SetGiftGiverId(Cards.sephirahTipherethB)
                 .SetOnePerDeck()
