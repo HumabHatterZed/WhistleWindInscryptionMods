@@ -9,8 +9,9 @@ using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers {
     public static class AbnormalAbilityHelper {
-        public const string ADDTORULEBOOK = "wstl_ADDTORULEBOOK";
-        public const string FORCEMODULAR = "wstl_FORCEMODULAR";
+        public const string ADD_TO_RULEBOOK = "wstl_ADDTORULEBOOK";
+        public const string FORCE_MODULAR = "wstl_FORCEMODULAR";
+        public const string FORCE_ADD_TO_RULEBOOK = "wstl_FORCEADDTORULEBOOK";
 
         public static bool CanBeInstaKilled(this PlayableCard card) {
             return card.LacksAbility(Ability.MadeOfStone) && card.LacksTrait(ImmuneToInstaDeath);
@@ -149,8 +150,8 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
                 abilityName, rulebookName, rulebookDescription, powerLevel, false, dialogue, triggerText,
                 canStack, false, opponent);
 
-            ab.SetExtendedProperty(ADDTORULEBOOK, addToRulebook);
-            ab.SetExtendedProperty(FORCEMODULAR, forceModular);
+            ab.SetExtendedProperty(ADD_TO_RULEBOOK, addToRulebook);
+            ab.SetExtendedProperty(FORCE_MODULAR, forceModular);
             return ab;
         }
 
@@ -166,11 +167,11 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers {
             FullAbility ab = AbilityHelper.NewActivated<T>(pluginGuid, abilityName, rulebookName, rulebookDescription, powerLevel, false, dialogue, triggerText,
                 false, false);
 
-            ab.SetExtendedProperty(ADDTORULEBOOK, addToRulebook);
-            ab.SetExtendedProperty(FORCEMODULAR, forceModular);
+            ab.SetExtendedProperty(ADD_TO_RULEBOOK, addToRulebook);
+            ab.SetExtendedProperty(FORCE_MODULAR, forceModular);
             return ab;
         }
-
+        public static FullAbility ForceAddToRulebook(this FullAbility ab, bool force = true) => ab.SetExtendedProperty(FORCE_ADD_TO_RULEBOOK, force);
         private static bool AddToRulebook(AbilityGroup defaultGroup, bool rulebookOnly, bool special) {
             if (ForceDisable.HasFlag(AbilityGroup.All) || ForceDisable.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
                 return false;
