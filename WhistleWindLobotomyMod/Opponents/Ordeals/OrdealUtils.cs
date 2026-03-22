@@ -226,8 +226,8 @@ namespace WhistleWindLobotomyMod.Opponents {
         internal static RegionData CreateSweeperRegion(RegionData whiteOrdeal) {
             RegionData retval = RegionManager.New("wstl_backstreets", 3, false)
                 .AddBosses(SweeperOpponentID)
-                .SetBoardColor(new(0f, 0.2f, 0.4f, 1f))
-                .SetCardsColor(new(0f, 0.2f, 0.4f, 1f))
+                .SetBoardColor(new(0f, 0.4f, 0.6f, 1f))
+                .SetCardsColor(new(0f, 0.4f, 0.6f, 1f))
                 .SetFogEnabled(true).SetFogAlpha(1f)
                 .SetMapAlbedo(TextureLoader.LoadTextureFromFile("mapScroll_Albedo_Sweepers.png", LobotomyPlugin.ModAssembly));
 
