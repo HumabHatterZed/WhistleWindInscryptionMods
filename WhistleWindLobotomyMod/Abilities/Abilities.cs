@@ -114,6 +114,8 @@ namespace WhistleWindLobotomyMod {
             StatusEffect_Sin();
             AddUnjustScale();
 
+            AddScenarioOverseer();
+
             if (LobotomyConfigManager.RevealSpecials) {
                 LobotomyPlugin.Log.LogDebug("Adding rulebook entries for special abilities.");
                 AccessTools.GetDeclaredMethods(typeof(Abilities)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(plugin, null));

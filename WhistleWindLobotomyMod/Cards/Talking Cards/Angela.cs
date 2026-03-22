@@ -6,6 +6,7 @@ using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
@@ -83,10 +84,11 @@ namespace WhistleWindLobotomyMod {
         public const string angela = "wstl_angela";
         private static void Angela() {
             CardManager.New(LobotomyPlugin.pluginPrefix, angela, "Angela",
-                attack: 2, health: 3)
+                attack: 3, health: 3)
                 .SetEnergyCost(6)
-                .AddAbilities(FrostRuler.ID, Persecutor.ID)
-                .AddTraits()
+                .AddAbilities(ScenarioOverseer.ID)
+                .SetCannotGiveSigils()
+                .SetCannotCopyCard()
                 .SetOnePerDeck()
                 .Build();
         }
