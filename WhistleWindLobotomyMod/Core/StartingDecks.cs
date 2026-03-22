@@ -69,7 +69,7 @@ namespace WhistleWindLobotomyMod {
                     randomCards.Add(Cards.randomPlaceholder);
             }
 
-            StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Random Mod Cards", "starterDeckRandom.png", 12, cardNames: randomCards);
+            StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Random Mod Cards", "starterDeckRandom.png", 0, cardNames: randomCards);
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "First Day", "starterDeckControl.png", 0, cardNames: firstDay);
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Lonely Friends", "starterDeckChildren.png", 2, cardNames: lonelyFriends);
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Blood Machines", "starterDeckBloodMachines.png", 4, cardNames: bloodMechs);
