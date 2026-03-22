@@ -5,59 +5,59 @@ using WhistleWindLobotomyMod.Core;
 namespace WhistleWindLobotomyMod {
     public class StarterDecks {
         public const int NUM_DECKS = 13;
-        public static readonly List<string> firstDay = new() {
+        public static readonly List<string> firstDay = new(3) {
             Cards.fairyFestival,
             Cards.oneSin,
             Cards.oldLady
         };
-        public static readonly List<string> lonelyFriends = new() {
+        public static readonly List<string> lonelyFriends = new(3) {
             Cards.laetitia,
             Cards.scorchedGirl,
             Cards.childOfTheGalaxy
         };
-        public static readonly List<string> bloodMechs = new() {
+        public static readonly List<string> bloodMechs = new(3) {
             Cards.singingMachine,
             Cards.trainingDummy,
             Cards.allAroundHelper
         };
-        public static readonly List<string> peoplePleasers = new() {
+        public static readonly List<string> peoplePleasers = new(3) {
             Cards.todaysShyLook,
             LobotomyConfigManager.NoRuina? Cards.mirrorOfAdjustment : Cards.pinocchio,
             Cards.behaviourAdjustment
         };
-        public static readonly List<string> freakShow = new() {
+        public static readonly List<string> freakShow = new(3) {
             Cards.voidDream,
             Cards.beautyAndBeast,
             Cards.queenBee
         };
-        public static readonly List<string> apocrypha = new() {
+        public static readonly List<string> apocrypha = new(3) {
             Cards.fragmentOfUniverse,
             Cards.fleshIdol,
             LobotomyConfigManager.NoRuina ? Cards.mhz176 : Cards.priceOfSilence
         };
-        public static readonly List<string> keter = new() {
+        public static readonly List<string> keter = new(3) {
             Cards.heartOfAspiration,
             Cards.burrowingHeaven,
             Cards.snowQueen
         };
-        public static readonly List<string> deathLovers = new() {
+        public static readonly List<string> deathLovers = new(3) {
             Cards.bloodBath,
             Cards.bigBird,
             Cards.dreamOfABlackSwan
         };
-        public static readonly List<string> roadToOz = new() {
+        public static readonly List<string> roadToOz = new(4) {
             LobotomyConfigManager.NoRuina ? Cards.laetitia : Cards.theRoadHome,
             Cards.warmHeartedWoodsman,
             Cards.wisdomScarecrow,
             LobotomyConfigManager.NoRuina ? Cards.snowWhitesApple : Cards.ozma
         };
-        public static readonly List<string> magicGirls = new() {
+        public static readonly List<string> magicGirls = new(4) {
             Cards.magicalGirlSpade,
             Cards.magicalGirlHeart,
             Cards.magicalGirlDiamond,
             LobotomyConfigManager.NoRuina ? Cards.wallLady : Cards.magicalGirlClover
         };
-        public static readonly List<string> twilight = new() {
+        public static readonly List<string> twilight = new(3) {
             Cards.punishingBird,
             Cards.bigBird,
             Cards.judgementBird
