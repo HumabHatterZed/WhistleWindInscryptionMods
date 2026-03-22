@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
+using InscryptionAPI.Slots;
 using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
@@ -268,17 +269,30 @@ namespace WhistleWindLobotomyMod {
     }
     // modified variant of snapshot manager to account for mod-specific interactions and missing Act 3 stuff
     public class AngelaSnapshotManager : PhotographerSnapshotManager {
+        private List<SlotModificationManager.ModificationType> playerSlotMods = new();
+        private List<SlotModificationManager.ModificationType> opponentSlotMods = new();
         public new void TakeSnapshot(SnapshotSubject subject) {
+            playerSlotMods.Clear();
+            opponentSlotMods.Clear();
             base.TakeSnapshot(subject);
+            foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy) {
+                playerSlotMods.Add(slot.GetSlotModification());
+            }
+            foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
+                opponentSlotMods.Add(slot.GetSlotModification());
+            }
         }
         public new void RevertToCurrentSnapshot() {
             LobotomyPlugin.Log.LogDebug("[ScenarioOverseer] RevertToCurrentSnapshot");
             if (this.currentSnapshot != null) {
                 this.RevertToBoardSnapshot(this.currentSnapshot);
             }
+            playerSlotMods.Clear();
+            opponentSlotMods.Clear();
         }
-        private new IEnumerator ApplySlotState(BoardState.SlotState slotState, CardSlot slot) {
-            Debug.Log($"[ScenarioOverseer] ApplySlotState: {slotState} {slot}");
+        private IEnumerator ApplySlotState(BoardState.SlotState slotState, CardSlot slot, SlotModificationManager.ModificationType modType) {
+            Debug.Log($"[ScenarioOverseer] ApplySlotState: {slotState} {slot} {modType}");
+
             if (slotState.card != null && slot.Card == null) {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(slotState.card.info, slot, 0f, resolveTriggers: false);
                 PlayableCard card = slot.Card;
@@ -287,10 +301,13 @@ namespace WhistleWindLobotomyMod {
                 card.OnStatsChanged();
                 Singleton<ResourcesManager>.Instance.ForceGemsUpdate();
             }
+            if (slot.GetSlotModification() != modType) {
+                yield return slot.SetSlotModification(modType);
+            }
         }
-        private new void ApplySlotStates(List<BoardState.SlotState> slotStates, List<CardSlot> actualSlots) {
+        private void ApplySlotStates(List<BoardState.SlotState> slotStates, List<CardSlot> actualSlots, List<SlotModificationManager.ModificationType> slotMods) {
             for (int i = 0; i < slotStates.Count; i++) {
-                base.StartCoroutine(this.ApplySlotState(slotStates[i], actualSlots[i]));
+                base.StartCoroutine(this.ApplySlotState(slotStates[i], actualSlots[i], slotMods[i]));
             }
         }
 
@@ -302,8 +319,8 @@ namespace WhistleWindLobotomyMod {
                     Object.Destroy(card.gameObject);
                 }
             }
-            this.ApplySlotStates(snapshot.boardState.playerSlots, Singleton<BoardManager>.Instance.PlayerSlotsCopy);
-            this.ApplySlotStates(snapshot.boardState.opponentSlots, Singleton<BoardManager>.Instance.OpponentSlotsCopy);
+            this.ApplySlotStates(snapshot.boardState.playerSlots, Singleton<BoardManager>.Instance.PlayerSlotsCopy, playerSlotMods);
+            this.ApplySlotStates(snapshot.boardState.opponentSlots, Singleton<BoardManager>.Instance.OpponentSlotsCopy, opponentSlotMods);
         }
     }
 }
