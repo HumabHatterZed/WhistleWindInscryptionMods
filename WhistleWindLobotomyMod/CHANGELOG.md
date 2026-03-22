@@ -50,6 +50,7 @@
 - Adult Who tells Lies: updated artwork
 - <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
 - Angela: Fixed eyes disappearing whenever she blinked
+- Angela: Reworked to now possess Scenario Overseer sigil
 - Apocalypse Bird: changed evolution name
 - <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
@@ -122,7 +123,6 @@
     - Tier 0: (40%, 30%, 20%, 10%) -> (35%, 35%, 20%, 10%)
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
-- 'Random' starter deck now unlocks at challenge level 12
 - 'Keter' starter deck now contains Heart of Aspiration instead of Bloodbath
 - 'Blood Machine' starter deck now contains Standard Training Dummy instead of We Can Change Anything
 - 'Apocrypha' starter deck now contains Flesh Idol instead of Skin Prophecy
@@ -134,12 +134,13 @@
 - Achievements API: Added 1 new achievement
 - Achievements API: Modified several achievement descriptions to better indicate how to unlock them
 ### Additions
-- Added Ordeals
+- Added Ordeal battles
 - Added XX Cards
 - Added 1 Starter Deck
 - Added XX Encounters
 - Added XX items
 - Added 6 challenges
+- Added XX abilities
 
 ## v2.1.2 - Rough Hotfix (1/14/2024)
 ### 🩹 Bug fixes
