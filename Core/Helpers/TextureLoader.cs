@@ -1,4 +1,5 @@
-﻿using InscryptionAPI.TalkingCards.Create;
+﻿using InscryptionAPI.Helpers;
+using InscryptionAPI.TalkingCards.Create;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -28,6 +29,17 @@ namespace WhistleWind.Core.Helpers {
             texture2D.filterMode = FilterMode.Point;
             texture2D.name = Path.GetFileNameWithoutExtension(fileName);
             return texture2D;
+        }
+
+        /// <summary>
+        /// Loads an embedded resource file and then creates a sprite using the Inscryption API's SpriteType enum.
+        /// </summary>
+        public static Sprite LoadSpriteFromFile(string fileName, TextureHelper.SpriteType spriteType, Assembly asm = null) {
+            Texture2D texture = LoadTextureFromFile(fileName, asm);
+            if (texture == null) {
+                return null;
+            }
+            return texture.ConvertTexture(spriteType);
         }
 
         public static Sprite LoadSpriteFromFile(string fileName, Vector2? vector = null, Assembly asm = null) {
