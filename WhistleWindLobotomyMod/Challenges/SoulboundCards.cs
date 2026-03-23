@@ -5,7 +5,7 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class SoulboundCards {
         internal const string TITLE = "Animal Safety";
-        internal const string DESCRIPTION = "All cards in your deck have the Death Penalty sigil.";
+        internal const string DESCRIPTION = "Cards in your deck have the Death Penalty sigil.";
 
         public static AscensionChallenge ID { get; private set; }
 
