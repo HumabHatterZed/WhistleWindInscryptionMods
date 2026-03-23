@@ -22,8 +22,8 @@ namespace WhistleWindLobotomyMod.Patches {
 
         [HarmonyPrefix, HarmonyPatch(typeof(Part1BossOpponent), nameof(Part1BossOpponent.GrizzlyGlitchSequence))]
         private static bool ReplaceGrizzlySequence(ref IEnumerator __result, Part1BossOpponent __instance) {
-            bool apostles = LobotomyConfigManager.ChallengeIsActive(ApostleGrizzlies.Id);
-            if (apostles || LobotomyConfigManager.ChallengeIsActive(AbnormalBosses.Id)) {
+            bool apostles = LobotomyConfigManager.ChallengeIsActive(ApostleGrizzlies.ID);
+            if (apostles || LobotomyConfigManager.ChallengeIsActive(AbnormalEncounters.ID)) {
                 __result = AbnormalGrizzlySequence.ApostleGlitchSequence(__instance, apostles);
             }
             return false;

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers {
         }
         public static IEnumerator ApostleGlitchSequence(Opponent opponent, bool apostles) {
             if (apostles) {
-                ChallengeActivationUI.TryShowActivation(ApostleGrizzlies.Id);
+                ChallengeActivationUI.TryShowActivation(ApostleGrizzlies.ID);
             }
             else {
                 ChallengeActivationUI.TryShowActivation(AscensionChallenge.GrizzlyMode);

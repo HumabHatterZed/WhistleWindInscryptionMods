@@ -58,11 +58,11 @@ namespace WhistleWindLobotomyMod {
                 }
             }
 
-            if (LobotomyConfigManager.ChallengeIsActive(NoRares.Id)) {
-                ChallengeActivationUI.TryShowActivation(NoRares.Id);
+            if (LobotomyConfigManager.ChallengeIsActive(NoRares.ID)) {
+                ChallengeActivationUI.TryShowActivation(NoRares.ID);
             }
-            else if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.Id)) {
-                ChallengeActivationUI.TryShowActivation(BetterRareChances.Id);
+            else if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.ID)) {
+                ChallengeActivationUI.TryShowActivation(BetterRareChances.ID);
             }
 
             base.chosenReward = null;
@@ -123,7 +123,7 @@ namespace WhistleWindLobotomyMod {
                 int riskLevel;
                 CardInfo card;
                 CardChoice cardChoice = new();
-                bool overrideWithRare = !AscensionSaveData.Data.ChallengeIsActive(NoRares.Id) && SeededRandom.Value(randomSeed++) <= RareChoiceChance(regionTier);
+                bool overrideWithRare = !AscensionSaveData.Data.ChallengeIsActive(NoRares.ID) && SeededRandom.Value(randomSeed++) <= RareChoiceChance(regionTier);
                 do {
                     riskLevel = GetRiskLevel(randomSeed++, regionTier);
                     card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel);
@@ -178,7 +178,7 @@ namespace WhistleWindLobotomyMod {
         private float RareChoiceChance(int regionTier) {
             int regionMultiplier = regionTier;
 
-            if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.Id))
+            if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.ID))
                 regionMultiplier++;
 
             return regionMultiplier switch {

@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod.Core {
             get => GetSaveBool("UnlockedAngela");
             set => SetSaveValue("UnlockedAngela", value);
         }
-        public static bool DefeatedApocalypseBoss => AscensionSaveData.Data.conqueredChallenges.Contains(FinalApocalypse.Id);
+        public static bool DefeatedApocalypseBoss => AscensionSaveData.Data.conqueredChallenges.Contains(FinalApocalypse.ID);
         /*        public static bool DefeatedJesterBoss
                 {
                     get => GetSaveBool("DefeatedJesterBoss");

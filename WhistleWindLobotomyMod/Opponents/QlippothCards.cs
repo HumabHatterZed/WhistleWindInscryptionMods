@@ -129,12 +129,12 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return result;
             PlayableCard playableCard = __instance.Queue.Find(c => c.Info.Mods.Exists(x => x.singletonId == QLIPPOTH_ID));
             if (playableCard != null && !oldQueue.Contains(playableCard)) {
-                ChallengeActivationUI.TryShowActivation(QlippothMeltdown.Id);
+                ChallengeActivationUI.TryShowActivation(QlippothMeltdown.ID);
             }
         }
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.ModifyTurnPlan))]
         private static void TryAddQlippothCards(ref List<List<CardInfo>> __result, List<List<CardInfo>> turnPlan) {
-            if (LobotomyConfigManager.ChallengeIsActive(QlippothMeltdown.Id)) {
+            if (LobotomyConfigManager.ChallengeIsActive(QlippothMeltdown.ID)) {
                 __result = AddEmpoweredCardsToTurnPlan(turnPlan);
             }
         }

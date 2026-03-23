@@ -74,7 +74,7 @@ namespace WhistleWindLobotomyMod {
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ChallengeNoClover", TextDisplayer.MessageAdvanceMode.Input);
                 }
 
-                ChallengeActivationUI.TryShowActivation(BetterRareChances.Id);
+                ChallengeActivationUI.TryShowActivation(BetterRareChances.ID);
             }
 
             chosenReward = null;

@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         public override List<List<CardInfo>> ModifyTurnPlan(List<List<CardInfo>> turnPlan) {
-            if (LobotomyConfigManager.ChallengeIsActive(QlippothMeltdown.Id)) {
+            if (LobotomyConfigManager.ChallengeIsActive(QlippothMeltdown.ID)) {
                 string key = BattleSequencer.ordealType switch {
                     OrdealType.Green => "Mechanical",
                     OrdealType.Violet => "Divine",
