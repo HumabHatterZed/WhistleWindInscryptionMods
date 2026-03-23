@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class StartingRose {
-        private const string TITLE = "Staining Rose";
-        private const string DESCRIPTION = "The Adult boss will be stronger and guaranteed to appear.";
+        internal const string TITLE = "Staining Rose";
+        internal const string DESCRIPTION = "The Adult boss will be stronger and guaranteed to appear.";
 
         public static AscensionChallenge ID { get; private set; }
 

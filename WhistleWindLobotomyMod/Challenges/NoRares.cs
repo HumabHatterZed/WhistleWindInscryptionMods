@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class NoRares {
-        private const string TITLE = "No Abnormal Rares";
-        private const string DESCRIPTION = "Abnormal card choices cannot offer rare cards.";
+        internal const string TITLE = "No Abnormal Rares";
+        internal const string DESCRIPTION = "Abnormal card choices cannot offer rare cards.";
 
         public static AscensionChallenge ID { get; private set; }
 

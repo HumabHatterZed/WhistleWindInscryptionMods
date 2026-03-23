@@ -9,8 +9,8 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class MiracleWorker {
-        private const string TITLE = "Miracle Worker";
-        private const string DESCRIPTION = "Leshy may play Plague Doctor in battle. Beware the Clock.";
+        internal const string TITLE = "Miracle Worker";
+        internal const string DESCRIPTION = "Leshy may play Plague Doctor in battle. Beware the Clock.";
 
         public static AscensionChallenge ID { get; private set; }
 

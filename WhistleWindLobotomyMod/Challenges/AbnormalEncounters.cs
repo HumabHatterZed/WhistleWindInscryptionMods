@@ -8,8 +8,8 @@ using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalEncounters // taken from infiniscryption
     {
-        private const string TITLE = "Abnormal Encounters";
-        private const string DESCRIPTION = "Regular and totem battles will only use Abnormality cards.";
+        internal const string TITLE = "Abnormal Encounters";
+        internal const string DESCRIPTION = "Regular and totem battles will only use Abnormality cards.";
 
         public static AscensionChallenge ID { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }

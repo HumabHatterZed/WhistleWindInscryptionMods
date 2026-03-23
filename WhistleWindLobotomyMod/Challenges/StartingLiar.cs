@@ -5,8 +5,8 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class StartingLiar {
-        private const string TITLE = "Start with a Liar";
-        private const string DESCRIPTION = "Start your run with Adult Who Tells Lies in your deck.";
+        internal const string TITLE = "Start with a Liar";
+        internal const string DESCRIPTION = "Start your run with Adult Who Tells Lies in your deck.";
 
         public static AscensionChallenge ID { get; private set; }
 

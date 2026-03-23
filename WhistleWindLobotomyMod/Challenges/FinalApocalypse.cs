@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalApocalypse {
-        private const string TITLE = "Final Apocalypse";
-        private const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Beast.";
+        internal const string TITLE = "Final Apocalypse";
+        internal const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Beast.";
 
         public static AscensionChallenge ID { get; private set; }
 

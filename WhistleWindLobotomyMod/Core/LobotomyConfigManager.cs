@@ -216,29 +216,29 @@ namespace WhistleWindLobotomyMod.Core {
 
             string challenges = "Gameplay.Part1.Challenges";
 
-            _configNoTime = WstlConfigFile.Bind(challenges, NoTime.title, false, new ConfigDescription(NoTime.description));
-            _configNoRares = WstlConfigFile.Bind(challenges, NoRares.title, false, new ConfigDescription(NoRares.description));
+            _configNoTime = WstlConfigFile.Bind(challenges, NoTime.TITLE, false, new ConfigDescription(NoTime.DESCRIPTION));
+            _configNoRares = WstlConfigFile.Bind(challenges, NoRares.TITLE, false, new ConfigDescription(NoRares.DESCRIPTION));
 
-            _configOrdealBattles = WstlConfigFile.Bind(challenges, AllOrdeals.title, false, new ConfigDescription(AllOrdeals.description));
-            _configOrdealBosses = WstlConfigFile.Bind(challenges, BossOrdeals.title, false, new ConfigDescription(BossOrdeals.description));
-            _configAbnormalBosses = WstlConfigFile.Bind(challenges, AbnormalBosses.title, false, new ConfigDescription(AbnormalBosses.description));
-            _configAbnormalBattles = WstlConfigFile.Bind(challenges, AbnormalEncounters.title, false, new ConfigDescription(AbnormalEncounters.description));
+            _configOrdealBattles = WstlConfigFile.Bind(challenges, AllOrdeals.TITLE, false, new ConfigDescription(AllOrdeals.DESCRIPTION));
+            _configOrdealBosses = WstlConfigFile.Bind(challenges, BossOrdeals.TITLE, false, new ConfigDescription(BossOrdeals.DESCRIPTION));
+            _configAbnormalBosses = WstlConfigFile.Bind(challenges, AbnormalBosses.TITLE, false, new ConfigDescription(AbnormalBosses.DESCRIPTION));
+            _configAbnormalBattles = WstlConfigFile.Bind(challenges, AbnormalEncounters.TITLE, false, new ConfigDescription(AbnormalEncounters.DESCRIPTION));
 
-            _configSoulbound = WstlConfigFile.Bind(challenges, SoulboundCards.title, false, new ConfigDescription(SoulboundCards.description));
-            _configApostleBears = WstlConfigFile.Bind(challenges, ApostleGrizzlies.title, false, new ConfigDescription(ApostleGrizzlies.description));
-            _configMeltdown = WstlConfigFile.Bind(challenges, QlippothMeltdown.title, false, new ConfigDescription(QlippothMeltdown.description));
-            _configMiracleWorker = WstlConfigFile.Bind(challenges, MiracleWorker.title, false, new ConfigDescription(MiracleWorker.description));
+            _configSoulbound = WstlConfigFile.Bind(challenges, SoulboundCards.TITLE, false, new ConfigDescription(SoulboundCards.DESCRIPTION));
+            _configApostleBears = WstlConfigFile.Bind(challenges, ApostleGrizzlies.TITLE, false, new ConfigDescription(ApostleGrizzlies.DESCRIPTION));
+            _configMeltdown = WstlConfigFile.Bind(challenges, QlippothMeltdown.TITLE, false, new ConfigDescription(QlippothMeltdown.DESCRIPTION));
+            _configMiracleWorker = WstlConfigFile.Bind(challenges, MiracleWorker.TITLE, false, new ConfigDescription(MiracleWorker.DESCRIPTION));
 
-            _configFinalOrdeal = WstlConfigFile.Bind(challenges, FinalOrdeal.title, false, new ConfigDescription(FinalOrdeal.description));
-            //_configFinalFool = WstlConfigFile.Bind(challenges, FinalJester.title, false, new ConfigDescription(FinalJester.description));
-            //_configFinalLiar = WstlConfigFile.Bind(challenges, FinalLie.title, false, new ConfigDescription(FinalLie.description));
-            _configFinalBird = WstlConfigFile.Bind(challenges, FinalApocalypse.title, false, new ConfigDescription(FinalApocalypse.description));
-            //_configFinalGod = WstlConfigFile.Bind(challenges, FinalComing.title, false, new ConfigDescription(FinalComing.description));
+            _configFinalOrdeal = WstlConfigFile.Bind(challenges, FinalOrdeal.TITLE, false, new ConfigDescription(FinalOrdeal.DESCRIPTION));
+            //_configFinalFool = WstlConfigFile.Bind(challenges, FinalJester.TITLE, false, new ConfigDescription(FinalJester.DESCRIPTION));
+            //_configFinalLiar = WstlConfigFile.Bind(challenges, FinalLie.TITLE, false, new ConfigDescription(FinalLie.DESCRIPTION));
+            _configFinalBird = WstlConfigFile.Bind(challenges, FinalApocalypse.TITLE, false, new ConfigDescription(FinalApocalypse.DESCRIPTION));
+            //_configFinalGod = WstlConfigFile.Bind(challenges, FinalComing.TITLE, false, new ConfigDescription(FinalComing.DESCRIPTION));
 
-            _configMoreRares = WstlConfigFile.Bind(challenges, BetterRareChances.title, false, new ConfigDescription(BetterRareChances.description));
-            _configStartBird = WstlConfigFile.Bind(challenges, StartingApocalypse.title, false, new ConfigDescription(StartingApocalypse.description));
-            _configStartFool = WstlConfigFile.Bind(challenges, StartingJester.title, false, new ConfigDescription(StartingJester.description));
-            _configStartLiar = WstlConfigFile.Bind(challenges, StartingLiar.title, false, new ConfigDescription(StartingLiar.description));
+            _configMoreRares = WstlConfigFile.Bind(challenges, BetterRareChances.TITLE, false, new ConfigDescription(BetterRareChances.DESCRIPTION));
+            _configStartBird = WstlConfigFile.Bind(challenges, StartingApocalypse.TITLE, false, new ConfigDescription(StartingApocalypse.DESCRIPTION));
+            _configStartFool = WstlConfigFile.Bind(challenges, StartingJester.TITLE, false, new ConfigDescription(StartingJester.DESCRIPTION));
+            _configStartLiar = WstlConfigFile.Bind(challenges, StartingLiar.TITLE, false, new ConfigDescription(StartingLiar.DESCRIPTION));
 
             Config_Blessings = WstlConfigFile.Bind("Gameplay.Other", "Blessings", 0);
             Config_HasSeenHim = WstlConfigFile.Bind("Gameplay.Other", "Blessed", false);
@@ -260,64 +260,64 @@ namespace WhistleWindLobotomyMod.Core {
                 return AscensionSaveData.Data.ChallengeIsActive(challenge);
             }
 
-            if (challenge == AbnormalEncounters.Id) {
+            if (challenge == AbnormalEncounters.ID) {
                 return ConfigAbnormalBattles;
             }
-            if (challenge == AbnormalBosses.Id) {
+            if (challenge == AbnormalBosses.ID) {
                 return ConfigAbnormalBosses;
             }
-            if (challenge == AllOrdeals.Id) {
+            if (challenge == AllOrdeals.ID) {
                 return ConfigOrdealBattles;
             }
-            if (challenge == BossOrdeals.Id) {
+            if (challenge == BossOrdeals.ID) {
                 return ConfigOrdealBosses;
             }
 
-            if (challenge == NoTime.Id) {
+            if (challenge == NoTime.ID) {
                 return ConfigNoTime;
             }
-            if (challenge == NoRares.Id) {
+            if (challenge == NoRares.ID) {
                 return ConfigNoRares;
             }
-            if (challenge == MiracleWorker.Id) {
+            if (challenge == MiracleWorker.ID) {
                 return ConfigMiracleWorker;
             }
-            if (challenge == QlippothMeltdown.Id) {
+            if (challenge == QlippothMeltdown.ID) {
                 return ConfigMeltdown;
             }
-            if (challenge == SoulboundCards.Id) {
+            if (challenge == SoulboundCards.ID) {
                 return ConfigSoulbound;
             }
-            if (challenge == ApostleGrizzlies.Id) {
+            if (challenge == ApostleGrizzlies.ID) {
                 return ConfigApostleBears;
             }
 
-            if (challenge == FinalOrdeal.Id) {
+            if (challenge == FinalOrdeal.ID) {
                 return ConfigFinalOrdeal;
             }
-            if (challenge == FinalApocalypse.Id) {
+            if (challenge == FinalApocalypse.ID) {
                 return ConfigFinalBird;
             }
-            //if (challenge == FinalComing.Id) {
+            //if (challenge == FinalComing.ID) {
             //    return ConfigFinalGod;
             //}
-            //if (challenge == FinalLie.Id) {
+            //if (challenge == FinalLie.ID) {
             //    return ConfigFinalLiar;
             //}
-            //if (challenge == FinalJester.Id) {
+            //if (challenge == FinalJester.ID) {
             //    return ConfigFinalFool;
             //}
 
-            if (challenge == BetterRareChances.Id) {
+            if (challenge == BetterRareChances.ID) {
                 return ConfigMoreRares;
             }
-            if (challenge == StartingApocalypse.Id) {
+            if (challenge == StartingApocalypse.ID) {
                 return ConfigStartBird;
             }
-            if (challenge == StartingJester.Id) {
+            if (challenge == StartingJester.ID) {
                 return ConfigStartFool;
             }
-            if (challenge == StartingLiar.Id) {
+            if (challenge == StartingLiar.ID) {
                 return ConfigStartLiar;
             }
 

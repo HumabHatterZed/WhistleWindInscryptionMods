@@ -5,8 +5,8 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class StartingApocalypse {
-        private const string TITLE = "Start with a Beast";
-        private const string DESCRIPTION = "Start your run with Apocalypse Bird in your deck.";
+        internal const string TITLE = "Start with a Beast";
+        internal const string DESCRIPTION = "Start your run with Apocalypse Bird in your deck.";
 
         public static AscensionChallenge ID { get; private set; }
 

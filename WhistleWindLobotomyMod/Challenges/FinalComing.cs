@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalComing {
-        private const string TITLE = "Final Coming";
-        private const string DESCRIPTION = "The Saviour boss will be stronger and guaranteed to appear.";
+        internal const string TITLE = "Final Coming";
+        internal const string DESCRIPTION = "The Saviour boss will be stronger and guaranteed to appear.";
 
         public static AscensionChallenge ID { get; private set; }
 

@@ -5,8 +5,8 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class StartingJester {
-        private const string TITLE = "Start with a Fool";
-        private const string DESCRIPTION = "Start your run with Jester of Nihil in your deck.";
+        internal const string TITLE = "Start with a Fool";
+        internal const string DESCRIPTION = "Start your run with Jester of Nihil in your deck.";
 
         public static AscensionChallenge ID { get; private set; }
 

@@ -4,12 +4,12 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class ApostleGrizzlies {
-        private const string TITLE = "Apostle Grizzlies";
-        private const string DESCRIPTION = "Apostles appear during the first 3 boss battles instead.";
+        internal const string TITLE = "Apostle Grizzlies";
+        internal const string DESCRIPTION = "Apostles appear during the first 3 boss battles instead.";
 
         public static AscensionChallenge ID { get; private set; }
 
-        public static void Register() {
+        internal static void Register() {
             ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 TITLE,

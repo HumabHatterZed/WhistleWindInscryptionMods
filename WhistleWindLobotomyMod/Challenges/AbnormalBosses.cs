@@ -17,8 +17,8 @@ using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalBosses // taken from infiniscryption
     {
-        private const string TITLE = "Abnormal Bosses";
-        private const string DESCRIPTION = "Boss battles will only use Abnormality cards.";
+        internal const string TITLE = "Abnormal Bosses";
+        internal const string DESCRIPTION = "Boss battles will only use Abnormality cards.";
 
         public static AscensionChallenge ID { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }

@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class BetterRareChances {
-        private const string TITLE = "Better Rare Chances";
-        private const string DESCRIPTION = "Abnormal card choices offer rare cards more often.";
+        internal const string TITLE = "Better Rare Chances";
+        internal const string DESCRIPTION = "Abnormal card choices offer rare cards more often.";
 
         public static AscensionChallenge ID { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }

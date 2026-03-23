@@ -8,8 +8,8 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalOrdeal // taken from infiniscryption
     {
-        private const string TITLE = "Final Ordeals";
-        private const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Ordeals of White.";
+        internal const string TITLE = "Final Ordeals";
+        internal const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Ordeals of White.";
 
         public static AscensionChallenge ID { get; private set; }
 

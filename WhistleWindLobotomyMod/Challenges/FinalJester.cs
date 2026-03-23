@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalJester {
-        private const string TITLE = "Final Laugh";
-        private const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Fool.";
+        internal const string TITLE = "Final Laugh";
+        internal const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Fool.";
 
         public static AscensionChallenge ID { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
