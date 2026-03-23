@@ -13,8 +13,7 @@ namespace WhistleWindLobotomyMod {
 
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Enchanted>(
                 LobotomyPlugin.pluginGuid, rName, rDesc, -3, GameColors.Instance.gold,
-                TextureLoader.LoadTextureFromFile("sigilEnchanted.png", LobotomyPlugin.ModAssembly),
-                TextureLoader.LoadTextureFromFile("sigilEnchanted_pixel.png", LobotomyPlugin.ModAssembly))
+                TextureLoader.LoadTextureFromFile("sigilEnchanted.png", LobotomyPlugin.ModAssembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
 
             data.IconInfo.SetAbilityRedirect("Dazzling", Dazzling.ID, GameColors.Instance.gold);
