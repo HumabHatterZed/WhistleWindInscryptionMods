@@ -62,7 +62,8 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy /Y ..\lib\*.dll $(TargetDir)" />
-		<Exec Command="$(PkgILRepack)\tools\ILRepack /out:..\Compiled\$(ProjectName).dll $(TargetPath) ../lib/WhistleWind.Core.dll /lib:$(TargetDir)" />
+		<Exec Command="$(PkgILRepack)\tools\ILRepack /out:$(TargetPath) $(TargetPath) ../Compiled/WhistleWind.Core.dll /lib:$(TargetDir)" />
+		<Exec Command="copy /Y $(TargetPath) ..\Compiled\$(ProjectName).dll" />
 		<Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="..\Compiled\$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
 	</Target>
 </Project>

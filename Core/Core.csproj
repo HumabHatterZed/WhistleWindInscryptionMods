@@ -26,7 +26,7 @@
 	</ItemGroup>
   
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="xcopy /Y $(TargetPath) ..\lib\" />
+		<Exec Command="copy /Y $(TargetPath) ..\Compiled\" />
 	</Target>
   
 </Project>
