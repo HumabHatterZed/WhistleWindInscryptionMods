@@ -35,7 +35,7 @@ namespace WhistleWind.Core.Helpers {
         /// Loads an embedded resource file and then creates a sprite using the Inscryption API's SpriteType enum.
         /// </summary>
         public static Sprite LoadSpriteFromFile(string fileName, TextureHelper.SpriteType spriteType, Assembly asm = null) {
-            Texture2D texture = LoadTextureFromFile(fileName, asm);
+            Texture2D texture = LoadTextureFromFile(fileName, asm ?? Assembly.GetCallingAssembly());
             if (texture == null) {
                 return null;
             }
@@ -43,7 +43,7 @@ namespace WhistleWind.Core.Helpers {
         }
 
         public static Sprite LoadSpriteFromFile(string fileName, Vector2? vector = null, Assembly asm = null) {
-            Texture2D texture = LoadTextureFromFile(fileName, asm);
+            Texture2D texture = LoadTextureFromFile(fileName, asm ?? Assembly.GetCallingAssembly());
             if (texture == null)
                 return null;
 
@@ -65,12 +65,13 @@ namespace WhistleWind.Core.Helpers {
         }
 
         public static FaceAnim MakeFaceAnim(string openName, string closedName = null, Assembly targetAsm = null) {
-            Texture2D openTex = LoadTextureFromFile(openName, targetAsm);
+            Assembly asm = targetAsm ?? Assembly.GetCallingAssembly();
+            Texture2D openTex = LoadTextureFromFile(openName, asm);
             Rect rect = new(0f, 0f, openTex.width, openTex.height);
             Sprite openSprite = Sprite.Create(openTex, rect, new(0.5f, 0f), 100f);
 
             if (closedName != null) {
-                Texture2D closedTex = LoadTextureFromFile(closedName);
+                Texture2D closedTex = LoadTextureFromFile(closedName, asm);
                 Sprite closedSprite = Sprite.Create(closedTex, rect, new(0.5f, 0f), 100f);
                 return new(openSprite, closedSprite);
             }
