@@ -64,5 +64,9 @@
 			<HintPath>..\lib\MagnificusMod.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy /Y $(TargetPath) ..\Compiled\" />
+	</Target>
   
 </Project>
