@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class BossOrdeals // taken from infiniscryption
     {
-        internal const string TITLE = "Ordeal Bosses";
-        internal const string DESCRIPTION = "All bosses are replaced with Ordeals of Midnight.";
+        internal const string TITLE = "Boss Ordeals";
+        internal const string DESCRIPTION = "Bosses are replaced with Ordeals of Midnight.";
 
         public static AscensionChallenge ID { get; private set; }
         
