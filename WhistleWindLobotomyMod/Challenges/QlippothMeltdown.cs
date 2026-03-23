@@ -4,16 +4,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class QlippothMeltdown {
-        internal const string title = "Qlippoth Meltdown";
-        internal const string description = "Leshy will occasionally play empowered Abnormalities.";
+        internal const string TITLE = "Qlippoth Meltdown";
+        internal const string DESCRIPTION = "Leshy will occasionally play empowered Abnormalities.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
         public static void Register() {
-            Id = ChallengeManager.Add(
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 15,
                 TextureLoader.LoadTextureFromFile("ascensionMeltdown.png"),
                 TextureLoader.LoadTextureFromFile("ascensionMeltdown_activated.png")

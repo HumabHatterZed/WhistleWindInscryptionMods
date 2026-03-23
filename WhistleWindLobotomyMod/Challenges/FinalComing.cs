@@ -5,16 +5,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalComing {
-        internal const string title = "Final Coming";
-        internal const string description = "The Saviour boss will be stronger and guaranteed to appear.";
+        private const string TITLE = "Final Coming";
+        private const string DESCRIPTION = "The Saviour boss will be stronger and guaranteed to appear.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
         internal static void Register() {
-            Id = ChallengeManager.Add(
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 70,
                 TextureLoader.LoadTextureFromFile("ascensionRaptureStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionRaptureStart_activated.png"), 0)

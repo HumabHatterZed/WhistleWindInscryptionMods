@@ -5,16 +5,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalLie {
-        internal const string title = "Final Lie";
-        internal const string description = "The Adult boss will be stronger and guaranteed to appear.";
+        private const string TITLE = "Final Lie";
+        private const string DESCRIPTION = "The Adult boss will be stronger and guaranteed to appear.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
         internal static void Register() {
-            Id = ChallengeManager.Add(
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 50,
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated.png"), 0)

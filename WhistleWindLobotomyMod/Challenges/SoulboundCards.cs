@@ -4,16 +4,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class SoulboundCards {
-        internal const string title = "Animal Safety";
-        internal const string description = "All cards in your main deck have the Death Penalty sigil.";
+        private const string TITLE = "Animal Safety";
+        private const string DESCRIPTION = "All cards in your deck have the Death Penalty sigil.";
 
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register() {
-            Id = ChallengeManager.Add(
+        internal static void Register() {
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 50,
                 TextureLoader.LoadTextureFromFile("ascensionSoulbound.png"),
                 TextureLoader.LoadTextureFromFile("ascensionSoulbound_activated.png")

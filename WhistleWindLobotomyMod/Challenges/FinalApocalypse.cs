@@ -5,16 +5,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalApocalypse {
-        internal const string title = "Final Apocalypse";
-        internal const string description = "Leshy is replaced as the final boss of the run with the Beast.";
+        private const string TITLE = "Final Apocalypse";
+        private const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Beast.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
         internal static void Register() {
-            Id = ChallengeManager.Add(
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 70,
                 TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse.png"),
                 TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse_activated.png"), 0)

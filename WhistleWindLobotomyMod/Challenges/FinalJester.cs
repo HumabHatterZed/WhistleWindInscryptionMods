@@ -5,17 +5,17 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class FinalJester {
-        internal const string title = "Final Laugh";
-        internal const string description = "Leshy is replaced as the final boss of the run with the Fool.";
+        private const string TITLE = "Final Laugh";
+        private const string DESCRIPTION = "Leshy is replaced as the final boss of the run with the Fool.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
         internal static void Register() {
-            Id = ChallengeManager.Add(
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 50,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)

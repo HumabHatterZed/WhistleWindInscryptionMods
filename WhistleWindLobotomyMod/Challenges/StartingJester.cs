@@ -5,16 +5,16 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class StartingJester {
-        internal const string title = "Start with a Fool";
-        internal const string description = "Start your run with Jester of Nihil in your deck.";
+        private const string TITLE = "Start with a Fool";
+        private const string DESCRIPTION = "Start your run with Jester of Nihil in your deck.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
-        public static void Register() {
-            Id = ChallengeManager.Add(
+        internal static void Register() {
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 -10,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)

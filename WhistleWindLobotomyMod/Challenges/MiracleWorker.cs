@@ -9,17 +9,17 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class MiracleWorker {
-        internal const string title = "Miracle Worker";
-        internal const string description = "Leshy may play Plague Doctor in battle. Beware the Clock.";
+        private const string TITLE = "Miracle Worker";
+        private const string DESCRIPTION = "Leshy may play Plague Doctor in battle. Beware the Clock.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
         // Creates the challenge then calls the relevant patches
-        public static void Register(Harmony harmony) {
-            Id = ChallengeManager.Add(
+        internal static void Register(Harmony harmony) {
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 12,
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker.png"),
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated.png")
@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod.Challenges {
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPostfix]
         private static void AddPlagueDoctor(ref Opponent __result) {
-            if (!LobotomyConfigManager.ChallengeIsActive(Id) || BLACKLISTED_OPPONENTS.Contains(__result.OpponentType)) {
+            if (!LobotomyConfigManager.ChallengeIsActive(ID) || BLACKLISTED_OPPONENTS.Contains(__result.OpponentType)) {
                 return;
             }
 

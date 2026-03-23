@@ -5,16 +5,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class NoRares {
-        internal const string title = "No Abnormal Rares";
-        internal const string description = "Abnormal card choices cannot offer rare cards.";
+        private const string TITLE = "No Abnormal Rares";
+        private const string DESCRIPTION = "Abnormal card choices cannot offer rare cards.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
-        public static void Register() {
-            Id = ChallengeManager.Add(
+        internal static void Register() {
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title,
-                description,
+                TITLE,
+                DESCRIPTION,
                 5,
                 TextureLoader.LoadTextureFromFile("ascensionNoRares.png"),
                 TextureLoader.LoadTextureFromFile("ascensionNoRares_activated.png")
