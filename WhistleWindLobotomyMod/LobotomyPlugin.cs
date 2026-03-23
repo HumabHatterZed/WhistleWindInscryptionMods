@@ -75,6 +75,9 @@ namespace WhistleWindLobotomyMod {
             AddCards();
             StarterDecks.AddStarterDecks();
 
+            Log.LogDebug("Loading boons...");
+            Boons.Initialise();
+
             Log.LogDebug("Loading encounters...");
             AddEncounters();
 
