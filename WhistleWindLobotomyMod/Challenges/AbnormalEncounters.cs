@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalEncounters // taken from infiniscryption
     {
         internal const string TITLE = "Abnormal Encounters";
-        internal const string DESCRIPTION = "Regular and totem battles will only use Abnormality cards.";
+        internal const string DESCRIPTION = "All battles will only use Abnormality cards.";
 
         public static AscensionChallenge ID { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
@@ -26,6 +26,7 @@ namespace WhistleWindLobotomyMod.Challenges {
             ID = Info.Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalEncounters));
+            harmony.PatchAll(typeof(AbnormalBosses));
         }
 
         [HarmonyPatch(typeof(GameFlowManager), nameof(GameFlowManager.Start))]

@@ -78,7 +78,7 @@ namespace WhistleWindLobotomyMod.Core {
         private static ConfigEntry<bool> _configMeltdown;
         private static ConfigEntry<bool> _configMiracleWorker;
 
-        private static ConfigEntry<bool> _configAbnormalBosses;
+        //private static ConfigEntry<bool> _configAbnormalBosses;
         private static ConfigEntry<bool> _configAbnormalBattles;
         private static ConfigEntry<bool> _configOrdealBosses;
         private static ConfigEntry<bool> _configOrdealBattles;
@@ -101,7 +101,7 @@ namespace WhistleWindLobotomyMod.Core {
         private static bool ConfigMeltdown => _configMeltdown.Value;
         private static bool ConfigMiracleWorker => _configMiracleWorker.Value;
 
-        private static bool ConfigAbnormalBosses => _configAbnormalBosses.Value;
+        //private static bool ConfigAbnormalBosses => _configAbnormalBosses.Value;
         private static bool ConfigAbnormalBattles => _configAbnormalBattles.Value;
         private static bool ConfigOrdealBosses => _configOrdealBosses.Value;
         private static bool ConfigOrdealBattles => _configOrdealBattles.Value;
@@ -221,7 +221,7 @@ namespace WhistleWindLobotomyMod.Core {
 
             _configOrdealBattles = WstlConfigFile.Bind(challenges, AllOrdeals.TITLE, false, new ConfigDescription(AllOrdeals.DESCRIPTION));
             _configOrdealBosses = WstlConfigFile.Bind(challenges, BossOrdeals.TITLE, false, new ConfigDescription(BossOrdeals.DESCRIPTION));
-            _configAbnormalBosses = WstlConfigFile.Bind(challenges, AbnormalBosses.TITLE, false, new ConfigDescription(AbnormalBosses.DESCRIPTION));
+            //_configAbnormalBosses = WstlConfigFile.Bind(challenges, AbnormalBosses.TITLE, false, new ConfigDescription(AbnormalBosses.DESCRIPTION));
             _configAbnormalBattles = WstlConfigFile.Bind(challenges, AbnormalEncounters.TITLE, false, new ConfigDescription(AbnormalEncounters.DESCRIPTION));
 
             _configSoulbound = WstlConfigFile.Bind(challenges, SoulboundCards.TITLE, false, new ConfigDescription(SoulboundCards.DESCRIPTION));
@@ -263,9 +263,9 @@ namespace WhistleWindLobotomyMod.Core {
             if (challenge == AbnormalEncounters.ID) {
                 return ConfigAbnormalBattles;
             }
-            if (challenge == AbnormalBosses.ID) {
-                return ConfigAbnormalBosses;
-            }
+            //if (challenge == AbnormalBosses.ID) {
+            //    return ConfigAbnormalBosses;
+            //}
             if (challenge == AllOrdeals.ID) {
                 return ConfigOrdealBattles;
             }

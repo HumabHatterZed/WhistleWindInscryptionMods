@@ -173,21 +173,27 @@ namespace WhistleWindLobotomyMod {
             StartingLiar.Register();
             BetterRareChances.Register();
 
+            // Col 5
             ApostleGrizzlies.Register();
-            SoulboundCards.Register();
-            BossOrdeals.Register();
-            AbnormalBosses.Register(HarmonyInstance);
-            AllOrdeals.Register(HarmonyInstance);
-            AbnormalEncounters.Register(HarmonyInstance);
-
             QlippothMeltdown.Register();
+            // Col 4
+            SoulboundCards.Register();
+            AllOrdeals.Register(HarmonyInstance);
+            // Col 3
+            StartingRose.Register();
+            BossOrdeals.Register();
+            // Col 2
             MiracleWorker.Register(HarmonyInstance);
             NoRares.Register();
+            // Col 1
+            AbnormalEncounters.Register(HarmonyInstance);
             NoTime.Register(HarmonyInstance);
 
-            BetterRareChances.Info.SetIncompatibleChallengeGetterStatic(NoRares.Id);
-            AbnormalEncounters.Info.SetIncompatibleChallengeGetterStatic(AllOrdeals.Id);
-            AbnormalBosses.Info.SetIncompatibleChallengeGetterStatic(BossOrdeals.Id);
+            //AbnormalBosses.Register(HarmonyInstance);
+
+            BetterRareChances.Info.SetIncompatibleChallengeGetterStatic(NoRares.ID);
+            AbnormalEncounters.Info.SetIncompatibleChallengeGetterStatic(AllOrdeals.ID);
+            //AbnormalBosses.Info.SetIncompatibleChallengeGetterStatic(BossOrdeals.ID);
         }
 
         private void AddEncounters() {

@@ -17,24 +17,24 @@ using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalBosses // taken from infiniscryption
     {
-        internal const string TITLE = "Abnormal Bosses";
-        internal const string DESCRIPTION = "Boss battles will only use Abnormality cards.";
+        //internal const string TITLE = "Abnormal Bosses";
+        //internal const string DESCRIPTION = "Boss battles will only use Abnormality cards.";
 
-        public static AscensionChallenge ID { get; private set; }
-        internal static ChallengeManager.FullChallenge Info { get; private set; }
+        //public static AscensionChallenge ID { get; private set; }
+        //internal static ChallengeManager.FullChallenge Info { get; private set; }
         internal static void Register(Harmony harmony) {
-            Info = ChallengeManager.Add(
-                LobotomyPlugin.pluginGuid,
-                TITLE,
-                DESCRIPTION,
-                15,
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
-                );
+            //Info = ChallengeManager.Add(
+            //    LobotomyPlugin.pluginGuid,
+            //    TITLE,
+            //    DESCRIPTION,
+            //    15,
+            //    TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
+            //    TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
+            //    );
 
-            ID = Info.Challenge.challengeType;
+            //ID = Info.Challenge.challengeType;
 
-            harmony.PatchAll(typeof(AbnormalBosses));
+            //harmony.PatchAll(typeof(AbnormalBosses));
         }
         // Array of valid opponent types to replace
         private static readonly Opponent.Type[] SUPPORTED_OPPONENTS = new Opponent.Type[] {
@@ -54,11 +54,13 @@ namespace WhistleWindLobotomyMod.Challenges {
         };
 
         // Replaces boss encounters with custom ones
-        [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
-        [HarmonyPrefix]
+        [HarmonyPrefix, HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         private static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result) {
-            // breaks if challenge is not active or if opponent is not supported
-            if (!LobotomyConfigManager.ChallengeIsActive(ID) || !SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
+            // only replace whitelisted opponents while the correct challenge is active (boss ordeals override this)
+            if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType) ||
+                !LobotomyConfigManager.ChallengeIsActive(AbnormalEncounters.ID) ||
+                LobotomyConfigManager.ChallengeIsActive(BossOrdeals.ID)
+                )
                 return true;
 
             GameObject gameObject = new() {
@@ -74,21 +76,20 @@ namespace WhistleWindLobotomyMod.Challenges {
                 Opponent.Type.PirateSkullBoss => gameObject.AddComponent<PirateSkullAbnormalBossOpponent>(),
                 _ => null
             };
-            if (opponent == null)
-                return true;
-
-            string text = encounterData.aiId;
-            if (string.IsNullOrEmpty(text)) {
-                text = "AI";
+            if (opponent != null) {
+                string text = encounterData.aiId;
+                if (string.IsNullOrEmpty(text)) {
+                    text = "AI";
+                }
+                opponent.AI = Activator.CreateInstance(CustomType.GetType("DiskCardGame", text)) as AI;
+                opponent.NumLives = opponent.StartingLives;
+                opponent.OpponentType = opponentType;
+                opponent.TurnPlan = opponent.ModifyTurnPlan(encounterData.opponentTurnPlan);
+                opponent.Blueprint = encounterData.Blueprint;
+                opponent.Difficulty = encounterData.Difficulty;
+                opponent.ExtraTurnsToSurrender = SeededRandom.Range(0, 3, SaveManager.SaveFile.GetCurrentRandomSeed());
+                __result = opponent;
             }
-            opponent.AI = Activator.CreateInstance(CustomType.GetType("DiskCardGame", text)) as AI;
-            opponent.NumLives = opponent.StartingLives;
-            opponent.OpponentType = opponentType;
-            opponent.TurnPlan = opponent.ModifyTurnPlan(encounterData.opponentTurnPlan);
-            opponent.Blueprint = encounterData.Blueprint;
-            opponent.Difficulty = encounterData.Difficulty;
-            opponent.ExtraTurnsToSurrender = SeededRandom.Range(0, 3, SaveManager.SaveFile.GetCurrentRandomSeed());
-            __result = opponent;
             return false;
         }
 
@@ -100,35 +101,38 @@ namespace WhistleWindLobotomyMod.Challenges {
         }
 
         // Replaces special sequencers with custom ones
-        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.UpdateSpecialSequencer))]
-        [HarmonyPrefix]
+        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.UpdateSpecialSequencer))]
         private static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance) {
-            if (!LobotomyConfigManager.ChallengeIsActive(ID) || !OPPONENT_IDS.Contains(specialBattleId))
+            // only replace whitelisted sequencers while the correct challenge is active (boss ordeals override this)
+            if (!OPPONENT_IDS.Contains(specialBattleId) ||
+                !LobotomyConfigManager.ChallengeIsActive(AbnormalEncounters.ID) ||
+                LobotomyConfigManager.ChallengeIsActive(BossOrdeals.ID)
+                )
                 return true;
 
-            LobotomyPlugin.Log.LogDebug($"Replacing special ID: {specialBattleId}");
+            LobotomyPlugin.Log.LogDebug($"Replacing special AbnormalEncounters.ID: {specialBattleId}");
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.ProspectorBoss)) {
-                ChallengeActivationUI.TryShowActivation(ID);
+                ChallengeActivationUI.TryShowActivation(AbnormalEncounters.ID);
                 AddBossSequencer<ProspectorAbnormalBattleSequencer>(__instance);
                 return false;
             }
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.AnglerBoss)) {
-                ChallengeActivationUI.TryShowActivation(ID);
+                ChallengeActivationUI.TryShowActivation(AbnormalEncounters.ID);
                 AddBossSequencer<AnglerAbnormalBattleSequencer>(__instance);
                 return false;
             }
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.TrapperTraderBoss)) {
-                ChallengeActivationUI.TryShowActivation(ID);
+                ChallengeActivationUI.TryShowActivation(AbnormalEncounters.ID);
                 AddBossSequencer<TrapperTraderAbnormalBattleSequencer>(__instance);
                 return false;
             }
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.LeshyBoss)) {
-                ChallengeActivationUI.TryShowActivation(ID);
+                ChallengeActivationUI.TryShowActivation(AbnormalEncounters.ID);
                 AddBossSequencer<LeshyAbnormalBattleSequencer>(__instance);
                 return false;
             }
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.PirateSkullBoss)) {
-                ChallengeActivationUI.TryShowActivation(ID);
+                ChallengeActivationUI.TryShowActivation(AbnormalEncounters.ID);
                 AddBossSequencer<PirateSkullAbnormalBattleSequencer>(__instance);
                 return false;
             }
@@ -139,7 +143,7 @@ namespace WhistleWindLobotomyMod.Challenges {
         [HarmonyPostfix]
         private static IEnumerator ReplaceSequencers(IEnumerator enumerator, GiantShip __instance) {
             // if this challenge and Final Boss are active at once
-            if (AscensionSaveData.Data.ChallengeIsActive(ID) && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.FinalBoss)) {
+            if (AscensionSaveData.Data.ChallengeIsActive(AbnormalEncounters.ID) && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.FinalBoss)) {
                 int numSkeles = (__instance.nextHealthThreshold - __instance.PlayableCard.Health) / 5 + 1;
                 for (int i = 0; i < numSkeles; i++) {
                     List<CardSlot> validSlots = Singleton<BoardManager>.Instance.PlayerSlotsCopy;
