@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod.Challenges {
         private const string TITLE = "Animal Safety";
         private const string DESCRIPTION = "All cards in your deck have the Death Penalty sigil.";
 
-        public static AscensionChallenge Id { get; private set; }
+        public static AscensionChallenge ID { get; private set; }
 
         internal static void Register() {
             ID = ChallengeManager.Add(
