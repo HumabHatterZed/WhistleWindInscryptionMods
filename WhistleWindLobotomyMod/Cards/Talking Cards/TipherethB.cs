@@ -10,9 +10,7 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardTipherethB : CustomPaperTalkingCard {
@@ -25,7 +23,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingTipherethBBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingTipherethBBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingTipherethBEmission.png");
 
                 return new()

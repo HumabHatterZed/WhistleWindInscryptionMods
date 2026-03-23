@@ -8,7 +8,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardYesod : CustomPaperTalkingCard {
@@ -21,7 +20,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingYesodBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingYesodBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emission = MakeFaceAnim("talkingYesodEyesEmission.png");
 
                 return new()
@@ -79,7 +78,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 3, "A stickler for rules, he'll ensure your beasts' compliance.")
                 .SetBloodCost(2)
                 .AddAbilities(Ability.Tutor)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

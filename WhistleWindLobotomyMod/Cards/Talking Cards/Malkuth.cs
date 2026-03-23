@@ -9,7 +9,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardMalkuth : CustomPaperTalkingCard {
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingMalkuthBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingMalkuthBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingMalkuthEmission.png");
 
                 return new()
@@ -85,7 +84,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 1, "The head of the Control Team, here to assist you any way she can.")
                 .SetBonesCost(3)
                 .AddAbilities(Ability.BuffNeighbours)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -10,7 +10,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardTipherethA : CustomPaperTalkingCard {
@@ -23,7 +22,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingTipherethABody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingTipherethABody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingTipherethAEmission1.png");
                 FaceAnim emissionSurprise = MakeFaceAnim("talkingTipherethAEmission2.png");
 
@@ -87,7 +86,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, "A foul-mouthed child. She's never seen without her brother.")
                 .SetEnergyCost(3)
                 .AddAbilities(GiftGiver.ID)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetGiftGiverId(Cards.sephirahTipherethB)
                 .SetOnePerDeck()
                 .Build();

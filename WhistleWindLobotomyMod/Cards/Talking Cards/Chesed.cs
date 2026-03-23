@@ -10,7 +10,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardChesed : CustomPaperTalkingCard {
@@ -23,7 +22,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingChesedBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingChesedBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingChesedEmission.png");
 
                 return new()
@@ -91,7 +90,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 4, "Nothing like a fresh cup of coffee to start your day.")
                 .SetEnergyCost(4)
                 .AddAbilities(Healer.ID, Regenerator.ID)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -10,7 +10,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardNetzach : CustomPaperTalkingCard {
@@ -23,7 +22,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingNetzachBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingNetzachBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingNetzachEmission.png");
 
                 return new()
@@ -86,7 +85,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 4, "Unmotivated and unwilling. Surely there are others you can choose?")
                 .SetBloodCost(1)
                 .AddAbilities(GreedyHealing.ID, Ability.WhackAMole)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

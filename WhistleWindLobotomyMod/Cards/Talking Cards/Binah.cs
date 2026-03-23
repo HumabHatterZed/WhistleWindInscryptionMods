@@ -9,7 +9,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardBinah : CustomPaperTalkingCard {
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingBinahBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingBinahBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingBinahEmission.png");
 
                 return new()
@@ -80,7 +79,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 3, health: 3, "Callous and sadistic, she seems keen on seeing your struggles in person.")
                 .SetBloodCost(3)
                 .AddAbilities(Ability.Sniper, Piercing.ID)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

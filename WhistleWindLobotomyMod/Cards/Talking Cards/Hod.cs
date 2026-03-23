@@ -9,7 +9,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardHod : CustomPaperTalkingCard {
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingHodBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingHodBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingHodEmission1.png");
                 FaceAnim emissionLaugh = MakeFaceAnim("talkingHodEmission2.png");
 
@@ -91,7 +90,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 2, "Timid she may be, she will still try her hardest.")
                 .SetBonesCost(3)
                 .AddAbilities(Protector.ID)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -9,7 +9,6 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.Core.Helpers.TextureLoader;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public class TalkingCardHokma : CustomPaperTalkingCard {
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod {
 
         public override List<EmotionData> Emotions {
             get {
-                Sprite face = LoadSpriteFromFile("talkingHokmaBody.png", new(0.5f, 0f));
+                Sprite face = LoadSpriteFromFile("talkingHokmaBody.png", new Vector2(0.5f, 0f));
                 FaceAnim emissionMain = MakeFaceAnim("talkingHokmaEmission.png");
 
                 return new()
@@ -75,7 +74,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 4, "All things will happen in time. Just have faith.")
                 .SetBloodCost(2)
                 .AddAbilities(NeuteredLatch.ID)
-                .AddTraits(Sephirah)
+                .AddTraits(LobotomyCardManager.Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }
