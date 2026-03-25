@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod.Challenges {
                 LobotomyPlugin.pluginGuid,
                 TITLE,
                 DESCRIPTION,
-                10,
+                5,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png")
                 );
