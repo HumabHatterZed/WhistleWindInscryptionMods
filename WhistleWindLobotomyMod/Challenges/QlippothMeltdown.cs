@@ -5,7 +5,7 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class QlippothMeltdown {
         internal const string TITLE = "Qlippoth Meltdown";
-        internal const string DESCRIPTION = "Leshy will occasionally play empowered Abnormalities.";
+        internal const string DESCRIPTION = "Leshy may play empowered Abnormalities.";
 
         public static AscensionChallenge ID { get; private set; }
 
