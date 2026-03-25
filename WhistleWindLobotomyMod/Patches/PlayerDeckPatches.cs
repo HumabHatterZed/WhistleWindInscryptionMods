@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Patches {
         /// </summary>
         [HarmonyPrefix, HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         private static void AscensionModStarterDecks(ref List<CardInfo> starterDeck) {
-            if (AscensionSaveData.Data.ChallengeIsActive(NoTime.ID)) {
+            if (LobotomyConfigManager.ChallengeIsActive(NoTime.ID)) {
                 LobotomySaveManager.UsedBackwardClock = true;
             }
 
@@ -61,19 +61,19 @@ namespace WhistleWindLobotomyMod.Patches {
             }
 
             // check the card doesn't exist in the deck (possible when retrying a run)
-            if (AscensionSaveData.Data.ChallengeIsActive(StartingApocalypse.ID) && !starterDeck.Exists(x => x.name == Cards.apocalypseBird))
+            if (LobotomyConfigManager.ChallengeIsActive(StartingApocalypse.ID) && !starterDeck.Exists(x => x.name == Cards.apocalypseBird))
                 starterDeck.Add(CardLoader.GetCardByName(Cards.apocalypseBird));
 
-            if (AscensionSaveData.Data.ChallengeIsActive(StartingJester.ID) && !starterDeck.Exists(x => x.name == Cards.jesterOfNihil))
+            if (LobotomyConfigManager.ChallengeIsActive(StartingJester.ID) && !starterDeck.Exists(x => x.name == Cards.jesterOfNihil))
                 starterDeck.Add(CardLoader.GetCardByName(Cards.jesterOfNihil));
 
-            if (AscensionSaveData.Data.ChallengeIsActive(StartingLiar.ID) && !starterDeck.Exists(x => x.name == Cards.lyingAdult))
+            if (LobotomyConfigManager.ChallengeIsActive(StartingLiar.ID) && !starterDeck.Exists(x => x.name == Cards.lyingAdult))
                 starterDeck.Add(CardLoader.GetCardByName(Cards.lyingAdult));
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(RunIntroSequencer), nameof(RunIntroSequencer.TryModifyStarterCards))]
         private static void ModifyStarterDeck() {
-            if (!AscensionSaveData.Data.ChallengeIsActive(SoulboundCards.ID))
+            if (!LobotomyConfigManager.ChallengeIsActive(SoulboundCards.ID))
                 return;
 
             foreach (CardInfo card in RunState.Run.playerDeck.Cards) {
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod.Patches {
                     card.Mods = new() { new() { singletonId = "NothingThere:" + disguise } };
                 }
 
-                if (SaveFile.IsAscension && AscensionSaveData.Data.ChallengeIsActive(SoulboundCards.ID) && card.DefaultAbilities.Count < 4) {
+                if (SaveFile.IsAscension && LobotomyConfigManager.ChallengeIsActive(SoulboundCards.ID) && card.DefaultAbilities.Count < 4) {
                     card.Mods.Add(new(DeathPenalty.ID));
                 }
             }
