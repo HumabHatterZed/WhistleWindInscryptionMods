@@ -126,8 +126,10 @@ namespace WhistleWindLobotomyMod {
                 if (!AllLobotomyCards.Contains(card))
                     AllLobotomyCards.Add(card);
             }
-            AccessTools.GetDeclaredMethods(typeof(Cards)).ForEach(mi => mi.Invoke(this, null));
+
+            Cards.Add();
             Cards.AddCustomDeathCards();
+
             CreateTalkingCards();
 
             CardManager.ModifyCardList += delegate (List<CardInfo> infos) {
@@ -169,9 +171,13 @@ namespace WhistleWindLobotomyMod {
             //FinalLie.Register();
 
             StartingApocalypse.Register();
-            StartingJester.Register();
             StartingLiar.Register();
+            StartingJester.Register();
             BetterRareChances.Register();
+
+            // Col 6
+            //ApostleGrizzlies.Register();
+            //QlippothMeltdown.Register();
 
             // Col 5
             ApostleGrizzlies.Register();
@@ -180,20 +186,19 @@ namespace WhistleWindLobotomyMod {
             SoulboundCards.Register();
             AllOrdeals.Register(HarmonyInstance);
             // Col 3
-            StartingRose.Register();
+            StartingRose.Register(HarmonyInstance);
             BossOrdeals.Register();
             // Col 2
             MiracleWorker.Register(HarmonyInstance);
             NoRares.Register();
             // Col 1
+            // NoSephirah
             AbnormalEncounters.Register(HarmonyInstance);
             NoTime.Register(HarmonyInstance);
 
             //AbnormalBosses.Register(HarmonyInstance);
 
             BetterRareChances.Info.SetIncompatibleChallengeGetterStatic(NoRares.ID);
-            AbnormalEncounters.Info.SetIncompatibleChallengeGetterStatic(AllOrdeals.ID);
-            //AbnormalBosses.Info.SetIncompatibleChallengeGetterStatic(BossOrdeals.ID);
         }
 
         private void AddEncounters() {
