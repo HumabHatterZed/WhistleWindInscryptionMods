@@ -5,8 +5,8 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges {
     public static class StartingRose {
-        internal const string TITLE = "Staining Rose";
-        internal const string DESCRIPTION = "You start with the Staining Rose item.";
+        internal const string TITLE = "Painted Red";
+        internal const string DESCRIPTION = "You have the Curse of the Rose in all battles.";
 
         public static AscensionChallenge ID { get; private set; }
 
@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 TITLE,
                 DESCRIPTION,
                 20,
-                TextureLoader.LoadTextureFromFile("ascensionLiarStart.png"),
-                TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated.png"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionRose.png"),
+                TextureLoader.LoadTextureFromFile("ascensionRose_activated.png"), 0)
                 .Challenge.challengeType;
         }
     }
