@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using System.Reflection;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers {
@@ -12,8 +13,8 @@ namespace WhistleWind.Core.Helpers {
             string dialogue = null, string triggerText = null,
             bool canStack = false, bool modular = false, bool opponent = false)
             where T : AbilityBehaviour {
-            Texture2D icon = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PNG);
-            Texture2D pixel = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PIXEL);
+            Texture2D icon = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PNG, Assembly.GetCallingAssembly());
+            Texture2D pixel = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PIXEL, Assembly.GetCallingAssembly());
             return New<T>(pluginGuid, rulebookName, rulebookDescription, icon, powerLevel, foundInRulebook, pixel, dialogue, triggerText, canStack, modular, opponent);
         }
 
