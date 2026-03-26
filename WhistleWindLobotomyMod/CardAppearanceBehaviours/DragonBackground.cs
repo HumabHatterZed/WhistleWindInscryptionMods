@@ -13,17 +13,23 @@ namespace WhistleWindLobotomyMod {
     }
     public class DragonHeadBackground : PixelAppearanceBehaviour {
         public static Appearance appearance;
-        public override Sprite OverrideBackground() => TextureLoader.LoadSpriteFromFile("dragonHeadBackground_pixel.png");
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("dragonHeadBackground.png");
+        private static Sprite pixelBg = null;
+        private static Texture2D bg = null;
+        public override Sprite OverrideBackground() => pixelBg ??= TextureLoader.LoadSpriteFromFile("dragonHeadBackground_pixel.png");
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("dragonHeadBackground.png"));
     }
     public class DragonHornsBackground : PixelAppearanceBehaviour {
         public static Appearance appearance;
-        public override Sprite OverrideBackground() => TextureLoader.LoadSpriteFromFile("dragonHornsBackground_pixel.png");
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("dragonHornsBackground.png");
+        private static Sprite pixelBg = null;
+        private static Texture2D bg = null;
+        public override Sprite OverrideBackground() => pixelBg ??= TextureLoader.LoadSpriteFromFile("dragonHornsBackground_pixel.png");
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("dragonHornsBackground.png"));
     }
     public class DragonBodyBackground : PixelAppearanceBehaviour {
         public static Appearance appearance;
-        public override Sprite OverrideBackground() => TextureLoader.LoadSpriteFromFile("dragonBodyBackground_pixel.png");
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("dragonBodyBackground.png");
+        private static Sprite pixelBg = null;
+        private static Texture2D bg = null;
+        public override Sprite OverrideBackground() => pixelBg ??= TextureLoader.LoadSpriteFromFile("dragonBodyBackground_pixel.png");
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("dragonBodyBackground.png"));
     }
 }

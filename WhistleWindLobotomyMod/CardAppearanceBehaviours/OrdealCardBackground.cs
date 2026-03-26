@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 
@@ -23,30 +24,36 @@ namespace WhistleWindLobotomyMod {
     }
     public class OrdealBackgroundGreen : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_g.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_g.png"));
     }
     public class OrdealBackgroundGreenTerrain : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_g_terrain.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_g_terrain.png"));
     }
     public class OrdealBackgroundAmber : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_a.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_a.png"));
     }
     public class OrdealBackgroundViolet : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_v.png"));
     }
     public class OrdealBackgroundVioletTerrain : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_terrain.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_v_terrain.png"));
     }
     #region Midnights of Violet
     public class OrdealBackgroundVioletRed : CardAppearanceBehaviour {
         public static Appearance appearance;
+        private static Texture2D bg = null;
         public override void ApplyAppearance() {
             base.Card.RenderInfo.hiddenAttack = true;
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_r.png");
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_v_r.png"));
         }
         public override void OnPreRenderCard() {
             base.Card.RenderInfo.hiddenAttack = true;
@@ -54,9 +61,10 @@ namespace WhistleWindLobotomyMod {
     }
     public class OrdealBackgroundVioletWhite : CardAppearanceBehaviour {
         public static Appearance appearance;
+        private static Texture2D bg = null;
         public override void ApplyAppearance() {
             base.Card.RenderInfo.hiddenAttack = true;
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_w.png");
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_v_w.png"));
         }
         public override void OnPreRenderCard() {
             base.Card.RenderInfo.hiddenAttack = true;
@@ -64,9 +72,10 @@ namespace WhistleWindLobotomyMod {
     }
     public class OrdealBackgroundVioletBlack : CardAppearanceBehaviour {
         public static Appearance appearance;
+        private static Texture2D bg = null;
         public override void ApplyAppearance() {
             base.Card.RenderInfo.hiddenAttack = true;
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_b.png");
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_v_b.png"));
         }
         public override void OnPreRenderCard() {
             base.Card.RenderInfo.hiddenAttack = true;
@@ -74,9 +83,10 @@ namespace WhistleWindLobotomyMod {
     }
     public class OrdealBackgroundVioletPale : CardAppearanceBehaviour {
         public static Appearance appearance;
+        private static Texture2D bg = null;
         public override void ApplyAppearance() {
             base.Card.RenderInfo.hiddenAttack = true;
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_v_p.png");
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_v_p.png"));
         }
         public override void OnPreRenderCard() {
             base.Card.RenderInfo.hiddenAttack = true;
@@ -85,22 +95,27 @@ namespace WhistleWindLobotomyMod {
     #endregion
     public class OrdealBackgroundCrimson : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_c.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_c.png"));
     }
     public class OrdealBackgroundCrimsonClimax : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_climax.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_climax.png"));
     }
     public class OrdealBackgroundIndigo : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_i.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_i.png"));
     }
     public class OrdealBackgroundIndigoTerrain : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_i_terrain.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_i_terrain.png"));
     }
     public class OrdealBackgroundWhite : CardAppearanceBehaviour {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("ordealCardBackground_w.png");
+        private static Texture2D bg = null;
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_w.png"));
     }
 }

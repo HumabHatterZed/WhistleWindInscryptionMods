@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod {
@@ -9,10 +10,10 @@ namespace WhistleWindLobotomyMod {
     }
     public class GiantBirdAppearance : GiantAnimatedPortrait {
         public static Appearance appearance;
-
+        private static Texture2D bg = null;
         public override void ApplyAppearance() {
             base.ApplyAppearance();
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("apocalypseBird_cardBack.png");
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("apocalypseBird_cardBack.png"));
         }
     }
 }

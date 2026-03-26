@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod {
@@ -9,11 +10,11 @@ namespace WhistleWindLobotomyMod {
     }
     public class GiantTowerAppearance : GiantAnimatedPortrait {
         public static Appearance appearance;
-
+        private static Texture2D bg = null;
         public override void ApplyAppearance() {
             base.ApplyAppearance();
             base.Card.StatsLayer.SetEmissionColor(GameColors.Instance.brightLimeGreen);
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("tower_cardBack.png");
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("tower_cardBack.png"));
         }
     }
 }

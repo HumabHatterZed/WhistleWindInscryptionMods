@@ -12,12 +12,16 @@ namespace WhistleWindLobotomyMod {
     }
     public class EventBackground : PixelAppearanceBehaviour {
         public static Appearance appearance;
-        public override Sprite OverrideBackground() => TextureLoader.LoadSpriteFromFile("eventCardBackground_pixel.png");
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("eventCardBackground.png");
+        private static Sprite pixelBg = null;
+        private static Texture2D bg = null;
+        public override Sprite OverrideBackground() => pixelBg ??= TextureLoader.LoadSpriteFromFile("eventCardBackground_pixel.png");
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("eventCardBackground.png"));
     }
     public class RareEventBackground : PixelAppearanceBehaviour {
         public static Appearance appearance;
-        public override Sprite OverrideBackground() => TextureLoader.LoadSpriteFromFile("eventCardBackgroundRare_pixel.png");
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("eventCardBackgroundRare.png");
+        private static Sprite pixelBg = null;
+        private static Texture2D bg = null;
+        public override Sprite OverrideBackground() => pixelBg ??= TextureLoader.LoadSpriteFromFile("eventCardBackgroundRare_pixel.png");
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("eventCardBackgroundRare.png"));
     }
 }
