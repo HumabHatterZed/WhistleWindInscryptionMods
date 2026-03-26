@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
@@ -212,17 +213,18 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         #region Opening Hoof
         public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
-        public virtual IEnumerator PreDrawOpeningHand() {
+        public override IEnumerator PreHandDraw() {
             if (drewInitialHand) {
                 CardDrawPiles3D.Instance.sidePile.Draw();
                 yield return CardDrawPiles3D.Instance.DrawFromSidePile();
                 yield return new WaitForSeconds(0.1f);
             }
+            else if (TurnNumber == 0) {
+                yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
+                yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
+            }
         }
         public virtual IEnumerator PostDrawOpeningHand() {
-            ViewManager.Instance.SwitchToView(View.Hand);
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
             yield return new WaitForSeconds(0.4f);
             if (TurnNumber == 0) {
                 if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent opp)) {
@@ -244,15 +246,16 @@ namespace WhistleWindLobotomyMod.Opponents {
     internal static class LobotomyBattleSetUpPatch {
         [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
         public static IEnumerator CallPrePostDrawOpeningHand(IEnumerator enumerator) {
-            if (!SaveManager.SaveFile.IsPart1 || TurnManager.Instance.SpecialSequencer is not LobotomyBattleSequencer sequence) {
-                yield return enumerator;
-                yield break;
+            if (LobotomyConfigManager.ChallengeIsActive(StartingRose.ID)) {
+                yield return BoonsHandler.Instance.PlayBoonAnimation(Boons.RoseCurse);
+                yield return new WaitForSeconds(0.75f);
+                yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName(Cards.stainingRose));
             }
-
-            yield return sequence.PreDrawOpeningHand();
             yield return enumerator;
-            yield return sequence.PostDrawOpeningHand();
-            sequence.drewInitialHand = true;
+            if (TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer sequence) {
+                yield return sequence.PostDrawOpeningHand();
+                sequence.drewInitialHand = true;
+            }
         }
     }
 }
