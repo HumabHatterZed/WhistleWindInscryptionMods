@@ -12,6 +12,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.wonderlabPrefix, stainingRose, "Staining Rose",
                 attack: 0, health: 0)
                 .AddAbilities(Ability.DrawCopyOnDeath)
+                .AddAppearances(RoseBackground.appearance)
                 .SetHideStats()
                 .SetGlobalSpell()
                 .SetOnePerDeck()
