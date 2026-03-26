@@ -13,14 +13,13 @@ namespace WhistleWindLobotomyMod {
             info.rulebookDescription = "While this card is in an active state, the Light of the End will target spaces on the player's side of the board.";
             info.powerLevel = 5;
             info.passive = true;
-
-            Tower.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Tower), TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
             info.SetUniqueRedirect("Light of the End", "wstl:Ordeals_Light of the End", Color.green);
+
+            TowerAbility.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, null, TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
         }
     }
 
-    public class Tower : AbilityBehaviour {
+    public class TowerAbility {
         public static Ability ID { get; internal set; }
-        public override Ability Ability => ID;
     }
 }

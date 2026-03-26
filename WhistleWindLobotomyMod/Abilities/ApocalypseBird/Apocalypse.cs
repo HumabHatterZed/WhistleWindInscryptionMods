@@ -1,20 +1,22 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void AddApocalypse() {
-            const string rulebookName = "Black Forest Guardians";
-            ApocalypseAbility.ID = AbilityHelper.New<ApocalypseAbility>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
-                "This card will change its combat pattern every three turns. At 80/60/40 Health, change pattern and the previous pattern cannot used again.", 0, true)
-            .SetPassive()
-            .Id;
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.rulebookName = "Black Forest Guardians";
+            info.rulebookDescription = "This card changes its combat pattern every three turns. At 80/60/40 Health, change pattern and the previous pattern cannot used again.";
+            info.powerLevel = 0;
+            info.passive = true;
+            ApocalypseAbility.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, null, TextureLoader.LoadTextureFromFile("sigilApocalypse.png")).Id;
         }
     }
 
-    public class ApocalypseAbility : AbilityBehaviour {
+    public class ApocalypseAbility {
         public static Ability ID { get; internal set; }
-        public override Ability Ability => ID;
     }
 }

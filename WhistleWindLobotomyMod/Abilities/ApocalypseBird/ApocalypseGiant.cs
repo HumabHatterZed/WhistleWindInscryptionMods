@@ -9,7 +9,8 @@ namespace WhistleWindLobotomyMod {
         private static void AddApocalypseGiant() {
             const string rulebookName = "The Monster";
             ApocalypseGiant.ID = AbilityHelper.New<ApocalypseGiant>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
-                "This card will attack marked spaces. Red spaces will take double damage, and white spaces will take half damage then heal this card equal to its Power.", 0, true).Id;
+                "This card will attack marked spaces. Red spaces will take double damage, and white spaces will take half damage then heal this card equal to its Power.",
+                0, true).Id;
         }
     }
 
