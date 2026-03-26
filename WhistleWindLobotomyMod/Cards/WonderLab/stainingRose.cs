@@ -1,5 +1,7 @@
-﻿using Infiniscryption.Spells.Sigils;
+﻿using DiskCardGame;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -7,15 +9,13 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string stainingRose = "wstlWonder_stainingRose";
         private static void StainingRose() {
-            return;
-            string textureName = "stainingRose";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, stainingRose, "Staining Rose",
                 attack: 0, health: 0)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities()
-                .SetInstaGlobalSpell()
+                .AddAbilities(Ability.DrawCopyOnDeath)
+                .SetHideStats()
+                .SetGlobalSpell()
                 .SetOnePerDeck()
-                .SetNodeRestrictions(true, true, true, true)
+                .AddTraits(AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments, AbnormalPlugin.Boneless, Trait.Uncuttable, Trait.Terrain)
                 .Build();
         }
     }
