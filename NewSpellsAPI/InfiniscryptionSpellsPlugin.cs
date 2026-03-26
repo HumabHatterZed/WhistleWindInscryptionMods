@@ -83,7 +83,7 @@ namespace Infiniscryption.Spells {
                     else if (card.IsInstaGlobalSpell() && card.specialStatIcon != InstaGlobalSpellAbility.Icon)
                         card.SetInstaGlobalSpell();
 
-                    else if (card.IsGlobalSpell() && card.specialStatIcon == GlobalSpellAbility.Icon)
+                    else if (card.IsGlobalSpell() && card.specialStatIcon != GlobalSpellAbility.Icon)
                         card.SetGlobalSpell();
 
                     if (!card.hideAttackAndHealth && (card.baseHealth != 0 || card.baseAttack != 0)) {
