@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToPostBoonActivation() => true;
         public override IEnumerator OnPostBoonActivation() {
             Singleton<PlayerHand>.Instance.Initialize();
-            yield return BoonsHandler.Instance.PlayBoonAnimation(Boons.RoseCurse);
+            base.StartCoroutine(BoonsHandler.Instance.PlayBoonAnimation(Boons.RoseCurse));
             yield return new WaitForSeconds(0.25f);
             yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName(Cards.stainingRose));
             yield return new WaitForSeconds(0.5f);
