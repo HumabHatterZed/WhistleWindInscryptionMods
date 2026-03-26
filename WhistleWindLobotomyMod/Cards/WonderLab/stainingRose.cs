@@ -9,14 +9,16 @@ namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string stainingRose = "wstlWonder_stainingRose";
         private static void StainingRose() {
-            CardManager.New(LobotomyPlugin.wonderlabPrefix, stainingRose, "Staining Rose",
+            CardInfo info = CardManager.New(LobotomyPlugin.wonderlabPrefix, stainingRose, "Staining Rose",
                 attack: 0, health: 0)
                 .AddAbilities(Ability.DrawCopyOnDeath)
-                .AddAppearances(RoseBackground.appearance)
                 .SetHideStats()
                 .SetGlobalSpell()
                 .SetOnePerDeck()
-                .AddTraits(AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments, AbnormalPlugin.Boneless, Trait.Uncuttable, Trait.Terrain)
+                .AddTraits(AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.ImmuneToAilments, AbnormalPlugin.Boneless, Trait.Uncuttable, Trait.Terrain);
+            info.appearanceBehaviour.Clear();
+
+            info.AddAppearances(RoseBackground.appearance)
                 .Build();
         }
     }
