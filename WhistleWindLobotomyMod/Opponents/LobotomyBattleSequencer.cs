@@ -246,11 +246,6 @@ namespace WhistleWindLobotomyMod.Opponents {
     internal static class LobotomyBattleSetUpPatch {
         [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
         public static IEnumerator CallPrePostDrawOpeningHand(IEnumerator enumerator) {
-            if (LobotomyConfigManager.ChallengeIsActive(StartingRose.ID)) {
-                yield return BoonsHandler.Instance.PlayBoonAnimation(Boons.RoseCurse);
-                yield return new WaitForSeconds(0.75f);
-                yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName(Cards.stainingRose));
-            }
             yield return enumerator;
             if (TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer sequence) {
                 yield return sequence.PostDrawOpeningHand();
