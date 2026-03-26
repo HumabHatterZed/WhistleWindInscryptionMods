@@ -2,9 +2,6 @@
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
-
-
-
 //using InscryptionAPI.Slots;
 using WhistleWind.Core.Helpers;
 
