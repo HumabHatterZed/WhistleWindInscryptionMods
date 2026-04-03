@@ -2,6 +2,7 @@
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -9,7 +10,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void StatusEffect_PaperRose() {
             const string rName = "Paper Rose";
-            const string rDesc = "At the start of combat, a card bearing this effect loses Health equal to its Paper Rose.";
+            const string rDesc = "At the start of combat, a card bearing this effect loses Health equal to its Paper Rose. Cards killed by this effect do not trigger sigils.";
 
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<PaperRose>(
                 LobotomyPlugin.pluginGuid, rName, rDesc, -1, GameColors.Instance.glowRed,
@@ -22,6 +23,9 @@ namespace WhistleWindLobotomyMod {
         }
     }
 
+    /// <summary>
+    /// At the start of combat, a card bearing this effect loses Health equal to its Paper Rose.
+    /// </summary>
     public class PaperRose : StatusEffectBehaviour, IOnBellRung {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
@@ -39,7 +43,16 @@ namespace WhistleWindLobotomyMod {
             yield return base.PlayableCard.Heal(-EffectPotency);
 
             if (base.PlayableCard.Health < 1) {
-                yield return base.PlayableCard.Die(false);
+                if (base.PlayableCard.InHand) {
+                    PlayerHand.Instance.RemoveCardFromHand(base.PlayableCard);
+                }
+                else if (base.PlayableCard.OnBoard) {
+                    base.PlayableCard.UnassignFromSlot();
+                }
+
+                base.PlayableCard.Anim.PlayDeathAnimation();
+                yield return new WaitForSeconds(0.5f);
+                CustomCoroutine.Instance.StartCoroutine(base.PlayableCard.DestroyWhenStackIsClear());
             }
         }
     }
