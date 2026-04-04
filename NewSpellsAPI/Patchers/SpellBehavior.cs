@@ -4,6 +4,7 @@ using HarmonyLib;
 using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
+using InscryptionAPI.CardCosts;
 using Pixelplacement;
 using System;
 using System.Collections;
@@ -393,11 +394,16 @@ namespace Infiniscryption.Spells.Patchers {
                     // Now we take care of actually playing the card
                     if (Singleton<PlayerHand>.Instance.CardsInHand.Contains(card)) {
                         View oldView = ViewManager.Instance.CurrentView;
-                        if (card.Info.BonesCost > 0)
+                        if (card.BonesCost() > 0)
                             yield return Singleton<ResourcesManager>.Instance.SpendBones(card.Info.BonesCost);
 
                         if (card.EnergyCost > 0)
                             yield return Singleton<ResourcesManager>.Instance.SpendEnergy(card.EnergyCost);
+
+                        // fix for custom costs
+                        foreach (var cost2 in card.GetCustomCardCosts()) {
+                            yield return cost2.OnPlayed(card.GetCustomCostAmount(cost2.CostName), card);
+                        }
 
                         Singleton<PlayerHand>.Instance.RemoveCardFromHand(card);
 
