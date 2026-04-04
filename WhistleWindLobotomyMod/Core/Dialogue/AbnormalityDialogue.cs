@@ -2,34 +2,6 @@
 
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
-        private void Dialogue_MapNodes() {
-            CreateDialogueEvents("AbnormalChoiceNodeIntro", new() {
-                "You enter a clearing surrounded by dark, twisting trees.",
-                "What looks like a well rises up from its centre, but you wisely choose not to look inside.",
-                "You hear voices call out, crying, screaming, wishing and wanting to be drawn up.",
-                "There are things down there. Unnatural, otherwordly,",
-                "[c:bR]abnormal[c:]."
-                });
-            CreateDialogueEvents("SefirotChoiceNodeIntro", new() {
-                "As you journey through the wilderness, you come across a small group of humans.",
-                "They're dressed oddly for this climate, and even odder, they seem to recognise you.",
-                "They appear quite capable. Perhaps you can convince them to aid you on your travels."
-                });
-        }
-        private void Dialogue_BackwardClock() {
-            CreateDialogueEvents("BackwardClockStart", new() {
-                "Close your eyes and count to ten.",
-                "When you open them, you will be standing at the exact moment you wish to be in." },
-                new() {
-                    new() { "Close your eyes and count to ten." }
-                });
-
-            CreateDialogueEvents("BackwardClockOperate", new() {
-                "[c:bR]1[c:] of your creatures must stay behind to operate the machine." },
-                new() {
-                    new() { "[c:bR]1[c:] of your creatures must stay behind to operate the machine." }
-                });
-        }
         private void Dialogue_Abnormalities() {
             CreateDialogueEvents("SilentGirlResolve", new() {
                 "Are you guilty of having a closed heart?"
@@ -123,6 +95,34 @@ namespace WhistleWindLobotomyMod {
             CreateDialogueEvents("JesterOfNihilStory", new() {
                 "[c:gray]The Jester[c:] retraced the steps of a path everyone would've taken.",
                 "No matter what it did, the Jester always found itself at the end of that road."
+                });
+        }
+        private void Dialogue_MapNodes() {
+            CreateDialogueEvents("AbnormalChoiceNodeIntro", new() {
+                "You enter a clearing surrounded by dark, twisting trees.",
+                "What looks like a well rises up from its centre, but you wisely choose not to look inside.",
+                "You hear voices call out, crying, screaming, wishing and wanting to be drawn up.",
+                "There are things down there. Unnatural, otherwordly,",
+                "[c:bR]abnormal[c:]."
+                });
+            CreateDialogueEvents("SefirotChoiceNodeIntro", new() {
+                "As you journey through the wilderness, you come across a small group of humans.",
+                "They're dressed oddly for this climate, and even odder, they seem to recognise you.",
+                "They appear quite capable. Perhaps you can convince them to aid you on your travels."
+                });
+        }
+        private void Dialogue_BackwardClock() {
+            CreateDialogueEvents("BackwardClockStart", new() {
+                "Close your eyes and count to ten.",
+                "When you open them, you will be standing at the exact moment you wish to be in." },
+                new() {
+                    new() { "Close your eyes and count to ten." }
+                });
+
+            CreateDialogueEvents("BackwardClockOperate", new() {
+                "[c:bR]1[c:] of your creatures must stay behind to operate the machine." },
+                new() {
+                    new() { "[c:bR]1[c:] of your creatures must stay behind to operate the machine." }
                 });
         }
         private void Dialogue_LyingAdult() {
