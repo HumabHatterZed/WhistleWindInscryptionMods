@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using static InscryptionAPI.Ascension.StarterDeckManager;
 namespace WhistleWind.Core.Helpers {
@@ -15,15 +16,15 @@ namespace WhistleWind.Core.Helpers {
                 CardInfo info = CardLoader.GetCardByName(name);
                 cardInfos.Add(info);
             }
-            return AddStarterDeck(pluginPrefix, title, icon, unlockLevel, cardInfos, customUnlock);
+            return AddStarterDeck(pluginPrefix, title, TextureLoader.LoadSpriteFromFile(icon, asm: Assembly.GetCallingAssembly()), unlockLevel, cardInfos, customUnlock);
         }
-        public static FullStarterDeck AddStarterDeck(string pluginPrefix, string title, string icon, int unlockLevel, List<CardInfo> cardInfos, Func<int, bool> customUnlock = null) {
+        public static FullStarterDeck AddStarterDeck(string pluginPrefix, string title, Sprite icon, int unlockLevel, List<CardInfo> cardInfos, Func<int, bool> customUnlock = null) {
             if (cardInfos.Count == 0)
                 return null;
 
             StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromFile(icon);
+            starterDeckInfo.iconSprite = icon;
             starterDeckInfo.cards = cardInfos;
 
             FullStarterDeck fullDeck = Add(pluginPrefix, starterDeckInfo, unlockLevel);
