@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 
 namespace WhistleWind.AbnormalSigils {
     /// <summary>
@@ -43,19 +44,7 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private void ModifySpawnedCard(CardInfo card) {
-            List<Ability> abilities = base.Card.Info.Abilities;
-            foreach (CardModificationInfo temporaryMod in base.Card.TemporaryMods) {
-                abilities.AddRange(temporaryMod.abilities);
-            }
-            abilities.RemoveAll(x => x == this.Ability);
-            if (abilities.Count > 4) {
-                abilities.RemoveRange(3, abilities.Count - 4);
-            }
-            CardModificationInfo cardModificationInfo = new() {
-                fromCardMerge = true,
-                abilities = abilities
-            };
-            card.Mods.Add(cardModificationInfo);
+            StatusEffectPatches.ModifySpawnedCardStatusEffects(this.Card, card, this.Ability);
         }
     }
 }

@@ -4,6 +4,7 @@ using InscryptionAPI.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -42,19 +43,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         private void ModifySpawnedCard(CardInfo card) {
-            List<Ability> abilities = base.PlayableCard.Info.Abilities;
-            foreach (CardModificationInfo temporaryMod in base.PlayableCard.TemporaryMods) {
-                abilities.AddRange(temporaryMod.abilities);
-            }
-
-            if (abilities.Count > 4) {
-                abilities.RemoveRange(3, abilities.Count - 4);
-            }
-            CardModificationInfo cardModificationInfo = new() {
-                fromCardMerge = true,
-                abilities = abilities
-            };
-            card.Mods.Add(cardModificationInfo);
+            StatusEffectPatches.ModifySpawnedCardStatusEffects(this.PlayableCard, card);
         }
     }
 

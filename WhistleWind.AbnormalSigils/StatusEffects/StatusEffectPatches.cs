@@ -9,7 +9,7 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Core {
     [HarmonyPatch]
-    internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
+    public static class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
         [HarmonyPrefix, HarmonyPatch(typeof(RenderStatsLayer), nameof(RenderStatsLayer.DisableEmission))]
         private static bool AlwaysEmitForStatusEffects(RenderStatsLayer __instance) {
@@ -232,19 +232,28 @@ namespace WhistleWind.AbnormalSigils.Core {
         // keep z scale at 1 to not mess with icon interactiveness
         private static readonly Vector3 LocalScaleBase3D = new(0.2f, 0.2f, 1f);
 
-        [HarmonyPrefix, HarmonyPatch(typeof(CreateCardsAdjacent), nameof(CreateCardsAdjacent.ModifySpawnedCard))]
-        private static bool ModifyInheritedEffects(CreateCardsAdjacent __instance, CardInfo card) {
-            List<Ability> abilities = __instance.Card.AllAbilities();
-            abilities.RemoveAll(x => x == __instance.Ability);
-            abilities.RemoveAll(x => __instance.Card.HasStatusEffect(x) && !__instance.Card.GetStatusEffect(x).EffectCanBeInherited);
+        public static void ModifySpawnedCardStatusEffects(PlayableCard playableCard, CardInfo cardInfo, params Ability[] exclude) {
+            List<Ability> abilities = playableCard.Info.Abilities;
+            foreach (CardModificationInfo temporaryMod in playableCard.TemporaryMods) {
+                abilities.AddRange(temporaryMod.abilities);
+            }
+            foreach (Ability ab in exclude) {
+                abilities.RemoveAll(x => x == ab);
+            }
+            abilities.RemoveAll(x => playableCard.HasStatusEffect(x) && !playableCard.GetStatusEffect(x).EffectCanBeInherited);
+            abilities.RemoveAll(x => AbilitiesUtil.GetInfo(x).GetExtendedPropertyAsBool("Uninheritable") == true);
             if (abilities.Count > 4) {
                 abilities.RemoveRange(3, abilities.Count - 4);
             }
-            CardModificationInfo cardModificationInfo = new() {
-                fromCardMerge = true,
-                abilities = abilities
-            };
-            card.Mods.Add(cardModificationInfo);
+            CardModificationInfo cardModificationInfo = new CardModificationInfo();
+            cardModificationInfo.fromCardMerge = true;
+            cardModificationInfo.abilities = abilities;
+            cardInfo.Mods.Add(cardModificationInfo);
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(CreateCardsAdjacent), nameof(CreateCardsAdjacent.ModifySpawnedCard))]
+        private static bool ModifyInheritedEffects(CreateCardsAdjacent __instance, CardInfo card) {
+            ModifySpawnedCardStatusEffects(__instance.Card, card, __instance.Ability);
             return false;
         }
     }
