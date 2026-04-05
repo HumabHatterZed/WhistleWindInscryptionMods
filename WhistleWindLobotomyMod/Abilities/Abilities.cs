@@ -117,7 +117,8 @@ namespace WhistleWindLobotomyMod {
             AddScenarioOverseer();
 
             StatusEffect_PaperRose();
-
+            AddOrigamiGarden();
+            AddRoseChosen();
 
             if (LobotomyConfigManager.RevealSpecials) {
                 LobotomyPlugin.Log.LogDebug("Adding rulebook entries for cards' special abilities.");
