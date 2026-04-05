@@ -74,9 +74,9 @@ namespace WhistleWindLobotomyMod.Patches {
         [HarmonyPostfix, HarmonyPatch(typeof(RunIntroSequencer), nameof(RunIntroSequencer.TryModifyStarterCards))]
         private static void ModifyStarterDeck() {
             if (LobotomyConfigManager.ChallengeIsActive(SoulboundCards.ID)) {
-                foreach (CardInfo card in RunState.Run.playerDeck.Cards) {
+                foreach (CardInfo card in SaveManager.SaveFile.CurrentDeck.Cards) {
                     if (card.LacksTrait(Trait.Pelt)) {
-                        RunState.Run.playerDeck.ModifyCard(card, new(DeathPenalty.ID) { fromCardMerge = card.DefaultAbilities.Count > 4 });
+                        SaveManager.SaveFile.CurrentDeck.ModifyCard(card, new(DeathPenalty.ID) { fromCardMerge = card.DefaultAbilities.Count > 4 });
                     }
                 }
             }

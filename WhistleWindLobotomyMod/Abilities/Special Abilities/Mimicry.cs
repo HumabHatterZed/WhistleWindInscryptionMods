@@ -131,7 +131,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         public static CardInfo GetNothingThereInDeck() {
-            return RunState.Run.playerDeck.Cards.Find(x => x.name == "wstl_nothingThere");
+            return SaveManager.SaveFile.CurrentDeck.Cards.Find(x => x.name == "wstl_nothingThere");
         }
         public static CardModificationInfo GetNothingThereMod() {
             return GetNothingThereInDeck()?.Mods.Find(x => HelperMethods.StartsWithSingleton(x.singletonId, "NothingThere:"));
