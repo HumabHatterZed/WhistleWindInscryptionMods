@@ -3,6 +3,14 @@
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
         private void Dialogue_Abnormalities() {
+            CreateDialogueEvents("StainingRoseIntro", new() {
+                "This is the Staining Rose.",
+                "Mere blood or bones will not satisfy it. Instead, a condition must be met.",
+                "If you possess a sufficiently powerful creature, it will able to [c:bR]resonant[c:] with the Rose and allow its removal.",
+                "If you do not own such a creature...",
+                "[c:bR]Get one.[c:]"
+                });
+
             CreateDialogueEvents("SilentGirlResolve", new() {
                 "Are you guilty of having a closed heart?"
                 });
