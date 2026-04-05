@@ -72,11 +72,9 @@ namespace WhistleWindLobotomyMod {
 
             Log.LogDebug("Loading cards...");
             AccessTools.GetDeclaredMethods(typeof(Appearances)).ForEach(mi => mi.Invoke(this, null));
+            RoseCost.Init();
             AddCards();
             StarterDecks.AddStarterDecks();
-
-            Log.LogDebug("Loading boons...");
-            Boons.Initialise();
 
             Log.LogDebug("Loading encounters...");
             AddEncounters();
@@ -86,7 +84,7 @@ namespace WhistleWindLobotomyMod {
             // Pebble - Gives Pebble effect to a card
             // Accelerator - Gives card +X Haste
             // Decelerator - Gives card +X Bind
-
+            Boons.Initialise();
             AccessTools.GetDeclaredMethods(typeof(Items)).ForEach(mi => mi.Invoke(this, null));
             AccessTools.GetDeclaredMethods(typeof(Nodes)).ForEach(mi => mi.Invoke(this, null));
 

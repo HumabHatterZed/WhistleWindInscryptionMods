@@ -20,6 +20,7 @@ namespace WhistleWindLobotomyMod {
     /// </summary>
     public class RoseCost : CustomCardCost {
         public const string STAINING_ROSE_COST = "StainingRoseCost";
+        public const int MAX_STACK = 3;
         private static Texture2D roseTex = null;
         internal static void Init() {
             CardCostManager.Register(LobotomyPlugin.pluginGuid, STAINING_ROSE_COST, typeof(RoseCost), GetCostTexture, null);
@@ -32,7 +33,7 @@ namespace WhistleWindLobotomyMod {
         public override string CostName => STAINING_ROSE_COST;
         public override bool CostSatisfied(int cardCost, PlayableCard playableCard) {
             CardInfo roseChosenCard = null;
-            List<CardInfo> playerDeck = new(RunState.Run.playerDeck.Cards);
+            List<CardInfo> playerDeck = new(SaveManager.SaveFile.CurrentDeck.Cards);
             roseChosenCard = playerDeck.Find(x => x.HasAbility(RoseChosen.ID));
             if (roseChosenCard != null) {
                 // if the rose has already chosen a card
@@ -46,10 +47,13 @@ namespace WhistleWindLobotomyMod {
             }
         }
         public override IEnumerator OnPlayed(int cardCost, PlayableCard playableCard) {
+            yield return ResonateSequence();
+        }
+        public IEnumerator ResonateSequence() {
             CardInfo roseChosenCard = null;
-            List<CardInfo> playerDeck = new(RunState.Run.playerDeck.Cards);
+            List<CardInfo> playerDeck = new(SaveManager.SaveFile.CurrentDeck.Cards);
             SelectableCard selectedCard = null;
-
+            bool hasAlreadyChosen = false;
             roseChosenCard = playerDeck.Find(x => x.HasAbility(RoseChosen.ID));
             // if we haven't already chosen a card, get a selection of cards to select from
             if (roseChosenCard == null) {
@@ -60,32 +64,42 @@ namespace WhistleWindLobotomyMod {
                 // sort by powerlevel (high -> low)
                 playerDeck.Sort((CardInfo a, CardInfo b) => b.PowerLevel - a.PowerLevel);
                 playerDeck.RemoveRange(removeIdx, playerDeck.Count - removeIdx); // show up to 3 options
-
-
             }
             else {
                 playerDeck = new() { roseChosenCard };
+                hasAlreadyChosen = true;
             }
             Singleton<ViewManager>.Instance.SwitchToView(View.DeckSelection, immediate: false, lockAfter: true);
-            TextDisplayer.Instance.ShowMessage("Choose a creature to resonate with the Rose.");
-            
-            yield return Singleton<BoardManager>.Instance.CardSelector.SelectCardFrom(playerDeck, (Singleton<CardDrawPiles>.Instance as CardDrawPiles3D).Pile, delegate (SelectableCard x) {
+            if (hasAlreadyChosen) {
+                TextDisplayer.Instance.ShowMessage("Resonate with Staining Rose.");
+            }
+            else {
+                TextDisplayer.Instance.ShowMessage("Choose a creature to resonate with Staining Rose.");
+            }
+
+            // SelectCardFrom uses the passed-in List<CardInfo> to determine how many card objects to readd to the pile
+            // this is because it assumes the length of the list is equal to the num of cards in the deck (Tutor)
+            // since we aren't doing that here, we need to keep track of that count ourselves so we can re-set the pile's cards correctly
+            int cardsInPile = CardDrawPiles3D.Instance.Pile.cards.Count;
+            yield return Singleton<BoardManager>.Instance.CardSelector.SelectCardFrom(playerDeck, CardDrawPiles3D.Instance.Pile, delegate (SelectableCard x) {
                 selectedCard = x;
                 roseChosenCard = x.Info;
 
-                if (roseChosenCard.GetAbilityStacks(RoseChosen.ID) > 2) {
+                if (roseChosenCard.GetAbilityStacks(RoseChosen.ID) >= MAX_STACK) {
                     selectedCard.Anim.PlayDeathAnimation();
-                    RunState.Run.playerDeck.RemoveCard(roseChosenCard);
+                    SaveManager.SaveFile.CurrentDeck.RemoveCard(roseChosenCard);
                 }
                 else {
                     selectedCard.Anim.PlayTransformAnimation();
-                    RunState.Run.playerDeck.ModifyCard(roseChosenCard, new CardModificationInfo(RoseChosen.ID) { nonCopyable = true });
+                    SaveManager.SaveFile.CurrentDeck.ModifyCard(roseChosenCard, new CardModificationInfo(RoseChosen.ID) { nonCopyable = true });
                     selectedCard.RenderCard();
+                    RenderChosenCardInField(roseChosenCard);
                 }
-                
+
                 TextDisplayer.Instance.Clear();
             });
-            
+            base.StartCoroutine(CardDrawPiles3D.Instance.Pile.SpawnCards(cardsInPile));
+
             yield return new WaitForSeconds(0.5f);
 
 
@@ -93,8 +107,46 @@ namespace WhistleWindLobotomyMod {
             UnityEngine.Object.Destroy(selectedCard.gameObject, 0.1f);
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            // if we removed the chosen card, remove it from the battle
+            if (!SaveManager.SaveFile.CurrentDeck.Cards.Contains(roseChosenCard)) {
+                yield return KillChosenCardInField(roseChosenCard);
+            }
             ViewManager.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
+
+        private IEnumerator KillChosenCardInField(CardInfo info) {
+            List<PlayableCard> cardsInPlay = BoardManager.Instance.GetPlayerCards();
+            cardsInPlay.AddRange(PlayerHand.Instance.CardsInHand);
+
+            if (cardsInPlay.Exists(x => x.Info == info)) {
+                LobotomyPlugin.Log.LogInfo("Card in hoof/on board");
+                PlayableCard card = cardsInPlay.Find(x => x.Info == info);
+                if (card.OnBoard) {
+                    yield return card.Die(true);
+                }
+                else {
+                    PlayerHand.Instance.RemoveCardFromHand(card);
+                    CustomCoroutine.Instance.StartCoroutine(card.DestroyWhenStackIsClear());
+                }
+            }
+            else if (CardDrawPiles3D.Instance.Deck.Cards.Contains(info)) {
+                CardDrawPiles3D.Instance.Deck.Cards.Remove(info);
+                Transform cardObj = CardDrawPiles3D.Instance.Pile.cards[CardDrawPiles3D.Instance.Pile.cards.Count - 1];
+                CardDrawPiles3D.Instance.Pile.cards.Remove(cardObj);
+                Destroy(cardObj);
+            }
+        }
+
+        private void RenderChosenCardInField(CardInfo info) {
+            List<PlayableCard> cardsInPlay = BoardManager.Instance.GetPlayerCards();
+            cardsInPlay.AddRange(PlayerHand.Instance.CardsInHand);
+
+            if (cardsInPlay.Exists(x => x.Info == info)) {
+                LobotomyPlugin.Log.LogInfo("Card in hoof/on board");
+                cardsInPlay.Find(x => x.Info == info).RenderCard();
+            }
+        }
+
         public override string CostUnsatisfiedHint(int cardCost, PlayableCard playableCard) {
             return UnityEngine.Random.Range(0, 3) switch {
                 0 => $"{playableCard.Info.DisplayedNameLocalized} desires a suitably strong creature to resonate with.",
