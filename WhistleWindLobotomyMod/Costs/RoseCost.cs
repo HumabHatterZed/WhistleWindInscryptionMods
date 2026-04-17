@@ -126,6 +126,7 @@ namespace WhistleWindLobotomyMod {
                 }
                 else {
                     PlayerHand.Instance.RemoveCardFromHand(card);
+                    card.gameObject.SetActive(false);
                     CustomCoroutine.Instance.StartCoroutine(card.DestroyWhenStackIsClear());
                 }
             }

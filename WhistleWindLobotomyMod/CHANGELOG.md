@@ -114,19 +114,21 @@
 - Fixed camera looking at opponent queue when player draws Scaredy Cat
 - Added 3 Lobotomy Corporation tracks to the Gramophone
 - Overhauled encounters
+- Renamed/reworded some challenges to be clearer and more in-line with vanilla wording
 - Modified some dialogue
 - Modified some pixel artwork
 - Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
 - Changed description of Concord special ability for clarity
 - Changed weights used in the Abnormal Choice Node for card choices in each region tier:
-    - Key: (Zayin, Teth, He, Waw, Aleph), weakest to strongest
+    - Key: (Zayin, Teth, He, Waw, Aleph)
     - Tier 0: (40%, 30%, 20%, 10%) -> (35%, 35%, 20%, 10%)
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
 - 'Keter' starter deck now contains Heart of Aspiration instead of Bloodbath
 - 'Blood Machine' starter deck now contains Standard Training Dummy instead of We Can Change Anything
 - 'Apocrypha' starter deck now contains Flesh Idol instead of Skin Prophecy
-- Removed dynamic rulebook descriptions for certain sigils
+- Removed dynamic rulebook descriptions for certain sigils to improve readability and performance
+- Removed Abnormal Bosses challenge, Abnormal Encounters now also affects bosses
 ### Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
 - Pack Manager API: Updated encounter pack

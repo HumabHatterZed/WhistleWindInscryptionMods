@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod {
             if (info != null) {
                 thirst -= info.GetAbilityStacks(RoseChosen.ID);
             }
-            LobotomyPlugin.Log.LogInfo($"[RoseBoon] Thirst: {thirst}");
+            //LobotomyPlugin.Log.LogInfo($"[RoseBoon] Thirst: {thirst}");
             return thirst;
         }
     }
