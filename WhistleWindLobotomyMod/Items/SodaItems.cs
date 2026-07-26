@@ -9,6 +9,7 @@ using WhistleWindLobotomyMod.Core;
 namespace WhistleWindLobotomyMod {
     public partial class Items {
         private static void SodaCans() {
+            // decriptions will automatically be given 'to the user:' prefix
             GameObject obj = AssetManager.GetGameObject("FizzyLifter");
             GameObject obj2 = AssetManager.GetGameObject("OceanSoda");
             GameObject obj3 = AssetManager.GetGameObject("PotshotPop");
@@ -46,8 +47,8 @@ namespace WhistleWindLobotomyMod {
                 .SetAct1();
 
             if (LobotomyConfigManager.ReskinSigils) {
-                item.SetRulebookDescription("To the user: Select a card on the board to gain Quick Draw for this and next turn.");
-                item2.SetRulebookDescription("To the user: Select a card on the board to gain Marksman for this turn.");
+                item.SetRulebookDescription("Select a card on the board to gain Quick Draw for this and next turn.");
+                item2.SetRulebookDescription("Select a card on the board to gain Marksman for this turn.");
             }
         }
     }
