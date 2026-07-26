@@ -26,7 +26,9 @@ namespace WhistleWindLobotomyMod {
             yield return new WaitForSeconds(0.25f);
             yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName(cardToDraw));
             yield return new WaitForSeconds(0.5f);
-            yield return DialogueHelper.PlayDialogueEvent("StainingRoseIntro");
+            if (thirst == RoseCost.MAX_STACK) {
+                yield return DialogueHelper.PlayDialogueEvent("StainingRoseIntro");
+            }
         }
 
         private int GetThirstInDeck() {
