@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod {
             OrigamiGarden.ID = AbilityHelper.New<OrigamiGarden>(LobotomyPlugin.pluginGuid,
                 "sigilOrigamiGarden",
                 "Origami Garden",
-                "While in your hand: at the end of your turn, this card will inflict 1 Paper Rose on of your other cards. The longer this card is in your hand, the stronger this effect becomes.",
+                "While in your hand: at the end of your turn, this card will inflict 1 Paper Rose on of your other cards. This effect becomes stronger the longer this card remains in your hand",
                 0, true)
                 .SetAbilityRedirect("Paper Rose", PaperRose.iconId, Color.red)
                 .Id;
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod {
     }
 
     /// <summary>
-    /// While in your hand: at the end of your turn, this card will inflict 1 Paper Rose on of your other cards. The longer this card is in your hand, the stronger this effect becomes.
+    /// While in your hand: at the end of your turn, this card will inflict 1 Paper Rose on of your other cards. This effect becomes stronger the longer this card remains in your hand.
     /// </summary>
     public class OrigamiGarden : AbilityBehaviour, IOnTurnEndInHand {
         public static Ability ID { get; internal set; }
