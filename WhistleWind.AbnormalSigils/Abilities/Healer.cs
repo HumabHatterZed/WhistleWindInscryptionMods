@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Healer() {
             const string rulebookName = "Healer";
-            const string rulebookDescription = "At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.";
+            const string rulebookDescription = "At the end of your turn, you may choose one of your other cards to gain 1 Health and lose a random negative status effect.";
             const string dialogue = "Never underestimate the importance of a healer.";
             const string triggerText = "[creature] heals the chosen creature!";
             Healer.ID = AbnormalAbilityHelper.CreateAbility<Healer>(
