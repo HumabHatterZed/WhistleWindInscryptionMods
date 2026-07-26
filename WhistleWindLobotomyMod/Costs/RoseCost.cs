@@ -37,12 +37,12 @@ namespace WhistleWindLobotomyMod {
             roseChosenCard = playerDeck.Find(x => x.HasAbility(RoseChosen.ID));
             if (roseChosenCard != null) {
                 // if the rose has already chosen a card
-                LobotomyPlugin.Log.LogDebug("Has chosen already");
+                LobotomyPlugin.Log.LogDebug("[RoseCost] Has already chosen");
                 return true;
             }
             else {
                 // otherwise at least one card must be chooseable by the rose
-                LobotomyPlugin.Log.LogDebug("Check can choose");
+                LobotomyPlugin.Log.LogDebug("[RoseCost ]Check can choose new");
                 return playerDeck.Exists(RoseChosen.CanBeRoseChosen);
             }
         }
@@ -57,13 +57,14 @@ namespace WhistleWindLobotomyMod {
             roseChosenCard = playerDeck.Find(x => x.HasAbility(RoseChosen.ID));
             // if we haven't already chosen a card, get a selection of cards to select from
             if (roseChosenCard == null) {
-                int removeIdx;
                 playerDeck.RemoveAll(x => !RoseChosen.CanBeRoseChosen(x));
-                removeIdx = Mathf.Min(3, playerDeck.Count / 2);
 
                 // sort by powerlevel (high -> low)
                 playerDeck.Sort((CardInfo a, CardInfo b) => b.PowerLevel - a.PowerLevel);
-                playerDeck.RemoveRange(removeIdx, playerDeck.Count - removeIdx); // show up to 3 options
+
+                if (playerDeck.Count > 2) {
+                    playerDeck.RemoveRange(3, playerDeck.Count - 3); // show up to 3 options
+                }
             }
             else {
                 playerDeck = new() { roseChosenCard };
