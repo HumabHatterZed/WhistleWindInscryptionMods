@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Syrinx";
-        public const string rDesc = "Nameless Fetus transforms when sacrificed six times.";
+        public const string rDesc = "Whenever Nameless Fetus is sacrificed, it has a chance to awaken. Nameless Fetus is more likely to awaken the more it is sacrificed, and will always wake up when sacrificed 6 times.";
 
         private int sacrificeCount;
 
