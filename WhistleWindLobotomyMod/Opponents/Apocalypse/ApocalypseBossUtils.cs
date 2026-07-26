@@ -65,13 +65,13 @@ namespace WhistleWindLobotomyMod.Opponents {
 
             DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, apocalypseRegion, new()
             {
-                "Your journey has brought here, to a dark, oppressive forest.",
+                "Your journey has brought you here, to a dark, oppressive forest.",
                 "The sky above you is an inky void, empty of even a single star.",
                 "A horrible roar rattles your bones, and a fearful chill overcomes you.",
                 "Somewhere beyond the dark trees, there's a monster.",
                 "[c:bR]A monster in the Black Forest.[c:]"
             }, new() { new() {
-                "Your journey has brought here, to an unknown yet familiar forest.",
+                "Your journey has brought you here, to an unknown yet familiar forest.",
                 "Somewhere beyond the dark trees, you know, there's a monster.",
                 "[c:bR]A monster in the Black Forest.[c:]"
             }});

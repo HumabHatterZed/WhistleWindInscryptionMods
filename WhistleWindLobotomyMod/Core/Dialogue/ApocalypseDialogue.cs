@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod {
                 });
             CreateDialogueEvents("ApocalypseBirdStory1", new() {
                 "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
-                "One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensared in a bitter conflict.",
+                "One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensnared in a bitter conflict.",
                 "One that would only end when everything was devoured by a [c:bR]terrible Beast[c:].",
                 "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out."
                 });
