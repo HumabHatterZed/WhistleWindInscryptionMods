@@ -3,6 +3,10 @@
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
         private void Dialogue_Abnormalities() {
+            CreateDialogueEvents("StainingRoseDamagePlayer", new() {
+                "With no other suitable creatures in sight, the Rose's curse strikes you directly."
+                });
+
             CreateDialogueEvents("StainingRoseIntro", new() {
                 "This is the Staining Rose.",
                 "Mere blood or bones will not satisfy it. Instead, a condition must be met before it may be played.",
