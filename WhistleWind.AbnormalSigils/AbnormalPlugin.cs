@@ -63,13 +63,13 @@ namespace WhistleWind.AbnormalSigils {
         private void Awake() {
             Log = base.Logger;
             Assembly = Assembly.GetExecutingAssembly();
-            InitAssetBundle();
 
             AbnormalConfigManager.Instance.BindConfig();
 
             if (!AbnormalConfigManager.Instance.EnableMod)
                 Logger.LogWarning($"{pluginName} is disabled in the configuration. This will likely break things.");
             else {
+                InitAssetBundle();
                 HarmonyInstance.PatchAll(Assembly);
 
                 AddResources();
