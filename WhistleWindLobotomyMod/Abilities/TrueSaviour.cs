@@ -84,7 +84,8 @@ namespace WhistleWindLobotomyMod {
             }
             else {
                 CombatPhaseManager combatManager = Singleton<CombatPhaseManager>.Instance;
-                yield return combatManager.DamageDealtThisPhase += 33;
+                // was a yield return for some reason, check if that makes a difference
+                combatManager.DamageDealtThisPhase += 33;
 
                 int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
                 int damage = combatManager.DamageDealtThisPhase - excessDamage;
