@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,37 @@ using WhistleWind.Core.Helpers;
 
 namespace Core.Helpers {
     public static class CombatHelpers {
+        /// <summary>
+        /// Variant of SelectableCardArray.SelectCardFrom that uses the given card pile's original card count when respawning cards.
+        /// </summary>
+        public static IEnumerator SelectCardFromPile(List<CardInfo> cards, CardPile pile, Action<SelectableCard> cardSelectedCallback, Func<bool> cancelCondition = null, bool forPositiveEffect = true, SelectableCardArray instance = null) {
+            int numCardsInPile = -1;
+            if (pile != null) {
+                numCardsInPile = pile.NumCards;
+            }
+            if (instance == null) {
+                instance = BoardManager.Instance.CardSelector;
+            }
+            instance.InitializeGamepadGrid();
+            yield return instance.SpawnAndPlaceCards(cards, pile, instance.GetNumRows(cards.Count), isDeckReview: false, forPositiveEffect);
+            yield return new WaitForSeconds(0.15f);
+            instance.SetCardsEnabled(enabled: true);
+            instance.selectedCard = null;
+            yield return new WaitUntil(() => instance.selectedCard != null || (cancelCondition != null && cancelCondition()));
+            instance.SetCardsEnabled(enabled: false);
+            if (instance.selectedCard != null) {
+                instance.displayedCards.Remove(instance.selectedCard);
+                instance.selectedCard.SetLocalPosition(Vector3.zero, 30f);
+            }
+            yield return instance.CleanUpCards();
+            if (instance.selectedCard != null) {
+                cards.Remove(instance.selectedCard.Info);
+                cardSelectedCallback?.Invoke(instance.selectedCard);
+            }
+            if (pile != null) {
+                instance.StartCoroutine(pile.SpawnCards(numCardsInPile));
+            }
+        }
         /// <summary>
         /// Static version of OpponentDrawCreatedCard logic. Draws a card to hoof or adds it to the opponent's queue.
         /// </summary>
