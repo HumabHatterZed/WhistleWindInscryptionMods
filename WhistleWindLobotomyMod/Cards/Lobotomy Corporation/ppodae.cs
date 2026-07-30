@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 2, health: 2)
                 .SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Abilities.PpodaeStinky)
+                .AddAbilities(PpodaeStinky.ID)
                 .AddTribes(tribes)
                 .AddMetaCategories(DonatorCard)
                 .Build();
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 1, health: 1, "Just an innocent wittle puppy, yes he is!!")
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(Abilities.PpodaeStinky, Ability.Evolve)
+                .AddAbilities(PpodaeStinky.ID, Ability.Evolve)
                 .AddTribes(tribes)
                 .SetEvolve(ppodaeBuffCard, 1)
                 .AddMetaCategories(DonatorCard)
