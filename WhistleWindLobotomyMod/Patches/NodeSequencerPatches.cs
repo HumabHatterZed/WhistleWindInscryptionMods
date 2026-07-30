@@ -35,10 +35,19 @@ namespace WhistleWindLobotomyMod.Patches {
         private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result) {
             RemoveInvalidCards(__result);
         }
-        //[HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
-        //private static void AddSapSpecialAbility(CardInfo hostCardInfo, CardInfo sacrificeCardInfo) {
 
-        //}
+        [HarmonyPrefix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
+        private static bool ChangeUniqueAbilities(CardInfo hostCardInfo, CardInfo sacrificeCardInfo) {
+            if (sacrificeCardInfo.HasAbility(PpodaeStinky.ID)) {
+                CardModificationInfo cardModificationInfo = new CardModificationInfo(sacrificeCardInfo);
+                cardModificationInfo.abilities.Remove(PpodaeStinky.ID);
+                cardModificationInfo.abilities.Add(Ability.DebuffEnemy);
+                cardModificationInfo.fromCardMerge = true;
+                RunState.Run.playerDeck.ModifyCard(hostCardInfo, cardModificationInfo);
+                return false;
+            }
+            return true;
+        }
 
         internal static void RemoveInvalidCards(List<CardInfo> result) {
             result.RemoveAll(x => x.HasSpecialAbility(Mimicry.specialAbility)
