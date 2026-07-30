@@ -62,6 +62,7 @@ namespace WhistleWind.AbnormalSigils {
             if (cards.Count == 0)
                 yield break;
 
+            yield return base.PreSuccessfulTriggerSequence();
             foreach (PlayableCard card in cards) // make cards shake
             {
                 card.Anim.StrongNegationEffect();
@@ -104,7 +105,7 @@ namespace WhistleWind.AbnormalSigils {
 
             while (oldTotal > 0) {
                 // 33% of giving Power
-                if (oldTotal > 1 && SeededRandom.Value(randomSeed *= 2) <= 0.4f) {
+                if (oldTotal > 1 && SeededRandom.Value(randomSeed++) <= 0.4f) {
                     stats[0]++;
                     oldTotal -= 2;
                 }
