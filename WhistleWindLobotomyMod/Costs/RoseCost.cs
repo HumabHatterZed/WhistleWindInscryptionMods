@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.CardCosts;
 using InscryptionAPI.Dialogue;
@@ -81,8 +82,8 @@ namespace WhistleWindLobotomyMod {
             // SelectCardFrom uses the passed-in List<CardInfo> to determine how many card objects to readd to the pile
             // this is because it assumes the length of the list is equal to the num of cards in the deck (Tutor)
             // since we aren't doing that here, we need to keep track of that count ourselves so we can re-set the pile's cards correctly
-            int cardsInPile = CardDrawPiles3D.Instance.Pile.cards.Count;
-            yield return Singleton<BoardManager>.Instance.CardSelector.SelectCardFrom(playerDeck, CardDrawPiles3D.Instance.Pile, delegate (SelectableCard x) {
+            int cardsInPile = CardDrawPiles3D.Instance.Pile.NumCards;
+            yield return CombatHelpers.SelectCardFromPile(playerDeck, CardDrawPiles3D.Instance.Pile, delegate (SelectableCard x) {
                 selectedCard = x;
                 roseChosenCard = x.Info;
 
@@ -99,7 +100,11 @@ namespace WhistleWindLobotomyMod {
 
                 TextDisplayer.Instance.Clear();
             });
-            base.StartCoroutine(CardDrawPiles3D.Instance.Pile.SpawnCards(cardsInPile));
+
+            LobotomyPlugin.Log.LogDebug($"[RoseCost] Cards in draw pile: {cardsInPile}");
+            //if (cardsInPile > 0) {
+            //    base.StartCoroutine(CardDrawPiles3D.Instance.Pile.SpawnCards(cardsInPile));
+            //}
 
             yield return new WaitForSeconds(0.5f);
 
@@ -108,7 +113,7 @@ namespace WhistleWindLobotomyMod {
             UnityEngine.Object.Destroy(selectedCard.gameObject, 0.1f);
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            // if we removed the chosen card, remove it from the battle
+            // if we killed the chosen card, remove it from the battle
             if (!SaveManager.SaveFile.CurrentDeck.Cards.Contains(roseChosenCard)) {
                 yield return KillChosenCardInField(roseChosenCard);
             }
