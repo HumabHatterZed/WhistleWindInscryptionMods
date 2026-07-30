@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Martyr() {
             const string rulebookName = "Martyr";
-            const string rulebookDescription = "When [creature] perishes, allied cards gain 2 Health and are cured of status ailments.";
+            const string rulebookDescription = "When [creature] perishes, allied cards gain 2 Health and are cured of status ailments. If this card was sacrificed, also apply this effect to the card it was sacrificed for.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
             const string triggerText = "[creature]'s death cleanses your other creatures!";
             Martyr.ID = AbnormalAbilityHelper.CreateAbility<Martyr>(
@@ -34,16 +34,20 @@ namespace WhistleWind.AbnormalSigils {
             List<PlayableCard> validCards = Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard);
             validCards.Remove(base.Card);
 
-            if (validCards.Count == 0)
-                yield break;
-
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.1f);
-            foreach (PlayableCard card in validCards) {
-                yield return HelperMethods.HealCard(2, card, 0.1f);
-                yield return card.RemoveStatusEffects(false);
+            // heal card Martyr is being sacrificed to
+            if (wasSacrifice && BoardManager.Instance.CurrentSacrificeDemandingCard != null) {
+                validCards.Add(BoardManager.Instance.CurrentSacrificeDemandingCard);
             }
-            yield return base.LearnAbility(0.25f);
+
+            if (validCards.Count > 0) {
+                yield return base.PreSuccessfulTriggerSequence();
+                yield return new WaitForSeconds(0.1f);
+                foreach (PlayableCard card in validCards) {
+                    yield return HelperMethods.HealCard(2, card, 0.1f);
+                    yield return card.RemoveStatusEffects(false);
+                }
+                yield return base.LearnAbility(0.25f);
+            }
         }
     }
 }
