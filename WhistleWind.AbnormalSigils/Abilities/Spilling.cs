@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils {
                 "sigilSpilling",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
-                .SetSlotRedirect("Flood", FloodedSlot.Id, GameColors.Instance.brightSeafoam)
+                .SetSlotRedirect("Flood", FloodedSlot.ID, GameColors.Instance.brightSeafoam)
                 .SetAbilityRedirect("Scorching", Scorching.ID, GameColors.Instance.red)
                 .Id;
         }
@@ -46,7 +46,7 @@ namespace WhistleWind.AbnormalSigils {
 
             yield return base.PreSuccessfulTriggerSequence();
             startingSlot.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, startingSlot));
-            yield return startingSlot.SetSlotModification(FloodedSlot.Id);
+            yield return startingSlot.SetSlotModification(FloodedSlot.ID);
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++) {
                 int distance = GetSlotDistance(startingSlot, slots[i]);
@@ -55,7 +55,7 @@ namespace WhistleWind.AbnormalSigils {
                     yield return Scorching.ExtinguishCard(slots[i].Card, false);
                 }
                 else {
-                    yield return slots[i].SetSlotModification(FloodedSlot.Id);
+                    yield return slots[i].SetSlotModification(FloodedSlot.ID);
                     slots[i].GetComponent<FloodedSlot>().Severity += distance;
                 }
 

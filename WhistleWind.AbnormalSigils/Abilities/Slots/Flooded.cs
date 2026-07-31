@@ -27,7 +27,7 @@ namespace WhistleWind.AbnormalSigils {
                 TextureLoader.LoadTextureFromFile("slotFlooded_magnificus_2.png", Assembly)
                 );
 
-            FloodedSlot.Id = SlotModificationManager.New(pluginGuid, "FloodedSlot", typeof(FloodedSlot), slotTextures,
+            FloodedSlot.ID = SlotModificationManager.New(pluginGuid, "FloodedSlot", typeof(FloodedSlot), slotTextures,
                 SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(TextureLoader.LoadTextureFromFile("slotFlooded_pixel.png", Assembly))
                 )
                 .SetRulebook(rulebookName, rulebookDescription,
@@ -43,7 +43,7 @@ namespace WhistleWind.AbnormalSigils {
             FloodedSlotShallow.Id = SlotModificationManager.New(pluginGuid, "FloodedSlotShallow", typeof(FloodedSlotShallow),
                 slotTextures2,
                 SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(TextureLoader.LoadTextureFromFile("slotFlooded_pixel_2.png", Assembly))
-                ).SetSharedRulebook(FloodedSlot.Id);
+                ).SetSharedRulebook(FloodedSlot.ID);
 
         }
     }
@@ -52,7 +52,7 @@ namespace WhistleWind.AbnormalSigils {
     /// At the end of the round, deal 1 damage to the occupying card if it is not Airborne or face down, then reduce this effect's duration by 1.
     /// </summary>
     public class FloodedSlot : SlotModificationBehaviour, IOpponentTurnEnd {
-        public static SlotModificationManager.ModificationType Id;
+        public static SlotModificationManager.ModificationType ID { get; internal set; }
 
         public int Severity = 1;
 
