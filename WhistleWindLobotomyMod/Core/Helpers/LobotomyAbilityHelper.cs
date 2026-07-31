@@ -13,7 +13,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers {
             string dialogue = null, string triggerText = null,
             int powerLevel = 0)
             where T : ActivatedAbilityBehaviour {
-            return AbilityHelper.NewActivated<T>(LobotomyPlugin.pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText);
+            return AbilityHelper.New<T>(LobotomyPlugin.pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText)
+                .SetActivated();
         }
         public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription) where T : AbilityBehaviour {
             return AbilityHelper.NewFiller<T>(LobotomyPlugin.pluginGuid, "sigilAbnormality", rulebookName, rulebookDescription);
