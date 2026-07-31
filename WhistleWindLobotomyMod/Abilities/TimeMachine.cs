@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod {
     public partial class Abilities {
         private static void AddTimeMachine() {
             const string rulebookName = "Time Machine";
-            const string rulebookDescription = "Choose a card from your deck, then remove it and this card from your deck. End the current battle; some opponents have alternate effects.";
+            const string rulebookDescription = "Once per run, choose a card from your deck, then remove it and this card from your deck. End the current battle.";
             const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ID = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
