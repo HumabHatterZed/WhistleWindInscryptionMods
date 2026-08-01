@@ -42,6 +42,7 @@
 - Improved activation sequence
 - Changed how card choices are determined
 - Effect now changes during custom boss fights
+- Modified rulebook description
 ### Cards
 - Adjusted formatting of certain cards' names to be more legible
 - 1.76 MHz: now belongs to the Mechanical tribe
@@ -53,11 +54,16 @@
 - Angela: Reworked to now possess Scenario Overseer sigil
 - Apocalypse Bird: changed evolution name
 - <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike
+- Army in Pink: reworked to 1/3, 3 Energy
+- Army in Black: now costs 3 Energy
+- Army in Black (spell): now considered Boneless
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
 - Big and Will Be Bad Wolf: reworked to 2/1; Blood Lust; 2 Blood
 - <span style='color:#DE6080'>Binah: Reduced Health from 5 -> 3
+- Blue Star: reworked all formes to be 3/3, 3 Blood
 - CENSORED: Reworked to 4/1; Bloodfiend; 2 Blood
 - CENSORED: cards created by special ability now only inherit killed cards' Power, cost 2 Bones
+- CENSORED: updated 'learn' dialogue to hint towards existence of special ability
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
 - Dream of a Black Swan: Reworked from 2/5 -> 4/4
