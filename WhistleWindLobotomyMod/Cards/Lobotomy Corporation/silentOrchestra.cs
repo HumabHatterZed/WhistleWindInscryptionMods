@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "silentEnsemble";
             string textureName2 = "silentOrchestra";
             CardManager.New(LobotomyPlugin.pluginPrefix, silentEnsemble, "Chairs",
-                attack: 0, health: 3)
+                attack: 1, health: 2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTribes(TribeAnthropoid)
@@ -22,8 +22,8 @@ namespace WhistleWindLobotomyMod {
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, silentOrchestra, "The Silent Orchestra",
-                attack: 2, health: 6, "Soon, the song none can hear but all can listen to will begin.")
-                .SetBloodCost(3)
+                attack: 0, health: 4, "Soon, the song none can hear but all can listen to will begin.")
+                .SetEnergyCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Conductor.ID)
                 .AddTribes(TribeAnthropoid)
