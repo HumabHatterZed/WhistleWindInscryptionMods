@@ -1,9 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Slots;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 using WhistleWind.Core.Helpers;
@@ -12,14 +14,14 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Slot_Blooming() {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the card in this space and heal the opposing card. If this space is struck directly, remove this effect.";
+            const string rulebookDescription = "A card occupying this space has its Health raised by the number of Blooming slots on its owner's side of the board. The occupying card does not die if Blooming is removed from this space.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
                 texture, texture, TextureLoader.LoadTextureFromFile("slotBlooming_grimora.png", Assembly), texture
                 );
 
-            BloomingSlot.Id = SlotModificationManager.New(pluginGuid, "BloomingSlot", typeof(BloomingSlot), slotTextures,
+            BloomingSlot.ID = SlotModificationManager.New(pluginGuid, "BloomingSlot", typeof(BloomingSlot), slotTextures,
                 SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(TextureLoader.LoadTextureFromFile("slotBlooming_pixel.png", Assembly))
                 ).SetRulebook(rulebookName, rulebookDescription,
                     TextureLoader.LoadTextureFromFile("slotBlooming_rulebook.png", Assembly),
@@ -35,32 +37,19 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card to the occupying card.
     /// </summary>
-    public class BloomingSlot : SlotModificationBehaviour, IOnCardDealtDamageDirectly {
-        public static SlotModificationManager.ModificationType Id;
+    public class BloomingSlot : SlotModificationBehaviour, IPassiveHealthBuff {
+        public static SlotModificationManager.ModificationType ID { get; internal set; }
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-            => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.Card != null;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
-            if (ViewManager.Instance.CurrentView != View.Board) {
-                ViewManager.Instance.SwitchToView(View.Board);
+        public int GetPassiveHealthBuff(PlayableCard target) {
+            if (target == base.Slot.Card) {
+                return BoardManager.Instance.GetSlotsCopy(base.Slot.IsPlayerSlot).Count(x => x.GetSlotModification() == ID);
             }
-
-            yield return base.Slot.Card.Heal(-1);
-            if (base.Slot.Card.Health == 0) {
-                yield return base.Slot.Card.Die(false, null);
-            }
-
-            if (base.Slot.opposingSlot.Card != null && base.Slot.opposingSlot.Card.Health < base.Slot.opposingSlot.Card.MaxHealth) {
-                yield return base.Slot.opposingSlot.Card.Heal(1);
-            }
+            return 0;
         }
-
-        public bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
-            return opposingSlot == base.Slot;
-        }
-
-        public IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) {
-            yield return base.Slot.ClearSlotModification();
+        public override IEnumerator Cleanup(SlotModificationManager.ModificationType replacement) {
+            if (base.Slot.Card != null && base.Slot.Card.Health - 1 <= 0) {
+                yield return base.Slot.Card.Heal(1);
+            }
         }
     }
 }
