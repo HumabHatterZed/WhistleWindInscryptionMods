@@ -23,6 +23,11 @@ namespace WhistleWind.AbnormalSigils.Core {
                     "It is as they say: this is a bullet that will never miss its target." }
             },
 
+            { "LearnPanic",
+                new() {
+                    "A mind that cannot bend will break." }
+            },
+
             { "LearnStatusEffects",
                 new() {
                     "Ah, this beast has been afflicted with a [c:bR]status effect[c:].",

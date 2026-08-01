@@ -239,6 +239,11 @@ namespace WhistleWind.AbnormalSigils {
             Ability_Driver();
             Ability_Unyielding();
 
+            Panic_Blood();
+            Panic_Bones();
+            Panic_Energy();
+            Panic_Mox();
+
             StatusEffect_Sinking();
             Ability_MindStrike();
 
