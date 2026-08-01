@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod {
             string textureName = "blueStar";
             Tribe[] tribes = new[] { TribeDivine };
             CardInfo star3 = CardManager.New(LobotomyPlugin.pluginPrefix, blueStar3, starName,
-                attack: 4, health: 4)
-                .SetBloodCost(4)
+                attack: 3, health: 3)
+                .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName, pixelPortraitName: "blueStar2_pixel.png")
                 .AddAbilities(Ability.Transformer, Ability.AllStrike)
                 .AddSpecialAbilities(StarSound.specialAbility)
@@ -26,8 +26,8 @@ namespace WhistleWindLobotomyMod {
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
             CardInfo star2 = CardManager.New(LobotomyPlugin.pluginPrefix, blueStar2, starName,
-                attack: 0, health: 4)
-                .SetBloodCost(4)
+                attack: 3, health: 3)
+                .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Transformer, Idol.ID)
                 .AddTribes(tribes)
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod {
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
             CardInfo star = CardManager.New(LobotomyPlugin.pluginPrefix, blueStar, starName,
-                attack: 0, health: 4, "When this is over, let's meet again as stars.")
+                attack: 3, health: 3, "When this is over, let's meet again as stars.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Transformer)
