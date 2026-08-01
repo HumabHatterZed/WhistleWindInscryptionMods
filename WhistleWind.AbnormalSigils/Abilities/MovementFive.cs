@@ -34,6 +34,10 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.RemoveFromBoard();
+            if (!BoardManager.Instance.CardsOnBoard.Exists(x => x.IsConductor())) {
+                yield return base.OnDrawn();
+            }
+            
             yield return new WaitForSeconds(0.5f);
             yield return base.LearnAbility();
         }

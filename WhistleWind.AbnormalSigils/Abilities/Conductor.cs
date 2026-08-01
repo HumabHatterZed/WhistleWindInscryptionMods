@@ -38,7 +38,7 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability Ability => ID;
 
         public const string CONDUCTOR_ID = "wstl:Conductor";
-        public override bool RespondsToResolveOnBoard() => true;
+        public override bool RespondsToResolveOnBoard() => !base.Card.Dead;
         public override IEnumerator OnResolveOnBoard() {
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.5f);
@@ -75,6 +75,10 @@ namespace WhistleWind.AbnormalSigils {
             yield return HelperMethods.ChangeCurrentView(View.Default);
         }
 
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) {
+            return base.OnDie(wasSacrifice, killer);
+        }
         // 1st: adjacent cards +1
         // 2nd: allied cards +1
         // 3rd: all other cards +1

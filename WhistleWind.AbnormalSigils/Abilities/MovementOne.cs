@@ -34,8 +34,8 @@ namespace WhistleWind.AbnormalSigils {
         public override Ability Ability => ID;
         public override Ability NextMovement => MovementTwo.ID;
         public override int GetPassiveAttackBuff(PlayableCard target) {
-            if (base.Card.OnBoard && target.OnBoard) {
-                return target.Slot.GetAdjacentCards().Count(x => x.HasAbility(this.Ability));
+            if (base.Card.OnBoard && target.OnBoard && base.Card.Slot.GetAdjacentSlots().Contains(target.Slot)) {
+                return 1;
             }
             return 0;
         }

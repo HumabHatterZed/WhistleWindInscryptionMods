@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
@@ -49,16 +50,16 @@ namespace WhistleWind.AbnormalSigils {
         }
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
-            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {
-                if (card != null && card != base.Card && !card.HasStatusEffect<Fervent>()) {
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => !x.HasTrait(Trait.Giant))) {
+                if (!card.HasStatusEffect<Fervent>() && !card.IsConductor()) {
                     yield return card.AddStatusEffect<Fervent>(1);
                 }
             }
         }
 
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep) {
-            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard) {
-                if (card != null && card != base.Card && !card.HasStatusEffect<Fervent>()) {
+            foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => !x.HasTrait(Trait.Giant))) {
+                if (!card.HasStatusEffect<Fervent>() && !card.IsConductor()) {
                     yield return card.AddStatusEffect<Fervent>(1);
                 }
             }
