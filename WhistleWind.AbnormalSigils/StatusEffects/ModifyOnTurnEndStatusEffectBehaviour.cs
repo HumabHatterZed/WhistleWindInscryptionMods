@@ -6,7 +6,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects {
     /// <summary>
-    /// Subclass of StatusEffectBehaviour that modifies the effect's Potency on upkeep. Affects cards in the player's hand.
+    /// Subclass of StatusEffectBehaviour that modifies the effect's Potency on turn end. Affects cards in the player's hand.
     /// </summary>
     public abstract class ModifyOnTurnEndStatusEffectBehaviour : StatusEffectBehaviour, IOnTurnEndInHand {
         public abstract int PotencyModification { get; }
