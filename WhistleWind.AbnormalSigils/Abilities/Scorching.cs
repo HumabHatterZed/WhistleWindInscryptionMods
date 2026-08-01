@@ -31,12 +31,12 @@ namespace WhistleWind.AbnormalSigils {
         private IEnumerator CheckClearSlotModifications(CardSlot slot) {
             SlotModificationManager.ModificationType mod = slot.GetSlotModification();
             
-            if (mod == FloodedSlotShallow.Id) {
+            if (mod == FloodedSlotShallow.ID) {
                 yield return base.Card.Slot.ClearSlotModification();
                 yield return new WaitForSeconds(0.3f);
                 yield return DialogueHelper.PlayDialogueEvent("FloodedSlotDried", card: base.Card);
             }
-            else if (mod == BloomingSlot.Id) {
+            else if (mod == BloomingSlot.ID) {
                 yield return base.Card.Slot.ClearSlotModification();
                 yield return new WaitForSeconds(0.3f);
                 yield return DialogueHelper.PlayDialogueEvent("BloomedSlotRazed", card: base.Card);
@@ -48,7 +48,7 @@ namespace WhistleWind.AbnormalSigils {
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) {
             SlotModificationManager.ModificationType mod = base.Card.Slot.GetSlotModification();
-            if (mod == FloodedSlot.Id) {
+            if (mod == FloodedSlot.ID) {
                 yield return ExtinguishCard(base.Card, true);
             }
             else {
@@ -72,7 +72,7 @@ namespace WhistleWind.AbnormalSigils {
         public static IEnumerator ExtinguishCard(PlayableCard card, bool playEvent) {
             card.Anim.StrongNegationEffect();
             card.AddTemporaryMod(new() { negateAbilities = new() { Scorching.ID }, singletonId = "ScorchingExtinguished" });
-            yield return card.Slot.SetSlotModification(FloodedSlotShallow.Id);
+            yield return card.Slot.SetSlotModification(FloodedSlotShallow.ID);
             if (playEvent) {
                 yield return new WaitForSeconds(0.3f);
                 yield return DialogueHelper.PlayDialogueEvent("ScorchingExtinguished", card: card);

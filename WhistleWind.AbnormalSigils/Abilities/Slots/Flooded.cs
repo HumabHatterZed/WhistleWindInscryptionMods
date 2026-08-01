@@ -40,7 +40,7 @@ namespace WhistleWind.AbnormalSigils {
                 .SetRulebookP03Sprite(slotTextures[CardTemple.Tech])
                 .SetRulebookGrimoraSprite(TextureLoader.LoadTextureFromFile("slotFlooded_rulebook_grimora.png", Assembly));
 
-            FloodedSlotShallow.Id = SlotModificationManager.New(pluginGuid, "FloodedSlotShallow", typeof(FloodedSlotShallow),
+            FloodedSlotShallow.ID = SlotModificationManager.New(pluginGuid, "FloodedSlotShallow", typeof(FloodedSlotShallow),
                 slotTextures2,
                 SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(TextureLoader.LoadTextureFromFile("slotFlooded_pixel_2.png", Assembly))
                 ).SetSharedRulebook(FloodedSlot.ID);
@@ -59,7 +59,7 @@ namespace WhistleWind.AbnormalSigils {
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             Severity--;
-            if (Severity < 2) yield return base.Slot.SetSlotModification(FloodedSlotShallow.Id);
+            if (Severity < 2) yield return base.Slot.SetSlotModification(FloodedSlotShallow.ID);
         }
         public static bool CardIsGrounded(PlayableCard card) {
             return !card.FaceDown && card.LacksAbility(Ability.Flying);
@@ -77,7 +77,7 @@ namespace WhistleWind.AbnormalSigils {
     }
 
     public class FloodedSlotShallow : SlotModificationBehaviour, IOpponentTurnEnd {
-        public static SlotModificationManager.ModificationType Id;
+        public static SlotModificationManager.ModificationType ID { get; internal set; }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.ClearSlotModification();
