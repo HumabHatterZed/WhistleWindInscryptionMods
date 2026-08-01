@@ -20,6 +20,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         public abstract Ability IconAbility { get; }
         public abstract SpecialTriggeredAbility StatusEffect { get; }
 
+        public virtual int MaxPotency { get; } = int.MaxValue;
         public virtual bool EffectCanBeInherited { get; set; } = false;
         public virtual List<string> EffectDecalIds() => new();
 
@@ -36,6 +37,9 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
             yield break;
         }
 
+        /// <summary>
+        /// Increment the current Potency by the given amount
+        /// </summary>
         public void ModifyPotency(int amount, bool updateDecals) {
             EffectPotency += amount;
             UpdateStatusEffectMods(updateDecals);
