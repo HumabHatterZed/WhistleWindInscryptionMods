@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod {
             string textureName = "armyInBlack";
             CardManager.New(LobotomyPlugin.pluginPrefix, armyInBlack, blackName,
                 attack: 3, health: 3)
-                .SetBloodCost(2)
+                .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.ExplodeOnDeath, Ability.Brittle)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
@@ -23,6 +24,7 @@ namespace WhistleWindLobotomyMod {
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.ExplodeOnDeath)
                 .SetSpellType(SpellType.Targeted)
+                .SetBoneless()
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
         }
     }

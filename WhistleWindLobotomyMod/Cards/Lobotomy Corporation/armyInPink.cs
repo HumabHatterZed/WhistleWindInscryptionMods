@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod {
         private static void ArmyInPink_D01106() {
             string textureName = "armyInPink";
             CardManager.New(LobotomyPlugin.pluginPrefix, armyInPink, "Army in Pink",
-                attack: 3, health: 3, "A friendly pink soldier. It will protect you wherever you go.")
-                .SetBloodCost(2)
+                attack: 0, health: 3, "A friendly pink soldier. It will protect you wherever you go.")
+                .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.MoveBeside, Protector.ID)
                 .AddSpecialAbilities(Pink.specialAbility)
