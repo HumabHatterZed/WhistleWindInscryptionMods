@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
@@ -118,7 +119,7 @@ namespace WhistleWindLobotomyMod {
             else {
                 SelectableCard selectedCard = null;
                 Singleton<ViewManager>.Instance.SwitchToView(View.DeckSelection, immediate: false, lockAfter: true);
-                yield return BoardManager.Instance.CardSelector.SelectCardFrom(choices, (CardDrawPiles.Instance as CardDrawPiles3D).Pile, delegate (SelectableCard x) {
+                yield return CombatHelpers.SelectCardFromPile(choices, CardDrawPiles3D.Instance.Pile, delegate (SelectableCard x) {
                     selectedCard = x;
                 });
 
@@ -159,10 +160,11 @@ namespace WhistleWindLobotomyMod {
 
             CardInfo machineInfo = SaveManager.SaveFile.CurrentDeck.Cards.Find(x => HelperMethods.IsCardInfoOrCopy(x, base.Card.Info));
             base.Card.UnassignFromSlot();
+            PlayerHand.Instance.RemoveCardFromHand(chosenCard);
             HelperMethods.RemoveCardFromDeck(machineInfo);
             HelperMethods.RemoveCardFromDeck(chosenCardInfo);
-            GlitchOutAssetEffect.GlitchModel(base.Card.StatsLayer.transform);
-            GlitchOutAssetEffect.GlitchModel(chosenCard.StatsLayer.transform);
+            GlitchOutAssetEffect.GlitchModel(base.Card.transform);
+            GlitchOutAssetEffect.GlitchModel(chosenCard.transform);
             yield return new WaitForSeconds(0.5f);
             yield return DialogueHelper.ShowUntilInput("The machine and your [c:bR]" + chosenCardInfo.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
         }
