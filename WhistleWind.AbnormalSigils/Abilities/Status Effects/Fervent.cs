@@ -26,6 +26,7 @@ namespace WhistleWind.AbnormalSigils {
             List<CardSlot> allSlots = BoardManager.Instance.AllSlotsCopy;
             allSlots.Remove(base.PlayableCard.Slot);
             allSlots.RemoveAll(x => x.Card != null && x.Card.IsConductor());
+
             List<CardSlot> allSlots2 = new(allSlots);
             allSlots.AddRange(allSlots2.Where(x => x.Card != null));
             allSlots.AddRange(allSlots2.Where(x => x.Card != null && x.Card.HasStatusEffect<Fervent>(true)));
@@ -67,6 +68,12 @@ namespace WhistleWind.AbnormalSigils {
         public override bool RespondsToDrawn() => true;
         public override IEnumerator OnDrawn() {
             yield return base.RemoveFromCard(true);
+        }
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => true;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            if (!BoardManager.Instance.CardsOnBoard.Exists(x => x.IsConductor())) {
+                yield return base.RemoveFromCard(true);
+            }
         }
     }
     public partial class AbnormalPlugin {
