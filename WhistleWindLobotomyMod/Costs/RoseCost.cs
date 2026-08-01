@@ -87,27 +87,23 @@ namespace WhistleWindLobotomyMod {
                 selectedCard = x;
                 roseChosenCard = x.Info;
 
-                if (roseChosenCard.GetAbilityStacks(RoseChosen.ID) >= MAX_STACK) {
-                    selectedCard.Anim.PlayDeathAnimation();
-                    SaveManager.SaveFile.CurrentDeck.RemoveCard(roseChosenCard);
-                }
-                else {
-                    selectedCard.Anim.PlayTransformAnimation();
-                    SaveManager.SaveFile.CurrentDeck.ModifyCard(roseChosenCard, new CardModificationInfo(RoseChosen.ID) { nonCopyable = true });
-                    selectedCard.RenderCard();
-                    RenderChosenCardInField(roseChosenCard);
-                }
+                selectedCard.Anim.PlayTransformAnimation();
+                SaveManager.SaveFile.CurrentDeck.ModifyCard(roseChosenCard, new CardModificationInfo(RoseChosen.ID) { nonCopyable = true });
+                selectedCard.RenderCard();
+                RenderChosenCardInField(roseChosenCard);
 
                 TextDisplayer.Instance.Clear();
             });
 
+            if (roseChosenCard.GetAbilityStacks(RoseChosen.ID) >= MAX_STACK) {
+                yield return new WaitForSeconds(0.5f);
+                selectedCard.Anim.PlayDeathAnimation();
+                SaveManager.SaveFile.CurrentDeck.RemoveCard(roseChosenCard);
+            }
+
             LobotomyPlugin.Log.LogDebug($"[RoseCost] Cards in draw pile: {cardsInPile}");
-            //if (cardsInPile > 0) {
-            //    base.StartCoroutine(CardDrawPiles3D.Instance.Pile.SpawnCards(cardsInPile));
-            //}
 
             yield return new WaitForSeconds(0.5f);
-
 
             Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
             UnityEngine.Object.Destroy(selectedCard.gameObject, 0.1f);
@@ -140,7 +136,7 @@ namespace WhistleWindLobotomyMod {
                 CardDrawPiles3D.Instance.Deck.Cards.Remove(info);
                 Transform cardObj = CardDrawPiles3D.Instance.Pile.cards[CardDrawPiles3D.Instance.Pile.cards.Count - 1];
                 CardDrawPiles3D.Instance.Pile.cards.Remove(cardObj);
-                Destroy(cardObj);
+                Destroy(cardObj.gameObject);
             }
         }
 
