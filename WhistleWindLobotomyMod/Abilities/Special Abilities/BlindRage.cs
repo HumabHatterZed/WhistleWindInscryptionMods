@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod {
         }
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
-            return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
+            return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.Normal;
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
