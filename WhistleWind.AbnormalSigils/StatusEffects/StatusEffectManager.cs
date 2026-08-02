@@ -143,15 +143,15 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
             }
 
             StatusEffectBehaviour component = card.GetComponent(type) as StatusEffectBehaviour;
-            if (component.EffectPotency >= component.MaxPotency) {
-                yield break;
-            }
 
             bool firstStack = component == null || component.EffectPotency < 1;
             if (firstStack) {
                 component = card.gameObject.AddComponent(type) as StatusEffectBehaviour;
                 card.TriggerHandler.permanentlyAttachedBehaviours.Add(component);
                 component.TurnGained = modifyTurnGained?.Invoke(TurnManager.Instance.TurnNumber) ?? TurnManager.Instance.TurnNumber;
+            }
+            else if (component.EffectPotency >= component.MaxPotency) {
+                yield break;
             }
 
             if (component.EffectPotency + amount >= component.MaxPotency) {
@@ -176,6 +176,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         public static IEnumerator AddStatusEffect<T>(this PlayableCard card, int amount, bool updateDecals = false, Func<int, int> modifyTurnGained = null)
             where T : StatusEffectBehaviour {
             T component = card.GetComponent<T>();
+
             bool firstStack = component == null || component.EffectPotency < 1;
             if (firstStack) {
                 if (component == null) {
@@ -184,8 +185,16 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
                 }
                 component.TurnGained = modifyTurnGained?.Invoke(TurnManager.Instance.TurnNumber) ?? TurnManager.Instance.TurnNumber;
             }
+            else if (component.EffectPotency >= component.MaxPotency) {
+                yield break;
+            }
 
-            component.ModifyPotency(amount, updateDecals);
+            if (component.EffectPotency + amount >= component.MaxPotency) {
+                component.SetPotency(component.MaxPotency, updateDecals);
+            }
+            else {
+                component.ModifyPotency(amount, updateDecals);
+            }
 
             yield return CustomTriggerFinder.TriggerAll<IOnStatusEffectAdded>(firstStack,
                 x => x.RespondsToStatusEffectAdded(card, amount, component, firstStack),
