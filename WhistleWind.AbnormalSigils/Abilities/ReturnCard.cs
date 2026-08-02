@@ -20,10 +20,10 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ID { get; internal set; }
         public override Ability Ability => ID;
 
-        private IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter) {
+        public static IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter, bool useRecallCost = true) {
             PlayableCard card = slot.Card;
 
-            if (base.Card.OpponentCard) {
+            if (card.OpponentCard) {
                 ViewManager.Instance.SwitchToView(View.OpponentQueue);
                 card.AddTemporaryMod(new() { negateAbilities = new() { Ability.DrawCopy } });
                 yield return TurnManager.Instance.Opponent.ReturnCardToQueue(card, 0.2f);
@@ -33,15 +33,23 @@ namespace WhistleWind.AbnormalSigils {
                 yield break;
             }
 
-            bool hasFecundity = card.HasAbility(Ability.DrawCopy);
+            bool disableFecundityAscension = card.HasAbility(Ability.DrawCopy) && SaveFile.IsAscension;
             CardModificationInfo recallMod = new() {
                 bloodCostAdjustment = -999,
-                bonesCostAdjustment = GetBonesCost(card), // use to store new modified cost
                 energyCostAdjustment = -999,
                 nullifyGemsCost = true,
                 singletonId = "wstl:Recalled"
             };
-            if (hasFecundity && SaveFile.IsAscension) {
+
+            // use to store new modified cost
+            if (useRecallCost) {
+                recallMod.bonesCostAdjustment = GetBonesCost(card);
+            }
+            else {
+                recallMod.bonesCostAdjustment = -999;
+            }
+
+            if (disableFecundityAscension) {
                 recallMod.negateAbilities = new() { Ability.DrawCopy };
             }
 
@@ -53,7 +61,7 @@ namespace WhistleWind.AbnormalSigils {
             yield return Singleton<PlayerHand>.Instance.AddCardToHand(card, CardSpawner.Instance.spawnedPositionOffset, 0f);
             yield return new WaitForSeconds(0.2f);
 
-            if (hasFecundity && SaveFile.IsAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
+            if (disableFecundityAscension && !DialogueEventsData.EventIsPlayed("AscensionFecundityNerfRecall")) {
                 Singleton<ChallengeActivationUI>.Instance.ShowTextLines(new string[3] {
                         Localization.Translate("DEPLOY SIGIL NERF: FECUNDITY"),
                         Localization.Translate("RemoveSigilFromCopy()"),
