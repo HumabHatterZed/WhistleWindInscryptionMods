@@ -54,7 +54,7 @@ namespace WhistleWind.AbnormalSigils {
     public class FloodedSlot : SlotModificationBehaviour, IOpponentTurnEnd {
         public static SlotModificationManager.ModificationType ID { get; internal set; }
 
-        public int Severity = 1;
+        public int Severity { get; set; } = 1;
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
