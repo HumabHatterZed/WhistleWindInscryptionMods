@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using EasyFeedback.APIs;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,8 +9,6 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
-    /// <summary>
-    /// When a card bearing this effect has 5 or more Sinking, enter a Panicked state based on its play cost: Blood: Murder; Bone: Suicide; Energy: Languish; Mox: Defile.
     public class Sinking : StatusEffectBehaviour {
         public const int MAX_POTENCY = 5;
         
@@ -38,22 +37,36 @@ namespace WhistleWind.AbnormalSigils {
             if (target.GemsCost().Count > 0) {
                 possiblePanics.Add(PanicMox.specialAbility);
             }
-            yield return target.AddStatusEffect(possiblePanics[SeededRandom.Range(0, possiblePanics.Count, base.GetRandomSeed())], 1);
+            if (possiblePanics.Count == 1) {
+                yield return target.AddStatusEffect(possiblePanics[0], 1);
+            }
+            else if (possiblePanics.Count == 0) {
+                yield return target.AddStatusEffect<PanicMox>(1);
+            }
+            else {
+                yield return target.AddStatusEffect(possiblePanics[SeededRandom.Range(0, possiblePanics.Count, base.GetRandomSeed())], 1);
+            }
             yield return DialogueHelper.PlayDialogueEvent("LearnPanic");
         }
     }
+
     public partial class AbnormalPlugin {
         private void StatusEffect_Sinking() {
             const string rName = "Sinking";
-            const string rDesc = "When a card has 5 or more Sinking, it enters a Panicked state based on its play cost: Blood: Murderous; Bone: Suicidal; Energy: Languishing; Mox: Traitorous.";
+            const string rDesc = "When a card has 5 Sinking, enter a Panicked state based on its play cost: Blood: Murderous; Bone: Suicidal; Energy: Languishing; Mox/Other: Flighty.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sinking>(
-                pluginGuid, rName, rDesc, -1, GameColors.Instance.glowSeafoam,
+                pluginGuid, rName, rDesc, -1, GameColors.Instance.darkBlue,
                 TextureLoader.LoadTextureFromFile("sigilSinking.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilSinking_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.Part3StatusEffect);
 
             Sinking.specialAbility = data.Id;
             Sinking.iconId = data.IconInfo.ability;
+
+            data.IconInfo.SetAbilityRedirect("Murderous", PanicBlood.iconId, GameColors.Instance.red);
+            data.IconInfo.SetAbilityRedirect("Suicidal", PanicBones.iconId, GameColors.Instance.gray);
+            data.IconInfo.SetAbilityRedirect("Languishing", PanicEnergy.iconId, GameColors.Instance.darkPurple);
+            data.IconInfo.SetAbilityRedirect("Flighty", PanicMox.iconId, GameColors.Instance.brightSeafoam);
         }
     }
 }
