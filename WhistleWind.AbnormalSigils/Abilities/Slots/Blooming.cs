@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Slot_Blooming() {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "A card occupying this space has its Health raised by the number of Blooming slots on its owner's side of the board. The occupying card does not die if Blooming is removed from this space.";
+            const string rulebookDescription = "A card occupying this space has its Health raised by 3. Starting next turn: at the end of the owner's turn, reduce the Health given by 1. Cards cannot be killed by this effect.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
@@ -39,16 +39,37 @@ namespace WhistleWind.AbnormalSigils {
     /// </summary>
     public class BloomingSlot : SlotModificationBehaviour, IPassiveHealthBuff {
         public static SlotModificationManager.ModificationType ID { get; internal set; }
-
+        public int Potency { get; set; } = 3;
+        private bool firstTurnBuffer = false;
         public int GetPassiveHealthBuff(PlayableCard target) {
             if (target == base.Slot.Card) {
-                return BoardManager.Instance.GetSlotsCopy(base.Slot.IsPlayerSlot).Count(x => x.GetSlotModification() == ID);
+                return Potency;
             }
             return 0;
         }
         public override IEnumerator Cleanup(SlotModificationManager.ModificationType replacement) {
-            if (base.Slot.Card != null && base.Slot.Card.Health - 1 <= 0) {
+            if (base.Slot.Card != null && base.Slot.Card.Health - Potency <= 0) {
                 yield return base.Slot.Card.Heal(1);
+            }
+        }
+
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Slot.IsPlayerSlot == playerTurnEnd;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            // don't reduce hp given on the first turn
+            if (!firstTurnBuffer) {
+                firstTurnBuffer = true;
+                yield break;
+            }
+
+            bool cardIsAlive = base.Slot.Card != null && base.Slot.Card.Health > 0 && !base.Slot.Card.Dead;
+            Potency--;
+            yield return new WaitForEndOfFrame();
+            if (cardIsAlive && base.Slot.Card.Health <= 0) {
+                yield return base.Slot.Card.Heal(1);
+            }
+
+            if (Potency == 0) {
+                yield return base.Slot.ClearSlotModification();
             }
         }
     }
