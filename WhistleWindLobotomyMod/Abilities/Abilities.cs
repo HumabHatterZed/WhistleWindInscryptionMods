@@ -114,8 +114,6 @@ namespace WhistleWindLobotomyMod {
             StatusEffect_Sin();
             AddUnjustScale();
 
-            AddScenarioOverseer();
-
             StatusEffect_PaperRose();
             AddOrigamiGarden();
             AddRoseChosen();

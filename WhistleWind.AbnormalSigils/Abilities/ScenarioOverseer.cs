@@ -9,18 +9,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod {
-    public partial class Abilities {
-        private static void AddScenarioOverseer() {
-            ScenarioOverseer.ID = AbilityHelper.New<ScenarioOverseer>(LobotomyPlugin.pluginGuid,
-                "Scenario Overseer",
-                "While this card is in your hand: At the start of your turn, you may either take a snapshot of the board or close 2 Energy Cells to revert the board to a stored snapshot.",
-                TextureLoader.LoadTextureFromFile("sigilOneTrueBook.png", LobotomyPlugin.ModAssembly),
-                5,
-                true,
-                dialogue: "You would use my own tools against me?")
+namespace WhistleWind.AbnormalSigils {
+    public partial class AbnormalPlugin {
+        private static void Ability_ScenarioOverseer() {
+            const string rulebookName = "Scenario Overseer";
+            const string rulebookDescription = "While this card is in your hand: At the start of your turn, you may either take a snapshot of the board or close 2 Energy Cells to revert the board to a stored snapshot.";
+            const string dialogue = "You would use my own tools against me?";
+            ScenarioOverseer.ID = AbnormalAbilityHelper.CreateAbility<Soulbound>(
+                "sigilOneTrueBook",
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                modular: false, opponent: false, canStack: false)
                 .Id;
         }
     }
@@ -35,7 +36,7 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToDrawn() => true;
         public override IEnumerator OnDrawn() {
             if (snapshotManager == null) {
-                LobotomyPlugin.Log.LogDebug("[Scenario Overseer] Create snapshot manager");
+                AbnormalPlugin.Log.LogDebug("[Scenario Overseer] Create snapshot manager");
                 snapshotManager = base.Card.gameObject.AddComponent<AngelaSnapshotManager>();
             }
             yield return base.PreSuccessfulTriggerSequence();
@@ -45,7 +46,7 @@ namespace WhistleWindLobotomyMod {
 
         public IEnumerator OnUpkeepInHand(bool playerUpkeep) {
             if (snapshotManager == null) {
-                LobotomyPlugin.Log.LogDebug("[Scenario Overseer] Create snapshot manager");
+                AbnormalPlugin.Log.LogDebug("[Scenario Overseer] Create snapshot manager");
                 snapshotManager = base.Card.gameObject.AddComponent<AngelaSnapshotManager>();
             }
 
@@ -281,7 +282,7 @@ namespace WhistleWindLobotomyMod {
             }
         }
         public new void RevertToCurrentSnapshot() {
-            LobotomyPlugin.Log.LogDebug("[ScenarioOverseer] RevertToCurrentSnapshot");
+            AbnormalPlugin.Log.LogDebug("[ScenarioOverseer] RevertToCurrentSnapshot");
             if (this.currentSnapshot != null) {
                 this.RevertToBoardSnapshot(this.currentSnapshot);
             }

@@ -287,6 +287,7 @@ namespace WhistleWind.AbnormalSigils {
             Ability_Shaver();
             Ability_Shadowed();
             Ability_UnkillableWeak();
+            Ability_ScenarioOverseer();
 
             #endregion
 
