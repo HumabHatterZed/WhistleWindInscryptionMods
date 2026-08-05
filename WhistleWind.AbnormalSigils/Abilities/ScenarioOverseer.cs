@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
@@ -18,7 +19,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Scenario Overseer";
             const string rulebookDescription = "While this card is in your hand: At the start of your turn, you may either take a snapshot of the board or close 2 Energy Cells to revert the board to a stored snapshot.";
             const string dialogue = "You would use my own tools against me?";
-            ScenarioOverseer.ID = AbnormalAbilityHelper.CreateAbility<Soulbound>(
+            ScenarioOverseer.ID = AbnormalAbilityHelper.CreateAbility<ScenarioOverseer>(
                 "sigilOneTrueBook",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 modular: false, opponent: false, canStack: false)
@@ -266,31 +267,64 @@ namespace WhistleWind.AbnormalSigils {
             this.CompletedInteraction = true;
         }
     }
+
     // modified variant of snapshot manager to account for mod-specific interactions and missing Act 3 stuff
     public class AngelaSnapshotManager : PhotographerSnapshotManager {
         private List<SlotModificationManager.ModificationType> playerSlotMods = new();
         private List<SlotModificationManager.ModificationType> opponentSlotMods = new();
+
+        private List<int?> playerSlotModValues = new();
+        private List<int?> opponentSlotModValues = new();
+
         public new void TakeSnapshot(SnapshotSubject subject) {
             playerSlotMods.Clear();
             opponentSlotMods.Clear();
+            playerSlotModValues.Clear();
+            opponentSlotModValues.Clear();
+
             base.TakeSnapshot(subject);
             foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy) {
                 playerSlotMods.Add(slot.GetSlotModification());
+                IOnSnapshotTakenStoreInteger i = slot.GetComponent<IOnSnapshotTakenStoreInteger>();
+
+                if (i != null) {
+                    playerSlotModValues.Add(i.RetrieveIntegerToStore());
+                }
+                else {
+                    playerSlotModValues.Add(null);
+                }
             }
             foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
                 opponentSlotMods.Add(slot.GetSlotModification());
+                IOnSnapshotTakenStoreInteger i = slot.GetComponent<IOnSnapshotTakenStoreInteger>();
+
+                if (i != null) {
+                    opponentSlotModValues.Add(i.RetrieveIntegerToStore());
+                }
+                else {
+                    opponentSlotModValues.Add(null);
+                }
             }
+
+            // STUB: call triggers for when a snapshot is taken
         }
         public new void RevertToCurrentSnapshot() {
             AbnormalPlugin.Log.LogDebug("[ScenarioOverseer] RevertToCurrentSnapshot");
             if (this.currentSnapshot != null) {
                 this.RevertToBoardSnapshot(this.currentSnapshot);
             }
+
+            // STUB: call triggers for when a snapshot is reverted to
+
             playerSlotMods.Clear();
             opponentSlotMods.Clear();
+            playerSlotModValues.Clear();
+            opponentSlotModValues.Clear();
         }
-        private IEnumerator ApplySlotState(BoardState.SlotState slotState, CardSlot slot, SlotModificationManager.ModificationType modType) {
-            Debug.Log($"[ScenarioOverseer] ApplySlotState: {slotState} {slot} {modType}");
+        private IEnumerator ApplySlotState(
+            BoardState.SlotState slotState, CardSlot slot,
+            SlotModificationManager.ModificationType modType, int? slotModVal) {
+            AbnormalPlugin.Log.LogDebug($"[ScenarioOverseer] ApplySlotState: {slot.Index} {modType}");
 
             if (slotState.card != null && slot.Card == null) {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(slotState.card.info, slot, 0f, resolveTriggers: false);
@@ -303,10 +337,20 @@ namespace WhistleWind.AbnormalSigils {
             if (slot.GetSlotModification() != modType) {
                 yield return slot.SetSlotModification(modType);
             }
+            
+            if (slotModVal != null) {
+                IOnSnapshotTakenStoreInteger i = slot.GetComponent<IOnSnapshotTakenStoreInteger>();
+                if (i != null) {
+                    AbnormalPlugin.Log.LogDebug($"[ScenarioOverseer] Reapply slot int val: {slotModVal} on {slot.Index} {modType}");
+                    yield return i.OnReceiveInteger((int)slotModVal);
+                }
+            }
         }
-        private void ApplySlotStates(List<BoardState.SlotState> slotStates, List<CardSlot> actualSlots, List<SlotModificationManager.ModificationType> slotMods) {
+        private void ApplySlotStates(
+            List<BoardState.SlotState> slotStates, List<CardSlot> actualSlots,
+            List<SlotModificationManager.ModificationType> slotMods, List<int?> slotModVals) {
             for (int i = 0; i < slotStates.Count; i++) {
-                base.StartCoroutine(this.ApplySlotState(slotStates[i], actualSlots[i], slotMods[i]));
+                base.StartCoroutine(this.ApplySlotState(slotStates[i], actualSlots[i], slotMods[i], slotModVals[i]));
             }
         }
 
@@ -318,8 +362,8 @@ namespace WhistleWind.AbnormalSigils {
                     Object.Destroy(card.gameObject);
                 }
             }
-            this.ApplySlotStates(snapshot.boardState.playerSlots, Singleton<BoardManager>.Instance.PlayerSlotsCopy, playerSlotMods);
-            this.ApplySlotStates(snapshot.boardState.opponentSlots, Singleton<BoardManager>.Instance.OpponentSlotsCopy, opponentSlotMods);
+            this.ApplySlotStates(snapshot.boardState.playerSlots, Singleton<BoardManager>.Instance.PlayerSlotsCopy, playerSlotMods, playerSlotModValues);
+            this.ApplySlotStates(snapshot.boardState.opponentSlots, Singleton<BoardManager>.Instance.OpponentSlotsCopy, opponentSlotMods, opponentSlotModValues);
         }
     }
 }
