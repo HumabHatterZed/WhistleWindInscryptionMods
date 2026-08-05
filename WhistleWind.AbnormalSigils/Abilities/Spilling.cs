@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Spilling() {
             const string rulebookName = "Spilling";
-            const string rulebookDescription = "When [creature] perishes, Flood all spaces on the board and extinguish grounded Scorching cards.";
+            const string rulebookDescription = "When [creature] perishes, Flood all spaces on the board for the next 3 rounds.";
             const string dialogue = "Don't worry, it will dry soon enough.";
             const string triggerText = "[creature]'s insides flood the board!";
             Spilling.ID = AbnormalAbilityHelper.CreateAbility<Spilling>(
@@ -40,26 +40,35 @@ namespace WhistleWind.AbnormalSigils {
 
         private IEnumerator Sequence(CardSlot startingSlot) {
             bool extinguishedCard = false;
-            List<CardSlot> slots = new(BoardManager.Instance.AllSlotsCopy);
-            slots.Remove(startingSlot);
+            List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy;
             slots.Sort((CardSlot a, CardSlot b) => GetSlotDistance(startingSlot, a) - GetSlotDistance(startingSlot, b));
 
             yield return base.PreSuccessfulTriggerSequence();
             startingSlot.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, startingSlot));
-            yield return startingSlot.SetSlotModification(FloodedSlot.ID);
+
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++) {
-                int distance = GetSlotDistance(startingSlot, slots[i]);
+                int duration = 3;
+
+                // if there's a Scorching card, extinguish it and reduce flooding by the number of Scorching stacks
                 if (slots[i].Card != null && slots[i].Card.HasAbility(Scorching.ID) && slots[i].Card.LacksAbility(Ability.Flying)) {
                     extinguishedCard = true;
+                    duration -= slots[i].Card.GetAbilityStacks(Scorching.ID);
                     yield return Scorching.ExtinguishCard(slots[i].Card, false);
                 }
-                else {
-                    yield return slots[i].SetSlotModification(FloodedSlot.ID);
-                    slots[i].GetComponent<FloodedSlot>().Severity += distance;
-                }
 
-                if (i + 1 < slots.Count && GetSlotDistance(startingSlot, slots[i + 1]) != distance)
+                if (duration > 0) {
+                    yield return slots[i].SetSlotModification(FloodedSlot.ID);
+                    slots[i].GetComponent<FloodedSlot>().Severity = duration;
+                }
+                else if (duration == 0) {
+                    yield return slots[i].SetSlotModification(FloodedSlotShallow.ID);
+                }
+                // if final duration is 0 or below, don't flood the tile (should only occur when extinguishing cards)
+
+                // slots at equal distance from the starting slot should be Flooded at the same time
+                // this creates a nice ripple-like effect
+                if (i + 1 < slots.Count && GetSlotDistance(startingSlot, slots[i + 1]) != GetSlotDistance(startingSlot, slots[i]))
                     yield return new WaitForSeconds(0.25f);
             }
             if (extinguishedCard) {
