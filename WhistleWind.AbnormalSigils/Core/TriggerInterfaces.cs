@@ -4,6 +4,13 @@ namespace WhistleWind.AbnormalSigils.Core {
     /// <summary>
     /// Trigger that's called before TurnEnd.
     /// </summary>
+    public interface IOnSnapshotTakenStoreInteger {
+        public int RetrieveIntegerToStore();
+        public IEnumerator OnReceiveInteger(int value);
+    }
+    /// <summary>
+    /// Trigger that's called before TurnEnd.
+    /// </summary>
     public interface IPreTurnEnd {
         public bool RespondsToPreTurnEnd(bool playerTurnEnd);
         public IEnumerator OnPreTurnEnd(bool playerTurnEnd);
