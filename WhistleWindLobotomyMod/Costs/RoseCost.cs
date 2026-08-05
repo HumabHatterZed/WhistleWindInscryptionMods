@@ -93,7 +93,7 @@ namespace WhistleWindLobotomyMod {
                 RenderChosenCardInField(roseChosenCard);
 
                 TextDisplayer.Instance.Clear();
-            });
+            }, forPositiveEffect: false);
 
             if (roseChosenCard.GetAbilityStacks(RoseChosen.ID) >= MAX_STACK) {
                 yield return new WaitForSeconds(0.5f);

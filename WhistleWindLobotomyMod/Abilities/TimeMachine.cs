@@ -110,7 +110,7 @@ namespace WhistleWindLobotomyMod {
                 PixelPlayableCard selectedCard = null;
                 yield return PixelBoardManager.Instance.GetComponent<PixelPlayableCardArray>().SelectPixelCardFrom(choices, delegate (PixelPlayableCard x) {
                     selectedCard = x;
-                });
+                }, forPositiveEffect: false);
 
                 Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
                 Destroy(selectedCard.gameObject, 0.1f);
@@ -121,7 +121,7 @@ namespace WhistleWindLobotomyMod {
                 Singleton<ViewManager>.Instance.SwitchToView(View.DeckSelection, immediate: false, lockAfter: true);
                 yield return CombatHelpers.SelectCardFromPile(choices, CardDrawPiles3D.Instance.Pile, delegate (SelectableCard x) {
                     selectedCard = x;
-                });
+                }, forPositiveEffect: false);
 
                 Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
                 Destroy(selectedCard.gameObject, 0.1f);
