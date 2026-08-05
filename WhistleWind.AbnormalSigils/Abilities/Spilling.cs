@@ -69,7 +69,7 @@ namespace WhistleWind.AbnormalSigils {
                 // slots at equal distance from the starting slot should be Flooded at the same time
                 // this creates a nice ripple-like effect
                 if (i + 1 < slots.Count && GetSlotDistance(startingSlot, slots[i + 1]) != GetSlotDistance(startingSlot, slots[i]))
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.1f);
             }
             if (extinguishedCard) {
                 yield return DialogueHelper.PlayDialogueEvent("ScorchingExtinguished");
