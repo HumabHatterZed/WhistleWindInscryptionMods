@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.Slots;
 using System.Collections;
@@ -27,8 +28,11 @@ namespace WhistleWind.AbnormalSigils {
                 TextureLoader.LoadTextureFromFile("slotFlooded_magnificus_2.png", Assembly)
                 );
 
+            Dictionary<PixelBoardSpriteSetter.BoardTheme, PixelBoardSpriteSetter.BoardThemeSpriteSet> slot_pixel_sheet = SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(
+                TextureLoader.LoadTextureFromFile("slotFlooded_pixel.png", Assembly));
+
             FloodedSlot.ID = SlotModificationManager.New(pluginGuid, "FloodedSlot", typeof(FloodedSlot), slotTextures,
-                SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(TextureLoader.LoadTextureFromFile("slotFlooded_pixel.png", Assembly))
+                slot_pixel_sheet
                 )
                 .SetRulebook(rulebookName, rulebookDescription,
                     TextureLoader.LoadTextureFromFile("slotFlooded_rulebook.png", Assembly),
@@ -51,45 +55,53 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// At the end of the round, deal 1 damage to the occupying card if it is not Airborne or face down, then reduce this effect's duration by 1.
     /// </summary>
-    public class FloodedSlot : SlotModificationBehaviour, IOpponentTurnEnd {
+    public class FloodedSlot : SlotModificationBehaviour, IOpponentTurnEnd, IOnSnapshotTakenStoreInteger {
         public static SlotModificationManager.ModificationType ID { get; internal set; }
+        public int Severity { get; set; }
+        private int _severity = -1;
+        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => true;
+        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
+            // use to re-set Severity when Flooding via Scenario Overseer
+            // not sure why this works but whatev
+            if (_severity != -1) {
+                Severity = _severity;
+            }
+            yield return HelperMethods.ChangeCurrentView(View.Board);
+            if (base.Slot.Card != null && CardIsGrounded(base.Slot.Card)) {
+                yield return base.Slot.Card.TakeDamage(1, null);
+            }
 
-        public int Severity { get; set; } = 1;
-
-        public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep) {
             Severity--;
-            if (Severity < 2) yield return base.Slot.SetSlotModification(FloodedSlotShallow.ID);
+            if (Severity < 2) {
+                Debug.Log("Shallow");
+                yield return base.Slot.SetSlotModification(FloodedSlotShallow.ID);
+            }
         }
+        public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
+
+        public int RetrieveIntegerToStore() {
+            return Severity;
+        }
+
+        public IEnumerator OnReceiveInteger(int value) {
+            _severity = value;
+            if (_severity < 2) {
+                yield return base.Slot.SetSlotModification(FloodedSlotShallow.ID);
+            }
+        }
+
         public static bool CardIsGrounded(PlayableCard card) {
             return !card.FaceDown && card.LacksAbility(Ability.Flying);
         }
 
-        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Slot.Card != null && CardIsGrounded(base.Slot.Card);
-        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            if (ViewManager.Instance.CurrentView != View.Board) {
-                ViewManager.Instance.SwitchToView(View.Board);
-            }
-
-            yield return base.Slot.Card.TakeDamage(1, null);
+        public static bool SlotIsFlooded(CardSlot slot) {
+            SlotModificationManager.ModificationType mod = slot.GetSlotModification();
+            return mod == ID || mod == FloodedSlotShallow.ID;
         }
-        public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
     }
 
-    public class FloodedSlotShallow : SlotModificationBehaviour, IOpponentTurnEnd {
-        public static SlotModificationManager.ModificationType ID { get; internal set; }
-
-        public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
+    public class FloodedSlotShallow : FloodedSlot {
+        public new static SlotModificationManager.ModificationType ID { get; internal set; }
         public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.ClearSlotModification();
-
-        public bool RespondsToOpponentTurnEnd(bool opponentTurnSkipped) => base.Slot.Card != null && FloodedSlot.CardIsGrounded(base.Slot.Card);
-        public IEnumerator OnOpponentTurnEnd(bool opponentTurnSkipped) {
-            if (ViewManager.Instance.CurrentView != View.Board) {
-                ViewManager.Instance.SwitchToView(View.Board);
-            }
-
-            yield return base.Slot.Card.TakeDamage(1, null);
-        }
-        public int OpponentTurnEndPriority(bool opponentTurnSkipped) => 0;
     }
 }
