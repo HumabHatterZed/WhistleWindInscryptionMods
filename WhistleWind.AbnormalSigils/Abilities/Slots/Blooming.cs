@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
@@ -37,12 +37,17 @@ namespace WhistleWind.AbnormalSigils {
     /// <summary>
     /// At the end of the owner's turn, if the occupying card is injured, siphon 1 Health from the opposing card to the occupying card.
     /// </summary>
-    public class BloomingSlot : SlotModificationBehaviour, IPassiveHealthBuff {
+    public class BloomingSlot : SlotModificationBehaviour, IPassiveHealthBuff, IOnSnapshotTakenStoreInteger {
         public static SlotModificationManager.ModificationType ID { get; internal set; }
         public int Potency { get; set; } = 3;
-        private bool firstTurnBuffer = false;
+        private int _potency = -1;
+        private bool firstTurnBuffer = true;
         public int GetPassiveHealthBuff(PlayableCard target) {
             if (target == base.Slot.Card) {
+                if (_potency != -1) {
+                    Potency = _potency;
+                    _potency = -1;
+                }
                 return Potency;
             }
             return 0;
@@ -55,9 +60,12 @@ namespace WhistleWind.AbnormalSigils {
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Slot.IsPlayerSlot == playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
-            // don't reduce hp given on the first turn
-            if (!firstTurnBuffer) {
-                firstTurnBuffer = true;
+            if (_potency != -1) {
+                Potency = _potency;
+            }
+
+            if (firstTurnBuffer) {
+                firstTurnBuffer = false;
                 yield break;
             }
 
@@ -71,6 +79,16 @@ namespace WhistleWind.AbnormalSigils {
             if (Potency == 0) {
                 yield return base.Slot.ClearSlotModification();
             }
+        }
+
+        public int RetrieveIntegerToStore() {
+            return Potency;
+        }
+
+        public IEnumerator OnReceiveInteger(int value) {
+            _potency = value;
+            firstTurnBuffer = false; // prevent first-turn buffer from triggering again
+            yield break;
         }
     }
 }
