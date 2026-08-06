@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils {
             const string dialogue = "From fertile flesh, a garden will soon bloom.";
             FlowerQueen.ID = AbnormalAbilityHelper.CreateAbility<FlowerQueen>(
                 "sigilFlowerQueen",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
                 .SetSlotRedirect("Blooms", BloomingSlot.ID, Color.green)
                 .Id;
@@ -40,7 +40,12 @@ namespace WhistleWind.AbnormalSigils {
         public override IEnumerator OnResolveOnBoard() {
             hasResolved = true;
             foreach (CardSlot slot in BoardManager.Instance.GetSlots(!base.Card.OpponentCard)) {
-                yield return slot.SetSlotModification(BloomingSlot.ID);
+                if (slot.GetSlotModification() == BloomingSlot.ID) {
+                    slot.GetComponent<BloomingSlot>().Potency = 3;
+                }
+                else {
+                    yield return slot.SetSlotModification(BloomingSlot.ID);
+                }
             }
             yield return base.LearnAbility(0.5f);
         }
