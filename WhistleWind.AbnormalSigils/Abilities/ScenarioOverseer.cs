@@ -6,18 +6,20 @@ using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private static void Ability_ScenarioOverseer() {
             const string rulebookName = "Scenario Overseer";
-            const string rulebookDescription = "While this card is in your hand: At the start of your turn, you may either take a snapshot of the board or close 2 Energy Cells to revert the board to a stored snapshot.";
+            const string rulebookDescription = "While this card is in your hand: At the start of your turn, you may either take a snapshot of the board or close 2 Energy Cells to revert the board to a stored snapshot. This sigil is unusable for 2 turns after reverting the board.";
             const string dialogue = "You would use my own tools against me?";
             ScenarioOverseer.ID = AbnormalAbilityHelper.CreateAbility<ScenarioOverseer>(
                 "sigilOneTrueBook",
@@ -53,8 +55,13 @@ namespace WhistleWind.AbnormalSigils {
 
             // don't trigger if the player has no energy on upkeep for whatever reason
             yield return base.PreSuccessfulTriggerSequence();
-            yield return TakeSnapshot();
-            yield return base.LearnAbility(0.5f);
+            if (this.snapshotUI.turnsToUse == 0) {
+                yield return TakeSnapshot();
+                yield return base.LearnAbility(0.5f);
+            }
+            else {
+                this.snapshotUI.turnsToUse--;
+            }
         }
 
         // modified version of vanilla method to account for missing Act 3 stuff
@@ -172,6 +179,8 @@ namespace WhistleWind.AbnormalSigils {
 
         private AngelaSnapshotManager snapshotManager;
 
+        public int turnsToUse = 0;
+
         public bool CompletedInteraction { get; set; }
 
         public void Initialize(AngelaSnapshotManager snapshotManager) {
@@ -264,7 +273,11 @@ namespace WhistleWind.AbnormalSigils {
             this.snapshotManager.ClearSnapshot();
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
             yield return new WaitForSeconds(1f);
+            if (this.snapshotManager.snapshotFailed) {
+                yield return DialogueHelper.PlayDialogueEvent("ScenarioOverseerFail");
+            }
             this.CompletedInteraction = true;
+            turnsToUse = 2;
         }
     }
 
@@ -276,11 +289,16 @@ namespace WhistleWind.AbnormalSigils {
         private List<int?> playerSlotModValues = new();
         private List<int?> opponentSlotModValues = new();
 
+        IOnSnapshotTakenStoreInteger specialSequencer = null;
+        private int? specialSequencerValue = null;
+        public bool snapshotFailed = false;
+
         public new void TakeSnapshot(SnapshotSubject subject) {
             playerSlotMods.Clear();
             opponentSlotMods.Clear();
             playerSlotModValues.Clear();
             opponentSlotModValues.Clear();
+            specialSequencerValue = null;
 
             base.TakeSnapshot(subject);
             foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy) {
@@ -306,7 +324,16 @@ namespace WhistleWind.AbnormalSigils {
                 }
             }
 
-            // STUB: call triggers for when a snapshot is taken
+            if (TurnManager.Instance.SpecialSequencer != null && TurnManager.Instance.SpecialSequencer is IOnSnapshotTakenStoreInteger i2) {
+                specialSequencer = i2;
+            }
+
+            if (specialSequencer != null) {
+                specialSequencerValue = specialSequencer.RetrieveIntegerToStore();
+            }
+            else {
+                specialSequencerValue = null;
+            }
         }
         public new void RevertToCurrentSnapshot() {
             AbnormalPlugin.Log.LogDebug("[ScenarioOverseer] RevertToCurrentSnapshot");
@@ -314,25 +341,32 @@ namespace WhistleWind.AbnormalSigils {
                 this.RevertToBoardSnapshot(this.currentSnapshot);
             }
 
-            // STUB: call triggers for when a snapshot is reverted to
-
             playerSlotMods.Clear();
             opponentSlotMods.Clear();
             playerSlotModValues.Clear();
             opponentSlotModValues.Clear();
+            specialSequencerValue = null;
         }
         private IEnumerator ApplySlotState(
             BoardState.SlotState slotState, CardSlot slot,
             SlotModificationManager.ModificationType modType, int? slotModVal) {
-            AbnormalPlugin.Log.LogDebug($"[ScenarioOverseer] ApplySlotState: {slot.Index} {modType}");
+            //AbnormalPlugin.Log.LogDebug($"[ScenarioOverseer] ApplySlotState: {slot.Index} {modType}");
 
             if (slotState.card != null && slot.Card == null) {
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(slotState.card.info, slot, 0f, resolveTriggers: false);
-                PlayableCard card = slot.Card;
-                card.TemporaryMods = new(slotState.card.temporaryMods);
-                card.Status = new PlayableCardStatus(slotState.card.status);
-                card.OnStatsChanged();
-                Singleton<ResourcesManager>.Instance.ForceGemsUpdate();
+                if (CardInfoIsValid(slotState.card.info)) {
+                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(slotState.card.info, slot, 0f, resolveTriggers: false);
+                    PlayableCard card = slot.Card;
+                    card.TemporaryMods = new(slotState.card.temporaryMods);
+                    card.Status = new PlayableCardStatus(slotState.card.status);
+                    foreach (CardModificationInfo mod in slotState.card.temporaryMods.Where(x => x.IsStatusEffect())) {
+                        yield return card.AddStatusEffect(mod.specialAbilities[0], mod.abilities.Count);
+                    }
+                    card.OnStatsChanged();
+                    Singleton<ResourcesManager>.Instance.ForceGemsUpdate();
+                }
+                else {
+                    snapshotFailed = true;
+                }
             }
             if (slot.GetSlotModification() != modType) {
                 yield return slot.SetSlotModification(modType);
@@ -341,7 +375,7 @@ namespace WhistleWind.AbnormalSigils {
             if (slotModVal != null) {
                 IOnSnapshotTakenStoreInteger i = slot.GetComponent<IOnSnapshotTakenStoreInteger>();
                 if (i != null) {
-                    AbnormalPlugin.Log.LogDebug($"[ScenarioOverseer] Reapply slot int val: {slotModVal} on {slot.Index} {modType}");
+                    //AbnormalPlugin.Log.LogDebug($"[ScenarioOverseer] Reapply slot int val: {slotModVal} on {slot.Index} {modType}");
                     yield return i.OnReceiveInteger((int)slotModVal);
                 }
             }
@@ -356,14 +390,26 @@ namespace WhistleWind.AbnormalSigils {
 
         private new void RevertToBoardSnapshot(Snapshot snapshot) {
             foreach (CardSlot allSlot in Singleton<BoardManager>.Instance.AllSlots) {
-                if (allSlot.Card != null && allSlot.Card.LacksAllTraits(Trait.Giant, Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath)) {
+                if (allSlot.Card != null && CardInfoIsValid(allSlot.Card.Info)) {
                     PlayableCard card = allSlot.Card;
                     allSlot.Card.UnassignFromSlot();
                     Object.Destroy(card.gameObject);
                 }
             }
+
+            if (specialSequencer != null && specialSequencerValue != null) {
+                base.StartCoroutine(specialSequencer.OnReceiveInteger((int)specialSequencerValue));
+            }
+
             this.ApplySlotStates(snapshot.boardState.playerSlots, Singleton<BoardManager>.Instance.PlayerSlotsCopy, playerSlotMods, playerSlotModValues);
             this.ApplySlotStates(snapshot.boardState.opponentSlots, Singleton<BoardManager>.Instance.OpponentSlotsCopy, opponentSlotMods, opponentSlotModValues);
+        }
+
+        private bool CardInfoIsValid(CardInfo info) {
+            // certain cards need to be excluded from being stored/replaced by snapshots
+            // to avoid game-breaking
+            // or at the very least avoid the most obvious game-breaking's
+            return info.LacksAllTraits(Trait.Giant, AbnormalPlugin.NotStoredByScenario);
         }
     }
 }
