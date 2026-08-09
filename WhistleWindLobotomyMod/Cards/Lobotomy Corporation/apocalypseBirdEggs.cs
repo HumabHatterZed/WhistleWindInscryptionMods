@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod {
         public const string giantApocalypse = "wstl_!GIANTCARD_ApocalypseBird";
         public const string crisisChick = "wstl_crisisChick";
         private static void ApocalypseBirdEggs() {
-            Trait[] traits = new Trait[2] { Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath };
+            Trait[] traits = new Trait[3] { Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.NotStoredByScenario };
 
             CardManager.New(LobotomyPlugin.pluginPrefix, bigEgg, "Aspect of Big Bird",
                 attack: 1, health: 90)
@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod {
             CardManager.New(LobotomyPlugin.pluginPrefix, giantApocalypse, "",
                 attack: 2, health: 30)
                 .AddAbilities(ApocalypseGiant.ID, Soulbound.ID, Ability.Reach, Challenging.ID)
-                .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)
+                .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath, AbnormalPlugin.NotStoredByScenario)
                 .AddSpecialAbilities(SpecialTriggeredAbility.GiantCard)
                 .AddAppearances(GiantBirdAppearance.appearance)
                 .SetUniqueCopycat(crisisChick)

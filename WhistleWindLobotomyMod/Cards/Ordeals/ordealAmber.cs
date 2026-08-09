@@ -60,7 +60,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAppearances(ForcedOrangeEmission.appearance)
                 .AddTribes(Tribe.Insect)
                 .SetStatIcon(SpecialStatIcon.Ants)
-                .AddTraits(Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement, Trait.Ant)
+                .AddTraits(Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement, NotStoredByScenario, Trait.Ant)
                 .SetMiniGiant()
                 .SetOrdealCard(Opponents.OrdealType.Amber)
                 .SetUniqueCopycat(Cards.eternalSnack)

@@ -134,7 +134,7 @@ namespace WhistleWindLobotomyMod {
                 attack: 0, health: 20)
                 .AddAbilities(Ability.Reach, TowerAbility.ID, Ability.AllStrike, Challenging.ID)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal, Trait.Giant, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments)
+                .AddTraits(Ordeal, Trait.Giant, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath, ImmuneToAilments, NotStoredByScenario)
                 .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("LastHelixPortrait"))
                 .SetTerrain(false)
                 .SetOrdealCard(OrdealType.Green)

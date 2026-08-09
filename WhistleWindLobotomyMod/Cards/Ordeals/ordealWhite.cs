@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod {
             string textureName3 = "fixerWhite";
             string textureName4 = "fixerBlack";
             string textureName5 = "fixerPale";
-            Trait[] traits = new Trait[] { Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement };
+            Trait[] traits = new Trait[3] { Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement };
             CardInfo red2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed2, "Red Fixer",
                 attack: 3, health: 5)
                 .SetEnergyCost(8)
@@ -116,7 +116,7 @@ namespace WhistleWindLobotomyMod {
                 .AddAbilities(/*ClawAbility.ID*/Piercing.ID, Persistent.ID, Challenging.ID)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(traits)
+                .AddTraits(Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement, NotStoredByScenario)
                 .SetOrdealCard(OrdealType.White)
                 .Build();
         }
