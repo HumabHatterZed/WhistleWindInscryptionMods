@@ -121,6 +121,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
                     x => x.OnStatusEffectRemoved(base.PlayableCard, this));
             }
 
+            //AbnormalPlugin.Log.LogDebug($"[StatusEffectBehaviour] removefromcard {this.GetType()}");
+            base.PlayableCard.TriggerHandler.permanentlyAttachedBehaviours.Remove(this);
             base.Destroy();
         }
     }
