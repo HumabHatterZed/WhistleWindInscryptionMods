@@ -121,7 +121,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         public static bool IsStatusEffect(this CardModificationInfo mod) {
             return mod.GetExtendedPropertyAsBool(STATUS_EFFECT_PROPERTY) == true;
         }
-        public static bool IsStatusMod(this CardModificationInfo mod, bool positiveEffect) {
+        public static bool IsStatusEffect(this CardModificationInfo mod, bool positiveEffect) {
             return mod.IsStatusEffect() && AbilitiesUtil.GetInfo(mod.abilities[0]).PositiveEffect == positiveEffect;
         }
 
