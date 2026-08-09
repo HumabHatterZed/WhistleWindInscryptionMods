@@ -34,24 +34,28 @@ namespace WhistleWindLobotomyMod {
         public override List<string> EffectDecalIds() => new();
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
-            return IsEnchanted && attacker == base.Card && target != null && target.HasAbility(Dazzling.ID);
+            return IsEnchanted && attacker == base.PlayableCard && target != null && target.HasAbility(Dazzling.ID);
         }
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => 0;
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
-            return IsEnchanted && card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;
+            return IsEnchanted && card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
             List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ID));
 
-            if (slots.Count <= 1)
-                return slots;
+            if (slots.Count == 0) {
+                return new();
+            }
 
-            slots.Randomize();
-            slots.RemoveRange(1, slots.Count - 1);
+            if (slots.Count > 1) {
+                slots.Randomize();
+                slots.RemoveRange(1, slots.Count - 1);
+            }
+
             return slots;
         }
 
