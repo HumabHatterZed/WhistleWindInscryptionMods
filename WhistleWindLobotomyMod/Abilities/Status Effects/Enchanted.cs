@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod {
             List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ID));
 
             if (slots.Count == 0) {
-                return new();
+                return currentSlots;
             }
 
             if (slots.Count > 1) {
