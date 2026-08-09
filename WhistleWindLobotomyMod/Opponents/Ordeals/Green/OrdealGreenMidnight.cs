@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
@@ -23,25 +24,107 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// fire_laser
     /// set_idle_phase
     /// </summary>
-    public class OrdealGreenMidnight : OrdealBattleSequencer {
+    public class OrdealGreenMidnight : OrdealBattleSequencer, IOnSnapshotTakenStoreInteger {
         private PlayableCard Helix { get; set; }
         private Animator HelixAnimator;
 
-        private int maxCooldownPeriod = 1;
-        private readonly int MaxActivePeriod = 4;
-
-        public int phaseCountdown = 0;
+        private readonly int phaseLengthActive = 4;
+        private int phaseLengthCooldown = 1;
+        
+        public int turnsToNextPhase = 0;
 
         private bool isActive = false;
         private bool justActivated = false;
+
         private int turnsToGainPower;
         private HelixLight wanderingLight;
         private HelixLight stationaryLight;
 
-        private HelixLight CreateLaser() {
-            GameObject obj = Instantiate(LobOpponentUtils.HelixBossLaserPrefab);
-            return obj.AddComponent<HelixLight>();
+        // for Scenario Overseer
+        private CardSlot wanderingLightCache;
+        private CardSlot stationaryLightCache;
+
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
+            HighestPositiveScaleBalance = Mathf.Max(-2, 2 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
+            ValidCards.Add(Cards.lastHelix);
+            // initial turns in inactivate phase
+            turnsToNextPhase = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
+            if (turnsToNextPhase < 2) {
+                phaseLengthCooldown = 0;
+            }
+            EncounterData.StartCondition cond = new() {
+                cardsInOpponentSlots = new CardInfo[] { CardLoader.GetCardByName(Cards.lastHelix), null, null, null }
+            };
+            encounterData.startConditions.Add(cond);
+            return 1;
         }
+
+        /// <summary>
+        /// Display the turns left counter on the monitor at the start of the encounter, after the intro and deck piles have been setup.
+        /// </summary>
+        public override IEnumerator PreHandDraw() {
+            if (turnsToNextPhase > 1) {
+                phaseLengthCooldown = 2;
+            }
+            // pre heat the active phase if the initial countdown is <= 1
+            else if (turnsToNextPhase < 2) {
+                yield return PreActivePhase();
+                // activate immediately if the initial countdown is <= 0
+                if (turnsToNextPhase < 1) {
+                    yield return OpponentCombatEnd();
+                    yield break;
+                }
+            }
+
+            yield return UpdateCounterIcon();
+            yield return new WaitForSeconds(0.5f);
+            ViewManager.Instance.SwitchToView(View.Default);
+        }
+
+        public override void ModifySpawnedCard(PlayableCard card) {
+            if (card.Info.name != Cards.lastHelix)
+                return;
+
+            Helix = card;
+            Camera liveRenderCam = Singleton<CardRenderCamera>.Instance.GetLiveRenderCamera(Helix.StatsLayer);
+            // get the animator from the actual rendered portrait offscreen, not the animator on the card object on the board
+            Transform t = liveRenderCam.transform.GetChild(1).GetChild(0).GetChild(0);
+            HelixAnimator = t.GetChild(t.childCount - 1).GetComponentInChildren<Animator>();
+
+            // determine whether or not Helix should be able to attack
+            // for the first map, cannot attack unless difficulty has been increased via challenges
+            if (RunState.CurrentRegionTier + RunState.Run.DifficultyModifier > 1) {
+                Helix.Info.baseAttack = 1;
+            }
+            turnsToGainPower = Mathf.Max(3, 7 - RunState.CurrentRegionTier + RunState.Run.DifficultyModifier);
+            Helix.Info.baseHealth += RunState.CurrentRegionTier * 10;
+        }
+
+        // clean up lasers before ending the battle
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
+            if (card == Helix) {
+                CleanUpLasers();
+            }
+            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
+        }
+
+        public int RetrieveIntegerToStore() {
+            if (isActive) {
+                wanderingLightCache = wanderingLight.currentSlot;
+                stationaryLightCache = stationaryLight.currentSlot;
+            }
+            return -1;
+        }
+
+        public IEnumerator OnReceiveInteger(int value) {
+            if (isActive) {
+                wanderingLight.Initialise(wanderingLightCache);
+                stationaryLight.Initialise(stationaryLightCache);
+            }
+            yield break;
+        }
+
+
 
         private void SelectStartingLaserSlot() {
             int randomIdx = UnityEngine.Random.RandomRangeInt(0, BoardManager.Instance.PlayerSlotsCopy.Count);
@@ -62,13 +145,13 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (justActivated) {
                 isActive = true;
                 justActivated = false;
-                phaseCountdown = MaxActivePeriod;
+                turnsToNextPhase = phaseLengthActive;
                 yield return BeginLaserSequence();
                 yield return new WaitForSeconds(0.75f);
                 yield return UpdateCounterIcon();
             }
             else {
-                phaseCountdown--;
+                turnsToNextPhase--;
 
                 if (isActive) {
                     ViewManager.Instance.SwitchToView(View.Default);
@@ -76,18 +159,18 @@ namespace WhistleWindLobotomyMod.Opponents {
                     yield return UpdateCounterIcon();
 
                     // when the countdown hits 0 and if we have a cooldown period, deactivate the helix
-                    if (phaseCountdown == 0) {
-                        if (maxCooldownPeriod > 0) {
+                    if (turnsToNextPhase == 0) {
+                        if (phaseLengthCooldown > 0) {
                             LobotomyPlugin.Log.LogDebug("Deactivate Helix");
-                            phaseCountdown = maxCooldownPeriod;
+                            turnsToNextPhase = phaseLengthCooldown;
                             yield return CleanUpActivePhase();
                         }
                         else {
-                            phaseCountdown = MaxActivePeriod;
+                            turnsToNextPhase = phaseLengthActive;
                         }
                     }
                 }
-                else if (phaseCountdown == 1) {
+                else if (turnsToNextPhase == 1) {
                     // turn before activating the lasers, initialise them and play setup animations
                     yield return UpdateCounterIcon();
                     yield return PreActivePhase();
@@ -98,6 +181,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (Helix.Attack < 3 && TurnNumber > 0 && TurnNumber % turnsToGainPower == 0) {
                 Helix.AddTemporaryMod(new(1, 0));
             }
+        }
+
+        private HelixLight CreateLaser() {
+            GameObject obj = Instantiate(LobOpponentUtils.HelixBossLaserPrefab);
+            return obj.AddComponent<HelixLight>();
         }
 
         private IEnumerator InitialiseActivePhase() {
@@ -181,80 +269,17 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         private IEnumerator UpdateCounterIcon() {
-            if (maxCooldownPeriod > 0) {
+            if (phaseLengthCooldown > 0) {
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
                 if (OrdealDisplayConsole.Instance.Dirty) {
-                    yield return OrdealDisplayConsole.Instance.UpdateCounterDisplayValue(phaseCountdown.ToString(), phaseCountdown == 0);
+                    yield return OrdealDisplayConsole.Instance.UpdateCounterDisplayValue(turnsToNextPhase.ToString(), turnsToNextPhase == 0);
                 }
                 else {
-                    yield return OrdealDisplayConsole.Instance.UpdateConsoleDisplay(phaseCountdown.ToString(), "turns left", false, 0.8f, 0f);
+                    yield return OrdealDisplayConsole.Instance.UpdateConsoleDisplay(turnsToNextPhase.ToString(), "turns left", false, 0.8f, 0f);
                 }
 
                 yield return new WaitForSeconds(0.75f);
             }
-        }
-
-        /// <summary>
-        /// Display the turns left counter on the monitor at the start of the encounter, after the intro and deck piles have been setup.
-        /// </summary>
-        public override IEnumerator PreHandDraw() {
-            if (phaseCountdown > 1) {
-                maxCooldownPeriod = 2;
-            }
-            // pre heat the active phase if the initial countdown is <= 1
-            if (phaseCountdown < 2) {
-                yield return PreActivePhase();
-                // activate immediately if the initial countdown is <= 0
-                if (phaseCountdown < 1) {
-                    yield return OpponentCombatEnd();
-                    yield break;
-                }
-            }
-
-            yield return UpdateCounterIcon();
-            yield return new WaitForSeconds(0.5f);
-            ViewManager.Instance.SwitchToView(View.Default);
-        }
-
-        public override void ModifySpawnedCard(PlayableCard card) {
-            if (card.Info.name != Cards.lastHelix)
-                return;
-
-            Helix = card;
-            Camera liveRenderCam = Singleton<CardRenderCamera>.Instance.GetLiveRenderCamera(Helix.StatsLayer);
-            // get the animator from the actual rendered portrait offscreen, not the animator on the card object on the board
-            Transform t = liveRenderCam.transform.GetChild(1).GetChild(0).GetChild(0);
-            HelixAnimator = t.GetChild(t.childCount - 1).GetComponentInChildren<Animator>();
-
-            // determine whether or not Helix should be able to attack
-            // for the first map, cannot attack unless difficulty has been increased via challenges
-            if (RunState.CurrentRegionTier + RunState.Run.DifficultyModifier > 1) {
-                Helix.Info.baseAttack = 1;
-            }
-            turnsToGainPower = Mathf.Max(3, 7 - RunState.CurrentRegionTier + RunState.Run.DifficultyModifier);
-            Helix.Info.baseHealth += RunState.CurrentRegionTier * 10;
-        }
-
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
-            HighestPositiveScaleBalance = Mathf.Max(-2, 2 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier);
-            ValidCards.Add(Cards.lastHelix);
-            phaseCountdown = 3 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier;
-            if (phaseCountdown < 2) {
-                maxCooldownPeriod = 0;
-            }
-            EncounterData.StartCondition cond = new() {
-                cardsInOpponentSlots = new CardInfo[] { CardLoader.GetCardByName(Cards.lastHelix), null, null, null }
-            };
-            encounterData.startConditions.Add(cond);
-            return 1;
-        }
-
-        // clean up lasers before ending the battle
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
-            if (card == Helix) {
-                CleanUpLasers();
-            }
-            yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
     }
 }
