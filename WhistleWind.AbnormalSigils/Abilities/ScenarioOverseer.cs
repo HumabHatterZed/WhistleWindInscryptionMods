@@ -55,12 +55,12 @@ namespace WhistleWind.AbnormalSigils {
 
             // don't trigger if the player has no energy on upkeep for whatever reason
             yield return base.PreSuccessfulTriggerSequence();
-            if (this.snapshotUI.turnsToUse == 0) {
+            if (this.snapshotManager.turnsToUse == 0) {
                 yield return TakeSnapshot();
                 yield return base.LearnAbility(0.5f);
             }
             else {
-                this.snapshotUI.turnsToUse--;
+                this.snapshotManager.turnsToUse--;
             }
         }
 
@@ -179,8 +179,6 @@ namespace WhistleWind.AbnormalSigils {
 
         private AngelaSnapshotManager snapshotManager;
 
-        public int turnsToUse = 0;
-
         public bool CompletedInteraction { get; set; }
 
         public void Initialize(AngelaSnapshotManager snapshotManager) {
@@ -277,7 +275,7 @@ namespace WhistleWind.AbnormalSigils {
                 yield return DialogueHelper.PlayDialogueEvent("ScenarioOverseerFail");
             }
             this.CompletedInteraction = true;
-            turnsToUse = 2;
+            this.snapshotManager.turnsToUse = 2;
         }
     }
 
@@ -292,6 +290,8 @@ namespace WhistleWind.AbnormalSigils {
         IOnSnapshotTakenStoreInteger specialSequencer = null;
         private int? specialSequencerValue = null;
         public bool snapshotFailed = false;
+
+        public int turnsToUse = 0;
 
         public new void TakeSnapshot(SnapshotSubject subject) {
             playerSlotMods.Clear();
@@ -346,6 +346,7 @@ namespace WhistleWind.AbnormalSigils {
             playerSlotModValues.Clear();
             opponentSlotModValues.Clear();
             specialSequencerValue = null;
+            turnsToUse = 2;
         }
         private IEnumerator ApplySlotState(
             BoardState.SlotState slotState, CardSlot slot,
