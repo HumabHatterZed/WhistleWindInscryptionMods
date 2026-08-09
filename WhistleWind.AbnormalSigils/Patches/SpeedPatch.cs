@@ -133,7 +133,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
             if (slot?.Card == null)
                 return -9000;
 
-            int cardSpeed = slot.Card.GetAbilityStacks(Haste.iconId) + slot.Card.GetAbilityStacks(Bind.iconId);
+            int cardSpeed = slot.Card.GetAbilityStacks(Haste.iconId) - slot.Card.GetAbilityStacks(Bind.iconId);
             return cardSpeed;
         }
     }
