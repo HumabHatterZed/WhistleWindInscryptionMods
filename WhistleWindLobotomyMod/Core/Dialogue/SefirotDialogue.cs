@@ -6,159 +6,363 @@ namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
         private void Dialogue_Angela() {
             #region Boss Dialogue
-            CreateDialogueEvents("AngelaProspector", new()
-            {
-                NewLine("A decrepit old man.", Emotion.Neutral) },
+            CreateDialogueEvents("AngelaProspector", new() {
+                    NewLine("A decrepit", Emotion.Neutral),
+                    NewLine("old man.", Emotion.Neutral)
+                },
                 new() {
                     new() {
-                        NewLine("I believe that pack animal", Emotion.Neutral),
-                        NewLine("will aid us with its death.", Emotion.Neutral) },
-                    new() { NewLine("Do you wonder if he ever bathes?", Emotion.Neutral) },
-                    new() { NewLine("You should know what to do by now.", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaAngler", new()
-            {
-                NewLine("He appears to have a simple mind.", Emotion.Neutral),
-                NewLine("We can easily manipulate him.", Emotion.Neutral) },
-                new() {
-                    new() { NewLine("Fish are a lot like people, aren't they?", Emotion.Neutral) },
-                    new() { NewLine("I recommend holding your breath.", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaTrapperTrader", new()
-            {
-                NewLine("Everyone has a different side to them.", Emotion.Neutral),
-                NewLine("Don't you think, manager?", Emotion.Laughter) },
-                new() {
-                    new() { NewLine("Don't die manager.", Emotion.Laughter) },
-                    new() { NewLine("Watch out for traps.", Emotion.Neutral) },
-                    new() { NewLine("Does the cold bother you?", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaLeshy", new()
-            {
-                NewLine("We appear to have reached the end.", Emotion.Neutral) },
+                        NewLine("I believe", Emotion.Neutral),
+                        NewLine("that pack animal", Emotion.Neutral),
+                        NewLine("will aid us", Emotion.Neutral),
+                        NewLine("with its death.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Do you wonder", Emotion.Neutral),
+                        NewLine("if he ever", Emotion.Neutral),
+                        NewLine("bathes?", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("You should know", Emotion.Neutral),
+                        NewLine("what to do", Emotion.Neutral),
+                        NewLine("by now.", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaAngler", new() {
+                    NewLine("He seems", Emotion.Neutral),
+                    NewLine("very simple", Emotion.Neutral),
+                    NewLine("minded.", Emotion.Neutral),
+                    NewLine("We can", Emotion.Neutral),
+                    NewLine("use this", Emotion.Neutral),
+                    NewLine("to our", Emotion.Neutral),
+                    NewLine("advantage.", Emotion.Neutral)
+                },
                 new() {
                     new() {
-                        NewLine("I expect you to conquer this challenge", Emotion.Neutral),
-                        NewLine("quite easily, manager.", Emotion.Neutral) },
-                    new() { NewLine("A final trial for you, manager.", Emotion.Neutral) },
-                    new() { NewLine("It has been quite the journey, yes?", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaRoyal", new()
-            {
-                NewLine("...do not expect a comment from me.", Emotion.Neutral) },
+                        NewLine("Fish are a", Emotion.Neutral),
+                        NewLine("lot like", Emotion.Neutral),
+                        NewLine("people,", Emotion.Neutral),
+                        NewLine("aren't they?", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("I", Emotion.Neutral),
+                        NewLine("recommend", Emotion.Neutral),
+                        NewLine("holding your", Emotion.Neutral),
+                        NewLine("breath.", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaTrapperTrader", new() {
+                    NewLine("Everyone", Emotion.Neutral),
+                    NewLine("has another", Emotion.Neutral),
+                    NewLine("side to them.", Emotion.Neutral),
+                    NewLine("Don't you", Emotion.Neutral),
+                    NewLine("think so,", Emotion.Neutral),
+                    NewLine("manager?", Emotion.Laughter)
+                },
+                new() {
+                    new() {
+                        NewLine("Try to", Emotion.Laughter),
+                        NewLine("not get", Emotion.Laughter),
+                        NewLine("skinned,", Emotion.Laughter),
+                        NewLine("manager.", Emotion.Laughter)
+                    },
+                    new() {
+                        NewLine("Watch out", Emotion.Neutral),
+                        NewLine("for traps.", Emotion.Laughter)
+                    },
+                    new() {
+                        NewLine("Does the cold", Emotion.Neutral),
+                        NewLine("bother you?", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaLeshy", new() {
+                    NewLine("We appear", Emotion.Neutral),
+                    NewLine("to have reached", Emotion.Neutral),
+                    NewLine("the end.", Emotion.Neutral)
+                },
+                new() {
+                    new() {
+                        NewLine("I expect", Emotion.Neutral),
+                        NewLine("you to", Emotion.Neutral),
+                        NewLine("conquer", Emotion.Neutral),
+                        NewLine("this", Emotion.Neutral),
+                        NewLine("challenge", Emotion.Neutral),
+                        NewLine("easily,", Emotion.Neutral),
+                        NewLine("manager.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("A final", Emotion.Neutral),
+                        NewLine("trial for", Emotion.Neutral),
+                        NewLine("you,", Emotion.Neutral),
+                        NewLine("manager.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("It has been", Emotion.Neutral),
+                        NewLine("quite the", Emotion.Neutral),
+                        NewLine("journey", Emotion.Neutral),
+                        NewLine("yes?", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaRoyal", new() {
+                    NewLine("...", Emotion.Neutral),
+                    NewLine("do not expect", Emotion.Neutral),
+                    NewLine("a comment", Emotion.Neutral),
+                    NewLine("from me.", Emotion.Neutral)
+                },
                 new() {
                     new() {
                         NewLine("Do not be deceived.", Emotion.Neutral),
-                        NewLine("He is not an abnormality.", Emotion.Neutral) },
-                    new() { NewLine("An unloyal crew...", Emotion.Laughter) },
+                        NewLine("He is not an abnormality.", Emotion.Neutral)
+                    },
                     new() {
-                        NewLine("He reminds me of you", Emotion.Neutral),
-                        NewLine("in a way.", Emotion.Laughter) }
-            });
-            CreateDialogueEvents("AngelaApocalypse", new()
-            {
-                NewLine("This threat may be beyond you.", Emotion.Neutral) },
+                        NewLine("An disloyal", Emotion.Laughter),
+                        NewLine("crew...", Emotion.Laughter)
+                    },
+                    new() {
+                        NewLine("He reminds", Emotion.Neutral),
+                        NewLine("me of you", Emotion.Neutral),
+                        NewLine("in a way.", Emotion.Laughter)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaApocalypse", new() {
+                    NewLine("This threat", Emotion.Neutral),
+                    NewLine("may be", Emotion.Neutral),
+                    NewLine("beyond you.", Emotion.Neutral)
+                },
                 new() {
                     new() {
-                        NewLine("We kept them separated for", Emotion.Neutral),
-                        NewLine("this reason, manager.", Emotion.Neutral) },
-                    new() { NewLine("A final trial for you, manager.", Emotion.Neutral) },
-                    new() { NewLine("It has been quite the journey, yes?", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaOrdeal", new()
-            {
-                NewLine("Ordeals are a common occurrence", Emotion.Neutral),
-                NewLine("at the facility.", Emotion.Neutral),
-                NewLine("Nothing you can't handle, right?", Emotion.Laughter)},
+                        NewLine("We kept them", Emotion.Neutral),
+                        NewLine("separated", Emotion.Neutral),
+                        NewLine("for this", Emotion.Neutral),
+                        NewLine("reason", Emotion.Neutral),
+                        NewLine("manager.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("A final", Emotion.Neutral),
+                        NewLine("trial for", Emotion.Neutral),
+                        NewLine("you,", Emotion.Neutral),
+                        NewLine("manager.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("It has been", Emotion.Neutral),
+                        NewLine("quite the", Emotion.Neutral),
+                        NewLine("journey", Emotion.Neutral),
+                        NewLine("yes?", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaOrdeal", new() {
+                    NewLine("Ordeals are", Emotion.Neutral),
+                    NewLine("a common", Emotion.Neutral),
+                    NewLine("occurrence", Emotion.Neutral),
+                    NewLine("at the", Emotion.Neutral),
+                    NewLine("facility.", Emotion.Neutral),
+                    NewLine("Nothing", Emotion.Laughter),
+                    NewLine("you can't", Emotion.Laughter),
+                    NewLine("handle", Emotion.Laughter),
+                    NewLine("right?", Emotion.Laughter)
+                },
                 new() {
-                    new() { NewLine("Do take care of this, yes?", Emotion.Neutral) },
-                    new() { NewLine("They are the chaos factor.", Emotion.Neutral) }
-            });
+                    new() {
+                        NewLine("Do take care", Emotion.Neutral),
+                        NewLine("of this,", Emotion.Neutral),
+                        NewLine("yes?", Emotion.Neutral) },
+                    new() {
+                        NewLine("They are", Emotion.Neutral),
+                        NewLine("the chaos", Emotion.Neutral),
+                        NewLine("factor.", Emotion.Neutral) },
+                    new () {
+                        NewLine("Nothing", Emotion.Laughter),
+                        NewLine("you can't", Emotion.Laughter),
+                        NewLine("handle", Emotion.Laughter),
+                        NewLine("right?", Emotion.Laughter)
+                    }
+                }
+            );
 
-            CreateDialogueEvents("AngelaSweeper", new()
-            {
-                NewLine("An unfortunate turn", Emotion.Neutral),
-                NewLine("of events, manager.", Emotion.Neutral),
-                NewLine("Handle it quickly.", Emotion.Laughter)},
+            CreateDialogueEvents("AngelaSweeper", new() {
+                    NewLine("An unfortunate", Emotion.Neutral),
+                    NewLine("turn of events", Emotion.Neutral),
+                    NewLine("manager.", Emotion.Neutral),
+                    NewLine("Handle it", Emotion.Laughter),
+                    NewLine("quickly.", Emotion.Laughter)
+                },
                 new() {
-                    new() { NewLine("Another Night, manager?", Emotion.Neutral) }
-            });
+                    new() {
+                        NewLine("Another Night,", Emotion.Neutral),
+                        NewLine("manager?", Emotion.Neutral)
+                    }
+                }
+            );
             #endregion
 
             #region Normal Dialogue
-            CreateDialogueEvents("AngelaChoice", new()
-            {
-                NewLine("Hello manager.", Emotion.Neutral),
-                NewLine("Shall we get going?", Emotion.Surprise) },
+            CreateDialogueEvents("AngelaChoice", new() {
+                    NewLine("Hello manager.", Emotion.Neutral),
+                    NewLine("Shall we", Emotion.Surprise),
+                    NewLine("get going?", Emotion.Surprise)
+                },
                 new() {
-                    new() { NewLine("Hello manager.", Emotion.Neutral) },
-                    new() { NewLine("I am here to assist you.", Emotion.Neutral) },
-                    new() { NewLine("Shall we get going?", Emotion.Surprise) }
+                    new() {
+                        NewLine("Hello manager.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("I am here", Emotion.Neutral),
+                        NewLine("to assist you.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Shall we", Emotion.Surprise),
+                        NewLine("get going?", Emotion.Surprise)
+                    }
             });
-            CreateDialogueEvents("AngelaDrawn", new()
-            {
-                NewLine("Hello manager.", Emotion.Neutral) },
+            CreateDialogueEvents("AngelaDrawn", new() {
+                    NewLine("Hello manager.", Emotion.Neutral)
+                },
                 new() {
-                    new() { NewLine("Hello manager.", Emotion.Neutral) },
-                    new() { NewLine("Gotten yourself in trouble?", Emotion.Neutral) },
-                    new() { NewLine("I am here to assist you.", Emotion.Neutral) },
-                    new() { NewLine("You can rely on me.", Emotion.Neutral) }
+                    new() {
+                        NewLine("Hello manager.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Gotten", Emotion.Neutral),
+                        NewLine("yourself", Emotion.Neutral),
+                        NewLine("in trouble?", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("I am here", Emotion.Neutral),
+                        NewLine("to assist you.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("You can rely", Emotion.Neutral),
+                        NewLine("on me.", Emotion.Neutral)
+                    }
             });
-            CreateDialogueEvents("AngelaGivenSigil", new()
-            {
-                NewLine("Thank you.", Emotion.Neutral) },
+            CreateDialogueEvents("AngelaGivenSigil", new() {
+                    NewLine("Thank you.", Emotion.Neutral)
+                },
                 new() {
-                    new() { NewLine("Thank you.", Emotion.Neutral) },
-                    new() { NewLine("Thank you.", Emotion.Laughter) },
-                    new() { NewLine("Thank you.", Emotion.Surprise) }
-            });
-            CreateDialogueEvents("AngelaHurt", new()
-            {
-                NewLine("", Emotion.Anger) },
+                    new() {
+                        NewLine("Thank you.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Thank you.", Emotion.Laughter)
+                    },
+                    new() {
+                        NewLine("Thank you.", Emotion.Surprise)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaHurt", new() {
+                    NewLine("", Emotion.Anger)
+                },
                 new() {
-                    new() { NewLine("", Emotion.Anger) }
-            });
-            CreateDialogueEvents("AngelaPlayed", new()
-            {
-                NewLine("Combat?", Emotion.Neutral),
-                NewLine("I see.", Emotion.Curious) },
+                    new() {
+                        NewLine("", Emotion.Anger)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaPlayed", new() {
+                    NewLine("Combat?", Emotion.Neutral),
+                    NewLine("I see.", Emotion.Curious)
+                },
                 new() {
-                    new() { NewLine("Try not to make a mess.", Emotion.Neutral) },
-                    new() { NewLine("Let's hurry this up, yes?", Emotion.Surprise) },
-                    new() { NewLine("Nothing I can't overcome.", Emotion.Laughter) }
-            });
-            CreateDialogueEvents("AngelaSacrificed", new()
-            {
-                NewLine("I see.", Emotion.Anger) },
+                    new() {
+                        NewLine("Try not to", Emotion.Neutral),
+                        NewLine("make a mess.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Let's hurry", Emotion.Surprise),
+                        NewLine("this up", Emotion.Surprise),
+                        NewLine("yes?", Emotion.Surprise)
+                    },
+                    new() {
+                        NewLine("Nothing I", Emotion.Laughter),
+                        NewLine("can't over", Emotion.Laughter),
+                        NewLine("come.", Emotion.Laughter)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaSacrificed", new() {
+                    NewLine("I see.", Emotion.Anger)
+                },
                 new() {
-                    new() { NewLine("I see.", Emotion.Anger) },
-                    new() { NewLine("", Emotion.Anger) }
-            });
-            CreateDialogueEvents("AngelaSelectableBad", new()
-            {
-                NewLine("Reminds me of the facility.", Emotion.Neutral) },
+                    new() {
+                        NewLine("I see.", Emotion.Anger)
+                    },
+                    new() {
+                        NewLine("", Emotion.Anger)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaSelectableBad", new() {
+                    NewLine("No point in", Emotion.Neutral),
+                    NewLine("hesitating.", Emotion.Neutral)
+                },
                 new() {
-                    new() { NewLine("No point in hesitating.", Emotion.Neutral) },
-                    new() { NewLine("Sacrifices must be made.", Emotion.Neutral) },
-                    new() { NewLine("Nothing you should be uncomfortable with.", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaSelectableGood", new()
-            {
-                NewLine("A golden opportunity.", Emotion.Neutral) },
+                    new() {
+                        NewLine("No point in", Emotion.Neutral),
+                        NewLine("hesitating.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Sacrifices", Emotion.Neutral),
+                        NewLine("must be made.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Nothing you", Emotion.Neutral),
+                        NewLine("should be", Emotion.Neutral),
+                        NewLine("uncomfortable", Emotion.Neutral),
+                        NewLine("with.", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaSelectableGood", new() {
+                    NewLine("A golden", Emotion.Neutral),
+                    NewLine("opportunity.", Emotion.Neutral)
+                },
                 new() {
-                    new() { NewLine("A golden opportunity.", Emotion.Neutral) },
-                    new() { NewLine("I expect you to know the best choice.", Emotion.Curious) },
-                    new() { NewLine("I leave it to your discretion.", Emotion.Neutral) }
-            });
-            CreateDialogueEvents("AngelaTrial", new()
-            {
-                NewLine("We must all overcome ordeals in life.", Emotion.Neutral),
-                NewLine("You taught me that.", Emotion.Surprise) },
+                    new() {
+                        NewLine("A golden", Emotion.Neutral),
+                        NewLine("opportunity.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("I expect you", Emotion.Curious),
+                        NewLine("to know the", Emotion.Curious),
+                        NewLine("best choice.", Emotion.Curious)
+                    },
+                    new() {
+                        NewLine("I leave it", Emotion.Neutral),
+                        NewLine("to your", Emotion.Neutral),
+                        NewLine("discretion.", Emotion.Neutral)
+                    }
+                }
+            );
+            CreateDialogueEvents("AngelaTrial", new() {
+                    NewLine("We must all", Emotion.Neutral),
+                    NewLine("overcome ordeals", Emotion.Neutral),
+                    NewLine("in life.", Emotion.Neutral),
+                    NewLine("You", Emotion.Surprise),
+                    NewLine("taught me.", Emotion.Neutral),
+                    NewLine("that.", Emotion.Neutral)
+                },
                 new() {
-                    new() { NewLine("You wouldn't fail so easily, right?", Emotion.Laughter) },
-                    new() { NewLine("No point in dilly-dallying now.", Emotion.Neutral) },
-                    new() { NewLine("Yet another obstacle in my way...", Emotion.Anger) }
-            });
+                    new() {
+                        NewLine("You won't fail", Emotion.Laughter),
+                        NewLine("right?", Emotion.Laughter)
+                    },
+                    new() {
+                        NewLine("Face the fear.", Emotion.Neutral)
+                    },
+                    new() {
+                        NewLine("Yet another", Emotion.Anger),
+                        NewLine("obstacle", Emotion.Anger),
+                        NewLine("in my way...", Emotion.Anger)
+                    }
+                }
+            );
             #endregion
         }
         private void Dialogue_Binah() {
