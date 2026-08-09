@@ -10,31 +10,31 @@
 - Massive refactoring of basically everything
 - Removed unused asset files
 - Vanilla card Strange Frog now part of Mechanical Tribe
-### Apocalypse Boss
+### 🐦 Apocalypse Boss
 - Fixed boss not losing its damage reduction
 - Fixed certain fight mechanics and effects triggering at incorrect times
 - Fixed incorrect dialogue relating to reactive difficulty
 - Fixed camera not changing to show the scales when collecting direct damage
-- Bones gained from excess direct damage are now capped at 2 per turn, and will not be received if the player already has 20 Bone tokens
-- Reduced giant phase health from 40 -> 30 and overall boss Health from 100 -> 90
+- <span style='color:#DE6080'>Bones gained from excess direct damage are now capped at 2 per turn, and will not be received if the player already has 20 Bone tokens
+- <span style='color:#2084A0'>Reduced giant phase health from 40 -> 30 - overall boss Health is now 90
 - Boss is no longer considered Terrain
 - Boss now possesses Challenging sigil
 - Clarified description of Unjust Scales sigil
 - Unjust Scales sigil no longer changes behaviour and description during the final phase
 - Apocalypse sigil no longer changes behaviour and description during the final phase - split behaviour into separate sigil
 - Movement order of opponent cards is now randomised each turn
-- Hourglass item can no longer be used unless Long Arms is defeated
-- Sin can no longer be removed by Martyr and similar effects
-- Sin and Enchanted are now removed from all cards when the appropriate phase is defeated
+- <span style='color:#DE6080'>Hourglass item can no longer be used unless Long Arms is defeated
+- <span style='color:#DE6080'>Sin can no longer be removed by Martyr and similar effects
+- <span style='color:#2084A0'>Sin and Enchanted are now removed from all cards when the appropriate phase is defeated
 - Enchanted is no longer afflicted onto cards with 0 Power
-- Time Machine can no longer be activated unless Long Arms phase is defeated
+- <span style='color:#DE6080'>Time Machine can no longer be activated unless Long Arms phase is defeated
 - Time Machine now has a different effect when used during the battle
 - Overhauled reactive difficulty system
 - Final phase can gain 1 additional base Power when above certain difficulty threshold
 - Defeat sequence is now shorter if the player is at max life
 - Modified Black Forest region
 - Boss card has a unique interaction with Copycat sigil
-### Time Machine
+### 🕓 Time Machine
 - Fixed selected cards not being correctly removed from the deck
 - Fixed the activating card being a possible choice for removal
 - Fixed Nothing There not being selectable
@@ -43,9 +43,10 @@
 - Changed how card choices are determined
 - Effect now changes during custom boss fights
 - Modified rulebook description
-### Cards
+### 🃏 Cards
 - Adjusted formatting of certain cards' names to be more legible
-- 1.76 MHz: now belongs to the Mechanical tribe
+- Reformatted talking cards' dialogue to be more in-line with how vanilla talking cards speak
+- <span style='color:#2084A0'>1.76 MHz: now belongs to the Mechanical tribe
 - Adult Who Tells Lies: reworked stats from 1/5 -> 3/3
 - Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
 - Adult Who tells Lies: updated artwork
@@ -56,7 +57,7 @@
 - <span style='color:#2084A0'>Apocalypse Bird: replaced Bifurcated Strike with Trifurcated Strike
 - Army in Pink: reworked to 1/3, 3 Energy
 - Army in Black: now costs 3 Energy
-- Army in Black (spell): now considered Boneless
+- <span style='color:#DE6080'>Army in Black (spell): now considered Boneless
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
 - Big and Will Be Bad Wolf: reworked to 2/1; Blood Lust; 2 Blood
 - <span style='color:#DE6080'>Binah: Reduced Health from 5 -> 3
@@ -65,7 +66,7 @@
 - CENSORED: cards created by special ability now only inherit killed cards' Power, cost 2 Bones
 - CENSORED: updated 'learn' dialogue to hint towards existence of special ability
 - Don't Touch Me: updated artwork
-- Don't Touch Me: no longer belongs to the Mechanical tribe
+- <span style='color:#DE6080'>Don't Touch Me: no longer belongs to the Mechanical tribe
 - Dream of a Black Swan: Reworked from 2/5 -> 4/4
 - Der Freischütz: reworked from 2/2, Sniper, Persistent, 2 Blood -> 1/2, Gun For Hire, Persistent, 1 Blood
 - Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
@@ -102,19 +103,19 @@
 - The Dreaming Current: Increased Health from 2 -> 3, now possesses Nimble-Footed and Barreler
 - The Road Home: no longer summons Scaredy Cat when played if a Scaredy Cat is already in play/in the owner's possession
 - The Servant of Wrath: special ability now triggers when 2 adjacent allies die instead of 1
-- Tiphereth B: replaced Unkillable with Broken Samsara
+- <span style='color:#DE6080'>Tiphereth B: replaced Unkillable with Broken Samsara
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - Yin: now belongs to the Divine tribe
 - Yang: now belongs to the Divine tribe
 - You're Bald...: reworked into Targeted Spell with Hair Loss Serum sigil
 - Modified some portraits
-### Challenges
+### 👑 Challenges
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Adjusted points given by challenges and rearranged positioning
-- Replaced Guardian Apostle with slightly buffed Alriune during the Grizzly sequence when the Abnormal Bosses challenge is active
+- Guardian Apostle bears sequence is now its own challenge
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
 - Changed descriptions of challenges to improve clarity/follow vanilla syntax
-### General
+### 🔨 General
 - Fixed True Saviour sigil activating certain effects when it shouldn't
 - Fixed Nothing There not disguising when played by Leshy
 - Fixed camera looking at opponent queue when player draws Scaredy Cat
@@ -135,27 +136,27 @@
 - 'Apocrypha' starter deck now contains Flesh Idol instead of Skin Prophecy
 - Removed dynamic rulebook descriptions for certain sigils to improve readability and performance
 - Removed Abnormal Bosses challenge, Abnormal Encounters now also affects bosses
-### Mod Compatibility
+### 🪛 Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
 - Pack Manager API: Updated encounter pack
 - Achievements Now a required dependency
 - Achievements API: Added 1 new achievement
 - Achievements API: Modified several achievement descriptions to better indicate how to unlock them
-### Additions
+### ➕ Additions
 - Added Ordeal battles
-- Added XX Cards
+- Added WonderLab card pack
 - Added 1 Starter Deck
-- Added XX Encounters
-- Added XX items
+- Added more Encounters
+- Added more items
 - Added 6 challenges
-- Added XX abilities
+- Added more abilities
 
 ## v2.1.2 - Rough Hotfix (1/14/2024)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed WhiteNight sequence softlocking when One Sin and Hundreds of Good Deeds is in the player's hand or deck
 
 ## v2.1.1 - Minor Patch (2/19/2024)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Plague Doctor portrait not updating correctly in Act 2
 - Fixed Confession sigil causing a death loop when activated
 - Fixed WhiteNight removing the boss card during the Apocalypse Bird fight
@@ -182,7 +183,7 @@
 - Added support for Pack Management API's encounter pack beta
 
 ## v2.1.0 - Into the Twilight (1/22/2024)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Honoured Monk having the wrong portrait
 - Fixed The Road Home softlocking the game when played by Leshy
 - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
@@ -264,12 +265,12 @@
 - Removed unused dialogue events
 
 ## v2.0.2 - Minor patch (7/29/2023)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed incorrect play cost for Hokma (2 Bones -> 2 Blood)
 - Fixed 'Start With' Cheats adding extra copies when restarting a run using the retry button
 
 ## v2.0.1 - Minor patch (7/25/2023)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Bloodbath evolutions not being correctly added to the game
 - Fixed softlock when a card with a Totem-given Fledgling sigil evolves
 ### 🔧 Tweaks
@@ -288,7 +289,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Card and abilities now work and appear in Act 2
 - Improved sigil code to no longer include card-specific effects; these effects are now special abilities
 - Sniper and Sentry sigils will be reskinned and renamed while this mod is active
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Abnormality card choice now correctly displays and clears dialogue
 - Fixed custom challenges not working properly in Act 1
 - Fixed custom death cards not being created correctly in some circumstances
@@ -476,7 +477,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Refactored some internal systems
 - Tweaked card sprites
 - Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Plague Doctor's portrait not correctly updating mid-battle
 - Fixed abnormality choice node visual bug relating to card deck
 - Fixed certain singleton cards being reobtainable after certain events
@@ -486,18 +487,18 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
 
 ## v1.2.5 - Bug fix (11/23/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Actually fixed Mountain of Smiling Bodies softlocking when dying
 
 ## v1.2.4 - Big Boy patch (11/22/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed cards with custom evolutions evolving into the wrong forme when played by Leshy
 - Reverted prior change to Mountain of Smiling Bodies
 
 ## v1.2.3 - Bodies of Apostles patch (11/21/2022)
 ### 🧱 General
 - Mod now unpatches itself OnDisable
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed downed Apostles not evolving into their correct forme
 - Mountain of Smiling Bodies now checks if card slot is null when killed after evolving
 ### 🔧 Tweaks
@@ -508,7 +509,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Removed unnecessary patches
 
 ## v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed the following cards not being obtainable as card choices
     - Judgement Bird
     - One Sin and Hundreds of Good Deeds
@@ -521,7 +522,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 ### 🧱 General
 - Fixed inaccurate information in the ReadMe
 - CENSORED's ability now has opponent compatibility
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Hatred special not properly checking for other Magical Girls
 ### 🔧 Tweaks
 - Improved rulebook entry descriptions for special abilities
@@ -531,7 +532,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Adjusted the descriptions for some configurations to reflect new changes/be clearer.
 - Fixed inaccurate information in the ReadMe
 - Added PackManager compatibility
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed visual bug related to interactions with Regenerator and facedown cards
 - Fixed visual bug related to Cursed ability activating when the killer has also died
 - Fixed visual bug where created Spore Mold Creatures would glow when they shouldn't
@@ -591,7 +592,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Fixed ReadMe's description of Giant Tree being incorrectly formatted
 - Removed an duplicate entry in the ReadMe of Lady Facing the Wall
 - Changed ReadMe's description of Nothing There to display X/X for stats
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Gardener not activating at all
 - Fixed Magical Girl S and Army in Pink's special abilities activating whilst in hand
 - Fixed Omni Strike not attacking Giant cards properly
@@ -613,7 +614,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Omni Strike now attacks the base card's opposing slot if they aren't a Giant card rather than only the leftmost slot
 - All abilities now have an icon for Act 2 if you wish to mess around with them in Act 2 - NOTE: Act 2 is not supported and has not been playtested
 - Fixed inaccurate information in the ReadMe
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed custom death cards not being properly added to the game
 - Fixed Assimilator and Bloodfiend still activating when the base card has died
 - Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
@@ -713,7 +714,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Added special ability Big Bird
 
 ## v1.0.7 - Martyr bug fix (7/22/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Martyr ability softlocking when there aren't any other valid cards
 - Melting Love can now be found as a rare card
 - Judgement Bird is now found as a common choice instead of a rare
@@ -724,7 +725,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Reduced One Sin's cost from 4 Bones -> 2 Bones
 
 ## v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Apostles not entering Downed state when killed
 - Fixed Nothing There not being properly added to the deck
 - Fixed Apostle Spear emission not showing
@@ -736,7 +737,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Select cards can no longer be used at the Campfire or Mycologists
 
 ## v1.0.3 & v1.0.4 - Mountains of Coloured Text patch (6/29/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Assimilator ability not doing proper checks on the base Card
 - Fixed Assimilator ability not properly checking for MoSB evolutions (v1.0.4)
 ### 🔧 Tweaks
@@ -745,7 +746,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - Tweaked Assimilator ability OnDie trigger to be specific to MoSB
 
 ## v1.0.2 - Prayer and Bees patch (6/28/2022)
-### 🩹 Bug fixes
+### 🔨 Bug fixes
 - Fixed Queen Nest ability softlocking when Queen Bee is dropped by the Mule
 ### 🔧 Tweaks
 - Tweaked Confession ability to make Heretic sequence smoother
@@ -756,7 +757,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
 ## v1.0.1 - Bones and Trains patch (6/27/2022)
 ### 🧱 General
 - Removed the fourth zero from the in-game version number to be consistent with the Thunderstore version number
-### 🩹 Bug Fixes
+### 🔨 Bug Fixes
 - Fixed Boons of the Bone Lord not giving bones
 - Fixed cards not dropping bones if a copy was previously killed by The Train
 - Fixed The Train ability being free to activate
