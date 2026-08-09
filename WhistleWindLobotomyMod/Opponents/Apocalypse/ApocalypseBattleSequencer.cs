@@ -15,7 +15,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
-    public class ApocalypseBattleSequencer : LobotomyBossBattleSequencer, IModifyDirectDamage, IItemCanBeUsed, IOnItemPreventedFromUse {
+    public class ApocalypseBattleSequencer : LobotomyBossBattleSequencer, IModifyDirectDamage, IItemCanBeUsed, IOnItemPreventedFromUse, IOnSnapshotTakenStoreInteger {
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "ApocalypseBattleSequencer", typeof(ApocalypseBattleSequencer)).Id;
         public override Opponent.Type BossType => LobOpponentUtils.ApocalypseBossID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.ApocalypseBossDefeated;
@@ -222,12 +222,15 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
             // create the mouth objects relative to the opponent slots' positions
             foreach (CardSlot slot in specialTargetSlots.Where(x => x.IsOpponentSlot())) {
                 yield return new WaitForSeconds(0.1f);
-                GameObject obj = Instantiate(LobOpponentUtils.ApocalypseBossMouthPrefab);
-                obj.transform.localPosition = slot.transform.position + new Vector3(0f, 1.2f, 0.4f);
-                mouthIcons.Add(slot, obj);
+                InstantiateMouth(slot);
             }
             yield return new WaitForSeconds(0.5f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossMouthPreAttack", repeatLines: !seenMouthAttack);
+        }
+        private void InstantiateMouth(CardSlot slot) {
+            GameObject obj = Instantiate(LobOpponentUtils.ApocalypseBossMouthPrefab);
+            obj.transform.localPosition = slot.transform.position + new Vector3(0f, 1.2f, 0.4f);
+            mouthIcons.Add(slot, obj);
         }
         private IEnumerator SmallBirdAttackLanes() {
             bool killedCard = false;
@@ -856,6 +859,16 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
         public IEnumerator OnItemPreventedFromUse(string itemName) {
             Singleton<CameraEffects>.Instance.Shake(0.25f, 0.125f);
             yield return DialogueHelper.ShowUntilInput("The Long Bird's arms conceal time.");
+        }
+
+        public int RetrieveIntegerToStore() {
+            return BossCard.Slot.Index;
+        }
+
+        public IEnumerator OnReceiveInteger(int value) {
+            if (!finalPhase && value > -1 && value < BoardManager.Instance.OpponentSlotsCopy.Count) {
+                yield return BoardManager.Instance.AssignCardToSlot(BossCard, BoardManager.Instance.OpponentSlotsCopy[value], 0f, resolveTriggers: false);
+            }
         }
     }
 
