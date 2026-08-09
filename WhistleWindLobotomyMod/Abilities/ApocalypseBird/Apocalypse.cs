@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod {
         private static void AddApocalypse() {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Black Forest Guardians";
-            info.rulebookDescription = "This card changes its combat pattern every three turns. At 80/60/40 Health, change pattern and the previous pattern cannot used again.";
+            info.rulebookDescription = "This card changes its combat pattern every three turns. At 70/50/30 Health, disable the current pattern then change to a remaining pattern.";
             info.powerLevel = 0;
             info.passive = true;
             ApocalypseAbility.ID = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, null, TextureLoader.LoadTextureFromFile("sigilApocalypse.png")).Id;
