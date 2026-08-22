@@ -7,6 +7,7 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using UnityEngine;
 using UnityEngine.UI;
 using WhistleWind.AbnormalSigils;
@@ -33,6 +34,8 @@ namespace WhistleWind.AbnormalSigils {
         public static Ability ID { get; internal set; }
         public override Ability Ability => ID;
 
+        public const int RESTORE_COST = 2;
+
         private AngelaSnapshotManager snapshotManager;
         private AngelaSnapshotUI snapshotUI;
 
@@ -55,6 +58,7 @@ namespace WhistleWind.AbnormalSigils {
 
             // don't trigger if the player has no energy on upkeep for whatever reason
             yield return base.PreSuccessfulTriggerSequence();
+
             if (this.snapshotManager.turnsToUse == 0) {
                 yield return TakeSnapshot();
                 yield return base.LearnAbility(0.5f);
@@ -106,20 +110,21 @@ namespace WhistleWind.AbnormalSigils {
                 snapshotUI.largeScreenshotImage = ui.largeScreenshotImage;
                 snapshotUI.staticScreenshotImage = ui.staticScreenshotImage;
                 snapshotUI.noSnapshotText = ui.noSnapshotText;
+                snapshotUI.noEnergyText = Instantiate(ui.noSnapshotText.gameObject, ui.noSnapshotText.transform.parent).GetComponent<Text>();
+                snapshotUI.noEnergyText.text = "INSUFFICIENT ENERGY";
                 snapshotUI.largeScreenshot = ui.largeScreenshot;
                 snapshotUI.uiParent = ui.uiParent;
                 Destroy(ui); // remove vanilla component
             }
-            else {
-                snapshotUI.CompletedInteraction = false;
-                snapshotUI.largeScreenshot.SetActive(false);
-                snapshotUI.uiParent.SetActive(true);
-                snapshotUI.SetButtonsEnabled(true);
-                snapshotUI.gameObject.SetActive(true);
-            }
+
+            snapshotUI.CompletedInteraction = false;
+            snapshotUI.largeScreenshot.SetActive(false);
+            snapshotUI.uiParent.SetActive(true);
+            snapshotUI.SetButtonsEnabled(true);
+            snapshotUI.gameObject.SetActive(true);
 
             snapshotUI.Initialize(this.snapshotManager);
-            snapshotUI.screenshotButton.interactable = ResourcesManager.Instance.PlayerMaxEnergy > 1;
+            
             AudioController.Instance.SetLoopVolume(0.05f, 0.5f, 0, cancelOtherFades: false);
             yield return new WaitUntil(() => snapshotUI.CompletedInteraction);
             snapshotUI.gameObject.SetActive(false);
@@ -176,6 +181,7 @@ namespace WhistleWind.AbnormalSigils {
         public Image largeScreenshotImage;
 
         public Text noSnapshotText;
+        public Text noEnergyText;
 
         private AngelaSnapshotManager snapshotManager;
 
@@ -199,23 +205,29 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public void OnRestoreSnapshotPressed() {
+            Text errorText = this.noSnapshotText;
             if (this.snapshotManager.HasSnapshot) {
-                this.SetButtonsEnabled(buttonsEnabled: false);
-                base.StartCoroutine(this.RestoreSnapshotSequence());
-                AudioController.Instance.PlaySound2D("photodrone_restore_photo");
-                return;
+                if (ResourcesManager.Instance.PlayerMaxEnergy >= ScenarioOverseer.RESTORE_COST) {
+                    this.SetButtonsEnabled(buttonsEnabled: false);
+                    base.StartCoroutine(this.RestoreSnapshotSequence());
+                    AudioController.Instance.PlaySound2D("photodrone_restore_photo");
+                    return;
+                }
+                else {
+                    errorText = this.noEnergyText;
+                }
             }
             AudioController.Instance.PlaySound2D("glitch");
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.2f);
             CustomCoroutine.FlickerSequence(delegate
             {
-                if (this.noSnapshotText != null) {
-                    this.noSnapshotText.enabled = true;
+                if (errorText != null) {
+                    errorText.enabled = true;
                 }
             }, delegate
             {
-                if (this.noSnapshotText != null) {
-                    this.noSnapshotText.enabled = false;
+                if (errorText != null) {
+                    errorText.enabled = false;
                 }
             }, startOn: true, endOn: false, 0.2f, 5);
             this.screenshotButton.enabled = false;
@@ -228,11 +240,9 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public void SetButtonsEnabled(bool buttonsEnabled) {
-            UnityEngine.UI.Button button = this.cameraButton;
-            UnityEngine.UI.Button button2 = this.screenshotButton;
-            bool flag = (this.cancelButton.enabled = buttonsEnabled);
-            bool flag3 = (button2.enabled = flag);
-            button.enabled = flag3;
+            cameraButton.enabled = buttonsEnabled;
+            screenshotButton.enabled = buttonsEnabled;
+            cancelButton.enabled = buttonsEnabled;
         }
 
         private void UpdateScreenshotImage() {
