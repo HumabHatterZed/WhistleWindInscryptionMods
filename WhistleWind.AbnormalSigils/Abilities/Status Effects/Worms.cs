@@ -100,7 +100,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void StatusEffect_Worms() {
             const string rName = "Worms";
-            const string rDesc = "At the start of the owner's turn, a card bearing this effect gains 1 Worms. At 5+ Worms, this card will target ally creatures and gain a chance to inflict 1 Worms.";
+            const string rDesc = "At the start of the owner's turn, a card bearing this effect gains 1 Worms. At 5+ Worms, this card will also target ally creatures and gain a chance to inflict 1 Worms.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Worms>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.lightBrown,
                 TextureLoader.LoadTextureFromFile("sigilWorms.png", Assembly),
