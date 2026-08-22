@@ -255,7 +255,6 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         private IEnumerator TakeSnapshotSequence() {
-            //yield return ResourcesManager.Instance.SpendEnergy(1);
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetColor(GameColors.Instance.nearWhite);
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetIntensity(1f, float.MaxValue);
             this.uiParent.SetActive(value: false);
