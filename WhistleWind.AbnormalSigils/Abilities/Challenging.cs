@@ -5,7 +5,7 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Challenging() {
-            const string rulebookName = "Elite";
+            const string rulebookName = "Resilient";
             const string rulebookDescription = "[creature] is considered Made of Stone and Bleachproof.";
             Challenging.ID = AbnormalAbilityHelper.CreateAbility<Challenging>(
                 "sigilChallenging",
