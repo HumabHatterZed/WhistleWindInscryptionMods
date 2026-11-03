@@ -18,7 +18,6 @@ namespace WhistleWind.AbnormalSigils {
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: true, canStack: true);
 
-            ab.SetFlipYIfOpponent();
             ab.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilAggravating_flipped.png", Assembly));
             Aggravating.ID = ab.Id;
         }
