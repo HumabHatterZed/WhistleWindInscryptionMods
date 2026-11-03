@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_TeamLeader() {
             const string rulebookName = "Team Leader";
-            const string rulebookDescription = "While this card is on the board, all allied creatures gain 1 Power.";
+            const string rulebookDescription = "All allied creatures gain 1 Power.";
             const string dialogue = "Your beast emboldens its allies.";
 
             TeamLeader.ID = AbnormalAbilityHelper.CreateAbility<TeamLeader>(

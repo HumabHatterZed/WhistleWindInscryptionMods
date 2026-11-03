@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Idol() {
             const string rulebookName = "Idol";
-            const string rulebookDescription = "While this card is on the board, all opposing creatures lose 1 Power.";
+            const string rulebookDescription = "All creatures opposing this card lose 1 Power.";
             const string dialogue = "My beasts defer to you.";
 
             Idol.ID = AbnormalAbilityHelper.CreateAbility<Idol>(
@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// While this card is on the board, all opposing creatures lose 1 Power.
+    /// All creatures opposing this card lose 1 Power.
     /// </summary>
     public class Idol : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ID { get; internal set; }

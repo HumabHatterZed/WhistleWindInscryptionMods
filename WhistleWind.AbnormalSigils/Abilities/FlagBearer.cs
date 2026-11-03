@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_FlagBearer() {
             const string rulebookName = "Flag Bearer";
-            const string rulebookDescription = "While this card is on the board, adjacent creatures gain 2 Health.";
+            const string rulebookDescription = "Creatures adjacent to this card gain 2 Health.";
             const string dialogue = "Morale runs high.";
 
             FlagBearer.ID = AbnormalAbilityHelper.CreateAbility<FlagBearer>(
@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// While this card is on the board, adjacent creatures gain 2 Health.
+    /// Creatures adjacent to this card gain 2 Health.
     /// </summary>
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff {
         public static Ability ID { get; internal set; }

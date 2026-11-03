@@ -4,23 +4,27 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_Aggravating() {
             const string rulebookName = "Aggravating";
-            const string rulebookDescription = "While this card is on the board, all opposing creatures gain 1 Power.";
+            const string rulebookDescription = "All creatures opposing this card gain 1 Power.";
             const string dialogue = "My beasts are incensed by your creature's presence.";
 
-            Aggravating.ID = AbnormalAbilityHelper.CreateAbility<Aggravating>(
+            AbilityManager.FullAbility ab = AbnormalAbilityHelper.CreateAbility<Aggravating>(
                 "sigilAggravating",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: true, canStack: true)
-                .Id;
+                modular: false, opponent: true, canStack: true);
+
+            ab.SetFlipYIfOpponent();
+            ab.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilAggravating_flipped.png", Assembly));
+            Aggravating.ID = ab.Id;
         }
     }
     /// <summary>
-    /// While this card is on the board, all opposing creatures gain 1 Power.
+    /// All creatures opposing this card gain 1 Power.
     /// </summary>
     public class Aggravating : AbilityBehaviour, IPassiveAttackBuff {
         public static Ability ID { get; internal set; }

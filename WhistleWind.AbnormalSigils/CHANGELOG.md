@@ -40,6 +40,7 @@
 - Changed icons for Barreler sigil
 - Changed Lonely sigil's icons
 - Updated descriptions of Persistent and Piercing sigils to account for new sigil effects
+- Updated description of Aggravating to fit more with vanilla technical language
 - Updated descriptions for status effects to use similar technical language
 - Updated icons for Rightful Heir sigil to reflect its activation cost
 - Updated artwork for Jack
@@ -55,10 +56,11 @@
 - Spore Mold Creatures now inherit the name of the card they were created from
 - Sporogenic now uses PreTurnEnd trigger for effect, should eliminate any prior trigger weirdness
 - Frozen Heart card is now considered Terrain
+- Aggravating now has a custom flipped texture when on the opponent's side of the board
 - Shortened some sigil sequences
 - Sigils that inherit from ActivatedSelectSlotBehaviour are now usable by the opponent on upkeep
 - Sigil Power stat icon no longer gives a minimum of 1 Health
-- Changed tje order in which cards are damaged by Return to Nihil sigil
+- Changed the order in which cards are damaged by Return to Nihil sigil
 - Frozen Heart sigil will now give double Health to any card with Woodcutter, not just cards with a specific name
 - Barreler sigil no longer displaces cards
 - Piercing sigil now implements IShieldPreventedDamage
