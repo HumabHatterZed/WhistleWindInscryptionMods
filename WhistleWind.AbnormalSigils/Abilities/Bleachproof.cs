@@ -27,5 +27,14 @@ namespace WhistleWind.AbnormalSigils {
         private static void RemoveImmuneCards(ref List<CardSlot> __result) {
             __result.RemoveAll(x => x.Card.HasAbility(Bleachproof.ID));
         }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(MagnificusBattleSequencer), nameof(MagnificusBattleSequencer.RemoveCardAbilities))]
+        private static bool DontRemoveAbilities(PlayableCard card) {
+            if (card.HasAbility(Bleachproof.ID)) {
+                AudioController.Instance.PlaySound2D("magnificus_brush_splatter_bleach", MixerGroup.None, 0.5f);
+                return false;
+            }
+            return true;
+        }
     }
 }
