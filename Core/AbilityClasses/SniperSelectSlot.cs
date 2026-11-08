@@ -34,7 +34,7 @@ namespace WhistleWind.Core.AbilityClasses {
 
         private List<CardSlot> GetValidTargets() {
             List<CardSlot> validSlots = InitialTargets;
-            validSlots.RemoveAll(x => InvalidTargets(x));
+            validSlots.RemoveAll(InvalidTargets);
             return validSlots;
         }
         private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser) {
@@ -63,7 +63,6 @@ namespace WhistleWind.Core.AbilityClasses {
         }
         private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser) {
             List<CardSlot> validTargets = GetValidTargets();
-            validTargets.RemoveAll(x => InvalidTargets(x));
             yield return new WaitForSeconds(0.3f);
             yield return AISelectTarget(validTargets, delegate (CardSlot s) {
                 selectedSlot = s;
