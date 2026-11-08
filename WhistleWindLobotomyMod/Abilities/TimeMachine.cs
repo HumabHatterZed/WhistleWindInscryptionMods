@@ -84,19 +84,24 @@ namespace WhistleWindLobotomyMod {
             cardsInDeck.Sort((a, b) => b.PowerLevel - a.PowerLevel);
 
             int randomSeed = base.GetRandomSeed();
-            List<CardInfo> strongestCards = cardsInDeck.GetRange(0, (cardsInDeck.Count + 1) / 3);
+            List<int> strongestCardIdxs = new();
+            for (int i = 0; i < (cardsInDeck.Count + 1) / 3; i++) {
+                strongestCardIdxs.Add(i);
+            }
+
             while (cardsInDeck.Count > 0) {
                 CardInfo choice;
-                if (strongestCards.Count > 0 && SeededRandom.Bool(randomSeed++)) {
-                    choice = strongestCards.GetSeededRandom(randomSeed++);
-                    strongestCards.Remove(choice);
+                if (SeededRandom.Bool(randomSeed++) && strongestCardIdxs.Count > 0) {
+                    int idx = strongestCardIdxs.GetSeededRandom(randomSeed++);
+                    choice = cardsInDeck[idx];
+                    strongestCardIdxs.Remove(idx);
                 }
                 else {
                     choice = cardsInDeck.GetSeededRandom(randomSeed++);
                 }
                 choices.Add(choice);
                 cardsInDeck.Remove(choice);
-
+                
                 if (choices.Count > 2)
                     break;
             }
