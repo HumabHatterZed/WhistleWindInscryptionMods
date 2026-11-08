@@ -130,26 +130,37 @@ namespace WhistleWindLobotomyMod {
             }
         }
         private IEnumerator GetChosenCardToRemove(CardInfo deckCardToRemove) {
-            PlayableCard backwardClock = BoardManager.Instance.CardsOnBoard.Find(x => HelperMethods.IsCardInfoOrCopy(x.Info, deckCardToRemove));
-            if (backwardClock == null) {
-                backwardClock = PlayerHand.Instance.CardsInHand.Find(x => HelperMethods.IsCardInfoOrCopy(x.Info, deckCardToRemove));
-                if (backwardClock == null) {
+            PlayableCard playableCard = BoardManager.Instance.CardsOnBoard.Find(x => HelperMethods.IsCardInfoOrCopy(x.Info, deckCardToRemove));
+            // if the chosen card isn't on the board, check the hoof
+            if (playableCard == null) {
+                playableCard = PlayerHand.Instance.CardsInHand.Find(x => HelperMethods.IsCardInfoOrCopy(x.Info, deckCardToRemove));
+                // if not on the board or the hoof, get it from the draw pile directly
+                if (playableCard == null) {
                     CardInfo cardToDraw = CardDrawPiles.Instance.Deck.Cards.Find(x => HelperMethods.IsCardInfoOrCopy(x, deckCardToRemove));
                     if (cardToDraw != null) {
                         if (!SaveManager.SaveFile.IsPart2)
-                            (CardDrawPiles.Instance as CardDrawPiles3D).pile.Draw();
+                            CardDrawPiles3D.Instance.Pile.Draw();
 
+                        // draw the card from the deck then select it from the hoof
                         yield return CardDrawPiles.Instance.DrawCardFromDeck(cardToDraw);
+                        playableCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info == deckCardToRemove);
+                    }
+                    else {
+                        // failsafe if the card cannot be found somehow
+                        yield return CardDrawPiles.Instance.DrawCardFromDeck(CardLoader.GetCardByName(Cards.trainingDummy));
+                        playableCard = PlayerHand.Instance.CardsInHand.Last();
+
+                        yield return new WaitForSeconds(0.5f);
+                        yield return DialogueHelper.PlayAlternateDialogue("A malfunction has occurred. A stroke of good fortune for you.");
                     }
 
-                    backwardClock = PlayerHand.Instance.CardsInHand.Find(x => x.Info == deckCardToRemove);
                     yield return new WaitForSeconds(0.5f);
                 }
             }
             else {
-                backwardClock.UnassignFromSlot();
+                playableCard.UnassignFromSlot();
             }
-            chosenCard = backwardClock;
+            chosenCard = playableCard;
         }
 
         private IEnumerator BackwardSequence() {
@@ -159,9 +170,15 @@ namespace WhistleWindLobotomyMod {
             yield return GetChosenCardToRemove(chosenCardInfo);
 
             CardInfo machineInfo = SaveManager.SaveFile.CurrentDeck.Cards.Find(x => HelperMethods.IsCardInfoOrCopy(x, base.Card.Info));
+
             base.Card.UnassignFromSlot();
             PlayerHand.Instance.RemoveCardFromHand(chosenCard);
-            HelperMethods.RemoveCardFromDeck(machineInfo);
+
+            // account for possibility of getting Backward Clock through random gift (impossible) or debug menu
+            if (machineInfo != null) {
+                HelperMethods.RemoveCardFromDeck(machineInfo);
+            }
+            // always chooses a card from the deck
             HelperMethods.RemoveCardFromDeck(chosenCardInfo);
             GlitchOutAssetEffect.GlitchModel(base.Card.transform);
             GlitchOutAssetEffect.GlitchModel(chosenCard.transform);
