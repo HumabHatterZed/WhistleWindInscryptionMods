@@ -42,6 +42,7 @@ namespace WhistleWind.AbnormalSigils {
         public override int StartingBonesCost => 2;
         public override int TurnDelay => 1;
 
+        public override bool CanTargetNull() => true;
         public override bool CanActivate() {
             // if we can only target an occupied space and can't afford it.
             if (BoardManager.Instance.CardsOnBoard.Count == BoardManager.Instance.AllSlotsCopy.Count && ResourcesManager.Instance.PlayerBones < 4) {

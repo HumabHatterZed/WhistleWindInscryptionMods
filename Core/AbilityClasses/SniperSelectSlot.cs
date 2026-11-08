@@ -29,7 +29,7 @@ namespace WhistleWind.Core.AbilityClasses {
             yield break;
         }
         private bool InvalidTargets(CardSlot slot) => slot.Card == base.Card || (slot.Card?.Dead ?? false) || SlotIsNotValid(slot);
-        private bool CanTargetNull() => GetValidTargets().Exists((CardSlot s) => s.Card == null);
+        public virtual bool CanTargetNull() => false;
         private bool HasValidTarget() => GetValidTargets().Count > 0;
 
         private List<CardSlot> GetValidTargets() {

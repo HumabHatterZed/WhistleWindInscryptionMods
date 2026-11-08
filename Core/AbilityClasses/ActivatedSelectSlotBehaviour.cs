@@ -15,8 +15,8 @@ namespace WhistleWind.Core.AbilityClasses {
     /// </summary>
     public abstract class ActivatedSelectSlotBehaviour : DelayedActivatedAbilityBehaviour {
         public CardSlot selectedSlot = null;
-        public List<CardSlot> ValidTargets => BoardManager.Instance.AllSlotsCopy.Where(x => IsValidTarget(x)).ToList();
-        public bool CanTargetNull => ValidTargets.Exists(x => x.Card == null);
+        public List<CardSlot> ValidTargets => BoardManager.Instance.AllSlotsCopy.Where(IsValidTarget).ToList();
+        public virtual bool CanTargetNull() => false;
 
         public virtual bool IsValidTarget(CardSlot slot) {
             if (slot.Card != null && !slot.Card.Dead && slot.Card != base.Card) {
@@ -148,7 +148,7 @@ namespace WhistleWind.Core.AbilityClasses {
                 instance.VisualizeConfirmSniperAbility(s);
                 visualiser?.VisualizeConfirmSniperAbility(s);
             }, OnInvalidTarget, delegate (CardSlot s) {
-                if (CanTargetNull || s.Card != null) {
+                if (CanTargetNull() || s.Card != null) {
                     instance.VisualizeAimSniperAbility(base.Card.Slot, s);
                     visualiser?.VisualizeAimSniperAbility(base.Card.Slot, s);
                     if (ShowLatch) AimWeaponAnim(latchParent.gameObject, s.transform.position);
@@ -203,7 +203,7 @@ namespace WhistleWind.Core.AbilityClasses {
         private int AIEvaluateTarget(CardSlot slot, bool positiveEffect) {
             int randomVariation = SeededRandom.Range(-4, 5, base.GetRandomSeed() * slot.Index);
             if (slot.Card == null) {
-                if (!CanTargetNull)
+                if (!CanTargetNull())
                     return -1000 + randomVariation;
 
                 int num2 = UnityEngine.Random.Range(0, ValidTargets.Count);
