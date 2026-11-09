@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void Ability_YellowBrickRoad() {
             const string rulebookName = "Follow the Leader";
-            const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures move towards this card in the sigil's direction as far as possible.";
+            const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the side of the board. Allied cards move towards this card as far as possible, following the same rules.";
             const string dialogue = "Let's go, together.";
             const string triggerText = "[creature] leads your creatures forward.";
             YellowBrickRoad.ID = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils {
         }
     }
     /// <summary>
-    /// At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures move towards this card in the sigil's direction as far as possible.
+    /// At the end of its owner's turn, this card moves in the sigil's direction, looping around the side of the board. Allied cards move towards this card as far as possible, following the same rules.
     /// </summary>
     public class YellowBrickRoad : Strafe {
         public static Ability ID { get; internal set; }
@@ -37,13 +37,13 @@ namespace WhistleWind.AbnormalSigils {
             if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
                 yield break;
 
-            List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
+            List<CardSlot> slotsCopy = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
             CardSlot oldSlot = base.Card.Slot;
 
             if (base.Card.LacksAbility(Unyielding.ID)) {
                 CardSlot destination;
                 bool destinationValid;
-                bool atEndOfBoard = base.Card.Slot == allySlots.First() || base.Card.Slot == allySlots.Last();
+                bool atEndOfBoard = base.Card.Slot == slotsCopy.First() || base.Card.Slot == slotsCopy.Last();
 
                 // if slot exists and card is empty
                 bool canMoveLeftNormally = toLeft != null && toLeft.Card == null;
@@ -51,19 +51,19 @@ namespace WhistleWind.AbnormalSigils {
 
                 // if at the end of the board and we can't move normally, see if it's possible for us to loop around
                 bool canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
-                    base.Card.Slot, allySlots.First(), allySlots.Last());
+                    base.Card.Slot, slotsCopy.First(), slotsCopy.Last());
 
                 // switch direction if we can't move
                 if (base.movingLeft && !canMoveLeftNormally && !canLoopAround) {
                     base.movingLeft = false;
                     // update to see if can loop
                     canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
-                        base.Card.Slot, allySlots.First(), allySlots.Last());
+                        base.Card.Slot, slotsCopy.First(), slotsCopy.Last());
                 }
                 if (!base.movingLeft && !canMoveRightNormally && !canLoopAround) {
                     base.movingLeft = true;
                     canLoopAround = CheckIfCanLoop(atEndOfBoard, base.movingLeft, canMoveLeftNormally, canMoveRightNormally,
-                        base.Card.Slot, allySlots.First(), allySlots.Last());
+                        base.Card.Slot, slotsCopy.First(), slotsCopy.Last());
                 }
 
                 // flip card
@@ -73,7 +73,7 @@ namespace WhistleWind.AbnormalSigils {
 
                 // different destination and validation if we're looping or moving normally
                 if (canLoopAround) {
-                    destination = base.movingLeft ? allySlots.Last() : allySlots.First();
+                    destination = base.movingLeft ? slotsCopy.Last() : slotsCopy.First();
                     destinationValid = destination.Card == null;
                 }
                 else {
@@ -98,10 +98,15 @@ namespace WhistleWind.AbnormalSigils {
                 yield return Unyielding.OnPreventMovement(this);
             }
 
+            // we don't want to move the base card again
+            // and we remove cards that cannot be moved from consideration
+            slotsCopy.Remove(base.Card.Slot);
+            //allySlots.RemoveAll(x => x.Card != null && (x.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt) || !Unyielding.CardCanBeMoved(x.Card)));
+            
             // if there are other cards to move
-            if (allySlots.Count(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ID)) > 0) {
+            if (slotsCopy.Count > 0) {
                 yield return base.LearnAbility();
-                yield return MoveFollowingCards(oldSlot, allySlots);
+                yield return MoveFollowingCards(oldSlot, BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard));
             }
         }
         private IEnumerator MoveToAdjacentSlot(PlayableCard target, CardSlot destination, bool destinationValid) {
@@ -140,36 +145,63 @@ namespace WhistleWind.AbnormalSigils {
             if (!base.movingLeft)
                 boardSlotsCopy.Reverse();
 
-            // when we iterate, we want to check oldSlot first, then the slots behind this card, then the slots ahead of it
-            // based on this card's direction
+            // when we iterate, we want to check oldSlot first, then the slots behind this card,
+            // then the slots ahead of it based on this card's direction
+            // 2 1 0 3
             List<CardSlot> orderedSlots = new() { oldSlot };
-
+            List<CardSlot> orderedMoveTargets;
             // add slots behind the card
             orderedSlots.AddRange(boardSlotsCopy.FindAll(x => base.movingLeft ? x.Index > oldSlot.Index : x.Index < oldSlot.Index));
             // add slots in front of the card
             orderedSlots.AddRange(boardSlotsCopy.FindAll(x => base.movingLeft ? x.Index < oldSlot.Index : x.Index > oldSlot.Index));
 
-            // we want following cards to cling as close as possible to the base card
-            bool multipleMovements = true;
-            while (multipleMovements) {
-                // break loop if oldSlot is occupied or there aren't any cards to loop
-                multipleMovements = oldSlot.Card == null;
+            orderedMoveTargets = orderedSlots.FindAll(x => x.Card != null && Unyielding.CardCanBeMoved(x.Card));
+
+            if (orderedMoveTargets.Count == 0) {
+                //Debug.Log("No valid movement targets");
+                yield break;
+            }
+
+            // go through all possible movement targets
+            foreach (CardSlot slot in orderedMoveTargets) {
+                //Debug.Log($"Target to move: {slot.Index}");
+                if (slot.Card == null || slot == base.Card.Slot) {
+                    continue;
+                }
+
                 CardSlot destination = oldSlot;
-                foreach (CardSlot slot in orderedSlots) {
-                    CardSlot slotToCheck = Singleton<BoardManager>.Instance.GetAdjacent(destination, adjacentOnLeft: !base.movingLeft);
-                    // if the slot is null, check for loop
-                    slotToCheck ??= base.movingLeft ? boardSlots.First() : boardSlots.Last();
+                //Debug.Log($"Initial dest: {destination.Index}");
 
-                    bool atEndOfBoardSlot = destination == boardSlots.First() || destination == boardSlots.Last();
-                    bool atEndOfBoardSlotToCheck = slotToCheck == boardSlots.First() || slotToCheck == boardSlots.Last();
+                if (destination.Card != null) {
+                    foreach (CardSlot dest in orderedSlots) {
+                        // get the dest card closest to the target card
+                        CardSlot nextPossibleDest = BoardManager.Instance.GetAdjacent(destination, !base.movingLeft);
+                        nextPossibleDest ??= base.movingLeft ? boardSlots[0] : boardSlots[boardSlots.Count - 1];
 
-                    if (slotToCheck != base.Card.Slot && slotToCheck.Card != null && Unyielding.CardCanBeMoved(slotToCheck.Card) && slotToCheck.Card.LacksAllTraits(Trait.Terrain, Trait.Pelt) && destination != base.Card.Slot && destination.Card == null) {
-                        if (atEndOfBoardSlot && atEndOfBoardSlotToCheck)
-                            yield return MoveToEndOfBoard(slotToCheck.Card, destination, slotToCheck.Card.Slot, destination != null && destination.Card == null);
-                        else
-                            yield return MoveToAdjacentSlot(slotToCheck.Card, destination, destination != null && destination.Card == null);
+                        if (nextPossibleDest != base.Card.Slot && nextPossibleDest.Card == null) {
+                            destination = nextPossibleDest;
+                            //Debug.Log($"Update dest: {destination.Index}");
+                        }
                     }
-                    destination = slotToCheck;
+                }
+
+                bool destAtEndOfBoard = destination == boardSlots[0] || destination == boardSlots[boardSlots.Count - 1];
+                bool slotAtEndOfBoard = slot == boardSlots[0] || slot == boardSlots[boardSlots.Count - 1];
+
+                bool destinationValid = destination != null && destination.Card == null;
+                if (base.movingLeft) {
+                    if (destination.Index > slot.Index) {
+                        yield return MoveToEndOfBoard(slot.Card, destination, slot, destinationValid);
+                    }
+                    else {
+                        yield return MoveToAdjacentSlot(slot.Card, destination, destination != null && destination.Card == null);
+                    }
+                }
+                else if (destination.Index < slot.Index) {
+                    yield return MoveToEndOfBoard(slot.Card, destination, slot, destinationValid);
+                }
+                else {
+                    yield return MoveToAdjacentSlot(slot.Card, destination, destination != null && destination.Card == null);
                 }
             }
         }
