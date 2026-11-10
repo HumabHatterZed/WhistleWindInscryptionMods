@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils {
     public class ReturnCard : AbilityBehaviour {
         public static Ability ID { get; internal set; }
         public override Ability Ability => ID;
-
+        public const string RECALL_MOD = "wstl:Recalled";
         public static IEnumerator RecallCard(CardSlot slot, float opponentWaitAfter, bool useRecallCost = true) {
             PlayableCard card = slot.Card;
 
@@ -38,7 +38,7 @@ namespace WhistleWind.AbnormalSigils {
                 bloodCostAdjustment = -999,
                 energyCostAdjustment = -999,
                 nullifyGemsCost = true,
-                singletonId = "wstl:Recalled"
+                singletonId = RECALL_MOD
             };
 
             // use to store new modified cost
@@ -105,7 +105,12 @@ namespace WhistleWind.AbnormalSigils {
             }
         }
 
-        public static int GetBonesCost(PlayableCard card) => Mathf.Max(0, 2 - (TurnManager.Instance.TurnNumber - card.TurnPlayed));
+        public static int GetBonesCost(PlayableCard card) {
+            // we use a patch to ensure that the card's Bone cost matches this value
+            int recallCost = Mathf.Max(0, 2 - (TurnManager.Instance.TurnNumber - card.TurnPlayed));
+            //AbnormalPlugin.Log.LogDebug($"RecallCost: [{card.Info.name}] {recallCost}");
+            return recallCost;
+        }
     }
 
     public partial class AbnormalPlugin {
