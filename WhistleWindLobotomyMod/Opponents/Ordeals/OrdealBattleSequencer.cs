@@ -151,12 +151,13 @@ namespace WhistleWindLobotomyMod.Opponents {
                 int currencyToGive = ordealTier switch {
                     3 => 10,
                     2 => 7,
-                    1 => 5,
+                    1 => 4,
                     _ => 2
                 };
                 ViewManager.Instance.SwitchToView(View.Default);
                 RunState.Run.currency += currencyToGive;
                 yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(currencyToGive, this);
+                yield return DialogueHelper.PlayDialogueEvent("OrdealCurrency");
             }
         }
 
