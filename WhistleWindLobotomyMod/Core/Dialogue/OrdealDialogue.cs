@@ -15,6 +15,9 @@ namespace WhistleWindLobotomyMod {
                 "Tired and aching, you seek out a place you and your beasts can rest and recover. Your journey has ended, for now."
             });
 
+            CreateDialogueEvents("OrdealCurrency", new() {
+                "A small reward to commend your efforts." });
+
             CreateDialogueEvents("OrdealPersistence", new() {
                 "The streets will be swept clean." });
 
