@@ -167,6 +167,11 @@ namespace WhistleWindLobotomyMod.Opponents {
             OrdealDisplayConsole.Instance.SetShown(false);
             yield return new WaitForSeconds(1.5f);
 
+            Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
+        }
+        public override IEnumerator DefeatedOpponentSequence() {
             // if this is a boss ordeal, restore life and setup a rare card sequence
             if (IsBoss()) {
                 if (RunState.CurrentRegionTier == 3) {
@@ -176,12 +181,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                     yield return DefeatedBossSequence();
                 }
             }
-
-            Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
-
         public IEnumerator DefeatedFinalBossSequence() {
             Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
             yield return new WaitForSeconds(0.5f);
@@ -207,9 +207,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             yield return new WaitForSeconds(0.75f);
             this.CleanUpBossBehaviours();
             CustomCoroutine.WaitThenExecute(1f, LeshyAnimationController.Instance.HideArms);
-
             Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(0.8f);
+
             if (RunState.Run.maxPlayerLives > 1) {
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ReplenishLives", TextDisplayer.MessageAdvanceMode.Input);
                 yield return new WaitForSeconds(0.25f);
@@ -218,9 +218,11 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
                 yield return Singleton<CandleHolder>.Instance.ReplenishFlamesSequence();
                 RunState.Run.playerLives = RunState.Run.maxPlayerLives;
+
+                Singleton<TurnManager>.Instance.PostBattleSpecialNode = new ChooseRareCardNodeData();
             }
-            Singleton<TurnManager>.Instance.PostBattleSpecialNode = new ChooseRareCardNodeData();
         }
+
         public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => true;
         public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles) {
             if (drawPiles.turnsSinceExhausted == 0) {
