@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils.Patches {
     /// <summary>
-    /// Patches to make abilities function properly
+    /// Patches to make ReturnCard and recall functionality work properly.
     /// </summary>
     [HarmonyPatch]
     internal class ReturnCardPatches {
