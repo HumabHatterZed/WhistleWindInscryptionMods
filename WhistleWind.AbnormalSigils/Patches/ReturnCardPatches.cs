@@ -25,7 +25,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CardExtensions), nameof(CardExtensions.BonesCost))]
-        private static void GuarnteeCorrectBonesCost(ref int __result, PlayableCard card) {
+        private static void GuaranteeCorrectBonesCost(ref int __result, PlayableCard card) {
             CardModificationInfo recallMod = card.TemporaryMods.Find(x => x.singletonId == ReturnCard.RECALL_MOD);
             if (recallMod != null) { 
                 __result = recallMod.bonesCostAdjustment;
