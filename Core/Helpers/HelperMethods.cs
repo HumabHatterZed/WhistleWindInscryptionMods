@@ -104,13 +104,24 @@ namespace WhistleWind.Core.Helpers {
         public static IEnumerator HealCard(int amount, PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null) {
             bool faceDown = card.FaceDown;
             yield return card.FlipFaceUp(faceDown);
-            card.Anim.LightNegationEffect();
+            if (amount < 0) {
+                card.Anim.PlayHitAnimation();
+            }
+            else {
+
+                card.Anim.LightNegationEffect();
+            }
             card.HealDamage(amount);
             onHealCallback?.Invoke(card);
             yield return new WaitForSeconds(postWait);
-            yield return card.FlipFaceDown(faceDown);
-            if (faceDown)
-                yield return new WaitForSeconds(0.4f);
+            if (card.Health <= 0) {
+                yield return card.Die(false, null);
+            }
+            else {
+                yield return card.FlipFaceDown(faceDown);
+                if (faceDown)
+                    yield return new WaitForSeconds(0.4f);
+            }
         }
         public static void RemoveCardFromDeck(CardInfo info) {
             if (SaveManager.SaveFile.IsPart2) {
