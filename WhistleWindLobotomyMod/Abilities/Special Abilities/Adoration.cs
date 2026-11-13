@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod {
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
-            if (base.PlayableCard.Health >= base.PlayableCard.MaxHealth || base.PlayableCard.Health > 1)
+            if (base.PlayableCard.Health > 1 && base.PlayableCard.MaxHealth != 1)
                 yield break;
 
             yield return HelperMethods.ChangeCurrentView(View.Board);
@@ -27,8 +27,8 @@ namespace WhistleWindLobotomyMod {
             CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.PlayableCard.Slot, true);
             CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.PlayableCard.Slot, false);
 
-            bool leftValid = leftSlot?.Card != null && leftSlot.Card.HasTrait(AbnormalPlugin.LovingSlime) && leftSlot.Card.Info.name != base.PlayableCard.Info.name;
-            bool rightValid = rightSlot?.Card != null && rightSlot.Card.HasTrait(AbnormalPlugin.LovingSlime) && rightSlot.Card.Info.name != base.PlayableCard.Info.name;
+            bool leftValid = leftSlot?.Card != null && leftSlot.Card.HasTrait(AbnormalPlugin.LovingSlime) && leftSlot.Card.LacksSpecialAbility(Adoration.specialAbility);
+            bool rightValid = rightSlot?.Card != null && rightSlot.Card.HasTrait(AbnormalPlugin.LovingSlime) && rightSlot.Card.LacksSpecialAbility(Adoration.specialAbility);
 
             // break if none are valid
             if (!leftValid && !rightValid)
@@ -36,6 +36,7 @@ namespace WhistleWindLobotomyMod {
 
             // find out how much Health we can heal back
             int missingHealth = base.PlayableCard.MaxHealth - base.PlayableCard.Health;
+
             if (leftValid && missingHealth > 0) {
                 // if we need to absorb more health than the left card has, only heal by the left card's current Health
                 int healAmount = (leftSlot.Card.Health - missingHealth) > 0 ? missingHealth : leftSlot.Card.Health;
@@ -43,33 +44,20 @@ namespace WhistleWindLobotomyMod {
 
                 leftSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                leftSlot.Card.Status.damageTaken += healAmount;
-                leftSlot.Card.UpdateStatsText();
-                if (leftSlot.Card.Health > 0)
-                    leftSlot.Card.Anim.PlayHitAnimation();
-                else
-                    yield return leftSlot.Card.Die(false);
-
-                base.Card.Anim.LightNegationEffect();
-                base.PlayableCard.HealDamage(healAmount);
+                yield return leftSlot.Card.Heal(-healAmount);
+                yield return base.PlayableCard.Heal(healAmount);
                 yield return new WaitForSeconds(0.2f);
 
             }
+
             // if rightValid and we still have missing health, absorb from the right card as well
             if (rightValid && missingHealth > 0) {
                 int healAmount = (rightSlot.Card.Health - missingHealth) > 0 ? missingHealth : rightSlot.Card.Health;
 
                 rightSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                rightSlot.Card.Status.damageTaken += healAmount;
-                rightSlot.Card.UpdateStatsText();
-                if (rightSlot.Card.Health > 0)
-                    rightSlot.Card.Anim.PlayHitAnimation();
-                else
-                    yield return rightSlot.Card.Die(false);
-
-                base.Card.Anim.LightNegationEffect();
-                base.PlayableCard.HealDamage(healAmount);
+                yield return rightSlot.Card.Heal(-healAmount);
+                yield return base.PlayableCard.Heal(healAmount);
                 yield return new WaitForSeconds(0.2f);
             }
 
