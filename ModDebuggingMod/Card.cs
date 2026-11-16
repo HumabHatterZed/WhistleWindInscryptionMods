@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod {
@@ -9,7 +10,8 @@ namespace ModDebuggingMod {
 
             CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",
                 attack: 1, health: 100)
-                .AddAbilities(Test.ability)
+                .AddAbilities(Bleachproof.ID)
+                .SetGBCPlayable(CardTemple.Nature)
                 //.SetCost(0, 0, 0, new List<GemType>() { GemType.Blue, GemType.Blue, GemType.Green, GemType.Green, GemType.Green, GemType.Green, GemType.Orange })
                 //.AddAbilities(Test.ability)
                 //.AddSpecialAbilities(BlindRage.specialAbility)

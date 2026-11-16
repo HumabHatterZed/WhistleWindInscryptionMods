@@ -1,7 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
+using System.Collections;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.StatusEffects;
+
 //using InscryptionAPI.Slots;
 using WhistleWind.Core.Helpers;
 
@@ -18,21 +22,15 @@ namespace ModDebuggingMod {
                 modular: true, opponent: false, canStack: true).Id;
         }
     }
-    public class Test : AbilityBehaviour, ISetupAttackSequence {
+    public class Test : AbilityBehaviour {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot) {
-            Plugin.Log.LogInfo("Modify");
-            return card.Slot.opposingSlot.GetAdjacentSlots(true);
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) {
+            return true;
         }
-
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
-            return 0;
-        }
-
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
-            return card == base.Card && modType == OpposingSlotTriggerPriority.ReplacesDefaultOpposingSlot;
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
+            yield return target.AddStatusEffect<Worms>(5, true);
         }
     }
 
