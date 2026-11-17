@@ -147,7 +147,13 @@ namespace WhistleWindLobotomyMod.Opponents {
         /// </summary>
         /// <returns></returns>
         public override IEnumerator PreCleanUp() {
-            if (Opponent.GiveCurrencyOnDefeat && TurnManager.Instance.PlayerWon) {
+            if (TurnManager.Instance.PlayerWon) {
+                AchievementAPI.Unlock(ordealType == OrdealType.White, AchievementAPI.Fruition);
+                AchievementAPI.Unlock(ordealTier == 3, AchievementAPI.FullMoon);
+                
+                if (!Opponent.GiveCurrencyOnDefeat) {
+                    yield break;
+                }
                 int currencyToGive = ordealTier switch {
                     3 => 10,
                     2 => 7,
