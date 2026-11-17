@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 2/4 Cycler
+        /// <c>(2/4) (<see cref="Cycler"/>) (2 Blood)</c>
         /// </summary>
         public const string bigBird = "wstl_bigBird";
         private static void BigBird_O0240() {

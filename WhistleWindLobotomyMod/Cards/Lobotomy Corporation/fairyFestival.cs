@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Bloodfiend
+        /// <c>(1/1) (<see cref="Bloodfiend"/>) (1 Blood)</c>
         /// </summary>
         public const string fairyFestival = "wstl_fairyFestival";
         private static void FairyFestival_F0483() {

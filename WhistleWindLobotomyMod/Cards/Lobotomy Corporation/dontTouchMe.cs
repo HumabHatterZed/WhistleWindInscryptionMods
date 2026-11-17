@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 0/1 Punisher
+        /// <c>(0/1) (<see cref="Punisher"/>) (2 Energy)</c>
         /// </summary>
         public const string dontTouchMe = "wstl_dontTouchMe";
         private static void DontTouchMe_O0547() {

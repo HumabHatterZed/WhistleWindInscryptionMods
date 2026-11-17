@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(0/2) (1 Energy)</c>
+        /// </summary>
         public const string trainingDummy = "wstl_trainingDummy";
         private static void TrainingDummy_00000() {
             string name = "Standard Training-Dummy Rabbit";

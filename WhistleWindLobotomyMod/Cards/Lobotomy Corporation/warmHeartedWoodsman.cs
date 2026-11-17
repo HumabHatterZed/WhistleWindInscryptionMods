@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(2/3) (<see cref="Woodcutter"/>) (2 Blood)</c>
+        /// </summary>
         public const string warmHeartedWoodsman = "wstl_warmHeartedWoodsman";
         private static void WarmHeartedWoodsman_F0532() {
             string textureName = "warmHeartedWoodsman";

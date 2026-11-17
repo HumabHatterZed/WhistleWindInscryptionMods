@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 2/1 Annoying
+        /// <c>(2/1) (BuffEnemy) (3 Energy)</c>
         /// </summary>
         public const string mhz176 = "wstl_mhz176";
         private static void MHz176_T0727() {

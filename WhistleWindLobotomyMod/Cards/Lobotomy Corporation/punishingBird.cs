@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Airborne, Punisher
+        /// <c>(1/1) (<see cref="Punisher"/>, Flying) (1 Blood)</c>
         /// </summary>
         public const string punishingBird = "wstl_punishingBird";
         private static void PunishingBird_O0256() {

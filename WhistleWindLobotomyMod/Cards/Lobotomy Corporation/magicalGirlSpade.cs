@@ -9,11 +9,11 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/4 Split Strike, Piercing
+        /// <c>(1/4) (SplitStrike) (2 Blood)</c>
         /// </summary>
         public const string knightOfDespair = "wstl_knightOfDespair";
         /// <summary>
-        /// 1/4 Protector
+        /// <c>(1/4) (<see cref="Protector"/>) (2 Blood)</c>
         /// </summary>
         public const string magicalGirlSpade = "wstl_magicalGirlSpade";
         public const string knightOfDespairPixel = "wstlGBC_knightOfDespairPixel";

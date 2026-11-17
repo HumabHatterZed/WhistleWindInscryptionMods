@@ -7,7 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 0/3 Regenerator
+        /// <c>(0/3) (<see cref="Regenerator"/>) (1 Blood)</c>
         /// </summary>
         public const string yang = "wstl_yang";
         private static void Yang_O07103() {

@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(0/1) (<see cref="RandomAbility"/>) (2 Blood) (<see cref="SigilPower"/>)</c>
+        /// </summary>
         public const string dimensionalRefraction = "wstl_dimensionalRefraction";
         private static void DimensionalRefraction_O0388() {
             string textureName = "dimensionalRefraction";

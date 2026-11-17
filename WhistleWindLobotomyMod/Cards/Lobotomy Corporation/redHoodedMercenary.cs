@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 2/1 Bitter Enemies, Sniper
+        /// <c>(2/1) (<see cref="ActivatedSniper"/>) (1 Blood)</c>
         /// </summary>
         public const string redHoodedMercenary = "wstl_redHoodedMercenary";
         private static void RedHoodedMercenary_F0157() {

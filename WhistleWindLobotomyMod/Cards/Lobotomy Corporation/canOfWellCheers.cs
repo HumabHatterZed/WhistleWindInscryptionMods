@@ -10,10 +10,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Waterborne, Strafe
+        /// <c>(1/1) (<see cref="Submerge"/>, <see cref="Strafe"/>) (1 Blood)</c>
         /// </summary>
         public const string canOfWellCheers = "wstl_canOfWellCheers";
+        /// <summary>
+        /// <c>(2/1) (<see cref="Brittle"/>, <see cref="IceCube"/>) (5 Bones)</c>
+        /// </summary>
         public const string skeletonShrimp = "wstl_SKELETON_SHRIMP";
+        /// <summary>
+        /// <c>(0/1) (Terrain)</c>
+        /// </summary>
         public const string crumpledCan = "wstl_CRUMPLED_CAN";
         private static void CanOfWellCheers_F0552() {
             string textureName = "skeleton_can";

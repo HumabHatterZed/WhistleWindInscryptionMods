@@ -9,13 +9,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/2 Opportunistic
+        /// <c>(1/2) (<see cref="OneSided"/>) (1 Blood)</c>
         /// </summary>
         public const string magicalGirlHeart = "wstl_magicalGirlHeart";
+        /// <summary>
+        /// <c>(8/2) (<see cref="OneSided"/>, <see cref="Piercing"/>) (1 Blood)</c>
+        /// </summary>
         public const string queenOfHatred = "wstl_queenOfHatred";
+        /// <summary>
+        /// <c>(0/2) (1 Blood)</c>
+        /// </summary>
         public const string queenOfHatredTired = "wstl_queenOfHatredTired";
+        /// <summary>
+        /// <c>(1/1) (<see cref="OneSided"/>) (1 Blood)</c>
+        /// </summary>
         public const string magicalGirlHeartPixel = "wstlGBC_magicalGirlHeart";
+        /// <summary>
+        /// <c>(6/2) (<see cref="OneSided"/>, <see cref="Piercing"/>) (1 Blood)</c>
+        /// </summary>
         public const string queenOfHatredPixel = "wstlGBC_queenOfHatred";
+        /// <summary>
+        /// <c>(0/2) (1 Blood)</c>
+        /// </summary>
         public const string queenOfHatredTiredPixel = "wstlGBC_queenOfHatredTired";
         private static void MagicalGirlHeart_O0104() {
             string name = "Magical Girl";

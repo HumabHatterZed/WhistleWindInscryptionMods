@@ -9,7 +9,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/2 Piercing
+        /// <c>(1/2) (<see cref="Piercing"/>) (1 Blood)</c>
         /// </summary>
         public const string fragmentOfUniverse = "wstl_fragmentOfUniverse";
         private static void FragmentOfUniverse_O0360() {

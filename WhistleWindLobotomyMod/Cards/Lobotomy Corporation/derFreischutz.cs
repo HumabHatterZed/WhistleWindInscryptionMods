@@ -9,7 +9,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 2/2 Sniper, Persistent
+        /// <c>(2/2) (Sniper, <see cref="Persistent"/>) (7 Bones)</c>
         /// </summary>
         public const string derFreischutz = "wstl_derFreischutz";
         private static void DerFreischutz_F0169() {

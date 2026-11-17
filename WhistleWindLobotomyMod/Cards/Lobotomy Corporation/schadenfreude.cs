@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(1/1) (<see cref="Sentry"/>) (3 Energy)</c>
+        /// </summary>
         public const string schadenfreude = "wstl_schadenfreude";
         private static void Schadenfreude_O0576() {
             string textureName = "schadenfreude";

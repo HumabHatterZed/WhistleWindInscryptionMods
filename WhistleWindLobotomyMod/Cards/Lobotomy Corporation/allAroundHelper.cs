@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod {
     /// </summary>
     public partial class Cards {
         /// <summary>
-        /// 1/3 Strafe, Split Strike
+        /// <c>(1/3) (SplitStrike, <see cref="Strafe"/>) (4 Energy)</c>
         /// </summary>
         public const string allAroundHelper = "wstl_allAroundHelper";
         private static void AllAroundHelper_T0541() {

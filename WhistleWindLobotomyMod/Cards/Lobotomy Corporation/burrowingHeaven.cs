@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 0/1 Guardian, Sentry
+        /// <c>(0/1) (<see cref="GuardDog"/>, <see cref="Sentry"/>) (2 Bones)</c>
         /// </summary>
         public const string burrowingHeaven = "wstl_burrowingHeaven";
         private static void BurrowingHeaven_O0472() {

@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/2 Sharp
+        /// <c>(1/2) (<see cref="Sharp"/>) (4 Bones)</c>
         /// </summary>
         public const string wallLady = "wstl_wallLady";
         private static void WallLady_F0118() {

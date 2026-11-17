@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 0/2 Healer
+        /// <c>(0/2) (<see cref="Healer"/>) (2 Energy)</c>
         /// </summary>
         public const string theresia = "wstl_theresia";
         private static void Theresia_T0909() {

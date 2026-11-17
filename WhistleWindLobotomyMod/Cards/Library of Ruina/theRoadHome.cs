@@ -10,7 +10,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Follow the Leader
+        /// <c>(1/1) (<see cref="YellowBrickRoad"/>) (1 Blood)</c>
         /// </summary>
         public const string theRoadHome = "wstl_theRoadHome";
         public const string theRoadHomePixel = "wstlGBC_theRoadHome";

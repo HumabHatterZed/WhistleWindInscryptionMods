@@ -7,7 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 4/1
+        /// <c>(4/1) (8 Bones)</c>
         /// </summary>
         public const string forsakenMurderer = "wstl_forsakenMurderer";
         private static void ForsakenMurderer_T0154() {

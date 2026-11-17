@@ -10,7 +10,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/2 Gift Giver
+        /// <c>(1/2) (<see cref="GiftGiver"/>) (1 Blood)</c>
         /// </summary>
         public const string laetitia = "wstl_laetitia";
         private static void Laetitia_O0167() {

@@ -7,6 +7,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(1/1) (<see cref="Grinder"/>) (1 Blood)</c>
+        /// </summary>
         public const string weCanChangeAnything = "wstl_weCanChangeAnything";
         private static void WeCanChangeAnything_T0985() {
             string name = "We Can Change Anything";

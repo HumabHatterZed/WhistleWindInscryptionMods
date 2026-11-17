@@ -9,7 +9,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Roots
+        /// <c>(1/1) (<see cref="Roots"/>) (3 Bones)</c>
         /// </summary>
         public const string snowWhitesApple = "wstl_snowWhitesApple";
         private static void SnowWhitesApple_F0442() {

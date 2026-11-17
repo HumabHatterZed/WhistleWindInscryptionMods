@@ -7,9 +7,12 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Fledgling, Airborne
+        /// <c>(1/1) (<see cref="Evolve"/>, Flying) (1 Blood)</c>
         /// </summary>
         public const string voidDream = "wstl_voidDream";
+        /// <summary>
+        /// <c>(2/3) (DebuffEnemy) (2 Blood)</c>
+        /// </summary>
         public const string voidDreamRooster = "wstl_voidDreamRooster";
         private static void VoidDream_T0299() {
             string textureName = "voidDreamRooster";

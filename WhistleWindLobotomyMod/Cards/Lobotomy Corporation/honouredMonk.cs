@@ -7,7 +7,13 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(2/1) (<see cref="Evolve"/>) (2 Blood)</c>
+        /// </summary>
         public const string honouredMonk = "wstl_honouredMonk";
+        /// <summary>
+        /// <c>(4/2) (2 Blood)</c>
+        /// </summary>
         public const string cloudedMonk = "wstl_cloudedMonk";
         private static void HonouredMonk_D01110() {
             string name = "Clouded Monk";

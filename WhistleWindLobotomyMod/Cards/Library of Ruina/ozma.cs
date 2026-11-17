@@ -8,7 +8,13 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(1/2) (<see cref="RightfulHeir"/>) (1 Blood)</c>
+        /// </summary>
         public const string ozma = "wstl_ozma";
+        /// <summary>
+        /// <c>(1/2) (<see cref="RightfulHeir"/>) (1 Blood)</c>
+        /// </summary>
         public const string ozmaPixel = "wstlGBC_ozma";
         private static void Ozma_F04116() {
             string name = "Ozma";

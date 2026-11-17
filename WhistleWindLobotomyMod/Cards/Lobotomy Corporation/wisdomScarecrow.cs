@@ -9,9 +9,12 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Bloodfiend
+        /// <c>(1/1) (<see cref="Bloodfiend"/>) (4 Bones)</c>
         /// </summary>
         public const string wisdomScarecrow = "wstl_wisdomScarecrow";
+        /// <summary>
+        /// <c>(1/1) (<see cref="Bloodfiend"/>) (4 Bones)</c>
+        /// </summary>
         public const string wisdomScarecrowPixel = "wstlGBC_wisdomScarecrow";
         private static void WisdomScarecrow_F0187() {
             string name = "Scarecrow Searching for Wisdom";

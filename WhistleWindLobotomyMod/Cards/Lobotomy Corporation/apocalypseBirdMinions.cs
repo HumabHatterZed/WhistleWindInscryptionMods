@@ -10,15 +10,15 @@ namespace WhistleWindLobotomyMod {
         public const string forestKeeper = "wstl_forestKeeper";
         public const string runawayBird = "wstl_runawayBird";
         /// <summary>
-        /// 2/1 Binding Strike
+        /// <c>(2/1) (<see cref="BindingStrike"/>) (2 Blood)</c>
         /// </summary>
         public const string eyeballChick_mook = "wstl_eyeballChick_mook";
         /// <summary>
-        /// 1/2 Bloodlust
+        /// <c>(1/2) (<see cref="GainAttackOnKill"/>) (2 Blood)</c>
         /// </summary>
         public const string forestKeeper_mook = "wstl_forestKeeper_mook";
         /// <summary>
-        /// 1/2 High Strung
+        /// <c>(1/1) (<see cref="HighStrung"/>) (2 Blood)</c>
         /// </summary>
         public const string runawayBird_mook = "wstl_runawayBird_mook";
         private static void ApocalypseBirdMinions() {

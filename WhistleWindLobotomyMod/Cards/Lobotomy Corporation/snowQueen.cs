@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(2/2) (<see cref="FrostRuler"/>) (2 Blood)</c>
+        /// </summary>
         public const string snowQueen = "wstl_snowQueen";
         private static void SnowQueen_F0137() {
             string name = "The Snow Queen";

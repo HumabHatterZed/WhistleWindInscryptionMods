@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(0/3) (<see cref="GuardDog"/>, <see cref="Sharp"/>) (3 Bones)</c>
+        /// </summary>
         public const string redShoes = "wstl_redShoes";
         private static void RedShoes_O0408() {
             string textureName = "redShoes";

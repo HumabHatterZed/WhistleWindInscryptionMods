@@ -5,6 +5,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(1/2) (<see cref="BindingStrike"/>) (1 Blood)</c>
+        /// </summary>
         public const string dingleDangle = "wstlWonder_dingleDangle";
         private static void DingleDangle() {
             string textureName = "dingleDangle";

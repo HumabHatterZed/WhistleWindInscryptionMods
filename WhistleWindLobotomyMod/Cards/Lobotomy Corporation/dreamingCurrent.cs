@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(4/3) (<see cref="Barreler"/>, <see cref="NimbleFoot"/>) (3 Blood)</c>
+        /// </summary>
         public const string dreamingCurrent = "wstl_dreamingCurrent";
         private static void DreamingCurrent_T0271() {
             string textureName = "dreamingCurrent";

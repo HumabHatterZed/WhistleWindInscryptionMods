@@ -7,7 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/1 Double Strike
+        /// <c>(1/1) (DoubleStrike) (1 Blood)</c>
         /// </summary>
         public const string funeralOfButterflies = "wstl_funeralOfButterflies";
         private static void FuneralOfButterflies_T0168() {

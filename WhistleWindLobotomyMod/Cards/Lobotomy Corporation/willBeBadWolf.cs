@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(2/1) (<see cref="GainAttackOnKill"/>) (2 Blood)</c>
+        /// </summary>
         public const string willBeBadWolf = "wstl_willBeBadWolf";
         private static void WillBeBadWolf_F0258() {
             string textureName = "willBeBadWolf";

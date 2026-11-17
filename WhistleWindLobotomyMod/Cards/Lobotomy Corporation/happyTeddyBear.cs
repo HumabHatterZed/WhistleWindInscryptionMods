@@ -7,7 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/5 Guardian
+        /// <c>(1/5) (<see cref="GuardDog"/>) (6 Bones)</c>
         /// </summary>
         public const string happyTeddyBear = "wstl_happyTeddyBear";
         private static void HappyTeddyBear_T0406() {

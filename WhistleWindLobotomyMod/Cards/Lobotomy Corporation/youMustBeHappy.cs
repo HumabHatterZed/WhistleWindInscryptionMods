@@ -5,6 +5,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(0/2) (<see cref="Scrambler"/>) (2 Energy)</c>
+        /// </summary>
         public const string youMustBeHappy = "wstl_youMustBeHappy";
         private static void YouMustBeHappy_T0994() {
             string name = "You Must Be Happy";

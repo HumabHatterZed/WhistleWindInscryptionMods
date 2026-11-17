@@ -6,6 +6,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
+        /// <summary>
+        /// <c>(2/2) (<see cref="Persecutor"/>) (2 Blood)</c>
+        /// </summary>
         public const string silentGirl = "wstl_silentGirl";
         private static void SilentGirl_O010() {
             string textureName = "silentGirl";

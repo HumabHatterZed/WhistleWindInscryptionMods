@@ -8,6 +8,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         public const string oneSinName = "One Sin and Hundreds\nof Good Deeds";
+        /// <summary>
+        /// <c>(0/1) (<see cref="Martyr"/>) (1 Bones)</c>
+        /// </summary>
         public const string oneSin = "wstl_oneSin";
         private static void OneSin_O0303() {
             string desc = "A floating skull. Its hollow sockets see through you.";

@@ -8,7 +8,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 1/2 Stinky
+        /// <c>(1/2) (DebuffEnemy) (4 Bones)</c>
         /// </summary>
         public const string oldLady = "wstl_oldLady";
         private static void OldLady_O0112() {

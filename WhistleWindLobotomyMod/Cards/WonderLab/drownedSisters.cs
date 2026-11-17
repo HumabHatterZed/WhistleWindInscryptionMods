@@ -7,7 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod {
     public partial class Cards {
         /// <summary>
-        /// 0/1 Stinky, Waterborne
+        /// <c>(0/1) (<see cref="Submerge"/>, DebuffEnemy) (1 Bone, 1 Energy)</c>
         /// </summary>
         public const string drownedSisters = "wstlWonder_drownedSisters";
         private static void DrownedSisters() {
