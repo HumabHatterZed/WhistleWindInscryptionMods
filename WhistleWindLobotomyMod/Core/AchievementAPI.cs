@@ -41,10 +41,10 @@ namespace WhistleWindLobotomyMod {
                                 false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
 
             FullMoon = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Our Work", "Complete a Midnight Ordeal.",
-                false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
+                false, grp, TextureLoader.LoadTextureFromFile("achievementMidOrdeal.png")).ID;
 
-            /*                Fruition = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "The Trials", "Complete the Ordeals of White.",
-                                false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;*/
+            Fruition = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "The Trials", "Complete the Ordeals of White.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementBossOrdeal.png")).ID;
 
             Impuritas = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Impuritas Civitatis", "Meet Angela at a Sephirot choice node.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
