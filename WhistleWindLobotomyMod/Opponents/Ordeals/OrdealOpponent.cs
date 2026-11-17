@@ -174,6 +174,8 @@ namespace WhistleWindLobotomyMod.Opponents {
         public override IEnumerator DefeatedOpponentSequence() {
             // if this is a boss ordeal, restore life and setup a rare card sequence
             if (IsBoss()) {
+                AchievementAPI.Unlock(BattleSequencer.ordealType == OrdealType.White, AchievementAPI.Fruition);
+                AchievementAPI.Unlock(true, AchievementAPI.FullMoon);
                 if (RunState.CurrentRegionTier == 3) {
                     yield return DefeatedFinalBossSequence();
                 }
