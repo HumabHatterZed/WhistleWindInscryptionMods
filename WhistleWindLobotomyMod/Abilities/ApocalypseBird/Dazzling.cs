@@ -25,8 +25,9 @@ namespace WhistleWindLobotomyMod {
         public static Ability ID { get; internal set; }
         public override Ability Ability => ID;
 
+        private bool triggered = false;
         public override bool RespondsToUpkeep(bool playerUpkeep) {
-            if (base.Card.Info.name == Cards.bigBird && TurnManager.Instance.TurnNumber > base.Card.TurnPlayed) {
+            if (!triggered && base.Card.Info.name == Cards.bigBird && TurnManager.Instance.TurnNumber > base.Card.TurnPlayed) {
                 return playerUpkeep != base.Card.OpponentCard;
             }
             return false;
@@ -34,13 +35,18 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
             List<PlayableCard> cards = BoardManager.Instance.GetCards(base.Card.OpponentCard);
             if (cards.Count > 0) {
+                int seed = base.GetRandomSeed();
                 yield return base.PreSuccessfulTriggerSequence();
-                PlayableCard card = cards.GetSeededRandom(base.GetRandomSeed());
-                card.Anim.StrongNegationEffect();
-                yield return card.AddStatusEffect<Enchanted>(1, modifyTurnGained: (int i) => i + 1);
+                for (int i = 0; i < 2; i++) {
+                    PlayableCard card = cards.GetSeededRandom(seed++);
+                    cards.Remove(card);
+                    card.Anim.StrongNegationEffect();
+                    yield return card.AddStatusEffect<Enchanted>(1, modifyTurnGained: (int i) => i + 1);
+                }
                 yield return new WaitForSeconds(0.4f);
+                triggered = true;
             }
-            base.Card.TurnPlayed = TurnManager.Instance.TurnNumber + 2;
+            base.Card.TurnPlayed = 1 + TurnManager.Instance.TurnNumber;
         }
 
         public bool RespondsToPreTakeDamage(PlayableCard source, int damage) {
