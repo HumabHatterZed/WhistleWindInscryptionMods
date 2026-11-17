@@ -121,7 +121,9 @@ namespace WhistleWindLobotomyMod {
         }
 
         private void OnDestroy() {
-            CustomCoroutine.Instance.StartCoroutine(CleanUpVisuals());
+            if (activateVisualGameObject != null) {
+                CustomCoroutine.Instance.StartCoroutine(CleanUpVisuals());
+            }
         }
     }
 }
