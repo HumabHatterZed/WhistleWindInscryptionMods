@@ -188,14 +188,15 @@ namespace WhistleWindLobotomyMod {
             BossOrdeals.Register();
             // Col 2
             MiracleWorker.Register(HarmonyInstance);
-            NoRares.Register();
+            NoSefirot.Register();
             // Col 1
             // NoSephirah
             AbnormalEncounters.Register(HarmonyInstance);
             NoTime.Register(HarmonyInstance);
 
             //AbnormalBosses.Register(HarmonyInstance);
-
+            
+            NoRares.Register();
             BetterRareChances.Info.SetIncompatibleChallengeGetterStatic(NoRares.ID);
         }
 
