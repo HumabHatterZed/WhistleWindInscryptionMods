@@ -101,68 +101,6 @@ namespace WhistleWindLobotomyMod.Patches {
                     card.Mods.Add(new(DeathPenalty.ID));
                 }
             }
-
-            /// <summary>
-            /// Patch that lets people playing Part 1 use the starter decks via the config.
-            /// </summary>
-            /// <remarks>
-            /// Doubt this is used by anyone but may as well keep it.
-            /// </remarks>
-            [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
-            private static bool Part1StarterDecks(ref DeckInfo __instance) {
-                if (LobotomyConfigManager.StarterDeck < 1 || LobotomyConfigManager.StarterDeck > 12)
-                    return true;
-
-                int deckIdx = LobotomyConfigManager.StarterDeck;
-                if (deckIdx == 1)
-                    deckIdx = UnityEngine.Random.Range(3, 1 + StarterDecks.NUM_DECKS);
-
-                List<string> cardsToAdd = deckIdx switch {
-                    3 => StarterDecks.firstDay,
-                    4 => StarterDecks.lonelyFriends,
-                    5 => StarterDecks.bloodMechs,
-                    6 => StarterDecks.peoplePleasers,
-                    7 => StarterDecks.freakShow,
-                    8 => StarterDecks.apocrypha,
-                    9 => StarterDecks.keter,
-                    10 => StarterDecks.deathLovers,
-                    11 => StarterDecks.roadToOz,
-                    12 => StarterDecks.magicGirls,
-                    13 => StarterDecks.twilight,
-                    _ => null
-                };
-
-                // return vanilla deck
-                if (cardsToAdd == null)
-                    return true;
-
-                // if random mod cards is chosen, choose three random cards from this mod to act as a starter deck
-                if (cardsToAdd.Count == 0) {
-                    List<CardInfo> validCards = new(ObtainableLobotomyCards);
-                    while (cardsToAdd.Count < 3 + LobotomyConfigManager.StarterDeckSize) {
-                        CardInfo cardToAdd = validCards[SeededRandom.Range(0, validCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed())];
-
-                        if (cardToAdd.onePerDeck)
-                            validCards.Remove(cardToAdd);
-
-                        cardsToAdd.Add(cardToAdd.name);
-                    }
-                }
-
-                foreach (string str in cardsToAdd)
-                    __instance.AddCard(CardLoader.GetCardByName(str));
-
-                if (LobotomyConfigManager.ChallengeIsActive(StartingApocalypse.ID) && !__instance.Cards.Exists(x => x.name == Cards.apocalypseBird))
-                    __instance.AddCard(CardLoader.GetCardByName(Cards.apocalypseBird));
-
-                if (LobotomyConfigManager.ChallengeIsActive(StartingJester.ID) && !__instance.Cards.Exists(x => x.name == Cards.jesterOfNihil))
-                    __instance.AddCard(CardLoader.GetCardByName(Cards.jesterOfNihil));
-
-                if (LobotomyConfigManager.ChallengeIsActive(StartingLiar.ID) && !__instance.Cards.Exists(x => x.name == Cards.lyingAdult))
-                    __instance.AddCard(CardLoader.GetCardByName(Cards.lyingAdult));
-
-                return false;
-            }
         }
     }
 }

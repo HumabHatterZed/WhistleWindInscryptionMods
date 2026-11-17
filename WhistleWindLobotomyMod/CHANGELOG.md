@@ -8,8 +8,9 @@
 - Changed internal names of Sefirot-related dialogue events to remove the 'Sephirah' prefix
 - PlayableCard.DieTriggerless now triggers non-card receivers
 - Massive refactoring of basically everything
-- Removed unused asset files
 - Vanilla card Strange Frog now part of Mechanical Tribe
+- Removed unused asset files
+- Removed config options that only affect Part 1 (Act 1 story mode)
 ### 🐦 Apocalypse Boss
 - Fixed boss not losing its damage reduction
 - Fixed certain fight mechanics and effects triggering at incorrect times

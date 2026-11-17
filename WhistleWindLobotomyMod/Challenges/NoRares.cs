@@ -2,7 +2,6 @@
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod.Challenges {
     public static class NoRares {
         internal const string TITLE = "No Abnormal Rares";
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod.Challenges {
                 LobotomyPlugin.pluginGuid,
                 TITLE,
                 DESCRIPTION,
-                5,
+                0,
                 TextureLoader.LoadTextureFromFile("ascensionNoRares.png"),
                 TextureLoader.LoadTextureFromFile("ascensionNoRares_activated.png")
                 ).Challenge.challengeType;

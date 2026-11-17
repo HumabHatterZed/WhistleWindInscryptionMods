@@ -176,7 +176,7 @@ namespace WhistleWindLobotomyMod {
             return probabilities[SeededRandom.Range(0, probabilities.Length, randomSeed)];
         }
         private float RareChoiceChance(int regionTier) {
-            int regionMultiplier = regionTier;
+            int regionMultiplier = 1 + regionTier - AscensionSaveData.Data.GetNumChallengesOfTypeActive(AscensionChallenge.BaseDifficulty);
 
             if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.ID))
                 regionMultiplier++;
@@ -287,14 +287,17 @@ namespace WhistleWindLobotomyMod {
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
-            GenerationType extra = LobotomyConfigManager.BoxStart ? GenerationType.RegionStart : GenerationType.None;
+            //GenerationType extra = LobotomyConfigManager.BoxStart ? GenerationType.RegionStart : GenerationType.None;
+
+            NewNodeManager.FullNode node = NodeHelper.CreateNode("AbnormalCardChoice", typeof(AbnormalCardChoiceSequencer),
+                animationFrames, main);
 
             // don't generate node if it's disabled or no cards to spawn
-            if (LobotomyConfigManager.NoBox || AllCardsDisabled) {
-                main = GenerationType.None;
-                extra = GenerationType.None;
-            }
-            NodeHelper.CreateNode("AbnormalCardChoice", typeof(AbnormalCardChoiceSequencer), animationFrames, main, extraGenType: extra);
+            node.generationPrerequisites = new() {
+                new Func(delegate (int i, List<NodeData> nd) {
+                    return !AllCardsDisabled && !LobotomyConfigManager.NoBox;
+                })
+            };
         }
     }
 }

@@ -23,15 +23,16 @@ namespace WhistleWindLobotomyMod {
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
-            GenerationType extra = LobotomyConfigManager.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
 
-            // don't generate node if it's disabled
-            if (LobotomyConfigManager.NoSefirot) {
-                main = GenerationType.None;
-                extra = GenerationType.None;
-            }
-            NodeHelper.CreateNode("SefirotCardChoice", typeof(SefirotCardChoiceSequencer), animationFrames,
-                main, extraGenType: extra);
+            NewNodeManager.FullNode node = NodeHelper.CreateNode("SefirotCardChoice", typeof(SefirotCardChoiceSequencer),
+                animationFrames, main);
+
+            node.generationPrerequisites = new() {
+                new ChallengeIsActive(NoSefirot.ID, true),
+                new Func(delegate (int i, List<NodeData> nd) {
+                    return !LobotomyConfigManager.NoSefirot;
+                })
+            };
         }
     }
     // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
