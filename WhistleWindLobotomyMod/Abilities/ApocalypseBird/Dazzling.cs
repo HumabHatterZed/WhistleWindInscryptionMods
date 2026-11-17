@@ -13,11 +13,14 @@ namespace WhistleWindLobotomyMod {
         private static void AddDazzling() {
             const string rulebookName = "Dazzling";
             Dazzling.ID = AbilityHelper.New<Dazzling>(LobotomyPlugin.pluginGuid, "sigilDazzling", rulebookName,
-                "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.",
+                "The turn after this card is played, inflict Enchanted on up to 3 opposing cards. This card takes no damage from Enchanted cards.",
                 0, true, "Like moths to a flame.")
                 .SetAbilityRedirect("Enchanted", Enchanted.iconId, GameColors.Instance.gold).Id;
         }
     }
+    /// <summary>
+    /// The turn after this card is played, inflict Enchanted on up to 3 opposing cards. This card takes no damage from Enchanted cards.
+    /// </summary>
     public class Dazzling : AbilityBehaviour, IPreTakeDamage {
         public static Ability ID { get; internal set; }
         public override Ability Ability => ID;
