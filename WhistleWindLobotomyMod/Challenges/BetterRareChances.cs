@@ -12,16 +12,16 @@ namespace WhistleWindLobotomyMod.Challenges {
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
         public static void Register() {
-            Info = ChallengeManager.Add(
+            ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 TITLE,
                 DESCRIPTION,
                 -5,
                 TextureLoader.LoadTextureFromFile("ascensionBetterRareChances.png"),
                 TextureLoader.LoadTextureFromFile("ascensionBetterRareChances_activated.png")
-                );
-
-            ID = Info.Challenge.challengeType;
+                )
+                .SetIncompatibleChallengeGetterStatic(NoRares.ID)
+                .Challenge.challengeType;
         }
     }
 }

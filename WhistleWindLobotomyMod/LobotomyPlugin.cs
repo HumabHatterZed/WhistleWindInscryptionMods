@@ -159,7 +159,7 @@ namespace WhistleWindLobotomyMod {
         /// 
         /// </summary>
         private void AddChallenges() {
-
+            // challenges
             //FinalComing.Register();
             FinalApocalypse.Register();
             //Arbiter
@@ -167,11 +167,6 @@ namespace WhistleWindLobotomyMod {
             FinalOrdeal.Register();
             //FinalJester.Register();
             //FinalLie.Register();
-
-            StartingApocalypse.Register();
-            StartingLiar.Register();
-            StartingJester.Register();
-            BetterRareChances.Register();
 
             // Col 6
             //ApostleGrizzlies.Register();
@@ -190,14 +185,18 @@ namespace WhistleWindLobotomyMod {
             MiracleWorker.Register(HarmonyInstance);
             NoSefirot.Register();
             // Col 1
-            // NoSephirah
             AbnormalEncounters.Register(HarmonyInstance);
             NoTime.Register(HarmonyInstance);
 
-            //AbnormalBosses.Register(HarmonyInstance);
-            
+            // neutral
             NoRares.Register();
-            BetterRareChances.Info.SetIncompatibleChallengeGetterStatic(NoRares.ID);
+            NoOrdeals.Register();
+
+            // cheats
+            StartingApocalypse.Register();
+            StartingLiar.Register();
+            StartingJester.Register();
+            BetterRareChances.Register();
         }
 
         private void AddEncounters() {

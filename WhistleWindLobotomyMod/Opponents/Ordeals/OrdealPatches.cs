@@ -89,7 +89,7 @@ namespace WhistleWindLobotomyMod.Opponents {
         private static void ConvertBattleIntoOrdeal(ref NodeData __result, ref int y) {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
-            if (RunState.CurrentRegionTier > 2 || __result is not CardBattleNodeData nodeData) {
+            if (RunState.CurrentRegionTier > 2 || LobotomyConfigManager.ChallengeIsActive(NoOrdeals.ID) || __result is not CardBattleNodeData nodeData) {
                 return;
             }
 
