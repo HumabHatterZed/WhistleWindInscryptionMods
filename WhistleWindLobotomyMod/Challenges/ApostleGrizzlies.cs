@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 10,
                 TextureLoader.LoadTextureFromFile("ascensionApostleBear.png"),
-                TextureLoader.LoadTextureFromFile("ascensionApostleBear_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionApostleBear_activated.png"),
+                -5
                 )
                 .SetDependantChallengeGetterStatic(AscensionChallenge.GrizzlyMode)
                 .Challenge.challengeType;

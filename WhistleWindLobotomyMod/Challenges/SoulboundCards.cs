@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 50,
                 TextureLoader.LoadTextureFromFile("ascensionSoulbound.png"),
-                TextureLoader.LoadTextureFromFile("ascensionSoulbound_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionSoulbound_activated.png"),
+                -7
                 ).Challenge.challengeType;
         }
     }

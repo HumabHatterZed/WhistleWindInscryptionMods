@@ -17,25 +17,6 @@ using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 namespace WhistleWindLobotomyMod.Challenges {
     public static class AbnormalBosses // taken from infiniscryption
     {
-        //internal const string TITLE = "Abnormal Bosses";
-        //internal const string DESCRIPTION = "Boss battles will only use Abnormality cards.";
-
-        //public static AscensionChallenge ID { get; private set; }
-        //internal static ChallengeManager.FullChallenge Info { get; private set; }
-        internal static void Register(Harmony harmony) {
-            //Info = ChallengeManager.Add(
-            //    LobotomyPlugin.pluginGuid,
-            //    TITLE,
-            //    DESCRIPTION,
-            //    15,
-            //    TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
-            //    TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
-            //    );
-
-            //ID = Info.Challenge.challengeType;
-
-            //harmony.PatchAll(typeof(AbnormalBosses));
-        }
         // Array of valid opponent types to replace
         private static readonly Opponent.Type[] SUPPORTED_OPPONENTS = new Opponent.Type[] {
             Opponent.Type.ProspectorBoss,

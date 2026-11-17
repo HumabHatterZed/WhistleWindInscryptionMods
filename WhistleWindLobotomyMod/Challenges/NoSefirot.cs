@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 5,
                 TextureLoader.LoadTextureFromFile("ascensionNoSefirot.png"),
-                TextureLoader.LoadTextureFromFile("ascensionNoSefirot_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionNoSefirot_activated.png"),
+                -12
                 ).Challenge.challengeType;
         }
     }

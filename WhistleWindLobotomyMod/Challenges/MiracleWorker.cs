@@ -22,7 +22,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 12,
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker.png"),
-                TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated.png"),
+                -11
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(MiracleWorker));

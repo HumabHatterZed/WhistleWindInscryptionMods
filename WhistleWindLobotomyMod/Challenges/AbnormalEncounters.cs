@@ -21,7 +21,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 5,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters.png"),
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png"),
+                -13
                 );
             ID = Info.Challenge.challengeType;
 

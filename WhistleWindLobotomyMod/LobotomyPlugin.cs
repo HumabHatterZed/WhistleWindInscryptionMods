@@ -160,43 +160,34 @@ namespace WhistleWindLobotomyMod {
         /// </summary>
         private void AddChallenges() {
             // challenges
-            //FinalComing.Register();
+            NoTime.Register(HarmonyInstance);
+            NoSefirot.Register();
+            BossOrdeals.Register();
+            MiracleWorker.Register(HarmonyInstance);
+            StartingRose.Register(HarmonyInstance);
+            AllOrdeals.Register(HarmonyInstance);
+            AbnormalEncounters.Register(HarmonyInstance);
+            SoulboundCards.Register();
+            QlippothMeltdown.Register();
+            ApostleGrizzlies.Register();
+            FinalOrdeal.Register();
             FinalApocalypse.Register();
+            //FinalComing.Register();
             //Arbiter
             //Red Mist
-            FinalOrdeal.Register();
+
             //FinalJester.Register();
             //FinalLie.Register();
 
-            // Col 6
-            //ApostleGrizzlies.Register();
-            //QlippothMeltdown.Register();
-
-            // Col 5
-            ApostleGrizzlies.Register();
-            QlippothMeltdown.Register();
-            // Col 4
-            SoulboundCards.Register();
-            AllOrdeals.Register(HarmonyInstance);
-            // Col 3
-            StartingRose.Register(HarmonyInstance);
-            BossOrdeals.Register();
-            // Col 2
-            MiracleWorker.Register(HarmonyInstance);
-            NoSefirot.Register();
-            // Col 1
-            AbnormalEncounters.Register(HarmonyInstance);
-            NoTime.Register(HarmonyInstance);
-
             // neutral
-            NoRares.Register();
             NoOrdeals.Register();
+            NoRares.Register();
 
             // cheats
-            StartingApocalypse.Register();
-            StartingLiar.Register();
-            StartingJester.Register();
             BetterRareChances.Register();
+            StartingApocalypse.Register();
+            StartingJester.Register();
+            StartingLiar.Register();
         }
 
         private void AddEncounters() {

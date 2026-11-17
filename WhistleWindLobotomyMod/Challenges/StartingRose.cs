@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 20,
                 TextureLoader.LoadTextureFromFile("ascensionRose.png"),
-                TextureLoader.LoadTextureFromFile("ascensionRose_activated.png"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionRose_activated.png"),
+                -9)
                 .Challenge.challengeType;
 
             harmonyInstance.PatchAll(typeof(StartingRose));

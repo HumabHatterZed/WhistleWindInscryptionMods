@@ -19,7 +19,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 15,
                 TextureLoader.LoadTextureFromFile("ascensionOrdeals.png"),
-                TextureLoader.LoadTextureFromFile("ascensionOrdeals_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionOrdeals_activated.png"),
+                -8
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AllOrdeals));

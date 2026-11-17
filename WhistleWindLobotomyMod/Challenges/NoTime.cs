@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod.Challenges {
                 DESCRIPTION,
                 5,
                 TextureLoader.LoadTextureFromFile("ascensionNoTime.png"),
-                TextureLoader.LoadTextureFromFile("ascensionNoTime_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionNoTime_activated.png"),
+                -14
                 ).Challenge.challengeType;
         }
     }
