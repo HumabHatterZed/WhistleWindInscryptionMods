@@ -36,6 +36,8 @@ namespace WhistleWind.AbnormalSigils {
 
             PanicEnergy.specialAbility = data.Id;
             PanicEnergy.iconId = data.IconInfo.ability;
+
+            data.IconInfo.SetGBCTriggerText("[creature] regains its resolve!");
         }
     }
 }

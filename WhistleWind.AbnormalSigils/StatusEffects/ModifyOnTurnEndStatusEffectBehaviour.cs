@@ -22,6 +22,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         }
         public virtual IEnumerator OnModifyOnTurnEnd() {
             //Debug.Log($"Modify: {EffectPotency} | {EffectPotency + PotencyModification}");
+            yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(base.PlayableCard.InHand ? View.Hand : View.Board);
 
             base.PlayableCard.Anim.LightNegationEffect();

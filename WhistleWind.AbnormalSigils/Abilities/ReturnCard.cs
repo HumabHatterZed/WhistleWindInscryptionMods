@@ -92,9 +92,11 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) {
+            yield return base.PreSuccessfulTriggerSequence();
             yield return RecallCard(slot, 0.4f);
         }
         public override IEnumerator OnResolveOnBoard() {
+            yield return base.PreSuccessfulTriggerSequence();
             foreach (PlayableCard card in BoardManager.Instance.GetCards(!base.Card.OpponentCard, Unyielding.CardCanBeMoved)) {
                 yield return RecallCard(card.Slot, 0.1f);
             }
@@ -112,9 +114,10 @@ namespace WhistleWind.AbnormalSigils {
         private void Ability_ReturnCard() {
             const string rulebookName = "Recall Creature";
             const string rulebookDescription = "Return the selected card to your hand with its current status retained and its play cost changed to 0~2 Bones based on how recently it was played.";
+            const string triggerText = "Return to me!";
             ReturnCard.ID = AbnormalAbilityHelper.CreateAbility<ReturnCard>(
-                "sigilReturnCard", rulebookName, rulebookDescription,
-                null, powerLevel: 0, canStack: false).Id;
+                "sigilReturnCard", rulebookName, rulebookDescription, triggerText,
+                powerLevel: 0, canStack: false).Id;
         }
     }
 }

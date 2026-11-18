@@ -33,6 +33,8 @@ namespace WhistleWind.AbnormalSigils {
 
             PanicBones.specialAbility = data.Id;
             PanicBones.iconId = data.IconInfo.ability;
+
+            data.IconInfo.SetGBCTriggerText("The pain returns [creature] to reality!");
         }
     }
 }

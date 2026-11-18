@@ -39,6 +39,8 @@ namespace WhistleWind.AbnormalSigils {
 
             PanicMox.specialAbility = data.Id;
             PanicMox.iconId = data.IconInfo.ability;
+
+            data.IconInfo.SetGBCTriggerText("[creature]'s bravery returns!");
         }
     }
 }

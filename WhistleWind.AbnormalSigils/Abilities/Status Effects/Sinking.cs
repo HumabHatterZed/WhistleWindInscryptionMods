@@ -36,6 +36,8 @@ namespace WhistleWind.AbnormalSigils {
                 possiblePanics.Add(PanicMox.specialAbility);
             }
 
+            yield return base.PreSuccessfulTriggerSequence();
+
             switch (possiblePanics.Count) {
                 case 0:
                     yield return target.AddStatusEffect<PanicMox>(1);
@@ -64,7 +66,7 @@ namespace WhistleWind.AbnormalSigils {
 
             Sinking.specialAbility = data.Id;
             Sinking.iconId = data.IconInfo.ability;
-
+            data.IconInfo.SetGBCTriggerText("[creature]'s mind snaps!");
             data.IconInfo.SetAbilityRedirect("Murderous", PanicBlood.iconId, GameColors.Instance.red);
             data.IconInfo.SetAbilityRedirect("Suicidal", PanicBones.iconId, GameColors.Instance.gray);
             data.IconInfo.SetAbilityRedirect("Languishing", PanicEnergy.iconId, GameColors.Instance.darkPurple);

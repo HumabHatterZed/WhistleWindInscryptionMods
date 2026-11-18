@@ -36,6 +36,8 @@ namespace WhistleWind.AbnormalSigils {
 
             PanicBlood.specialAbility = data.Id;
             PanicBlood.iconId = data.IconInfo.ability;
+
+            data.IconInfo.SetGBCTriggerText("[creature] mind returns covered in viscera!");
         }
     }
 }

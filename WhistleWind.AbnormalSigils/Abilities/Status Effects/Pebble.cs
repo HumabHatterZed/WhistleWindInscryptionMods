@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
@@ -25,6 +26,7 @@ namespace WhistleWind.AbnormalSigils {
             RecalculateLoneliness();
 
             if (base.PlayableCard.Health < base.PlayableCard.MaxHealth) {
+                yield return base.PreSuccessfulTriggerSequence();
                 base.PlayableCard.Anim.LightNegationEffect();
                 yield return base.PlayableCard.Heal(1, 0.2f);
             }
@@ -86,6 +88,8 @@ namespace WhistleWind.AbnormalSigils {
             Pebble.data.IconInfo.SetAbilityRedirect("Lonely", Lonely.ID, GameColors.Instance.limeGreen);
             Pebble.specialAbility = Pebble.data.Id;
             Pebble.iconId = Pebble.data.IconInfo.ability;
+
+            Pebble.data.IconInfo.SetGBCTriggerText("[creature] is comforted by a familiar presence.");
         }
     }
 }

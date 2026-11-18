@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace WhistleWind.AbnormalSigils {
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && EffectPotency > 0;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep) {
+            yield return base.PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.StrongNegationEffect();
             base.PlayableCard.HealDamage(-EffectPotency);
@@ -96,6 +98,8 @@ namespace WhistleWind.AbnormalSigils {
 
             Spores.specialAbility = data.Id;
             Spores.iconId = data.IconInfo.ability;
+
+            data.IconInfo.SetGBCTriggerText("[creature] grows sicker...");
         }
     }
 }

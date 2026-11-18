@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils {
             const string rulebookName = "Assimilator";
             const string rulebookDescription = "When [creature] attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
-            const string triggerText = "[creature] makes its victim a part of itself.";
+            const string triggerText = "[creature] absorbs another soul.";
             Assimilator.ID = AbnormalAbilityHelper.CreateAbility<Assimilator>(
                 "sigilAssimilator",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,

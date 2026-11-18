@@ -35,6 +35,7 @@ namespace WhistleWind.AbnormalSigils {
 
             Decay.specialAbility = data.Id;
             Decay.iconId = data.IconInfo.ability;
+            data.IconInfo.SetGBCTriggerText("Decay sets in...");
         }
     }
 }
