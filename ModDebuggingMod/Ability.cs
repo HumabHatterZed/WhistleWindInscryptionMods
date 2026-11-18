@@ -30,7 +30,12 @@ namespace ModDebuggingMod {
             return true;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
-            yield return target.AddStatusEffect<Worms>(5, true);
+            //yield return target.AddStatusEffect<Worms>(5, true);
+            yield return target.AddStatusEffect<Worms>(1);
+            yield return target.AddStatusEffect<Spores>(1);
+            yield return target.AddStatusEffect<Prudence>(1);
+            yield return target.AddStatusEffect<Decay>(5);
+            yield return target.AddStatusEffect<Sinking>(2);
         }
     }
 

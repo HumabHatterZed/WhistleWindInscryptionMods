@@ -10,10 +10,10 @@ namespace ModDebuggingMod {
 
             CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",
                 attack: 1, health: 100)
-                .AddAbilities(Bleachproof.ID)
+                //.AddAbilities(Bleachproof.ID)
                 .SetGBCPlayable(CardTemple.Nature)
                 //.SetCost(0, 0, 0, new List<GemType>() { GemType.Blue, GemType.Blue, GemType.Green, GemType.Green, GemType.Green, GemType.Green, GemType.Orange })
-                //.AddAbilities(Test.ability)
+                .AddAbilities(Test.ability)
                 //.AddSpecialAbilities(BlindRage.specialAbility)
                 //.SetTransformerCardId("Squirrel")
                 .SetEvolve("Squirrel", 6)
