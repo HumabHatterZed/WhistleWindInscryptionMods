@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -73,7 +74,7 @@ namespace WhistleWindLobotomyMod {
             yield return base.PlayableCard.FlipFaceDown(faceDown);
         }
 
-        public override bool RespondsToDrawn() => true;
+        public override bool RespondsToDrawn() => !base.PlayableCard.TemporaryMods.Exists(x => x.singletonId == ReturnCard.RECALL_MOD);
         public override IEnumerator OnDrawn() {
             this.DisguiseInBattle();
             yield break;
