@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
@@ -38,7 +36,7 @@ namespace WhistleWind.AbnormalSigils {
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.QueueOrCreateDrawnCard();
-            
+
             if (finalSamsara) {
                 yield return DialogueHelper.PlayDialogueEvent("FinalSamsara");
             }

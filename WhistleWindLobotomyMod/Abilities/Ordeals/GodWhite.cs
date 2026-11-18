@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
@@ -10,7 +9,6 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
-using static UnityEngine.ParticleSystem.PlaybackState;
 
 
 namespace WhistleWindLobotomyMod {

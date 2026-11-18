@@ -1,11 +1,8 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils {
     public abstract class PanicBase : ModifyOnTurnEndStatusEffectBehaviour, ISetupAttackSequence {

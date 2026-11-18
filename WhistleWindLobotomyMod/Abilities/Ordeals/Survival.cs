@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod {
                 yield return base.PreSuccessfulTriggerSequence();
                 yield return HelperMethods.ChangeCurrentView(View.Board);
 
-                
+
                 foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
                     if (slot.Card == base.Card) {
                         slot.Card = null;

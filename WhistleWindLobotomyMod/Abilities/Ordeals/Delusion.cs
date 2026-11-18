@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod {
         public override IEnumerator OnResolveOnBoard() {
             counter = SeededRandom.Range(2, Mathf.Max(4, 7 - RunState.CurrentRegionTier - RunState.Run.DifficultyModifier), base.GetRandomSeed() + base.Card.Slot.Index);
             behav = base.Card.TriggerHandler.GetComponent<GodColourAbilityBehaviour>();
-            
+
             base.Card.Anim.LightNegationEffect();
             base.Card.RenderInfo.OverrideAbilityIcon(this.Ability, GetDelusionOverrideTex());
             base.Card.RenderCard();

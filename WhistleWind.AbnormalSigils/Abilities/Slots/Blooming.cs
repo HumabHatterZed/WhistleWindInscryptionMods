@@ -1,11 +1,8 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Slots;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;

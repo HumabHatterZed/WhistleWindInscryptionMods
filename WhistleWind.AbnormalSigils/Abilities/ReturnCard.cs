@@ -1,14 +1,9 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
-using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using Sirenix.Serialization.Utilities;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 

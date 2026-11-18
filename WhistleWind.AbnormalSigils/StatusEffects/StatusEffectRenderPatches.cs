@@ -1,16 +1,10 @@
 ﻿using DiskCardGame;
-using GBC;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Core {
     [HarmonyPatch]
-    public static partial class StatusEffectPatches
-    {
+    public static partial class StatusEffectPatches {
         [HarmonyPrefix, HarmonyPatch(typeof(RenderStatsLayer), nameof(RenderStatsLayer.DisableEmission))]
         private static bool AlwaysEmitForStatusEffects(RenderStatsLayer __instance) {
             if (__instance.PlayableCard != null && __instance.PlayableCard.HasStatusEffect()) {

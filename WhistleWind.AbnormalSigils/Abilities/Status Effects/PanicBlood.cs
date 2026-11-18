@@ -2,9 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using System.Collections;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 

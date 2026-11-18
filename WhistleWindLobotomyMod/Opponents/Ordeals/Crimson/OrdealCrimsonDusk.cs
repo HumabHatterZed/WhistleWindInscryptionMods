@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 encounterData.Blueprint.AddTurn();
                 encounterData.Blueprint.AddTurn(turn);
             }
-            
+
             return 8;
         }
     }

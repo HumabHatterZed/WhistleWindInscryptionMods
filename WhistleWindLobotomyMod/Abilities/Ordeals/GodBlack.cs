@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod {
             SetUpDummyCard();
             ViewManager.Instance.SwitchToView(View.Default);
             AudioController.Instance.PlaySound2D("Violet_portal_on", MixerGroup.TableObjectsSFX);
-            
+
             if (halfHealth) {
                 defenceSpike.SetTrigger("Show");
                 defenceSpike.SetLayerWeight(1, 1f);

@@ -1,14 +1,7 @@
 ﻿using DiskCardGame;
-using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils.Patches {
     /// <summary>
@@ -27,7 +20,7 @@ namespace WhistleWind.AbnormalSigils.Patches {
         [HarmonyPostfix, HarmonyPatch(typeof(CardExtensions), nameof(CardExtensions.BonesCost))]
         private static void GuaranteeCorrectBonesCost(ref int __result, PlayableCard card) {
             CardModificationInfo recallMod = card.TemporaryMods.Find(x => x.singletonId == ReturnCard.RECALL_MOD);
-            if (recallMod != null) { 
+            if (recallMod != null) {
                 __result = recallMod.bonesCostAdjustment;
             }
         }

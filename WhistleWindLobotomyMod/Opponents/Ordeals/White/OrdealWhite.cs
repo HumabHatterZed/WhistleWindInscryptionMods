@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             CameraEffects.Instance.Shake(1f, 0.75f);
             yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.claw), clawSlot);
             yield return new WaitForSeconds(0.2f);
-            
+
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             OrdealBannerManager.Instance.DisplayBanner(ordealType, true);
             ViewManager.Instance.SwitchToView(View.Default);

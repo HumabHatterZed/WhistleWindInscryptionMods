@@ -1,14 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Sound;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace WhistleWindLobotomyMod.Opponents {
     /// <summary>
@@ -88,7 +85,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (!startNextWaveUpkeep) {
                 numTurnsLeft++; // buffer to account to how turns work
             }
-            
+
             OrdealDisplayConsole.Instance.amountLeft = MinNumCardsRequired = ConstructWaveBlueprint(reactiveDifficulty);
             ViewManager.Instance.SwitchToView(View.Default);
             base.StartCoroutine(ShowResetSequence(false));
@@ -166,7 +163,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 List<EncounterBlueprintData.CardBlueprint> turn = new() {
                     EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7))
                 };
-                
+
                 if (SeededRandom.Range(0, 4, seed++) <= (RunState.Run.DifficultyModifier - 1)) {
                     turn.Add(EncounterManager.NewCardBlueprint(GetRandomSweeper(seed++, 7)));
                 }

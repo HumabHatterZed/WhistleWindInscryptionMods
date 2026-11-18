@@ -100,7 +100,7 @@ namespace WhistleWindLobotomyMod.Core {
 
                 AudioClip sweeper = musicBundle.LoadAsset<AudioClip>("sweeper_theme");
                 musicLoops.Add(sweeper);
-                
+
                 GramophoneManager.AddTrack(LobotomyPlugin.pluginGuid, musicBundle.LoadAsset<AudioClip>("lobcorp_bg"));
                 GramophoneManager.AddTrack(LobotomyPlugin.pluginGuid, firstTrumpet);
                 GramophoneManager.AddTrack(LobotomyPlugin.pluginGuid, musicBundle.LoadAsset<AudioClip>("second_trumpet"));

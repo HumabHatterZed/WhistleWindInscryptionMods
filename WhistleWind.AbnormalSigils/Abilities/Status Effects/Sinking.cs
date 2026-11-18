@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.StatusEffects;
@@ -11,7 +9,7 @@ using WhistleWind.Core.Helpers;
 namespace WhistleWind.AbnormalSigils {
     public class Sinking : StatusEffectBehaviour {
         public const int MAX_POTENCY = 5;
-        
+
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
@@ -37,7 +35,7 @@ namespace WhistleWind.AbnormalSigils {
             if (target.GemsCost().Count > 0 || target.GetCustomCardCosts().Count > 0) {
                 possiblePanics.Add(PanicMox.specialAbility);
             }
-            
+
             switch (possiblePanics.Count) {
                 case 0:
                     yield return target.AddStatusEffect<PanicMox>(1);

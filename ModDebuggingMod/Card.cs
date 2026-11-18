@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod {

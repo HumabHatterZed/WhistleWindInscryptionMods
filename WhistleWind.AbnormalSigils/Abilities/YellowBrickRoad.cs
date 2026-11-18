@@ -102,7 +102,7 @@ namespace WhistleWind.AbnormalSigils {
             // and we remove cards that cannot be moved from consideration
             slotsCopy.Remove(base.Card.Slot);
             //allySlots.RemoveAll(x => x.Card != null && (x.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt) || !Unyielding.CardCanBeMoved(x.Card)));
-            
+
             // if there are other cards to move
             if (slotsCopy.Count > 0) {
                 yield return base.LearnAbility();

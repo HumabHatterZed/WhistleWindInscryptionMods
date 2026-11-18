@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {

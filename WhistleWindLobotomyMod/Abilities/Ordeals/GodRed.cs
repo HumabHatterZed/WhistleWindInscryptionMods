@@ -1,11 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
-using Microsoft.Win32.SafeHandles;
 using Pixelplacement;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
@@ -174,7 +172,7 @@ namespace WhistleWindLobotomyMod {
             GameObject obj = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
             obj.transform.position = CardDrawPiles3D.Instance.Pile.transform.position + 3 * Vector3.up + 1.5f * Vector3.forward;
             handMainDeck = obj.GetComponent<Animator>();
-            
+
             GameObject obj2 = Instantiate(LobOpponentUtils.ShrineBossRedPrefab, activateVisualGameObject.transform);
             obj2.transform.position = CardDrawPiles3D.Instance.SidePile.transform.position + 3 * Vector3.up + 1.5f * Vector3.forward;
             handSideDeck = obj2.GetComponent<Animator>();

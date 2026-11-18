@@ -5,7 +5,6 @@ using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Core {
@@ -167,9 +166,9 @@ namespace WhistleWind.AbnormalSigils.Core {
                             }
                         }
                         else {
-                            
+
                             icons[j].localPosition = new(-0.375f + 0.1875f * j, 0.2f, -0.1f);
-                            
+
                         }
 
                         GameObject backMask = back.transform.GetChild(0).gameObject;

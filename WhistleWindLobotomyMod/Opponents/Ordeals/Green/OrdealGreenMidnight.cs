@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod.Opponents {
 
         private readonly int phaseLengthActive = 4;
         private int phaseLengthCooldown = 1;
-        
+
         public int turnsToNextPhase = 0;
 
         private bool isActive = false;

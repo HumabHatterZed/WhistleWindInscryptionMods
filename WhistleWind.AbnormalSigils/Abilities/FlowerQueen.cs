@@ -1,6 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
 using System.Collections;

@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod.Challenges {
         internal const string DESCRIPTION = "Bosses are replaced with Ordeals of Midnight.";
 
         public static AscensionChallenge ID { get; private set; }
-        
+
         internal static void Register() {
             ID = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,

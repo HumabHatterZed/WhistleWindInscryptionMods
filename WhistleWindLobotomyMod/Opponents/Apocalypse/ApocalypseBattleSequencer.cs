@@ -119,7 +119,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse {
                             source = rightSources[UnityEngine.Random.Range(0, rightSources.Count)];
                             rightSources.Remove(source);
                         }
-                        
+
                         FireLaser(source.gameObject, specialTargetSlots[i], specialTargetSlots[i].IsPlayerSlot);
                     }
 

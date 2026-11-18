@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using Pixelplacement;
 using System.Collections;
-using System.Data;
 using TMPro;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
@@ -81,7 +80,7 @@ namespace WhistleWindLobotomyMod {
             //    SetCounterText(amountLeft.ToString());
             //}
             //else {
-                
+
             //}
             SetCounterText(counterText);
             SetSubtitleText(subtitleText);
@@ -121,7 +120,7 @@ namespace WhistleWindLobotomyMod {
 
         public IEnumerator UpdateCounterDisplayValue(string counterText, bool counterTextRed, float waitTime = 0.125f) {
             SetCounterTextColour(counterTextRed ? Color.red : Color.black);
-            
+
             PlayDisplayToggleSound();
             SetCounterText(counterText);
             yield return new WaitForSeconds(waitTime);

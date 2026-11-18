@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.PixelCard;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 
 
 namespace WhistleWindLobotomyMod {

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
@@ -17,7 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// </summary>
     public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOpponentTurnEnd, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IModifyDirectDamage {
         public bool drewInitialHand = false;
-        
+
         // use to track how much excess damage has been dealt past the maximum allowed scale balance
         // reset every round end/direct attack dealt
         protected int directDamageCache;
@@ -60,7 +59,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (changeView) {
                 Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);
             }
-            
+
             if (Singleton<PlayerHand>.Instance != null) {
                 Singleton<PlayerHand>.Instance.PlayingLocked = false;
             }

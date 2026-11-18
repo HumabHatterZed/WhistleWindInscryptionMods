@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod {
         // 008b02
         internal static void AddPages() {
             CreateNewPage("Light of the End", "Destroy any card caught in the light. At the end of combat, move one pillar to the right, looping to the other side. The other pillar remains stationary.", TextureLoader.LoadSpriteFromFile("sigilTower_rulebook.png", asm: LobotomyPlugin.ModAssembly));
-            
+
             CreateNewPage("Red Hand", "Destroy the top [X] cards in the targeted draw pile. The number of cards destroyed increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodRed_rulebook.png", asm: LobotomyPlugin.ModAssembly));
 
             CreateNewPage("White Tentacle", "Apply [X] Sinking to affected cards. The amount of Sinking applied increases with each boss defeated this run.", TextureLoader.LoadSpriteFromFile("sigilGodRed_rulebook.png", asm: LobotomyPlugin.ModAssembly))

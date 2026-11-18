@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using GBC;
 using HarmonyLib;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -60,7 +59,7 @@ namespace WhistleWind.AbnormalSigils {
 
                 // get the current active ability icon group
                 GameObject activeIconGroup = card.GetComponentInChildren<PixelCardDisplayer>().abilityIcons.abilityIconGroups.Find(x => x.activeSelf);
-                
+
                 if (activeIconGroup != null) {
                     for (int i = 0; i < activeIconGroup.transform.childCount; i++) {
                         // check each sprite renderer in the active group to find the correct one
@@ -72,7 +71,7 @@ namespace WhistleWind.AbnormalSigils {
                         }
                     }
                 }
-                
+
                 // you might be wondering: what  happens if sigils are modified after the painted sigil is added?
                 // well don't. i'm not accounting for that because i hate you and hope you specifically die, hypothetical person reading this hiefr5wu46 er6zs
                 card.Anim.LightNegationEffect();

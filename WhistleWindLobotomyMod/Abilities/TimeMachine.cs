@@ -101,7 +101,7 @@ namespace WhistleWindLobotomyMod {
                 }
                 choices.Add(choice);
                 cardsInDeck.Remove(choice);
-                
+
                 if (choices.Count > 2)
                     break;
             }

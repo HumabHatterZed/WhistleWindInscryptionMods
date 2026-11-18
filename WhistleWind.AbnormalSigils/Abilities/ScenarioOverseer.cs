@@ -7,10 +7,8 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using UnityEngine;
 using UnityEngine.UI;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
@@ -83,11 +81,9 @@ namespace WhistleWind.AbnormalSigils {
             Singleton<CameraEffects>.Instance.SetColorCorrectionEnabled(ccEnabled: true);
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: true);
-            CustomCoroutine.FlickerSequence(delegate
-            {
+            CustomCoroutine.FlickerSequence(delegate {
                 Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetIntensity(0f, float.MaxValue);
-            }, delegate
-            {
+            }, delegate {
                 Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetIntensity(1f, float.MaxValue);
             }, startOn: true, endOn: true, 0.05f, 2);
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(ViewController.ControlMode.PhotographerDrone, immediate: true);
@@ -124,7 +120,7 @@ namespace WhistleWind.AbnormalSigils {
             snapshotUI.gameObject.SetActive(true);
 
             snapshotUI.Initialize(this.snapshotManager);
-            
+
             AudioController.Instance.SetLoopVolume(0.05f, 0.5f, 0, cancelOtherFades: false);
             yield return new WaitUntil(() => snapshotUI.CompletedInteraction);
             snapshotUI.gameObject.SetActive(false);
@@ -144,13 +140,11 @@ namespace WhistleWind.AbnormalSigils {
             yield return new WaitForSeconds(0.4f);
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(ViewController.ControlMode.CardGameDefault);
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
-            yield return Singleton<UIManager>.Instance.Effects.GetEffect<EyelidMaskEffect>().Blink(delegate
-            {
+            yield return Singleton<UIManager>.Instance.Effects.GetEffect<EyelidMaskEffect>().Blink(delegate {
                 Singleton<CameraEffects>.Instance.TweenBlur(1.5f, 0f);
             });
             yield return new WaitForSeconds(0.05f);
-            yield return Singleton<UIManager>.Instance.Effects.GetEffect<EyelidMaskEffect>().Blink(delegate
-            {
+            yield return Singleton<UIManager>.Instance.Effects.GetEffect<EyelidMaskEffect>().Blink(delegate {
                 Singleton<CameraEffects>.Instance.TweenBlur(0f, 0f);
             }, 1.25f);
 
@@ -219,20 +213,17 @@ namespace WhistleWind.AbnormalSigils {
             }
             AudioController.Instance.PlaySound2D("glitch");
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.2f);
-            CustomCoroutine.FlickerSequence(delegate
-            {
+            CustomCoroutine.FlickerSequence(delegate {
                 if (errorText != null) {
                     errorText.enabled = true;
                 }
-            }, delegate
-            {
+            }, delegate {
                 if (errorText != null) {
                     errorText.enabled = false;
                 }
             }, startOn: true, endOn: false, 0.2f, 5);
             this.screenshotButton.enabled = false;
-            CustomCoroutine.WaitThenExecute(1f, delegate
-            {
+            CustomCoroutine.WaitThenExecute(1f, delegate {
                 if (this.screenshotButton != null) {
                     this.screenshotButton.enabled = true;
                 }
@@ -381,7 +372,7 @@ namespace WhistleWind.AbnormalSigils {
             if (slot.GetSlotModification() != modType) {
                 yield return slot.SetSlotModification(modType);
             }
-            
+
             if (slotModVal != null) {
                 IOnSnapshotTakenStoreInteger i = slot.GetComponent<IOnSnapshotTakenStoreInteger>();
                 if (i != null) {

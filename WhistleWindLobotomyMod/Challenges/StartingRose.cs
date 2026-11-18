@@ -2,7 +2,6 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using System.Collections;
-using System.Linq;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 

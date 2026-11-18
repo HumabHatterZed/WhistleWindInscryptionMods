@@ -2,7 +2,6 @@
 using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;

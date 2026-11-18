@@ -2,10 +2,8 @@
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
     public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IPlayerTurnEnd, IModifyDamageTaken/*, IItemCanBeUsed, IOnItemPreventedFromUse, IOnPostItemUsed*/ {

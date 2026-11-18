@@ -2,7 +2,6 @@
 using BepInEx.Configuration;
 using DiskCardGame;
 using System.IO;
-using WhistleWindLobotomyMod.Challenges;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core {
@@ -126,7 +125,7 @@ namespace WhistleWindLobotomyMod.Core {
             _configNoSefirot = WstlConfigFile.Bind(
                 "Gameplay.Nodes", "Disable Sefirot Node", false,
                 new ConfigDescription("Prevents the sefirot card choice node from appearing."));
-            
+
             _configBlessings = WstlConfigFile.Bind("Gameplay.Other", "Blessings", 0);
             _configHasSeenHim = WstlConfigFile.Bind("Gameplay.Other", "Blessed", false);
         }

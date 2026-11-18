@@ -1,15 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Boons;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod {
     public class StainingRoseBoon : BoonBehaviour {

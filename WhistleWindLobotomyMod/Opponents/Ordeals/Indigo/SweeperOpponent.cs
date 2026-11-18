@@ -1,14 +1,7 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Challenges;
-using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
     public class SweeperOpponent : OrdealOpponent {

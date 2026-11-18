@@ -6,7 +6,6 @@ using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -113,7 +112,7 @@ namespace WhistleWind.AbnormalSigils {
                     return true;
                 }
             }
-            
+
             // if we can attack (not counting multistrike sigils)
             if (current.Attack > 0) {
                 // if we will trigger Punisher

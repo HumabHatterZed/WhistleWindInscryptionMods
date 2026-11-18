@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils {
 
         private IEnumerator CheckClearSlotModifications(CardSlot slot) {
             SlotModificationManager.ModificationType mod = slot.GetSlotModification();
-            
+
             if (mod == FloodedSlotShallow.ID) {
                 yield return base.Card.Slot.ClearSlotModification();
                 yield return new WaitForSeconds(0.3f);
@@ -61,7 +61,7 @@ namespace WhistleWind.AbnormalSigils {
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
             SlotModificationManager.ModificationType modType = base.Card.OpposingSlot().GetSlotModification();
-            
+
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
             yield return base.Card.OpposingSlot().Card.TakeDamage(1, null);

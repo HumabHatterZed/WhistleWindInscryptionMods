@@ -94,12 +94,12 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
         public override IEnumerator IntroSequence(EncounterData encounter) {
             OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
-            
+
             yield return PreIntroBannerSequence(encounter);
 
             OrdealBannerManager.Instance.DisplayBanner(BattleSequencer.ordealType, true);
             this.SetSceneEffectsShown(true);
-            
+
             SetMusicLoop();
             AudioController.Instance.SetLoopVolumeImmediate(0.8f, 1);
             OrdealDisplayConsole.Instance.SetShown(true);

@@ -1,13 +1,4 @@
-﻿using DiskCardGame;
-using HarmonyLib;
-using Infiniscryption.Spells.Sigils;
-using InscryptionAPI.Card;
-using InscryptionAPI.Regions;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
-
-namespace WhistleWindLobotomyMod {
+﻿namespace WhistleWindLobotomyMod {
     public partial class Cards {
         internal static void Add() {
             //AccessTools.GetDeclaredMethods(typeof(Cards)).ForEach(mi => mi.Invoke(this, null));

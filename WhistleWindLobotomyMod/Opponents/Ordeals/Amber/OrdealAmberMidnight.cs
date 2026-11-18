@@ -1,10 +1,8 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -48,7 +46,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                             yield return SelectSlotForBossResolve();
                             yield return new WaitForSeconds(0.5f);
                         }
-                        
+
                         yield return ResolveBoss();
                     }
                 }
@@ -82,14 +80,14 @@ namespace WhistleWindLobotomyMod.Opponents {
             for (int i = 0; i < resolveSlots.Length; i++) {
                 CreateTargetIcon(resolveSlots[i], GameColors.Instance.glowRed);
             }
-            
+
             yield return new WaitForSeconds(0.5f);
         }
 
         private IEnumerator ResolveBoss() {
             LobotomyPlugin.Log.LogDebug("[AmberMidnight] Resolve boss");
             CleanupTargetIcons();
-            
+
             // play death animations first so they appear to die at the same-ish time
             for (int i = 0; i < resolveSlots.Length; i++) {
                 if (resolveSlots[i].Card != null) {
@@ -168,7 +166,7 @@ namespace WhistleWindLobotomyMod.Opponents {
                 infos = new(infos.Randomize()) {
                     null
                 };
-                EncounterData.StartCondition cond = new() { cardsInOpponentSlots = infos.ToArray()};
+                EncounterData.StartCondition cond = new() { cardsInOpponentSlots = infos.ToArray() };
                 encounterData.startConditions.Add(cond);
                 turnsOffBoard++;
             }

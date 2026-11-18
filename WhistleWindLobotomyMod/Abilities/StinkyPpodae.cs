@@ -2,10 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
-using System.Collections;
 using UnityEngine;
-using WhistleWind.Core.Helpers;
 
 
 namespace WhistleWindLobotomyMod {
@@ -38,7 +35,7 @@ namespace WhistleWindLobotomyMod {
                 return;
 
             if (ability == Ability.DebuffEnemy) {
-                
+
                 __result = __instance.HasAbility(PpodaeStinky.ID);
                 //LobotomyPlugin.Log.LogInfo($"Fuck {__result}");
             }

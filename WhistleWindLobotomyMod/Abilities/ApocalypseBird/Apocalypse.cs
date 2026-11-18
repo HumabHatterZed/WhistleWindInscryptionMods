@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.RuleBook;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
