@@ -11,6 +11,7 @@
     - Renamed several fields and methods
     - Improved status effect icon appearances and implementation
     - Status effects now have max trigger priority
+    - Several status effects now increment GlobalTriggerHandler.AbilitiesTriggeredThisTurn when triggering
 - Added Driver.PinDownCard() static method for replicating Pin Down sigil's effect
 - Modified how cards and abilities are created
 - Modified how speed is calculated, read the Speed description for more information
@@ -84,6 +85,9 @@
 - Fixed Creature Retrieval interacting strangely with recalled cards that cost Bones
 - Fixed False Throne altering persistent CardModificationInfos
 - Fixed Haste gained from High Strung being inconsistent on when it's removed from the card
+- Fixed Worms status effect not targeting correctly when on cards with Omni Strike or other multi-strike sigils
+- Fixed Worms being applied twice when attacking cards with Serpent's Nest
+- Fixed Ijiraqs re-disguising when recalled; you're not fooling anyone 
 - Fixed learned ability dialogue not triggering
 - Fixed Spiderling not having Fledgling
 - Fixed incorrect descriptions, missing words, etc.
@@ -139,6 +143,8 @@
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
 - Worms - no longer affects cards with Made of Stone
+- Worms - now maxes out at 5 potency
+- Worms - Infested cards now always inflict Worms to struck cards
 - Block of Ice - removed Mighty Leap sigil
 - First Brother - replaced Double Strike with Persistent
 - All Brother cards - removed play cost, reduced Health to 1
