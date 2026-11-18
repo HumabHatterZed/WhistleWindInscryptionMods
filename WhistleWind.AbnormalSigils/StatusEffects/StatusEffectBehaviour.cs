@@ -22,6 +22,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
 
         public virtual int MaxPotency { get; } = int.MaxValue;
         public virtual bool EffectCanBeInherited { get; set; } = false;
+        public bool AtMaxPotency => EffectPotency >= MaxPotency;
         public virtual List<string> EffectDecalIds() => new();
 
         public virtual bool RespondsToStatusEffectAdded(PlayableCard target, int amount, StatusEffectBehaviour statusEffect, bool alreadyHasStatus) {
@@ -35,6 +36,13 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
         }
         public virtual IEnumerator OnStatusEffectRemoved(PlayableCard target, StatusEffectBehaviour statusEffect) {
             yield break;
+        }
+
+        public IEnumerator PreSuccessfulTriggerSequence() {
+            if (base.PlayableCard != null) {
+                yield return base.PlayableCard.OnAbilityTriggered(IconAbility);
+                Singleton<GlobalTriggerHandler>.Instance.AbilitiesTriggeredThisTurn.Add(IconAbility);
+            }
         }
 
         /// <summary>

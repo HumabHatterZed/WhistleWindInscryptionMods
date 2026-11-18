@@ -185,11 +185,11 @@ namespace WhistleWind.AbnormalSigils.StatusEffects {
                 }
                 component.TurnGained = modifyTurnGained?.Invoke(TurnManager.Instance.TurnNumber) ?? TurnManager.Instance.TurnNumber;
             }
-            else if (component.EffectPotency >= component.MaxPotency) {
+            else if (component.AtMaxPotency) {
                 yield break;
             }
 
-            if (component.EffectPotency + amount >= component.MaxPotency) {
+            if (component.EffectPotency + amount > component.MaxPotency) {
                 component.SetPotency(component.MaxPotency, updateDecals);
             }
             else {
