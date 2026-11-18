@@ -9,6 +9,12 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class ReturnCardPatches {
+        [HarmonyPostfix, HarmonyPatch(typeof(Shapeshifter), nameof(Shapeshifter.RespondsToDrawn))]
+        private static void DontDisguiseIfRecalled(ref bool __result, Shapeshifter __instance) {
+            if (__instance.PlayableCard != null && __instance.PlayableCard.TemporaryMods.Exists(x => x.singletonId == ReturnCard.RECALL_MOD)) {
+                __result = false;
+            }
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(CardExtensions), nameof(CardExtensions.BloodCost))]
         private static void GuaranteeCorrectBloodCost(ref int __result, PlayableCard card) {
             CardModificationInfo recallMod = card.TemporaryMods.Find(x => x.singletonId == ReturnCard.RECALL_MOD);
