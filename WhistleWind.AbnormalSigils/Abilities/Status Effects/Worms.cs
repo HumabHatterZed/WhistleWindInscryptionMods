@@ -51,14 +51,15 @@ namespace WhistleWind.AbnormalSigils {
             }
         }
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => AtMaxPotency && amount > 0 && target != null;
-        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
-            if (target.LacksTrait(AbnormalPlugin.NakedSerpent)) {
-                yield return base.PreSuccessfulTriggerSequence();
-                yield return target.AddStatusEffect<Worms>(1, true);
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) {
+            if (AtMaxPotency && amount > 0 && target != null) {
+                return target.LacksTrait(AbnormalPlugin.NakedSerpent);
             }
-
-            yield break;
+            return false;
+        }
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target) {
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return target.AddStatusEffect<Worms>(1, true);
         }
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) {
