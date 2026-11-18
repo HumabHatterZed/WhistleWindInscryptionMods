@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Patches {
     /// <summary>
@@ -14,6 +15,26 @@ namespace WhistleWind.AbnormalSigils.Patches {
     /// </summary>
     [HarmonyPatch]
     internal class AbilityPatches {
+
+        [HarmonyPriority(Priority.First)]
+        [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetOpposingSlots))]
+        private static bool ChangeHowWormsAttack(PlayableCard __instance/*, out bool? __state*/) {
+            if (__instance.GetStatusEffectPotency<Worms>() >= 5) {
+                //__state = __instance.OpponentCard;
+                __instance.OpponentCard = !__instance.OpponentCard;
+            }
+
+            return true;
+        }
+
+        [HarmonyPriority(Priority.Last)]
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetOpposingSlots))]
+        private static void ChangeHowWormsAttackPost(PlayableCard __instance/*, bool? __state*/) {
+            if (__instance.GetStatusEffectPotency<Worms>() >= 5) {
+                __instance.OpponentCard = !__instance.OpponentCard;
+            }
+        }
+
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
         private static bool PreventOverkillDamage(CardSlot attackingSlot, CardSlot opposingSlot) {
             if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Ethereal.ID)) {
