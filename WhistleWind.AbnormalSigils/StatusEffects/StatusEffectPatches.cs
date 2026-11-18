@@ -165,7 +165,6 @@ namespace WhistleWind.AbnormalSigils.Core {
                                 icons[j].localPosition = new(-0.41f, 0.175f + 0.1375f * j, -0.1f);
                                 icons[j].localScale = new(0.07f, 0.09f, 1f);
                             }
-                            //icons[j].gameObject.AddComponent<CorrectGiantStatusInteractables>().Initialise(icons[j].transform.localPosition, icons[j].transform.localScale);
                         }
                         else {
                             
@@ -388,27 +387,5 @@ namespace WhistleWind.AbnormalSigils.Core {
         }
 
         private const float yPositionPixel = -0.15f;
-    }
-
-    public class CorrectGiantStatusInteractables : ManagedBehaviour {
-        private bool isRenderCam = false;
-        private Vector3 localPos;
-        private Vector3 localScale;
-
-        public override void OnEnable() {
-            base.OnEnable();
-            Debug.Log($"I live bitch" + isRenderCam);
-        }
-
-        public void Initialise(Vector3 pos, Vector3 scale) {
-            if (base.gameObject.GetComponentInParent<CardDisplayer3D>() != null) {
-                Destroy(this);
-                return;
-            }
-            localPos = pos;
-            localScale = scale;
-
-            //Debug.Log(isRenderCam);
-        }
     }
 }
