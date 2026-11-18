@@ -35,7 +35,7 @@ namespace WhistleWind.AbnormalSigils {
         }
 
         public override bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
-            return attacker == base.Card && damage > 1;
+            return attacker == base.Card && damage > 0;
         }
 
         public override int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) {
