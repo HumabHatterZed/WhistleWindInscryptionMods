@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils {
         public override int MaxPotency => MAX_POTENCY;
 
         public override bool RespondsToStatusEffectAdded(PlayableCard target, int amount, StatusEffectBehaviour statusEffect, bool alreadyHasStatus) {
-            return target == base.PlayableCard && statusEffect.IconAbility == this.IconAbility;
+            return target == base.PlayableCard && statusEffect.IconAbility == this.IconAbility && EffectPotency >= MaxPotency;
         }
         public override IEnumerator OnStatusEffectAdded(PlayableCard target, int amount, StatusEffectBehaviour statusEffect, bool alreadyHasStatus) {
             // apply panic
@@ -34,18 +34,22 @@ namespace WhistleWind.AbnormalSigils {
             if (target.EnergyCost > 0) {
                 possiblePanics.Add(PanicEnergy.specialAbility);
             }
-            if (target.GemsCost().Count > 0) {
+            if (target.GemsCost().Count > 0 || target.GetCustomCardCosts().Count > 0) {
                 possiblePanics.Add(PanicMox.specialAbility);
             }
-            if (possiblePanics.Count == 1) {
-                yield return target.AddStatusEffect(possiblePanics[0], 1);
+            
+            switch (possiblePanics.Count) {
+                case 0:
+                    yield return target.AddStatusEffect<PanicMox>(1);
+                    break;
+                case 1:
+                    yield return target.AddStatusEffect(possiblePanics[0], 1);
+                    break;
+                default:
+                    yield return target.AddStatusEffect(possiblePanics[SeededRandom.Range(0, possiblePanics.Count, base.GetRandomSeed())], 1);
+                    break;
             }
-            else if (possiblePanics.Count == 0) {
-                yield return target.AddStatusEffect<PanicMox>(1);
-            }
-            else {
-                yield return target.AddStatusEffect(possiblePanics[SeededRandom.Range(0, possiblePanics.Count, base.GetRandomSeed())], 1);
-            }
+
             yield return DialogueHelper.PlayDialogueEvent("LearnPanic");
         }
     }
@@ -53,7 +57,7 @@ namespace WhistleWind.AbnormalSigils {
     public partial class AbnormalPlugin {
         private void StatusEffect_Sinking() {
             const string rName = "Sinking";
-            const string rDesc = "When a card has 5 Sinking, enter a Panicked state based on its play cost: Blood: Murderous; Bone: Suicidal; Energy: Languishing; Mox/Other: Flighty.";
+            const string rDesc = "When a card has 5 Sinking, enter a Panicked state based on its play cost: Blood: Murderous; Bone: Suicidal; Energy: Languishing; Other: Flighty.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sinking>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.darkBlue,
                 TextureLoader.LoadTextureFromFile("sigilSinking.png", Assembly),
