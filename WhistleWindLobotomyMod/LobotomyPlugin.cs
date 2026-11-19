@@ -72,6 +72,7 @@ namespace WhistleWindLobotomyMod {
 
             Log.LogDebug("Loading cards...");
             AccessTools.GetDeclaredMethods(typeof(Appearances)).ForEach(mi => mi.Invoke(this, null));
+            OrdealBackgroundWhite.AddTextOverrides();
             RoseCost.Init();
             AddCards();
             StarterDecks.AddStarterDecks();

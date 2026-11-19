@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
@@ -116,6 +117,33 @@ namespace WhistleWindLobotomyMod {
     public class OrdealBackgroundWhite : CardAppearanceBehaviour {
         public static Appearance appearance;
         private static Texture2D bg = null;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_w.png"));
+        public override void ApplyAppearance() {
+            base.Card.RenderInfo.nameTextColor
+                = base.Card.RenderInfo.attackTextColor
+                = base.Card.RenderInfo.healthTextColor
+                = base.Card.RenderInfo.defaultAbilityColor
+                = GameColors.Instance.brightNearWhite;
+
+            base.Card.RenderInfo.baseTextureOverride = (bg ??= TextureLoader.LoadTextureFromFile("ordealCardBackground_w.png"));
+        }
+
+        internal static void AddTextOverrides() {
+            CardRenderInfoManager.ModifyAttackTextColour += delegate (Color defaultCol, PlayableCard card, bool hasPassiveBuffs) {
+                if (card.Info.appearanceBehaviour.Contains(appearance)) {
+                    if (hasPassiveBuffs) {
+                        return GameColors.Instance.blue;
+                    }
+                    return Color.white;
+                }
+                return defaultCol;
+            };
+
+            CardRenderInfoManager.ModifyHealthTextColour += delegate (Color defaultCol, PlayableCard card, CardRenderInfo renderInfo, bool notInjured) {
+                if (renderInfo.baseInfo.appearanceBehaviour.Contains(appearance)) {
+                    return notInjured ? Color.white : GameColors.Instance.fuschia;
+                }
+                return defaultCol;
+            };
+        }
     }
 }
