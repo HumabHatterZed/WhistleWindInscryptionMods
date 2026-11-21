@@ -140,7 +140,7 @@
             DingleDangle();
             DrownedSisters();
             HookahCaterpillar();
-            MySweetHome(); // reptile art
+            MySweetHome();
             Nobodyis(); // art
             PenitentGirl();
             PiscineMermaid(); // art
