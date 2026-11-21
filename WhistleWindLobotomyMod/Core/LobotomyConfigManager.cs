@@ -10,8 +10,6 @@ namespace WhistleWindLobotomyMod.Core {
         private static readonly ConfigFile WstlConfigFile = new(Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomycorp.cfg"), true);
 
         #region Config
-        private static ConfigEntry<bool> _configModEnabled;
-        public static bool ModEnabled => _configModEnabled.Value;
 
         private static ConfigEntry<bool> _configFoundInGBC;
         public static bool GBCPacks => _configFoundInGBC.Value;
@@ -72,10 +70,6 @@ namespace WhistleWindLobotomyMod.Core {
         #endregion
 
         internal static void BindConfig() {
-            _configModEnabled = WstlConfigFile.Bind(
-                "Config", "Enable", true,
-                new ConfigDescription("Enables this mod's content. If false, content will still load but be unavailable through normal means."));
-
             _configFoundInGBC = WstlConfigFile.Bind(
                 "Config", "GBC Packs", true,
                 new ConfigDescription("Allows some cards to be obtainable in Act 2 card packs."));

@@ -37,10 +37,6 @@ namespace WhistleWindLobotomyMod {
             Log = base.Logger;
             ModAssembly = Assembly.GetExecutingAssembly();
             LobotomyConfigManager.BindConfig();
-            if (!LobotomyConfigManager.ModEnabled) {
-                Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
-                return;
-            }
 
             if (LobotomyConfigManager.NoRisk == RiskLevel.All) {
                 DisabledRiskLevels = RiskLevel.Zayin & RiskLevel.Teth & RiskLevel.He & RiskLevel.Waw & RiskLevel.Aleph;
@@ -99,9 +95,6 @@ namespace WhistleWindLobotomyMod {
         }
 
         private void Start() {
-            if (!LobotomyConfigManager.ModEnabled)
-                return;
-
             if (AllCardsDisabled)
                 Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards.");
             else {
