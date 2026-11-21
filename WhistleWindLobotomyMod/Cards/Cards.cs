@@ -125,6 +125,7 @@
             TipherethA();
             TipherethB();
             Yesod();
+            BongBong(); // art
             //Sinclair(); // heehee
 
             Cards_AmberOrdeal(); // art

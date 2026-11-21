@@ -70,13 +70,13 @@ namespace WhistleWindLobotomyMod.Core {
         #endregion
 
         internal static void BindConfig() {
-            _configFoundInGBC = WstlConfigFile.Bind(
-                "Config", "GBC Packs", true,
-                new ConfigDescription("Allows some cards to be obtainable in Act 2 card packs."));
-
             _configReskinSigils = WstlConfigFile.Bind(
                 "Config", "Reskin Sigils", true,
                 new ConfigDescription("Changes the names and icons of Sniper and Sentry."));
+
+            _configFoundInGBC = WstlConfigFile.Bind(
+                "Config", "GBC Packs", true,
+                new ConfigDescription("Allows some cards to be obtainable in Act 2 card packs."));
 
             _configSpecialsInRulebook = WstlConfigFile.Bind(
                 "Config", "Special Abilities in Rulebook", false,
@@ -96,13 +96,13 @@ namespace WhistleWindLobotomyMod.Core {
                 new ConfigDescription("Removes the following abnormalities from the pool of obtainable cards:" +
                 "\nMagical Girl C, Price of Silence, Nosferatu, The Road Home, Ozma, Silent Girl."));
 
+            _configStarterDeckSize = WstlConfigFile.Bind(
+                "Gameplay.Cards", "Extra Random Cards", 0,
+                new ConfigDescription("Adds more cards to the 'Random' starter deck."));
+
             _configNoEvents = WstlConfigFile.Bind(
                 "Gameplay", "Disable Events", false,
                 new ConfigDescription("Disables special in-game events added by this mod."));
-
-            _configStarterDeckSize = WstlConfigFile.Bind(
-                "Gameplay", "Extra Random Cards", 0,
-                new ConfigDescription("Adds more cards to the 'Random' starter deck."));
 
             _configEventFlags = WstlConfigFile.Bind(
                 "Gameplay", "Unlock All Events", false,
@@ -120,8 +120,8 @@ namespace WhistleWindLobotomyMod.Core {
                 "Gameplay.Nodes", "Disable Sefirot Node", false,
                 new ConfigDescription("Prevents the sefirot card choice node from appearing."));
 
-            _configBlessings = WstlConfigFile.Bind("Gameplay.Other", "Blessings", 0);
             _configHasSeenHim = WstlConfigFile.Bind("Gameplay.Other", "Blessed", false);
+            _configBlessings = WstlConfigFile.Bind("Gameplay.Other", "Blessings", 0);
         }
         public static void UpdateBlessings(int value) {
             _configBlessings.Value += value;

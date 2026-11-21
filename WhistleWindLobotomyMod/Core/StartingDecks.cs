@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DiskCardGame;
+using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
@@ -62,6 +63,12 @@ namespace WhistleWindLobotomyMod {
             Cards.bigBird,
             Cards.judgementBird
         };
+        public static readonly List<string> bongBong = new(3) {
+            Cards.trainingDummy,
+            Cards.trainingDummy,
+            Cards.bongbong
+        };
+
         internal static void AddStarterDecks() {
             List<string> randomCards = new() { Cards.randomPlaceholder, Cards.randomPlaceholder, Cards.randomPlaceholder };
             if (LobotomyConfigManager.StarterDeckSize > 0) {
@@ -80,13 +87,16 @@ namespace WhistleWindLobotomyMod {
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Death Lovers", "starterDeckDeathLovers.png", 8, cardNames: deathLovers);
 
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Road to Oz", "starterDeckFairyTale.png", 0, cardNames: roadToOz,
-                customUnlock: dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.EventFlags);
+                customUnlock: dummy => LobotomyConfigManager.EventFlags || LobotomySaveManager.UnlockedLyingAdult);
 
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Magical Girls!", "starterDeckMagicalGirls.png", 0, cardNames: magicGirls,
-                customUnlock: dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.EventFlags);
+                customUnlock: dummy => LobotomyConfigManager.EventFlags || LobotomySaveManager.UnlockedJesterOfNihil);
 
             StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "Twilight", "starterDeckBlackForest.png", 0, cardNames: twilight,
-                customUnlock: dummy => LobotomySaveManager.UnlockedApocalypseBird || LobotomySaveManager.DefeatedApocalypseBoss || LobotomyConfigManager.EventFlags);
+                customUnlock: dummy => LobotomyConfigManager.EventFlags || LobotomySaveManager.DefeatedApocalypseBoss || LobotomySaveManager.UnlockedApocalypseBird);
+
+            StarterDeckHelper.AddStarterDeck(LobotomyPlugin.pluginPrefix, "The B-Team", "starterDeckBongBong.png", 0, cardNames: bongBong,
+                customUnlock: dummy => LobotomyConfigManager.EventFlags || LobotomySaveManager.DefeatedWhiteOrdealBoss);
         }
     }
 }

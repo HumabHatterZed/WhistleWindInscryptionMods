@@ -4,6 +4,42 @@ using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
 namespace WhistleWindLobotomyMod {
     public partial class LobotomyDialogue {
+        private void Dialogue_BongBong() {
+            CreateDialogueEvents("BongBongHappy", new() {
+                    NewLine("Bong!", Emotion.Laughter)
+                },
+                new() {
+                    new() { NewLine("Bong!", Emotion.Laughter) },
+                    new() { NewLine("Bong!", Emotion.Neutral) },
+                    new() { NewLine("Bong.", Emotion.Laughter) },
+                    new() { NewLine("Bong.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("BongBongDetermined", new() {
+                    NewLine("Bong.", Emotion.Curious)
+                },
+                new() {
+                    new() { NewLine("Bong!", Emotion.Curious) },
+                    new() { NewLine("Bong!", Emotion.Neutral) },
+                    new() { NewLine("Bong.", Emotion.Curious) },
+                    new() { NewLine("Bong.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("BongBongScared", new() {
+                    NewLine("Bong...", Emotion.Quiet)
+                },
+                new() {
+                    new() { NewLine("Bong...", Emotion.Quiet) },
+                    new() { NewLine("Bong?", Emotion.Quiet) },
+                    new() { NewLine("Bong.", Emotion.Quiet) },
+                    new() { NewLine("Bong!", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("BongBongOuch", new() {
+                    NewLine("Bong!", Emotion.Surprise)
+                },
+                new() {
+                    new() { NewLine("Bong!", Emotion.Surprise) },
+                    new() { NewLine("Bong!!", Emotion.Surprise) }
+            });
+        }
         private void Dialogue_Angela() {
             #region Boss Dialogue
             CreateDialogueEvents("AngelaProspector", new() {

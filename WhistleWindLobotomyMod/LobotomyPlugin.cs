@@ -147,6 +147,7 @@ namespace WhistleWindLobotomyMod {
             TalkingCardManager.New<TalkingCardBinah>();
             TalkingCardManager.New<TalkingCardHokma>();
             TalkingCardManager.New<TalkingCardAngela>();
+            TalkingCardManager.New<TalkingCardBongBong>();
         }
 
         /// <summary>
