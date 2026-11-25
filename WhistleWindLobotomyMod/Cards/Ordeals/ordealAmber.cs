@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -61,6 +62,7 @@ namespace WhistleWindLobotomyMod {
                 .AddTribes(Tribe.Insect)
                 .SetStatIcon(SpecialStatIcon.Ants)
                 .AddTraits(Trait.Uncuttable, ImmuneToInstaDeath, PriorityMovement, NotStoredByScenario, Trait.Ant)
+                .SetAnimatedPortrait(AssetManager.GetAnimatedPortraitPrefab("EternalMealPortrait"))
                 .SetMiniGiant()
                 .SetOrdealCard(Opponents.OrdealType.Amber)
                 .SetUniqueCopycat(Cards.eternalSnack)

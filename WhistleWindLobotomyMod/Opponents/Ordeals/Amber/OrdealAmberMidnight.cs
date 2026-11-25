@@ -20,8 +20,10 @@ namespace WhistleWindLobotomyMod.Opponents {
     /// 5 | P P P  | P P P P| P P P  | P P P P| 14 | 14 | 14
     /// </summary>
     public class OrdealAmberMidnight : OrdealBattleSequencer {
+        private PlayableCard Boss { get; set; }
+        private Animator BossAnimator;
+
         private CardSlot[] resolveSlots;
-        private PlayableCard bossCard;
         //private int turnsOnBoard;
         private int turnsOffBoard;
 
@@ -33,7 +35,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             if (!opponentTurnSkipped && !defeated) {
                 // if an Eternal Meal hasn't been created yet or if it is burrowing
                 // check for board resolve
-                if (bossCard == null || !bossCard.OnBoard) {
+                if (Boss == null || !Boss.OnBoard) {
                     LobotomyPlugin.Log.LogDebug($"[AmberMidnight] off board countdown");
                     turnsOffBoard--;
                     if (turnsOffBoard == 1) {
@@ -62,20 +64,25 @@ namespace WhistleWindLobotomyMod.Opponents {
             resolveSlots[2] = BoardManager.Instance.PlayerSlotsCopy[resolveSlots[0].Index];
             resolveSlots[3] = BoardManager.Instance.PlayerSlotsCopy[resolveSlots[1].Index];
 
-            if (bossCard == null) {
+            if (Boss == null) {
                 LobotomyPlugin.Log.LogDebug("[AmberMidnight] Create boss card");
-                bossCard = CreateEternalMealCard();
-                bossCard.SetIsOpponentCard(true);
+                Boss = CreateEternalMealCard();
+                Boss.SetIsOpponentCard(true);
+                Camera liveRenderCam = Singleton<CardRenderCamera>.Instance.GetLiveRenderCamera(Boss.StatsLayer);
+                // get the animator from the actual rendered portrait offscreen, not the animator on the card object on the board
+                Transform t = liveRenderCam.transform.GetChild(1).GetChild(0).GetChild(0);
+                BossAnimator = t.GetChild(t.childCount - 1).GetComponentInChildren<Animator>();
+                Debug.Log(BossAnimator != null);
             }
 
             // move the boss card to be directly below the slot it will initially emerge from
-            bossCard.transform.parent = resolveSlots[2].transform;
-            bossCard.transform.localPosition = new Vector3(0.7f, -0.025f, 1.05f);
-            bossCard.transform.rotation = resolveSlots[2].transform.GetChild(0).rotation;
+            Boss.transform.parent = resolveSlots[2].transform;
+            Boss.transform.localPosition = new Vector3(0.7f, -0.025f, 1.05f);
+            Boss.transform.rotation = resolveSlots[2].transform.GetChild(0).rotation;
             // since we're parented to a player slot, unflip the card renderer so it doesn't
             // appear upside down when it emerges from below the board
-            bossCard.Anim.SetCardRendererFlipped(false);
-            bossCard.RenderCard();
+            Boss.Anim.SetCardRendererFlipped(false);
+            Boss.RenderCard();
 
             for (int i = 0; i < resolveSlots.Length; i++) {
                 CreateTargetIcon(resolveSlots[i], GameColors.Instance.glowRed);
@@ -110,7 +117,7 @@ namespace WhistleWindLobotomyMod.Opponents {
             LobotomyPlugin.Log.LogDebug("[AmberMidnight] Move above board");
             yield return MoveEternalMealAboveBoard();
             LobotomyPlugin.Log.LogDebug($"[AmberMidnight] Assign to slot {resolveSlots[0].Index}");
-            yield return BoardManager.Instance.AssignCardToSlot(bossCard, resolveSlots[0]);
+            yield return BoardManager.Instance.AssignCardToSlot(Boss, resolveSlots[0]);
 
             turnsOffBoard = Mathf.Min(4, 1 + RunState.CurrentRegionTier + RunState.Run.DifficultyModifier);
             selectedSlotForBoss = false;
@@ -123,18 +130,18 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         private IEnumerator MoveEternalMealAboveBoard() {
-            AudioController.Instance.PlaySound3D("giant_stones_falling", MixerGroup.CardPaperSFX, bossCard.transform.position);
+            AudioController.Instance.PlaySound3D("giant_stones_falling", MixerGroup.CardPaperSFX, Boss.transform.position);
             yield return OrdealUtils.ShakeBoard();
-            bossCard.Anim.PlayLandOnBoardEffects();
-            Tween.LocalPosition(bossCard.transform, new Vector3(0.7f, 0.025f, 1.05f), 0.3f, 0.05f, Tween.EaseOut, Tween.LoopType.None, null, bossCard.Anim.PlayRiffleSound);
+            Boss.Anim.PlayLandOnBoardEffects();
+            Tween.LocalPosition(Boss.transform, new Vector3(0.7f, 0.025f, 1.05f), 0.3f, 0.05f, Tween.EaseOut, Tween.LoopType.None, null, Boss.Anim.PlayRiffleSound);
 
             yield return new WaitForSeconds(1f);
             // once we're above the board, pre-emptively parent it to its actual slot
             // this will prevent it from doing a spin once we properly assign it
-            bossCard.transform.parent = resolveSlots[0].transform;
-            bossCard.transform.rotation = resolveSlots[0].transform.GetChild(0).rotation;
-            bossCard.Anim.SetCardRendererFlipped(true);
-            bossCard.RenderCard();
+            Boss.transform.parent = resolveSlots[0].transform;
+            Boss.transform.rotation = resolveSlots[0].transform.GetChild(0).rotation;
+            Boss.Anim.SetCardRendererFlipped(true);
+            Boss.RenderCard();
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) {
@@ -149,8 +156,8 @@ namespace WhistleWindLobotomyMod.Opponents {
                 base.TryAddOrdealRandomBuff(card);
                 amountKilledThisTurn--;
             }
-            else if (bossCard == null) {
-                bossCard = card;
+            else if (Boss == null) {
+                Boss = card;
             }
         }
 
