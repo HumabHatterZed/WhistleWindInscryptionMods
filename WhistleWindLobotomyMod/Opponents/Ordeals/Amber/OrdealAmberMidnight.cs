@@ -79,8 +79,9 @@ namespace WhistleWindLobotomyMod.Opponents {
             Boss.transform.parent = resolveSlots[2].transform;
             Boss.transform.localPosition = new Vector3(0.7f, -0.025f, 1.05f);
             Boss.transform.rotation = resolveSlots[2].transform.GetChild(0).rotation;
-            // since we're parented to a player slot, unflip the card renderer so it doesn't
-            // appear upside down when it emerges from below the board
+            // since we're parented to a player slot
+            // unflip the card renderer so it doesn't appear upside down
+            // when it emerges from below the board
             Boss.Anim.SetCardRendererFlipped(false);
             Boss.RenderCard();
 
