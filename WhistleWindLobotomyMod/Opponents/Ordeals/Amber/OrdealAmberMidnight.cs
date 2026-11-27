@@ -9,17 +9,6 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents {
-    /// <summary>
-    /// Appears in R0
-    /// Difficulty range: (1 - 3) +[0,2] // 4 difficulty is for boss node w/o challlenges
-    /// 
-    /// D | Turn 1 | Turn 2 | Turn 3 | Turn 4 | ## | HP | Atk
-    /// 1 | P      | P P    | P      | P P    | 6  | 6  | 6
-    /// 2 | P P    | P P    | P P    | P P    | 8  | 8  | 8
-    /// 3 | P P    | P P P  | P P    | P P P  | 10 | 10 | 10
-    /// 4 | P P P  | P P P  | P P P  | P P P  | 12 | 12 | 12
-    /// 5 | P P P  | P P P P| P P P  | P P P P| 14 | 14 | 14
-    /// </summary>
     public class OrdealAmberMidnight : OrdealBattleSequencer {
         private PlayableCard Boss { get; set; }
         private Animator BossAnimator;
@@ -68,14 +57,27 @@ namespace WhistleWindLobotomyMod.Opponents {
                 }
                 else if (turnsOnBoard < 1) {
                     LobotomyPlugin.Log.LogDebug("[AmberMidnight] End Turns On Board");
+                    CardSlot anchorSlot = Boss.Slot;
+                    // unassign boss from all slots
+                    foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
+                        if (slot.Card == Boss) {
+                            slot.Card = null;
+                        }
+                    }
+                    Boss.Slot = null;
+
+                    Boss.transform.localPosition += new Vector3(0, -0.005f, 0f);
                     yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
                     BossAnimator.SetInteger("IdleState", 0);
-                    yield return new WaitForSeconds(2f);
-
-                    LobotomyPlugin.Log.LogDebug("[AmberMidnight] Move below board");
-                    yield return MoveEternalMealBelowBoard(Boss, Boss.Slot);
+                    yield return new WaitForSeconds(0.1f);
                     LobotomyPlugin.Log.LogDebug("[AmberMidnight] Summon worms");
                     yield return SummonCards();
+
+                    yield return new WaitForSeconds(1.75f);
+                    
+                    LobotomyPlugin.Log.LogDebug("[AmberMidnight] Move below board");
+                    yield return MoveEternalMealBelowBoard(Boss, anchorSlot);
+                    
                 }
             }
         }
@@ -168,13 +170,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             Boss.RenderCard();
         }
         private IEnumerator MoveEternalMealBelowBoard(PlayableCard card, CardSlot anchorSlot) {
-            foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
-                if (slot.Card == Boss) {
-                    slot.Card = null;
-                }
-            }
-
-            Boss.Slot = null;
             AudioController.Instance.PlaySound3D("giant_stones_falling", MixerGroup.CardPaperSFX, card.transform.position);
             card.transform.parent = anchorSlot.transform;
             card.transform.rotation = anchorSlot.transform.GetChild(0).rotation;
@@ -186,7 +181,6 @@ namespace WhistleWindLobotomyMod.Opponents {
             AudioController.Instance.PlaySound3D("goovoice_calm#2", MixerGroup.CardPaperSFX, base.transform.position);
             yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(Cards.foodChain), BoardManager.Instance.GetOpponentOpenSlots());
             yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(Cards.foodChain), BoardManager.Instance.GetOpponentOpenSlots());
-            yield return new WaitForSeconds(0.5f);
         }
 
 

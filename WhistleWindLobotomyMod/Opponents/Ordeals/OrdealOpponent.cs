@@ -37,9 +37,9 @@ namespace WhistleWindLobotomyMod.Opponents {
         }
 
         /// <summary>
-        /// Add additional call to the sequence's 
+        /// Add additional call to the sequence's ModifySpawnedCard trigger.
         /// </summary>
-        /// <param name="card"></param>
+        /// <param name="card">Card that was spawned.</param>
         public override void ModifySpawnedCard(PlayableCard card) {
             base.ModifySpawnedCard(card);
             BattleSequencer.ModifySpawnedCard(card);
