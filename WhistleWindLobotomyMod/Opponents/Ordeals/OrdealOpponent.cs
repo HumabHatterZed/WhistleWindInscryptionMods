@@ -135,9 +135,9 @@ namespace WhistleWindLobotomyMod.Opponents {
 
                 OrdealDisplayConsole.Instance.EnableConsole(false);
                 yield return new WaitForSeconds(0.5f);
-                OrdealDisplayConsole.Instance.ResetConsoleDisplay();
             }
 
+            OrdealDisplayConsole.Instance.ResetConsoleDisplay();
             OrdealDisplayConsole.Instance.EnableConsole(true);
             yield return new WaitForSeconds(0.8f);
             ViewManager.Instance.SwitchToView(View.Default);
