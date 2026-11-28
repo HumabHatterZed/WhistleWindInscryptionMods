@@ -99,13 +99,14 @@ namespace Core.Helpers {
         /// </summary>
         /// <param name="info">The CardInfo the created card will have.</param>
         /// <param name="validSlots">List of CardSlots that the created card can be assigned to.</param>
-        public static IEnumerator CreateCardInRandomSlot(CardInfo info, List<CardSlot> validSlots) {
+        public static IEnumerator CreateCardInRandomSlot(CardInfo info, List<CardSlot> validSlots, int randSeed, bool changeView = false) {
+            if (changeView) {
+                yield return HelperMethods.ChangeCurrentView(validSlots.Count > 0 ? View.Board : View.OpponentQueue, 0.4f);
+            }
             if (validSlots.Count > 0) {
-                yield return HelperMethods.ChangeCurrentView(View.Board, 0.4f);
-                yield return BoardManager.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)]);
+                yield return BoardManager.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, randSeed)]);
             }
             else {
-                yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
                 yield return QueueCreatedCard(info);
             }
         }

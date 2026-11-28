@@ -179,8 +179,9 @@ namespace WhistleWindLobotomyMod.Opponents {
         private IEnumerator SummonCards() {
             int rand = base.GetRandomSeed();
             AudioController.Instance.PlaySound3D("goovoice_calm#2", MixerGroup.CardPaperSFX, base.transform.position);
-            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(Cards.foodChain), BoardManager.Instance.GetOpponentOpenSlots());
-            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(Cards.foodChain), BoardManager.Instance.GetOpponentOpenSlots());
+            yield return HelperMethods.ChangeCurrentView(View.OpponentQueue);
+            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(Cards.foodChain), BoardManager.Instance.GetOpponentOpenSlots(), rand++);
+            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(Cards.foodChain), BoardManager.Instance.GetOpponentOpenSlots(), rand++);
         }
 
 

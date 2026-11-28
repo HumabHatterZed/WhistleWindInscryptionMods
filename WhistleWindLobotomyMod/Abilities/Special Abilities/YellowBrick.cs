@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod {
 
             if (opponentCard) {
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
-                yield return CombatHelpers.CreateCardInRandomSlot(info, validSlots);
+                yield return CombatHelpers.CreateCardInRandomSlot(info, validSlots, SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<GlobalTriggerHandler>.Instance.NumTriggersThisBattle);
             }
             else {
                 RunState.Run.playerDeck.AddCard(info);

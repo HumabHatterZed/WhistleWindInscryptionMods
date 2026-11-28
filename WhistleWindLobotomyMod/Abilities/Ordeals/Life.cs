@@ -50,8 +50,8 @@ namespace WhistleWindLobotomyMod {
         public IEnumerator SummonCards() {
             int rand = base.GetRandomSeed();
             AudioController.Instance.PlaySound3D("disk_card_transform", MixerGroup.CardPaperSFX, base.transform.position);
-            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
-            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
+            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots(), rand++);
+            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots(), rand++);
             yield return new WaitForSeconds(0.5f);
         }
 

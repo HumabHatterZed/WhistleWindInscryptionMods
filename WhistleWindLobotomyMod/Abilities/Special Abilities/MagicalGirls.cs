@@ -106,7 +106,7 @@ namespace WhistleWindLobotomyMod {
             CardInfo info = CardLoader.GetCardByName("wstl_jesterOfNihil");
             if (opponentCard) {
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
-                yield return CombatHelpers.CreateCardInRandomSlot(info, validSlots);
+                yield return CombatHelpers.CreateCardInRandomSlot(info, validSlots, SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<GlobalTriggerHandler>.Instance.NumTriggersThisBattle);
             }
             else {
                 // add the card to the player's deck (this adds a clone so we can modify info after-the-fact for this battle only)
